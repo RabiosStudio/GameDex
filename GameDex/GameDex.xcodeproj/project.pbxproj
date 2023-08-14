@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		076B99D18338973C548C5EFB /* Pods_GameDex.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 071408E05EBD04F01F341425 /* Pods_GameDex.framework */; };
 		254E8B732A8A679F00C101C8 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254E8B722A8A679F00C101C8 /* TabBarController.swift */; };
+		254E8B7E2A8A7D2600C101C8 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 254E8B802A8A7D2600C101C8 /* Localizable.strings */; };
 		25D6EAE22A8A265C00C2BE57 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D6EAE12A8A265C00C2BE57 /* AppDelegate.swift */; };
 		25D6EAE42A8A265C00C2BE57 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D6EAE32A8A265C00C2BE57 /* SceneDelegate.swift */; };
 		25D6EAE62A8A265C00C2BE57 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D6EAE52A8A265C00C2BE57 /* ViewController.swift */; };
@@ -44,6 +45,9 @@
 		199276E84FCF7ECF7ECE6434 /* Pods-GameDexTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GameDexTests.release.xcconfig"; path = "Target Support Files/Pods-GameDexTests/Pods-GameDexTests.release.xcconfig"; sourceTree = "<group>"; };
 		254E8B722A8A679F00C101C8 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		254E8B792A8A791C00C101C8 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
+		254E8B7A2A8A7C9D00C101C8 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
+		254E8B7F2A8A7D2600C101C8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		254E8B812A8A7D4600C101C8 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		25D6EADE2A8A265C00C2BE57 /* GameDex.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GameDex.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		25D6EAE12A8A265C00C2BE57 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		25D6EAE32A8A265C00C2BE57 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -100,6 +104,14 @@
 			path = Controllers;
 			sourceTree = "<group>";
 		};
+		254E8B822A8A7DFD00C101C8 /* Ressources */ = {
+			isa = PBXGroup;
+			children = (
+				254E8B802A8A7D2600C101C8 /* Localizable.strings */,
+			);
+			path = Ressources;
+			sourceTree = "<group>";
+		};
 		25D6EAD52A8A265C00C2BE57 = {
 			isa = PBXGroup;
 			children = (
@@ -126,6 +138,7 @@
 		25D6EAE02A8A265C00C2BE57 /* GameDex */ = {
 			isa = PBXGroup;
 			children = (
+				254E8B822A8A7DFD00C101C8 /* Ressources */,
 				254E8B712A8A677600C101C8 /* Controllers */,
 				25D6EAE12A8A265C00C2BE57 /* AppDelegate.swift */,
 				25D6EAE32A8A265C00C2BE57 /* SceneDelegate.swift */,
@@ -267,6 +280,7 @@
 			knownRegions = (
 				en,
 				Base,
+				fr,
 			);
 			mainGroup = 25D6EAD52A8A265C00C2BE57;
 			productRefGroup = 25D6EADF2A8A265C00C2BE57 /* Products */;
@@ -286,6 +300,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				25D6EAEE2A8A265D00C2BE57 /* LaunchScreen.storyboard in Resources */,
+				254E8B7E2A8A7D2600C101C8 /* Localizable.strings in Resources */,
 				25D6EAEB2A8A265D00C2BE57 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -439,10 +454,20 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
+		254E8B802A8A7D2600C101C8 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				254E8B7F2A8A7D2600C101C8 /* en */,
+				254E8B812A8A7D4600C101C8 /* fr */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 		25D6EAEC2A8A265D00C2BE57 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				25D6EAED2A8A265D00C2BE57 /* Base */,
+				254E8B7A2A8A7C9D00C101C8 /* fr */,
 			);
 			name = LaunchScreen.storyboard;
 			sourceTree = "<group>";
@@ -454,6 +479,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
@@ -514,6 +540,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_LOCALIZABILITY_NONLOCALIZED = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
