@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		076B99D18338973C548C5EFB /* Pods_GameDex.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 071408E05EBD04F01F341425 /* Pods_GameDex.framework */; };
+		254E8B732A8A679F00C101C8 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254E8B722A8A679F00C101C8 /* TabBarController.swift */; };
 		25D6EAE22A8A265C00C2BE57 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D6EAE12A8A265C00C2BE57 /* AppDelegate.swift */; };
 		25D6EAE42A8A265C00C2BE57 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D6EAE32A8A265C00C2BE57 /* SceneDelegate.swift */; };
 		25D6EAE62A8A265C00C2BE57 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D6EAE52A8A265C00C2BE57 /* ViewController.swift */; };
@@ -41,6 +42,7 @@
 		04004D0858B3D2820F814154 /* Pods_GameDex_GameDexUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GameDex_GameDexUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		071408E05EBD04F01F341425 /* Pods_GameDex.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GameDex.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		199276E84FCF7ECF7ECE6434 /* Pods-GameDexTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GameDexTests.release.xcconfig"; path = "Target Support Files/Pods-GameDexTests/Pods-GameDexTests.release.xcconfig"; sourceTree = "<group>"; };
+		254E8B722A8A679F00C101C8 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		25D6EADE2A8A265C00C2BE57 /* GameDex.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GameDex.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		25D6EAE12A8A265C00C2BE57 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		25D6EAE32A8A265C00C2BE57 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -89,6 +91,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		254E8B712A8A677600C101C8 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				254E8B722A8A679F00C101C8 /* TabBarController.swift */,
+			);
+			path = Controllers;
+			sourceTree = "<group>";
+		};
 		25D6EAD52A8A265C00C2BE57 = {
 			isa = PBXGroup;
 			children = (
@@ -114,6 +124,7 @@
 		25D6EAE02A8A265C00C2BE57 /* GameDex */ = {
 			isa = PBXGroup;
 			children = (
+				254E8B712A8A677600C101C8 /* Controllers */,
 				25D6EAE12A8A265C00C2BE57 /* AppDelegate.swift */,
 				25D6EAE32A8A265C00C2BE57 /* SceneDelegate.swift */,
 				25D6EAE52A8A265C00C2BE57 /* ViewController.swift */,
@@ -151,7 +162,6 @@
 				A604EACCA42224399567C737 /* Pods-GameDexTests.debug.xcconfig */,
 				199276E84FCF7ECF7ECE6434 /* Pods-GameDexTests.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -368,6 +378,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				25D6EAE62A8A265C00C2BE57 /* ViewController.swift in Sources */,
+				254E8B732A8A679F00C101C8 /* TabBarController.swift in Sources */,
 				25D6EAE22A8A265C00C2BE57 /* AppDelegate.swift in Sources */,
 				25D6EAE42A8A265C00C2BE57 /* SceneDelegate.swift in Sources */,
 			);
