@@ -10,7 +10,6 @@
 		25D6EAE22A8A265C00C2BE57 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D6EAE12A8A265C00C2BE57 /* AppDelegate.swift */; };
 		25D6EAE42A8A265C00C2BE57 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D6EAE32A8A265C00C2BE57 /* SceneDelegate.swift */; };
 		25D6EAE62A8A265C00C2BE57 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D6EAE52A8A265C00C2BE57 /* ViewController.swift */; };
-		25D6EAE92A8A265C00C2BE57 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 25D6EAE72A8A265C00C2BE57 /* Main.storyboard */; };
 		25D6EAEB2A8A265D00C2BE57 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 25D6EAEA2A8A265D00C2BE57 /* Assets.xcassets */; };
 		25D6EAEE2A8A265D00C2BE57 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 25D6EAEC2A8A265D00C2BE57 /* LaunchScreen.storyboard */; };
 		25D6EAF92A8A265D00C2BE57 /* GameDexTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D6EAF82A8A265D00C2BE57 /* GameDexTests.swift */; };
@@ -40,7 +39,6 @@
 		25D6EAE12A8A265C00C2BE57 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		25D6EAE32A8A265C00C2BE57 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		25D6EAE52A8A265C00C2BE57 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		25D6EAE82A8A265C00C2BE57 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		25D6EAEA2A8A265D00C2BE57 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		25D6EAED2A8A265D00C2BE57 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		25D6EAEF2A8A265D00C2BE57 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -102,7 +100,6 @@
 				25D6EAE12A8A265C00C2BE57 /* AppDelegate.swift */,
 				25D6EAE32A8A265C00C2BE57 /* SceneDelegate.swift */,
 				25D6EAE52A8A265C00C2BE57 /* ViewController.swift */,
-				25D6EAE72A8A265C00C2BE57 /* Main.storyboard */,
 				25D6EAEA2A8A265D00C2BE57 /* Assets.xcassets */,
 				25D6EAEC2A8A265D00C2BE57 /* LaunchScreen.storyboard */,
 				25D6EAEF2A8A265D00C2BE57 /* Info.plist */,
@@ -233,7 +230,6 @@
 			files = (
 				25D6EAEE2A8A265D00C2BE57 /* LaunchScreen.storyboard in Resources */,
 				25D6EAEB2A8A265D00C2BE57 /* Assets.xcassets in Resources */,
-				25D6EAE92A8A265C00C2BE57 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -297,14 +293,6 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		25D6EAE72A8A265C00C2BE57 /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				25D6EAE82A8A265C00C2BE57 /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		25D6EAEC2A8A265D00C2BE57 /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
@@ -442,7 +430,6 @@
 				INFOPLIST_FILE = GameDex/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -470,7 +457,6 @@
 				INFOPLIST_FILE = GameDex/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
-				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				LD_RUNPATH_SEARCH_PATHS = (
