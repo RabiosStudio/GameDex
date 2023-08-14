@@ -6,6 +6,7 @@ target 'GameDex' do
   use_frameworks!
 
   # Pods for GameDex
+  pod 'SwiftLint'
 
   target 'GameDexTests' do
     inherit! :search_paths
