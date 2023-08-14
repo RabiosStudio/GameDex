@@ -86,3 +86,8 @@ fastlane/*.env
 
 iOSInjectionProject/
 *.xcuserstate
+xcuserdata/
+project.xcworkspace/
+xcshareddata/
+DerivedData/
+
