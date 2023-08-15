@@ -106,12 +106,13 @@
 			path = Controllers;
 			sourceTree = "<group>";
 		};
-		254E8B822A8A7DFD00C101C8 /* Ressources */ = {
+		254E8B822A8A7DFD00C101C8 /* Resources */ = {
 			isa = PBXGroup;
 			children = (
+				25D6EAEA2A8A265D00C2BE57 /* Assets.xcassets */,
 				254E8B802A8A7D2600C101C8 /* Localizable.strings */,
 			);
-			path = Ressources;
+			path = Resources;
 			sourceTree = "<group>";
 		};
 		254E8B832A8A81C600C101C8 /* DesignSystem */ = {
@@ -149,12 +150,11 @@
 			isa = PBXGroup;
 			children = (
 				254E8B832A8A81C600C101C8 /* DesignSystem */,
-				254E8B822A8A7DFD00C101C8 /* Ressources */,
+				254E8B822A8A7DFD00C101C8 /* Resources */,
 				254E8B712A8A677600C101C8 /* Controllers */,
 				25D6EAE12A8A265C00C2BE57 /* AppDelegate.swift */,
 				25D6EAE32A8A265C00C2BE57 /* SceneDelegate.swift */,
 				25D6EAE52A8A265C00C2BE57 /* ViewController.swift */,
-				25D6EAEA2A8A265D00C2BE57 /* Assets.xcassets */,
 				25D6EAEC2A8A265D00C2BE57 /* LaunchScreen.storyboard */,
 				25D6EAEF2A8A265D00C2BE57 /* Info.plist */,
 			);
