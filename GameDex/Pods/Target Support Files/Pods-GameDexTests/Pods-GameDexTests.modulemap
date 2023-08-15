@@ -1,6 +1,0 @@
-framework module Pods_GameDexTests {
-  umbrella header "Pods-GameDexTests-umbrella.h"
-
-  export *
-  module * { export * }
-}
