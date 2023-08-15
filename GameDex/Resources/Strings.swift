@@ -16,8 +16,6 @@ internal enum L10n {
   internal static let myCollection = L10n.tr("Localizable", "myCollection", fallback: "My Collection")
   /// My Profile
   internal static let myProfile = L10n.tr("Localizable", "myProfile", fallback: "My Profile")
-  /// My Profile
-  internal static let myProfile2 = L10n.tr("Localizable", "myProfile2", fallback: "My Profile")
 }
 // swiftlint:enable explicit_type_interface function_parameter_count identifier_name line_length
 // swiftlint:enable nesting type_body_length type_name vertical_whitespace_opening_braces
