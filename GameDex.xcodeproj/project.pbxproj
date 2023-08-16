@@ -15,6 +15,12 @@
 		254E8B8E2A8B69E000C101C8 /* swiftgen.yml in Resources */ = {isa = PBXBuildFile; fileRef = 254E8B8C2A8B69E000C101C8 /* swiftgen.yml */; };
 		254E8B912A8B6BC000C101C8 /* Assets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254E8B902A8B6BC000C101C8 /* Assets.swift */; };
 		254E8B942A8B6BCA00C101C8 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254E8B932A8B6BCA00C101C8 /* Strings.swift */; };
+		25AE1EA02A8BA97E00F2D06A /* CollectionLayoutBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AE1E9F2A8BA97E00F2D06A /* CollectionLayoutBuilder.swift */; };
+		25AE1EAE2A8BB89400F2D06A /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AE1EAD2A8BB89400F2D06A /* Section.swift */; };
+		25AE1EB22A8BC92200F2D06A /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AE1EB12A8BC92200F2D06A /* CollectionViewController.swift */; };
+		25AE1EBA2A8CB7E300F2D06A /* CollectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AE1EB92A8CB7E300F2D06A /* CollectionViewModel.swift */; };
+		25AE1EBC2A8CB82500F2D06A /* CellConfigurable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AE1EBB2A8CB82500F2D06A /* CellConfigurable.swift */; };
+		25AE1EBE2A8CB85900F2D06A /* CellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AE1EBD2A8CB85900F2D06A /* CellViewModel.swift */; };
 		25D6EAE22A8A265C00C2BE57 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D6EAE12A8A265C00C2BE57 /* AppDelegate.swift */; };
 		25D6EAE42A8A265C00C2BE57 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D6EAE32A8A265C00C2BE57 /* SceneDelegate.swift */; };
 		25D6EAE62A8A265C00C2BE57 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D6EAE52A8A265C00C2BE57 /* ViewController.swift */; };
@@ -57,6 +63,12 @@
 		254E8B8C2A8B69E000C101C8 /* swiftgen.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = swiftgen.yml; sourceTree = "<group>"; };
 		254E8B902A8B6BC000C101C8 /* Assets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Assets.swift; sourceTree = "<group>"; };
 		254E8B932A8B6BCA00C101C8 /* Strings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
+		25AE1E9F2A8BA97E00F2D06A /* CollectionLayoutBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionLayoutBuilder.swift; sourceTree = "<group>"; };
+		25AE1EAD2A8BB89400F2D06A /* Section.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Section.swift; sourceTree = "<group>"; };
+		25AE1EB12A8BC92200F2D06A /* CollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewController.swift; sourceTree = "<group>"; };
+		25AE1EB92A8CB7E300F2D06A /* CollectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewModel.swift; sourceTree = "<group>"; };
+		25AE1EBB2A8CB82500F2D06A /* CellConfigurable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellConfigurable.swift; sourceTree = "<group>"; };
+		25AE1EBD2A8CB85900F2D06A /* CellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellViewModel.swift; sourceTree = "<group>"; };
 		25D6EADE2A8A265C00C2BE57 /* GameDex.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GameDex.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		25D6EAE12A8A265C00C2BE57 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		25D6EAE32A8A265C00C2BE57 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -109,6 +121,7 @@
 			isa = PBXGroup;
 			children = (
 				254E8B722A8A679F00C101C8 /* TabBarController.swift */,
+				25AE1EB12A8BC92200F2D06A /* CollectionViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -130,6 +143,33 @@
 				254E8B842A8A81F400C101C8 /* UIColorExtension.swift */,
 			);
 			path = DesignSystem;
+			sourceTree = "<group>";
+		};
+		25AE1E9E2A8BA96900F2D06A /* CompositionalLayouts */ = {
+			isa = PBXGroup;
+			children = (
+				25AE1E9F2A8BA97E00F2D06A /* CollectionLayoutBuilder.swift */,
+			);
+			path = CompositionalLayouts;
+			sourceTree = "<group>";
+		};
+		25AE1EB72A8CB7CC00F2D06A /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				25AE1EAD2A8BB89400F2D06A /* Section.swift */,
+				25AE1EB82A8CB7D200F2D06A /* Protocols */,
+			);
+			path = Helpers;
+			sourceTree = "<group>";
+		};
+		25AE1EB82A8CB7D200F2D06A /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				25AE1EB92A8CB7E300F2D06A /* CollectionViewModel.swift */,
+				25AE1EBB2A8CB82500F2D06A /* CellConfigurable.swift */,
+				25AE1EBD2A8CB85900F2D06A /* CellViewModel.swift */,
+			);
+			path = Protocols;
 			sourceTree = "<group>";
 		};
 		25D6EAD52A8A265C00C2BE57 = {
@@ -159,6 +199,8 @@
 		25D6EAE02A8A265C00C2BE57 /* GameDex */ = {
 			isa = PBXGroup;
 			children = (
+				25AE1EB72A8CB7CC00F2D06A /* Helpers */,
+				25AE1E9E2A8BA96900F2D06A /* CompositionalLayouts */,
 				254E8B832A8A81C600C101C8 /* DesignSystem */,
 				254E8B822A8A7DFD00C101C8 /* Resources */,
 				254E8B712A8A677600C101C8 /* Controllers */,
@@ -456,13 +498,19 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				25AE1EAE2A8BB89400F2D06A /* Section.swift in Sources */,
 				25D6EAE62A8A265C00C2BE57 /* ViewController.swift in Sources */,
+				25AE1EB22A8BC92200F2D06A /* CollectionViewController.swift in Sources */,
+				25AE1EBA2A8CB7E300F2D06A /* CollectionViewModel.swift in Sources */,
+				25AE1EBC2A8CB82500F2D06A /* CellConfigurable.swift in Sources */,
 				254E8B732A8A679F00C101C8 /* TabBarController.swift in Sources */,
 				254E8B912A8B6BC000C101C8 /* Assets.swift in Sources */,
 				254E8B852A8A81F400C101C8 /* UIColorExtension.swift in Sources */,
+				25AE1EBE2A8CB85900F2D06A /* CellViewModel.swift in Sources */,
 				25D6EAE22A8A265C00C2BE57 /* AppDelegate.swift in Sources */,
 				25D6EAE42A8A265C00C2BE57 /* SceneDelegate.swift in Sources */,
 				254E8B942A8B6BCA00C101C8 /* Strings.swift in Sources */,
+				25AE1EA02A8BA97E00F2D06A /* CollectionLayoutBuilder.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
