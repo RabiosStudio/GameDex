@@ -31,6 +31,8 @@
 		25AE1EDC2A8D271D00F2D06A /* UIScrollView+Empty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AE1EDB2A8D271D00F2D06A /* UIScrollView+Empty.swift */; };
 		25AE1EE02A8E21D100F2D06A /* BasicLayoutBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AE1EDF2A8E21D100F2D06A /* BasicLayoutBuilder.swift */; };
 		25AE1EE62A8E4D6800F2D06A /* DesignSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AE1EE52A8E4D6800F2D06A /* DesignSystem.swift */; };
+		25AE1EEA2A8E4E4B00F2D06A /* FormCollectionCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AE1EE92A8E4E4B00F2D06A /* FormCollectionCellViewModel.swift */; };
+		25AE1EEC2A8E4E6500F2D06A /* FormCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AE1EEB2A8E4E6500F2D06A /* FormCollectionViewCell.swift */; };
 		25D6EAE22A8A265C00C2BE57 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D6EAE12A8A265C00C2BE57 /* AppDelegate.swift */; };
 		25D6EAE42A8A265C00C2BE57 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D6EAE32A8A265C00C2BE57 /* SceneDelegate.swift */; };
 		25D6EAE62A8A265C00C2BE57 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D6EAE52A8A265C00C2BE57 /* ViewController.swift */; };
@@ -89,6 +91,8 @@
 		25AE1EDB2A8D271D00F2D06A /* UIScrollView+Empty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScrollView+Empty.swift"; sourceTree = "<group>"; };
 		25AE1EDF2A8E21D100F2D06A /* BasicLayoutBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicLayoutBuilder.swift; sourceTree = "<group>"; };
 		25AE1EE52A8E4D6800F2D06A /* DesignSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignSystem.swift; sourceTree = "<group>"; };
+		25AE1EE92A8E4E4B00F2D06A /* FormCollectionCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormCollectionCellViewModel.swift; sourceTree = "<group>"; };
+		25AE1EEB2A8E4E6500F2D06A /* FormCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormCollectionViewCell.swift; sourceTree = "<group>"; };
 		25D6EADE2A8A265C00C2BE57 /* GameDex.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GameDex.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		25D6EAE12A8A265C00C2BE57 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		25D6EAE32A8A265C00C2BE57 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -217,6 +221,15 @@
 			path = MyCollection;
 			sourceTree = "<group>";
 		};
+		25AE1EE82A8E4E2E00F2D06A /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				25AE1EE92A8E4E4B00F2D06A /* FormCollectionCellViewModel.swift */,
+				25AE1EEB2A8E4E6500F2D06A /* FormCollectionViewCell.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
 		25D6EAD52A8A265C00C2BE57 = {
 			isa = PBXGroup;
 			children = (
@@ -244,6 +257,7 @@
 		25D6EAE02A8A265C00C2BE57 /* GameDex */ = {
 			isa = PBXGroup;
 			children = (
+				25AE1EE82A8E4E2E00F2D06A /* Common */,
 				25AE1EDD2A8E12FF00F2D06A /* MyCollection */,
 				25AE1EB72A8CB7CC00F2D06A /* Helpers */,
 				25AE1E9E2A8BA96900F2D06A /* CompositionalLayouts */,
@@ -590,12 +604,14 @@
 				25AE1EB22A8BC92200F2D06A /* CollectionViewController.swift in Sources */,
 				25AE1EBA2A8CB7E300F2D06A /* CollectionViewModel.swift in Sources */,
 				25AE1EE62A8E4D6800F2D06A /* DesignSystem.swift in Sources */,
+				25AE1EEC2A8E4E6500F2D06A /* FormCollectionViewCell.swift in Sources */,
 				25AE1ED62A8D1E9B00F2D06A /* Typography.swift in Sources */,
 				25AE1EBC2A8CB82500F2D06A /* CellConfigurable.swift in Sources */,
 				254E8B732A8A679F00C101C8 /* TabBarController.swift in Sources */,
 				25AE1EDC2A8D271D00F2D06A /* UIScrollView+Empty.swift in Sources */,
 				254E8B912A8B6BC000C101C8 /* Assets.swift in Sources */,
 				254E8B852A8A81F400C101C8 /* UIColorExtension.swift in Sources */,
+				25AE1EEA2A8E4E4B00F2D06A /* FormCollectionCellViewModel.swift in Sources */,
 				25AE1EDA2A8D236000F2D06A /* MyCollectionError.swift in Sources */,
 				25AE1EBE2A8CB85900F2D06A /* CellViewModel.swift in Sources */,
 				25D6EAE22A8A265C00C2BE57 /* AppDelegate.swift in Sources */,
