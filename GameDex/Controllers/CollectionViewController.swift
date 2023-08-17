@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import EmptyDataSet_Swift
 
 class CollectionViewController: UICollectionViewController {
     
@@ -38,6 +39,20 @@ class CollectionViewController: UICollectionViewController {
         super.viewWillTransition(to: size, with: coordinator)
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        let tabBarOffset = -(self.tabBarController?.tabBar.frame.size.height ?? 0)
+        let emptyLoader = EmptyLoader(tabBarOffset: tabBarOffset)
+        collectionView.updateEmptyScreen(emptyReason: emptyLoader)
+        self.viewModel.loadData { [weak self] error in
+            if let error = error {
+                let tabBarOffset = -(self?.tabBarController?.tabBar.frame.size.height ?? 0)
+                self?.updateEmptyState(error: error,
+                                       tabBarOffset: tabBarOffset)
+            }
+        }
+    }
+    
     // MARK: - Register
     
     public func registerCells() {
@@ -64,6 +79,28 @@ class CollectionViewController: UICollectionViewController {
                 )
             }
         }
+    }
+    
+    // MARK: Methods
+    
+    private func updateEmptyState(error: EmptyError, tabBarOffset: CGFloat) {
+        
+        let emptyReason = EmptyTextAndButton(tabBarOffset: tabBarOffset,
+                                             customTitle: error.errorTitle,
+                                             customDescription: error.errorDescription ?? "",
+                                             image: UIImage(named: error.imageName)!,
+                                             buttonTitle: error.buttonTitle) {
+            switch error.errorAction {
+            case .refresh:
+                print("refresh")
+            case .search:
+                print("search")
+            case .navigate:
+                print("navigate")
+            }
+        }
+        collectionView.updateEmptyScreen(emptyReason: emptyReason)
+        collectionView.reloadData()
     }
     
     // MARK: UICollectionViewDataSource
