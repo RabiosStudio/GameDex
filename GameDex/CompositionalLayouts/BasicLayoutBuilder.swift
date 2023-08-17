@@ -12,18 +12,17 @@ class BasicLayoutBuilder: CollectionLayoutBuilder {
     
     func create() -> UICollectionViewLayout {
         let itemSize = NSCollectionLayoutSize(
-            widthDimension: .fractionalWidth(1.0),
-            heightDimension: .fractionalHeight(1.0)
-        )
+            widthDimension: .fractionalWidth(DesignSystem.fractionalSizeVeryBig),
+            heightDimension: .fractionalHeight(DesignSystem.fractionalSizeVeryBig))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
-        item.contentInsets = NSDirectionalEdgeInsets(top: 4,
-                                                     leading: 4,
-                                                     bottom: 4,
-                                                     trailing: 4)
+        item.contentInsets = NSDirectionalEdgeInsets(top: DesignSystem.paddingSmall,
+                                                     leading: DesignSystem.paddingSmall,
+                                                     bottom: DesignSystem.paddingSmall,
+                                                     trailing: DesignSystem.paddingSmall)
         
         let groupLayoutSize: CGSize = CGSize(
-            width: 1.0,
-            height: 0.15
+            width: DesignSystem.fractionalSizeVeryBig,
+            height: DesignSystem.fractionalSizeTiny
         )
         
         let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(groupLayoutSize.width),
