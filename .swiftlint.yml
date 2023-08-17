@@ -7,6 +7,7 @@ excluded:
 disabled_rules:
     - trailing_whitespace
     - force_cast
+    - void_return
 
 line_length: 200
 
