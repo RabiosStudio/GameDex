@@ -9,6 +9,7 @@ target 'GameDex' do
   pod 'SwiftLint'
   pod 'SwiftGen', '~> 6.0'
   pod 'EmptyDataSet-Swift', '~> 5.0.0'
+  pod 'NVActivityIndicatorView'
 
   target 'GameDexTests' do
     inherit! :search_paths
