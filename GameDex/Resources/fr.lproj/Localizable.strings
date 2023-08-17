@@ -2,3 +2,10 @@
 "myCollection" = "Ma collection";
 "discover" = "Découverte";
 "myProfile" = "Mon compte";
+
+// Empty States
+"emptyCollectionTitle" = "Votre collection est vide";
+"emptyCollectionDescription" = "Commencez par ajouter un premier jeu à votre collection";
+
+// Button
+"addGameButtonTitle" = "Ajouter un jeu";

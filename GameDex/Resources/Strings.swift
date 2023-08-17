@@ -10,8 +10,14 @@ import Foundation
 // swiftlint:disable explicit_type_interface function_parameter_count identifier_name line_length
 // swiftlint:disable nesting type_body_length type_name vertical_whitespace_opening_braces
 internal enum L10n {
+  /// Add a game
+  internal static let addGameButtonTitle = L10n.tr("Localizable", "addGameButtonTitle", fallback: "Add a game")
   /// Discover
   internal static let discover = L10n.tr("Localizable", "discover", fallback: "Discover")
+  /// It's time to add the very first game to your collection ! 
+  internal static let emptyCollectionDescription = L10n.tr("Localizable", "emptyCollectionDescription", fallback: "It's time to add the very first game to your collection ! ")
+  /// Your collection is empty
+  internal static let emptyCollectionTitle = L10n.tr("Localizable", "emptyCollectionTitle", fallback: "Your collection is empty")
   /// My Collection
   internal static let myCollection = L10n.tr("Localizable", "myCollection", fallback: "My Collection")
   /// My Profile
