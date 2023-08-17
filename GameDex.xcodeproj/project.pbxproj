@@ -21,6 +21,15 @@
 		25AE1EBA2A8CB7E300F2D06A /* CollectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AE1EB92A8CB7E300F2D06A /* CollectionViewModel.swift */; };
 		25AE1EBC2A8CB82500F2D06A /* CellConfigurable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AE1EBB2A8CB82500F2D06A /* CellConfigurable.swift */; };
 		25AE1EBE2A8CB85900F2D06A /* CellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AE1EBD2A8CB85900F2D06A /* CellViewModel.swift */; };
+		25AE1ECB2A8D1B1E00F2D06A /* MyCollectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AE1ECA2A8D1B1E00F2D06A /* MyCollectionViewModel.swift */; };
+		25AE1ECE2A8D1D6F00F2D06A /* EmptyReason.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AE1ECD2A8D1D6F00F2D06A /* EmptyReason.swift */; };
+		25AE1ED02A8D1D9900F2D06A /* EmptyLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AE1ECF2A8D1D9900F2D06A /* EmptyLoader.swift */; };
+		25AE1ED22A8D1E2600F2D06A /* EmptyTextAndButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AE1ED12A8D1E2600F2D06A /* EmptyTextAndButton.swift */; };
+		25AE1ED42A8D1E4000F2D06A /* EmptyError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AE1ED32A8D1E4000F2D06A /* EmptyError.swift */; };
+		25AE1ED62A8D1E9B00F2D06A /* Typography.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AE1ED52A8D1E9B00F2D06A /* Typography.swift */; };
+		25AE1EDA2A8D236000F2D06A /* MyCollectionError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AE1ED92A8D236000F2D06A /* MyCollectionError.swift */; };
+		25AE1EDC2A8D271D00F2D06A /* UIScrollView+Empty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AE1EDB2A8D271D00F2D06A /* UIScrollView+Empty.swift */; };
+		25AE1EE02A8E21D100F2D06A /* BasicLayoutBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AE1EDF2A8E21D100F2D06A /* BasicLayoutBuilder.swift */; };
 		25D6EAE22A8A265C00C2BE57 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D6EAE12A8A265C00C2BE57 /* AppDelegate.swift */; };
 		25D6EAE42A8A265C00C2BE57 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D6EAE32A8A265C00C2BE57 /* SceneDelegate.swift */; };
 		25D6EAE62A8A265C00C2BE57 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D6EAE52A8A265C00C2BE57 /* ViewController.swift */; };
@@ -69,6 +78,15 @@
 		25AE1EB92A8CB7E300F2D06A /* CollectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewModel.swift; sourceTree = "<group>"; };
 		25AE1EBB2A8CB82500F2D06A /* CellConfigurable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellConfigurable.swift; sourceTree = "<group>"; };
 		25AE1EBD2A8CB85900F2D06A /* CellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellViewModel.swift; sourceTree = "<group>"; };
+		25AE1ECA2A8D1B1E00F2D06A /* MyCollectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCollectionViewModel.swift; sourceTree = "<group>"; };
+		25AE1ECD2A8D1D6F00F2D06A /* EmptyReason.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyReason.swift; sourceTree = "<group>"; };
+		25AE1ECF2A8D1D9900F2D06A /* EmptyLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyLoader.swift; sourceTree = "<group>"; };
+		25AE1ED12A8D1E2600F2D06A /* EmptyTextAndButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyTextAndButton.swift; sourceTree = "<group>"; };
+		25AE1ED32A8D1E4000F2D06A /* EmptyError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EmptyError.swift; sourceTree = "<group>"; };
+		25AE1ED52A8D1E9B00F2D06A /* Typography.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Typography.swift; sourceTree = "<group>"; };
+		25AE1ED92A8D236000F2D06A /* MyCollectionError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCollectionError.swift; sourceTree = "<group>"; };
+		25AE1EDB2A8D271D00F2D06A /* UIScrollView+Empty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScrollView+Empty.swift"; sourceTree = "<group>"; };
+		25AE1EDF2A8E21D100F2D06A /* BasicLayoutBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicLayoutBuilder.swift; sourceTree = "<group>"; };
 		25D6EADE2A8A265C00C2BE57 /* GameDex.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GameDex.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		25D6EAE12A8A265C00C2BE57 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		25D6EAE32A8A265C00C2BE57 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -141,6 +159,7 @@
 			isa = PBXGroup;
 			children = (
 				254E8B842A8A81F400C101C8 /* UIColorExtension.swift */,
+				25AE1ED52A8D1E9B00F2D06A /* Typography.swift */,
 			);
 			path = DesignSystem;
 			sourceTree = "<group>";
@@ -149,6 +168,7 @@
 			isa = PBXGroup;
 			children = (
 				25AE1E9F2A8BA97E00F2D06A /* CollectionLayoutBuilder.swift */,
+				25AE1EDF2A8E21D100F2D06A /* BasicLayoutBuilder.swift */,
 			);
 			path = CompositionalLayouts;
 			sourceTree = "<group>";
@@ -156,8 +176,9 @@
 		25AE1EB72A8CB7CC00F2D06A /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
-				25AE1EAD2A8BB89400F2D06A /* Section.swift */,
+				25AE1ECC2A8D1D5000F2D06A /* EmptyScreens */,
 				25AE1EB82A8CB7D200F2D06A /* Protocols */,
+				25AE1EAD2A8BB89400F2D06A /* Section.swift */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -170,6 +191,27 @@
 				25AE1EBD2A8CB85900F2D06A /* CellViewModel.swift */,
 			);
 			path = Protocols;
+			sourceTree = "<group>";
+		};
+		25AE1ECC2A8D1D5000F2D06A /* EmptyScreens */ = {
+			isa = PBXGroup;
+			children = (
+				25AE1ECD2A8D1D6F00F2D06A /* EmptyReason.swift */,
+				25AE1ECF2A8D1D9900F2D06A /* EmptyLoader.swift */,
+				25AE1ED12A8D1E2600F2D06A /* EmptyTextAndButton.swift */,
+				25AE1ED32A8D1E4000F2D06A /* EmptyError.swift */,
+				25AE1EDB2A8D271D00F2D06A /* UIScrollView+Empty.swift */,
+			);
+			path = EmptyScreens;
+			sourceTree = "<group>";
+		};
+		25AE1EDD2A8E12FF00F2D06A /* MyCollection */ = {
+			isa = PBXGroup;
+			children = (
+				25AE1ED92A8D236000F2D06A /* MyCollectionError.swift */,
+				25AE1ECA2A8D1B1E00F2D06A /* MyCollectionViewModel.swift */,
+			);
+			path = MyCollection;
 			sourceTree = "<group>";
 		};
 		25D6EAD52A8A265C00C2BE57 = {
@@ -199,6 +241,7 @@
 		25D6EAE02A8A265C00C2BE57 /* GameDex */ = {
 			isa = PBXGroup;
 			children = (
+				25AE1EDD2A8E12FF00F2D06A /* MyCollection */,
 				25AE1EB72A8CB7CC00F2D06A /* Helpers */,
 				25AE1E9E2A8BA96900F2D06A /* CompositionalLayouts */,
 				254E8B832A8A81C600C101C8 /* DesignSystem */,
@@ -266,6 +309,7 @@
 				25D6EADB2A8A265C00C2BE57 /* Frameworks */,
 				25D6EADC2A8A265C00C2BE57 /* Resources */,
 				254E8B742A8A720D00C101C8 /* Run SwiftLint */,
+				58A74874355C3C96C8682A6E /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -303,6 +347,7 @@
 				25D6EAFA2A8A265D00C2BE57 /* Sources */,
 				25D6EAFB2A8A265D00C2BE57 /* Frameworks */,
 				25D6EAFC2A8A265D00C2BE57 /* Resources */,
+				B3020048002E67C526FC70B5 /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -447,6 +492,23 @@
 			shellPath = /bin/sh;
 			shellScript = "if [[ -f \"${PODS_ROOT}/SwiftGen/bin/swiftgen\" ]]; then\n  \"${PODS_ROOT}/SwiftGen/bin/swiftgen\"\nelse\n  echo \"warning: SwiftGen is not installed. Run 'pod install --repo-update' to install it.\"\nfi \n";
 		};
+		58A74874355C3C96C8682A6E /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-GameDex/Pods-GameDex-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-GameDex/Pods-GameDex-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-GameDex/Pods-GameDex-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 		663C8E7069F101108B4650B6 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -491,6 +553,23 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		B3020048002E67C526FC70B5 /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-GameDex-GameDexUITests/Pods-GameDex-GameDexUITests-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-GameDex-GameDexUITests/Pods-GameDex-GameDexUITests-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-GameDex-GameDexUITests/Pods-GameDex-GameDexUITests-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -498,18 +577,27 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				25AE1ED22A8D1E2600F2D06A /* EmptyTextAndButton.swift in Sources */,
+				25AE1ECB2A8D1B1E00F2D06A /* MyCollectionViewModel.swift in Sources */,
+				25AE1ECE2A8D1D6F00F2D06A /* EmptyReason.swift in Sources */,
+				25AE1ED02A8D1D9900F2D06A /* EmptyLoader.swift in Sources */,
 				25AE1EAE2A8BB89400F2D06A /* Section.swift in Sources */,
 				25D6EAE62A8A265C00C2BE57 /* ViewController.swift in Sources */,
+				25AE1ED42A8D1E4000F2D06A /* EmptyError.swift in Sources */,
 				25AE1EB22A8BC92200F2D06A /* CollectionViewController.swift in Sources */,
 				25AE1EBA2A8CB7E300F2D06A /* CollectionViewModel.swift in Sources */,
+				25AE1ED62A8D1E9B00F2D06A /* Typography.swift in Sources */,
 				25AE1EBC2A8CB82500F2D06A /* CellConfigurable.swift in Sources */,
 				254E8B732A8A679F00C101C8 /* TabBarController.swift in Sources */,
+				25AE1EDC2A8D271D00F2D06A /* UIScrollView+Empty.swift in Sources */,
 				254E8B912A8B6BC000C101C8 /* Assets.swift in Sources */,
 				254E8B852A8A81F400C101C8 /* UIColorExtension.swift in Sources */,
+				25AE1EDA2A8D236000F2D06A /* MyCollectionError.swift in Sources */,
 				25AE1EBE2A8CB85900F2D06A /* CellViewModel.swift in Sources */,
 				25D6EAE22A8A265C00C2BE57 /* AppDelegate.swift in Sources */,
 				25D6EAE42A8A265C00C2BE57 /* SceneDelegate.swift in Sources */,
 				254E8B942A8B6BCA00C101C8 /* Strings.swift in Sources */,
+				25AE1EE02A8E21D100F2D06A /* BasicLayoutBuilder.swift in Sources */,
 				25AE1EA02A8BA97E00F2D06A /* CollectionLayoutBuilder.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -744,7 +832,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = A604EACCA42224399567C737 /* Pods-GameDexTests.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -765,7 +852,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 199276E84FCF7ECF7ECE6434 /* Pods-GameDexTests.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -786,7 +872,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = B4432DD1F8A1C7B25CD9BF90 /* Pods-GameDex-GameDexUITests.debug.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = F254LZ5256;
@@ -805,7 +890,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 5A8E454CAE12E557645681AC /* Pods-GameDex-GameDexUITests.release.xcconfig */;
 			buildSettings = {
-				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = F254LZ5256;

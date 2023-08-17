@@ -10,6 +10,7 @@ import Foundation
 protocol CollectionViewModel {
     var screenTitle: String? { get }
     var sections: [Section] { get }
+    func loadData(callback: @escaping (EmptyError?) -> ())
 }
 
 extension CollectionViewModel {

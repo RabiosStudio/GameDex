@@ -1,20 +1,30 @@
 PODS:
+  - EmptyDataSet-Swift (5.0.0)
+  - NVActivityIndicatorView (5.1.1):
+    - NVActivityIndicatorView/Base (= 5.1.1)
+  - NVActivityIndicatorView/Base (5.1.1)
   - SwiftGen (6.6.2)
   - SwiftLint (0.52.4)
 
 DEPENDENCIES:
+  - EmptyDataSet-Swift (~> 5.0.0)
+  - NVActivityIndicatorView
   - SwiftGen (~> 6.0)
   - SwiftLint
 
 SPEC REPOS:
   trunk:
+    - EmptyDataSet-Swift
+    - NVActivityIndicatorView
     - SwiftGen
     - SwiftLint
 
 SPEC CHECKSUMS:
+  EmptyDataSet-Swift: eb382c0c87a2d9c678077385a595cec52da38171
+  NVActivityIndicatorView: 1f6c5687f1171810aa27a3296814dc2d7dec3667
   SwiftGen: 1366a7f71aeef49954ca5a63ba4bef6b0f24138c
   SwiftLint: 1cc5cd61ba9bacb2194e340aeb47a2a37fda00b3
 
-PODFILE CHECKSUM: 6b2123bef4e11e63f44c588ebcbe050afac86267
+PODFILE CHECKSUM: 571735ae90690215ffbddd6f46af6ffb81a9143b
 
 COCOAPODS: 1.12.1
