@@ -57,7 +57,7 @@ extension EmptyReason {
     }
     
     var backgroundColor: UIColor {
-        return .systemBackground
+        return .primaryBackgroundColor
     }
     
     var customView: UIView? {

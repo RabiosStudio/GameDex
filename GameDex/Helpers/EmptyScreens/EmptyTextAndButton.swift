@@ -21,7 +21,7 @@ struct EmptyTextAndButton: EmptyReason {
     
     var attributedTitle: NSAttributedString? {
         let attributes = [
-            NSAttributedString.Key.foregroundColor: UIColor.label,
+            NSAttributedString.Key.foregroundColor: UIColor.secondaryColor,
             NSAttributedString.Key.font: Typography.title1.font
         ]
         return NSAttributedString(string: self.customTitle,
@@ -33,7 +33,7 @@ struct EmptyTextAndButton: EmptyReason {
     
     var attributedDescription: NSAttributedString? {
         let attributes = [
-            NSAttributedString.Key.foregroundColor: UIColor.label,
+            NSAttributedString.Key.foregroundColor: UIColor.secondaryColor,
             NSAttributedString.Key.font: Typography.body.font
         ]
         return NSAttributedString(string: self.customDescription,

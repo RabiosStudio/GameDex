@@ -20,9 +20,9 @@ final class PrimaryButton: UIButton {
     
     func configure(viewModel: ButtonViewModel) {
         self.layer.cornerRadius = DesignSystem.cornerRadiusBig
-        self.backgroundColor = UIColor.label
+        self.backgroundColor = .secondaryColor
         self.titleLabel?.font = Typography.calloutBold.font
-        self.titleLabel?.tintColor = .white
+        self.setTitleColor(.primaryBackgroundColor, for: .normal)
         self.titleLabel?.textAlignment = .center
         self.titleLabel?.numberOfLines = DesignSystem.numberOfLinesStandard
         self.setTitle(viewModel.title, for: .normal)

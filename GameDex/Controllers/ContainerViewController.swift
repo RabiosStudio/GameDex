@@ -28,7 +28,7 @@ class ContainerViewController: UIViewController {
     private let stackView: UIStackView = {
         let view = UIStackView()
         view.axis = .vertical
-        view.backgroundColor = .systemBackground
+        view.backgroundColor = .primaryBackgroundColor
         view.layoutMargins = .init(
             top: DesignSystem.paddingRegular,
             left: DesignSystem.paddingRegular,

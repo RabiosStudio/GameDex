@@ -32,7 +32,7 @@ class CollectionViewController: UICollectionViewController, AnyChildVC {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.collectionView.backgroundColor = .systemBackground
+        self.collectionView.backgroundColor = .primaryBackgroundColor
         self.registerCells()
     }
     
