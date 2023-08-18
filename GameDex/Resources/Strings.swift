@@ -28,8 +28,8 @@ internal enum L10n {
   internal static let myProfile = L10n.tr("Localizable", "myProfile", fallback: "My Profile")
   /// Platform
   internal static let platform = L10n.tr("Localizable", "platform", fallback: "Platform")
-  /// Step 1
-  internal static let stepOne = L10n.tr("Localizable", "stepOne", fallback: "Step 1")
+  /// Step 1/3
+  internal static let stepOne = L10n.tr("Localizable", "stepOne", fallback: "Step 1/3")
   /// Title
   internal static let title = L10n.tr("Localizable", "title", fallback: "Title")
 }
