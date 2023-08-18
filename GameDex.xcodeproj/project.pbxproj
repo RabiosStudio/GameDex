@@ -46,6 +46,9 @@
 		25AE1F132A8F8DDF00F2D06A /* NavigationController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AE1F122A8F8DDF00F2D06A /* NavigationController+Extension.swift */; };
 		25AE1F172A8F900300F2D06A /* AnyBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AE1F162A8F900300F2D06A /* AnyBarButtonItem.swift */; };
 		25AE1F192A8F910800F2D06A /* BarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AE1F182A8F910800F2D06A /* BarButtonItem.swift */; };
+		25AE1F1B2A8F923B00F2D06A /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AE1F1A2A8F923B00F2D06A /* ContainerViewController.swift */; };
+		25AE1F1D2A8F926400F2D06A /* ContentViewFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AE1F1C2A8F926400F2D06A /* ContentViewFactory.swift */; };
+		25AE1F202A8F94A900F2D06A /* ContinueContentViewFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AE1F1F2A8F94A900F2D06A /* ContinueContentViewFactory.swift */; };
 		25D6EAE22A8A265C00C2BE57 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D6EAE12A8A265C00C2BE57 /* AppDelegate.swift */; };
 		25D6EAE62A8A265C00C2BE57 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D6EAE52A8A265C00C2BE57 /* ViewController.swift */; };
 		25D6EAEB2A8A265D00C2BE57 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 25D6EAEA2A8A265D00C2BE57 /* Assets.xcassets */; };
@@ -118,6 +121,9 @@
 		25AE1F122A8F8DDF00F2D06A /* NavigationController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NavigationController+Extension.swift"; sourceTree = "<group>"; };
 		25AE1F162A8F900300F2D06A /* AnyBarButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyBarButtonItem.swift; sourceTree = "<group>"; };
 		25AE1F182A8F910800F2D06A /* BarButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarButtonItem.swift; sourceTree = "<group>"; };
+		25AE1F1A2A8F923B00F2D06A /* ContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerViewController.swift; sourceTree = "<group>"; };
+		25AE1F1C2A8F926400F2D06A /* ContentViewFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewFactory.swift; sourceTree = "<group>"; };
+		25AE1F1F2A8F94A900F2D06A /* ContinueContentViewFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContinueContentViewFactory.swift; sourceTree = "<group>"; };
 		25D6EADE2A8A265C00C2BE57 /* GameDex.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GameDex.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		25D6EAE12A8A265C00C2BE57 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		25D6EAE52A8A265C00C2BE57 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -170,6 +176,7 @@
 			children = (
 				254E8B722A8A679F00C101C8 /* TabBarController.swift */,
 				25AE1EB12A8BC92200F2D06A /* CollectionViewController.swift */,
+				25AE1F1A2A8F923B00F2D06A /* ContainerViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -223,6 +230,7 @@
 				25AE1EB92A8CB7E300F2D06A /* CollectionViewModel.swift */,
 				25AE1EBB2A8CB82500F2D06A /* CellConfigurable.swift */,
 				25AE1EBD2A8CB85900F2D06A /* CellViewModel.swift */,
+				25AE1F1C2A8F926400F2D06A /* ContentViewFactory.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -260,6 +268,7 @@
 		25AE1EE82A8E4E2E00F2D06A /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				25AE1F1E2A8F949900F2D06A /* ContentViewFactory */,
 				25AE1EFA2A8E671800F2D06A /* CellsViewModel */,
 				25AE1EF32A8E65F400F2D06A /* Cells */,
 			);
@@ -311,6 +320,14 @@
 				25AE1F0E2A8F514A00F2D06A /* AddGameStepOneScreenFactory.swift */,
 			);
 			path = ScreenFactory;
+			sourceTree = "<group>";
+		};
+		25AE1F1E2A8F949900F2D06A /* ContentViewFactory */ = {
+			isa = PBXGroup;
+			children = (
+				25AE1F1F2A8F94A900F2D06A /* ContinueContentViewFactory.swift */,
+			);
+			path = ContentViewFactory;
 			sourceTree = "<group>";
 		};
 		25D6EAD52A8A265C00C2BE57 = {
@@ -690,6 +707,8 @@
 				25D6EAE62A8A265C00C2BE57 /* ViewController.swift in Sources */,
 				25AE1ED42A8D1E4000F2D06A /* EmptyError.swift in Sources */,
 				25AE1EB22A8BC92200F2D06A /* CollectionViewController.swift in Sources */,
+				25AE1F202A8F94A900F2D06A /* ContinueContentViewFactory.swift in Sources */,
+				25AE1F1B2A8F923B00F2D06A /* ContainerViewController.swift in Sources */,
 				25AE1EBA2A8CB7E300F2D06A /* CollectionViewModel.swift in Sources */,
 				25AE1EE62A8E4D6800F2D06A /* DesignSystem.swift in Sources */,
 				25AE1F172A8F900300F2D06A /* AnyBarButtonItem.swift in Sources */,
@@ -711,6 +730,7 @@
 				25AE1F0F2A8F514A00F2D06A /* AddGameStepOneScreenFactory.swift in Sources */,
 				25AE1EBE2A8CB85900F2D06A /* CellViewModel.swift in Sources */,
 				25D6EAE22A8A265C00C2BE57 /* AppDelegate.swift in Sources */,
+				25AE1F1D2A8F926400F2D06A /* ContentViewFactory.swift in Sources */,
 				25AE1EF12A8E4FFB00F2D06A /* AddGameStepOneSection.swift in Sources */,
 				254E8B942A8B6BCA00C101C8 /* Strings.swift in Sources */,
 				25AE1EE02A8E21D100F2D06A /* FormLayoutBuilder.swift in Sources */,

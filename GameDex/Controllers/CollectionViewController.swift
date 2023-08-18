@@ -8,12 +8,13 @@
 import UIKit
 import EmptyDataSet_Swift
 
-class CollectionViewController: UICollectionViewController {
+class CollectionViewController: UICollectionViewController, AnyChildVC {
     
     // MARK: Properties
 
     private let viewModel: CollectionViewModel
     private let layout: UICollectionViewLayout
+    var navigationDelegate: NavigationDelegate?
     
     // MARK: Init
     
@@ -112,7 +113,10 @@ class CollectionViewController: UICollectionViewController {
     }
     
     private func configureNavBar() {
+        self.navigationController?.configure()
         self.navigationItem.title = self.viewModel.screenTitle
+        
+        self.navigationDelegate?.sendNavigationTitle(title: self.navigationItem.title)
         
         guard let rightButtonItem = self.viewModel.rightButtonItem else {
             return
@@ -124,6 +128,10 @@ class CollectionViewController: UICollectionViewController {
             ) { [weak self] in
                 self?.dismiss(animated: true)
             }
+            guard let navigationItem = self.navigationItem.rightBarButtonItem else {
+                return
+            }
+            self.navigationDelegate?.sendBarButtonItem(item: navigationItem)
         }
     }
 
