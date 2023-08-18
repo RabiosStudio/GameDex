@@ -8,8 +8,7 @@
 import Foundation
 
 class MyCollectionViewModel: CollectionViewModel {
-    var screenTitle: String? = L10n.myCollection
-    
+    let screenTitle: String? = L10n.myCollection    
     var sections: [Section] = []
     
     func loadData(callback: @escaping (EmptyError?) -> ()) {
