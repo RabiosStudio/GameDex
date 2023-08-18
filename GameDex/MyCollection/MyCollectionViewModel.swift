@@ -8,6 +8,7 @@
 import Foundation
 
 class MyCollectionViewModel: CollectionViewModel {
+    var rightButtonItem: AnyBarButtonItem? = nil
     let screenTitle: String? = L10n.myCollection    
     var sections: [Section] = []
     

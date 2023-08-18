@@ -43,6 +43,7 @@ class CollectionViewController: UICollectionViewController {
         super.viewWillAppear(animated)
         let tabBarOffset = -(self.tabBarController?.tabBar.frame.size.height ?? 0)
         let emptyLoader = EmptyLoader(tabBarOffset: tabBarOffset)
+        self.configureNavBar()
         collectionView.updateEmptyScreen(emptyReason: emptyLoader)
         self.viewModel.loadData { [weak self] error in
             if let error = error {
@@ -110,6 +111,22 @@ class CollectionViewController: UICollectionViewController {
         self.collectionView.collectionViewLayout = self.layout
     }
     
+    private func configureNavBar() {
+        self.navigationItem.title = self.viewModel.screenTitle
+        
+        guard let rightButtonItem = self.viewModel.rightButtonItem else {
+            return
+        }
+        
+        switch rightButtonItem {
+        case .close:
+            self.navigationItem.rightBarButtonItem = BarButtonItem(image: rightButtonItem.image()
+            ) { [weak self] in
+                self?.dismiss(animated: true)
+            }
+        }
+    }
+
     // MARK: UICollectionViewDataSource
 
     override func numberOfSections(in collectionView: UICollectionView) -> Int {

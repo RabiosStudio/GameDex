@@ -17,6 +17,7 @@ struct AddGameStepOneScreenFactory: ScreenFactory {
             viewModel: viewModel,
             layoutBuilder: layout
         )
-        return addGameController
+        let navigationController = UINavigationController(rootViewController: addGameController)
+        return navigationController
     }
 }

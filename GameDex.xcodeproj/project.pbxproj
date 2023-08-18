@@ -43,6 +43,9 @@
 		25AE1F082A8F4D2000F2D06A /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AE1F072A8F4D2000F2D06A /* NavigationController.swift */; };
 		25AE1F0C2A8F508700F2D06A /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AE1F0B2A8F508700F2D06A /* UIViewController+Extension.swift */; };
 		25AE1F0F2A8F514A00F2D06A /* AddGameStepOneScreenFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AE1F0E2A8F514A00F2D06A /* AddGameStepOneScreenFactory.swift */; };
+		25AE1F132A8F8DDF00F2D06A /* NavigationController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AE1F122A8F8DDF00F2D06A /* NavigationController+Extension.swift */; };
+		25AE1F172A8F900300F2D06A /* AnyBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AE1F162A8F900300F2D06A /* AnyBarButtonItem.swift */; };
+		25AE1F192A8F910800F2D06A /* BarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AE1F182A8F910800F2D06A /* BarButtonItem.swift */; };
 		25D6EAE22A8A265C00C2BE57 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D6EAE12A8A265C00C2BE57 /* AppDelegate.swift */; };
 		25D6EAE62A8A265C00C2BE57 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D6EAE52A8A265C00C2BE57 /* ViewController.swift */; };
 		25D6EAEB2A8A265D00C2BE57 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 25D6EAEA2A8A265D00C2BE57 /* Assets.xcassets */; };
@@ -112,6 +115,9 @@
 		25AE1F072A8F4D2000F2D06A /* NavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
 		25AE1F0B2A8F508700F2D06A /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
 		25AE1F0E2A8F514A00F2D06A /* AddGameStepOneScreenFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddGameStepOneScreenFactory.swift; sourceTree = "<group>"; };
+		25AE1F122A8F8DDF00F2D06A /* NavigationController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NavigationController+Extension.swift"; sourceTree = "<group>"; };
+		25AE1F162A8F900300F2D06A /* AnyBarButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyBarButtonItem.swift; sourceTree = "<group>"; };
+		25AE1F182A8F910800F2D06A /* BarButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarButtonItem.swift; sourceTree = "<group>"; };
 		25D6EADE2A8A265C00C2BE57 /* GameDex.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GameDex.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		25D6EAE12A8A265C00C2BE57 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		25D6EAE52A8A265C00C2BE57 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -186,6 +192,8 @@
 				254E8B842A8A81F400C101C8 /* UIColorExtension.swift */,
 				25AE1ED52A8D1E9B00F2D06A /* Typography.swift */,
 				25AE1EE52A8E4D6800F2D06A /* DesignSystem.swift */,
+				25AE1F122A8F8DDF00F2D06A /* NavigationController+Extension.swift */,
+				25AE1F162A8F900300F2D06A /* AnyBarButtonItem.swift */,
 			);
 			path = DesignSystem;
 			sourceTree = "<group>";
@@ -264,6 +272,7 @@
 				25AE1EF42A8E663B00F2D06A /* PrimaryButton.swift */,
 				25AE1EF62A8E664E00F2D06A /* ButtonViewModel.swift */,
 				25AE1EF82A8E666E00F2D06A /* ButtonStyle.swift */,
+				25AE1F182A8F910800F2D06A /* BarButtonItem.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -672,6 +681,7 @@
 				25AE1ED22A8D1E2600F2D06A /* EmptyTextAndButton.swift in Sources */,
 				25AE1ECB2A8D1B1E00F2D06A /* MyCollectionViewModel.swift in Sources */,
 				25AE1F042A8F4A6200F2D06A /* Routing.swift in Sources */,
+				25AE1F192A8F910800F2D06A /* BarButtonItem.swift in Sources */,
 				25AE1ECE2A8D1D6F00F2D06A /* EmptyReason.swift in Sources */,
 				25AE1EF92A8E666E00F2D06A /* ButtonStyle.swift in Sources */,
 				25AE1ED02A8D1D9900F2D06A /* EmptyLoader.swift in Sources */,
@@ -682,7 +692,9 @@
 				25AE1EB22A8BC92200F2D06A /* CollectionViewController.swift in Sources */,
 				25AE1EBA2A8CB7E300F2D06A /* CollectionViewModel.swift in Sources */,
 				25AE1EE62A8E4D6800F2D06A /* DesignSystem.swift in Sources */,
+				25AE1F172A8F900300F2D06A /* AnyBarButtonItem.swift in Sources */,
 				25AE1F082A8F4D2000F2D06A /* NavigationController.swift in Sources */,
+				25AE1F132A8F8DDF00F2D06A /* NavigationController+Extension.swift in Sources */,
 				25AE1EEC2A8E4E6500F2D06A /* FormCollectionViewCell.swift in Sources */,
 				25AE1ED62A8D1E9B00F2D06A /* Typography.swift in Sources */,
 				25AE1EBC2A8CB82500F2D06A /* CellConfigurable.swift in Sources */,

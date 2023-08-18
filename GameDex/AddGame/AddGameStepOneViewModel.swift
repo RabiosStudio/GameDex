@@ -8,6 +8,7 @@
 import Foundation
 
 class AddGameStepOneViewModel: CollectionViewModel {
+    var rightButtonItem: AnyBarButtonItem? = .close
     let screenTitle: String? = L10n.stepOne
     var sections: [Section]
     
