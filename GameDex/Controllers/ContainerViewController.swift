@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 protocol ContainerViewControllerDelegate: AnyObject {
-    func configureBottomView(contentViewFactory: ContentViewFactory)
+    func configureBottomView(contentViewFactory: ContentViewFactory, progress: Float?)
 }
 
 protocol NavigationDelegate: AnyObject {
@@ -47,6 +47,15 @@ class ContainerViewController: UIViewController {
         view.backgroundColor = .systemGray4
         return view
     }()
+    
+    let progressView: UIProgressView = {
+        let view = UIProgressView(progressViewStyle: .bar)
+        view.trackTintColor = .systemGray4
+        view.progressTintColor = .primaryColor
+        view.frame = CGRect(x: 10, y: 100, width: UIScreen.main.bounds.width-20, height: 20)
+        return view
+    }()
+    
     private var bottomView = UIView()
     
     // MARK: - Init
@@ -90,7 +99,13 @@ class ContainerViewController: UIViewController {
 }
 
 extension ContainerViewController: ContainerViewControllerDelegate {
-    func configureBottomView(contentViewFactory: ContentViewFactory) {
+    func configureBottomView(contentViewFactory: ContentViewFactory, progress: Float?) {
+        if let progress = progress {
+            self.childVC.view.removeFromSuperview()
+            self.stackView.addArrangedSubview(self.progressView)
+            self.progressView.setProgress(Float(progress), animated: true)
+            self.stackView.addArrangedSubview(self.childVC.view)
+        }
         self.separatorView.removeFromSuperview()
         self.bottomView.removeFromSuperview()
         self.bottomView = contentViewFactory.bottomView
