@@ -20,7 +20,7 @@ final class PrimaryButton: UIButton {
     
     func configure(viewModel: ButtonViewModel) {
         self.layer.cornerRadius = DesignSystem.cornerRadiusBig
-        self.backgroundColor = UIColor.primaryColor
+        self.backgroundColor = UIColor.label
         self.titleLabel?.font = Typography.calloutBold.font
         self.titleLabel?.tintColor = .white
         self.titleLabel?.textAlignment = .center
