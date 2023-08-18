@@ -87,11 +87,16 @@ class CollectionViewController: UICollectionViewController, AnyChildVC {
     
     private func updateEmptyState(error: EmptyError?, tabBarOffset: CGFloat) {
         if let error = error {
+            
+            guard let image = UIImage(named: error.imageName) else {
+                return
+            }
+
             let emptyReason = EmptyTextAndButton(
                 tabBarOffset: tabBarOffset,
                 customTitle: error.errorTitle,
                 customDescription: error.errorDescription ?? "",
-                image: UIImage(named: error.imageName)!,
+                image: image,
                 buttonTitle: error.buttonTitle
             ) {
                 switch error.errorAction {                
