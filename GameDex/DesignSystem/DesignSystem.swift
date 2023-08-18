@@ -15,7 +15,7 @@ enum DesignSystem {
     static let paddingLarge: CGFloat = 20
     
     // MARK: - Fractional Size
-    static let fractionalSizeTiny: CGFloat = 0.15
+    static let fractionalSizeTiny: CGFloat = 0.09
     static let fractionalSizeVerySmall: CGFloat = 0.3
     static let fractionalSizeSmall: CGFloat = 0.4
     static let fractionalSizeRegular: CGFloat = 0.5
