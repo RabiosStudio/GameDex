@@ -17,3 +17,4 @@
 // Forms
 "title" = "Titre";
 "platform" = "Console";
+"isRequired" = "obligatoire";

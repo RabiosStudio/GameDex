@@ -20,6 +20,8 @@ internal enum L10n {
   internal static let emptyCollectionDescription = L10n.tr("Localizable", "emptyCollectionDescription", fallback: "It's time to add the very first game to your collection ! ")
   /// Your collection is empty
   internal static let emptyCollectionTitle = L10n.tr("Localizable", "emptyCollectionTitle", fallback: "Your collection is empty")
+  /// is Required
+  internal static let isRequired = L10n.tr("Localizable", "isRequired", fallback: "is Required")
   /// My Collection
   internal static let myCollection = L10n.tr("Localizable", "myCollection", fallback: "My Collection")
   /// My Profile
