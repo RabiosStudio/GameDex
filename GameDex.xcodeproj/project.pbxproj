@@ -231,8 +231,8 @@
 		25AE1EE82A8E4E2E00F2D06A /* Common */ = {
 			isa = PBXGroup;
 			children = (
-				25AE1EE92A8E4E4B00F2D06A /* FormCollectionCellViewModel.swift */,
-				25AE1EEB2A8E4E6500F2D06A /* FormCollectionViewCell.swift */,
+				25AE1EFA2A8E671800F2D06A /* CellsViewModel */,
+				25AE1EF32A8E65F400F2D06A /* Cells */,
 			);
 			path = Common;
 			sourceTree = "<group>";
@@ -245,6 +245,22 @@
 				25AE1EF82A8E666E00F2D06A /* ButtonStyle.swift */,
 			);
 			path = Components;
+			sourceTree = "<group>";
+		};
+		25AE1EF32A8E65F400F2D06A /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				25AE1EEB2A8E4E6500F2D06A /* FormCollectionViewCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		25AE1EFA2A8E671800F2D06A /* CellsViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				25AE1EE92A8E4E4B00F2D06A /* FormCollectionCellViewModel.swift */,
+			);
+			path = CellsViewModel;
 			sourceTree = "<group>";
 		};
 		25D6EAD52A8A265C00C2BE57 = {
