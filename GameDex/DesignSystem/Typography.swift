@@ -58,4 +58,3 @@ enum Typography {
         return .systemFont(ofSize: self.systemSize, weight: self.weight)
     }
 }
-

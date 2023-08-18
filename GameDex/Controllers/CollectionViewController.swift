@@ -83,24 +83,31 @@ class CollectionViewController: UICollectionViewController {
     
     // MARK: Methods
     
-    private func updateEmptyState(error: EmptyError, tabBarOffset: CGFloat) {
-        
-        let emptyReason = EmptyTextAndButton(tabBarOffset: tabBarOffset,
-                                             customTitle: error.errorTitle,
-                                             customDescription: error.errorDescription ?? "",
-                                             image: UIImage(named: error.imageName)!,
-                                             buttonTitle: error.buttonTitle) {
-            switch error.errorAction {
-            case .refresh:
-                print("refresh")
-            case .search:
-                print("search")
-            case .navigate:
-                print("navigate")
+    private func updateEmptyState(error: EmptyError?, tabBarOffset: CGFloat) {
+        if let error = error {
+            let emptyReason = EmptyTextAndButton(
+                tabBarOffset: tabBarOffset,
+                customTitle: error.errorTitle,
+                customDescription: error.errorDescription ?? "",
+                image: UIImage(named: error.imageName)!,
+                buttonTitle: error.buttonTitle
+            ) {
+                switch error.errorAction {                
+                case let .navigate(style):
+                    _ = Routing.shared.route(navigationStyle: style)
+                }
             }
+            collectionView.updateEmptyScreen(emptyReason: emptyReason)
+            collectionView.reloadData()
+        } else {
+            self.registerCells()
+            self.configureLayout()
+            self.collectionView.reloadData()
         }
-        collectionView.updateEmptyScreen(emptyReason: emptyReason)
-        collectionView.reloadData()
+    }
+    
+    private func configureLayout() {
+        self.collectionView.collectionViewLayout = self.layout
     }
     
     // MARK: UICollectionViewDataSource
