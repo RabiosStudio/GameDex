@@ -57,12 +57,11 @@ class ContainerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.addChild(childVC)
-        self.stackView.addArrangedSubview(childVC.view)
         self.view.addSubview(stackView)
+        self.stackView.addArrangedSubview(childVC.view)
         self.setupStackViewConstraints()
         self.childVC.didMove(toParent: self)
         self.view.backgroundColor = self.childVC.view.backgroundColor
-//        self.childVC.navigationDelegate = self
         self.navigationController?.configure()
     }
 
@@ -70,13 +69,11 @@ class ContainerViewController: UIViewController {
     
     private func setupStackViewConstraints() {
         self.stackView.translatesAutoresizingMaskIntoConstraints = false
-        let safeArea = self.view.safeAreaLayoutGuide
-        
         NSLayoutConstraint.activate([
-            self.stackView.topAnchor.constraint(equalTo: safeArea.topAnchor),
-            self.stackView.leadingAnchor.constraint(equalTo: safeArea.leadingAnchor),
-            self.stackView.trailingAnchor.constraint(equalTo: safeArea.trailingAnchor),
-            self.stackView.bottomAnchor.constraint(equalTo: safeArea.bottomAnchor)
+            self.stackView.topAnchor.constraint(equalTo: self.view.topAnchor),
+            self.stackView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
+            self.stackView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
+            self.stackView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
         ])
     }
 }
