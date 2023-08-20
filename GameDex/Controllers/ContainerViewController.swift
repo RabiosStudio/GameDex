@@ -30,6 +30,7 @@ class ContainerViewController: UIViewController {
         view.spacing = DesignSystem.paddingRegular
         return view
     }()
+    
     private let separatorView: UIView = {
         let view = UIView()
         NSLayoutConstraint.activate([
@@ -60,16 +61,16 @@ class ContainerViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.addChild(childVC)
-        self.view.addSubview(stackView)
         self.stackView.addArrangedSubview(childVC.view)
+        self.view.addSubview(stackView)
         self.setupStackViewConstraints()
-        self.childVC.didMove(toParent: self)
+        self.childVC.didMove(toParent: self)        
         self.view.backgroundColor = self.childVC.view.backgroundColor
         self.navigationController?.configure()
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
-
+        
     // MARK: - Methods
     
     @objc func keyboardWillShow(notification: NSNotification) {
@@ -84,7 +85,7 @@ class ContainerViewController: UIViewController {
     }
 
     @objc func keyboardWillHide(notification: NSNotification) {
-        if let keyboardHeight = self.keyboardHeight {
+        if self.keyboardHeight != nil {
             self.keyboardIsVisible = false
             animateViewSizeChange(reduced: false)
         }
