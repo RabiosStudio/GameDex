@@ -8,13 +8,12 @@
 import UIKit
 import EmptyDataSet_Swift
 
-class CollectionViewController: UICollectionViewController, AnyChildVC {
+class CollectionViewController: UICollectionViewController {
     
     // MARK: Properties
 
     private let viewModel: CollectionViewModel
     private let layout: UICollectionViewLayout
-    var navigationDelegate: NavigationDelegate?
     
     // MARK: Init
     
@@ -22,6 +21,7 @@ class CollectionViewController: UICollectionViewController, AnyChildVC {
         self.viewModel = viewModel
         self.layout = layoutBuilder.create()
         super.init(collectionViewLayout: self.layout)
+        self.collectionView.isScrollEnabled = self.viewModel.isScrollable
     }
     
     required init?(coder: NSCoder) {
@@ -38,6 +38,7 @@ class CollectionViewController: UICollectionViewController, AnyChildVC {
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
+        self.navigationController?.updateProgress()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -87,11 +88,9 @@ class CollectionViewController: UICollectionViewController, AnyChildVC {
     
     private func updateEmptyState(error: EmptyError?, tabBarOffset: CGFloat) {
         if let error = error {
-            
             guard let image = UIImage(named: error.imageName) else {
                 return
             }
-
             let emptyReason = EmptyTextAndButton(
                 tabBarOffset: tabBarOffset,
                 customTitle: error.errorTitle,
@@ -104,6 +103,7 @@ class CollectionViewController: UICollectionViewController, AnyChildVC {
                     _ = Routing.shared.route(navigationStyle: style)
                 }
             }
+            self.configureNavProgress()
             collectionView.updateEmptyScreen(emptyReason: emptyReason)
             collectionView.reloadData()
         } else {
@@ -119,14 +119,12 @@ class CollectionViewController: UICollectionViewController, AnyChildVC {
     
     private func configureNavBar() {
         self.navigationController?.configure()
-        self.navigationItem.title = self.viewModel.screenTitle
-        
-        self.navigationDelegate?.sendNavigationTitle(title: self.navigationItem.title)
-        
+        self.navigationController?.navigationBar.topItem?.title = self.viewModel.screenTitle
+        self.configureNavProgress()
+
         guard let rightButtonItem = self.viewModel.rightButtonItem else {
             return
         }
-        
         switch rightButtonItem {
         case .close:
             self.navigationItem.rightBarButtonItem = BarButtonItem(image: rightButtonItem.image()
@@ -136,8 +134,20 @@ class CollectionViewController: UICollectionViewController, AnyChildVC {
             guard let navigationItem = self.navigationItem.rightBarButtonItem else {
                 return
             }
-            self.navigationDelegate?.sendBarButtonItem(item: navigationItem)
+            self.navigationController?.navigationBar.topItem?.rightBarButtonItem = navigationItem
         }
+    }
+    
+    private func configureNavProgress() {
+        guard let progress = self.viewModel.progress else { return }
+        self.navigationController?.primaryColor = .primaryColor
+        self.navigationController?.backgroundColor = .systemGray4
+        
+        // show progress bar
+        self.navigationController?.isShowingProgressBar = true
+        
+        // update progress bar with given value
+        self.navigationController?.setProgress(progress, animated: false)
     }
 
     // MARK: UICollectionViewDataSource

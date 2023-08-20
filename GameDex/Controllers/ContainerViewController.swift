@@ -9,22 +9,13 @@ import Foundation
 import UIKit
 
 protocol ContainerViewControllerDelegate: AnyObject {
-    func configureBottomView(contentViewFactory: ContentViewFactory, progress: Float?)
-}
-
-protocol NavigationDelegate: AnyObject {
-    func sendBarButtonItem(item: UIBarButtonItem)
-    func sendNavigationTitle(title: String?)
-}
-
-protocol AnyChildVC: UIViewController {
-    var navigationDelegate: NavigationDelegate? { get set }
+    func configureBottomView(contentViewFactory: ContentViewFactory)
 }
 
 class ContainerViewController: UIViewController {
     
     // MARK: - Properties
-    private let childVC: AnyChildVC
+    private let childVC: UIViewController
     private let stackView: UIStackView = {
         let view = UIStackView()
         view.axis = .vertical
@@ -48,19 +39,11 @@ class ContainerViewController: UIViewController {
         return view
     }()
     
-    let progressView: UIProgressView = {
-        let view = UIProgressView(progressViewStyle: .bar)
-        view.trackTintColor = .systemGray4
-        view.progressTintColor = .primaryColor
-        view.frame = CGRect(x: 10, y: 100, width: UIScreen.main.bounds.width-20, height: 20)
-        return view
-    }()
-    
     private var bottomView = UIView()
     
     // MARK: - Init
     init(
-        childVC: AnyChildVC
+        childVC: UIViewController
     ) {
         self.childVC = childVC
         super.init(nibName: nil, bundle: nil)
@@ -79,7 +62,7 @@ class ContainerViewController: UIViewController {
         self.setupStackViewConstraints()
         self.childVC.didMove(toParent: self)
         self.view.backgroundColor = self.childVC.view.backgroundColor
-        self.childVC.navigationDelegate = self
+//        self.childVC.navigationDelegate = self
         self.navigationController?.configure()
     }
 
@@ -99,26 +82,11 @@ class ContainerViewController: UIViewController {
 }
 
 extension ContainerViewController: ContainerViewControllerDelegate {
-    func configureBottomView(contentViewFactory: ContentViewFactory, progress: Float?) {
-        if let progress = progress {
-            self.childVC.view.removeFromSuperview()
-            self.stackView.addArrangedSubview(self.progressView)
-            self.progressView.setProgress(Float(progress), animated: true)
-            self.stackView.addArrangedSubview(self.childVC.view)
-        }
+    func configureBottomView(contentViewFactory: ContentViewFactory) {
         self.separatorView.removeFromSuperview()
         self.bottomView.removeFromSuperview()
         self.bottomView = contentViewFactory.bottomView
         self.stackView.addArrangedSubview(self.separatorView)
         self.stackView.addArrangedSubview(self.bottomView)
-    }
-}
-
-extension ContainerViewController: NavigationDelegate {
-    func sendBarButtonItem(item: UIBarButtonItem) {
-        self.navigationItem.rightBarButtonItem = item
-    }
-    func sendNavigationTitle(title: String?) {
-        self.title = title
     }
 }
