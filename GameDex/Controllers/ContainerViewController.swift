@@ -41,6 +41,9 @@ class ContainerViewController: UIViewController {
     
     private var bottomView = UIView()
     
+    private var keyboardHeight: CGFloat?
+    private var keyboardIsVisible: Bool = false
+    
     // MARK: - Init
     init(
         childVC: UIViewController
@@ -63,9 +66,39 @@ class ContainerViewController: UIViewController {
         self.childVC.didMove(toParent: self)
         self.view.backgroundColor = self.childVC.view.backgroundColor
         self.navigationController?.configure()
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
 
     // MARK: - Methods
+    
+    @objc func keyboardWillShow(notification: NSNotification) {
+        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
+            self.keyboardHeight = keyboardSize.height
+            guard !self.keyboardIsVisible else {
+                return
+            }
+            self.keyboardIsVisible = true
+            animateViewSizeChange(reduced: true)
+        }
+    }
+
+    @objc func keyboardWillHide(notification: NSNotification) {
+        if let keyboardHeight = self.keyboardHeight {
+            self.keyboardIsVisible = false
+            animateViewSizeChange(reduced: false)
+        }
+    }
+    
+    private func animateViewSizeChange(reduced: Bool) {
+        guard let keyboardHeight = self.keyboardHeight else {
+            return
+        }
+        UIView.animate(withDuration: 0.5, animations: {
+            (reduced == true) ? (self.view.frame.size.height -= keyboardHeight) : (self.view.frame.size.height += keyboardHeight)
+                self.view.layoutIfNeeded()
+            })
+    }
     
     private func setupStackViewConstraints() {
         self.stackView.translatesAutoresizingMaskIntoConstraints = false

@@ -19,14 +19,10 @@ class FormLayoutBuilder: CollectionLayoutBuilder {
                                                      leading: DesignSystem.paddingSmall,
                                                      bottom: DesignSystem.paddingSmall,
                                                      trailing: DesignSystem.paddingSmall)
-        
-        let groupLayoutSize: CGSize = CGSize(
-            width: DesignSystem.fractionalSizeVeryBig,
-            height: DesignSystem.fractionalSizeTiny
+        let groupSize = NSCollectionLayoutSize(
+            widthDimension: .fractionalWidth(DesignSystem.fractionalSizeVeryBig),
+            heightDimension: .absolute(DesignSystem.sizeSmall)
         )
-        
-        let groupSize = NSCollectionLayoutSize(widthDimension: .fractionalWidth(groupLayoutSize.width),
-                                               heightDimension: .fractionalHeight(groupLayoutSize.height))
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize,
                                                        subitem: item,
                                                        count: 1)

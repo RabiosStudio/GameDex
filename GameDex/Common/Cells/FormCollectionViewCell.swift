@@ -13,11 +13,11 @@ class FormCollectionViewCell: UICollectionViewCell, CellConfigurable {
     
     private let textField: DTTextField = {
         let textField = DTTextField()
+        textField.floatPlaceholderActiveColor = .secondaryColor
+        textField.errorTextColor = .primaryColor
         textField.paddingYErrorLabel = DesignSystem.paddingVerySmall
         textField.animateFloatPlaceholder = true
-        textField.placeholderColor = .systemGray
         textField.hideErrorWhenEditing = true
-        textField.errorTextColor = .primaryColor
         textField.floatingDisplayStatus = .defaults
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
