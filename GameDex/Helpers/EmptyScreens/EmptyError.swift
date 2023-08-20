@@ -14,10 +14,8 @@ protocol EmptyError: LocalizedError {
     var errorAction: ErrorAction { get }
 }
 
-enum ErrorAction {
-    case refresh
-    case search
-    case navigate
+enum ErrorAction {    
+    case navigate(style: NavigationStyle)
 }
 
 extension EmptyError {

@@ -9,3 +9,12 @@
 
 // Button
 "addGameButtonTitle" = "Ajouter un jeu";
+"continue" = "Continuer";
+
+// Add Game Steps
+"stepOne" = "Etape 1/3";
+
+// Forms
+"title" = "Titre";
+"platform" = "Console";
+"isRequired" = "obligatoire";

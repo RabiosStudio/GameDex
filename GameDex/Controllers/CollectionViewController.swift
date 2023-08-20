@@ -21,6 +21,7 @@ class CollectionViewController: UICollectionViewController {
         self.viewModel = viewModel
         self.layout = layoutBuilder.create()
         super.init(collectionViewLayout: self.layout)
+        self.collectionView.isScrollEnabled = self.viewModel.isScrollable
     }
     
     required init?(coder: NSCoder) {
@@ -31,18 +32,20 @@ class CollectionViewController: UICollectionViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.collectionView.backgroundColor = .systemBackground
+        self.collectionView.backgroundColor = .primaryBackgroundColor
         self.registerCells()
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
+        self.navigationController?.updateProgress()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         let tabBarOffset = -(self.tabBarController?.tabBar.frame.size.height ?? 0)
         let emptyLoader = EmptyLoader(tabBarOffset: tabBarOffset)
+        self.configureNavBar()
         collectionView.updateEmptyScreen(emptyReason: emptyLoader)
         self.viewModel.loadData { [weak self] error in
             if let error = error {
@@ -83,26 +86,70 @@ class CollectionViewController: UICollectionViewController {
     
     // MARK: Methods
     
-    private func updateEmptyState(error: EmptyError, tabBarOffset: CGFloat) {
-        
-        let emptyReason = EmptyTextAndButton(tabBarOffset: tabBarOffset,
-                                             customTitle: error.errorTitle,
-                                             customDescription: error.errorDescription ?? "",
-                                             image: UIImage(named: error.imageName)!,
-                                             buttonTitle: error.buttonTitle) {
-            switch error.errorAction {
-            case .refresh:
-                print("refresh")
-            case .search:
-                print("search")
-            case .navigate:
-                print("navigate")
+    private func updateEmptyState(error: EmptyError?, tabBarOffset: CGFloat) {
+        if let error = error {
+            guard let image = UIImage(named: error.imageName) else {
+                return
             }
+            let emptyReason = EmptyTextAndButton(
+                tabBarOffset: tabBarOffset,
+                customTitle: error.errorTitle,
+                customDescription: error.errorDescription ?? "",
+                image: image,
+                buttonTitle: error.buttonTitle
+            ) {
+                switch error.errorAction {                
+                case let .navigate(style):
+                    _ = Routing.shared.route(navigationStyle: style)
+                }
+            }
+            self.configureNavProgress()
+            collectionView.updateEmptyScreen(emptyReason: emptyReason)
+            collectionView.reloadData()
+        } else {
+            self.registerCells()
+            self.configureLayout()
+            self.collectionView.reloadData()
         }
-        collectionView.updateEmptyScreen(emptyReason: emptyReason)
-        collectionView.reloadData()
     }
     
+    private func configureLayout() {
+        self.collectionView.collectionViewLayout = self.layout
+    }
+    
+    private func configureNavBar() {
+        self.navigationController?.configure()
+        self.navigationController?.navigationBar.topItem?.title = self.viewModel.screenTitle
+        self.configureNavProgress()
+
+        guard let rightButtonItem = self.viewModel.rightButtonItem else {
+            return
+        }
+        switch rightButtonItem {
+        case .close:
+            self.navigationItem.rightBarButtonItem = BarButtonItem(image: rightButtonItem.image()
+            ) { [weak self] in
+                self?.dismiss(animated: true)
+            }
+            guard let navigationItem = self.navigationItem.rightBarButtonItem else {
+                return
+            }
+            self.navigationController?.navigationBar.topItem?.rightBarButtonItem = navigationItem
+        }
+    }
+    
+    private func configureNavProgress() {
+        guard let progress = self.viewModel.progress else { return }
+        self.navigationController?.primaryColor = .primaryColor
+        self.navigationController?.backgroundColor = .systemGray4
+        
+        // show progress bar
+        self.navigationController?.isShowingProgressBar = true
+        
+        // update progress bar with given value
+        self.navigationController?.setProgress(progress, animated: false)
+    }
+
     // MARK: UICollectionViewDataSource
 
     override func numberOfSections(in collectionView: UICollectionView) -> Int {

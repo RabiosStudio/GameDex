@@ -29,10 +29,28 @@
 		25AE1ED62A8D1E9B00F2D06A /* Typography.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AE1ED52A8D1E9B00F2D06A /* Typography.swift */; };
 		25AE1EDA2A8D236000F2D06A /* MyCollectionError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AE1ED92A8D236000F2D06A /* MyCollectionError.swift */; };
 		25AE1EDC2A8D271D00F2D06A /* UIScrollView+Empty.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AE1EDB2A8D271D00F2D06A /* UIScrollView+Empty.swift */; };
-		25AE1EE02A8E21D100F2D06A /* BasicLayoutBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AE1EDF2A8E21D100F2D06A /* BasicLayoutBuilder.swift */; };
+		25AE1EE02A8E21D100F2D06A /* FormLayoutBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AE1EDF2A8E21D100F2D06A /* FormLayoutBuilder.swift */; };
+		25AE1EE62A8E4D6800F2D06A /* DesignSystem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AE1EE52A8E4D6800F2D06A /* DesignSystem.swift */; };
+		25AE1EEA2A8E4E4B00F2D06A /* FormCollectionCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AE1EE92A8E4E4B00F2D06A /* FormCollectionCellViewModel.swift */; };
+		25AE1EEC2A8E4E6500F2D06A /* FormCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AE1EEB2A8E4E6500F2D06A /* FormCollectionViewCell.swift */; };
+		25AE1EEF2A8E4FA100F2D06A /* AddGameStepOneViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AE1EEE2A8E4FA100F2D06A /* AddGameStepOneViewModel.swift */; };
+		25AE1EF12A8E4FFB00F2D06A /* AddGameStepOneSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AE1EF02A8E4FFB00F2D06A /* AddGameStepOneSection.swift */; };
+		25AE1EF52A8E663B00F2D06A /* PrimaryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AE1EF42A8E663B00F2D06A /* PrimaryButton.swift */; };
+		25AE1EF72A8E664E00F2D06A /* ButtonViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AE1EF62A8E664E00F2D06A /* ButtonViewModel.swift */; };
+		25AE1EF92A8E666E00F2D06A /* ButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AE1EF82A8E666E00F2D06A /* ButtonStyle.swift */; };
+		25AE1F022A8F499800F2D06A /* Navigator+NavigationStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AE1F012A8F499800F2D06A /* Navigator+NavigationStyle.swift */; };
+		25AE1F042A8F4A6200F2D06A /* Routing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AE1F032A8F4A6200F2D06A /* Routing.swift */; };
+		25AE1F082A8F4D2000F2D06A /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AE1F072A8F4D2000F2D06A /* NavigationController.swift */; };
+		25AE1F0C2A8F508700F2D06A /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AE1F0B2A8F508700F2D06A /* UIViewController+Extension.swift */; };
+		25AE1F0F2A8F514A00F2D06A /* AddGameStepOneScreenFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AE1F0E2A8F514A00F2D06A /* AddGameStepOneScreenFactory.swift */; };
+		25AE1F132A8F8DDF00F2D06A /* NavigationController+Configure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AE1F122A8F8DDF00F2D06A /* NavigationController+Configure.swift */; };
+		25AE1F172A8F900300F2D06A /* AnyBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AE1F162A8F900300F2D06A /* AnyBarButtonItem.swift */; };
+		25AE1F192A8F910800F2D06A /* BarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AE1F182A8F910800F2D06A /* BarButtonItem.swift */; };
+		25AE1F1B2A8F923B00F2D06A /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AE1F1A2A8F923B00F2D06A /* ContainerViewController.swift */; };
+		25AE1F1D2A8F926400F2D06A /* ContentViewFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AE1F1C2A8F926400F2D06A /* ContentViewFactory.swift */; };
+		25AE1F202A8F94A900F2D06A /* ContinueContentViewFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AE1F1F2A8F94A900F2D06A /* ContinueContentViewFactory.swift */; };
+		25AE1F302A92234000F2D06A /* UINavigationController+ProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AE1F2F2A92234000F2D06A /* UINavigationController+ProgressBar.swift */; };
 		25D6EAE22A8A265C00C2BE57 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D6EAE12A8A265C00C2BE57 /* AppDelegate.swift */; };
-		25D6EAE42A8A265C00C2BE57 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D6EAE32A8A265C00C2BE57 /* SceneDelegate.swift */; };
-		25D6EAE62A8A265C00C2BE57 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D6EAE52A8A265C00C2BE57 /* ViewController.swift */; };
 		25D6EAEB2A8A265D00C2BE57 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 25D6EAEA2A8A265D00C2BE57 /* Assets.xcassets */; };
 		25D6EAEE2A8A265D00C2BE57 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 25D6EAEC2A8A265D00C2BE57 /* LaunchScreen.storyboard */; };
 		25D6EAF92A8A265D00C2BE57 /* GameDexTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D6EAF82A8A265D00C2BE57 /* GameDexTests.swift */; };
@@ -86,11 +104,29 @@
 		25AE1ED52A8D1E9B00F2D06A /* Typography.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Typography.swift; sourceTree = "<group>"; };
 		25AE1ED92A8D236000F2D06A /* MyCollectionError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCollectionError.swift; sourceTree = "<group>"; };
 		25AE1EDB2A8D271D00F2D06A /* UIScrollView+Empty.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIScrollView+Empty.swift"; sourceTree = "<group>"; };
-		25AE1EDF2A8E21D100F2D06A /* BasicLayoutBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicLayoutBuilder.swift; sourceTree = "<group>"; };
+		25AE1EDF2A8E21D100F2D06A /* FormLayoutBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormLayoutBuilder.swift; sourceTree = "<group>"; };
+		25AE1EE52A8E4D6800F2D06A /* DesignSystem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DesignSystem.swift; sourceTree = "<group>"; };
+		25AE1EE92A8E4E4B00F2D06A /* FormCollectionCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormCollectionCellViewModel.swift; sourceTree = "<group>"; };
+		25AE1EEB2A8E4E6500F2D06A /* FormCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormCollectionViewCell.swift; sourceTree = "<group>"; };
+		25AE1EEE2A8E4FA100F2D06A /* AddGameStepOneViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddGameStepOneViewModel.swift; sourceTree = "<group>"; };
+		25AE1EF02A8E4FFB00F2D06A /* AddGameStepOneSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddGameStepOneSection.swift; sourceTree = "<group>"; };
+		25AE1EF42A8E663B00F2D06A /* PrimaryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimaryButton.swift; sourceTree = "<group>"; };
+		25AE1EF62A8E664E00F2D06A /* ButtonViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonViewModel.swift; sourceTree = "<group>"; };
+		25AE1EF82A8E666E00F2D06A /* ButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonStyle.swift; sourceTree = "<group>"; };
+		25AE1F012A8F499800F2D06A /* Navigator+NavigationStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Navigator+NavigationStyle.swift"; sourceTree = "<group>"; };
+		25AE1F032A8F4A6200F2D06A /* Routing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Routing.swift; sourceTree = "<group>"; };
+		25AE1F072A8F4D2000F2D06A /* NavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
+		25AE1F0B2A8F508700F2D06A /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
+		25AE1F0E2A8F514A00F2D06A /* AddGameStepOneScreenFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddGameStepOneScreenFactory.swift; sourceTree = "<group>"; };
+		25AE1F122A8F8DDF00F2D06A /* NavigationController+Configure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NavigationController+Configure.swift"; sourceTree = "<group>"; };
+		25AE1F162A8F900300F2D06A /* AnyBarButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyBarButtonItem.swift; sourceTree = "<group>"; };
+		25AE1F182A8F910800F2D06A /* BarButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarButtonItem.swift; sourceTree = "<group>"; };
+		25AE1F1A2A8F923B00F2D06A /* ContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerViewController.swift; sourceTree = "<group>"; };
+		25AE1F1C2A8F926400F2D06A /* ContentViewFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewFactory.swift; sourceTree = "<group>"; };
+		25AE1F1F2A8F94A900F2D06A /* ContinueContentViewFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContinueContentViewFactory.swift; sourceTree = "<group>"; };
+		25AE1F2F2A92234000F2D06A /* UINavigationController+ProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+ProgressBar.swift"; sourceTree = "<group>"; };
 		25D6EADE2A8A265C00C2BE57 /* GameDex.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GameDex.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		25D6EAE12A8A265C00C2BE57 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		25D6EAE32A8A265C00C2BE57 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		25D6EAE52A8A265C00C2BE57 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		25D6EAEA2A8A265D00C2BE57 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		25D6EAED2A8A265D00C2BE57 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		25D6EAEF2A8A265D00C2BE57 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -140,6 +176,7 @@
 			children = (
 				254E8B722A8A679F00C101C8 /* TabBarController.swift */,
 				25AE1EB12A8BC92200F2D06A /* CollectionViewController.swift */,
+				25AE1F1A2A8F923B00F2D06A /* ContainerViewController.swift */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -158,8 +195,13 @@
 		254E8B832A8A81C600C101C8 /* DesignSystem */ = {
 			isa = PBXGroup;
 			children = (
+				25AE1EF22A8E65EA00F2D06A /* Components */,
 				254E8B842A8A81F400C101C8 /* UIColorExtension.swift */,
 				25AE1ED52A8D1E9B00F2D06A /* Typography.swift */,
+				25AE1EE52A8E4D6800F2D06A /* DesignSystem.swift */,
+				25AE1F2F2A92234000F2D06A /* UINavigationController+ProgressBar.swift */,
+				25AE1F122A8F8DDF00F2D06A /* NavigationController+Configure.swift */,
+				25AE1F162A8F900300F2D06A /* AnyBarButtonItem.swift */,
 			);
 			path = DesignSystem;
 			sourceTree = "<group>";
@@ -168,7 +210,7 @@
 			isa = PBXGroup;
 			children = (
 				25AE1E9F2A8BA97E00F2D06A /* CollectionLayoutBuilder.swift */,
-				25AE1EDF2A8E21D100F2D06A /* BasicLayoutBuilder.swift */,
+				25AE1EDF2A8E21D100F2D06A /* FormLayoutBuilder.swift */,
 			);
 			path = CompositionalLayouts;
 			sourceTree = "<group>";
@@ -189,6 +231,7 @@
 				25AE1EB92A8CB7E300F2D06A /* CollectionViewModel.swift */,
 				25AE1EBB2A8CB82500F2D06A /* CellConfigurable.swift */,
 				25AE1EBD2A8CB85900F2D06A /* CellViewModel.swift */,
+				25AE1F1C2A8F926400F2D06A /* ContentViewFactory.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -212,6 +255,80 @@
 				25AE1ECA2A8D1B1E00F2D06A /* MyCollectionViewModel.swift */,
 			);
 			path = MyCollection;
+			sourceTree = "<group>";
+		};
+		25AE1EE72A8E4E0B00F2D06A /* AddGame */ = {
+			isa = PBXGroup;
+			children = (
+				25AE1EEE2A8E4FA100F2D06A /* AddGameStepOneViewModel.swift */,
+				25AE1EF02A8E4FFB00F2D06A /* AddGameStepOneSection.swift */,
+			);
+			path = AddGame;
+			sourceTree = "<group>";
+		};
+		25AE1EE82A8E4E2E00F2D06A /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				25AE1F1E2A8F949900F2D06A /* ContentViewFactory */,
+				25AE1EFA2A8E671800F2D06A /* CellsViewModel */,
+				25AE1EF32A8E65F400F2D06A /* Cells */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		25AE1EF22A8E65EA00F2D06A /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				25AE1EF42A8E663B00F2D06A /* PrimaryButton.swift */,
+				25AE1EF62A8E664E00F2D06A /* ButtonViewModel.swift */,
+				25AE1EF82A8E666E00F2D06A /* ButtonStyle.swift */,
+				25AE1F182A8F910800F2D06A /* BarButtonItem.swift */,
+			);
+			path = Components;
+			sourceTree = "<group>";
+		};
+		25AE1EF32A8E65F400F2D06A /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				25AE1EEB2A8E4E6500F2D06A /* FormCollectionViewCell.swift */,
+			);
+			path = Cells;
+			sourceTree = "<group>";
+		};
+		25AE1EFA2A8E671800F2D06A /* CellsViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				25AE1EE92A8E4E4B00F2D06A /* FormCollectionCellViewModel.swift */,
+			);
+			path = CellsViewModel;
+			sourceTree = "<group>";
+		};
+		25AE1EFF2A8F497700F2D06A /* Navigation */ = {
+			isa = PBXGroup;
+			children = (
+				25AE1F0D2A8F50FF00F2D06A /* ScreenFactory */,
+				25AE1F012A8F499800F2D06A /* Navigator+NavigationStyle.swift */,
+				25AE1F032A8F4A6200F2D06A /* Routing.swift */,
+				25AE1F072A8F4D2000F2D06A /* NavigationController.swift */,
+				25AE1F0B2A8F508700F2D06A /* UIViewController+Extension.swift */,
+			);
+			path = Navigation;
+			sourceTree = "<group>";
+		};
+		25AE1F0D2A8F50FF00F2D06A /* ScreenFactory */ = {
+			isa = PBXGroup;
+			children = (
+				25AE1F0E2A8F514A00F2D06A /* AddGameStepOneScreenFactory.swift */,
+			);
+			path = ScreenFactory;
+			sourceTree = "<group>";
+		};
+		25AE1F1E2A8F949900F2D06A /* ContentViewFactory */ = {
+			isa = PBXGroup;
+			children = (
+				25AE1F1F2A8F94A900F2D06A /* ContinueContentViewFactory.swift */,
+			);
+			path = ContentViewFactory;
 			sourceTree = "<group>";
 		};
 		25D6EAD52A8A265C00C2BE57 = {
@@ -242,14 +359,15 @@
 			isa = PBXGroup;
 			children = (
 				25AE1EDD2A8E12FF00F2D06A /* MyCollection */,
+				25AE1EE72A8E4E0B00F2D06A /* AddGame */,
+				25AE1EFF2A8F497700F2D06A /* Navigation */,
+				25AE1EE82A8E4E2E00F2D06A /* Common */,
 				25AE1EB72A8CB7CC00F2D06A /* Helpers */,
 				25AE1E9E2A8BA96900F2D06A /* CompositionalLayouts */,
 				254E8B832A8A81C600C101C8 /* DesignSystem */,
 				254E8B822A8A7DFD00C101C8 /* Resources */,
 				254E8B712A8A677600C101C8 /* Controllers */,
 				25D6EAE12A8A265C00C2BE57 /* AppDelegate.swift */,
-				25D6EAE32A8A265C00C2BE57 /* SceneDelegate.swift */,
-				25D6EAE52A8A265C00C2BE57 /* ViewController.swift */,
 				25D6EAEC2A8A265D00C2BE57 /* LaunchScreen.storyboard */,
 				25D6EAEF2A8A265D00C2BE57 /* Info.plist */,
 			);
@@ -579,25 +697,43 @@
 			files = (
 				25AE1ED22A8D1E2600F2D06A /* EmptyTextAndButton.swift in Sources */,
 				25AE1ECB2A8D1B1E00F2D06A /* MyCollectionViewModel.swift in Sources */,
+				25AE1F042A8F4A6200F2D06A /* Routing.swift in Sources */,
+				25AE1F192A8F910800F2D06A /* BarButtonItem.swift in Sources */,
 				25AE1ECE2A8D1D6F00F2D06A /* EmptyReason.swift in Sources */,
+				25AE1EF92A8E666E00F2D06A /* ButtonStyle.swift in Sources */,
 				25AE1ED02A8D1D9900F2D06A /* EmptyLoader.swift in Sources */,
+				25AE1F022A8F499800F2D06A /* Navigator+NavigationStyle.swift in Sources */,
 				25AE1EAE2A8BB89400F2D06A /* Section.swift in Sources */,
-				25D6EAE62A8A265C00C2BE57 /* ViewController.swift in Sources */,
 				25AE1ED42A8D1E4000F2D06A /* EmptyError.swift in Sources */,
 				25AE1EB22A8BC92200F2D06A /* CollectionViewController.swift in Sources */,
+				25AE1F202A8F94A900F2D06A /* ContinueContentViewFactory.swift in Sources */,
+				25AE1F1B2A8F923B00F2D06A /* ContainerViewController.swift in Sources */,
 				25AE1EBA2A8CB7E300F2D06A /* CollectionViewModel.swift in Sources */,
+				25AE1EE62A8E4D6800F2D06A /* DesignSystem.swift in Sources */,
+				25AE1F172A8F900300F2D06A /* AnyBarButtonItem.swift in Sources */,
+				25AE1F082A8F4D2000F2D06A /* NavigationController.swift in Sources */,
+				25AE1F132A8F8DDF00F2D06A /* NavigationController+Configure.swift in Sources */,
+				25AE1EEC2A8E4E6500F2D06A /* FormCollectionViewCell.swift in Sources */,
 				25AE1ED62A8D1E9B00F2D06A /* Typography.swift in Sources */,
 				25AE1EBC2A8CB82500F2D06A /* CellConfigurable.swift in Sources */,
 				254E8B732A8A679F00C101C8 /* TabBarController.swift in Sources */,
 				25AE1EDC2A8D271D00F2D06A /* UIScrollView+Empty.swift in Sources */,
 				254E8B912A8B6BC000C101C8 /* Assets.swift in Sources */,
 				254E8B852A8A81F400C101C8 /* UIColorExtension.swift in Sources */,
+				25AE1EEA2A8E4E4B00F2D06A /* FormCollectionCellViewModel.swift in Sources */,
+				25AE1EF52A8E663B00F2D06A /* PrimaryButton.swift in Sources */,
+				25AE1EF72A8E664E00F2D06A /* ButtonViewModel.swift in Sources */,
 				25AE1EDA2A8D236000F2D06A /* MyCollectionError.swift in Sources */,
+				25AE1F0C2A8F508700F2D06A /* UIViewController+Extension.swift in Sources */,
+				25AE1EEF2A8E4FA100F2D06A /* AddGameStepOneViewModel.swift in Sources */,
+				25AE1F0F2A8F514A00F2D06A /* AddGameStepOneScreenFactory.swift in Sources */,
+				25AE1F302A92234000F2D06A /* UINavigationController+ProgressBar.swift in Sources */,
 				25AE1EBE2A8CB85900F2D06A /* CellViewModel.swift in Sources */,
 				25D6EAE22A8A265C00C2BE57 /* AppDelegate.swift in Sources */,
-				25D6EAE42A8A265C00C2BE57 /* SceneDelegate.swift in Sources */,
+				25AE1F1D2A8F926400F2D06A /* ContentViewFactory.swift in Sources */,
+				25AE1EF12A8E4FFB00F2D06A /* AddGameStepOneSection.swift in Sources */,
 				254E8B942A8B6BCA00C101C8 /* Strings.swift in Sources */,
-				25AE1EE02A8E21D100F2D06A /* BasicLayoutBuilder.swift in Sources */,
+				25AE1EE02A8E21D100F2D06A /* FormLayoutBuilder.swift in Sources */,
 				25AE1EA02A8BA97E00F2D06A /* CollectionLayoutBuilder.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

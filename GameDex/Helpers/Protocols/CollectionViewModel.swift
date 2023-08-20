@@ -9,7 +9,10 @@ import Foundation
 
 protocol CollectionViewModel {
     var screenTitle: String? { get }
+    var rightButtonItem: AnyBarButtonItem? { get }
+    var isScrollable: Bool { get }
     var sections: [Section] { get }
+    var progress: Float? { get }
     func loadData(callback: @escaping (EmptyError?) -> ())
 }
 
