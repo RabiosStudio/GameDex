@@ -9,16 +9,19 @@ import Foundation
 import UIKit
 import DTTextField
 
-class FormCollectionViewCell: UICollectionViewCell, CellConfigurable {
+class FormCollectionViewCell: UICollectionViewCell, UITextFieldDelegate, CellConfigurable {
     
-    private let textField: DTTextField = {
+    private lazy var textField: DTTextField = {
         let textField = DTTextField()
-        textField.floatPlaceholderActiveColor = .secondaryColor
+        textField.floatPlaceholderActiveColor = .black
+        textField.placeholderColor = .systemGray
+        textField.textColor = .black
         textField.errorTextColor = .primaryColor
         textField.paddingYErrorLabel = DesignSystem.paddingVerySmall
         textField.animateFloatPlaceholder = true
         textField.hideErrorWhenEditing = true
         textField.floatingDisplayStatus = .defaults
+        textField.delegate = self
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
     }()
@@ -58,5 +61,10 @@ class FormCollectionViewCell: UICollectionViewCell, CellConfigurable {
         }
         self.textField.placeholder = cellVM.title
         self.textField.errorMessage = cellVM.title + L10n.isRequired
+    }
+    
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
 }
