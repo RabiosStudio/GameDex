@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import IQKeyboardManagerSwift
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -14,7 +15,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         window = UIWindow()
         window?.rootViewController = TabBarController()
-        window?.makeKeyAndVisible()        
+        window?.makeKeyAndVisible()
+        self.configureKeyboardManager()
         return true
+    }
+    
+    private func configureKeyboardManager() {
+        IQKeyboardManager.shared.enable = true
+        IQKeyboardManager.shared.shouldToolbarUsesTextFieldTintColor = true
+        IQKeyboardManager.shared.shouldResignOnTouchOutside = true
     }
 }

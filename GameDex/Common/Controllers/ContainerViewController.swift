@@ -15,6 +15,7 @@ protocol ContainerViewControllerDelegate: AnyObject {
 class ContainerViewController: UIViewController {
     
     // MARK: - Properties
+    
     private let childVC: UIViewController
     private let stackView: UIStackView = {
         let view = UIStackView()
@@ -30,6 +31,7 @@ class ContainerViewController: UIViewController {
         view.spacing = DesignSystem.paddingRegular
         return view
     }()
+    
     private let separatorView: UIView = {
         let view = UIView()
         NSLayoutConstraint.activate([
@@ -41,10 +43,11 @@ class ContainerViewController: UIViewController {
     
     private var bottomView = UIView()
     
+    private lazy var stackViewBottomConstraint: NSLayoutConstraint = self.stackView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
+    
     // MARK: - Init
-    init(
-        childVC: UIViewController
-    ) {
+    
+    init(childVC: UIViewController) {
         self.childVC = childVC
         super.init(nibName: nil, bundle: nil)
     }
@@ -56,25 +59,63 @@ class ContainerViewController: UIViewController {
     // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.addNotificationObservers()
+        self.setupContent()
+    }
+    
+    // MARK: - Methods
+    
+    private func addNotificationObservers() {
+        // Keyboard animation
+        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardAnimation), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardAnimation), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    @objc private func handleKeyboardAnimation(notification: NSNotification) {
+        guard let userInfo = notification.userInfo,
+              let duration = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double,
+              let curve = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? NSNumber else { return }
+        let animationOption = UIView.AnimationOptions(rawValue: curve.uintValue)
+        UIView.animate(
+            withDuration: duration,
+            delay: .zero,
+            options: animationOption,
+            animations: {
+                switch notification.name {
+                case UIResponder.keyboardWillShowNotification:
+                    guard let keyboardSize = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue  else { return }
+                    self.stackViewBottomConstraint.constant = -keyboardSize.height
+                case UIResponder.keyboardWillHideNotification:
+                    self.stackViewBottomConstraint.constant = .zero
+                default:
+                    break
+                }
+                self.view.layoutIfNeeded()
+            }
+        )
+    }
+    
+    private func setupContent() {
         self.addChild(childVC)
-        self.view.addSubview(stackView)
         self.stackView.addArrangedSubview(childVC.view)
+        self.view.addSubview(stackView)
         self.setupStackViewConstraints()
         self.childVC.didMove(toParent: self)
         self.view.backgroundColor = self.childVC.view.backgroundColor
         self.navigationController?.configure()
     }
-
-    // MARK: - Methods
     
     private func setupStackViewConstraints() {
         self.stackView.translatesAutoresizingMaskIntoConstraints = false
+        
         NSLayoutConstraint.activate([
             self.stackView.topAnchor.constraint(equalTo: self.view.topAnchor),
             self.stackView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
             self.stackView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
-            self.stackView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
+            self.stackViewBottomConstraint
         ])
+        self.view.setNeedsLayout()
+        self.view.layoutIfNeeded()
     }
 }
 

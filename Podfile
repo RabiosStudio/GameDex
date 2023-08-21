@@ -11,6 +11,7 @@ target 'GameDex' do
   pod 'EmptyDataSet-Swift', '~> 5.0.0'
   pod 'NVActivityIndicatorView'
   pod 'DTTextField'
+  pod 'IQKeyboardManagerSwift', '~> 6.5.0'
 
   target 'GameDexTests' do
     inherit! :search_paths

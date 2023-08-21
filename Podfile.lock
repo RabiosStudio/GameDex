@@ -1,6 +1,7 @@
 PODS:
   - DTTextField (0.7.0)
   - EmptyDataSet-Swift (5.0.0)
+  - IQKeyboardManagerSwift (6.5.12)
   - NVActivityIndicatorView (5.1.1):
     - NVActivityIndicatorView/Base (= 5.1.1)
   - NVActivityIndicatorView/Base (5.1.1)
@@ -10,6 +11,7 @@ PODS:
 DEPENDENCIES:
   - DTTextField
   - EmptyDataSet-Swift (~> 5.0.0)
+  - IQKeyboardManagerSwift (~> 6.5.0)
   - NVActivityIndicatorView
   - SwiftGen (~> 6.0)
   - SwiftLint
@@ -18,6 +20,7 @@ SPEC REPOS:
   trunk:
     - DTTextField
     - EmptyDataSet-Swift
+    - IQKeyboardManagerSwift
     - NVActivityIndicatorView
     - SwiftGen
     - SwiftLint
@@ -25,10 +28,11 @@ SPEC REPOS:
 SPEC CHECKSUMS:
   DTTextField: 768d5991211599145f289971e5936f8bb29990bb
   EmptyDataSet-Swift: eb382c0c87a2d9c678077385a595cec52da38171
+  IQKeyboardManagerSwift: 371b08cb39664fb56030f5345c815a4ffc74bbc0
   NVActivityIndicatorView: 1f6c5687f1171810aa27a3296814dc2d7dec3667
   SwiftGen: 1366a7f71aeef49954ca5a63ba4bef6b0f24138c
   SwiftLint: 1cc5cd61ba9bacb2194e340aeb47a2a37fda00b3
 
-PODFILE CHECKSUM: 91709afd7d5219ac4c42b0810a98201e029ffdf2
+PODFILE CHECKSUM: 82e17a760bd1dac7c86c05c570e429d8a3a7e45c
 
 COCOAPODS: 1.12.1

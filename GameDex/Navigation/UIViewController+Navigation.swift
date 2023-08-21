@@ -1,5 +1,5 @@
 //
-//  UIViewController+Controller.swift
+//  UIViewController+Navigation.swift
 //  GameDex
 //
 //  Created by Gabrielle Dalbera on 18/08/2023.

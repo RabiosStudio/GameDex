@@ -9,16 +9,20 @@ import Foundation
 import UIKit
 import DTTextField
 
-class FormCollectionViewCell: UICollectionViewCell, CellConfigurable {
+final class FormCollectionViewCell: UICollectionViewCell, CellConfigurable {
     
-    private let textField: DTTextField = {
+    private lazy var textField: DTTextField = {
         let textField = DTTextField()
+        textField.floatPlaceholderActiveColor = .black
+        textField.placeholderColor = .systemGray
+        textField.textColor = .black
+        textField.tintColor = .primaryColor
+        textField.errorTextColor = .primaryColor
         textField.paddingYErrorLabel = DesignSystem.paddingVerySmall
         textField.animateFloatPlaceholder = true
-        textField.placeholderColor = .systemGray
         textField.hideErrorWhenEditing = true
-        textField.errorTextColor = .primaryColor
         textField.floatingDisplayStatus = .defaults
+        textField.delegate = self
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
     }()
@@ -46,7 +50,7 @@ class FormCollectionViewCell: UICollectionViewCell, CellConfigurable {
             self.textField.bottomAnchor.constraint(equalTo: self.bottomAnchor)
         ])
     }
-   
+    
     override func prepareForReuse() {
         super.prepareForReuse()
         self.textField.placeholder = nil
@@ -56,7 +60,19 @@ class FormCollectionViewCell: UICollectionViewCell, CellConfigurable {
         guard let cellVM = cellViewModel as? FormCollectionCellViewModel else {
             return
         }
+        if cellVM.firstResponder {
+            self.textField.becomeFirstResponder()
+        }
         self.textField.placeholder = cellVM.title
         self.textField.errorMessage = cellVM.title + L10n.isRequired
+    }
+}
+
+// MARK: TextFieldDelegate
+
+extension FormCollectionViewCell: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        textField.resignFirstResponder()
+        return true
     }
 }
