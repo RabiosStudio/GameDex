@@ -15,7 +15,7 @@ final class AddGameStepOneViewModel: CollectionViewModel {
     var isScrollable: Bool = false
     var progress: Float?
     var rightButtonItem: AnyBarButtonItem? = .close
-    let screenTitle: String? = L10n.stepOne
+    let screenTitle: String? = L10n.stepOneOutOfThree
     var sections: [Section]
     weak var containerDelegate: ContainerViewControllerDelegate?
     lazy var continueContentViewFactory = ContinueContentViewFactory(delegate: self)
