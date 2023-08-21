@@ -7,7 +7,7 @@
 
 import Foundation
 
-class MyCollectionViewModel: CollectionViewModel {
+final class MyCollectionViewModel: CollectionViewModel {
     var isScrollable: Bool = true
     var progress: Float?
     var rightButtonItem: AnyBarButtonItem?

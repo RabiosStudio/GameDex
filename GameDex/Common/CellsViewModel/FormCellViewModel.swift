@@ -7,7 +7,7 @@
 
 import Foundation
 
-class FormCellViewModel: CellViewModel {
+final class FormCellViewModel: CellViewModel {
     
     var cellClass: AnyClass = FormCell.self
     let firstResponder: Bool

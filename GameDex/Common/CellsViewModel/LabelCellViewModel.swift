@@ -7,7 +7,7 @@
 
 import Foundation
 
-class LabelCellViewModel: CellViewModel {
+final class LabelCellViewModel: CellViewModel {
     
     var cellClass: AnyClass = LabelCell.self
     var indexPath: IndexPath?

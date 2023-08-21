@@ -7,7 +7,7 @@
 
 import Foundation
 
-class AddGameStepOneSection: Section {
+final class AddGameStepOneSection: Section {
     
     override init() {
         super.init()
