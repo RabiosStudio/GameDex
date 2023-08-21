@@ -13,14 +13,14 @@ class AddGameStepOneSection: Section {
         super.init()
         self.position = 0
         
-        let description = L10n.description
-        let descriptionLabel = LabelCellViewModel(text: description)
-        self.cellsVM.append(descriptionLabel)
+        let descriptionLabel = L10n.descriptionStepOne
+        let descriptionCellVM = LabelCellViewModel(text: descriptionLabel)
+        self.cellsVM.append(descriptionCellVM)
 
-        let gameTitle = FormCellViewModel(title: L10n.title, shouldActiveTextField: true)
-        self.cellsVM.append(gameTitle)
+        let gameTitleCellVM = FormCellViewModel(title: L10n.title, shouldActiveTextField: true)
+        self.cellsVM.append(gameTitleCellVM)
 
-        let platform = FormCellViewModel(title: L10n.platform, shouldActiveTextField: false)
-        self.cellsVM.append(platform)
+        let platformCellVM = FormCellViewModel(title: L10n.platform, shouldActiveTextField: false)
+        self.cellsVM.append(platformCellVM)
     }
 }
