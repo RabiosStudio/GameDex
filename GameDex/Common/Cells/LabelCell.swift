@@ -30,11 +30,6 @@ final class LabelCell: UICollectionViewCell, CellConfigurable {
         return nil
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        setupConstraints()
-    }
-    
     private func setupConstraints() {
         NSLayoutConstraint.activate([
             self.label.topAnchor.constraint(equalTo: self.topAnchor),
@@ -44,14 +39,11 @@ final class LabelCell: UICollectionViewCell, CellConfigurable {
         ])
     }
     
-    override func prepareForReuse() {
-        super.prepareForReuse()
-    }
-    
     func configure(cellViewModel: CellViewModel) {
         guard let cellVM = cellViewModel as? LabelCellViewModel else {
             return
         }
         self.label.text = cellVM.text
+        setupConstraints()
     }
 }

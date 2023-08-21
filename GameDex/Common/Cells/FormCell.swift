@@ -37,11 +37,6 @@ final class FormCell: UICollectionViewCell, CellConfigurable {
         return nil
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        setupConstraints()
-    }
-    
     private func setupConstraints() {
         NSLayoutConstraint.activate([
             self.textField.topAnchor.constraint(equalTo: self.topAnchor),
@@ -65,6 +60,7 @@ final class FormCell: UICollectionViewCell, CellConfigurable {
         }
         self.textField.placeholder = cellVM.title
         self.textField.errorMessage = cellVM.title + L10n.isRequired
+        setupConstraints()
     }
 }
 
