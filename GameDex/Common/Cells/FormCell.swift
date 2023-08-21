@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 import DTTextField
 
-final class FormCollectionViewCell: UICollectionViewCell, CellConfigurable {
+final class FormCell: UICollectionViewCell, CellConfigurable {
     
     private lazy var textField: DTTextField = {
         let textField = DTTextField()
@@ -37,11 +37,6 @@ final class FormCollectionViewCell: UICollectionViewCell, CellConfigurable {
         return nil
     }
     
-    override func layoutSubviews() {
-        super.layoutSubviews()
-        setupConstraints()
-    }
-    
     private func setupConstraints() {
         NSLayoutConstraint.activate([
             self.textField.topAnchor.constraint(equalTo: self.topAnchor),
@@ -57,7 +52,7 @@ final class FormCollectionViewCell: UICollectionViewCell, CellConfigurable {
     }
     
     func configure(cellViewModel: CellViewModel) {
-        guard let cellVM = cellViewModel as? FormCollectionCellViewModel else {
+        guard let cellVM = cellViewModel as? FormCellViewModel else {
             return
         }
         if cellVM.firstResponder {
@@ -65,12 +60,13 @@ final class FormCollectionViewCell: UICollectionViewCell, CellConfigurable {
         }
         self.textField.placeholder = cellVM.title
         self.textField.errorMessage = cellVM.title + L10n.isRequired
+        setupConstraints()
     }
 }
 
 // MARK: TextFieldDelegate
 
-extension FormCollectionViewCell: UITextFieldDelegate {
+extension FormCell: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true

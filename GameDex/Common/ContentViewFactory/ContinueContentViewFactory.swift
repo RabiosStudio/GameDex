@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class ContinueContentViewFactory: ContentViewFactory {
+final class ContinueContentViewFactory: ContentViewFactory {
     weak var delegate: AddGameStepOneVMDelegate?
     lazy var bottomView: UIView = {
         let continueButton = PrimaryButton()

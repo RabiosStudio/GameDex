@@ -7,16 +7,20 @@
 
 import Foundation
 
-class AddGameStepOneSection: Section {
+final class AddGameStepOneSection: Section {
     
     override init() {
         super.init()
         self.position = 0
+        
+        let descriptionLabel = L10n.addGameStepOneDescription
+        let descriptionCellVM = LabelCellViewModel(text: descriptionLabel)
+        self.cellsVM.append(descriptionCellVM)
 
-        let gameTitle = FormCollectionCellViewModel(title: L10n.title, shouldActiveTextField: true)
-        self.cellsVM.append(gameTitle)
+        let gameTitleCellVM = FormCellViewModel(title: L10n.title, shouldActiveTextField: true)
+        self.cellsVM.append(gameTitleCellVM)
 
-        let platform = FormCollectionCellViewModel(title: L10n.platform, shouldActiveTextField: false)
-        self.cellsVM.append(platform)
+        let platformCellVM = FormCellViewModel(title: L10n.platform, shouldActiveTextField: false)
+        self.cellsVM.append(platformCellVM)
     }
 }

@@ -11,7 +11,7 @@ protocol AddGameStepOneVMDelegate: AnyObject {
     func didTapPrimaryButton()
 }
 
-class AddGameStepOneViewModel: CollectionViewModel {
+final class AddGameStepOneViewModel: CollectionViewModel {
     var isScrollable: Bool = false
     var progress: Float?
     var rightButtonItem: AnyBarButtonItem? = .close

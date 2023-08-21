@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-class FormLayoutBuilder: CollectionLayoutBuilder {
+final class FormLayoutBuilder: CollectionLayoutBuilder {
     
     func create() -> UICollectionViewLayout {
         let itemSize = NSCollectionLayoutSize(

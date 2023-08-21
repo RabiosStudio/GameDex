@@ -12,6 +12,8 @@ import Foundation
 internal enum L10n {
   /// Add a game
   internal static let addGameButtonTitle = L10n.tr("Localizable", "addGameButtonTitle", fallback: "Add a game")
+  /// First, add the game title and optionnally the corresponding platform.
+  internal static let addGameStepOneDescription = L10n.tr("Localizable", "addGameStepOneDescription", fallback: "First, add the game title and optionnally the corresponding platform.")
   /// Continue
   internal static let `continue` = L10n.tr("Localizable", "continue", fallback: "Continue")
   /// Discover
