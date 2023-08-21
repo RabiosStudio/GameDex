@@ -14,6 +14,8 @@ internal enum L10n {
   internal static let addGameButtonTitle = L10n.tr("Localizable", "addGameButtonTitle", fallback: "Add a game")
   /// Continue
   internal static let `continue` = L10n.tr("Localizable", "continue", fallback: "Continue")
+  /// First, add the game title and optionnally the corresponding platform.
+  internal static let description = L10n.tr("Localizable", "description", fallback: "First, add the game title and optionnally the corresponding platform.")
   /// Discover
   internal static let discover = L10n.tr("Localizable", "discover", fallback: "Discover")
   /// It's time to add the very first game to your collection ! 

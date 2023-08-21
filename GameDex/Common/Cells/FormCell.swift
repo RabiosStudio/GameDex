@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 import DTTextField
 
-final class FormCollectionViewCell: UICollectionViewCell, CellConfigurable {
+final class FormCell: UICollectionViewCell, CellConfigurable {
     
     private lazy var textField: DTTextField = {
         let textField = DTTextField()
@@ -57,7 +57,7 @@ final class FormCollectionViewCell: UICollectionViewCell, CellConfigurable {
     }
     
     func configure(cellViewModel: CellViewModel) {
-        guard let cellVM = cellViewModel as? FormCollectionCellViewModel else {
+        guard let cellVM = cellViewModel as? FormCellViewModel else {
             return
         }
         if cellVM.firstResponder {
@@ -70,7 +70,7 @@ final class FormCollectionViewCell: UICollectionViewCell, CellConfigurable {
 
 // MARK: TextFieldDelegate
 
-extension FormCollectionViewCell: UITextFieldDelegate {
+extension FormCell: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true

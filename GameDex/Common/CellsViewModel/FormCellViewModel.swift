@@ -7,9 +7,9 @@
 
 import Foundation
 
-class FormCollectionCellViewModel: CellViewModel {
+class FormCellViewModel: CellViewModel {
     
-    var cellClass: AnyClass = FormCollectionViewCell.self
+    var cellClass: AnyClass = FormCell.self
     let firstResponder: Bool
     
     var indexPath: IndexPath?
