@@ -71,6 +71,9 @@ class ContainerViewController: UIViewController {
         self.childVC.didMove(toParent: self)        
         self.view.backgroundColor = self.childVC.view.backgroundColor
         self.navigationController?.configure()
+        
+        // Add Tap Gesture to close keyboard
+        self.addTapToHideKeyboard()
     }
         
     // MARK: - Methods
