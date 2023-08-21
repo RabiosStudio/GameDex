@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		076B99D18338973C548C5EFB /* Pods_GameDex.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 071408E05EBD04F01F341425 /* Pods_GameDex.framework */; };
+		252818602A93DF9D003FDC87 /* ContainerViewControllerDelegateMock.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2528185F2A93DF9D003FDC87 /* ContainerViewControllerDelegateMock.swift */; };
 		254354762A93AFF700E53351 /* LabelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254354752A93AFF700E53351 /* LabelCell.swift */; };
 		254354782A93B1BB00E53351 /* LabelCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254354772A93B1BB00E53351 /* LabelCellViewModel.swift */; };
 		254E8B732A8A679F00C101C8 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254E8B722A8A679F00C101C8 /* TabBarController.swift */; };
@@ -55,6 +56,7 @@
 		25AE1F3B2A938F6600F2D06A /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 25AE1F3A2A938F6600F2D06A /* .swiftlint.yml */; };
 		25AE1F3D2A939BE300F2D06A /* ButtonViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AE1F3C2A939BE300F2D06A /* ButtonViewModelTests.swift */; };
 		25AE1F3F2A939C0500F2D06A /* AddGameStepOneSectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AE1F3E2A939C0500F2D06A /* AddGameStepOneSectionTests.swift */; };
+		25AE1F412A939C2A00F2D06A /* AddGameStepOneViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AE1F402A939C2A00F2D06A /* AddGameStepOneViewModelTests.swift */; };
 		25D6EAE22A8A265C00C2BE57 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D6EAE12A8A265C00C2BE57 /* AppDelegate.swift */; };
 		25D6EAEB2A8A265D00C2BE57 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 25D6EAEA2A8A265D00C2BE57 /* Assets.xcassets */; };
 		25D6EAEE2A8A265D00C2BE57 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 25D6EAEC2A8A265D00C2BE57 /* LaunchScreen.storyboard */; };
@@ -76,6 +78,7 @@
 		04004D0858B3D2820F814154 /* Pods_GameDex_GameDexUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GameDex_GameDexUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		071408E05EBD04F01F341425 /* Pods_GameDex.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GameDex.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		199276E84FCF7ECF7ECE6434 /* Pods-GameDexTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GameDexTests.release.xcconfig"; path = "Target Support Files/Pods-GameDexTests/Pods-GameDexTests.release.xcconfig"; sourceTree = "<group>"; };
+		2528185F2A93DF9D003FDC87 /* ContainerViewControllerDelegateMock.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerViewControllerDelegateMock.swift; sourceTree = "<group>"; };
 		254354752A93AFF700E53351 /* LabelCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelCell.swift; sourceTree = "<group>"; };
 		254354772A93B1BB00E53351 /* LabelCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelCellViewModel.swift; sourceTree = "<group>"; };
 		254E8B722A8A679F00C101C8 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
@@ -124,6 +127,7 @@
 		25AE1F3A2A938F6600F2D06A /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		25AE1F3C2A939BE300F2D06A /* ButtonViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonViewModelTests.swift; sourceTree = "<group>"; };
 		25AE1F3E2A939C0500F2D06A /* AddGameStepOneSectionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddGameStepOneSectionTests.swift; sourceTree = "<group>"; };
+		25AE1F402A939C2A00F2D06A /* AddGameStepOneViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddGameStepOneViewModelTests.swift; sourceTree = "<group>"; };
 		25D6EADE2A8A265C00C2BE57 /* GameDex.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GameDex.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		25D6EAE12A8A265C00C2BE57 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		25D6EAEA2A8A265D00C2BE57 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -159,6 +163,22 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2528185D2A93DF39003FDC87 /* Mock */ = {
+			isa = PBXGroup;
+			children = (
+				2528185E2A93DF49003FDC87 /* Delegates */,
+			);
+			path = Mock;
+			sourceTree = "<group>";
+		};
+		2528185E2A93DF49003FDC87 /* Delegates */ = {
+			isa = PBXGroup;
+			children = (
+				2528185F2A93DF9D003FDC87 /* ContainerViewControllerDelegateMock.swift */,
+			);
+			path = Delegates;
+			sourceTree = "<group>";
+		};
 		254E8B712A8A677600C101C8 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
@@ -365,9 +385,11 @@
 		25D6EAF72A8A265D00C2BE57 /* GameDexTests */ = {
 			isa = PBXGroup;
 			children = (
+				2528185D2A93DF39003FDC87 /* Mock */,
 				25D6EAF82A8A265D00C2BE57 /* FormCellViewModelTests.swift */,
 				25AE1F3C2A939BE300F2D06A /* ButtonViewModelTests.swift */,
 				25AE1F3E2A939C0500F2D06A /* AddGameStepOneSectionTests.swift */,
+				25AE1F402A939C2A00F2D06A /* AddGameStepOneViewModelTests.swift */,
 			);
 			path = GameDexTests;
 			sourceTree = "<group>";
@@ -657,7 +679,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				25AE1F3F2A939C0500F2D06A /* AddGameStepOneSectionTests.swift in Sources */,
+				25AE1F412A939C2A00F2D06A /* AddGameStepOneViewModelTests.swift in Sources */,
 				25AE1F3D2A939BE300F2D06A /* ButtonViewModelTests.swift in Sources */,
+				252818602A93DF9D003FDC87 /* ContainerViewControllerDelegateMock.swift in Sources */,
 				25D6EAF92A8A265D00C2BE57 /* FormCellViewModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
