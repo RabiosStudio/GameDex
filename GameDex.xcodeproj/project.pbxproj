@@ -56,6 +56,7 @@
 		25D6EAE22A8A265C00C2BE57 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D6EAE12A8A265C00C2BE57 /* AppDelegate.swift */; };
 		25D6EAEB2A8A265D00C2BE57 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 25D6EAEA2A8A265D00C2BE57 /* Assets.xcassets */; };
 		25D6EAEE2A8A265D00C2BE57 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 25D6EAEC2A8A265D00C2BE57 /* LaunchScreen.storyboard */; };
+		25D6EAF92A8A265D00C2BE57 /* FormCellViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D6EAF82A8A265D00C2BE57 /* FormCellViewModelTests.swift */; };
 		AA97798407A80D347D6A8608 /* Pods_GameDexTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4443ED930B6E67BE6E3AB6A0 /* Pods_GameDexTests.framework */; };
 /* End PBXBuildFile section */
 
@@ -125,6 +126,7 @@
 		25D6EAED2A8A265D00C2BE57 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		25D6EAEF2A8A265D00C2BE57 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		25D6EAF42A8A265D00C2BE57 /* GameDexTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GameDexTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		25D6EAF82A8A265D00C2BE57 /* FormCellViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormCellViewModelTests.swift; sourceTree = "<group>"; };
 		4443ED930B6E67BE6E3AB6A0 /* Pods_GameDexTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GameDexTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A8E454CAE12E557645681AC /* Pods-GameDex-GameDexUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GameDex-GameDexUITests.release.xcconfig"; path = "Target Support Files/Pods-GameDex-GameDexUITests/Pods-GameDex-GameDexUITests.release.xcconfig"; sourceTree = "<group>"; };
 		A604EACCA42224399567C737 /* Pods-GameDexTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GameDexTests.debug.xcconfig"; path = "Target Support Files/Pods-GameDexTests/Pods-GameDexTests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -359,6 +361,7 @@
 		25D6EAF72A8A265D00C2BE57 /* GameDexTests */ = {
 			isa = PBXGroup;
 			children = (
+				25D6EAF82A8A265D00C2BE57 /* FormCellViewModelTests.swift */,
 			);
 			path = GameDexTests;
 			sourceTree = "<group>";
@@ -647,6 +650,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				25D6EAF92A8A265D00C2BE57 /* FormCellViewModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

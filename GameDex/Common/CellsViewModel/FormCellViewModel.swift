@@ -10,14 +10,14 @@ import Foundation
 final class FormCellViewModel: CellViewModel {
     
     var cellClass: AnyClass = FormCell.self
-    let firstResponder: Bool
+    let shouldActiveTextField: Bool
     
     var indexPath: IndexPath?
     var title: String
     
     init(title: String, shouldActiveTextField: Bool) {
         self.title = title
-        self.firstResponder = shouldActiveTextField
+        self.shouldActiveTextField = shouldActiveTextField
     }
     
 }
