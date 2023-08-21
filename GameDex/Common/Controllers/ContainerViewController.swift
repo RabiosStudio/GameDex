@@ -74,7 +74,7 @@ class ContainerViewController: UIViewController {
         self.navigationController?.configure()
         
         // Add Tap Gesture to close keyboard
-        self.addTapToHideKeyboard()
+        self.addTapGestureToHideKeyboard()
     }
         
     // MARK: - Methods
