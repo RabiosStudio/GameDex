@@ -42,8 +42,7 @@ class ContainerViewController: UIViewController {
     
     private var bottomView = UIView()
     
-    private var keyboardHeight: CGFloat?
-    private var keyboardIsVisible: Bool = false
+    private lazy var stackViewBottomConstraint: NSLayoutConstraint = self.stackView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
     
     // MARK: - Init
     init(
@@ -60,6 +59,11 @@ class ContainerViewController: UIViewController {
     // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Add notification to manage keyboard animation
+        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardAnimation), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardAnimation), name: UIResponder.keyboardWillHideNotification, object: nil)
+        
         self.addChild(childVC)
         self.stackView.addArrangedSubview(childVC.view)
         self.view.addSubview(stackView)
@@ -67,48 +71,45 @@ class ContainerViewController: UIViewController {
         self.childVC.didMove(toParent: self)        
         self.view.backgroundColor = self.childVC.view.backgroundColor
         self.navigationController?.configure()
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
         
     // MARK: - Methods
     
-    @objc func keyboardWillShow(notification: NSNotification) {
-        if let keyboardSize = (notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue {
-            self.keyboardHeight = keyboardSize.height
-            guard !self.keyboardIsVisible else {
-                return
+    @objc private func handleKeyboardAnimation(notification: NSNotification) {
+        guard let userInfo = notification.userInfo,
+              let duration = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double,
+              let curve = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? NSNumber else { return }
+        let animationOption = UIView.AnimationOptions(rawValue: curve.uintValue)
+        UIView.animate(
+            withDuration: duration,
+            delay: .zero,
+            options: animationOption,
+            animations: {
+                switch notification.name {
+                case UIResponder.keyboardWillShowNotification:
+                    guard let keyboardSize = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue  else { return }
+                        self.stackViewBottomConstraint.constant = -keyboardSize.height
+                case UIResponder.keyboardWillHideNotification:
+                    self.stackViewBottomConstraint.constant = .zero
+                default:
+                    break
+                }
+                self.view.layoutIfNeeded()
             }
-            self.keyboardIsVisible = true
-            animateViewSizeChange(reduced: true)
-        }
+        )
     }
 
-    @objc func keyboardWillHide(notification: NSNotification) {
-        if self.keyboardHeight != nil {
-            self.keyboardIsVisible = false
-            animateViewSizeChange(reduced: false)
-        }
-    }
-    
-    private func animateViewSizeChange(reduced: Bool) {
-        guard let keyboardHeight = self.keyboardHeight else {
-            return
-        }
-        UIView.animate(withDuration: 0.5, animations: {
-            (reduced == true) ? (self.view.frame.size.height -= keyboardHeight) : (self.view.frame.size.height += keyboardHeight)
-                self.view.layoutIfNeeded()
-            })
-    }
-    
     private func setupStackViewConstraints() {
         self.stackView.translatesAutoresizingMaskIntoConstraints = false
+        
         NSLayoutConstraint.activate([
             self.stackView.topAnchor.constraint(equalTo: self.view.topAnchor),
             self.stackView.leadingAnchor.constraint(equalTo: self.view.leadingAnchor),
             self.stackView.trailingAnchor.constraint(equalTo: self.view.trailingAnchor),
-            self.stackView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
+            self.stackViewBottomConstraint
         ])
+        self.view.setNeedsLayout()
+        self.view.layoutIfNeeded()
     }
 }
 
