@@ -13,8 +13,9 @@ protocol ContainerViewControllerDelegate: AnyObject {
 }
 
 class ContainerViewController: UIViewController {
-    
+
     // MARK: - Properties
+    
     private let childVC: UIViewController
     private let stackView: UIStackView = {
         let view = UIStackView()
@@ -45,9 +46,8 @@ class ContainerViewController: UIViewController {
     private lazy var stackViewBottomConstraint: NSLayoutConstraint = self.stackView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
     
     // MARK: - Init
-    init(
-        childVC: UIViewController
-    ) {
+    
+    init(childVC: UIViewController) {
         self.childVC = childVC
         super.init(nibName: nil, bundle: nil)
     }
@@ -64,6 +64,7 @@ class ContainerViewController: UIViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardAnimation), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardAnimation), name: UIResponder.keyboardWillHideNotification, object: nil)
         
+        // Set up subviews and navigation
         self.addChild(childVC)
         self.stackView.addArrangedSubview(childVC.view)
         self.view.addSubview(stackView)

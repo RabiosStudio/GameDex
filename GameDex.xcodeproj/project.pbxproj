@@ -41,9 +41,9 @@
 		25AE1F022A8F499800F2D06A /* Navigator+NavigationStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AE1F012A8F499800F2D06A /* Navigator+NavigationStyle.swift */; };
 		25AE1F042A8F4A6200F2D06A /* Routing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AE1F032A8F4A6200F2D06A /* Routing.swift */; };
 		25AE1F082A8F4D2000F2D06A /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AE1F072A8F4D2000F2D06A /* NavigationController.swift */; };
-		25AE1F0C2A8F508700F2D06A /* UIViewController+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AE1F0B2A8F508700F2D06A /* UIViewController+Extension.swift */; };
+		25AE1F0C2A8F508700F2D06A /* UIViewController+Navigation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AE1F0B2A8F508700F2D06A /* UIViewController+Navigation.swift */; };
 		25AE1F0F2A8F514A00F2D06A /* AddGameStepOneScreenFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AE1F0E2A8F514A00F2D06A /* AddGameStepOneScreenFactory.swift */; };
-		25AE1F132A8F8DDF00F2D06A /* NavigationController+Configure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AE1F122A8F8DDF00F2D06A /* NavigationController+Configure.swift */; };
+		25AE1F132A8F8DDF00F2D06A /* UINavigationController+Configure.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AE1F122A8F8DDF00F2D06A /* UINavigationController+Configure.swift */; };
 		25AE1F172A8F900300F2D06A /* AnyBarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AE1F162A8F900300F2D06A /* AnyBarButtonItem.swift */; };
 		25AE1F192A8F910800F2D06A /* BarButtonItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AE1F182A8F910800F2D06A /* BarButtonItem.swift */; };
 		25AE1F1B2A8F923B00F2D06A /* ContainerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AE1F1A2A8F923B00F2D06A /* ContainerViewController.swift */; };
@@ -117,9 +117,9 @@
 		25AE1F012A8F499800F2D06A /* Navigator+NavigationStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Navigator+NavigationStyle.swift"; sourceTree = "<group>"; };
 		25AE1F032A8F4A6200F2D06A /* Routing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Routing.swift; sourceTree = "<group>"; };
 		25AE1F072A8F4D2000F2D06A /* NavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
-		25AE1F0B2A8F508700F2D06A /* UIViewController+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Extension.swift"; sourceTree = "<group>"; };
+		25AE1F0B2A8F508700F2D06A /* UIViewController+Navigation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIViewController+Navigation.swift"; sourceTree = "<group>"; };
 		25AE1F0E2A8F514A00F2D06A /* AddGameStepOneScreenFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddGameStepOneScreenFactory.swift; sourceTree = "<group>"; };
-		25AE1F122A8F8DDF00F2D06A /* NavigationController+Configure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "NavigationController+Configure.swift"; sourceTree = "<group>"; };
+		25AE1F122A8F8DDF00F2D06A /* UINavigationController+Configure.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+Configure.swift"; sourceTree = "<group>"; };
 		25AE1F162A8F900300F2D06A /* AnyBarButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyBarButtonItem.swift; sourceTree = "<group>"; };
 		25AE1F182A8F910800F2D06A /* BarButtonItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BarButtonItem.swift; sourceTree = "<group>"; };
 		25AE1F1A2A8F923B00F2D06A /* ContainerViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContainerViewController.swift; sourceTree = "<group>"; };
@@ -202,7 +202,7 @@
 				25AE1ED52A8D1E9B00F2D06A /* Typography.swift */,
 				25AE1EE52A8E4D6800F2D06A /* DesignSystem.swift */,
 				25AE1F2F2A92234000F2D06A /* UINavigationController+ProgressBar.swift */,
-				25AE1F122A8F8DDF00F2D06A /* NavigationController+Configure.swift */,
+				25AE1F122A8F8DDF00F2D06A /* UINavigationController+Configure.swift */,
 				25AE1F162A8F900300F2D06A /* AnyBarButtonItem.swift */,
 			);
 			path = DesignSystem;
@@ -272,6 +272,7 @@
 		25AE1EE82A8E4E2E00F2D06A /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				254E8B712A8A677600C101C8 /* Controllers */,
 				25AE1F1E2A8F949900F2D06A /* ContentViewFactory */,
 				25AE1EFA2A8E671800F2D06A /* CellsViewModel */,
 				25AE1EF32A8E65F400F2D06A /* Cells */,
@@ -313,7 +314,7 @@
 				25AE1F012A8F499800F2D06A /* Navigator+NavigationStyle.swift */,
 				25AE1F032A8F4A6200F2D06A /* Routing.swift */,
 				25AE1F072A8F4D2000F2D06A /* NavigationController.swift */,
-				25AE1F0B2A8F508700F2D06A /* UIViewController+Extension.swift */,
+				25AE1F0B2A8F508700F2D06A /* UIViewController+Navigation.swift */,
 			);
 			path = Navigation;
 			sourceTree = "<group>";
@@ -363,13 +364,12 @@
 			children = (
 				25AE1EDD2A8E12FF00F2D06A /* MyCollection */,
 				25AE1EE72A8E4E0B00F2D06A /* AddGame */,
-				25AE1EFF2A8F497700F2D06A /* Navigation */,
 				25AE1EE82A8E4E2E00F2D06A /* Common */,
+				25AE1EFF2A8F497700F2D06A /* Navigation */,
 				25AE1EB72A8CB7CC00F2D06A /* Helpers */,
 				25AE1E9E2A8BA96900F2D06A /* CompositionalLayouts */,
 				254E8B832A8A81C600C101C8 /* DesignSystem */,
 				254E8B822A8A7DFD00C101C8 /* Resources */,
-				254E8B712A8A677600C101C8 /* Controllers */,
 				25D6EAE12A8A265C00C2BE57 /* AppDelegate.swift */,
 				25D6EAEC2A8A265D00C2BE57 /* LaunchScreen.storyboard */,
 				25D6EAEF2A8A265D00C2BE57 /* Info.plist */,
@@ -715,7 +715,7 @@
 				25AE1EE62A8E4D6800F2D06A /* DesignSystem.swift in Sources */,
 				25AE1F172A8F900300F2D06A /* AnyBarButtonItem.swift in Sources */,
 				25AE1F082A8F4D2000F2D06A /* NavigationController.swift in Sources */,
-				25AE1F132A8F8DDF00F2D06A /* NavigationController+Configure.swift in Sources */,
+				25AE1F132A8F8DDF00F2D06A /* UINavigationController+Configure.swift in Sources */,
 				25AE1EEC2A8E4E6500F2D06A /* FormCollectionViewCell.swift in Sources */,
 				25AE1ED62A8D1E9B00F2D06A /* Typography.swift in Sources */,
 				25AE1EBC2A8CB82500F2D06A /* CellConfigurable.swift in Sources */,
@@ -727,7 +727,7 @@
 				25AE1EF52A8E663B00F2D06A /* PrimaryButton.swift in Sources */,
 				25AE1EF72A8E664E00F2D06A /* ButtonViewModel.swift in Sources */,
 				25AE1EDA2A8D236000F2D06A /* MyCollectionError.swift in Sources */,
-				25AE1F0C2A8F508700F2D06A /* UIViewController+Extension.swift in Sources */,
+				25AE1F0C2A8F508700F2D06A /* UIViewController+Navigation.swift in Sources */,
 				25AE1F362A9350D700F2D06A /* UIViewController+Keyboard.swift in Sources */,
 				25AE1EEF2A8E4FA100F2D06A /* AddGameStepOneViewModel.swift in Sources */,
 				25AE1F0F2A8F514A00F2D06A /* AddGameStepOneScreenFactory.swift in Sources */,
