@@ -13,7 +13,7 @@ final class AddGameStepOneSection: Section {
         super.init()
         self.position = 0
         
-        let descriptionLabel = L10n.descriptionStepOne
+        let descriptionLabel = L10n.addGameStepOneDescription
         let descriptionCellVM = LabelCellViewModel(text: descriptionLabel)
         self.cellsVM.append(descriptionCellVM)
 
