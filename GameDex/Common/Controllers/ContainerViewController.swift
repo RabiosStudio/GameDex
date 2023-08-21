@@ -13,7 +13,7 @@ protocol ContainerViewControllerDelegate: AnyObject {
 }
 
 class ContainerViewController: UIViewController {
-
+    
     // MARK: - Properties
     
     private let childVC: UIViewController
@@ -59,25 +59,18 @@ class ContainerViewController: UIViewController {
     // MARK: - Life Cycle
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        // Add notification to manage keyboard animation
-        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardAnimation), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardAnimation), name: UIResponder.keyboardWillHideNotification, object: nil)
-        
-        // Set up subviews and navigation
-        self.addChild(childVC)
-        self.stackView.addArrangedSubview(childVC.view)
-        self.view.addSubview(stackView)
-        self.setupStackViewConstraints()
-        self.childVC.didMove(toParent: self)        
-        self.view.backgroundColor = self.childVC.view.backgroundColor
-        self.navigationController?.configure()
-        
-        // Add Tap Gesture to close keyboard
+        self.addNotificationObservers()
+        self.setupContent()
         self.addTapGestureToHideKeyboard()
     }
-        
+    
     // MARK: - Methods
+    
+    private func addNotificationObservers() {
+        // Keyboard animation
+        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardAnimation), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardAnimation), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
     
     @objc private func handleKeyboardAnimation(notification: NSNotification) {
         guard let userInfo = notification.userInfo,
@@ -92,7 +85,7 @@ class ContainerViewController: UIViewController {
                 switch notification.name {
                 case UIResponder.keyboardWillShowNotification:
                     guard let keyboardSize = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue  else { return }
-                        self.stackViewBottomConstraint.constant = -keyboardSize.height
+                    self.stackViewBottomConstraint.constant = -keyboardSize.height
                 case UIResponder.keyboardWillHideNotification:
                     self.stackViewBottomConstraint.constant = .zero
                 default:
@@ -102,7 +95,17 @@ class ContainerViewController: UIViewController {
             }
         )
     }
-
+    
+    private func setupContent() {
+        self.addChild(childVC)
+        self.stackView.addArrangedSubview(childVC.view)
+        self.view.addSubview(stackView)
+        self.setupStackViewConstraints()
+        self.childVC.didMove(toParent: self)
+        self.view.backgroundColor = self.childVC.view.backgroundColor
+        self.navigationController?.configure()
+    }
+    
     private func setupStackViewConstraints() {
         self.stackView.translatesAutoresizingMaskIntoConstraints = false
         
