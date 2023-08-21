@@ -50,6 +50,7 @@
 		25AE1F1D2A8F926400F2D06A /* ContentViewFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AE1F1C2A8F926400F2D06A /* ContentViewFactory.swift */; };
 		25AE1F202A8F94A900F2D06A /* ContinueContentViewFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AE1F1F2A8F94A900F2D06A /* ContinueContentViewFactory.swift */; };
 		25AE1F302A92234000F2D06A /* UINavigationController+ProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AE1F2F2A92234000F2D06A /* UINavigationController+ProgressBar.swift */; };
+		25AE1F3B2A938F6600F2D06A /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 25AE1F3A2A938F6600F2D06A /* .swiftlint.yml */; };
 		25D6EAE22A8A265C00C2BE57 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D6EAE12A8A265C00C2BE57 /* AppDelegate.swift */; };
 		25D6EAEB2A8A265D00C2BE57 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 25D6EAEA2A8A265D00C2BE57 /* Assets.xcassets */; };
 		25D6EAEE2A8A265D00C2BE57 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 25D6EAEC2A8A265D00C2BE57 /* LaunchScreen.storyboard */; };
@@ -82,7 +83,6 @@
 		071408E05EBD04F01F341425 /* Pods_GameDex.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GameDex.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		199276E84FCF7ECF7ECE6434 /* Pods-GameDexTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GameDexTests.release.xcconfig"; path = "Target Support Files/Pods-GameDexTests/Pods-GameDexTests.release.xcconfig"; sourceTree = "<group>"; };
 		254E8B722A8A679F00C101C8 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
-		254E8B792A8A791C00C101C8 /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		254E8B7A2A8A7C9D00C101C8 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		254E8B7F2A8A7D2600C101C8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
 		254E8B812A8A7D4600C101C8 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -125,6 +125,7 @@
 		25AE1F1C2A8F926400F2D06A /* ContentViewFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentViewFactory.swift; sourceTree = "<group>"; };
 		25AE1F1F2A8F94A900F2D06A /* ContinueContentViewFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContinueContentViewFactory.swift; sourceTree = "<group>"; };
 		25AE1F2F2A92234000F2D06A /* UINavigationController+ProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+ProgressBar.swift"; sourceTree = "<group>"; };
+		25AE1F3A2A938F6600F2D06A /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		25D6EADE2A8A265C00C2BE57 /* GameDex.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GameDex.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		25D6EAE12A8A265C00C2BE57 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		25D6EAEA2A8A265D00C2BE57 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -336,7 +337,7 @@
 			isa = PBXGroup;
 			children = (
 				254E8B8C2A8B69E000C101C8 /* swiftgen.yml */,
-				254E8B792A8A791C00C101C8 /* .swiftlint.yml */,
+				25AE1F3A2A938F6600F2D06A /* .swiftlint.yml */,
 				25D6EAE02A8A265C00C2BE57 /* GameDex */,
 				25D6EAF72A8A265D00C2BE57 /* GameDexTests */,
 				25D6EB012A8A265D00C2BE57 /* GameDexUITests */,
@@ -526,6 +527,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				25AE1F3B2A938F6600F2D06A /* .swiftlint.yml in Resources */,
 				25D6EAEE2A8A265D00C2BE57 /* LaunchScreen.storyboard in Resources */,
 				254E8B7E2A8A7D2600C101C8 /* Localizable.strings in Resources */,
 				25D6EAEB2A8A265D00C2BE57 /* Assets.xcassets in Resources */,
@@ -594,6 +596,7 @@
 		};
 		254E8B8F2A8B6A5000C101C8 /* SwiftGen */ = {
 			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);
