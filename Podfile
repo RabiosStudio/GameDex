@@ -17,11 +17,7 @@ target 'GameDex' do
     inherit! :search_paths
     # Pods for testing
   end
-
-  target 'GameDexUITests' do
-    # Pods for testing
-  end
-
+ 
 end
 
 post_install do |installer|
