@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 final class ContinueContentViewFactory: ContentViewFactory {
-    weak var delegate: AddGameStepOneVMDelegate?
+    weak var delegate: AddBasicGameInformationVMDelegate?
     lazy var bottomView: UIView = {
         let continueButton = PrimaryButton()
         continueButton.configure(
@@ -32,7 +32,7 @@ final class ContinueContentViewFactory: ContentViewFactory {
         return continueButton
     }()
     
-    init(delegate: AddGameStepOneVMDelegate?) {
+    init(delegate: AddBasicGameInformationVMDelegate?) {
         self.delegate = delegate
     }
     

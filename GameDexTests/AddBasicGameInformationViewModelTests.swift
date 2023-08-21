@@ -1,5 +1,5 @@
 //
-//  AddGameStepOneViewModelTests.swift
+//  AddBasicGameInformationViewModelTests.swift
 //  GameDexTests
 //
 //  Created by Gabrielle Dalbera on 21/08/2023.
@@ -8,11 +8,11 @@
 import XCTest
 @testable import GameDex
 
-final class AddGameStepOneViewModelTests: XCTestCase {
+final class AddBasicGameInformationViewModelTests: XCTestCase {
     
-    func test_init_GivenAddGameStepOneViewModel_ThenShouldSetPropertiesCorrectly () throws {
+    func test_init_GivenAddBasicGameInformationViewModel_ThenShouldSetPropertiesCorrectly () throws {
         // Given
-        let viewModel = AddGameStepOneViewModel()
+        let viewModel = AddBasicGameInformationViewModel()
         
         // Then
         XCTAssertEqual(viewModel.sections.count, 1)
@@ -20,7 +20,7 @@ final class AddGameStepOneViewModelTests: XCTestCase {
     
     func test_loadData_GivenContainerDelegateIsSet_ThenShouldSetPropertiesCorrectly () throws {
         // Given
-        let viewModel = AddGameStepOneViewModel()
+        let viewModel = AddBasicGameInformationViewModel()
         let delegate = ContainerViewControllerDelegateMock()
         viewModel.containerDelegate = delegate
         var callbackIsCalled = false

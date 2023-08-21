@@ -1,5 +1,5 @@
 //
-//  AddGameStepOneSectionTests.swift
+//  AddBasicGameInformationSectionTests.swift
 //  GameDexTests
 //
 //  Created by Gabrielle Dalbera on 21/08/2023.
@@ -8,16 +8,16 @@
 import XCTest
 @testable import GameDex
 
-final class AddGameStepOneSectionTests: XCTestCase {
+final class AddBasicGameInformationSectionTests: XCTestCase {
     
-    func test_init_GivenAddStepOneSection_ThenShouldSetPropertiesCorrectly () throws {
+    func test_init_GivenAddBasicGameInformationSection_ThenShouldSetPropertiesCorrectly () throws {
         // Given
         let descriptionCellVM = LabelCellViewModel(text: L10n.addGameBasicInformationDescription)
         let gameTitleCellVM = FormCellViewModel(title: L10n.title, shouldActiveTextField: true)
         let platformCellVM = FormCellViewModel(title: L10n.platform, shouldActiveTextField: false)
         
         // When
-        let section = AddGameStepOneSection()
+        let section = AddBasicGameInformationSection()
         
         // Then
         XCTAssertEqual(section.cellsVM.count, 3)

@@ -1,5 +1,5 @@
 //
-//  AddGameStepOneSection.swift
+//  AddBasicGameInformationSection.swift
 //  GameDex
 //
 //  Created by Gabrielle Dalbera on 17/08/2023.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class AddGameStepOneSection: Section {
+final class AddBasicGameInformationSection: Section {
     
     override init() {
         super.init()

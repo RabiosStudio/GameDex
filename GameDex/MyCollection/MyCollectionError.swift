@@ -39,7 +39,7 @@ enum MyCollectionError: EmptyError {
     var errorAction: ErrorAction {
         switch self {
         case .noItems:
-            let addGameController = AddGameStepOneScreenFactory().viewController
+            let addGameController = AddBasicGameInformationScreenFactory().viewController
             let startToAddGame: NavigationStyle = .present(
                 controller: addGameController,
                 completionBlock: nil)
