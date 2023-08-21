@@ -49,7 +49,7 @@ final class FormCollectionViewCell: UICollectionViewCell, CellConfigurable {
             self.textField.bottomAnchor.constraint(equalTo: self.bottomAnchor)
         ])
     }
-   
+    
     override func prepareForReuse() {
         super.prepareForReuse()
         self.textField.placeholder = nil
@@ -60,7 +60,7 @@ final class FormCollectionViewCell: UICollectionViewCell, CellConfigurable {
             return
         }
         if cellVM.firstResponder {
-        self.textField.becomeFirstResponder()
+            self.textField.becomeFirstResponder()
         }
         self.textField.placeholder = cellVM.title
         self.textField.errorMessage = cellVM.title + L10n.isRequired
