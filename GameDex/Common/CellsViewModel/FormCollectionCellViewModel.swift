@@ -10,14 +10,14 @@ import Foundation
 class FormCollectionCellViewModel: CellViewModel {
     
     var cellClass: AnyClass = FormCollectionViewCell.self
-    var firstResponder: Bool
+    let firstResponder: Bool
     
     var indexPath: IndexPath?
     var title: String
     
-    init(title: String, firstResponder: Bool) {
+    init(title: String, shouldActiveTextField: Bool) {
         self.title = title
-        self.firstResponder = firstResponder
+        self.firstResponder = shouldActiveTextField
     }
     
 }
