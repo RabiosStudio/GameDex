@@ -1,0 +1,29 @@
+{
+  "configurations" : [
+    {
+      "id" : "29B6EED3-6D4C-4059-8ED1-AF23127ADFD0",
+      "name" : "Test Scheme Action",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "targetForVariableExpansion" : {
+      "containerPath" : "container:GameDex.xcodeproj",
+      "identifier" : "25D6EADD2A8A265C00C2BE57",
+      "name" : "GameDex"
+    }
+  },
+  "testTargets" : [
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:GameDex.xcodeproj",
+        "identifier" : "25D6EAF32A8A265D00C2BE57",
+        "name" : "GameDexTests"
+      }
+    }
+  ],
+  "version" : 1
+}
