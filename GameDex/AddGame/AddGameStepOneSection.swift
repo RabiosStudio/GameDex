@@ -13,10 +13,10 @@ class AddGameStepOneSection: Section {
         super.init()
         self.position = 0
 
-        let gameTitle = FormCollectionCellViewModel(title: L10n.title)
+        let gameTitle = FormCollectionCellViewModel(title: L10n.title, firstResponder: true)
         self.cellsVM.append(gameTitle)
 
-        let platform = FormCollectionCellViewModel(title: L10n.platform)
+        let platform = FormCollectionCellViewModel(title: L10n.platform, firstResponder: false)
         self.cellsVM.append(platform)
     }
 }

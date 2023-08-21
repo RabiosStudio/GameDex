@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 import DTTextField
 
-class FormCollectionViewCell: UICollectionViewCell, UITextFieldDelegate, CellConfigurable {
+final class FormCollectionViewCell: UICollectionViewCell, UITextFieldDelegate, CellConfigurable {
     
     private lazy var textField: DTTextField = {
         let textField = DTTextField()
@@ -58,6 +58,9 @@ class FormCollectionViewCell: UICollectionViewCell, UITextFieldDelegate, CellCon
     func configure(cellViewModel: CellViewModel) {
         guard let cellVM = cellViewModel as? FormCollectionCellViewModel else {
             return
+        }
+        if cellVM.firstResponder {
+        self.textField.becomeFirstResponder()
         }
         self.textField.placeholder = cellVM.title
         self.textField.errorMessage = cellVM.title + L10n.isRequired
