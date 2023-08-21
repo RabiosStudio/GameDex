@@ -10,10 +10,10 @@ import Foundation
 // swiftlint:disable explicit_type_interface function_parameter_count identifier_name line_length
 // swiftlint:disable nesting type_body_length type_name vertical_whitespace_opening_braces
 internal enum L10n {
+  /// First, add the game title and optionnally the corresponding platform.
+  internal static let addBasicGameInformationDescription = L10n.tr("Localizable", "addBasicGameInformationDescription", fallback: "First, add the game title and optionnally the corresponding platform.")
   /// Add a game
   internal static let addGame = L10n.tr("Localizable", "addGame", fallback: "Add a game")
-  /// First, add the game title and optionnally the corresponding platform.
-  internal static let addGameBasicInformationDescription = L10n.tr("Localizable", "addGameBasicInformationDescription", fallback: "First, add the game title and optionnally the corresponding platform.")
   /// Continue
   internal static let `continue` = L10n.tr("Localizable", "continue", fallback: "Continue")
   /// Discover

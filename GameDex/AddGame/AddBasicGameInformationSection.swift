@@ -13,7 +13,7 @@ final class AddBasicGameInformationSection: Section {
         super.init()
         self.position = 0
         
-        let descriptionLabel = L10n.addGameBasicInformationDescription
+        let descriptionLabel = L10n.addBasicGameInformationDescription
         let descriptionCellVM = LabelCellViewModel(text: descriptionLabel)
         self.cellsVM.append(descriptionCellVM)
 
