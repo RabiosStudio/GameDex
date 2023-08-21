@@ -61,7 +61,6 @@ class ContainerViewController: UIViewController {
         super.viewDidLoad()
         self.addNotificationObservers()
         self.setupContent()
-        self.addTapGestureToHideKeyboard()
     }
     
     // MARK: - Methods

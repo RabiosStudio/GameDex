@@ -16,6 +16,7 @@ final class FormCollectionViewCell: UICollectionViewCell, CellConfigurable {
         textField.floatPlaceholderActiveColor = .black
         textField.placeholderColor = .systemGray
         textField.textColor = .black
+        textField.tintColor = .primaryColor
         textField.errorTextColor = .primaryColor
         textField.paddingYErrorLabel = DesignSystem.paddingVerySmall
         textField.animateFloatPlaceholder = true
