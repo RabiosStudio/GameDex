@@ -16,9 +16,13 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         window = UIWindow()
         window?.rootViewController = TabBarController()
         window?.makeKeyAndVisible()
+        self.configureKeyboardManager()
+        return true
+    }
+    
+    private func configureKeyboardManager() {
         IQKeyboardManager.shared.enable = true
         IQKeyboardManager.shared.shouldToolbarUsesTextFieldTintColor = true
         IQKeyboardManager.shared.shouldResignOnTouchOutside = true
-        return true
     }
 }
