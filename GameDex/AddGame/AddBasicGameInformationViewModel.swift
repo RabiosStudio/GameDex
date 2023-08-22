@@ -6,10 +6,7 @@
 //
 
 import Foundation
-
-protocol AddBasicGameInformationVMDelegate: AnyObject {
-    func didTapPrimaryButton()
-}
+import SwiftyMocky
 
 final class AddBasicGameInformationViewModel: CollectionViewModel {
     var isScrollable: Bool = false
@@ -31,8 +28,8 @@ final class AddBasicGameInformationViewModel: CollectionViewModel {
     }
 }
 
-extension AddBasicGameInformationViewModel: AddBasicGameInformationVMDelegate {
+extension AddBasicGameInformationViewModel: PrimaryButtonDelegate {
     func didTapPrimaryButton() {
         print("button tapped!")
-    }
+    }    
 }

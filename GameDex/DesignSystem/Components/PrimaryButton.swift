@@ -8,10 +8,22 @@
 import Foundation
 import UIKit
 
+// sourcery: AutoMockable
+protocol PrimaryButtonDelegate: AnyObject {
+    func didTapPrimaryButton()
+}
+
 final class PrimaryButton: UIButton {
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    weak var delegate: PrimaryButtonDelegate?
+
+    init(delegate: PrimaryButtonDelegate?) {
+        super.init(frame: .zero)
+        self.delegate = delegate
+        self.addTarget(
+            self,
+            action: #selector(didTapPrimaryButton(_:)),
+            for: .touchUpInside
+        )
     }
     
     required init?(coder aDecoder: NSCoder) {
@@ -36,5 +48,9 @@ final class PrimaryButton: UIButton {
                 self.heightAnchor.constraint(equalToConstant: viewModel.buttonStyle.height)
             ]
         )
+    }
+    
+    @objc private func didTapPrimaryButton(_ sender: PrimaryButton) {
+        self.delegate?.didTapPrimaryButton()
     }
 }

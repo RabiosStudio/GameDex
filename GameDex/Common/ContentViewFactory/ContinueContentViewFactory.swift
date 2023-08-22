@@ -9,20 +9,15 @@ import Foundation
 import UIKit
 
 final class ContinueContentViewFactory: ContentViewFactory {
-    weak var delegate: AddBasicGameInformationVMDelegate?
     lazy var bottomView: UIView = {
-        let continueButton = PrimaryButton()
+        let continueButton = PrimaryButton(delegate: self.delegate)
         continueButton.configure(
             viewModel: ButtonViewModel(
                 title: L10n.continue,
                 buttonStyle: .regular
             )
         )
-        continueButton.addTarget(
-            self,
-            action: #selector(didTapPrimaryButton(_:)),
-            for: .touchUpInside
-        )
+        
         continueButton.layoutMargins = UIEdgeInsets(
             top: DesignSystem.paddingLarge,
             left: DesignSystem.paddingLarge,
@@ -31,12 +26,9 @@ final class ContinueContentViewFactory: ContentViewFactory {
         )
         return continueButton
     }()
+    weak var delegate: PrimaryButtonDelegate?
     
-    init(delegate: AddBasicGameInformationVMDelegate?) {
+    init(delegate: PrimaryButtonDelegate?) {
         self.delegate = delegate
-    }
-    
-    @objc private func didTapPrimaryButton(_ sender: PrimaryButton) {
-        self.delegate?.didTapPrimaryButton()
-    }
+    }        
 }
