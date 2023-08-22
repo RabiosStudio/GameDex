@@ -7,6 +7,7 @@
 
 import XCTest
 @testable import GameDex
+import SwiftyMocky
 
 final class AddBasicGameInformationViewModelTests: XCTestCase {
     
@@ -21,18 +22,23 @@ final class AddBasicGameInformationViewModelTests: XCTestCase {
     func test_loadData_GivenContainerDelegateIsSet_ThenShouldSetPropertiesCorrectly() {
         // Given
         let viewModel = AddBasicGameInformationViewModel()
-        let delegate = ContainerViewControllerDelegateMock()
-        viewModel.containerDelegate = delegate
+        let mockDelegate = ContainerViewControllerDelegateMock()
+        viewModel.containerDelegate = mockDelegate
         var callbackIsCalled = false
         
         // When
         viewModel.loadData { _ in
             callbackIsCalled = true
-        }        
+        }
         
         // Then
+        mockDelegate.verify(
+            .configureBottomView(
+                contentViewFactory: .any
+            ),
+            count: .once
+        )
         XCTAssertTrue(callbackIsCalled)
-        XCTAssertTrue(delegate.configureBottomViewCalled)
         
     }
 }

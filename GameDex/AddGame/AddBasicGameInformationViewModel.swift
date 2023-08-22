@@ -7,10 +7,6 @@
 
 import Foundation
 
-protocol AddBasicGameInformationVMDelegate: AnyObject {
-    func didTapPrimaryButton()
-}
-
 final class AddBasicGameInformationViewModel: CollectionViewModel {
     var isScrollable: Bool = false
     var progress: Float?
@@ -31,7 +27,7 @@ final class AddBasicGameInformationViewModel: CollectionViewModel {
     }
 }
 
-extension AddBasicGameInformationViewModel: AddBasicGameInformationVMDelegate {
+extension AddBasicGameInformationViewModel: PrimaryButtonDelegate {
     func didTapPrimaryButton() {
         print("button tapped!")
     }

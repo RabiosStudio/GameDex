@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 
+// sourcery: AutoMockable
 protocol ContainerViewControllerDelegate: AnyObject {
     func configureBottomView(contentViewFactory: ContentViewFactory)
 }

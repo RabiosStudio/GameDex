@@ -1,0 +1,12 @@
+sources:
+  include:
+  - ../GameDex
+templates:
+- /Users/gabrielledalbera/Dev/OpenClassrooms/Projet 12/GameDex/.mockyC2671B51-FA6F-4F44-9BE4-E496C4436AB4/.template.swifttemplate
+output: /Users/gabrielledalbera/Dev/OpenClassrooms/Projet 12/GameDex/.mockyC2671B51-FA6F-4F44-9BE4-E496C4436AB4/types.yaml
+args:
+  swiftyMocky:
+    import:
+    - Foundation
+    testable:
+    - GameDex
