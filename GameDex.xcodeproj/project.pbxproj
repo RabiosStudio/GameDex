@@ -169,6 +169,38 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		251C86762A94DB4D0020C794 /* MyCollection */ = {
+			isa = PBXGroup;
+			children = (
+				25F663292A94CF13005F5412 /* MyCollectionViewModelTests.swift */,
+			);
+			path = MyCollection;
+			sourceTree = "<group>";
+		};
+		251C86772A94DB640020C794 /* Navigation */ = {
+			isa = PBXGroup;
+			children = (
+				251C86782A94DB700020C794 /* ScreenFactory */,
+			);
+			path = Navigation;
+			sourceTree = "<group>";
+		};
+		251C86782A94DB700020C794 /* ScreenFactory */ = {
+			isa = PBXGroup;
+			children = (
+				25F6632A2A94CF13005F5412 /* AddBasicGameInformationScreenFactoryTests.swift */,
+			);
+			path = ScreenFactory;
+			sourceTree = "<group>";
+		};
+		251C86792A94DB8E0020C794 /* ContentViewFactory */ = {
+			isa = PBXGroup;
+			children = (
+				25F663282A94CF13005F5412 /* ContinueContentViewFactoryTests.swift */,
+			);
+			path = ContentViewFactory;
+			sourceTree = "<group>";
+		};
 		2528185D2A93DF39003FDC87 /* Mock */ = {
 			isa = PBXGroup;
 			children = (
@@ -383,9 +415,8 @@
 		25D6EAF72A8A265D00C2BE57 /* GameDexTests */ = {
 			isa = PBXGroup;
 			children = (
-				25F6632A2A94CF13005F5412 /* AddBasicGameInformationScreenFactoryTests.swift */,
-				25F663282A94CF13005F5412 /* ContinueContentViewFactoryTests.swift */,
-				25F663292A94CF13005F5412 /* MyCollectionViewModelTests.swift */,
+				251C86762A94DB4D0020C794 /* MyCollection */,
+				251C86772A94DB640020C794 /* Navigation */,
 				25F663252A94C95D005F5412 /* AddGame */,
 				25F663232A94C93B005F5412 /* Common */,
 				25F663262A94C97B005F5412 /* DesignSystem */,
@@ -397,6 +428,7 @@
 		25F663232A94C93B005F5412 /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				251C86792A94DB8E0020C794 /* ContentViewFactory */,
 				25F663242A94C940005F5412 /* CellsViewModel */,
 			);
 			path = Common;
