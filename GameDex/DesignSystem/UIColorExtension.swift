@@ -13,4 +13,8 @@ extension UIColor {
     class var primaryBackgroundColor: UIColor {
         return UIColor.systemBackground
     }
+    
+    class var secondaryBackgroundColor: UIColor {
+        return UIColor.systemGray4
+    }
 }

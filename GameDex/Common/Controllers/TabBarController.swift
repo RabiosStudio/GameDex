@@ -5,7 +5,7 @@ class TabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let vc1 = CollectionViewController(viewModel: MyCollectionViewModel(), layoutBuilder: FormLayoutBuilder())
+        let vc1 = ContainerViewController(viewModel: MyCollectionViewModel(), layoutBuilder: FormLayoutBuilder())
         let vc2 = UIViewController()
         let vc3 = UIViewController()
         

@@ -16,8 +16,15 @@ protocol ContainerViewControllerDelegate: AnyObject {
 class ContainerViewController: UIViewController {
     
     // MARK: - Properties
+        
+    private let viewModel: CollectionViewModel
+    private let layout: UICollectionViewLayout
     
-    private let childVC: UIViewController
+    private lazy var collectionView: UICollectionView = UICollectionView(
+        frame: .zero,
+        collectionViewLayout: self.layout
+    )
+    
     private let stackView: UIStackView = {
         let view = UIStackView()
         view.axis = .vertical
@@ -38,7 +45,7 @@ class ContainerViewController: UIViewController {
         NSLayoutConstraint.activate([
             view.heightAnchor.constraint(equalToConstant: 1)
         ])
-        view.backgroundColor = .systemGray4
+        view.backgroundColor = .secondaryBackgroundColor
         return view
     }()
     
@@ -48,8 +55,9 @@ class ContainerViewController: UIViewController {
     
     // MARK: - Init
     
-    init(childVC: UIViewController) {
-        self.childVC = childVC
+    init(viewModel: CollectionViewModel, layoutBuilder: CollectionLayoutBuilder) {
+        self.viewModel = viewModel
+        self.layout = layoutBuilder.create()
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -58,14 +66,127 @@ class ContainerViewController: UIViewController {
     }
     
     // MARK: - Life Cycle
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         self.addNotificationObservers()
         self.setupContent()
     }
     
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        super.viewWillTransition(to: size, with: coordinator)
+        self.navigationController?.updateProgress()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        let tabBarOffset = -(self.tabBarController?.tabBar.frame.size.height ?? 0)
+        let emptyLoader = EmptyLoader(tabBarOffset: tabBarOffset)
+        self.configureNavBar()
+        self.collectionView.updateEmptyScreen(emptyReason: emptyLoader)
+        self.viewModel.loadData { [weak self] error in
+            if let error = error {
+                let tabBarOffset = -(self?.tabBarController?.tabBar.frame.size.height ?? 0)
+                self?.updateEmptyState(error: error,
+                                       tabBarOffset: tabBarOffset)
+            }
+        }
+    }
+    
+    // MARK: - Register
+    
+    public func registerCells() {
+        let sections = self.viewModel.sections
+        
+        for i in 0..<sections.count {
+            let section = sections[i]
+            
+            // Store section position
+            section.position = i
+            
+            let items = section.cellsVM
+            
+            for j in 0..<items.count {
+                let item = items[j]
+                
+                // We store index path for item
+                item.indexPath = IndexPath(row: j,
+                                           section: i)
+                                                              
+                self.collectionView.register(
+                    item.cellClass,
+                    forCellWithReuseIdentifier: item.reuseIdentifier
+                )
+            }
+        }
+    }
+    
     // MARK: - Methods
     
+    private func updateEmptyState(error: EmptyError?, tabBarOffset: CGFloat) {
+        if let error = error {
+            guard let image = UIImage(named: error.imageName) else {
+                return
+            }
+            let emptyReason = EmptyTextAndButton(
+                tabBarOffset: tabBarOffset,
+                customTitle: error.errorTitle,
+                customDescription: error.errorDescription ?? "",
+                image: image,
+                buttonTitle: error.buttonTitle
+            ) {
+                switch error.errorAction {
+                case let .navigate(style):
+                    _ = Routing.shared.route(navigationStyle: style)
+                }
+            }
+            self.configureNavProgress()
+            collectionView.updateEmptyScreen(emptyReason: emptyReason)
+            collectionView.reloadData()
+        } else {
+            self.registerCells()
+            self.configureLayout()
+            self.collectionView.reloadData()
+        }
+    }
+    
+    private func configureLayout() {
+        self.collectionView.collectionViewLayout = self.layout
+    }
+    
+    private func configureNavBar() {
+        self.navigationController?.configure()
+        self.navigationController?.navigationBar.topItem?.title = self.viewModel.screenTitle
+        self.configureNavProgress()
+
+        guard let rightButtonItem = self.viewModel.rightButtonItem else {
+            return
+        }
+        switch rightButtonItem {
+        case .close:
+            self.navigationItem.rightBarButtonItem = BarButtonItem(image: rightButtonItem.image()
+            ) { [weak self] in
+                self?.dismiss(animated: true)
+            }
+            guard let navigationItem = self.navigationItem.rightBarButtonItem else {
+                return
+            }
+            self.navigationController?.navigationBar.topItem?.rightBarButtonItem = navigationItem
+        }
+    }
+    
+    private func configureNavProgress() {
+        guard let progress = self.viewModel.progress else { return }
+        self.navigationController?.primaryColor = .primaryColor
+        self.navigationController?.backgroundColor = .secondaryBackgroundColor
+        
+        // show progress bar
+        self.navigationController?.isShowingProgressBar = true
+        
+        // update progress bar with given value
+        self.navigationController?.setProgress(progress, animated: false)
+    }
+
     private func addNotificationObservers() {
         // Keyboard animation
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardAnimation), name: UIResponder.keyboardWillShowNotification, object: nil)
@@ -97,12 +218,14 @@ class ContainerViewController: UIViewController {
     }
     
     private func setupContent() {
-        self.addChild(childVC)
-        self.stackView.addArrangedSubview(childVC.view)
+        self.registerCells()
+        self.collectionView.delegate = self
+        self.collectionView.dataSource = self
+        self.collectionView.bounces = self.viewModel.isBounceable
+        self.stackView.addArrangedSubview(self.collectionView)
         self.view.addSubview(stackView)
         self.setupStackViewConstraints()
-        self.childVC.didMove(toParent: self)
-        self.view.backgroundColor = self.childVC.view.backgroundColor
+        self.view.backgroundColor = .primaryBackgroundColor
         self.navigationController?.configure()
     }
     
@@ -119,6 +242,41 @@ class ContainerViewController: UIViewController {
         self.view.layoutIfNeeded()
     }
 }
+
+// MARK: CollectionViewDelegate
+
+extension ContainerViewController: UICollectionViewDelegate {
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        let cellVM = self.viewModel.item(at: indexPath)
+        let configurableCell = cell as? CellConfigurable
+        cell.layoutIfNeeded()
+        configurableCell?.configure(cellViewModel: cellVM)
+    }
+}
+
+// MARK: CollectionViewDataSource
+
+extension ContainerViewController: UICollectionViewDataSource {
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return self.viewModel.numberOfSections()
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return self.viewModel.numberOfItems(in: section)
+    }
+
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cellVM = self.viewModel.item(at: indexPath)
+        let reuseIdentifier = cellVM.reuseIdentifier
+        let cell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: reuseIdentifier,
+            for: indexPath
+        )
+        return cell
+    }
+}
+
+// MARK: ContainerViewControllerDelegate
 
 extension ContainerViewController: ContainerViewControllerDelegate {
     func configureBottomView(contentViewFactory: ContentViewFactory) {

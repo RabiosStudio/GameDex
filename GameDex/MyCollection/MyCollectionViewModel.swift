@@ -8,7 +8,7 @@
 import Foundation
 
 final class MyCollectionViewModel: CollectionViewModel {
-    var isScrollable: Bool = true
+    var isBounceable: Bool = true
     var progress: Float?
     var rightButtonItem: AnyBarButtonItem?
     let screenTitle: String? = L10n.myCollection    
