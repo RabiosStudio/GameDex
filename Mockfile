@@ -1,0 +1,14 @@
+sourceryCommand: null
+sourceryTemplate: null
+GameDexTests:
+  sources:
+    include:
+    - ./GameDex
+  output: ./GameDexTests/Mock/Mock.generated.swift
+  targets:
+  - GameDexTests
+  testable:
+  - GameDex
+  import:
+  - Foundation
+  - UIKit
