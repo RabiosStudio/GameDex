@@ -45,7 +45,7 @@ class ContainerViewController: UIViewController {
         NSLayoutConstraint.activate([
             view.heightAnchor.constraint(equalToConstant: 1)
         ])
-        view.backgroundColor = .systemGray4
+        view.backgroundColor = .secondaryBackgroundColor
         return view
     }()
     
@@ -178,7 +178,7 @@ class ContainerViewController: UIViewController {
     private func configureNavProgress() {
         guard let progress = self.viewModel.progress else { return }
         self.navigationController?.primaryColor = .primaryColor
-        self.navigationController?.backgroundColor = .systemGray4
+        self.navigationController?.backgroundColor = .secondaryBackgroundColor
         
         // show progress bar
         self.navigationController?.isShowingProgressBar = true
