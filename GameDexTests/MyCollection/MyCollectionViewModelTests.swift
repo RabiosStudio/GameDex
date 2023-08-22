@@ -33,7 +33,7 @@ final class MyCollectionViewModelTests: XCTestCase {
         XCTAssertEqual(numberOfSections, .zero)
         }
 
-    func ttest_numberOfItems_ThenShouldReturnZero() {
+    func test_numberOfItems_ThenShouldReturnZero() {
         // Given
         let viewModel = MyCollectionViewModel()
         // When
