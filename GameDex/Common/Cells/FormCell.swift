@@ -55,7 +55,7 @@ final class FormCell: UICollectionViewCell, CellConfigurable {
         guard let cellVM = cellViewModel as? FormCellViewModel else {
             return
         }
-        if cellVM.firstResponder {
+        if cellVM.shouldActiveTextField {
             self.textField.becomeFirstResponder()
         }
         self.textField.placeholder = cellVM.title

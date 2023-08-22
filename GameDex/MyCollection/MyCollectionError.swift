@@ -14,14 +14,14 @@ enum MyCollectionError: EmptyError {
     var errorTitle: String {
         switch self {
         case .noItems:
-            return L10n.emptyCollectionTitle
+            return L10n.emptyMyCollectionTitle
         }
     }
     
     var errorDescription: String {
         switch self {
         case .noItems:
-            return L10n.emptyCollectionDescription
+            return L10n.emptyMyCollectionDescription
         }
     }
     
@@ -32,14 +32,14 @@ enum MyCollectionError: EmptyError {
     var buttonTitle: String {
         switch self {
         case .noItems:
-            return L10n.addGameButtonTitle
+            return L10n.addGame
         }
     }
     
     var errorAction: ErrorAction {
         switch self {
         case .noItems:
-            let addGameController = AddGameStepOneScreenFactory().viewController
+            let addGameController = AddBasicGameInformationScreenFactory().viewController
             let startToAddGame: NavigationStyle = .present(
                 controller: addGameController,
                 completionBlock: nil)

@@ -1,5 +1,5 @@
 //
-//  AddGameStepOneSection.swift
+//  AddBasicGameInformationSection.swift
 //  GameDex
 //
 //  Created by Gabrielle Dalbera on 17/08/2023.
@@ -7,13 +7,13 @@
 
 import Foundation
 
-final class AddGameStepOneSection: Section {
+final class AddBasicGameInformationSection: Section {
     
     override init() {
         super.init()
         self.position = 0
         
-        let descriptionLabel = L10n.addGameStepOneDescription
+        let descriptionLabel = L10n.addBasicGameInformationDescription
         let descriptionCellVM = LabelCellViewModel(text: descriptionLabel)
         self.cellsVM.append(descriptionCellVM)
 
