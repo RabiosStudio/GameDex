@@ -12,12 +12,8 @@ struct AddBasicGameInformationScreenFactory: ScreenFactory {
     
     var viewController: UIViewController {
         let viewModel = AddBasicGameInformationViewModel()
-        let layout = FormLayoutBuilder()
-        let addGameController = CollectionViewController(
-            viewModel: viewModel,
-            layoutBuilder: layout
-        )
-        let containerController = ContainerViewController(childVC: addGameController)
+        let layoutBuilder = FormLayoutBuilder()
+        let containerController = ContainerViewController(viewModel: viewModel, layoutBuilder: layoutBuilder)
         viewModel.containerDelegate = containerController
         let navigationController = UINavigationController(rootViewController: containerController)
         return navigationController
