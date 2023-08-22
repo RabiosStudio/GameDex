@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import SwiftyMocky
 
 final class AddBasicGameInformationViewModel: CollectionViewModel {
     var isScrollable: Bool = false
