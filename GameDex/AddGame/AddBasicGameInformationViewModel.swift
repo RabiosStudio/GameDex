@@ -8,7 +8,7 @@
 import Foundation
 
 final class AddBasicGameInformationViewModel: CollectionViewModel {
-    var isScrollable: Bool = false
+    var isBounceable: Bool = false
     var progress: Float?
     var rightButtonItem: AnyBarButtonItem? = .close
     let screenTitle: String? = L10n.stepOneOutOfThree
