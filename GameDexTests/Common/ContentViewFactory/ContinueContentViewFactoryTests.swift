@@ -11,7 +11,7 @@ import SwiftyMocky
 
 final class ContinueContentViewFactoryTests: XCTestCase {
     
-    func test_init_GivenDelegate_ThenShouldSetDelegateCorrectly () throws {
+    func test_init_GivenDelegate_ThenShouldSetDelegateCorrectly() {
         // Given
         let delegateMock = PrimaryButtonDelegateMock()
         // When

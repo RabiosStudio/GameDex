@@ -10,7 +10,7 @@ import XCTest
 
 final class MyCollectionViewModelTests: XCTestCase {
     
-    func test_loadData_GivenEmptyCollection_ThenCallbackShouldBeErrorNoItems () throws {
+    func test_loadData_GivenEmptyCollection_ThenCallbackShouldBeErrorNoItems() {
         // Given
         let viewModel = MyCollectionViewModel()
         // When
@@ -24,7 +24,7 @@ final class MyCollectionViewModelTests: XCTestCase {
         }
     }
     
-    func test_numberOfSections_GivenMyCollectionViewModel_ThenShouldReturnCorrectValue () throws {
+    func test_numberOfSections_GivenMyCollectionViewModel_ThenShouldReturnCorrectValue() {
         // Given
         let viewModel = MyCollectionViewModel()
         // When
@@ -33,7 +33,7 @@ final class MyCollectionViewModelTests: XCTestCase {
         XCTAssertEqual(numberOfSections, .zero)
         }
 
-    func test_numberOfItems_GivenMyCollectionViewModel_ThenShouldReturnCorrectValue () throws {
+    func test_numberOfItems_GivenMyCollectionViewModel_ThenShouldReturnCorrectValue() {
         // Given
         let viewModel = MyCollectionViewModel()
         // When
