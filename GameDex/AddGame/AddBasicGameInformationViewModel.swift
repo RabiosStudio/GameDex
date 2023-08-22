@@ -30,5 +30,5 @@ final class AddBasicGameInformationViewModel: CollectionViewModel {
 extension AddBasicGameInformationViewModel: PrimaryButtonDelegate {
     func didTapPrimaryButton() {
         print("button tapped!")
-    }    
+    }
 }
