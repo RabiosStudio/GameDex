@@ -10,7 +10,7 @@ import XCTest
 
 final class AddBasicGameInformationSectionTests: XCTestCase {
     
-    func test_init_GivenAddBasicGameInformationSection_ThenShouldSetPropertiesCorrectly () throws {
+    func test_init_GivenAddBasicGameInformationSection_ThenShouldSetPropertiesCorrectly() {
         // Given
         
         // When

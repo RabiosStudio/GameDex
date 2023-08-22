@@ -10,7 +10,7 @@ import XCTest
 
 final class ButtonViewModelTests: XCTestCase {
 
-    func test_init_GivenTitleAndButtonStyleBig_ThenShouldSetPropertiesCorrectly () throws {
+    func test_init_GivenTitleAndButtonStyleBig_ThenShouldSetPropertiesCorrectly() {
         // Given
         let title = "Button title"
         let buttonStyle: ButtonStyle = .big
@@ -24,7 +24,7 @@ final class ButtonViewModelTests: XCTestCase {
         XCTAssertEqual(viewModel.buttonStyle, buttonStyle)
     }
     
-    func test_init_GivenTitleAndButtonStyleRegular_ThenShouldSetPropertiesCorrectly () throws {
+    func test_init_GivenTitleAndButtonStyleRegular_ThenShouldSetPropertiesCorrectly() {
         // Given
         let title = "Button title"
         let buttonStyle: ButtonStyle = .regular
@@ -38,7 +38,7 @@ final class ButtonViewModelTests: XCTestCase {
         XCTAssertEqual(viewModel.buttonStyle, buttonStyle)
     }
     
-    func test_init_GivenTitleAndButtonStyleSmall_ThenShouldSetPropertiesCorrectly () throws {
+    func test_init_GivenTitleAndButtonStyleSmall_ThenShouldSetPropertiesCorrectly() {
         // Given
         let title = "Button title"
         let buttonStyle: ButtonStyle = .small

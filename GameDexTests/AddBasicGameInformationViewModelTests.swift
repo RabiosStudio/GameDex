@@ -10,7 +10,7 @@ import XCTest
 
 final class AddBasicGameInformationViewModelTests: XCTestCase {
     
-    func test_init_GivenAddBasicGameInformationViewModel_ThenShouldSetPropertiesCorrectly () throws {
+    func test_init_GivenAddBasicGameInformationViewModel_ThenShouldSetPropertiesCorrectly() {
         // Given
         let viewModel = AddBasicGameInformationViewModel()
         
@@ -18,7 +18,7 @@ final class AddBasicGameInformationViewModelTests: XCTestCase {
         XCTAssertEqual(viewModel.sections.count, 1)
     }
     
-    func test_loadData_GivenContainerDelegateIsSet_ThenShouldSetPropertiesCorrectly () throws {
+    func test_loadData_GivenContainerDelegateIsSet_ThenShouldSetPropertiesCorrectly() {
         // Given
         let viewModel = AddBasicGameInformationViewModel()
         let delegate = ContainerViewControllerDelegateMock()

@@ -10,7 +10,7 @@ import XCTest
 
 final class FormCellViewModelTests: XCTestCase {
     
-    func test_init_GivenTitleAndActiveTextField_ThenShouldSetPropertiesCorrectly () throws {
+    func test_init_GivenTitleAndActiveTextField_ThenShouldSetPropertiesCorrectly() {
         // Given
         let title = "Title"
         let shouldActiveTextField = true
@@ -24,7 +24,7 @@ final class FormCellViewModelTests: XCTestCase {
         XCTAssertTrue(cellVM.shouldActiveTextField)
     }
     
-    func test_init_GivenTitleAndInActiveTextField_ThenShouldSetPropertiesCorrectly () throws {
+    func test_init_GivenTitleAndInActiveTextField_ThenShouldSetPropertiesCorrectly() {
         // Given
         let title = "Title"
         let shouldActiveTextField = false
