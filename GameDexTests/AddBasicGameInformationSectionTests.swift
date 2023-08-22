@@ -12,9 +12,6 @@ final class AddBasicGameInformationSectionTests: XCTestCase {
     
     func test_init_GivenAddBasicGameInformationSection_ThenShouldSetPropertiesCorrectly () throws {
         // Given
-        let descriptionCellVM = LabelCellViewModel(text: L10n.addGameBasicInformationDescription)
-        let gameTitleCellVM = FormCellViewModel(title: L10n.title, shouldActiveTextField: true)
-        let platformCellVM = FormCellViewModel(title: L10n.platform, shouldActiveTextField: false)
         
         // When
         let section = AddBasicGameInformationSection()
@@ -29,7 +26,7 @@ final class AddBasicGameInformationSectionTests: XCTestCase {
             return
         }
         
-        XCTAssertEqual(descriptionCellVM.text, L10n.addGameBasicInformationDescription)
+        XCTAssertEqual(descriptionCellVM.text, L10n.addBasicGameInformationDescription)
         XCTAssertEqual(gameTitleCellVM.title, L10n.title)
         XCTAssertTrue(gameTitleCellVM.shouldActiveTextField)
         XCTAssertEqual(platformCellVM.title, L10n.platform)
