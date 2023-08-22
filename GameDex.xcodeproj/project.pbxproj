@@ -62,6 +62,7 @@
 		25D6EAEE2A8A265D00C2BE57 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 25D6EAEC2A8A265D00C2BE57 /* LaunchScreen.storyboard */; };
 		25D6EAF92A8A265D00C2BE57 /* FormCellViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D6EAF82A8A265D00C2BE57 /* FormCellViewModelTests.swift */; };
 		25F6632B2A94CF13005F5412 /* ContinueContentViewFactoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F663282A94CF13005F5412 /* ContinueContentViewFactoryTests.swift */; };
+		25F6632C2A94CF13005F5412 /* MyCollectionViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F663292A94CF13005F5412 /* MyCollectionViewModelTests.swift */; };
 		25F6632D2A94CF13005F5412 /* AddBasicGameInformationScreenFactoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F6632A2A94CF13005F5412 /* AddBasicGameInformationScreenFactoryTests.swift */; };
 		AA97798407A80D347D6A8608 /* Pods_GameDexTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4443ED930B6E67BE6E3AB6A0 /* Pods_GameDexTests.framework */; };
 /* End PBXBuildFile section */
@@ -138,6 +139,7 @@
 		25D6EAF42A8A265D00C2BE57 /* GameDexTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GameDexTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		25D6EAF82A8A265D00C2BE57 /* FormCellViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormCellViewModelTests.swift; sourceTree = "<group>"; };
 		25F663282A94CF13005F5412 /* ContinueContentViewFactoryTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContinueContentViewFactoryTests.swift; sourceTree = "<group>"; };
+		25F663292A94CF13005F5412 /* MyCollectionViewModelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyCollectionViewModelTests.swift; sourceTree = "<group>"; };
 		25F6632A2A94CF13005F5412 /* AddBasicGameInformationScreenFactoryTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AddBasicGameInformationScreenFactoryTests.swift; sourceTree = "<group>"; };
 		4443ED930B6E67BE6E3AB6A0 /* Pods_GameDexTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GameDexTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A8E454CAE12E557645681AC /* Pods-GameDex-GameDexUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GameDex-GameDexUITests.release.xcconfig"; path = "Target Support Files/Pods-GameDex-GameDexUITests/Pods-GameDex-GameDexUITests.release.xcconfig"; sourceTree = "<group>"; };
@@ -383,6 +385,7 @@
 			children = (
 				25F6632A2A94CF13005F5412 /* AddBasicGameInformationScreenFactoryTests.swift */,
 				25F663282A94CF13005F5412 /* ContinueContentViewFactoryTests.swift */,
+				25F663292A94CF13005F5412 /* MyCollectionViewModelTests.swift */,
 				25F663252A94C95D005F5412 /* AddGame */,
 				25F663232A94C93B005F5412 /* Common */,
 				25F663262A94C97B005F5412 /* DesignSystem */,
@@ -735,6 +738,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				25AE1F3F2A939C0500F2D06A /* AddBasicGameInformationSectionTests.swift in Sources */,
+				25F6632C2A94CF13005F5412 /* MyCollectionViewModelTests.swift in Sources */,
 				25F6632D2A94CF13005F5412 /* AddBasicGameInformationScreenFactoryTests.swift in Sources */,
 				25AE1F412A939C2A00F2D06A /* AddBasicGameInformationViewModelTests.swift in Sources */,
 				251C86742A94D5E80020C794 /* Mock.generated.swift in Sources */,
