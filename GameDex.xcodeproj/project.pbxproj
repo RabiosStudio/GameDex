@@ -385,13 +385,53 @@
 		25D6EAF72A8A265D00C2BE57 /* GameDexTests */ = {
 			isa = PBXGroup;
 			children = (
+				25F663252A94C95D005F5412 /* AddGame */,
+				25F663232A94C93B005F5412 /* Common */,
+				25F663262A94C97B005F5412 /* DesignSystem */,
 				2528185D2A93DF39003FDC87 /* Mock */,
+			);
+			path = GameDexTests;
+			sourceTree = "<group>";
+		};
+		25F663232A94C93B005F5412 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				25F663242A94C940005F5412 /* CellsViewModel */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		25F663242A94C940005F5412 /* CellsViewModel */ = {
+			isa = PBXGroup;
+			children = (
 				25D6EAF82A8A265D00C2BE57 /* FormCellViewModelTests.swift */,
-				25AE1F3C2A939BE300F2D06A /* ButtonViewModelTests.swift */,
+			);
+			path = CellsViewModel;
+			sourceTree = "<group>";
+		};
+		25F663252A94C95D005F5412 /* AddGame */ = {
+			isa = PBXGroup;
+			children = (
 				25AE1F3E2A939C0500F2D06A /* AddBasicGameInformationSectionTests.swift */,
 				25AE1F402A939C2A00F2D06A /* AddBasicGameInformationViewModelTests.swift */,
 			);
-			path = GameDexTests;
+			path = AddGame;
+			sourceTree = "<group>";
+		};
+		25F663262A94C97B005F5412 /* DesignSystem */ = {
+			isa = PBXGroup;
+			children = (
+				25F663272A94C982005F5412 /* Components */,
+			);
+			path = DesignSystem;
+			sourceTree = "<group>";
+		};
+		25F663272A94C982005F5412 /* Components */ = {
+			isa = PBXGroup;
+			children = (
+				25AE1F3C2A939BE300F2D06A /* ButtonViewModelTests.swift */,
+			);
+			path = Components;
 			sourceTree = "<group>";
 		};
 		7332B1E596B42248981F9842 /* Pods */ = {
