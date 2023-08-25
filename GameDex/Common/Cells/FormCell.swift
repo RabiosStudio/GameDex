@@ -62,6 +62,8 @@ final class FormCell: UICollectionViewCell, CellConfigurable {
         self.textField.errorMessage = cellVM.title + L10n.isRequired
         setupConstraints()
     }
+    
+    func cellPressed(cellViewModel: CellViewModel) {}
 }
 
 // MARK: TextFieldDelegate

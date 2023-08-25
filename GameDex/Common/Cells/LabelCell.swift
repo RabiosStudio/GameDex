@@ -51,6 +51,9 @@ final class LabelCell: UICollectionViewCell, CellConfigurable {
         self.label.textAlignment = alignment
         self.setupConstraints()
     }
+    
+    func cellPressed(cellViewModel: CellViewModel) {}
+    
     private func setupConstraints() {
         NSLayoutConstraint.activate([
             self.label.topAnchor.constraint(equalTo: self.topAnchor),

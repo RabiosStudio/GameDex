@@ -56,6 +56,8 @@ final class ImageAndLabelCell: UICollectionViewCell, CellConfigurable {
         self.setupConstraints()
     }
     
+    func cellPressed(cellViewModel: CellViewModel) {
+    }
     private func setupLayer() {
         self.backgroundColor = .clear
         self.layer.masksToBounds = false

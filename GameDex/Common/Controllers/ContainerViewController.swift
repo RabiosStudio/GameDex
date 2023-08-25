@@ -266,6 +266,19 @@ extension ContainerViewController: UICollectionViewDelegate {
         cell.contentView.layer.masksToBounds = true
         configurableCell?.configure(cellViewModel: cellVM)
     }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        print("item at \(indexPath.section)/\(indexPath.item) tapped")
+        guard self.viewModel.itemAvailable(at: indexPath) else {
+            return
+        }
+        let cellVM = self.viewModel.item(at: indexPath)
+        let cell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: cellVM.reuseIdentifier,
+            for: indexPath)
+        let configurableCell = cell as? CellConfigurable
+        configurableCell?.cellPressed(cellViewModel: cellVM)
+    }
 }
 
 // MARK: CollectionViewDataSource
