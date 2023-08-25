@@ -250,6 +250,7 @@ extension ContainerViewController: UICollectionViewDelegate {
         let cellVM = self.viewModel.item(at: indexPath)
         let configurableCell = cell as? CellConfigurable
         cell.layoutIfNeeded()
+        cell.contentView.layer.masksToBounds = true
         configurableCell?.configure(cellViewModel: cellVM)
     }
 }

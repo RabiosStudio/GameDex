@@ -1,23 +1,22 @@
 //
-//  AddBasicGameInformationScreenFactory.swift
+//  SelectAddGameTypeScreenFactory.swift
 //  GameDex
 //
-//  Created by Gabrielle Dalbera on 18/08/2023.
+//  Created by Gabrielle Dalbera on 25/08/2023.
 //
 
 import Foundation
 import UIKit
 
-struct AddBasicGameInformationScreenFactory: ScreenFactory {
+struct SelectAddGameMethodScreenFactory: ScreenFactory {
     
     var viewController: UIViewController {
-        let viewModel = AddBasicGameInformationViewModel()
-        let layoutBuilder = BasicLayoutBuilder(cellSize: .small)
+        let viewModel = SelectAddGameMethodViewModel()
+        let layoutBuilder = BasicLayoutBuilder(cellSize: .big)
         let containerController = ContainerViewController(
             viewModel: viewModel,
             layoutBuilder: layoutBuilder
         )
-        viewModel.containerDelegate = containerController
         let navigationController = UINavigationController(rootViewController: containerController)
         return navigationController
     }

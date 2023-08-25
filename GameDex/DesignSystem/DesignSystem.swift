@@ -15,29 +15,25 @@ enum DesignSystem {
     static let paddingLarge: CGFloat = 20
     
     // MARK: - Fractional Size
-    static let fractionalSizeTiny: CGFloat = 0.11
-    static let fractionalSizeVerySmall: CGFloat = 0.3
-    static let fractionalSizeSmall: CGFloat = 0.4
-    static let fractionalSizeRegular: CGFloat = 0.5
-    static let fractionalSizePlus: CGFloat = 0.7
-    static let fractionalSizeBig: CGFloat = 0.8
-    static let fractionalSizeVeryBig: CGFloat = 1
+    static let fractionalSizeVerySmall: CGFloat = 0.15
+    static let fractionalSizeMedium: CGFloat = 0.5
+    static let fractionalSizeFull: CGFloat = 1
     
     // MARK: - Size
-    static let sizeVerySmall: CGFloat = 10
     static let sizeSmall: CGFloat = 60
-    static let sizeRegular: CGFloat = 75
-    static let sizeBig: CGFloat = 80
-    static let sizeVeryBig: CGFloat = 100
+    static let sizeRegular: CGFloat = 100
+    static let sizeBig: CGFloat = 150
     
     // MARK: - Corner radius
-    static let cornerRadiusVerySmall: CGFloat = 4
-    static let cornerRadiusSmall: CGFloat = 7
-    static let cornerRadiusBig: CGFloat = 10
+    static let cornerRadiusRegular: CGFloat = 4
+    static let cornerRadiusBig: CGFloat = 8
     
     // MARK: - Number of lines
     static let numberOfLinesStandard: Int = 1
     
     // MARK: - Shadow height
     static let shadowHeightRegular: CGFloat = 1
+    
+    // MARK: - Shadow opacity
+    static let opacityRegular: Float = 0.23
 }
