@@ -20,7 +20,7 @@ enum DesignSystem {
     static let fractionalSizeFull: CGFloat = 1
     
     // MARK: - Size
-    static let sizeSmall: CGFloat = 60
+    static let sizeSmall: CGFloat = 40
     static let sizeRegular: CGFloat = 100
     static let sizeBig: CGFloat = 150
     

@@ -8,9 +8,18 @@
 import Foundation
 import UIKit
 
-enum CellSize: CGFloat {
-    case small = 60
-    case big = 150
+enum CellSize {
+    case small
+    case big
+    
+    var value: CGFloat {
+        switch self {
+        case .small:
+            return DesignSystem.sizeSmall
+        case .big:
+            return DesignSystem.sizeBig
+        }
+    }
 }
 
 final class BasicLayoutBuilder: CollectionLayoutBuilder {
@@ -32,7 +41,7 @@ final class BasicLayoutBuilder: CollectionLayoutBuilder {
                                                      trailing: DesignSystem.paddingSmall)
         let groupSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(DesignSystem.fractionalSizeFull),
-            heightDimension: .absolute(cellSize.rawValue)
+            heightDimension: .absolute(cellSize.value)
         )
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize,
                                                        subitem: item,
