@@ -13,6 +13,7 @@ final class LabelCellViewModel: CellViewModel {
     var indexPath: IndexPath?
     var text: String
     var alignement: TextAlignment
+    var navigationStyle: NavigationStyle?
     
     init(text: String, alignment: TextAlignment) {
         self.text = text

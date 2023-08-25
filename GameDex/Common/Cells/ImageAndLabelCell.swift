@@ -57,7 +57,13 @@ final class ImageAndLabelCell: UICollectionViewCell, CellConfigurable {
     }
     
     func cellPressed(cellViewModel: CellViewModel) {
+        guard let navigationStyle = cellViewModel.navigationStyle else {
+            return
+        }
+        let newRouting = Routing.shared
+        _ = newRouting.route(navigationStyle: navigationStyle)
     }
+    
     private func setupLayer() {
         self.backgroundColor = .clear
         self.layer.masksToBounds = false

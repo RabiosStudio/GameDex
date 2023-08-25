@@ -14,11 +14,12 @@ final class ImageAndLabelCellViewModel: CellViewModel {
     var title: String
     var description: String
     var imageName: String
+    var navigationStyle: NavigationStyle?
     
-    init(title: String, description: String, imageName: String) {
+    init(title: String, description: String, imageName: String, navigationStyle: NavigationStyle?) {
         self.title = title
         self.description = description
         self.imageName = imageName
+        self.navigationStyle = navigationStyle
     }
-    
 }

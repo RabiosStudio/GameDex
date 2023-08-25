@@ -58,7 +58,15 @@ class Routing: NSObject, Navigator {
         DispatchQueue.main.async(execute: {() -> Void in
             switch navigationStyle {
             case .push(let viewControllerToDisplay):
-                print("push \(viewControllerToDisplay)")
+                var fromNavigationController: UINavigationController? = fromController as? UINavigationController
+                
+                if let navigationController = fromVC?.navController as? UINavigationController {
+                    fromNavigationController = navigationController
+                }
+                fromNavigationController?.pushViewController(
+                    viewControllerToDisplay,
+                    animated: animated
+                )
             case .pop:
                 print("pop")
             case let .present(viewControllerToDisplay, screenSize, completionBlock):

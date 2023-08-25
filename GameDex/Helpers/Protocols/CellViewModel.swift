@@ -11,6 +11,7 @@ protocol CellViewModel: AnyObject {
     var cellClass: AnyClass { get set }
     var reuseIdentifier: String { get }
     var indexPath: IndexPath? { get set }
+    var navigationStyle: NavigationStyle? { get set }
 }
 
 extension CellViewModel {

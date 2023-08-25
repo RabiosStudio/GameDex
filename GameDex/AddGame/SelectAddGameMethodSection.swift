@@ -16,15 +16,18 @@ final class SelectAddGameMethodSection: Section {
         let manualCellVM = ImageAndLabelCellViewModel(
             title: L10n.manually,
             description: L10n.manuallyDescription,
-            imageName: Asset.form.name
+            imageName: Asset.form.name,
+            navigationStyle: .push(
+                controller: SelectPlatformScreenFactory().viewController
+            )
         )
         self.cellsVM.append(manualCellVM)
         
         let scanCellVM = ImageAndLabelCellViewModel(
             title: L10n.scan,
             description: L10n.comingSoon,
-            imageName: Asset.barcode.name
-        )
+            imageName: Asset.barcode.name,
+            navigationStyle: nil)
         self.cellsVM.append(scanCellVM)
     }
 }
