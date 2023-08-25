@@ -10,12 +10,12 @@ import UIKit
 
 // sourcery: AutoMockable
 protocol PrimaryButtonDelegate: AnyObject {
-    func didTapPrimaryButton()
+    func didTapPrimaryButton() async
 }
 
 final class PrimaryButton: UIButton {
     weak var delegate: PrimaryButtonDelegate?
-
+    
     init(delegate: PrimaryButtonDelegate?) {
         super.init(frame: .zero)
         self.delegate = delegate
@@ -51,6 +51,8 @@ final class PrimaryButton: UIButton {
     }
     
     @objc private func didTapPrimaryButton(_ sender: PrimaryButton) {
-        self.delegate?.didTapPrimaryButton()
+        Task {
+            await self.delegate?.didTapPrimaryButton()
+        }
     }
 }

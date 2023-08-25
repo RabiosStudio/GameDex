@@ -9,6 +9,15 @@
 /* Begin PBXBuildFile section */
 		076B99D18338973C548C5EFB /* Pods_GameDex.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 071408E05EBD04F01F341425 /* Pods_GameDex.framework */; };
 		251C86742A94D5E80020C794 /* Mock.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251C86732A94D5E80020C794 /* Mock.generated.swift */; };
+		251C86BA2A97A29D0020C794 /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251C86B02A97A29D0020C794 /* APIError.swift */; };
+		251C86BC2A97A29D0020C794 /* AlamofireAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251C86B22A97A29D0020C794 /* AlamofireAPI.swift */; };
+		251C86BE2A97A29D0020C794 /* APIMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251C86B42A97A29D0020C794 /* APIMethod.swift */; };
+		251C86BF2A97A29D0020C794 /* GetPlatformsEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251C86B52A97A29D0020C794 /* GetPlatformsEndpoint.swift */; };
+		251C86C02A97A29D0020C794 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251C86B62A97A29D0020C794 /* API.swift */; };
+		251C86C12A97A29D0020C794 /* APIEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251C86B72A97A29D0020C794 /* APIEndpoint.swift */; };
+		251C86C22A97A29D0020C794 /* SearchPlatformsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251C86B82A97A29D0020C794 /* SearchPlatformsData.swift */; };
+		251C86D42A9899A70020C794 /* DataConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251C86D32A9899A70020C794 /* DataConverter.swift */; };
+		251C86D62A9899F40020C794 /* PlatformData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251C86D52A9899F40020C794 /* PlatformData.swift */; };
 		254354762A93AFF700E53351 /* LabelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254354752A93AFF700E53351 /* LabelCell.swift */; };
 		254354782A93B1BB00E53351 /* LabelCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254354772A93B1BB00E53351 /* LabelCellViewModel.swift */; };
 		254E8B732A8A679F00C101C8 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254E8B722A8A679F00C101C8 /* TabBarController.swift */; };
@@ -80,6 +89,15 @@
 		071408E05EBD04F01F341425 /* Pods_GameDex.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GameDex.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		199276E84FCF7ECF7ECE6434 /* Pods-GameDexTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GameDexTests.release.xcconfig"; path = "Target Support Files/Pods-GameDexTests/Pods-GameDexTests.release.xcconfig"; sourceTree = "<group>"; };
 		251C86732A94D5E80020C794 /* Mock.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mock.generated.swift; sourceTree = "<group>"; };
+		251C86B02A97A29D0020C794 /* APIError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
+		251C86B22A97A29D0020C794 /* AlamofireAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlamofireAPI.swift; sourceTree = "<group>"; };
+		251C86B42A97A29D0020C794 /* APIMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIMethod.swift; sourceTree = "<group>"; };
+		251C86B52A97A29D0020C794 /* GetPlatformsEndpoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetPlatformsEndpoint.swift; sourceTree = "<group>"; };
+		251C86B62A97A29D0020C794 /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
+		251C86B72A97A29D0020C794 /* APIEndpoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIEndpoint.swift; sourceTree = "<group>"; };
+		251C86B82A97A29D0020C794 /* SearchPlatformsData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchPlatformsData.swift; sourceTree = "<group>"; };
+		251C86D32A9899A70020C794 /* DataConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataConverter.swift; sourceTree = "<group>"; };
+		251C86D52A9899F40020C794 /* PlatformData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlatformData.swift; sourceTree = "<group>"; };
 		254354752A93AFF700E53351 /* LabelCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelCell.swift; sourceTree = "<group>"; };
 		254354772A93B1BB00E53351 /* LabelCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelCellViewModel.swift; sourceTree = "<group>"; };
 		254E8B722A8A679F00C101C8 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
@@ -179,6 +197,53 @@
 				25F663282A94CF13005F5412 /* ContinueContentViewFactoryTests.swift */,
 			);
 			path = ContentViewFactory;
+			sourceTree = "<group>";
+		};
+		251C86AF2A97A29D0020C794 /* APIService */ = {
+			isa = PBXGroup;
+			children = (
+				251C86D82A989A980020C794 /* Data */,
+				251C86D72A989A600020C794 /* Endpoints */,
+				251C86DC2A989B5B0020C794 /* Protocols */,
+				251C86B02A97A29D0020C794 /* APIError.swift */,
+				251C86B42A97A29D0020C794 /* APIMethod.swift */,
+				251C86B22A97A29D0020C794 /* AlamofireAPI.swift */,
+			);
+			path = APIService;
+			sourceTree = "<group>";
+		};
+		251C86D72A989A600020C794 /* Endpoints */ = {
+			isa = PBXGroup;
+			children = (
+				251C86B52A97A29D0020C794 /* GetPlatformsEndpoint.swift */,
+			);
+			path = Endpoints;
+			sourceTree = "<group>";
+		};
+		251C86D82A989A980020C794 /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				251C86B82A97A29D0020C794 /* SearchPlatformsData.swift */,
+			);
+			path = Data;
+			sourceTree = "<group>";
+		};
+		251C86DB2A989AE40020C794 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				251C86D52A9899F40020C794 /* PlatformData.swift */,
+				251C86D32A9899A70020C794 /* DataConverter.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		251C86DC2A989B5B0020C794 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				251C86B62A97A29D0020C794 /* API.swift */,
+				251C86B72A97A29D0020C794 /* APIEndpoint.swift */,
+			);
+			path = Protocols;
 			sourceTree = "<group>";
 		};
 		2528185D2A93DF39003FDC87 /* Mock */ = {
@@ -286,6 +351,7 @@
 		25AE1EE82A8E4E2E00F2D06A /* Common */ = {
 			isa = PBXGroup;
 			children = (
+				251C86DB2A989AE40020C794 /* Model */,
 				254E8B712A8A677600C101C8 /* Controllers */,
 				25AE1F1E2A8F949900F2D06A /* ContentViewFactory */,
 				25AE1EFA2A8E671800F2D06A /* CellsViewModel */,
@@ -376,6 +442,7 @@
 		25D6EAE02A8A265C00C2BE57 /* GameDex */ = {
 			isa = PBXGroup;
 			children = (
+				251C86AF2A97A29D0020C794 /* APIService */,
 				25AE1EDD2A8E12FF00F2D06A /* MyCollection */,
 				25AE1EE72A8E4E0B00F2D06A /* AddGame */,
 				25AE1EE82A8E4E2E00F2D06A /* Common */,
@@ -700,12 +767,15 @@
 			files = (
 				25AE1ED22A8D1E2600F2D06A /* EmptyTextAndButton.swift in Sources */,
 				25AE1ECB2A8D1B1E00F2D06A /* MyCollectionViewModel.swift in Sources */,
+				251C86D42A9899A70020C794 /* DataConverter.swift in Sources */,
 				25AE1F042A8F4A6200F2D06A /* Routing.swift in Sources */,
 				25AE1F192A8F910800F2D06A /* BarButtonItem.swift in Sources */,
 				25AE1ECE2A8D1D6F00F2D06A /* EmptyReason.swift in Sources */,
 				25AE1EF92A8E666E00F2D06A /* ButtonStyle.swift in Sources */,
+				251C86C12A97A29D0020C794 /* APIEndpoint.swift in Sources */,
 				25AE1ED02A8D1D9900F2D06A /* EmptyLoader.swift in Sources */,
 				25AE1F022A8F499800F2D06A /* Navigator+NavigationStyle.swift in Sources */,
+				251C86C22A97A29D0020C794 /* SearchPlatformsData.swift in Sources */,
 				25AE1EAE2A8BB89400F2D06A /* Section.swift in Sources */,
 				25AE1ED42A8D1E4000F2D06A /* EmptyError.swift in Sources */,
 				25AE1F202A8F94A900F2D06A /* ContinueContentViewFactory.swift in Sources */,
@@ -729,9 +799,13 @@
 				25AE1EDA2A8D236000F2D06A /* MyCollectionError.swift in Sources */,
 				25AE1F0C2A8F508700F2D06A /* UIViewController+Navigation.swift in Sources */,
 				25AE1EEF2A8E4FA100F2D06A /* AddBasicGameInformationViewModel.swift in Sources */,
+				251C86BC2A97A29D0020C794 /* AlamofireAPI.swift in Sources */,
+				251C86BE2A97A29D0020C794 /* APIMethod.swift in Sources */,
 				25AE1F0F2A8F514A00F2D06A /* AddBasicGameInformationScreenFactory.swift in Sources */,
 				25AE1F302A92234000F2D06A /* UINavigationController+ProgressBar.swift in Sources */,
 				25AE1EBE2A8CB85900F2D06A /* CellViewModel.swift in Sources */,
+				251C86BF2A97A29D0020C794 /* GetPlatformsEndpoint.swift in Sources */,
+				251C86D62A9899F40020C794 /* PlatformData.swift in Sources */,
 				25D6EAE22A8A265C00C2BE57 /* AppDelegate.swift in Sources */,
 				25AE1F1D2A8F926400F2D06A /* ContentViewFactory.swift in Sources */,
 				25AE1EF12A8E4FFB00F2D06A /* AddBasicGameInformationSection.swift in Sources */,
@@ -739,6 +813,8 @@
 				25AE1EE02A8E21D100F2D06A /* FormLayoutBuilder.swift in Sources */,
 				254354762A93AFF700E53351 /* LabelCell.swift in Sources */,
 				25AE1EA02A8BA97E00F2D06A /* CollectionLayoutBuilder.swift in Sources */,
+				251C86C02A97A29D0020C794 /* API.swift in Sources */,
+				251C86BA2A97A29D0020C794 /* APIError.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

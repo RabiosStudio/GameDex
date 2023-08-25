@@ -16,6 +16,8 @@ final class AddBasicGameInformationViewModel: CollectionViewModel {
     weak var containerDelegate: ContainerViewControllerDelegate?
     lazy var continueContentViewFactory = ContinueContentViewFactory(delegate: self)
     
+    var platform: SearchPlatformsData?
+    
     init() {
         self.sections = [AddBasicGameInformationSection()]
         self.progress = 1/3
@@ -28,7 +30,19 @@ final class AddBasicGameInformationViewModel: CollectionViewModel {
 }
 
 extension AddBasicGameInformationViewModel: PrimaryButtonDelegate {
-    func didTapPrimaryButton() {
-        print("button tapped!")
+    
+    func didTapPrimaryButton() async {
+        let session = AlamofireAPI()
+        let endpoint = GetPlatformsEndpoint()
+        
+        // get reponse
+        let result = await session.getData(with: endpoint, resultType: SearchPlatformsData.self)
+        
+        switch result {
+        case .success(let platforms):
+            print(platforms)
+        case .failure(let error):
+            print(error)
+        }
     }
 }

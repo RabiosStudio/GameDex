@@ -13,6 +13,7 @@ target 'GameDex' do
   pod 'DTTextField'
   pod 'IQKeyboardManagerSwift', '~> 6.5.0'
   pod "SwiftyMocky"
+  pod 'Alamofire'
 
   target 'GameDexTests' do
     inherit! :search_paths
