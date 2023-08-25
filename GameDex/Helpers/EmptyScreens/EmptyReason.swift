@@ -15,7 +15,7 @@ protocol EmptyReason {
     var descriptionText: String { get }
     var attributedDescription: NSAttributedString? { get }
     var attributedButtonTitle: NSAttributedString? { get }
-    var image: UIImage { get }
+    var image: UIImage? { get }
     var imageTintColor: UIColor? { get }
     var buttonBackgroundImage: UIImage? { get }
     var backgroundColor: UIColor { get }
@@ -42,10 +42,6 @@ extension EmptyReason {
     
     var attributedButtonTitle: NSAttributedString? {
         return nil
-    }
-    
-    var image: UIImage {
-        return UIImage(named: Asset.ghost.name)!
     }
     
     var imageTintColor: UIColor? {

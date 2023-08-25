@@ -40,7 +40,7 @@ struct EmptyTextAndButton: EmptyReason {
                                   attributes: attributes)
     }
     
-    let image: UIImage
+    var image: UIImage?
     
     var attributedButtonTitle: NSAttributedString? {
         var attributes: [NSAttributedString.Key: Any] = [:]

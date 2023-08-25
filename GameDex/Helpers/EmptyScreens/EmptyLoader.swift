@@ -9,6 +9,8 @@ import UIKit
 import NVActivityIndicatorView
 
 struct EmptyLoader: EmptyReason {
+    var image: UIImage?
+    
     var completionBlock: (() -> Void)?
     
     var verticalOffset: CGFloat {
@@ -17,7 +19,7 @@ struct EmptyLoader: EmptyReason {
     
     var customView: UIView? {
         let view = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 100, height: 100),
-                                           type: .ballGridPulse,
+                                           type: .pacman,
                                            color: .primaryColor,
                                            padding: 16)
         view.startAnimating()

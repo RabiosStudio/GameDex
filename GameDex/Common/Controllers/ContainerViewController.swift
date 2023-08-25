@@ -94,6 +94,7 @@ class ContainerViewController: UIViewController {
         let emptyLoader = EmptyLoader(tabBarOffset: tabBarOffset)
         self.configureNavBar()
         self.collectionView.updateEmptyScreen(emptyReason: emptyLoader)
+        self.collectionView.reloadEmptyDataSet()
         self.viewModel.loadData { [weak self] error in
             
             DispatchQueue.main.async {
@@ -161,8 +162,8 @@ class ContainerViewController: UIViewController {
                 }
             }
             self.configureNavProgress()
-            collectionView.updateEmptyScreen(emptyReason: emptyReason)
-            collectionView.reloadData()
+            self.collectionView.updateEmptyScreen(emptyReason: emptyReason)
+            self.collectionView.reloadData()
         } else {
             self.registerCells()
             self.configureLayout()
