@@ -13,7 +13,6 @@ final class LabelCell: UICollectionViewCell, CellConfigurable {
     private lazy var label: UILabel = {
         let label = UILabel()
         label.textColor = .black
-        label.textAlignment = .center
         label.font = Typography.body.font
         label.numberOfLines = .zero
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -30,6 +29,28 @@ final class LabelCell: UICollectionViewCell, CellConfigurable {
         return nil
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.label.text = nil
+    }
+    
+    func configure(cellViewModel: CellViewModel) {
+        guard let cellVM = cellViewModel as? LabelCellViewModel else {
+            return
+        }
+        self.label.text = cellVM.text
+        
+        var alignment: NSTextAlignment {
+            switch cellVM.alignement {
+            case .left:
+                return .left
+            case .center:
+                return .center
+            }
+        }
+        self.label.textAlignment = alignment
+        self.setupConstraints()
+    }
     private func setupConstraints() {
         NSLayoutConstraint.activate([
             self.label.topAnchor.constraint(equalTo: self.topAnchor),
@@ -39,11 +60,4 @@ final class LabelCell: UICollectionViewCell, CellConfigurable {
         ])
     }
     
-    func configure(cellViewModel: CellViewModel) {
-        guard let cellVM = cellViewModel as? LabelCellViewModel else {
-            return
-        }
-        self.label.text = cellVM.text
-        setupConstraints()
-    }
 }

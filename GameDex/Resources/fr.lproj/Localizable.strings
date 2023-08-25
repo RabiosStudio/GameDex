@@ -13,6 +13,7 @@
 
 // Add Game Steps
 "stepOneOutOfThree" = "Etape 1/3";
+"selectPlatform" = "Selectionnez la console";
 "addBasicGameInformationDescription" = "Renseignez le titre du jeu, et optionnellement la console correspondante";
 
 // Add Game Methods
