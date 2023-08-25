@@ -95,10 +95,15 @@ class ContainerViewController: UIViewController {
         self.configureNavBar()
         self.collectionView.updateEmptyScreen(emptyReason: emptyLoader)
         self.viewModel.loadData { [weak self] error in
-            if let error = error {
-                let tabBarOffset = -(self?.tabBarController?.tabBar.frame.size.height ?? 0)
-                self?.updateEmptyState(error: error,
-                                       tabBarOffset: tabBarOffset)
+            
+            DispatchQueue.main.async {
+                if let error = error {
+                    let tabBarOffset = -(self?.tabBarController?.tabBar.frame.size.height ?? 0)
+                    self?.updateEmptyState(error: error,
+                                           tabBarOffset: tabBarOffset)
+                } else {
+                    self?.refresh()
+                }
             }
         }
     }
@@ -132,6 +137,11 @@ class ContainerViewController: UIViewController {
     }
     
     // MARK: - Methods
+    
+    private func refresh() {
+        self.collectionView.reloadData()
+        self.registerCells()
+    }
     
     private func updateEmptyState(error: EmptyError?, tabBarOffset: CGFloat) {
         if let error = error {
