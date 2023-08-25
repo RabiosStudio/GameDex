@@ -8,7 +8,10 @@
 import Foundation
 
 final class SelectAddGameMethodViewModel: CollectionViewModel {
-    var isSearchable: Bool = false
+    var searchViewModel = SearchViewModel(
+        isSearchable: false,
+        isActivated: false
+    )
     var isBounceable: Bool = false
     var progress: Float?
     var rightButtonItem: AnyBarButtonItem? = .close

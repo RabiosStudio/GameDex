@@ -8,7 +8,10 @@
 import Foundation
 
 final class SelectPlatformViewModel: CollectionViewModel {
-    var isSearchable: Bool = true
+    var searchViewModel = SearchViewModel(
+        isSearchable: true,
+        isActivated: true
+    )
     var isBounceable: Bool = true
     var progress: Float?
     var rightButtonItem: AnyBarButtonItem? = .close

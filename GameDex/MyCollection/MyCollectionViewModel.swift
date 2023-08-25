@@ -8,6 +8,10 @@
 import Foundation
 
 final class MyCollectionViewModel: CollectionViewModel {
+    var searchViewModel = SearchViewModel(
+        isSearchable: false,
+        isActivated: false
+    )
     var isSearchable: Bool = false
     var isBounceable: Bool = true
     var progress: Float?

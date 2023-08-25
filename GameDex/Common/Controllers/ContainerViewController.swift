@@ -142,6 +142,9 @@ class ContainerViewController: UIViewController {
     private func refresh() {
         self.collectionView.reloadData()
         self.registerCells()
+        if self.viewModel.searchViewModel.isActivated {
+            self.searchBar.becomeFirstResponder()
+        }
     }
     
     private func updateEmptyState(error: EmptyError?, tabBarOffset: CGFloat) {
@@ -243,7 +246,7 @@ class ContainerViewController: UIViewController {
         self.collectionView.delegate = self
         self.collectionView.dataSource = self
         self.collectionView.bounces = self.viewModel.isBounceable
-        if self.viewModel.isSearchable {
+        if self.viewModel.searchViewModel.isSearchable {
             self.stackView.addArrangedSubview(self.searchBar)
         }
         self.stackView.addArrangedSubview(self.collectionView)
