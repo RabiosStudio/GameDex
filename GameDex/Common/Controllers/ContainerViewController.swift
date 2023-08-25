@@ -50,7 +50,7 @@ class ContainerViewController: UIViewController {
         return view
     }()
     
-    private let separatorView: UIView = {
+    private lazy var separatorView: UIView = {
         let view = UIView()
         NSLayoutConstraint.activate([
             view.heightAnchor.constraint(equalToConstant: 1)
@@ -59,7 +59,7 @@ class ContainerViewController: UIViewController {
         return view
     }()
     
-    private var bottomView = UIView()
+    private lazy var bottomView = UIView()
     
     private lazy var stackViewBottomConstraint: NSLayoutConstraint = self.stackView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
     
