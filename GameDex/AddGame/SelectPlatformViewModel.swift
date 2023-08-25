@@ -8,6 +8,7 @@
 import Foundation
 
 final class SelectPlatformViewModel: CollectionViewModel {
+    var isSearchable: Bool = true
     var isBounceable: Bool = true
     var progress: Float?
     var rightButtonItem: AnyBarButtonItem? = .close

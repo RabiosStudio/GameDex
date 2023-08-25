@@ -40,6 +40,8 @@ internal enum L10n {
   internal static let platform = L10n.tr("Localizable", "platform", fallback: "Platform")
   /// Scan codebar
   internal static let scan = L10n.tr("Localizable", "scan", fallback: "Scan codebar")
+  /// Search
+  internal static let search = L10n.tr("Localizable", "search", fallback: "Search")
   /// Select platform
   internal static let selectPlatform = L10n.tr("Localizable", "selectPlatform", fallback: "Select platform")
   /// Step 1/3

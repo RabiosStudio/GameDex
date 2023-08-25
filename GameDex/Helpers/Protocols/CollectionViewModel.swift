@@ -11,6 +11,7 @@ protocol CollectionViewModel {
     var screenTitle: String? { get }
     var rightButtonItem: AnyBarButtonItem? { get }
     var isBounceable: Bool { get }
+    var isSearchable: Bool { get }
     var sections: [Section] { get }
     var progress: Float? { get }
     func loadData(callback: @escaping (EmptyError?) -> ())

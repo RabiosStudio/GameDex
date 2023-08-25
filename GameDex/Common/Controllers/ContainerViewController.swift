@@ -25,7 +25,17 @@ class ContainerViewController: UIViewController {
         collectionViewLayout: self.layout
     )
     
-    private let stackView: UIStackView = {
+    private lazy var searchBar: UISearchBar = {
+        let searchBar = UISearchBar()
+        searchBar.placeholder = L10n.search
+        searchBar.delegate = self
+        searchBar.tintColor = .primaryBackgroundColor
+        searchBar.barStyle = .default
+        searchBar.sizeToFit()
+        return searchBar
+    }()
+    
+    private lazy var stackView: UIStackView = {
         let view = UIStackView()
         view.axis = .vertical
         view.backgroundColor = .primaryBackgroundColor
@@ -222,6 +232,9 @@ class ContainerViewController: UIViewController {
         self.collectionView.delegate = self
         self.collectionView.dataSource = self
         self.collectionView.bounces = self.viewModel.isBounceable
+        if self.viewModel.isSearchable {
+            self.stackView.addArrangedSubview(self.searchBar)
+        }
         self.stackView.addArrangedSubview(self.collectionView)
         self.view.addSubview(stackView)
         self.setupStackViewConstraints()
@@ -275,6 +288,11 @@ extension ContainerViewController: UICollectionViewDataSource {
         )
         return cell
     }
+}
+
+// MARK: UISearchDelegate
+extension ContainerViewController: UISearchBarDelegate {
+    
 }
 
 // MARK: ContainerViewControllerDelegate

@@ -8,6 +8,7 @@
 import Foundation
 
 final class MyCollectionViewModel: CollectionViewModel {
+    var isSearchable: Bool = false
     var isBounceable: Bool = true
     var progress: Float?
     var rightButtonItem: AnyBarButtonItem?

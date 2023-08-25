@@ -10,6 +10,7 @@
 // Button
 "addGame" = "Ajouter un jeu";
 "continue" = "Continuer";
+"search" = "Rechercher";
 
 // Add Game Steps
 "stepOneOutOfThree" = "Etape 1/3";
