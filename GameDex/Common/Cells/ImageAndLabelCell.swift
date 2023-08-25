@@ -52,7 +52,7 @@ final class ImageAndLabelCell: UICollectionViewCell, CellConfigurable {
         }
         self.titleLabel.text = cellVM.title
         self.descriptionLabel.text = cellVM.description
-        self.imageView.image = UIImage(named: cellVM.image)!
+        self.imageView.image = UIImage(named: cellVM.imageName)
         self.setupConstraints()
     }
     
