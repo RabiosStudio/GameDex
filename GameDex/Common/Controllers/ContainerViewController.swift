@@ -196,7 +196,10 @@ class ContainerViewController: UIViewController {
     }
     
     private func configureNavProgress() {
-        guard let progress = self.viewModel.progress else { return }
+        guard let progress = self.viewModel.progress else {
+            self.navigationController?.cancelProgress()
+            return
+        }
         self.navigationController?.primaryColor = .primaryColor
         self.navigationController?.backgroundColor = .secondaryBackgroundColor
         
