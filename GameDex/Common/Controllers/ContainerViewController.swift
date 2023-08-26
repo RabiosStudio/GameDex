@@ -25,12 +25,10 @@ class ContainerViewController: UIViewController {
         collectionViewLayout: self.layout
     )
     
-    private lazy var searchBar: UISearchBar = {
-        let searchBar = UISearchBar()
+    private lazy var searchBar: SearchBar = {
+        let searchBar = SearchBar()
         searchBar.delegate = self
-        searchBar.tintColor = .primaryBackgroundColor
-        searchBar.barStyle = .default
-        searchBar.sizeToFit()
+        searchBar.configure()
         return searchBar
     }()
     
