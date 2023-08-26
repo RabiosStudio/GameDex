@@ -10,8 +10,7 @@ import Foundation
 final class MyCollectionViewModel: CollectionViewModel {
     var searchViewModel = SearchViewModel(
         isSearchable: false,
-        isActivated: false,
-        placeholder: ""
+        isActivated: false
     )
     var isSearchable: Bool = false
     var isBounceable: Bool = true

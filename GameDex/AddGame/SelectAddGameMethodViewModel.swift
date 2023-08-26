@@ -10,8 +10,7 @@ import Foundation
 final class SelectAddGameMethodViewModel: CollectionViewModel {
     var searchViewModel = SearchViewModel(
         isSearchable: false,
-        isActivated: false,
-        placeholder: ""
+        isActivated: false
     )
     var isBounceable: Bool = false
     var progress: Float?
