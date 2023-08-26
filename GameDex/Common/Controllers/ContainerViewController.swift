@@ -317,6 +317,11 @@ extension ContainerViewController: UICollectionViewDataSource {
 // MARK: UISearchDelegate
 
 extension ContainerViewController: UISearchBarDelegate {
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        self.searchBar.endEditing(true)
+    }
+    
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         // called when text changes (including clear)
         self.viewModel.searchViewModel.delegate?.updateSearch(with: searchText)
