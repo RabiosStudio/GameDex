@@ -180,7 +180,7 @@ class ContainerViewController: UIViewController {
     
     private func configureNavBar() {
         self.navigationController?.configure()
-        self.navigationController?.navigationBar.topItem?.title = self.viewModel.screenTitle
+        self.title = self.viewModel.screenTitle
         self.configureNavProgress()
 
         guard let rightButtonItem = self.viewModel.rightButtonItem else {
@@ -192,10 +192,6 @@ class ContainerViewController: UIViewController {
             ) { [weak self] in
                 self?.dismiss(animated: true)
             }
-            guard let navigationItem = self.navigationItem.rightBarButtonItem else {
-                return
-            }
-            self.navigationController?.navigationBar.topItem?.rightBarButtonItem = navigationItem
         }
     }
     
