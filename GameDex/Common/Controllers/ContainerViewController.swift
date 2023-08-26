@@ -78,37 +78,12 @@ class ContainerViewController: UIViewController {
         super.viewDidLoad()
         self.addNotificationObservers()
         self.setupContent()
-        self.refresh()
+        self.loadData()
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         self.navigationController?.updateProgress()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        let tabBarOffset = -(self.tabBarController?.tabBar.frame.size.height ?? 0)
-        let emptyLoader = EmptyLoader(tabBarOffset: tabBarOffset)
-        self.configureNavBar()
-        self.collectionView.updateEmptyScreen(emptyReason: emptyLoader)
-        self.collectionView.reloadEmptyDataSet()
-        self.viewModel.loadData { [weak self] error in
-            
-            DispatchQueue.main.async {
-                if let error = error {
-                    let tabBarOffset = -(self?.tabBarController?.tabBar.frame.size.height ?? 0)
-                    self?.updateEmptyState(error: error,
-                                           tabBarOffset: tabBarOffset)
-                } else {
-                    self?.refresh()
-                }
-            }
-        }
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        self.title = ""
     }
     
     // MARK: - Register
@@ -141,13 +116,32 @@ class ContainerViewController: UIViewController {
     
     // MARK: - Methods
     
+    private func loadData() {
+        let tabBarOffset = -(self.tabBarController?.tabBar.frame.size.height ?? 0)
+        let emptyLoader = EmptyLoader(tabBarOffset: tabBarOffset)
+        self.configureNavBar()
+        self.collectionView.updateEmptyScreen(emptyReason: emptyLoader)
+        self.collectionView.reloadEmptyDataSet()
+        self.viewModel.loadData { [weak self] error in
+            
+            DispatchQueue.main.async {
+                if let error = error {
+                    let tabBarOffset = -(self?.tabBarController?.tabBar.frame.size.height ?? 0)
+                    self?.updateEmptyState(error: error,
+                                           tabBarOffset: tabBarOffset)
+                } else {
+                    self?.refresh()
+                }
+            }
+        }
+    }
+    
     private func refresh() {
-        self.collectionView.reloadData()
         self.registerCells()
+        self.collectionView.reloadData()
         if self.viewModel.searchViewModel.isActivated {
             self.searchBar.becomeFirstResponder()
         }
-        self.configureNavBar()
     }
     
     private func updateEmptyState(error: EmptyError?, tabBarOffset: CGFloat) {
