@@ -80,6 +80,7 @@ class ContainerViewController: UIViewController {
         super.viewDidLoad()
         self.addNotificationObservers()
         self.setupContent()
+        self.refresh()
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
@@ -106,6 +107,10 @@ class ContainerViewController: UIViewController {
                 }
             }
         }
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        self.title = ""
     }
     
     // MARK: - Register
@@ -144,6 +149,7 @@ class ContainerViewController: UIViewController {
         if self.viewModel.searchViewModel.isActivated {
             self.searchBar.becomeFirstResponder()
         }
+        self.configureNavBar()
     }
     
     private func updateEmptyState(error: EmptyError?, tabBarOffset: CGFloat) {
