@@ -81,6 +81,11 @@ class ContainerViewController: UIViewController {
         self.loadData()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.configureNavProgress()
+    }
+    
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         self.navigationController?.updateProgress()
@@ -180,7 +185,6 @@ class ContainerViewController: UIViewController {
     private func configureNavBar() {
         self.navigationController?.configure()
         self.title = self.viewModel.screenTitle
-        self.configureNavProgress()
         
         guard let rightButtonItem = self.viewModel.rightButtonItem else {
             return
