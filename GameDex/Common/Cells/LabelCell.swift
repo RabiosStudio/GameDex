@@ -12,7 +12,7 @@ final class LabelCell: UICollectionViewCell, CellConfigurable {
     
     private lazy var label: UILabel = {
         let label = UILabel()
-        label.textColor = .black
+        label.textColor = .secondaryColor
         label.font = Typography.body.font
         label.numberOfLines = .zero
         label.translatesAutoresizingMaskIntoConstraints = false
