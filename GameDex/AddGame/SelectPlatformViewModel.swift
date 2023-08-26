@@ -17,7 +17,7 @@ final class SelectPlatformViewModel: CollectionViewModel {
     var isBounceable: Bool = true
     var progress: Float?
     var rightButtonItem: AnyBarButtonItem? = .close
-    let screenTitle: String? = L10n.stepOneOutOfThree
+    let screenTitle: String? = L10n.selectPlatform
     var sections = [Section]()
     var platformDisplayed: [Platform] = []
     weak var containerDelegate: ContainerViewControllerDelegate?
