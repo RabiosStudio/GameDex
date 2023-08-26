@@ -10,7 +10,8 @@ import Foundation
 final class SelectPlatformViewModel: CollectionViewModel {
     var searchViewModel = SearchViewModel(
         isSearchable: true,
-        isActivated: true
+        isActivated: true,
+        placeholder: L10n.searchPlatform
     )
     var isBounceable: Bool = true
     var progress: Float?

@@ -10,7 +10,7 @@
 // Button
 "addGame" = "Add a game";
 "continue" = "Continue";
-"search" = "Search";
+"searchPlatform" = "Search a platform";
 
 // Add Game Steps
 "stepOneOutOfThree" = "Step 1/3";

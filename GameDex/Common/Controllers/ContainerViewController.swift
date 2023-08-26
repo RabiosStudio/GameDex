@@ -27,7 +27,6 @@ class ContainerViewController: UIViewController {
     
     private lazy var searchBar: UISearchBar = {
         let searchBar = UISearchBar()
-        searchBar.placeholder = L10n.search
         searchBar.delegate = self
         searchBar.tintColor = .primaryBackgroundColor
         searchBar.barStyle = .default
@@ -247,6 +246,7 @@ class ContainerViewController: UIViewController {
         self.collectionView.bounces = self.viewModel.isBounceable
         if self.viewModel.searchViewModel.isSearchable {
             self.stackView.addArrangedSubview(self.searchBar)
+            self.searchBar.placeholder = self.viewModel.searchViewModel.placeholder
         }
         self.stackView.addArrangedSubview(self.collectionView)
         self.view.addSubview(stackView)

@@ -10,4 +10,5 @@ import Foundation
 struct SearchViewModel {
     var isSearchable: Bool
     var isActivated: Bool
+    var placeholder: String
 }
