@@ -20,7 +20,7 @@ struct EmptyLoader: EmptyReason {
     var customView: UIView? {
         let view = NVActivityIndicatorView(frame: CGRect(x: 0, y: 0, width: 100, height: 100),
                                            type: .pacman,
-                                           color: .primaryColor,
+                                           color: .systemYellow,
                                            padding: 16)
         view.startAnimating()
         return view
