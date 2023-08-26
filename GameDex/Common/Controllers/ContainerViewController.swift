@@ -315,8 +315,13 @@ extension ContainerViewController: UICollectionViewDataSource {
 }
 
 // MARK: UISearchDelegate
+
 extension ContainerViewController: UISearchBarDelegate {
-    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        // called when text changes (including clear)
+        self.viewModel.searchViewModel.delegate?.updateSearch(with: searchText)
+        self.collectionView.reloadData()
+    }
 }
 
 // MARK: ContainerViewControllerDelegate
