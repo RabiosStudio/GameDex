@@ -26,7 +26,7 @@ enum MyCollectionError: EmptyError {
     }
     
     var imageName: String {
-        return Asset.ghost4.name
+        return Asset.noItems.name
     }
     
     var buttonTitle: String {
