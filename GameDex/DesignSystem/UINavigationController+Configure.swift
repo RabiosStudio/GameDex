@@ -13,6 +13,12 @@ extension UINavigationController {
         self.navigationBar.prefersLargeTitles = false
         self.navigationBar.barTintColor = .primaryColor
         self.navigationBar.tintColor = .primaryColor
+        self.navigationBar.topItem?.backBarButtonItem = UIBarButtonItem(
+            title: "",
+            style: .plain,
+            target: nil,
+            action: nil
+        )
         
         let appearance = UINavigationBarAppearance()
         appearance.configureWithOpaqueBackground()
