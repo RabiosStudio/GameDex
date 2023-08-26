@@ -123,25 +123,25 @@ class ContainerViewController: UIViewController {
         self.collectionView.updateEmptyScreen(emptyReason: emptyLoader)
         self.collectionView.reloadEmptyDataSet()
         self.viewModel.loadData { [weak self] error in
-            
+            guard let strongSelf = self else { return }
             DispatchQueue.main.async {
                 if let error = error {
                     let tabBarOffset = -(self?.tabBarController?.tabBar.frame.size.height ?? 0)
-                    self?.updateEmptyState(error: error,
+                    strongSelf.updateEmptyState(error: error,
                                            tabBarOffset: tabBarOffset)
                 } else {
-                    self?.refresh()
+                    strongSelf.registerCells()
+                    strongSelf.refresh()
+                    if strongSelf.viewModel.searchViewModel.isActivated {
+                        strongSelf.searchBar.becomeFirstResponder()
+                    }
                 }
             }
         }
     }
     
     private func refresh() {
-        self.registerCells()
         self.collectionView.reloadData()
-        if self.viewModel.searchViewModel.isActivated {
-            self.searchBar.becomeFirstResponder()
-        }
     }
     
     private func updateEmptyState(error: EmptyError?, tabBarOffset: CGFloat) {
@@ -326,8 +326,15 @@ extension ContainerViewController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         // called when text changes (including clear)
-        self.viewModel.searchViewModel.delegate?.updateSearch(with: searchText)
-        self.collectionView.reloadData()
+        self.viewModel.searchViewModel.delegate?.updateSearch(with: searchText, callback: { [weak self] error in
+                if let error = error {
+                    let tabBarOffset = -(self?.tabBarController?.tabBar.frame.size.height ?? 0)
+                    self?.updateEmptyState(error: error,
+                                           tabBarOffset: tabBarOffset)
+                } else {
+                    self?.refresh()
+                }
+        })        
     }
 }
 

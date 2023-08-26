@@ -8,7 +8,7 @@
 import Foundation
 
 protocol SearchViewModelDelegate {
-    func updateSearch(with text: String)
+    func updateSearch(with text: String, callback: @escaping (EmptyError?) -> ())
 }
 
 struct SearchViewModel {

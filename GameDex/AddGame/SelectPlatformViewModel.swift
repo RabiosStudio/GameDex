@@ -19,7 +19,7 @@ final class SelectPlatformViewModel: CollectionViewModel {
     var rightButtonItem: AnyBarButtonItem? = .close
     let screenTitle: String? = L10n.selectPlatform
     var sections = [Section]()
-    var platformDisplayed: [Platform] = []
+    var platformsDisplayed: [Platform] = []
     weak var containerDelegate: ContainerViewControllerDelegate?
     
     init() {
@@ -37,7 +37,7 @@ final class SelectPlatformViewModel: CollectionViewModel {
             switch result {
             case .success(let data):
                 let platforms = DataConverter.convert(remotePlatforms: data.platforms)
-                self.platformDisplayed = platforms
+                self.platformsDisplayed = platforms
                 self.sections = [SelectPlatformSection(platforms: platforms)]
                 callback(nil)
             case .failure(_):
@@ -53,20 +53,21 @@ final class SelectPlatformViewModel: CollectionViewModel {
 }
 
 extension SelectPlatformViewModel: SearchViewModelDelegate {
-    func updateSearch(with text: String) {
+    func updateSearch(with text: String, callback: @escaping (EmptyError?) -> ()) {
         guard text.count > .zero else {
-            self.updateListOfPlatforms(with: self.platformDisplayed)
+            self.updateListOfPlatforms(with: self.platformsDisplayed)
             return
         }
         
-        let matchingPlatforms = self.platformDisplayed.filter({
+        let matchingPlatforms = self.platformsDisplayed.filter({
             $0.title.localizedCaseInsensitiveContains(text)
         })
-        print(matchingPlatforms)
-        if !matchingPlatforms.isEmpty {
-            self.updateListOfPlatforms(with: matchingPlatforms)
+        self.updateListOfPlatforms(with: matchingPlatforms)
+        
+        if matchingPlatforms.isEmpty {
+            callback(AddGameError.noItems)
         } else {
-            // TODO: Display empty state
+            callback(nil)
         }
     }
 }
