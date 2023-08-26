@@ -159,6 +159,8 @@ class ContainerViewController: UIViewController {
                 switch error.errorAction {
                 case let .navigate(style):
                     _ = Routing.shared.route(navigationStyle: style)
+                case .refresh:
+                    self.refresh()
                 }
             }
             self.configureNavProgress()

@@ -28,26 +28,22 @@ final class SelectPlatformViewModel: CollectionViewModel {
     
     func loadData(callback: @escaping (EmptyError?) -> ()) {
         Task {
-            await fetchPlatforms()
-            callback(nil)
-        }
-    }
-    
-    func fetchPlatforms() async {
-        let session = AlamofireAPI()
-        let endpoint = GetPlatformsEndpoint()
-        
-        // get reponse
-        let result = await session.getData(with: endpoint, resultType: SearchPlatformsData.self)
-        
-        switch result {
-        case .success(let data):
-            let platforms = DataConverter.convert(remotePlatforms: data.platforms)
-            self.platformDisplayed = platforms
-            self.sections = [SelectPlatformSection(platforms: platforms)]
-        case .failure(let error):
-            print(error)
-            // TODO: Manage errors
+            let session = AlamofireAPI()
+            let endpoint = GetPlatformsEndpoint()
+            
+            // get reponse
+            let result = await session.getData(with: endpoint, resultType: SearchPlatformsData.self)
+            
+            switch result {
+            case .success(let data):
+                let platforms = DataConverter.convert(remotePlatforms: data.platforms)
+                self.platformDisplayed = platforms
+                self.sections = [SelectPlatformSection(platforms: platforms)]
+                callback(nil)
+            case .failure(_):
+                let error: AddGameError = .server
+                callback(error)
+            }
         }
     }
     
