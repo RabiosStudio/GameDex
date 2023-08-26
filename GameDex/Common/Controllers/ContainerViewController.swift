@@ -16,7 +16,7 @@ protocol ContainerViewControllerDelegate: AnyObject {
 class ContainerViewController: UIViewController {
     
     // MARK: - Properties
-        
+    
     private let viewModel: CollectionViewModel
     private let layout: UICollectionViewLayout
     
@@ -105,7 +105,7 @@ class ContainerViewController: UIViewController {
                 // We store index path for item
                 item.indexPath = IndexPath(row: j,
                                            section: i)
-                                                              
+                
                 self.collectionView.register(
                     item.cellClass,
                     forCellWithReuseIdentifier: item.reuseIdentifier
@@ -179,7 +179,7 @@ class ContainerViewController: UIViewController {
         self.navigationController?.configure()
         self.title = self.viewModel.screenTitle
         self.configureNavProgress()
-
+        
         guard let rightButtonItem = self.viewModel.rightButtonItem else {
             return
         }
@@ -206,7 +206,7 @@ class ContainerViewController: UIViewController {
         // update progress bar with given value
         self.navigationController?.setProgress(progress, animated: false)
     }
-
+    
     private func addNotificationObservers() {
         // Keyboard animation
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardAnimation), name: UIResponder.keyboardWillShowNotification, object: nil)
@@ -302,7 +302,7 @@ extension ContainerViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.viewModel.numberOfItems(in: section)
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cellVM = self.viewModel.item(at: indexPath)
         let reuseIdentifier = cellVM.reuseIdentifier
