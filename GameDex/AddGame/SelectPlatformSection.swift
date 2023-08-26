@@ -16,8 +16,6 @@ final class SelectPlatformSection: Section {
         super.init()
         self.position = 0
         
-        let descriptionLabelCVM = LabelCellViewModel(text: L10n.selectPlatform, alignment: .center)
-        
         for platform in platforms {
             let labelCellVM = LabelCellViewModel(text: platform.title, alignment: .left)
             self.cellsVM.append(labelCellVM)
