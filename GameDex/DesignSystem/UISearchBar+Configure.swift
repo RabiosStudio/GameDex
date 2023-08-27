@@ -13,44 +13,17 @@ class SearchBar: UISearchBar {
         self.tintColor = .primaryColor
         self.barStyle = .default
         self.sizeToFit()
-        self.clearButtonColor = .primaryColor
-        self.searchIconColor = .primaryColor
+        self.setUpIcons(with: .primaryColor)
     }
     
-    // Button/Icon images
-    var clearButtonImage: UIImage?
-    var searchImage: UIImage?
-    
-    // Button/Icon colors
-    var searchIconColor: UIColor?
-    var clearButtonColor: UIColor?
-    
-    private enum SubviewKey: String {
-        case searchField, clearButton
-    }
-    
-    override func layoutSubviews() {
-        super.layoutSubviews()
+    private func setUpIcons(with tintColor: UIColor) {
+        // button/icon images
+        let clearImage = UIImage(systemName: "xmark.circle.fill")?.withTintColor(tintColor, renderingMode: .alwaysOriginal)
+        let searchImage = UIImage(systemName: "magnifyingglass")?.withTintColor(tintColor, renderingMode: .alwaysOriginal)
         
-        guard let textField = self.value(forKey: SubviewKey.searchField.rawValue) as? UITextField else { return }
-        
-        if let clearButton = textField.value(forKey: SubviewKey.clearButton.rawValue) as? UIButton {
-            update(button: clearButton, image: clearButtonImage, color: clearButtonColor)
-        }
-        if let searchView = textField.leftView as? UIImageView {
-            searchView.image = (searchImage ?? searchView.image)?.withRenderingMode(.alwaysTemplate)
-            if let color = searchIconColor {
-                searchView.tintColor = color
-            }
-        }
-    }
-    
-    private func update(button: UIButton, image: UIImage?, color: UIColor?) {
-        let image = (image ?? button.currentImage)?.withRenderingMode(.alwaysTemplate)
-        button.setImage(image, for: .normal)
-        button.setImage(image, for: .highlighted)
-        if let color = color {
-            button.tintColor = color
-        }
+        // setup search icon
+            self.setImage(searchImage, for: .search, state: .normal)
+        // setup clear icon
+            self.setImage(clearImage, for: .clear, state: .normal)
     }
 }
