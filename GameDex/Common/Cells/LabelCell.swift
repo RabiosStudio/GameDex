@@ -12,9 +12,9 @@ final class LabelCell: UICollectionViewCell, CellConfigurable {
     
     private lazy var label: UILabel = {
         let label = UILabel()
-        label.textColor = .black
-        label.textAlignment = .center
+        label.textColor = .secondaryColor
         label.font = Typography.body.font
+        label.textAlignment = .left
         label.numberOfLines = .zero
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -30,6 +30,21 @@ final class LabelCell: UICollectionViewCell, CellConfigurable {
         return nil
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.label.text = nil
+    }
+    
+    func configure(cellViewModel: CellViewModel) {
+        guard let cellVM = cellViewModel as? LabelCellViewModel else {
+            return
+        }
+        self.label.text = cellVM.text
+        self.setupConstraints()
+    }
+    
+    func cellPressed(cellViewModel: CellViewModel) {}
+    
     private func setupConstraints() {
         NSLayoutConstraint.activate([
             self.label.topAnchor.constraint(equalTo: self.topAnchor),
@@ -39,11 +54,4 @@ final class LabelCell: UICollectionViewCell, CellConfigurable {
         ])
     }
     
-    func configure(cellViewModel: CellViewModel) {
-        guard let cellVM = cellViewModel as? LabelCellViewModel else {
-            return
-        }
-        self.label.text = cellVM.text
-        setupConstraints()
-    }
 }

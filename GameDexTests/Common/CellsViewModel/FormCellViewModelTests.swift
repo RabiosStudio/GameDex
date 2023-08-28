@@ -15,7 +15,7 @@ final class FormCellViewModelTests: XCTestCase {
         let title = "Title"
         let shouldActiveTextField = true
         // When
-        let cellVM = FormCellViewModel(
+        let cellVM = TextFieldCellViewModel(
             title: title,
             shouldActiveTextField: shouldActiveTextField
         )

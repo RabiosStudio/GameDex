@@ -15,7 +15,7 @@ protocol PrimaryButtonDelegate: AnyObject {
 
 final class PrimaryButton: UIButton {
     weak var delegate: PrimaryButtonDelegate?
-
+    
     init(delegate: PrimaryButtonDelegate?) {
         super.init(frame: .zero)
         self.delegate = delegate

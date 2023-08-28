@@ -16,7 +16,7 @@ protocol ContainerViewControllerDelegate: AnyObject {
 class ContainerViewController: UIViewController {
     
     // MARK: - Properties
-        
+    
     private let viewModel: CollectionViewModel
     private let layout: UICollectionViewLayout
     
@@ -25,7 +25,14 @@ class ContainerViewController: UIViewController {
         collectionViewLayout: self.layout
     )
     
-    private let stackView: UIStackView = {
+    private lazy var searchBar: SearchBar = {
+        let searchBar = SearchBar()
+        searchBar.delegate = self
+        searchBar.configure()
+        return searchBar
+    }()
+    
+    private lazy var stackView: UIStackView = {
         let view = UIStackView()
         view.axis = .vertical
         view.backgroundColor = .primaryBackgroundColor
@@ -40,7 +47,7 @@ class ContainerViewController: UIViewController {
         return view
     }()
     
-    private let separatorView: UIView = {
+    private lazy var separatorView: UIView = {
         let view = UIView()
         NSLayoutConstraint.activate([
             view.heightAnchor.constraint(equalToConstant: 1)
@@ -49,7 +56,7 @@ class ContainerViewController: UIViewController {
         return view
     }()
     
-    private var bottomView = UIView()
+    private lazy var bottomView = UIView()
     
     private lazy var stackViewBottomConstraint: NSLayoutConstraint = self.stackView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
     
@@ -71,26 +78,17 @@ class ContainerViewController: UIViewController {
         super.viewDidLoad()
         self.addNotificationObservers()
         self.setupContent()
+        self.loadData()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        self.configureNavProgress()
     }
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         super.viewWillTransition(to: size, with: coordinator)
         self.navigationController?.updateProgress()
-    }
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        let tabBarOffset = -(self.tabBarController?.tabBar.frame.size.height ?? 0)
-        let emptyLoader = EmptyLoader(tabBarOffset: tabBarOffset)
-        self.configureNavBar()
-        self.collectionView.updateEmptyScreen(emptyReason: emptyLoader)
-        self.viewModel.loadData { [weak self] error in
-            if let error = error {
-                let tabBarOffset = -(self?.tabBarController?.tabBar.frame.size.height ?? 0)
-                self?.updateEmptyState(error: error,
-                                       tabBarOffset: tabBarOffset)
-            }
-        }
     }
     
     // MARK: - Register
@@ -112,7 +110,7 @@ class ContainerViewController: UIViewController {
                 // We store index path for item
                 item.indexPath = IndexPath(row: j,
                                            section: i)
-                                                              
+                
                 self.collectionView.register(
                     item.cellClass,
                     forCellWithReuseIdentifier: item.reuseIdentifier
@@ -122,6 +120,34 @@ class ContainerViewController: UIViewController {
     }
     
     // MARK: - Methods
+    
+    private func loadData() {
+        let tabBarOffset = -(self.tabBarController?.tabBar.frame.size.height ?? 0)
+        let emptyLoader = EmptyLoader(tabBarOffset: tabBarOffset)
+        self.configureNavBar()
+        self.collectionView.updateEmptyScreen(emptyReason: emptyLoader)
+        self.collectionView.reloadEmptyDataSet()
+        self.viewModel.loadData { [weak self] error in
+            guard let strongSelf = self else { return }
+            DispatchQueue.main.async {
+                if let error = error {
+                    let tabBarOffset = -(self?.tabBarController?.tabBar.frame.size.height ?? 0)
+                    strongSelf.updateEmptyState(error: error,
+                                           tabBarOffset: tabBarOffset)
+                } else {
+                    strongSelf.registerCells()
+                    strongSelf.refresh()
+                    if strongSelf.viewModel.searchViewModel.isActivated {
+                        strongSelf.searchBar.becomeFirstResponder()
+                    }
+                }
+            }
+        }
+    }
+    
+    private func refresh() {
+        self.collectionView.reloadData()
+    }
     
     private func updateEmptyState(error: EmptyError?, tabBarOffset: CGFloat) {
         if let error = error {
@@ -138,11 +164,13 @@ class ContainerViewController: UIViewController {
                 switch error.errorAction {
                 case let .navigate(style):
                     _ = Routing.shared.route(navigationStyle: style)
+                case .refresh:
+                    self.refresh()
                 }
             }
             self.configureNavProgress()
-            collectionView.updateEmptyScreen(emptyReason: emptyReason)
-            collectionView.reloadData()
+            self.collectionView.updateEmptyScreen(emptyReason: emptyReason)
+            self.collectionView.reloadData()
         } else {
             self.registerCells()
             self.configureLayout()
@@ -156,9 +184,8 @@ class ContainerViewController: UIViewController {
     
     private func configureNavBar() {
         self.navigationController?.configure()
-        self.navigationController?.navigationBar.topItem?.title = self.viewModel.screenTitle
-        self.configureNavProgress()
-
+        self.title = self.viewModel.screenTitle
+        
         guard let rightButtonItem = self.viewModel.rightButtonItem else {
             return
         }
@@ -168,15 +195,14 @@ class ContainerViewController: UIViewController {
             ) { [weak self] in
                 self?.dismiss(animated: true)
             }
-            guard let navigationItem = self.navigationItem.rightBarButtonItem else {
-                return
-            }
-            self.navigationController?.navigationBar.topItem?.rightBarButtonItem = navigationItem
         }
     }
     
     private func configureNavProgress() {
-        guard let progress = self.viewModel.progress else { return }
+        guard let progress = self.viewModel.progress else {
+            self.navigationController?.cancelProgress()
+            return
+        }
         self.navigationController?.primaryColor = .primaryColor
         self.navigationController?.backgroundColor = .secondaryBackgroundColor
         
@@ -186,7 +212,7 @@ class ContainerViewController: UIViewController {
         // update progress bar with given value
         self.navigationController?.setProgress(progress, animated: false)
     }
-
+    
     private func addNotificationObservers() {
         // Keyboard animation
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardAnimation), name: UIResponder.keyboardWillShowNotification, object: nil)
@@ -222,6 +248,10 @@ class ContainerViewController: UIViewController {
         self.collectionView.delegate = self
         self.collectionView.dataSource = self
         self.collectionView.bounces = self.viewModel.isBounceable
+        if self.viewModel.searchViewModel.isSearchable {
+            self.stackView.addArrangedSubview(self.searchBar)
+            self.searchBar.placeholder = self.viewModel.searchViewModel.placeholder
+        }
         self.stackView.addArrangedSubview(self.collectionView)
         self.view.addSubview(stackView)
         self.setupStackViewConstraints()
@@ -250,7 +280,21 @@ extension ContainerViewController: UICollectionViewDelegate {
         let cellVM = self.viewModel.item(at: indexPath)
         let configurableCell = cell as? CellConfigurable
         cell.layoutIfNeeded()
+        cell.contentView.layer.masksToBounds = true
         configurableCell?.configure(cellViewModel: cellVM)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        guard self.viewModel.itemAvailable(at: indexPath) else {
+            return
+        }
+        let cellVM = self.viewModel.item(at: indexPath)
+        let cell = collectionView.dequeueReusableCell(
+            withReuseIdentifier: cellVM.reuseIdentifier,
+            for: indexPath
+        )
+        let configurableCell = cell as? CellConfigurable
+        configurableCell?.cellPressed(cellViewModel: cellVM)
     }
 }
 
@@ -264,7 +308,7 @@ extension ContainerViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.viewModel.numberOfItems(in: section)
     }
-
+    
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cellVM = self.viewModel.item(at: indexPath)
         let reuseIdentifier = cellVM.reuseIdentifier
@@ -273,6 +317,28 @@ extension ContainerViewController: UICollectionViewDataSource {
             for: indexPath
         )
         return cell
+    }
+}
+
+// MARK: UISearchDelegate
+
+extension ContainerViewController: UISearchBarDelegate {
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        self.searchBar.endEditing(true)
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        // called when text changes (including clear)
+        self.viewModel.searchViewModel.delegate?.updateSearch(with: searchText, callback: { [weak self] error in
+                if let error = error {
+                    let tabBarOffset = -(self?.tabBarController?.tabBar.frame.size.height ?? 0)
+                    self?.updateEmptyState(error: error,
+                                           tabBarOffset: tabBarOffset)
+                } else {
+                    self?.refresh()
+                }
+        })        
     }
 }
 

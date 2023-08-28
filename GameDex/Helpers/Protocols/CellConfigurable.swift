@@ -10,4 +10,5 @@ import UIKit
 
 protocol CellConfigurable: UIView {
     func configure(cellViewModel: CellViewModel)
+    func cellPressed(cellViewModel: CellViewModel)
 }

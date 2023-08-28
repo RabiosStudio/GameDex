@@ -26,7 +26,7 @@ enum MyCollectionError: EmptyError {
     }
     
     var imageName: String {
-        return Asset.ghost4.name
+        return Asset.noItems.name
     }
     
     var buttonTitle: String {
@@ -39,9 +39,9 @@ enum MyCollectionError: EmptyError {
     var errorAction: ErrorAction {
         switch self {
         case .noItems:
-            let addGameController = AddBasicGameInformationScreenFactory().viewController
+            let selectAddGameTypeController = SelectAddGameMethodScreenFactory().viewController
             let startToAddGame: NavigationStyle = .present(
-                controller: addGameController,
+                controller: selectAddGameTypeController,
                 completionBlock: nil)
             return .navigate(style: startToAddGame)
         }
