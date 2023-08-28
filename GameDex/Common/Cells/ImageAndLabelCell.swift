@@ -82,20 +82,55 @@ final class ImageAndLabelCell: UICollectionViewCell, CellConfigurable {
         self.titleLabel.translatesAutoresizingMaskIntoConstraints = false
         self.descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
         NSLayoutConstraint.activate([
-            self.imageView.topAnchor.constraint(equalTo: self.topAnchor, constant: DesignSystem.paddingLarge),
-            self.imageView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: DesignSystem.paddingRegular),
-            self.imageView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -DesignSystem.paddingLarge),
-            self.imageView.widthAnchor.constraint(equalTo: self.imageView.heightAnchor),
+            self.imageView.topAnchor.constraint(
+                equalTo: self.topAnchor,
+                constant: DesignSystem.paddingLarge
+            ),
+            self.imageView.leadingAnchor.constraint(
+                equalTo: self.leadingAnchor,
+                constant: DesignSystem.paddingRegular
+            ),
+            self.imageView.bottomAnchor.constraint(
+                equalTo: self.bottomAnchor,
+                constant: -DesignSystem.paddingLarge
+            ),
+            self.imageView.widthAnchor.constraint(
+                equalTo: self.imageView.heightAnchor
+            ),
             
-            self.titleLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: DesignSystem.paddingLarge),
-            self.titleLabel.leadingAnchor.constraint(equalTo: self.imageView.trailingAnchor, constant: DesignSystem.paddingLarge),
-            self.titleLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -DesignSystem.paddingRegular),
-            self.titleLabel.heightAnchor.constraint(equalTo: self.heightAnchor, multiplier: DesignSystem.fractionalSizeVerySmall),
+            self.titleLabel.topAnchor.constraint(
+                equalTo: self.topAnchor,
+                constant: DesignSystem.paddingLarge
+            ),
+            self.titleLabel.leadingAnchor.constraint(
+                equalTo: self.imageView.trailingAnchor,
+                constant: DesignSystem.paddingLarge
+            ),
+            self.titleLabel.trailingAnchor.constraint(
+                equalTo: self.trailingAnchor,
+                constant: -DesignSystem.paddingRegular
+            ),
+            self.titleLabel.heightAnchor.constraint(
+                equalTo: self.heightAnchor,
+                multiplier: DesignSystem.fractionalSizeVerySmall
+            ),
             
-            self.descriptionLabel.topAnchor.constraint(equalTo: self.titleLabel.bottomAnchor, constant: DesignSystem.paddingVerySmall),
-            self.descriptionLabel.leadingAnchor.constraint(equalTo: self.imageView.trailingAnchor, constant: DesignSystem.paddingLarge),
-            self.descriptionLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -DesignSystem.paddingRegular),
-            self.descriptionLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -DesignSystem.paddingLarge)
+            self.descriptionLabel.topAnchor.constraint(
+                equalTo: self.titleLabel.bottomAnchor,
+                constant: DesignSystem.paddingVerySmall
+            ),
+            self.descriptionLabel.leadingAnchor.constraint(
+                equalTo: self.imageView.trailingAnchor,
+                constant: DesignSystem.paddingLarge
+            ),
+            self.descriptionLabel.trailingAnchor.constraint(
+                equalTo: self.trailingAnchor,
+                constant: -DesignSystem.paddingRegular
+            ),
+            self.descriptionLabel.bottomAnchor.constraint(
+                equalTo: self.bottomAnchor,
+                constant: -DesignSystem.paddingLarge
+            )
         ])
     }
 }
