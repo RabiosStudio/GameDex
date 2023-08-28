@@ -52,7 +52,7 @@ final class FormCell: UICollectionViewCell, CellConfigurable {
     }
     
     func configure(cellViewModel: CellViewModel) {
-        guard let cellVM = cellViewModel as? FormCellViewModel else {
+        guard let cellVM = cellViewModel as? TextFieldCellViewModel else {
             return
         }
         if cellVM.shouldActiveTextField {

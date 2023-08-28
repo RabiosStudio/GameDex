@@ -1,5 +1,5 @@
 //
-//  FormCollectionCellViewModel.swift
+//  TextFieldCellViewModel.swift
 //  GameDex
 //
 //  Created by Gabrielle Dalbera on 17/08/2023.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class FormCellViewModel: CellViewModel {
+final class TextFieldCellViewModel: CellViewModel {
     
     var cellClass: AnyClass = FormCell.self
     let shouldActiveTextField: Bool

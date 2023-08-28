@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import Alamofire
 
 // sourcery: AutoMockable
 public protocol API {

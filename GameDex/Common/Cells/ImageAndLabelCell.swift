@@ -60,8 +60,7 @@ final class ImageAndLabelCell: UICollectionViewCell, CellConfigurable {
         guard let navigationStyle = cellViewModel.navigationStyle else {
             return
         }
-        let newRouting = Routing.shared
-        _ = newRouting.route(navigationStyle: navigationStyle)
+        _ =  Routing.shared.route(navigationStyle: navigationStyle)
     }
     
     private func setupLayer() {
