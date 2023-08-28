@@ -234,20 +234,3 @@ final class SelectPlatformViewModelTests: XCTestCase {
         }
     }
 }
-
-extension Matcher {
-    enum GetPlatformsEndpoint {
-        static func matcher(lhs: GameDex.GetPlatformsEndpoint, rhs: GameDex.GetPlatformsEndpoint) -> Bool {
-            lhs.path == rhs.path &&
-            lhs.entryParameters?.count == rhs.entryParameters?.count &&
-            lhs.method == rhs.method
-        }
-    }
-}
-
-extension Platform: Equatable {
-    public static func == (lhs: Platform, rhs: Platform) -> Bool {
-        lhs.id == rhs.id &&
-        lhs.title == rhs.title
-    }
-}
