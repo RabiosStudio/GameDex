@@ -9,7 +9,7 @@ import Foundation
 
 final class TextFieldCellViewModel: CellViewModel {
     
-    var cellClass: AnyClass = FormCell.self
+    var cellClass: AnyClass = TextFieldCell.self
     let shouldActiveTextField: Bool
     var indexPath: IndexPath?
     var title: String

@@ -24,7 +24,7 @@ enum CellSize {
 
 final class BasicLayoutBuilder: CollectionLayoutBuilder {
     
-    var cellSize: CellSize
+    private var cellSize: CellSize
     
     init(cellSize: CellSize) {
         self.cellSize = cellSize

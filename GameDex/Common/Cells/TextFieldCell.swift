@@ -1,5 +1,5 @@
 //
-//  FormCollectionViewCell.swift
+//  TextFieldCell.swift
 //  GameDex
 //
 //  Created by Gabrielle Dalbera on 17/08/2023.
@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 import DTTextField
 
-final class FormCell: UICollectionViewCell, CellConfigurable {
+final class TextFieldCell: UICollectionViewCell, CellConfigurable {
     
     private lazy var textField: DTTextField = {
         let textField = DTTextField()
@@ -68,7 +68,7 @@ final class FormCell: UICollectionViewCell, CellConfigurable {
 
 // MARK: TextFieldDelegate
 
-extension FormCell: UITextFieldDelegate {
+extension TextFieldCell: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true

@@ -19,10 +19,10 @@ final class SelectPlatformViewModel: CollectionViewModel {
     var rightButtonItem: AnyBarButtonItem? = .close
     let screenTitle: String? = L10n.selectPlatform
     var sections = [Section]()
-    var platformsDisplayed: [Platform] = []
+    private var platformsDisplayed: [Platform] = []
     weak var containerDelegate: ContainerViewControllerDelegate?
     
-    var networkingSession: API
+    private let networkingSession: API
     
     init(networkingSession: API) {
         self.progress = 1/3
