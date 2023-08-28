@@ -22,8 +22,8 @@ class SearchBar: UISearchBar {
         let searchImage = UIImage(systemName: "magnifyingglass")?.withTintColor(tintColor, renderingMode: .alwaysOriginal)
         
         // setup search icon
-            self.setImage(searchImage, for: .search, state: .normal)
+        self.setImage(searchImage, for: .search, state: .normal)
         // setup clear icon
-            self.setImage(clearImage, for: .clear, state: .normal)
+        self.setImage(clearImage, for: .clear, state: .normal)
     }
 }

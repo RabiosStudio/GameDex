@@ -27,7 +27,8 @@ final class SelectAddGameMethodSection: Section {
             title: L10n.scan,
             description: L10n.comingSoon,
             imageName: Asset.barcode.name,
-            navigationStyle: nil)
+            navigationStyle: nil
+        )
         self.cellsVM.append(scanCellVM)
     }
 }

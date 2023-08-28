@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Platform: Equatable {
+struct Platform {
     let title: String
     let id: Int
 }
