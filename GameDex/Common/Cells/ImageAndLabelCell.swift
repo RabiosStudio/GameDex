@@ -12,7 +12,7 @@ final class ImageAndLabelCell: UICollectionViewCell, CellConfigurable {
     
     private let imageView = UIImageView()
     
-    private let titleLabel: UILabel = {
+    private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.font = Typography.title2bold.font
         label.textColor = .black
@@ -21,7 +21,7 @@ final class ImageAndLabelCell: UICollectionViewCell, CellConfigurable {
         return label
     }()
     
-    private let descriptionLabel: UILabel = {
+    private lazy var descriptionLabel: UILabel = {
         let label = UILabel()
         label.font = Typography.title3.font
         label.textColor = .black

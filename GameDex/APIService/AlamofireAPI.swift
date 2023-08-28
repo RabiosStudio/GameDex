@@ -17,7 +17,8 @@ class AlamofireAPI: API {
     }
     
     var commonParameters: [String: Any]? {
-        guard let apiKey = ProcessInfo.processInfo.environment["MOBYGAMES_API_KEY"] else { return nil
+        guard let apiKey = ProcessInfo.processInfo.environment["MOBYGAMES_API_KEY"] else {
+            return nil
         }
         return ["api_key": apiKey]
     }
@@ -33,7 +34,7 @@ class AlamofireAPI: API {
             for (key, value) in endpointParameters {
                 finalParameters[key] = value
             }
-        }        
+        }
         
         do {
             let APIrequest = await withCheckedContinuation { continuation in
