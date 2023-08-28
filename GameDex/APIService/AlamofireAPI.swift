@@ -10,6 +10,10 @@ import Alamofire
 
 class AlamofireAPI: API {
     
+    enum Constants {
+        static let apiKey = "api_key"
+    }
+    
     // MARK: - Properties
     var lastTask: URLSessionTask?
     var basePath: String {
@@ -20,7 +24,7 @@ class AlamofireAPI: API {
         guard let apiKey = ProcessInfo.processInfo.environment["MOBYGAMES_API_KEY"] else {
             return nil
         }
-        return ["api_key": apiKey]
+        return [Constants.apiKey: apiKey]
     }
     
     func getData<T, U>(with endpoint: T) async -> Result<U, APIError> where T: APIEndpoint, U: Decodable {
