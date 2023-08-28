@@ -14,6 +14,7 @@ final class LabelCell: UICollectionViewCell, CellConfigurable {
         let label = UILabel()
         label.textColor = .secondaryColor
         label.font = Typography.body.font
+        label.textAlignment = .left
         label.numberOfLines = .zero
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -39,16 +40,6 @@ final class LabelCell: UICollectionViewCell, CellConfigurable {
             return
         }
         self.label.text = cellVM.text
-        
-        var alignment: NSTextAlignment {
-            switch cellVM.alignement {
-            case .left:
-                return .left
-            case .center:
-                return .center
-            }
-        }
-        self.label.textAlignment = alignment
         self.setupConstraints()
     }
     

@@ -12,12 +12,10 @@ final class LabelCellViewModel: CellViewModel {
     var cellClass: AnyClass = LabelCell.self
     var indexPath: IndexPath?
     var text: String
-    var alignement: TextAlignment
     var navigationStyle: NavigationStyle?
     
-    init(text: String, alignment: TextAlignment) {
+    init(text: String) {
         self.text = text
-        self.alignement = alignment
     }
     
 }

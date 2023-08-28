@@ -23,9 +23,7 @@ class AlamofireAPI: API {
     }
     
     func getData<T, U>(with endpoint: T) async -> Result<U, APIError> where T: APIEndpoint, U: Decodable {
-        //        self.session = Alamofire.Session(configuration: configuration)
         guard let url = URL(string: "\(self.basePath)\(endpoint.path)") else {
-            //            return result
             return .failure(APIError.wrongUrl)
         }
         

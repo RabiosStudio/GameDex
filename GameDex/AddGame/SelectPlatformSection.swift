@@ -17,7 +17,7 @@ final class SelectPlatformSection: Section {
         self.position = 0
         
         for platform in platforms {
-            let labelCellVM = LabelCellViewModel(text: platform.title, alignment: .left)
+            let labelCellVM = LabelCellViewModel(text: platform.title)
             self.cellsVM.append(labelCellVM)
         }
     }
