@@ -16,5 +16,5 @@ public protocol API {
     func getData<T: APIEndpoint, U: Decodable>(
         with endpoint: T,
         resultType: U.Type
-    ) async throws -> Result<U, APIError>
+    ) async -> Result<U, APIError>
 }

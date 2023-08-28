@@ -22,17 +22,19 @@ final class SelectPlatformViewModel: CollectionViewModel {
     var platformsDisplayed: [Platform] = []
     weak var containerDelegate: ContainerViewControllerDelegate?
     
-    init() {
+    var networkingSession: API
+    
+    init(networkingSession: API) {
         self.progress = 1/3
+        self.networkingSession = networkingSession
     }
     
     func loadData(callback: @escaping (EmptyError?) -> ()) {
         Task {
-            let session = AlamofireAPI()
             let endpoint = GetPlatformsEndpoint()
             
             // get reponse
-            let result = await session.getData(with: endpoint, resultType: SearchPlatformsData.self)
+            let result = await self.networkingSession.getData(with: endpoint, resultType: SearchPlatformsData.self)
             
             switch result {
             case .success(let data):

@@ -11,7 +11,7 @@ import UIKit
 struct SelectPlatformScreenFactory: ScreenFactory {
     
     var viewController: UIViewController {
-        let viewModel = SelectPlatformViewModel()
+        let viewModel = SelectPlatformViewModel(networkingSession: AlamofireAPI())
         let layoutBuilder = BasicLayoutBuilder(cellSize: .small)
         let containerController = ContainerViewController(
             viewModel: viewModel,

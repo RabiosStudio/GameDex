@@ -16,7 +16,7 @@ class AlamofireAPI: API {
         return "https://api.mobygames.com/v1/"
     }
     
-    func getData<T,U>(with endpoint: T, resultType: U.Type) async -> Result<U, APIError> where T: APIEndpoint, U: Decodable {
+    func getData<T, U>(with endpoint: T, resultType: U.Type) async -> Result<U, APIError> where T: APIEndpoint, U: Decodable {
         //        self.session = Alamofire.Session(configuration: configuration)
         guard let url = URL(string: "\(self.basePath)\(endpoint.path)") else {
             //            return result
@@ -24,13 +24,25 @@ class AlamofireAPI: API {
         }
         
         do {
-            let (data, response) = try await makeRequest(url: url, endpoint: endpoint) // Data and response are stored
+            let APIrequest = await withCheckedContinuation { continuation in
+                Session.default.request(
+                    url,
+                    method: AlamofireAPI.method(
+                        apiMethod: endpoint.method
+                    ),
+                    parameters: endpoint.entryParameters,
+                    encoding: URLEncoding.default,
+                    headers: nil
+                ).validate().responseData { apiRequest in
+                    continuation.resume(returning: apiRequest)
+                }
+            }
             
-            guard let httpResponse = response,
-                  httpResponse.statusCode == 200 else { // we check the type of response (HTTPURLResponse) and then we check the status code as it needs to be 200 to be OK
+            guard let httpResponse = APIrequest.response,
+                  httpResponse.statusCode == 200 else {
                 return .failure(APIError.server)
             }
-            guard let requestData = data else {
+            guard let requestData = APIrequest.value else {
                 return .failure(APIError.noData)
             }
             
@@ -38,28 +50,9 @@ class AlamofireAPI: API {
             let decodedResponse: U
             decodedResponse = try decoder.decode(U.self, from: requestData)
             return .success(decodedResponse)
-        }
-        catch {
+        } catch {
             return .failure(APIError.parsingError)
         }
-    }
-    
-    private func makeRequest(url: URL, endpoint: APIEndpoint) async throws -> (Data?, HTTPURLResponse?) {
-        let APIrequest = await withCheckedContinuation { continuation in Session.default.request(
-            url,
-            method: AlamofireAPI.method(
-                apiMethod: endpoint.method
-            ),
-            parameters: endpoint.entryParameters,
-            encoding: URLEncoding.default,
-            headers: nil
-        ).validate().responseData { apiRequest in
-            continuation.resume(returning: apiRequest)
-        }
-        }
-        let data = APIrequest.value
-        let response = APIrequest.response
-        return (data, response)
     }
     
     class func method(apiMethod: APIMethod) -> HTTPMethod {
