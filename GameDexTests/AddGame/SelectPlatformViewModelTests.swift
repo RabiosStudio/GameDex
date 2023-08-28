@@ -181,7 +181,6 @@ final class SelectPlatformViewModelTests: XCTestCase {
             XCTAssertEqual(viewModel.numberOfSections(), 1)
             XCTAssertEqual(viewModel.numberOfItems(in: 0), platforms.count)
             
-            
             expectation.fulfill()
         }
         

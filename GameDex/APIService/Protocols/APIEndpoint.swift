@@ -11,6 +11,5 @@ import Foundation
 public protocol APIEndpoint {
     var path: String { get }
     var method: APIMethod { get }
-    var entryParameters: [String: Any]? { get }
-    func errorMessage(statusCode: Int) -> String
+    var entryParameters: [String: Any]? { get }    
 }

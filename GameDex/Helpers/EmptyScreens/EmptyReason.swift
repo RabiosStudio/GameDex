@@ -12,7 +12,7 @@ protocol EmptyReason {
     
     // MARK: - Properties
     var attributedTitle: NSAttributedString? { get }
-    var descriptionText: String { get }
+    var descriptionText: String? { get }
     var attributedDescription: NSAttributedString? { get }
     var attributedButtonTitle: NSAttributedString? { get }
     var image: UIImage? { get }
@@ -32,8 +32,8 @@ extension EmptyReason {
         return nil
     }
     
-    var descriptionText: String {
-        return ""
+    var descriptionText: String? {
+        return nil
     }
     
     var attributedDescription: NSAttributedString? {

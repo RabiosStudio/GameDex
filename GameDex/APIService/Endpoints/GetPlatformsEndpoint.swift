@@ -24,10 +24,5 @@ class GetPlatformsEndpoint: APIEndpoint {
     
     var entryParameters: [String: Any]? {
         return nil
-    }
-    
-    // MARK: - Error
-    func errorMessage(statusCode: Int) -> String {
-        return ""
-    }
+    }    
 }

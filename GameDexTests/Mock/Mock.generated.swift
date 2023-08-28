@@ -310,34 +310,14 @@ open class APIEndpointMock: APIEndpoint, Mock {
 
 
 
-    open func errorMessage(statusCode: Int) -> String {
-        addInvocation(.m_errorMessage__statusCode_statusCode(Parameter<Int>.value(`statusCode`)))
-		let perform = methodPerformValue(.m_errorMessage__statusCode_statusCode(Parameter<Int>.value(`statusCode`))) as? (Int) -> Void
-		perform?(`statusCode`)
-		var __value: String
-		do {
-		    __value = try methodReturnValue(.m_errorMessage__statusCode_statusCode(Parameter<Int>.value(`statusCode`))).casted()
-		} catch {
-			onFatalFailure("Stub return value not specified for errorMessage(statusCode: Int). Use given")
-			Failure("Stub return value not specified for errorMessage(statusCode: Int). Use given")
-		}
-		return __value
-    }
-
 
     fileprivate enum MethodType {
-        case m_errorMessage__statusCode_statusCode(Parameter<Int>)
         case p_path_get
         case p_method_get
         case p_entryParameters_get
 
         static func compareParameters(lhs: MethodType, rhs: MethodType, matcher: Matcher) -> Matcher.ComparisonResult {
-            switch (lhs, rhs) {
-            case (.m_errorMessage__statusCode_statusCode(let lhsStatuscode), .m_errorMessage__statusCode_statusCode(let rhsStatuscode)):
-				var results: [Matcher.ParameterComparisonResult] = []
-				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsStatuscode, rhs: rhsStatuscode, with: matcher), lhsStatuscode, rhsStatuscode, "statusCode"))
-				return Matcher.ComparisonResult(results)
-            case (.p_path_get,.p_path_get): return Matcher.ComparisonResult.match
+            switch (lhs, rhs) {            case (.p_path_get,.p_path_get): return Matcher.ComparisonResult.match
             case (.p_method_get,.p_method_get): return Matcher.ComparisonResult.match
             case (.p_entryParameters_get,.p_entryParameters_get): return Matcher.ComparisonResult.match
             default: return .none
@@ -346,7 +326,6 @@ open class APIEndpointMock: APIEndpoint, Mock {
 
         func intValue() -> Int {
             switch self {
-            case let .m_errorMessage__statusCode_statusCode(p0): return p0.intValue
             case .p_path_get: return 0
             case .p_method_get: return 0
             case .p_entryParameters_get: return 0
@@ -354,7 +333,6 @@ open class APIEndpointMock: APIEndpoint, Mock {
         }
         func assertionName() -> String {
             switch self {
-            case .m_errorMessage__statusCode_statusCode: return ".errorMessage(statusCode:)"
             case .p_path_get: return "[get] .path"
             case .p_method_get: return "[get] .method"
             case .p_entryParameters_get: return "[get] .entryParameters"
@@ -380,22 +358,11 @@ open class APIEndpointMock: APIEndpoint, Mock {
             return Given(method: .p_entryParameters_get, products: defaultValue.map({ StubProduct.return($0 as Any) }))
         }
 
-        public static func errorMessage(statusCode: Parameter<Int>, willReturn: String...) -> MethodStub {
-            return Given(method: .m_errorMessage__statusCode_statusCode(`statusCode`), products: willReturn.map({ StubProduct.return($0 as Any) }))
-        }
-        public static func errorMessage(statusCode: Parameter<Int>, willProduce: (Stubber<String>) -> Void) -> MethodStub {
-            let willReturn: [String] = []
-			let given: Given = { return Given(method: .m_errorMessage__statusCode_statusCode(`statusCode`), products: willReturn.map({ StubProduct.return($0 as Any) })) }()
-			let stubber = given.stub(for: (String).self)
-			willProduce(stubber)
-			return given
-        }
     }
 
     public struct Verify {
         fileprivate var method: MethodType
 
-        public static func errorMessage(statusCode: Parameter<Int>) -> Verify { return Verify(method: .m_errorMessage__statusCode_statusCode(`statusCode`))}
         public static var path: Verify { return Verify(method: .p_path_get) }
         public static var method: Verify { return Verify(method: .p_method_get) }
         public static var entryParameters: Verify { return Verify(method: .p_entryParameters_get) }
@@ -405,9 +372,6 @@ open class APIEndpointMock: APIEndpoint, Mock {
         fileprivate var method: MethodType
         var performs: Any
 
-        public static func errorMessage(statusCode: Parameter<Int>, perform: @escaping (Int) -> Void) -> Perform {
-            return Perform(method: .m_errorMessage__statusCode_statusCode(`statusCode`), performs: perform)
-        }
     }
 
     public func given(_ method: Given) {
