@@ -6,11 +6,18 @@
 // Empty States
 "emptyMyCollectionTitle" = "Your collection is empty";
 "emptyMyCollectionDescription" = "It's time to add the very first game to your collection ! ";
+"emptyItemsTitle" = "Could not find any items";
+"emptyItemsDescription" = "There are no items available for your selected options";
+
+// Errors
+"apiErrorTitle" = "Oops!";
+"apiErrorDescription" = "There has been an issue while fetching data";
 
 // Button
 "addGame" = "Add a game";
 "continue" = "Continue";
 "searchPlatform" = "Search a platform";
+"retry" = "Retry";
 
 // Add Game Steps
 "stepOneOutOfThree" = "Step 1/3";

@@ -15,18 +15,18 @@ enum AddGameError: EmptyError {
     var errorTitle: String {
         switch self {
         case .noItems:
-            return "Could not find any items"
+            return L10n.emptyItemsTitle
         case .server:
-            return "Oops!"
+            return L10n.apiErrorTitle
         }
     }
     
     var errorDescription: String {
         switch self {
         case .noItems:
-            return "There are no items available for your selected options"
+            return L10n.emptyItemsDescription
         case .server:
-            return "There has been an issue while fetching data"
+            return L10n.apiErrorDescription
         }
     }
     
@@ -45,7 +45,7 @@ enum AddGameError: EmptyError {
         case .noItems:
             return ""
         case .server:
-            return "Retry"
+            return L10n.retry
         }
     }
     
