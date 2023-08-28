@@ -7,6 +7,7 @@
 
 import Foundation
 
+// sourcery: AutoMockable
 public protocol APIEndpoint {
     var path: String { get }
     var method: APIMethod { get }
