@@ -8,10 +8,7 @@
 import Foundation
 
 class GetPlatformsEndpoint: APIEndpoint {
-    // MARK: - Properties
-    var key: String {
-        return ProcessInfo.processInfo.environment["MOBYGAMES_API_KEY"]!
-    }
+    // MARK: - Properties    
     
     var path: String {
         return "platforms"
@@ -26,7 +23,7 @@ class GetPlatformsEndpoint: APIEndpoint {
     }
     
     var entryParameters: [String: Any]? {
-        return ["api_key": self.key]
+        return nil
     }
     
     // MARK: - Error

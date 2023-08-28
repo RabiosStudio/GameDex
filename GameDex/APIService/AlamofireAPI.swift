@@ -16,12 +16,26 @@ class AlamofireAPI: API {
         return "https://api.mobygames.com/v1/"
     }
     
-    func getData<T, U>(with endpoint: T, resultType: U.Type) async -> Result<U, APIError> where T: APIEndpoint, U: Decodable {
+    var commonParameters: [String: Any]? {
+        guard let apiKey = ProcessInfo.processInfo.environment["MOBYGAMES_API_KEY"] else { return nil
+        }
+        return ["api_key": apiKey]
+    }
+    
+    func getData<T, U>(with endpoint: T) async -> Result<U, APIError> where T: APIEndpoint, U: Decodable {
         //        self.session = Alamofire.Session(configuration: configuration)
         guard let url = URL(string: "\(self.basePath)\(endpoint.path)") else {
             //            return result
             return .failure(APIError.wrongUrl)
         }
+        
+        var finalParameters = self.commonParameters ?? [:]
+        
+        if let endpointParameters = endpoint.entryParameters {
+            for (key, value) in endpointParameters {
+                finalParameters[key] = value
+            }
+        }        
         
         do {
             let APIrequest = await withCheckedContinuation { continuation in
@@ -30,7 +44,7 @@ class AlamofireAPI: API {
                     method: AlamofireAPI.method(
                         apiMethod: endpoint.method
                     ),
-                    parameters: endpoint.entryParameters,
+                    parameters: finalParameters,
                     encoding: URLEncoding.default,
                     headers: nil
                 ).validate().responseData { apiRequest in

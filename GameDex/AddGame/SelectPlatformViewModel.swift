@@ -34,7 +34,7 @@ final class SelectPlatformViewModel: CollectionViewModel {
             let endpoint = GetPlatformsEndpoint()
             
             // get reponse
-            let result = await self.networkingSession.getData(with: endpoint, resultType: SearchPlatformsData.self)
+            let result: Result<SearchPlatformsData, APIError> = await self.networkingSession.getData(with: endpoint)
             
             switch result {
             case .success(let data):

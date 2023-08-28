@@ -12,9 +12,9 @@ public protocol API {
     
     var lastTask: URLSessionTask? { get set }
     var basePath: String { get }
+    var commonParameters: [String: Any]? { get }
     
     func getData<T: APIEndpoint, U: Decodable>(
-        with endpoint: T,
-        resultType: U.Type
+        with endpoint: T
     ) async -> Result<U, APIError>
 }
