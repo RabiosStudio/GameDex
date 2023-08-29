@@ -1,5 +1,5 @@
 //
-//  ImageAndLabelCellViewModel.swift
+//  InfoCardCellViewModel.swift
 //  GameDex
 //
 //  Created by Gabrielle Dalbera on 25/08/2023.
@@ -7,9 +7,9 @@
 
 import Foundation
 
-final class ImageAndLabelCellViewModel: CellViewModel {
+final class InfoCardCellViewModel: CellViewModel {
     
-    var cellClass: AnyClass = ImageAndLabelCell.self
+    var cellClass: AnyClass = InfoCardCell.self
     var indexPath: IndexPath?
     var title: String
     var description: String

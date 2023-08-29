@@ -1,5 +1,5 @@
 //
-//  LabelCollectionCellViewModel.swift
+//  LabelCellViewModel.swift
 //  GameDex
 //
 //  Created by Gabrielle Dalbera on 21/08/2023.
