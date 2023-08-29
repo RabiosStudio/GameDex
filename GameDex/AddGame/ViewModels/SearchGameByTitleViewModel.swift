@@ -30,6 +30,7 @@ final class SearchGameByTitleViewModel: CollectionViewModel {
         self.progress = 2/3
         self.networkingSession = networkingSession
         self.platform = platform
+        self.sections = [SearchGameByTitleSection(gamesQuery: gamesQuery, platform: self.platform)]
     }
     
     func loadData(callback: @escaping (EmptyError?) -> ()) {
@@ -40,7 +41,28 @@ final class SearchGameByTitleViewModel: CollectionViewModel {
 
 extension SearchGameByTitleViewModel: SearchViewModelDelegate {
     func startSearch(from searchQuery: String, callback: @escaping (EmptyError?) -> ()) {
+        Task {
+            let endpoint = GetGamesEndpoint(platformId: self.platform.id, title: searchQuery)
+            
+            // get reponse
+            let result: Result<SearchGamesData, APIError> = await self.networkingSession.getData(with: endpoint)
+            
+            switch result {
+            case .success(let data):
+                let games = DataConverter.convert(remoteGames: data.games)
+                self.gamesQuery = games
+                DispatchQueue.main.async {
+                    self.sections = [SearchGameByTitleSection(
+                        gamesQuery: self.gamesQuery,
+                        platform: self.platform
+                    )]
+                }
                 callback(nil)
+            case .failure(_):
+                let error: AddGameError = .server
+                callback(error)
+            }
+        }
     }
     
     func updateSearchTextField(with text: String, callback: @escaping (EmptyError?) -> ()) {

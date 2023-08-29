@@ -135,7 +135,6 @@ class ContainerViewController: UIViewController {
                     strongSelf.updateEmptyState(error: error,
                                            tabBarOffset: tabBarOffset)
                 } else {
-                    strongSelf.registerCells()
                     strongSelf.refresh()
                     if strongSelf.viewModel.searchViewModel.isActivated {
                         strongSelf.searchBar.becomeFirstResponder()
@@ -146,6 +145,7 @@ class ContainerViewController: UIViewController {
     }
     
     private func refresh() {
+        self.registerCells()
         self.collectionView.reloadData()
     }
     
@@ -332,12 +332,14 @@ extension ContainerViewController: UISearchBarDelegate {
         self.viewModel.searchViewModel.delegate?.startSearch(
             from: searchQuery,
             callback: { [weak self] error in
-                if let error = error {
-                    let tabBarOffset = -(self?.tabBarController?.tabBar.frame.size.height ?? 0)
-                    self?.updateEmptyState(error: error,
-                                           tabBarOffset: tabBarOffset)
-                } else {
-                    self?.refresh()
+                DispatchQueue.main.async {
+                    if let error = error {
+                        let tabBarOffset = -(self?.tabBarController?.tabBar.frame.size.height ?? 0)
+                        self?.updateEmptyState(error: error,
+                                               tabBarOffset: tabBarOffset)
+                    } else {
+                        self?.refresh()
+                    }
                 }
         })
     }
