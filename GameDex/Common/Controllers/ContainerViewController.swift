@@ -325,12 +325,26 @@ extension ContainerViewController: UICollectionViewDataSource {
 extension ContainerViewController: UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        guard let searchQuery = searchBar.text else {
+            return
+        }
         self.searchBar.endEditing(true)
+        self.viewModel.searchViewModel.delegate?.startSearch(
+            from: searchQuery,
+            callback: { [weak self] error in
+                if let error = error {
+                    let tabBarOffset = -(self?.tabBarController?.tabBar.frame.size.height ?? 0)
+                    self?.updateEmptyState(error: error,
+                                           tabBarOffset: tabBarOffset)
+                } else {
+                    self?.refresh()
+                }
+        })
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         // called when text changes (including clear)
-        self.viewModel.searchViewModel.delegate?.updateSearch(with: searchText, callback: { [weak self] error in
+        self.viewModel.searchViewModel.delegate?.updateSearchTextField(with: searchText, callback: { [weak self] error in
                 if let error = error {
                     let tabBarOffset = -(self?.tabBarController?.tabBar.frame.size.height ?? 0)
                     self?.updateEmptyState(error: error,

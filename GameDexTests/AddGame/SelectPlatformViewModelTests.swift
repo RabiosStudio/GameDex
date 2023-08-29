@@ -202,7 +202,7 @@ final class SelectPlatformViewModelTests: XCTestCase {
         ]
         
         // When
-        viewModel.updateSearch(with: "Game boy") { _ in
+        viewModel.updateSearchTextField(with: "Game boy") { _ in
             XCTAssertEqual(viewModel.numberOfSections(), 1)
             XCTAssertEqual(viewModel.sections[0].cellsVM.count, 3)
         }
@@ -214,7 +214,7 @@ final class SelectPlatformViewModelTests: XCTestCase {
         let viewModel = SelectPlatformViewModel(networkingSession: networkingSession)
         
         // When
-        viewModel.updateSearch(with: "") { _ in
+        viewModel.updateSearchTextField(with: "") { _ in
             XCTAssertEqual(viewModel.numberOfSections(), .zero)
         }
     }
@@ -225,7 +225,7 @@ final class SelectPlatformViewModelTests: XCTestCase {
         let viewModel = SelectPlatformViewModel(networkingSession: networkingSession)
         
         // When
-        viewModel.updateSearch(with: "Playstation01") { error in
+        viewModel.updateSearchTextField(with: "Playstation01") { error in
             guard let error = error as? AddGameError else {
                 XCTFail("Error type is not correct")
                 return

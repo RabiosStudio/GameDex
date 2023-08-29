@@ -57,7 +57,11 @@ final class SelectPlatformViewModel: CollectionViewModel {
 }
 
 extension SelectPlatformViewModel: SearchViewModelDelegate {
-    func updateSearch(with text: String, callback: @escaping (EmptyError?) -> ()) {
+    func startSearch(from searchQuery: String, callback: @escaping (EmptyError?) -> ()) {
+        callback(nil)
+    }
+    
+    func updateSearchTextField(with text: String, callback: @escaping (EmptyError?) -> ()) {
         guard text.count > .zero else {
             self.updateListOfPlatforms(with: self.platformsDisplayed)
             return
