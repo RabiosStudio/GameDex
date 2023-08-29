@@ -1,5 +1,5 @@
 //
-//  SeachGamesData.swift
+//  SearchGamesData.swift
 //  GameDex
 //
 //  Created by Gabrielle Dalbera on 28/08/2023.
