@@ -9,13 +9,13 @@ import Foundation
 
 // MARK: - SearchGamesData
 struct SearchGamesData: Codable {
-    let games: [Game]
+    let games: [RemoteGame]
 }
 
 // MARK: - Game
-struct Game: Codable {
+struct RemoteGame: Codable {
     let alternateTitles: [AlternateTitle]
-    let description: String
+    let description: String?
     let gameID: Int
     let genres: [Genre]
     let mobyScore: Double?
@@ -23,7 +23,7 @@ struct Game: Codable {
     let numVotes: Int
     let officialURL: String?
     let platforms: [RealeasedOnPlatform]
-    let sampleCover: Sample
+    let sampleCover: Sample?
     let sampleScreenshots: [Sample]
     let title: String
 
@@ -50,14 +50,15 @@ struct AlternateTitle: Codable {
 
 // MARK: - Genre
 struct Genre: Codable {
-    let genreCategory: GenreCategory
-    let genreCategoryID, genreID: Int
+//    let genreCategory: GenreCategory?
+//    let genreCategoryID: Int?
+//    let genreID: Int?
     let genreName: String
 
     enum CodingKeys: String, CodingKey {
-        case genreCategory = "genre_category"
-        case genreCategoryID = "genre_category_id"
-        case genreID = "genre_id"
+//        case genreCategory = "genre_category"
+//        case genreCategoryID = "genre_category_id"
+//        case genreID = "genre_id"
         case genreName = "genre_name"
     }
 }
