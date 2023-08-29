@@ -9,7 +9,7 @@ import Foundation
 
 enum DataConverter {
     // from API "RemotePlatform" to Platform
-    static func convert(remotePlatforms: [RemotePlatform]) -> [Platform] {
+    static func convert(remotePlatforms: [PlatformData]) -> [Platform] {
         return remotePlatforms.map { remotePlatform in
             return Platform(
                 title: remotePlatform.platformName,

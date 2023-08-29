@@ -155,11 +155,11 @@ final class SelectPlatformViewModelTests: XCTestCase {
         let networkingSession = APIMock()
         
         let data = SearchPlatformsData(platforms: [
-            RemotePlatform(platformID: 28, platformName: "Atari 2600"),
-            RemotePlatform(platformID: 8, platformName: "Dreamcast"),
-            RemotePlatform(platformID: 11, platformName: "Game Boy Color"),
-            RemotePlatform(platformID: 17, platformName: "Jaguar"),
-            RemotePlatform(platformID: 15, platformName: "SNES")
+            PlatformData(platformID: 28, platformName: "Atari 2600"),
+            PlatformData(platformID: 8, platformName: "Dreamcast"),
+            PlatformData(platformID: 11, platformName: "Game Boy Color"),
+            PlatformData(platformID: 17, platformName: "Jaguar"),
+            PlatformData(platformID: 15, platformName: "SNES")
         ])
         
         networkingSession.given(

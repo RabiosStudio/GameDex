@@ -9,11 +9,11 @@ import Foundation
 
 // MARK: - PlatformsData
 struct SearchPlatformsData: Codable {
-    let platforms: [RemotePlatform]
+    let platforms: [PlatformData]
 }
 
 // MARK: - Platform
-struct RemotePlatform: Codable {
+struct PlatformData: Codable {
     let platformID: Int
     let platformName: String
 
