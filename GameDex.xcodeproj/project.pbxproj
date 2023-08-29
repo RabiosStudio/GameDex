@@ -276,6 +276,24 @@
 			path = Protocols;
 			sourceTree = "<group>";
 		};
+		251C873E2A9DE3A30020C794 /* ViewModels */ = {
+			isa = PBXGroup;
+			children = (
+				251C86DD2A98AD400020C794 /* SelectAddGameMethodViewModel.swift */,
+				251C86ED2A98F25C0020C794 /* SelectPlatformViewModel.swift */,
+			);
+			path = ViewModels;
+			sourceTree = "<group>";
+		};
+		251C873F2A9DE3B40020C794 /* Sections */ = {
+			isa = PBXGroup;
+			children = (
+				251C86DF2A98AD4D0020C794 /* SelectAddGameMethodSection.swift */,
+				251C86EB2A98F1A60020C794 /* SelectPlatformSection.swift */,
+			);
+			path = Sections;
+			sourceTree = "<group>";
+		};
 		2528185D2A93DF39003FDC87 /* Mock */ = {
 			isa = PBXGroup;
 			children = (
@@ -375,10 +393,8 @@
 		25AE1EE72A8E4E0B00F2D06A /* AddGame */ = {
 			isa = PBXGroup;
 			children = (
-				251C86DD2A98AD400020C794 /* SelectAddGameMethodViewModel.swift */,
-				251C86DF2A98AD4D0020C794 /* SelectAddGameMethodSection.swift */,
-				251C86ED2A98F25C0020C794 /* SelectPlatformViewModel.swift */,
-				251C86EB2A98F1A60020C794 /* SelectPlatformSection.swift */,
+				251C873E2A9DE3A30020C794 /* ViewModels */,
+				251C873F2A9DE3B40020C794 /* Sections */,
 				251C86F92A9A44B60020C794 /* AddGameError.swift */,
 			);
 			path = AddGame;
