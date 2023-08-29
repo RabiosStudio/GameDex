@@ -10,12 +10,15 @@ import UIKit
 
 enum CellSize {
     case small
+    case regular
     case big
     
     var value: CGFloat {
         switch self {
         case .small:
             return DesignSystem.sizeSmall
+        case .regular:
+            return DesignSystem.sizeRegular
         case .big:
             return DesignSystem.sizeBig
         }

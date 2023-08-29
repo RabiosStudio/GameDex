@@ -116,7 +116,7 @@ final class InfoCardCell: UICollectionViewCell, CellConfigurable {
             
             self.descriptionLabel.topAnchor.constraint(
                 equalTo: self.titleLabel.bottomAnchor,
-                constant: DesignSystem.paddingVerySmall
+                constant: DesignSystem.paddingSmall
             ),
             self.descriptionLabel.leadingAnchor.constraint(
                 equalTo: self.imageView.trailingAnchor,
