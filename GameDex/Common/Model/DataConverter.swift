@@ -11,9 +11,11 @@ enum DataConverter {
     // from API "RemotePlatform" to Platform
     static func convert(remotePlatforms: [PlatformData]) -> [Platform] {
         return remotePlatforms.map { remotePlatform in
+            let name = remotePlatform.name
+            let id = remotePlatform.id
             return Platform(
-                title: remotePlatform.platformName,
-                id: remotePlatform.platformID
+                title: name,
+                id: id
             )
         }
     }

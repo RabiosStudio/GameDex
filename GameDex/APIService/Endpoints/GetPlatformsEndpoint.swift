@@ -8,10 +8,20 @@
 import Foundation
 
 class GetPlatformsEndpoint: APIEndpoint {
-    // MARK: - Properties    
+    // MARK: - Properties
+    
+    private enum Constants {
+        static let path = "platforms"
+        static let format = "format"
+        static let json = "json"
+        static let fieldList = "field_list"
+        static let id = "id"
+        static let name = "name"
+        static let offset = "offset"
+    }
     
     var path: String {
-        return "platforms"
+        return Constants.path
     }
     
     var url: URL {
@@ -23,6 +33,14 @@ class GetPlatformsEndpoint: APIEndpoint {
     }
     
     var entryParameters: [String: Any]? {
-        return nil
-    }    
+        return [Constants.format: Constants.json,
+                Constants.fieldList: "\(Constants.id),\(Constants.name)",
+                Constants.offset: self.offset]
+    }
+    
+    private var offset: Int
+    
+    init(offset: Int) {
+        self.offset = offset
+    }
 }
