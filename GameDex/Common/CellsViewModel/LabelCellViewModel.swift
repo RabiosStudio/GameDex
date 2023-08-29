@@ -14,8 +14,9 @@ final class LabelCellViewModel: CellViewModel {
     var text: String
     var navigationStyle: NavigationStyle?
     
-    init(text: String) {
+    init(text: String, navigationStyle: NavigationStyle?) {
         self.text = text
+        self.navigationStyle = navigationStyle
     }
     
 }

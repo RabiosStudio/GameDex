@@ -43,7 +43,12 @@ final class LabelCell: UICollectionViewCell, CellConfigurable {
         self.setupConstraints()
     }
     
-    func cellPressed(cellViewModel: CellViewModel) {}
+    func cellPressed(cellViewModel: CellViewModel) {
+        guard let navigationStyle = cellViewModel.navigationStyle else {
+            return
+        }
+        _ =  Routing.shared.route(navigationStyle: navigationStyle)
+    }
     
     private func setupConstraints() {
         NSLayoutConstraint.activate([
