@@ -40,7 +40,9 @@ final class SelectPlatformViewModel: CollectionViewModel {
             case .success(let data):
                 let platforms = DataConverter.convert(remotePlatforms: data.platforms)
                 self.platformsDisplayed = platforms
-                self.sections = [SelectPlatformSection(platforms: platforms)]
+                DispatchQueue.main.async {
+                    self.sections = [SelectPlatformSection(platforms: platforms)]
+                }
                 callback(nil)
             case .failure(_):
                 let error: AddGameError = .server
