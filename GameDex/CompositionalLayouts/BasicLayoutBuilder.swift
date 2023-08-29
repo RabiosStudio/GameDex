@@ -25,12 +25,33 @@ enum CellSize {
     }
 }
 
+enum CellSpacing {
+    case none
+    case small
+    case regular
+    
+    var value: CGFloat {
+        switch self {
+        case .none:
+            return .zero
+        case .small:
+            return DesignSystem.paddingSmall
+        case .regular:
+            return DesignSystem.paddingRegular
+        }
+    }
+}
+
 final class BasicLayoutBuilder: CollectionLayoutBuilder {
     
     private var cellSize: CellSize
+    private var cellHorizontalSpacing: CellSpacing
+    private var cellVerticalSpacing: CellSpacing
     
-    init(cellSize: CellSize) {
+    init(cellSize: CellSize, cellHorizontalSpacing: CellSpacing, cellVerticalSpacing: CellSpacing) {
         self.cellSize = cellSize
+        self.cellHorizontalSpacing = cellHorizontalSpacing
+        self.cellVerticalSpacing = cellVerticalSpacing
     }
     
     func create() -> UICollectionViewLayout {
@@ -38,10 +59,10 @@ final class BasicLayoutBuilder: CollectionLayoutBuilder {
             widthDimension: .fractionalWidth(DesignSystem.fractionalSizeFull),
             heightDimension: .fractionalHeight(DesignSystem.fractionalSizeFull))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
-        item.contentInsets = NSDirectionalEdgeInsets(top: DesignSystem.paddingSmall,
-                                                     leading: DesignSystem.paddingSmall,
-                                                     bottom: DesignSystem.paddingSmall,
-                                                     trailing: DesignSystem.paddingSmall)
+        item.contentInsets = NSDirectionalEdgeInsets(top: cellVerticalSpacing.value,
+                                                     leading: cellHorizontalSpacing.value,
+                                                     bottom: cellVerticalSpacing.value,
+                                                     trailing: cellHorizontalSpacing.value)
         let groupSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(DesignSystem.fractionalSizeFull),
             heightDimension: .absolute(cellSize.value)

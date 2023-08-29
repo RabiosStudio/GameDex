@@ -12,7 +12,11 @@ struct SelectPlatformScreenFactory: ScreenFactory {
     
     var viewController: UIViewController {
         let viewModel = SelectPlatformViewModel(networkingSession: AlamofireAPI())
-        let layoutBuilder = BasicLayoutBuilder(cellSize: .small)
+        let layoutBuilder = BasicLayoutBuilder(
+            cellSize: .small,
+            cellHorizontalSpacing: .small,
+            cellVerticalSpacing: .small
+        )
         let containerController = ContainerViewController(
             viewModel: viewModel,
             layoutBuilder: layoutBuilder

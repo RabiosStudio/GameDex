@@ -12,7 +12,11 @@ struct SearchGameByTitleScreenFactory: ScreenFactory {
     
     var viewController: UIViewController {
         let viewModel = SearchGameByTitleViewModel(networkingSession: AlamofireAPI(), platform: self.platform)
-        let layoutBuilder = BasicLayoutBuilder(cellSize: .regular)
+        let layoutBuilder = BasicLayoutBuilder(
+            cellSize: .regular,
+            cellHorizontalSpacing: .small,
+            cellVerticalSpacing: .none
+        )
         let containerController = ContainerViewController(
             viewModel: viewModel,
             layoutBuilder: layoutBuilder

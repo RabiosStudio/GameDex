@@ -5,7 +5,14 @@ class TabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let vc1 = ContainerViewController(viewModel: MyCollectionViewModel(), layoutBuilder: BasicLayoutBuilder(cellSize: .small))
+        let vc1 = ContainerViewController(
+            viewModel: MyCollectionViewModel(),
+            layoutBuilder: BasicLayoutBuilder(
+                cellSize: .small,
+                cellHorizontalSpacing: .small,
+                cellVerticalSpacing: .small
+            )
+        )
         let vc2 = UIViewController()
         let vc3 = UIViewController()
         
