@@ -44,12 +44,12 @@ extension SearchGameByTitleViewModel: SearchViewModelDelegate {
         Task {
             let endpoint = GetGamesEndpoint(platformId: self.platform.id, title: searchQuery)
             
-            // get reponse
+            // get response
             let result: Result<SearchGamesData, APIError> = await self.networkingSession.getData(with: endpoint)
             
             switch result {
             case .success(let data):
-                let games = DataConverter.convert(remoteGames: data.games)
+                let games = DataConverter.convert(remoteGames: data.results, platform: self.platform)
                 self.gamesQuery = games
                 DispatchQueue.main.async {
                     self.sections = [SearchGameByTitleSection(

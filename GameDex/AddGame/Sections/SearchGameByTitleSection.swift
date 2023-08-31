@@ -20,7 +20,7 @@ final class SearchGameByTitleSection: Section {
             let gameCellVM = BasicInfoCellViewModel(
                 title: game.title,
                 subtitle1: platform.title,
-                subtitle2: game.genres,
+                subtitle2: game.description,
                 caption: game.image,
                 navigationStyle: nil
             )

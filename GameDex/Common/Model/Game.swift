@@ -10,9 +10,7 @@ import Foundation
 struct Game {
     let title: String
     let description: String
-    let id: Int
-    let genres: String?
-    let url: String?
-    let platforms: [Platform]
-    let image: String?
+    let id: String
+    var platform: String
+    let image: String
 }
