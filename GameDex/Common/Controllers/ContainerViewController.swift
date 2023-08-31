@@ -28,6 +28,7 @@ class ContainerViewController: UIViewController {
     private lazy var searchBar: SearchBar = {
         let searchBar = SearchBar()
         searchBar.delegate = self
+        searchBar.searchTextField.delegate = self
         searchBar.configure()
         return searchBar
     }()
@@ -35,7 +36,6 @@ class ContainerViewController: UIViewController {
     private lazy var stackView: UIStackView = {
         let view = UIStackView()
         view.axis = .vertical
-        view.backgroundColor = .primaryBackgroundColor
         view.layoutMargins = .init(
             top: DesignSystem.paddingRegular,
             left: DesignSystem.paddingRegular,
@@ -184,7 +184,12 @@ class ContainerViewController: UIViewController {
     
     private func configureNavBar() {
         self.navigationController?.configure()
-        self.title = self.viewModel.screenTitle
+        if self.viewModel.searchViewModel.isSearchable {
+            self.searchBar.placeholder = self.viewModel.searchViewModel.placeholder
+            self.navigationItem.titleView = self.searchBar
+        } else {
+            self.title = self.viewModel.screenTitle
+        }
         
         guard let rightButtonItem = self.viewModel.rightButtonItem else {
             return
@@ -248,10 +253,6 @@ class ContainerViewController: UIViewController {
         self.collectionView.delegate = self
         self.collectionView.dataSource = self
         self.collectionView.bounces = self.viewModel.isBounceable
-        if self.viewModel.searchViewModel.isSearchable {
-            self.stackView.addArrangedSubview(self.searchBar)
-            self.searchBar.placeholder = self.viewModel.searchViewModel.placeholder
-        }
         self.stackView.addArrangedSubview(self.collectionView)
         self.view.addSubview(stackView)
         self.setupStackViewConstraints()
@@ -320,10 +321,26 @@ extension ContainerViewController: UICollectionViewDataSource {
     }
 }
 
+// MARK: UISearchTextFieldDelegate
+
+extension ContainerViewController: UISearchTextFieldDelegate {
+    func textFieldShouldClear(_ textField: UITextField) -> Bool {
+        self.viewModel.searchViewModel.delegate?.updateSearchTextField(with: "", callback: { [weak self] error in
+                if let error = error {
+                    let tabBarOffset = -(self?.tabBarController?.tabBar.frame.size.height ?? 0)
+                    self?.updateEmptyState(error: error,
+                                           tabBarOffset: tabBarOffset)
+                } else {
+                    self?.refresh()
+                }
+        })
+        return true
+    }
+}
+
 // MARK: UISearchDelegate
 
 extension ContainerViewController: UISearchBarDelegate {
-    
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard let searchQuery = searchBar.text else {
             return

@@ -32,7 +32,6 @@ final class SelectPlatformViewModel: CollectionViewModel {
     func loadData(callback: @escaping (EmptyError?) -> ()) {
         Task {
             if let error = await self.requestData() {
-                let error: AddGameError = .server
                 callback(error)
             } else {
                 self.platformsDisplayed.sort {
@@ -82,6 +81,7 @@ extension SelectPlatformViewModel: SearchViewModelDelegate {
     func updateSearchTextField(with text: String, callback: @escaping (EmptyError?) -> ()) {
         guard text.count > .zero else {
             self.updateListOfPlatforms(with: self.platformsDisplayed)
+            callback(nil)
             return
         }
         
