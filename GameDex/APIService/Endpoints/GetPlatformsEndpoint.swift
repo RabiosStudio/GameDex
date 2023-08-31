@@ -15,8 +15,7 @@ class GetPlatformsEndpoint: APIEndpoint {
         static let format = "format"
         static let json = "json"
         static let fieldList = "field_list"
-        static let id = "id"
-        static let name = "name"
+        static let requestedFields = "id,name"
         static let offset = "offset"
     }
     
@@ -34,7 +33,7 @@ class GetPlatformsEndpoint: APIEndpoint {
     
     var entryParameters: [String: Any]? {
         return [Constants.format: Constants.json,
-                Constants.fieldList: "\(Constants.id),\(Constants.name)",
+                Constants.fieldList: Constants.requestedFields,
                 Constants.offset: self.offset]
     }
     
