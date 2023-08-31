@@ -15,7 +15,7 @@ struct SearchGameByTitleScreenFactory: ScreenFactory {
         let layoutBuilder = BasicLayoutBuilder(
             cellSize: .regular,
             cellHorizontalSpacing: .small,
-            cellVerticalSpacing: .none
+            cellVerticalSpacing: .small
         )
         let containerController = ContainerViewController(
             viewModel: viewModel,

@@ -15,7 +15,7 @@ struct SelectPlatformScreenFactory: ScreenFactory {
         let layoutBuilder = BasicLayoutBuilder(
             cellSize: .small,
             cellHorizontalSpacing: .small,
-            cellVerticalSpacing: .small
+            cellVerticalSpacing: .none
         )
         let containerController = ContainerViewController(
             viewModel: viewModel,

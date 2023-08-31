@@ -53,8 +53,8 @@ final class LabelCell: UICollectionViewCell, CellConfigurable {
     private func setupConstraints() {
         NSLayoutConstraint.activate([
             self.label.topAnchor.constraint(equalTo: self.topAnchor),
-            self.label.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            self.label.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            self.label.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: DesignSystem.paddingRegular),
+            self.label.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -DesignSystem.paddingRegular),
             self.label.bottomAnchor.constraint(equalTo: self.bottomAnchor)
         ])
     }

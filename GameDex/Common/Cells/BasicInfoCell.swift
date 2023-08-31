@@ -11,7 +11,11 @@ import SDWebImage
 
 final class BasicInfoCell: UICollectionViewCell, CellConfigurable {
     
-    private let imageView = UIImageView()
+    private let imageView: UIImageView = {
+        let view = UIImageView()
+        view.contentMode = .scaleAspectFit
+        return view
+    }()
     
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
