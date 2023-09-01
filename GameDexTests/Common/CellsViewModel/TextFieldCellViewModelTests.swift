@@ -1,5 +1,5 @@
 //
-//  FormCollectionCellViewModelTests.swift
+//  TextFieldCellViewModelTests.swift
 //  GameDexTests
 //
 //  Created by Gabrielle Dalbera on 14/08/2023.
@@ -8,7 +8,7 @@
 import XCTest
 @testable import GameDex
 
-final class FormCellViewModelTests: XCTestCase {
+final class TextFieldCellViewModelTests: XCTestCase {
     
     func test_init_GivenCorrectParameters_ThenShouldSetPropertiesCorrectly() {
         // Given
@@ -20,7 +20,7 @@ final class FormCellViewModelTests: XCTestCase {
             shouldActiveTextField: shouldActiveTextField
         )
         // Then
-        XCTAssertEqual(cellVM.title, title)
+        XCTAssertEqual(cellVM.title, "Title")
         XCTAssertTrue(cellVM.shouldActiveTextField)
     }
     
