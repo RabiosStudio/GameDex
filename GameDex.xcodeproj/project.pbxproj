@@ -89,6 +89,7 @@
 		25D6EAEB2A8A265D00C2BE57 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 25D6EAEA2A8A265D00C2BE57 /* Assets.xcassets */; };
 		25D6EAEE2A8A265D00C2BE57 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 25D6EAEC2A8A265D00C2BE57 /* LaunchScreen.storyboard */; };
 		25D6EAF92A8A265D00C2BE57 /* TextFieldCellViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D6EAF82A8A265D00C2BE57 /* TextFieldCellViewModelTests.swift */; };
+		25EB24082AA1D5C20024F01C /* LabelCellViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EB24072AA1D5C20024F01C /* LabelCellViewModelTests.swift */; };
 		25EB240A2AA1D76D0024F01C /* InfoCardCellViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EB24092AA1D76D0024F01C /* InfoCardCellViewModelTests.swift */; };
 		25EB240C2AA1D77A0024F01C /* BasicInfoCellViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EB240B2AA1D77A0024F01C /* BasicInfoCellViewModelTests.swift */; };
 		25F6632B2A94CF13005F5412 /* ContinueContentViewFactoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F663282A94CF13005F5412 /* ContinueContentViewFactoryTests.swift */; };
@@ -195,6 +196,7 @@
 		25D6EAEF2A8A265D00C2BE57 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		25D6EAF42A8A265D00C2BE57 /* GameDexTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GameDexTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		25D6EAF82A8A265D00C2BE57 /* TextFieldCellViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldCellViewModelTests.swift; sourceTree = "<group>"; };
+		25EB24072AA1D5C20024F01C /* LabelCellViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelCellViewModelTests.swift; sourceTree = "<group>"; };
 		25EB24092AA1D76D0024F01C /* InfoCardCellViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoCardCellViewModelTests.swift; sourceTree = "<group>"; };
 		25EB240B2AA1D77A0024F01C /* BasicInfoCellViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicInfoCellViewModelTests.swift; sourceTree = "<group>"; };
 		25F663282A94CF13005F5412 /* ContinueContentViewFactoryTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContinueContentViewFactoryTests.swift; sourceTree = "<group>"; };
@@ -561,6 +563,7 @@
 			isa = PBXGroup;
 			children = (
 				25D6EAF82A8A265D00C2BE57 /* TextFieldCellViewModelTests.swift */,
+				25EB24072AA1D5C20024F01C /* LabelCellViewModelTests.swift */,
 				25EB24092AA1D76D0024F01C /* InfoCardCellViewModelTests.swift */,
 				25EB240B2AA1D77A0024F01C /* BasicInfoCellViewModelTests.swift */,
 			);
@@ -933,6 +936,7 @@
 				25F6632B2A94CF13005F5412 /* ContinueContentViewFactoryTests.swift in Sources */,
 				25EB240C2AA1D77A0024F01C /* BasicInfoCellViewModelTests.swift in Sources */,
 				25D6EAF92A8A265D00C2BE57 /* TextFieldCellViewModelTests.swift in Sources */,
+				25EB24082AA1D5C20024F01C /* LabelCellViewModelTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
