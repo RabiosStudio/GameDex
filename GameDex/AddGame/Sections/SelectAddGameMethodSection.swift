@@ -17,9 +17,7 @@ final class SelectAddGameMethodSection: Section {
             title: L10n.manually,
             description: L10n.manuallyDescription,
             imageName: Asset.form.name,
-            navigationStyle: .push(
-                controller: SelectPlatformScreenFactory().viewController
-            )
+            screenFactory: SelectPlatformScreenFactory()
         )
         self.cellsVM.append(manualCellVM)
         
@@ -27,7 +25,7 @@ final class SelectAddGameMethodSection: Section {
             title: L10n.scan,
             description: L10n.comingSoon,
             imageName: Asset.barcode.name,
-            navigationStyle: nil
+            screenFactory: nil
         )
         self.cellsVM.append(scanCellVM)
     }

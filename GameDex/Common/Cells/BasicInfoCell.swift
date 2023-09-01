@@ -44,7 +44,7 @@ final class BasicInfoCell: UICollectionViewCell, CellConfigurable {
     }()
     
     private lazy var stackView: UIStackView = {
-       let view = UIStackView()
+        let view = UIStackView()
         view.axis = .vertical
         view.alignment = .leading
         view.distribution = .fillProportionally

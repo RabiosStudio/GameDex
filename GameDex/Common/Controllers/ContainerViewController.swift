@@ -128,8 +128,8 @@ class ContainerViewController: UIViewController {
         self.collectionView.updateEmptyScreen(emptyReason: emptyLoader)
         self.collectionView.reloadEmptyDataSet()
         self.viewModel.loadData { [weak self] error in
-            guard let strongSelf = self else { return }
             DispatchQueue.main.async {
+                guard let strongSelf = self else { return }
                 if let error = error {
                     let tabBarOffset = -(self?.tabBarController?.tabBar.frame.size.height ?? 0)
                     strongSelf.updateEmptyState(error: error,

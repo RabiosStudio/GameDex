@@ -22,7 +22,7 @@ final class SearchGameByTitleSection: Section {
                 subtitle1: platform.title,
                 subtitle2: game.description,
                 caption: game.image,
-                navigationStyle: nil
+                screenFactory: nil
             )
             self.cellsVM.append(gameCellVM)
         }

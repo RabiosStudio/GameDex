@@ -14,17 +14,24 @@ final class InfoCardCellViewModel: CellViewModel {
     var title: String
     var description: String
     var imageName: String
-    var navigationStyle: NavigationStyle?
+    lazy var navigationStyle: NavigationStyle? = {
+        guard let screenFactory else { return nil }
+        return .push(
+            controller: screenFactory.viewController
+        )
+    }()
+    
+    private let screenFactory: ScreenFactory?
     
     init(
         title: String,
         description: String,
         imageName: String,
-        navigationStyle: NavigationStyle?
+        screenFactory: ScreenFactory?
     ) {
         self.title = title
         self.description = description
         self.imageName = imageName
-        self.navigationStyle = navigationStyle
+        self.screenFactory = screenFactory
     }
 }
