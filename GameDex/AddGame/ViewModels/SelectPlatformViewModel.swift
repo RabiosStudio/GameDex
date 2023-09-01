@@ -37,9 +37,7 @@ final class SelectPlatformViewModel: CollectionViewModel {
                 self.platformsDisplayed.sort {
                     $0.title < $1.title
                 }
-                DispatchQueue.main.async {
-                    self.sections = [SelectPlatformSection(platforms: self.platformsDisplayed)]
-                }
+                self.sections = [SelectPlatformSection(platforms: self.platformsDisplayed)]
                 callback(nil)
             }
         }
@@ -79,12 +77,6 @@ extension SelectPlatformViewModel: SearchViewModelDelegate {
     }
     
     func updateSearchTextField(with text: String, callback: @escaping (EmptyError?) -> ()) {
-        guard text.count > .zero else {
-            self.updateListOfPlatforms(with: self.platformsDisplayed)
-            callback(nil)
-            return
-        }
-        
         let matchingPlatforms = self.platformsDisplayed.filter({
             $0.title.localizedCaseInsensitiveContains(text)
         })
