@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 struct CellLayout {
     let size: CellSize
@@ -14,18 +15,24 @@ struct CellLayout {
 }
 
 enum CellSize {
+    case verySmall
     case small
     case regular
     case big
+    case veryBig
     
     var value: CGFloat {
         switch self {
+        case .verySmall:
+            return DesignSystem.sizeVerySmall
         case .small:
             return DesignSystem.sizeSmall
         case .regular:
             return DesignSystem.sizeRegular
         case .big:
             return DesignSystem.sizeBig
+        case .veryBig:
+            return DesignSystem.sizeVeryBig
         }
     }
 }

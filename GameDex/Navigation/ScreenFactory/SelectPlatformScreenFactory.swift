@@ -14,7 +14,7 @@ struct SelectPlatformScreenFactory: ScreenFactory {
         let viewModel = SelectPlatformViewModel(networkingSession: AlamofireAPI())
         let layoutBuilder = BasicLayoutBuilder(
             cellLayout: CellLayout(
-                size: .small,
+                size: .verySmall,
                 horizontalSpacing: .small,
                 verticalSpacing: .none
             )

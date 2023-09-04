@@ -20,9 +20,11 @@ enum DesignSystem {
     static let fractionalSizeFull: CGFloat = 1
     
     // MARK: - Size
-    static let sizeSmall: CGFloat = 40
+    static let sizeVerySmall: CGFloat = 40
+    static let sizeSmall: CGFloat = 60
     static let sizeRegular: CGFloat = 130
     static let sizeBig: CGFloat = 150
+    static let sizeVeryBig: CGFloat = 250
     
     // MARK: - Corner radius
     static let cornerRadiusRegular: CGFloat = 4
