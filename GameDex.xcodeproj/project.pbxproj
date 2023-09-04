@@ -94,8 +94,12 @@
 		25EB240C2AA1D77A0024F01C /* BasicInfoCellViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EB240B2AA1D77A0024F01C /* BasicInfoCellViewModelTests.swift */; };
 		25EB240E2AA5BC550024F01C /* SearchGameByTitleSectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EB240D2AA5BC550024F01C /* SearchGameByTitleSectionTests.swift */; };
 		25EB24102AA5C0600024F01C /* SearchGameByTitleViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EB240F2AA5C0600024F01C /* SearchGameByTitleViewModelTests.swift */; };
+		25EB24162AA5E2410024F01C /* StarRatingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EB24152AA5E2410024F01C /* StarRatingCell.swift */; };
+		25EB24182AA5F7440024F01C /* StarRatingCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EB24172AA5F7440024F01C /* StarRatingCellViewModel.swift */; };
 		25EB241E2AA602FB0024F01C /* UIImageView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EB241D2AA602FB0024F01C /* UIImageView+Extension.swift */; };
 		25EB24202AA6036B0024F01C /* CellLayout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EB241F2AA6036B0024F01C /* CellLayout.swift */; };
+		25EB242C2AA621800024F01C /* ImageDescriptionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EB242B2AA621800024F01C /* ImageDescriptionCell.swift */; };
+		25EB242E2AA621900024F01C /* ImageDescriptionCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EB242D2AA621900024F01C /* ImageDescriptionCellViewModel.swift */; };
 		25F6632B2A94CF13005F5412 /* ContinueContentViewFactoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F663282A94CF13005F5412 /* ContinueContentViewFactoryTests.swift */; };
 		25F6632C2A94CF13005F5412 /* MyCollectionViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F663292A94CF13005F5412 /* MyCollectionViewModelTests.swift */; };
 		AA97798407A80D347D6A8608 /* Pods_GameDexTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4443ED930B6E67BE6E3AB6A0 /* Pods_GameDexTests.framework */; };
@@ -205,8 +209,12 @@
 		25EB240B2AA1D77A0024F01C /* BasicInfoCellViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicInfoCellViewModelTests.swift; sourceTree = "<group>"; };
 		25EB240D2AA5BC550024F01C /* SearchGameByTitleSectionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchGameByTitleSectionTests.swift; sourceTree = "<group>"; };
 		25EB240F2AA5C0600024F01C /* SearchGameByTitleViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchGameByTitleViewModelTests.swift; sourceTree = "<group>"; };
+		25EB24152AA5E2410024F01C /* StarRatingCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarRatingCell.swift; sourceTree = "<group>"; };
+		25EB24172AA5F7440024F01C /* StarRatingCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarRatingCellViewModel.swift; sourceTree = "<group>"; };
 		25EB241D2AA602FB0024F01C /* UIImageView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIImageView+Extension.swift"; sourceTree = "<group>"; };
 		25EB241F2AA6036B0024F01C /* CellLayout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellLayout.swift; sourceTree = "<group>"; };
+		25EB242B2AA621800024F01C /* ImageDescriptionCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDescriptionCell.swift; sourceTree = "<group>"; };
+		25EB242D2AA621900024F01C /* ImageDescriptionCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDescriptionCellViewModel.swift; sourceTree = "<group>"; };
 		25F663282A94CF13005F5412 /* ContinueContentViewFactoryTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContinueContentViewFactoryTests.swift; sourceTree = "<group>"; };
 		25F663292A94CF13005F5412 /* MyCollectionViewModelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyCollectionViewModelTests.swift; sourceTree = "<group>"; };
 		4443ED930B6E67BE6E3AB6A0 /* Pods_GameDexTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GameDexTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -461,6 +469,8 @@
 				254354752A93AFF700E53351 /* LabelCell.swift */,
 				251C86E12A98AEDB0020C794 /* InfoCardCell.swift */,
 				251C873A2A9D099E0020C794 /* BasicInfoCell.swift */,
+				25EB24152AA5E2410024F01C /* StarRatingCell.swift */,
+				25EB242B2AA621800024F01C /* ImageDescriptionCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -472,6 +482,8 @@
 				254354772A93B1BB00E53351 /* LabelCellViewModel.swift */,
 				251C86E32A98B3C00020C794 /* InfoCardCellViewModel.swift */,
 				251C873C2A9D09AA0020C794 /* BasicInfoCellViewModel.swift */,
+				25EB24172AA5F7440024F01C /* StarRatingCellViewModel.swift */,
+				25EB242D2AA621900024F01C /* ImageDescriptionCellViewModel.swift */,
 			);
 			path = CellsViewModel;
 			sourceTree = "<group>";
@@ -881,11 +893,13 @@
 				25AE1ED22A8D1E2600F2D06A /* EmptyTextAndButton.swift in Sources */,
 				25AE1ECB2A8D1B1E00F2D06A /* MyCollectionViewModel.swift in Sources */,
 				251C86D42A9899A70020C794 /* DataConverter.swift in Sources */,
+				25EB24182AA5F7440024F01C /* StarRatingCellViewModel.swift in Sources */,
 				25AE1F042A8F4A6200F2D06A /* Routing.swift in Sources */,
 				25AE1F192A8F910800F2D06A /* BarButtonItem.swift in Sources */,
 				25AE1ECE2A8D1D6F00F2D06A /* EmptyReason.swift in Sources */,
 				25AE1EF92A8E666E00F2D06A /* ButtonStyle.swift in Sources */,
 				251C86C12A97A29D0020C794 /* APIEndpoint.swift in Sources */,
+				25EB242E2AA621900024F01C /* ImageDescriptionCellViewModel.swift in Sources */,
 				251C86F82A9A307A0020C794 /* UISearchBar+Configure.swift in Sources */,
 				25AE1ED02A8D1D9900F2D06A /* EmptyLoader.swift in Sources */,
 				25AE1F022A8F499800F2D06A /* Navigator+NavigationStyle.swift in Sources */,
@@ -896,6 +910,7 @@
 				25AE1F202A8F94A900F2D06A /* ContinueContentViewFactory.swift in Sources */,
 				251C87372A9D04D70020C794 /* SearchGamesData.swift in Sources */,
 				251C87332A9CEF4D0020C794 /* SearchGameByTitleViewModel.swift in Sources */,
+				25EB24162AA5E2410024F01C /* StarRatingCell.swift in Sources */,
 				25AE1F1B2A8F923B00F2D06A /* ContainerViewController.swift in Sources */,
 				25AE1EBA2A8CB7E300F2D06A /* CollectionViewModel.swift in Sources */,
 				25AE1EE62A8E4D6800F2D06A /* DesignSystem.swift in Sources */,
@@ -936,6 +951,7 @@
 				251C86D62A9899F40020C794 /* Platform.swift in Sources */,
 				25D6EAE22A8A265C00C2BE57 /* AppDelegate.swift in Sources */,
 				25AE1F1D2A8F926400F2D06A /* ContentViewFactory.swift in Sources */,
+				25EB242C2AA621800024F01C /* ImageDescriptionCell.swift in Sources */,
 				251C86E02A98AD4D0020C794 /* SelectAddGameMethodSection.swift in Sources */,
 				254E8B942A8B6BCA00C101C8 /* Strings.swift in Sources */,
 				251C86E62A98BD020020C794 /* SelectAddGameMethodScreenFactory.swift in Sources */,
