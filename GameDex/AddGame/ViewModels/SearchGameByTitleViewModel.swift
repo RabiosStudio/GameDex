@@ -51,12 +51,10 @@ extension SearchGameByTitleViewModel: SearchViewModelDelegate {
             case .success(let data):
                 let games = DataConverter.convert(remoteGames: data.results, platform: self.platform)
                 self.gamesQuery = games
-                DispatchQueue.main.async {
                     self.sections = [SearchGameByTitleSection(
                         gamesQuery: self.gamesQuery,
                         platform: self.platform
                     )]
-                }
                 callback(nil)
             case .failure(_):
                 let error: AddGameError = .server

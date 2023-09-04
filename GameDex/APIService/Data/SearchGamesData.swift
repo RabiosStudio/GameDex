@@ -9,13 +9,11 @@ import Foundation
 
 // MARK: - SearchGamesData
 struct SearchGamesData: Codable {
-    let error: String
     let offset: Int
     let statusCode: Int
     let results: [GameData]
     
     enum CodingKeys: String, CodingKey {
-        case error
         case offset
         case statusCode = "status_code"
         case results
@@ -49,17 +47,11 @@ struct GameData: Codable {
 struct Image: Codable {
     let mediumURL: String
     let screenURL: String
-    let smallURL: String
-    let thumbURL: String
-    let originalURL: String
     let imageTags: String
     
     enum CodingKeys: String, CodingKey {
         case mediumURL = "medium_url"
         case screenURL = "screen_url"
-        case smallURL = "small_url"
-        case thumbURL = "thumb_url"
-        case originalURL = "original_url"
         case imageTags = "image_tags"
     }
 }
