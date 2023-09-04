@@ -11,6 +11,23 @@ import SwiftyMocky
 
 final class SelectPlatformViewModelTests: XCTestCase {
     
+    // MARK: Properties
+    
+    let searchPlaformsData = SearchPlatformsData(
+        offset: .zero,
+        numberOfPageResults: 5,
+        numberOfTotalResults: 5,
+        statusCode: 1,
+        results: [
+            PlatformData(id: 28, name: "Atari 2600"),
+            PlatformData(id: 8, name: "Dreamcast"),
+            PlatformData(id: 11, name: "Game Boy Color"),
+            PlatformData(id: 17, name: "Jaguar"),
+            PlatformData(id: 15, name: "SNES")
+        ])
+    
+    // MARK: Setup
+    
     override class func setUp() {
         super.setUp()
         Matcher.default.register(
@@ -18,6 +35,8 @@ final class SelectPlatformViewModelTests: XCTestCase {
             match: Matcher.GetPlatformsEndpoint.matcher
         )
     }
+    
+    // MARK: Tests
     
     func test_init_GivenSelectPlatformViewModel_ThenShouldSetPropertiesCorrectly() {
         // Given
@@ -39,7 +58,7 @@ final class SelectPlatformViewModelTests: XCTestCase {
         // Given
         let expectation = XCTestExpectation(description: "perform loadData() asynchronously")
         
-        let endpoint = GetPlatformsEndpoint()
+        let endpoint = GetPlatformsEndpoint(offset: .zero)
         let networkingSession = APIMock()
         networkingSession.given(
             .getData(
@@ -60,14 +79,14 @@ final class SelectPlatformViewModelTests: XCTestCase {
             expectation.fulfill()
         }
         
-        wait(for: [expectation], timeout: 10.0)
+        wait(for: [expectation], timeout: 1.0)
     }
     
     func test_loadData_GivenAPIErrorWrongURL_ThenShouldReturnAddGameErrorServer() {
         // Given
         let expectation = XCTestExpectation(description: "perform loadData() asynchronously")
         
-        let endpoint = GetPlatformsEndpoint()
+        let endpoint = GetPlatformsEndpoint(offset: .zero)
         let networkingSession = APIMock()
         networkingSession.given(
             .getData(
@@ -88,14 +107,14 @@ final class SelectPlatformViewModelTests: XCTestCase {
             expectation.fulfill()
         }
         
-        wait(for: [expectation], timeout: 10.0)
+        wait(for: [expectation], timeout: 1.0)
     }
     
     func test_loadData_GivenAPIErrorNoData_ThenShouldReturnAddGameErrorServer() {
         // Given
         let expectation = XCTestExpectation(description: "perform loadData() asynchronously")
         
-        let endpoint = GetPlatformsEndpoint()
+        let endpoint = GetPlatformsEndpoint(offset: .zero)
         let networkingSession = APIMock()
         networkingSession.given(
             .getData(
@@ -116,14 +135,14 @@ final class SelectPlatformViewModelTests: XCTestCase {
             expectation.fulfill()
         }
         
-        wait(for: [expectation], timeout: 10.0)
+        wait(for: [expectation], timeout: 1.0)
     }
     
     func test_loadData_GivenAPIErrorParsing_ThenShouldReturnAddGameErrorServer() {
         // Given
         let expectation = XCTestExpectation(description: "perform loadData() asynchronously")
         
-        let endpoint = GetPlatformsEndpoint()
+        let endpoint = GetPlatformsEndpoint(offset: .zero)
         let networkingSession = APIMock()
         networkingSession.given(
             .getData(
@@ -144,93 +163,147 @@ final class SelectPlatformViewModelTests: XCTestCase {
             expectation.fulfill()
         }
         
-        wait(for: [expectation], timeout: 10.0)
+        wait(for: [expectation], timeout: 1.0)
     }
     
     func test_loadData_GivenNoAPIError_ThenShouldReturnData() {
         // Given
         let expectation = XCTestExpectation(description: "perform loadData() asynchronously")
         
-        let endpoint = GetPlatformsEndpoint()
+        let endpoint = GetPlatformsEndpoint(offset: .zero)
         let networkingSession = APIMock()
-        
-        let data = SearchPlatformsData(platforms: [
-            RemotePlatform(platformID: 28, platformName: "Atari 2600"),
-            RemotePlatform(platformID: 8, platformName: "Dreamcast"),
-            RemotePlatform(platformID: 11, platformName: "Game Boy Color"),
-            RemotePlatform(platformID: 17, platformName: "Jaguar"),
-            RemotePlatform(platformID: 15, platformName: "SNES")
-        ])
         
         networkingSession.given(
             .getData(
                 with: .value(endpoint),
-                willReturn:  Result<SearchPlatformsData, APIError>.success(data)
+                willReturn:  Result<SearchPlatformsData, APIError>.success(self.searchPlaformsData)
             )
         )
         
         let viewModel = SelectPlatformViewModel(networkingSession: networkingSession)
         
-        let platforms = DataConverter.convert(remotePlatforms: data.platforms)
+        let platforms = DataConverter.convert(remotePlatforms: self.searchPlaformsData.results)
         
         // When
         viewModel.loadData { _ in
             
             // Then
-            XCTAssertEqual(viewModel.platformsDisplayed, platforms)
             XCTAssertEqual(viewModel.numberOfSections(), 1)
             XCTAssertEqual(viewModel.numberOfItems(in: 0), platforms.count)
             
             expectation.fulfill()
         }
-        
-        wait(for: [expectation], timeout: 10.0)
+        wait(for: [expectation], timeout: 1.0)
     }
     
     func test_updateSearch_GivenListOfPlatforms_ThenShouldSetupSectionsAndCellsVMAccordingly() {
         // Given
-        let networkingSession = APIMock()
-        let viewModel = SelectPlatformViewModel(networkingSession: networkingSession)
-        viewModel.platformsDisplayed = [
-            Platform(title: "Game Boy", id: 10),
-            Platform(title: "Game Boy Advance", id: 12),
-            Platform(title: "Game Boy Color", id: 11),
-            Platform(title: "Game Gear", id: 25),
-            Platform(title: "Game Wave", id: 104),
-            Platform(title: "GameCube", id: 14),
-            Platform(title: "GameStick", id: 155)
-        ]
+        let expectation = XCTestExpectation(description: "perform loadData() asynchronously")
         
-        // When
-        viewModel.updateSearch(with: "Game boy") { _ in
-            XCTAssertEqual(viewModel.numberOfSections(), 1)
-            XCTAssertEqual(viewModel.sections[0].cellsVM.count, 3)
-        }
-    }
-    
-    func test_updateSearch_GivenEmptyListOfPlatforms_ThenShouldReturnNoSections() {
-        // Given
+        let endpoint = GetPlatformsEndpoint(offset: .zero)
         let networkingSession = APIMock()
+        
+        networkingSession.given(
+            .getData(
+                with: .value(endpoint),
+                willReturn:  Result<SearchPlatformsData, APIError>.success(self.searchPlaformsData)
+            )
+        )
+        
         let viewModel = SelectPlatformViewModel(networkingSession: networkingSession)
         
-        // When
-        viewModel.updateSearch(with: "") { _ in
-            XCTAssertEqual(viewModel.numberOfSections(), .zero)
+        let platforms = DataConverter.convert(remotePlatforms: self.searchPlaformsData.results)
+        
+        viewModel.loadData { _ in
+            
+            // When
+            viewModel.updateSearchTextField(with: "Game Boy") { _ in
+                
+                // Then
+                XCTAssertEqual(viewModel.numberOfSections(), 1)
+                XCTAssertEqual(viewModel.sections[0].cellsVM.count, 1)
+            }
+            expectation.fulfill()
         }
+        wait(for: [expectation], timeout: 1.0)
     }
     
     func test_updateSearch_GivenNoMatchingPlatforms_ThenShouldReturnErrorNoItems() {
         // Given
+        let expectation = XCTestExpectation(description: "perform loadData() asynchronously")
+        
+        let endpoint = GetPlatformsEndpoint(offset: .zero)
+        let networkingSession = APIMock()
+        
+        networkingSession.given(
+            .getData(
+                with: .value(endpoint),
+                willReturn:  Result<SearchPlatformsData, APIError>.success(self.searchPlaformsData)
+            )
+        )
+        
+        let viewModel = SelectPlatformViewModel(networkingSession: networkingSession)
+        
+        let platforms = DataConverter.convert(remotePlatforms: self.searchPlaformsData.results)
+        
+        viewModel.loadData { _ in
+            
+            // When
+            viewModel.updateSearchTextField(with: "Playstation01") { error in
+                guard let error = error as? AddGameError else {
+                    XCTFail("Error type is not correct")
+                    return
+                }
+                XCTAssertEqual(error, AddGameError.noItems)
+            }
+            expectation.fulfill()
+        }
+        wait(for: [expectation], timeout: 1.0)
+    }
+    
+    func test_updateSearch_GivenEmptySearchQuery_ThenShouldReturnFullListOfPlatforms() {
+        // Given
+        let expectation = XCTestExpectation(description: "perform loadData() asynchronously")
+        
+        let endpoint = GetPlatformsEndpoint(offset: .zero)
+        let networkingSession = APIMock()
+        
+        networkingSession.given(
+            .getData(
+                with: .value(endpoint),
+                willReturn:  Result<SearchPlatformsData, APIError>.success(self.searchPlaformsData)
+            )
+        )
+        
+        let viewModel = SelectPlatformViewModel(networkingSession: networkingSession)
+        
+        let platforms = DataConverter.convert(remotePlatforms: self.searchPlaformsData.results)
+        
+        viewModel.loadData { _ in
+            
+            // When
+            viewModel.updateSearchTextField(with: "") { _ in
+                XCTAssertEqual(viewModel.numberOfSections(), 1)
+                XCTAssertEqual(viewModel.numberOfItems(in: 0), platforms.count)
+            }
+            expectation.fulfill()
+        }
+        wait(for: [expectation], timeout: 1.0)
+    }
+    
+    func test_startSearch_ThenShouldCallCallback() {
+        // Given
         let networkingSession = APIMock()
         let viewModel = SelectPlatformViewModel(networkingSession: networkingSession)
         
+        var callbackIsCalled = false
+        
         // When
-        viewModel.updateSearch(with: "Playstation01") { error in
-            guard let error = error as? AddGameError else {
-                XCTFail("Error type is not correct")
-                return
-            }
-            XCTAssertEqual(error, AddGameError.noItems)
+        viewModel.startSearch(from: "nothing") { _ in
+            callbackIsCalled = true
         }
+        
+        // Then
+        XCTAssertTrue(callbackIsCalled)
     }
 }

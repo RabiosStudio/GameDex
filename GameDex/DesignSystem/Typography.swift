@@ -14,6 +14,7 @@ enum Typography {
     case title2
     case title2bold
     case title3
+    case title3bold
     case headline
     case subheadline
     case body
@@ -29,7 +30,7 @@ enum Typography {
             return 24
         case .title2, .title2bold:
             return 20
-        case .title3:
+        case .title3, .title3bold:
             return 18
         case .headline:
             return 16
@@ -48,7 +49,7 @@ enum Typography {
     
     private var weight: UIFont.Weight {
         switch self {
-        case .bodyBold, .calloutBold, .title2bold:
+        case .bodyBold, .calloutBold, .title2bold, .title3bold:
             return .bold
         default:
             return .medium

@@ -8,6 +8,7 @@
 "emptyMyCollectionDescription" = "Commencez par ajouter un premier jeu à votre collection";
 "emptyItemsTitle" = "Aucun résultat ne correspond à votre recherche";
 "emptyItemsDescription" = "Essayez une nouvelle recherche";
+"emptyGameSearch" = "Lancez une recherche d'un jeu par son titre";
 
 // Errors
 "apiErrorTitle" = "Oups!";
@@ -23,6 +24,7 @@
 "stepOneOutOfThree" = "Etape 1/3";
 "selectPlatform" = "Sélectionnez une console";
 "addBasicGameInformationDescription" = "Renseignez le titre du jeu, et optionnellement la console correspondante";
+"searchGame" = "Rechercher un jeu";
 
 // Add Game Methods
 "manually" = "Via un formulaire";

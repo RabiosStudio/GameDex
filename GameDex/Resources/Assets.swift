@@ -29,6 +29,7 @@ internal enum Asset {
   internal static let barcode = ImageAsset(name: "barcode")
   internal static let exclamationMark = ImageAsset(name: "exclamation-mark")
   internal static let form = ImageAsset(name: "form")
+  internal static let jumelles = ImageAsset(name: "jumelles")
   internal static let noItems = ImageAsset(name: "noItems")
 }
 // swiftlint:enable identifier_name line_length nesting type_body_length type_name

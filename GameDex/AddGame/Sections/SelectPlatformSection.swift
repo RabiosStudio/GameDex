@@ -17,7 +17,11 @@ final class SelectPlatformSection: Section {
         self.position = 0
         
         for platform in platforms {
-            let labelCellVM = LabelCellViewModel(text: platform.title)
+            let labelCellVM = LabelCellViewModel(
+                text: platform.title,
+                screenFactory: SearchGameByTitleScreenFactory(platform: platform)
+            )
+            
             self.cellsVM.append(labelCellVM)
         }
     }

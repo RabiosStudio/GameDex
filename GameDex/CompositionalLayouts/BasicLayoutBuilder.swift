@@ -8,26 +8,12 @@
 import Foundation
 import UIKit
 
-enum CellSize {
-    case small
-    case big
-    
-    var value: CGFloat {
-        switch self {
-        case .small:
-            return DesignSystem.sizeSmall
-        case .big:
-            return DesignSystem.sizeBig
-        }
-    }
-}
-
 final class BasicLayoutBuilder: CollectionLayoutBuilder {
     
-    private var cellSize: CellSize
+    private let cellLayout: CellLayout
     
-    init(cellSize: CellSize) {
-        self.cellSize = cellSize
+    init(cellLayout: CellLayout) {
+        self.cellLayout = cellLayout
     }
     
     func create() -> UICollectionViewLayout {
@@ -35,13 +21,13 @@ final class BasicLayoutBuilder: CollectionLayoutBuilder {
             widthDimension: .fractionalWidth(DesignSystem.fractionalSizeFull),
             heightDimension: .fractionalHeight(DesignSystem.fractionalSizeFull))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
-        item.contentInsets = NSDirectionalEdgeInsets(top: DesignSystem.paddingSmall,
-                                                     leading: DesignSystem.paddingSmall,
-                                                     bottom: DesignSystem.paddingSmall,
-                                                     trailing: DesignSystem.paddingSmall)
+        item.contentInsets = NSDirectionalEdgeInsets(top: cellLayout.verticalSpacing.value,
+                                                     leading: cellLayout.horizontalSpacing.value,
+                                                     bottom: cellLayout.verticalSpacing.value,
+                                                     trailing: cellLayout.horizontalSpacing.value)
         let groupSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(DesignSystem.fractionalSizeFull),
-            heightDimension: .absolute(cellSize.value)
+            heightDimension: .absolute(cellLayout.size.value)
         )
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize,
                                                        subitem: item,

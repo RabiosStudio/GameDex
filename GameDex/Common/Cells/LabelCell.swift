@@ -1,5 +1,5 @@
 //
-//  LabelCollectionViewCell.swift
+//  LabelCell.swift
 //  GameDex
 //
 //  Created by Gabrielle Dalbera on 21/08/2023.
@@ -43,13 +43,18 @@ final class LabelCell: UICollectionViewCell, CellConfigurable {
         self.setupConstraints()
     }
     
-    func cellPressed(cellViewModel: CellViewModel) {}
+    func cellPressed(cellViewModel: CellViewModel) {
+        guard let navigationStyle = cellViewModel.navigationStyle else {
+            return
+        }
+        _ =  Routing.shared.route(navigationStyle: navigationStyle)
+    }
     
     private func setupConstraints() {
         NSLayoutConstraint.activate([
             self.label.topAnchor.constraint(equalTo: self.topAnchor),
-            self.label.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-            self.label.trailingAnchor.constraint(equalTo: self.trailingAnchor),
+            self.label.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: DesignSystem.paddingRegular),
+            self.label.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -DesignSystem.paddingRegular),
             self.label.bottomAnchor.constraint(equalTo: self.bottomAnchor)
         ])
     }

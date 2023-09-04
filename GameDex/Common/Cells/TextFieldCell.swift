@@ -18,7 +18,7 @@ final class TextFieldCell: UICollectionViewCell, CellConfigurable {
         textField.textColor = .black
         textField.tintColor = .primaryColor
         textField.errorTextColor = .primaryColor
-        textField.paddingYErrorLabel = DesignSystem.paddingVerySmall
+        textField.paddingYErrorLabel = DesignSystem.paddingSmall
         textField.animateFloatPlaceholder = true
         textField.hideErrorWhenEditing = true
         textField.floatingDisplayStatus = .defaults

@@ -28,6 +28,7 @@ class ContainerViewController: UIViewController {
     private lazy var searchBar: SearchBar = {
         let searchBar = SearchBar()
         searchBar.delegate = self
+        searchBar.searchTextField.delegate = self
         searchBar.configure()
         return searchBar
     }()
@@ -35,7 +36,6 @@ class ContainerViewController: UIViewController {
     private lazy var stackView: UIStackView = {
         let view = UIStackView()
         view.axis = .vertical
-        view.backgroundColor = .primaryBackgroundColor
         view.layoutMargins = .init(
             top: DesignSystem.paddingRegular,
             left: DesignSystem.paddingRegular,
@@ -122,20 +122,16 @@ class ContainerViewController: UIViewController {
     // MARK: - Methods
     
     private func loadData() {
-        let tabBarOffset = -(self.tabBarController?.tabBar.frame.size.height ?? 0)
-        let emptyLoader = EmptyLoader(tabBarOffset: tabBarOffset)
         self.configureNavBar()
-        self.collectionView.updateEmptyScreen(emptyReason: emptyLoader)
-        self.collectionView.reloadEmptyDataSet()
+        self.configureLoader()
         self.viewModel.loadData { [weak self] error in
-            guard let strongSelf = self else { return }
             DispatchQueue.main.async {
+                guard let strongSelf = self else { return }
                 if let error = error {
                     let tabBarOffset = -(self?.tabBarController?.tabBar.frame.size.height ?? 0)
                     strongSelf.updateEmptyState(error: error,
                                            tabBarOffset: tabBarOffset)
                 } else {
-                    strongSelf.registerCells()
                     strongSelf.refresh()
                     if strongSelf.viewModel.searchViewModel.isActivated {
                         strongSelf.searchBar.becomeFirstResponder()
@@ -146,6 +142,7 @@ class ContainerViewController: UIViewController {
     }
     
     private func refresh() {
+        self.registerCells()
         self.collectionView.reloadData()
     }
     
@@ -184,7 +181,12 @@ class ContainerViewController: UIViewController {
     
     private func configureNavBar() {
         self.navigationController?.configure()
-        self.title = self.viewModel.screenTitle
+        if self.viewModel.searchViewModel.isSearchable {
+            self.searchBar.placeholder = self.viewModel.searchViewModel.placeholder
+            self.navigationItem.titleView = self.searchBar
+        } else {
+            self.title = self.viewModel.screenTitle
+        }
         
         guard let rightButtonItem = self.viewModel.rightButtonItem else {
             return
@@ -211,6 +213,13 @@ class ContainerViewController: UIViewController {
         
         // update progress bar with given value
         self.navigationController?.setProgress(progress, animated: false)
+    }
+    
+    private func configureLoader() {
+        let tabBarOffset = -(self.tabBarController?.tabBar.frame.size.height ?? 0)
+        let emptyLoader = EmptyLoader(tabBarOffset: tabBarOffset)
+        self.collectionView.updateEmptyScreen(emptyReason: emptyLoader)
+        self.collectionView.reloadEmptyDataSet()
     }
     
     private func addNotificationObservers() {
@@ -248,10 +257,6 @@ class ContainerViewController: UIViewController {
         self.collectionView.delegate = self
         self.collectionView.dataSource = self
         self.collectionView.bounces = self.viewModel.isBounceable
-        if self.viewModel.searchViewModel.isSearchable {
-            self.stackView.addArrangedSubview(self.searchBar)
-            self.searchBar.placeholder = self.viewModel.searchViewModel.placeholder
-        }
         self.stackView.addArrangedSubview(self.collectionView)
         self.view.addSubview(stackView)
         self.setupStackViewConstraints()
@@ -320,17 +325,50 @@ extension ContainerViewController: UICollectionViewDataSource {
     }
 }
 
+// MARK: UISearchTextFieldDelegate
+
+extension ContainerViewController: UISearchTextFieldDelegate {
+    func textFieldShouldClear(_ textField: UITextField) -> Bool {
+        self.viewModel.searchViewModel.delegate?.updateSearchTextField(with: "", callback: { [weak self] error in
+                if let error = error {
+                    let tabBarOffset = -(self?.tabBarController?.tabBar.frame.size.height ?? 0)
+                    self?.updateEmptyState(error: error,
+                                           tabBarOffset: tabBarOffset)
+                } else {
+                    self?.refresh()
+                }
+        })
+        return true
+    }
+}
+
 // MARK: UISearchDelegate
 
 extension ContainerViewController: UISearchBarDelegate {
-    
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        guard let searchQuery = searchBar.text else {
+            return
+        }
         self.searchBar.endEditing(true)
+        self.configureLoader()
+        self.viewModel.searchViewModel.delegate?.startSearch(
+            from: searchQuery,
+            callback: { [weak self] error in
+                DispatchQueue.main.async {
+                    if let error = error {
+                        let tabBarOffset = -(self?.tabBarController?.tabBar.frame.size.height ?? 0)
+                        self?.updateEmptyState(error: error,
+                                               tabBarOffset: tabBarOffset)
+                    } else {
+                        self?.refresh()
+                    }
+                }
+        })
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         // called when text changes (including clear)
-        self.viewModel.searchViewModel.delegate?.updateSearch(with: searchText, callback: { [weak self] error in
+        self.viewModel.searchViewModel.delegate?.updateSearchTextField(with: searchText, callback: { [weak self] error in
                 if let error = error {
                     let tabBarOffset = -(self?.tabBarController?.tabBar.frame.size.height ?? 0)
                     self?.updateEmptyState(error: error,

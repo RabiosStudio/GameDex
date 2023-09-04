@@ -9,7 +9,8 @@ import Foundation
 
 // sourcery: AutoMockable
 protocol SearchViewModelDelegate {
-    func updateSearch(with text: String, callback: @escaping (EmptyError?) -> ())
+    func updateSearchTextField(with text: String, callback: @escaping (EmptyError?) -> ())
+    func startSearch(from searchQuery: String, callback: @escaping (EmptyError?) -> ())
 }
 
 struct SearchViewModel {

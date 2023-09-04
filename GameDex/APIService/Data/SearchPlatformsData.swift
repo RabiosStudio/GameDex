@@ -1,5 +1,5 @@
 //
-//  PlatformsData.swift
+//  SearchPlatformsData.swift
 //  GameDex
 //
 //  Created by Gabrielle Dalbera on 24/08/2023.
@@ -7,18 +7,25 @@
 
 import Foundation
 
-// MARK: - PlatformsData
+// MARK: - SearchPlatformsData
 struct SearchPlatformsData: Codable {
-    let platforms: [RemotePlatform]
+    let offset: Int
+    let numberOfPageResults: Int
+    let numberOfTotalResults: Int
+    let statusCode: Int
+    let results: [PlatformData]
+    
+    enum CodingKeys: String, CodingKey {
+        case offset
+        case numberOfPageResults = "number_of_page_results"
+        case numberOfTotalResults = "number_of_total_results"
+        case statusCode = "status_code"
+        case results
+    }
 }
 
-// MARK: - Platform
-struct RemotePlatform: Codable {
-    let platformID: Int
-    let platformName: String
-
-    enum CodingKeys: String, CodingKey {
-        case platformID = "platform_id"
-        case platformName = "platform_name"
-    }
+// MARK: - PlatformData
+struct PlatformData: Codable {
+    let id: Int
+    let name: String
 }

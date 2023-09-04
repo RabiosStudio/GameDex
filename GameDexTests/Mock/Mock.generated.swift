@@ -836,34 +836,50 @@ open class SearchViewModelDelegateMock: SearchViewModelDelegate, Mock {
 
 
 
-    open func updateSearch(with text: String, callback: @escaping (EmptyError?) -> ()) {
-        addInvocation(.m_updateSearch__with_textcallback_callback(Parameter<String>.value(`text`), Parameter<(EmptyError?) -> ()>.value(`callback`)))
-		let perform = methodPerformValue(.m_updateSearch__with_textcallback_callback(Parameter<String>.value(`text`), Parameter<(EmptyError?) -> ()>.value(`callback`))) as? (String, @escaping (EmptyError?) -> ()) -> Void
+    open func updateSearchTextField(with text: String, callback: @escaping (EmptyError?) -> ()) {
+        addInvocation(.m_updateSearchTextField__with_textcallback_callback(Parameter<String>.value(`text`), Parameter<(EmptyError?) -> ()>.value(`callback`)))
+		let perform = methodPerformValue(.m_updateSearchTextField__with_textcallback_callback(Parameter<String>.value(`text`), Parameter<(EmptyError?) -> ()>.value(`callback`))) as? (String, @escaping (EmptyError?) -> ()) -> Void
 		perform?(`text`, `callback`)
+    }
+
+    open func startSearch(from searchQuery: String, callback: @escaping (EmptyError?) -> ()) {
+        addInvocation(.m_startSearch__from_searchQuerycallback_callback(Parameter<String>.value(`searchQuery`), Parameter<(EmptyError?) -> ()>.value(`callback`)))
+		let perform = methodPerformValue(.m_startSearch__from_searchQuerycallback_callback(Parameter<String>.value(`searchQuery`), Parameter<(EmptyError?) -> ()>.value(`callback`))) as? (String, @escaping (EmptyError?) -> ()) -> Void
+		perform?(`searchQuery`, `callback`)
     }
 
 
     fileprivate enum MethodType {
-        case m_updateSearch__with_textcallback_callback(Parameter<String>, Parameter<(EmptyError?) -> ()>)
+        case m_updateSearchTextField__with_textcallback_callback(Parameter<String>, Parameter<(EmptyError?) -> ()>)
+        case m_startSearch__from_searchQuerycallback_callback(Parameter<String>, Parameter<(EmptyError?) -> ()>)
 
         static func compareParameters(lhs: MethodType, rhs: MethodType, matcher: Matcher) -> Matcher.ComparisonResult {
             switch (lhs, rhs) {
-            case (.m_updateSearch__with_textcallback_callback(let lhsText, let lhsCallback), .m_updateSearch__with_textcallback_callback(let rhsText, let rhsCallback)):
+            case (.m_updateSearchTextField__with_textcallback_callback(let lhsText, let lhsCallback), .m_updateSearchTextField__with_textcallback_callback(let rhsText, let rhsCallback)):
 				var results: [Matcher.ParameterComparisonResult] = []
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsText, rhs: rhsText, with: matcher), lhsText, rhsText, "with text"))
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsCallback, rhs: rhsCallback, with: matcher), lhsCallback, rhsCallback, "callback"))
 				return Matcher.ComparisonResult(results)
+
+            case (.m_startSearch__from_searchQuerycallback_callback(let lhsSearchquery, let lhsCallback), .m_startSearch__from_searchQuerycallback_callback(let rhsSearchquery, let rhsCallback)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsSearchquery, rhs: rhsSearchquery, with: matcher), lhsSearchquery, rhsSearchquery, "from searchQuery"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsCallback, rhs: rhsCallback, with: matcher), lhsCallback, rhsCallback, "callback"))
+				return Matcher.ComparisonResult(results)
+            default: return .none
             }
         }
 
         func intValue() -> Int {
             switch self {
-            case let .m_updateSearch__with_textcallback_callback(p0, p1): return p0.intValue + p1.intValue
+            case let .m_updateSearchTextField__with_textcallback_callback(p0, p1): return p0.intValue + p1.intValue
+            case let .m_startSearch__from_searchQuerycallback_callback(p0, p1): return p0.intValue + p1.intValue
             }
         }
         func assertionName() -> String {
             switch self {
-            case .m_updateSearch__with_textcallback_callback: return ".updateSearch(with:callback:)"
+            case .m_updateSearchTextField__with_textcallback_callback: return ".updateSearchTextField(with:callback:)"
+            case .m_startSearch__from_searchQuerycallback_callback: return ".startSearch(from:callback:)"
             }
         }
     }
@@ -882,15 +898,19 @@ open class SearchViewModelDelegateMock: SearchViewModelDelegate, Mock {
     public struct Verify {
         fileprivate var method: MethodType
 
-        public static func updateSearch(with text: Parameter<String>, callback: Parameter<(EmptyError?) -> ()>) -> Verify { return Verify(method: .m_updateSearch__with_textcallback_callback(`text`, `callback`))}
+        public static func updateSearchTextField(with text: Parameter<String>, callback: Parameter<(EmptyError?) -> ()>) -> Verify { return Verify(method: .m_updateSearchTextField__with_textcallback_callback(`text`, `callback`))}
+        public static func startSearch(from searchQuery: Parameter<String>, callback: Parameter<(EmptyError?) -> ()>) -> Verify { return Verify(method: .m_startSearch__from_searchQuerycallback_callback(`searchQuery`, `callback`))}
     }
 
     public struct Perform {
         fileprivate var method: MethodType
         var performs: Any
 
-        public static func updateSearch(with text: Parameter<String>, callback: Parameter<(EmptyError?) -> ()>, perform: @escaping (String, @escaping (EmptyError?) -> ()) -> Void) -> Perform {
-            return Perform(method: .m_updateSearch__with_textcallback_callback(`text`, `callback`), performs: perform)
+        public static func updateSearchTextField(with text: Parameter<String>, callback: Parameter<(EmptyError?) -> ()>, perform: @escaping (String, @escaping (EmptyError?) -> ()) -> Void) -> Perform {
+            return Perform(method: .m_updateSearchTextField__with_textcallback_callback(`text`, `callback`), performs: perform)
+        }
+        public static func startSearch(from searchQuery: Parameter<String>, callback: Parameter<(EmptyError?) -> ()>, perform: @escaping (String, @escaping (EmptyError?) -> ()) -> Void) -> Perform {
+            return Perform(method: .m_startSearch__from_searchQuerycallback_callback(`searchQuery`, `callback`), performs: perform)
         }
     }
 

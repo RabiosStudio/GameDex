@@ -11,6 +11,7 @@ enum AddGameError: EmptyError {
     
     case noItems
     case server
+    case noSearch
     
     var errorTitle: String {
         switch self {
@@ -18,15 +19,19 @@ enum AddGameError: EmptyError {
             return L10n.emptyItemsTitle
         case .server:
             return L10n.apiErrorTitle
+        case .noSearch:
+            return L10n.emptyGameSearch
         }
     }
     
-    var errorDescription: String {
+    var errorDescription: String? {
         switch self {
         case .noItems:
             return L10n.emptyItemsDescription
         case .server:
             return L10n.apiErrorDescription
+        case .noSearch:
+            return nil
         }
     }
     
@@ -36,16 +41,20 @@ enum AddGameError: EmptyError {
             return Asset.noItems.name
         case .server:
             return Asset.exclamationMark.name
+        case .noSearch:
+            return Asset.jumelles.name
         }
         
     }
     
-    var buttonTitle: String {
+    var buttonTitle: String? {
         switch self {
         case .noItems:
-            return ""
+            return nil
         case .server:
             return L10n.retry
+        case .noSearch:
+            return nil
         }
     }
     
@@ -54,6 +63,8 @@ enum AddGameError: EmptyError {
         case .noItems:
             return .refresh
         case .server:
+            return .refresh
+        case .noSearch:
             return .refresh
         }
     }

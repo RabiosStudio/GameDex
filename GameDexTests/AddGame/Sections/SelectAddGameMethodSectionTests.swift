@@ -19,8 +19,8 @@ final class SelectAddGameMethodSectionTests: XCTestCase {
         // Then
         XCTAssertEqual(section.cellsVM.count, 2)
         
-        guard let manualCellVM = section.cellsVM.first as? ImageAndLabelCellViewModel,
-              let scanCellVM = section.cellsVM.last as? ImageAndLabelCellViewModel else {
+        guard let manualCellVM = section.cellsVM.first as? InfoCardCellViewModel,
+              let scanCellVM = section.cellsVM.last as? InfoCardCellViewModel else {
             XCTFail("Cell View Models are not correct")
             return
         }

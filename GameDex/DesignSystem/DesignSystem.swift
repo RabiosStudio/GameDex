@@ -9,19 +9,19 @@ import Foundation
 
 enum DesignSystem {
     // MARK: - Padding
-    static let paddingVerySmall: CGFloat = 4
-    static let paddingSmall: CGFloat = 7
+    static let paddingSmall: CGFloat = 4
     static let paddingRegular: CGFloat = 8
     static let paddingLarge: CGFloat = 20
     
     // MARK: - Fractional Size
     static let fractionalSizeVerySmall: CGFloat = 0.15
     static let fractionalSizeMedium: CGFloat = 0.5
+    static let fractionalSizeBig: CGFloat = 0.65
     static let fractionalSizeFull: CGFloat = 1
     
     // MARK: - Size
     static let sizeSmall: CGFloat = 40
-    static let sizeRegular: CGFloat = 100
+    static let sizeRegular: CGFloat = 130
     static let sizeBig: CGFloat = 150
     
     // MARK: - Corner radius

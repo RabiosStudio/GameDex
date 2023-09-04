@@ -1,5 +1,5 @@
 //
-//  LabelCollectionCellViewModel.swift
+//  LabelCellViewModel.swift
 //  GameDex
 //
 //  Created by Gabrielle Dalbera on 21/08/2023.
@@ -12,10 +12,18 @@ final class LabelCellViewModel: CellViewModel {
     var cellClass: AnyClass = LabelCell.self
     var indexPath: IndexPath?
     var text: String
-    var navigationStyle: NavigationStyle?
+    lazy var navigationStyle: NavigationStyle? = {
+        guard let screenFactory else { return nil }
+        return .push(
+            controller: screenFactory.viewController
+        )
+    }()
     
-    init(text: String) {
+    private let screenFactory: ScreenFactory?
+    
+    init(text: String, screenFactory: ScreenFactory?) {
         self.text = text
+        self.screenFactory = screenFactory
     }
     
 }

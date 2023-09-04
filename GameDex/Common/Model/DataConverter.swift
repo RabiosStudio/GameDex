@@ -9,11 +9,23 @@ import Foundation
 
 enum DataConverter {
     // from API "RemotePlatform" to Platform
-    static func convert(remotePlatforms: [RemotePlatform]) -> [Platform] {
+    static func convert(remotePlatforms: [PlatformData]) -> [Platform] {
         return remotePlatforms.map { remotePlatform in
             return Platform(
-                title: remotePlatform.platformName,
-                id: remotePlatform.platformID
+                title: remotePlatform.name,
+                id: remotePlatform.id
+            )
+        }
+    }
+    
+    static func convert(remoteGames: [GameData], platform: Platform) -> [Game] {
+        return remoteGames.map { remoteGame in
+            return Game(
+                title: remoteGame.name,
+                description: remoteGame.deck,
+                id: remoteGame.guid,
+                platform: platform.title,
+                image: remoteGame.image.mediumURL
             )
         }
     }

@@ -14,6 +14,7 @@ target 'GameDex' do
   pod 'IQKeyboardManagerSwift', '~> 6.5.0'
   pod "SwiftyMocky"
   pod 'Alamofire'
+  pod 'SDWebImage'
 
   target 'GameDexTests' do
     inherit! :search_paths

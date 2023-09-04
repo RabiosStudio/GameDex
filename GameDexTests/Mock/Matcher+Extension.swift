@@ -17,4 +17,12 @@ extension Matcher {
             lhs.method == rhs.method
         }
     }
+    
+    enum GetGamesEndpoint {
+        static func matcher(lhs: GameDex.GetGamesEndpoint, rhs: GameDex.GetGamesEndpoint) -> Bool {
+            lhs.path == rhs.path &&
+            lhs.entryParameters?.count == rhs.entryParameters?.count &&
+            lhs.method == rhs.method
+        }
+    }
 }

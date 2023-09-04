@@ -1,5 +1,5 @@
 //
-//  ImageAndLabelCell.swift
+//  InfoCardCell.swift
 //  GameDex
 //
 //  Created by Gabrielle Dalbera on 25/08/2023.
@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-final class ImageAndLabelCell: UICollectionViewCell, CellConfigurable {
+final class InfoCardCell: UICollectionViewCell, CellConfigurable {
     
     private let imageView = UIImageView()
     
@@ -47,7 +47,7 @@ final class ImageAndLabelCell: UICollectionViewCell, CellConfigurable {
     }
     
     func configure(cellViewModel: CellViewModel) {
-        guard let cellVM = cellViewModel as? ImageAndLabelCellViewModel else {
+        guard let cellVM = cellViewModel as? InfoCardCellViewModel else {
             return
         }
         self.titleLabel.text = cellVM.title
@@ -116,7 +116,7 @@ final class ImageAndLabelCell: UICollectionViewCell, CellConfigurable {
             
             self.descriptionLabel.topAnchor.constraint(
                 equalTo: self.titleLabel.bottomAnchor,
-                constant: DesignSystem.paddingVerySmall
+                constant: DesignSystem.paddingSmall
             ),
             self.descriptionLabel.leadingAnchor.constraint(
                 equalTo: self.imageView.trailingAnchor,

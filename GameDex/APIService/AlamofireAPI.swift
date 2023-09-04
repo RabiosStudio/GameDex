@@ -17,11 +17,11 @@ class AlamofireAPI: API {
     // MARK: - Properties
     var lastTask: URLSessionTask?
     var basePath: String {
-        return "https://api.mobygames.com/v1/"
+        return "https://www.giantbomb.com/api/"
     }
     
     var commonParameters: [String: Any]? {
-        guard let apiKey = ProcessInfo.processInfo.environment["MOBYGAMES_API_KEY"] else {
+        guard let apiKey = ProcessInfo.processInfo.environment["GIANT_BOMB_API_KEY"] else {
             return nil
         }
         return [Constants.apiKey: apiKey]
