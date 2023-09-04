@@ -14,10 +14,12 @@ final class TextFieldCellViewModel: CellViewModel {
     var indexPath: IndexPath?
     var title: String
     var navigationStyle: NavigationStyle?
+    var textFieldType: FormTextFieldType
     
-    init(title: String, shouldActiveTextField: Bool) {
+    init(title: String, shouldActiveTextField: Bool, textFieldType: FormTextFieldType) {
         self.title = title
         self.shouldActiveTextField = shouldActiveTextField
+        self.textFieldType = textFieldType
     }
     
 }

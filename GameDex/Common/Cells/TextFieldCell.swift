@@ -9,6 +9,11 @@ import Foundation
 import UIKit
 import DTTextField
 
+enum FormTextFieldType: CaseIterable {
+    case text
+    case numbers
+}
+
 final class TextFieldCell: UICollectionViewCell, CellConfigurable {
     
     private lazy var textField: DTTextField = {
@@ -54,6 +59,13 @@ final class TextFieldCell: UICollectionViewCell, CellConfigurable {
     func configure(cellViewModel: CellViewModel) {
         guard let cellVM = cellViewModel as? TextFieldCellViewModel else {
             return
+        }
+        switch cellVM.textFieldType {
+        case .numbers:
+            self.textField.keyboardType = .decimalPad
+            self.textField.autocorrectionType = .no
+        default:
+            self.textField.autocorrectionType = .no
         }
         if cellVM.shouldActiveTextField {
             self.textField.becomeFirstResponder()
