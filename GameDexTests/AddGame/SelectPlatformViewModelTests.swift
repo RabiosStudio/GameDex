@@ -11,6 +11,23 @@ import SwiftyMocky
 
 final class SelectPlatformViewModelTests: XCTestCase {
     
+    // MARK: Properties
+    
+    let searchPlaformsData = SearchPlatformsData(
+        offset: .zero,
+        numberOfPageResults: 5,
+        numberOfTotalResults: 5,
+        statusCode: 1,
+        results: [
+            PlatformData(id: 28, name: "Atari 2600"),
+            PlatformData(id: 8, name: "Dreamcast"),
+            PlatformData(id: 11, name: "Game Boy Color"),
+            PlatformData(id: 17, name: "Jaguar"),
+            PlatformData(id: 15, name: "SNES")
+        ])
+    
+    // MARK: Setup
+    
     override class func setUp() {
         super.setUp()
         Matcher.default.register(
@@ -18,6 +35,8 @@ final class SelectPlatformViewModelTests: XCTestCase {
             match: Matcher.GetPlatformsEndpoint.matcher
         )
     }
+    
+    // MARK: Tests
     
     func test_init_GivenSelectPlatformViewModel_ThenShouldSetPropertiesCorrectly() {
         // Given
@@ -154,29 +173,16 @@ final class SelectPlatformViewModelTests: XCTestCase {
         let endpoint = GetPlatformsEndpoint(offset: .zero)
         let networkingSession = APIMock()
         
-        let data = SearchPlatformsData(
-            offset: .zero,
-            numberOfPageResults: 5,
-            numberOfTotalResults: 5,
-            statusCode: 1,
-            results: [
-                PlatformData(id: 28, name: "Atari 2600"),
-                PlatformData(id: 8, name: "Dreamcast"),
-                PlatformData(id: 11, name: "Game Boy Color"),
-                PlatformData(id: 17, name: "Jaguar"),
-                PlatformData(id: 15, name: "SNES")
-            ])
-        
         networkingSession.given(
             .getData(
                 with: .value(endpoint),
-                willReturn:  Result<SearchPlatformsData, APIError>.success(data)
+                willReturn:  Result<SearchPlatformsData, APIError>.success(self.searchPlaformsData)
             )
         )
         
         let viewModel = SelectPlatformViewModel(networkingSession: networkingSession)
         
-        let platforms = DataConverter.convert(remotePlatforms: data.results)
+        let platforms = DataConverter.convert(remotePlatforms: self.searchPlaformsData.results)
         
         // When
         viewModel.loadData { _ in
@@ -197,29 +203,16 @@ final class SelectPlatformViewModelTests: XCTestCase {
         let endpoint = GetPlatformsEndpoint(offset: .zero)
         let networkingSession = APIMock()
         
-        let data = SearchPlatformsData(
-            offset: .zero,
-            numberOfPageResults: 5,
-            numberOfTotalResults: 5,
-            statusCode: 1,
-            results: [
-                PlatformData(id: 28, name: "Atari 2600"),
-                PlatformData(id: 8, name: "Dreamcast"),
-                PlatformData(id: 11, name: "Game Boy Color"),
-                PlatformData(id: 17, name: "Jaguar"),
-                PlatformData(id: 15, name: "SNES")
-            ])
-        
         networkingSession.given(
             .getData(
                 with: .value(endpoint),
-                willReturn:  Result<SearchPlatformsData, APIError>.success(data)
+                willReturn:  Result<SearchPlatformsData, APIError>.success(self.searchPlaformsData)
             )
         )
         
         let viewModel = SelectPlatformViewModel(networkingSession: networkingSession)
         
-        let platforms = DataConverter.convert(remotePlatforms: data.results)
+        let platforms = DataConverter.convert(remotePlatforms: self.searchPlaformsData.results)
         
         viewModel.loadData { _ in
             
@@ -242,29 +235,16 @@ final class SelectPlatformViewModelTests: XCTestCase {
         let endpoint = GetPlatformsEndpoint(offset: .zero)
         let networkingSession = APIMock()
         
-        let data = SearchPlatformsData(
-            offset: .zero,
-            numberOfPageResults: 5,
-            numberOfTotalResults: 5,
-            statusCode: 1,
-            results: [
-                PlatformData(id: 28, name: "Atari 2600"),
-                PlatformData(id: 8, name: "Dreamcast"),
-                PlatformData(id: 11, name: "Game Boy Color"),
-                PlatformData(id: 17, name: "Jaguar"),
-                PlatformData(id: 15, name: "SNES")
-            ])
-        
         networkingSession.given(
             .getData(
                 with: .value(endpoint),
-                willReturn:  Result<SearchPlatformsData, APIError>.success(data)
+                willReturn:  Result<SearchPlatformsData, APIError>.success(self.searchPlaformsData)
             )
         )
         
         let viewModel = SelectPlatformViewModel(networkingSession: networkingSession)
         
-        let platforms = DataConverter.convert(remotePlatforms: data.results)
+        let platforms = DataConverter.convert(remotePlatforms: self.searchPlaformsData.results)
         
         viewModel.loadData { _ in
             
