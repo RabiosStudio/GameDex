@@ -19,7 +19,7 @@ final class SelectPlatformViewModel: CollectionViewModel {
     var rightButtonItem: AnyBarButtonItem? = .close
     let screenTitle: String? = L10n.selectPlatform
     var sections = [Section]()
-    private var platformsDisplayed: [Platform] = []
+    private var platforms: [Platform] = []
     weak var containerDelegate: ContainerViewControllerDelegate?
     
     private let networkingSession: API
@@ -34,10 +34,10 @@ final class SelectPlatformViewModel: CollectionViewModel {
             if let error = await self.requestData() {
                 callback(error)
             } else {
-                self.platformsDisplayed.sort {
+                self.platforms.sort {
                     $0.title < $1.title
                 }
-                self.sections = [SelectPlatformSection(platforms: self.platformsDisplayed)]
+                self.sections = [SelectPlatformSection(platforms: self.platforms)]
                 callback(nil)
             }
         }
@@ -45,16 +45,16 @@ final class SelectPlatformViewModel: CollectionViewModel {
     
     private func requestData() async -> AddGameError? {
         // get data
-        let result: Result<SearchPlatformsData, APIError> = await self.networkingSession.getData(with: GetPlatformsEndpoint(offset: self.platformsDisplayed.count))
+        let result: Result<SearchPlatformsData, APIError> = await self.networkingSession.getData(with: GetPlatformsEndpoint(offset: self.platforms.count))
         
         // check result
         switch result {
         case .success(let data):
             let platforms = DataConverter.convert(remotePlatforms: data.results)
             // store result data
-            self.platformsDisplayed += platforms
+            self.platforms += platforms
             // if there is still data on other pages, we do the request again
-            if self.platformsDisplayed.count < data.numberOfTotalResults {
+            if self.platforms.count < data.numberOfTotalResults {
                 _ = await self.requestData()
             } else {
                 return nil
@@ -77,7 +77,12 @@ extension SelectPlatformViewModel: SearchViewModelDelegate {
     }
     
     func updateSearchTextField(with text: String, callback: @escaping (EmptyError?) -> ()) {
-        let matchingPlatforms = self.platformsDisplayed.filter({
+        guard text != "" else {
+            self.updateListOfPlatforms(with: self.platforms)
+            callback(nil)
+            return
+        }
+        let matchingPlatforms = self.platforms.filter({
             $0.title.localizedCaseInsensitiveContains(text)
         })
         self.updateListOfPlatforms(with: matchingPlatforms)

@@ -261,6 +261,36 @@ final class SelectPlatformViewModelTests: XCTestCase {
         wait(for: [expectation], timeout: 10.0)
     }
     
+    func test_updateSearch_GivenEmptySearchQuery_ThenShouldReturnFullListOfPlatforms() {
+        // Given
+        let expectation = XCTestExpectation(description: "perform loadData() asynchronously")
+        
+        let endpoint = GetPlatformsEndpoint(offset: .zero)
+        let networkingSession = APIMock()
+        
+        networkingSession.given(
+            .getData(
+                with: .value(endpoint),
+                willReturn:  Result<SearchPlatformsData, APIError>.success(self.searchPlaformsData)
+            )
+        )
+        
+        let viewModel = SelectPlatformViewModel(networkingSession: networkingSession)
+        
+        let platforms = DataConverter.convert(remotePlatforms: self.searchPlaformsData.results)
+        
+        viewModel.loadData { _ in
+            
+            // When
+            viewModel.updateSearchTextField(with: "") { _ in
+                XCTAssertEqual(viewModel.numberOfSections(), 1)
+                XCTAssertEqual(viewModel.numberOfItems(in: 0), platforms.count)
+            }
+            expectation.fulfill()
+        }
+        wait(for: [expectation], timeout: 10.0)
+    }
+    
     func test_startSearch_ThenShouldCallCallback() {
         // Given
         let networkingSession = APIMock()
