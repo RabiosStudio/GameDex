@@ -79,7 +79,7 @@ final class SelectPlatformViewModelTests: XCTestCase {
             expectation.fulfill()
         }
         
-        wait(for: [expectation], timeout: 10.0)
+        wait(for: [expectation], timeout: 1.0)
     }
     
     func test_loadData_GivenAPIErrorWrongURL_ThenShouldReturnAddGameErrorServer() {
@@ -107,7 +107,7 @@ final class SelectPlatformViewModelTests: XCTestCase {
             expectation.fulfill()
         }
         
-        wait(for: [expectation], timeout: 10.0)
+        wait(for: [expectation], timeout: 1.0)
     }
     
     func test_loadData_GivenAPIErrorNoData_ThenShouldReturnAddGameErrorServer() {
@@ -135,7 +135,7 @@ final class SelectPlatformViewModelTests: XCTestCase {
             expectation.fulfill()
         }
         
-        wait(for: [expectation], timeout: 10.0)
+        wait(for: [expectation], timeout: 1.0)
     }
     
     func test_loadData_GivenAPIErrorParsing_ThenShouldReturnAddGameErrorServer() {
@@ -163,7 +163,7 @@ final class SelectPlatformViewModelTests: XCTestCase {
             expectation.fulfill()
         }
         
-        wait(for: [expectation], timeout: 10.0)
+        wait(for: [expectation], timeout: 1.0)
     }
     
     func test_loadData_GivenNoAPIError_ThenShouldReturnData() {
@@ -193,7 +193,7 @@ final class SelectPlatformViewModelTests: XCTestCase {
             
             expectation.fulfill()
         }
-        wait(for: [expectation], timeout: 10.0)
+        wait(for: [expectation], timeout: 1.0)
     }
     
     func test_updateSearch_GivenListOfPlatforms_ThenShouldSetupSectionsAndCellsVMAccordingly() {
@@ -225,7 +225,7 @@ final class SelectPlatformViewModelTests: XCTestCase {
             }
             expectation.fulfill()
         }
-        wait(for: [expectation], timeout: 10.0)
+        wait(for: [expectation], timeout: 1.0)
     }
     
     func test_updateSearch_GivenNoMatchingPlatforms_ThenShouldReturnErrorNoItems() {
@@ -258,7 +258,7 @@ final class SelectPlatformViewModelTests: XCTestCase {
             }
             expectation.fulfill()
         }
-        wait(for: [expectation], timeout: 10.0)
+        wait(for: [expectation], timeout: 1.0)
     }
     
     func test_updateSearch_GivenEmptySearchQuery_ThenShouldReturnFullListOfPlatforms() {
@@ -288,7 +288,7 @@ final class SelectPlatformViewModelTests: XCTestCase {
             }
             expectation.fulfill()
         }
-        wait(for: [expectation], timeout: 10.0)
+        wait(for: [expectation], timeout: 1.0)
     }
     
     func test_startSearch_ThenShouldCallCallback() {

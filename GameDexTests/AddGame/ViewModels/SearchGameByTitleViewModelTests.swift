@@ -123,7 +123,7 @@ final class SearchGameByTitleViewModelTests: XCTestCase {
             expectation.fulfill()
         }
         
-        wait(for: [expectation], timeout: 10.0)
+        wait(for: [expectation], timeout: 1.0)
     }
     
     func test_startSearch_GivenAPIErrorWrongURL_ThenShouldReturnAddGameErrorServer() {
@@ -155,7 +155,7 @@ final class SearchGameByTitleViewModelTests: XCTestCase {
             expectation.fulfill()
         }
         
-        wait(for: [expectation], timeout: 10.0)
+        wait(for: [expectation], timeout: 1.0)
     }
     
     func test_startSearch_GivenAPIErrorNoData_ThenShouldReturnAddGameErrorServer() {
@@ -187,7 +187,7 @@ final class SearchGameByTitleViewModelTests: XCTestCase {
             expectation.fulfill()
         }
         
-        wait(for: [expectation], timeout: 10.0)
+        wait(for: [expectation], timeout: 1.0)
     }
     
     func test_startSearch_GivenAPIErrorParsing_ThenShouldReturnAddGameErrorServer() {
@@ -219,7 +219,7 @@ final class SearchGameByTitleViewModelTests: XCTestCase {
             expectation.fulfill()
         }
         
-        wait(for: [expectation], timeout: 10.0)
+        wait(for: [expectation], timeout: 1.0)
     }
     
     func test_startSearch_GivenNoAPIError_ThenShouldReturnData() {
@@ -254,7 +254,7 @@ final class SearchGameByTitleViewModelTests: XCTestCase {
             
             expectation.fulfill()
         }
-        wait(for: [expectation], timeout: 10.0)
+        wait(for: [expectation], timeout: 1.0)
     }
     
     func test_updateSearchTextField_ThenShouldCallCallback() {
@@ -311,6 +311,6 @@ final class SearchGameByTitleViewModelTests: XCTestCase {
             }
             expectation.fulfill()
         }
-        wait(for: [expectation], timeout: 10.0)
+        wait(for: [expectation], timeout: 1.0)
     }
 }
