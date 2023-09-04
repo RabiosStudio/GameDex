@@ -7,7 +7,6 @@
 
 import Foundation
 import UIKit
-import SDWebImage
 
 final class BasicInfoCell: UICollectionViewCell, CellConfigurable {
     
