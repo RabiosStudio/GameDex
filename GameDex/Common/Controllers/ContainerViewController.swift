@@ -122,11 +122,8 @@ class ContainerViewController: UIViewController {
     // MARK: - Methods
     
     private func loadData() {
-        let tabBarOffset = -(self.tabBarController?.tabBar.frame.size.height ?? 0)
-        let emptyLoader = EmptyLoader(tabBarOffset: tabBarOffset)
         self.configureNavBar()
-        self.collectionView.updateEmptyScreen(emptyReason: emptyLoader)
-        self.collectionView.reloadEmptyDataSet()
+        self.configureLoader()
         self.viewModel.loadData { [weak self] error in
             DispatchQueue.main.async {
                 guard let strongSelf = self else { return }
@@ -216,6 +213,13 @@ class ContainerViewController: UIViewController {
         
         // update progress bar with given value
         self.navigationController?.setProgress(progress, animated: false)
+    }
+    
+    private func configureLoader() {
+        let tabBarOffset = -(self.tabBarController?.tabBar.frame.size.height ?? 0)
+        let emptyLoader = EmptyLoader(tabBarOffset: tabBarOffset)
+        self.collectionView.updateEmptyScreen(emptyReason: emptyLoader)
+        self.collectionView.reloadEmptyDataSet()
     }
     
     private func addNotificationObservers() {
@@ -346,6 +350,7 @@ extension ContainerViewController: UISearchBarDelegate {
             return
         }
         self.searchBar.endEditing(true)
+        self.configureLoader()
         self.viewModel.searchViewModel.delegate?.startSearch(
             from: searchQuery,
             callback: { [weak self] error in
