@@ -37,3 +37,8 @@
 "title" = "Titre";
 "platform" = "Console";
 "isRequired" = "obligatoire";
+"yearOfAcquisition" = "Année d'acquisition";
+"purchasePrice" = "Prix d'achat";
+"condition" = "État";
+"storageArea" = "Lieu de stockage";
+"personalRating" = "Note personnelle";

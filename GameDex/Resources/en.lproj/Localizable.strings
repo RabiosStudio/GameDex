@@ -37,3 +37,8 @@
 "title" = "Title";
 "platform" = "Platform";
 "isRequired" = "is Required";
+"yearOfAcquisition" = "Year of acquisition";
+"purchasePrice" = "Purchase price";
+"condition" = "Condition";
+"storageArea" = "Storage area";
+"personalRating" = "Personal rating";
