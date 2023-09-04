@@ -24,14 +24,14 @@ enum AddGameError: EmptyError {
         }
     }
     
-    var errorDescription: String {
+    var errorDescription: String? {
         switch self {
         case .noItems:
             return L10n.emptyItemsDescription
         case .server:
             return L10n.apiErrorDescription
         case .noSearch:
-            return ""
+            return nil
         }
     }
     
@@ -47,14 +47,14 @@ enum AddGameError: EmptyError {
         
     }
     
-    var buttonTitle: String {
+    var buttonTitle: String? {
         switch self {
         case .noItems:
-            return ""
+            return nil
         case .server:
             return L10n.retry
         case .noSearch:
-            return ""
+            return nil
         }
     }
     

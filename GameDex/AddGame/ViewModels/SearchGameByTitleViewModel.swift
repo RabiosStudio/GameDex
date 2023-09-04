@@ -24,7 +24,7 @@ final class SearchGameByTitleViewModel: CollectionViewModel {
     private let platform: Platform
     private var gamesQuery: [Game] = []
     
-    var networkingSession: API
+    private let networkingSession: API
     
     init(networkingSession: API, platform: Platform) {
         self.progress = 2/3
@@ -51,10 +51,10 @@ extension SearchGameByTitleViewModel: SearchViewModelDelegate {
             case .success(let data):
                 let games = DataConverter.convert(remoteGames: data.results, platform: self.platform)
                 self.gamesQuery = games
-                    self.sections = [SearchGameByTitleSection(
-                        gamesQuery: self.gamesQuery,
-                        platform: self.platform
-                    )]
+                self.sections = [SearchGameByTitleSection(
+                    gamesQuery: self.gamesQuery,
+                    platform: self.platform
+                )]
                 callback(nil)
             case .failure(_):
                 let error: AddGameError = .server
