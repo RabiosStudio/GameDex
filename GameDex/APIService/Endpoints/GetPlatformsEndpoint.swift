@@ -11,7 +11,6 @@ class GetPlatformsEndpoint: APIEndpoint {
     // MARK: - Properties
     
     private enum Constants {
-        static let path = "platforms"
         static let format = "format"
         static let json = "json"
         static let fieldList = "field_list"
@@ -20,7 +19,7 @@ class GetPlatformsEndpoint: APIEndpoint {
     }
     
     var path: String {
-        return Constants.path
+        return "platforms"
     }
     
     var url: URL {
