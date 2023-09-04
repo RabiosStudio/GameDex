@@ -8,9 +8,11 @@ class TabBarController: UITabBarController {
         let vc1 = ContainerViewController(
             viewModel: MyCollectionViewModel(),
             layoutBuilder: BasicLayoutBuilder(
-                cellSize: .small,
-                cellHorizontalSpacing: .small,
-                cellVerticalSpacing: .small
+                cellLayout: CellLayout(
+                    size: .small,
+                    horizontalSpacing: .small,
+                    verticalSpacing: .small
+                )
             )
         )
         let vc2 = UIViewController()

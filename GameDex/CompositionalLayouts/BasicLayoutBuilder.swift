@@ -8,50 +8,12 @@
 import Foundation
 import UIKit
 
-enum CellSize {
-    case small
-    case regular
-    case big
-    
-    var value: CGFloat {
-        switch self {
-        case .small:
-            return DesignSystem.sizeSmall
-        case .regular:
-            return DesignSystem.sizeRegular
-        case .big:
-            return DesignSystem.sizeBig
-        }
-    }
-}
-
-enum CellSpacing {
-    case none
-    case small
-    case regular
-    
-    var value: CGFloat {
-        switch self {
-        case .none:
-            return .zero
-        case .small:
-            return DesignSystem.paddingSmall
-        case .regular:
-            return DesignSystem.paddingRegular
-        }
-    }
-}
-
 final class BasicLayoutBuilder: CollectionLayoutBuilder {
     
-    private var cellSize: CellSize
-    private var cellHorizontalSpacing: CellSpacing
-    private var cellVerticalSpacing: CellSpacing
+    private let cellLayout: CellLayout
     
-    init(cellSize: CellSize, cellHorizontalSpacing: CellSpacing, cellVerticalSpacing: CellSpacing) {
-        self.cellSize = cellSize
-        self.cellHorizontalSpacing = cellHorizontalSpacing
-        self.cellVerticalSpacing = cellVerticalSpacing
+    init(cellLayout: CellLayout) {
+        self.cellLayout = cellLayout
     }
     
     func create() -> UICollectionViewLayout {
@@ -59,13 +21,13 @@ final class BasicLayoutBuilder: CollectionLayoutBuilder {
             widthDimension: .fractionalWidth(DesignSystem.fractionalSizeFull),
             heightDimension: .fractionalHeight(DesignSystem.fractionalSizeFull))
         let item = NSCollectionLayoutItem(layoutSize: itemSize)
-        item.contentInsets = NSDirectionalEdgeInsets(top: cellVerticalSpacing.value,
-                                                     leading: cellHorizontalSpacing.value,
-                                                     bottom: cellVerticalSpacing.value,
-                                                     trailing: cellHorizontalSpacing.value)
+        item.contentInsets = NSDirectionalEdgeInsets(top: cellLayout.verticalSpacing.value,
+                                                     leading: cellLayout.horizontalSpacing.value,
+                                                     bottom: cellLayout.verticalSpacing.value,
+                                                     trailing: cellLayout.horizontalSpacing.value)
         let groupSize = NSCollectionLayoutSize(
             widthDimension: .fractionalWidth(DesignSystem.fractionalSizeFull),
-            heightDimension: .absolute(cellSize.value)
+            heightDimension: .absolute(cellLayout.size.value)
         )
         let group = NSCollectionLayoutGroup.horizontal(layoutSize: groupSize,
                                                        subitem: item,
