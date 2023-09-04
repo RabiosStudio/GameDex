@@ -8,9 +8,9 @@
 import Foundation
 
 struct CellLayout {
-    var size: CellSize
-    var horizontalSpacing: CellSpacing
-    var verticalSpacing: CellSpacing
+    let size: CellSize
+    let horizontalSpacing: CellSpacing
+    let verticalSpacing: CellSpacing
 }
 
 enum CellSize {

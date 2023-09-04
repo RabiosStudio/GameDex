@@ -78,10 +78,11 @@ final class BasicInfoCell: UICollectionViewCell, CellConfigurable {
             self.secondarySubtitle.text = secondarySubtitle
         }
         if let imageName = cellVM.caption,
-           let imageURL = URL(string: imageName) {
-            self.imageView.sd_setImage(
-                with: imageURL,
-                placeholderImage: UIImage(named: Asset.noItems.name)
+           let imageURL = URL(string: imageName),
+           let placeholderImage = UIImage(named: Asset.noItems.name) {
+            self.imageView.setImageWith(
+                url: imageURL,
+                placeholderImage: placeholderImage
             )
         }
         self.setupConstraints()

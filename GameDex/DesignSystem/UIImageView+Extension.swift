@@ -8,4 +8,11 @@
 import Foundation
 import SDWebImage
 
-extension UIImageView {}
+extension UIImageView {
+    func setImageWith(url: URL, placeholderImage: UIImage) {
+        self.sd_setImage(
+            with: url,
+            placeholderImage: placeholderImage
+        )
+    }
+}
