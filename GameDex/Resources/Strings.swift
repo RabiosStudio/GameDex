@@ -48,6 +48,8 @@ internal enum L10n {
   internal static let myCollection = L10n.tr("Localizable", "myCollection", fallback: "My Collection")
   /// My Profile
   internal static let myProfile = L10n.tr("Localizable", "myProfile", fallback: "My Profile")
+  /// Other details
+  internal static let otherDetails = L10n.tr("Localizable", "otherDetails", fallback: "Other details")
   /// Personal rating
   internal static let personalRating = L10n.tr("Localizable", "personalRating", fallback: "Personal rating")
   /// Platform

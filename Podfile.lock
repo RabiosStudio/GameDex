@@ -14,6 +14,7 @@ PODS:
   - SwiftLint (0.52.4)
   - SwiftyMocky (4.1.0):
     - Sourcery (= 1.6.0)
+  - SwiftyTextView (0.2.0)
 
 DEPENDENCIES:
   - Alamofire
@@ -25,6 +26,7 @@ DEPENDENCIES:
   - SwiftGen (~> 6.0)
   - SwiftLint
   - SwiftyMocky
+  - SwiftyTextView
 
 SPEC REPOS:
   trunk:
@@ -38,6 +40,7 @@ SPEC REPOS:
     - SwiftGen
     - SwiftLint
     - SwiftyMocky
+    - SwiftyTextView
 
 SPEC CHECKSUMS:
   Alamofire: 0123a34370cb170936ae79a8df46cc62b2edeb88
@@ -50,7 +53,8 @@ SPEC CHECKSUMS:
   SwiftGen: 1366a7f71aeef49954ca5a63ba4bef6b0f24138c
   SwiftLint: 1cc5cd61ba9bacb2194e340aeb47a2a37fda00b3
   SwiftyMocky: 014739247afadb65efb5bb92ede32c22b9365762
+  SwiftyTextView: be873b6b426d148fef9e2a341b3c5989b167572b
 
-PODFILE CHECKSUM: 7ba1be49a0edc57cc49114de86ebf011e9ef390b
+PODFILE CHECKSUM: f576ff0d5611e55c6445bc42fa67d7bfa48fc016
 
 COCOAPODS: 1.12.1

@@ -42,3 +42,4 @@
 "condition" = "État";
 "storageArea" = "Lieu de stockage";
 "personalRating" = "Note personnelle";
+"otherDetails" = "Other details";

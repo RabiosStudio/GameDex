@@ -15,6 +15,7 @@ target 'GameDex' do
   pod "SwiftyMocky"
   pod 'Alamofire'
   pod 'SDWebImage'
+  pod 'SwiftyTextView'
 
   target 'GameDexTests' do
     inherit! :search_paths
