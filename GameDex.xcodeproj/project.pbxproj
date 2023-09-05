@@ -538,26 +538,6 @@
 			path = GameDexTests;
 			sourceTree = "<group>";
 		};
-		25EB24112AA5CD670024F01C /* ViewModels */ = {
-			isa = PBXGroup;
-			children = (
-				251C87102A9BBD290020C794 /* SelectAddGameMethodViewModelTests.swift */,
-				251C871D2A9C889A0020C794 /* SelectPlatformViewModelTests.swift */,
-				25EB240F2AA5C0600024F01C /* SearchGameByTitleViewModelTests.swift */,
-			);
-			path = ViewModels;
-			sourceTree = "<group>";
-		};
-		25EB24122AA5CD750024F01C /* Sections */ = {
-			isa = PBXGroup;
-			children = (
-				251C87122A9BBD3F0020C794 /* SelectAddGameMethodSectionTests.swift */,
-				251C871B2A9C888B0020C794 /* SelectPlatformSectionTests.swift */,
-				25EB240D2AA5BC550024F01C /* SearchGameByTitleSectionTests.swift */,
-			);
-			path = Sections;
-			sourceTree = "<group>";
-		};
 		25EB24352AA751E00024F01C /* SelectAddGameMethod */ = {
 			isa = PBXGroup;
 			children = (
@@ -598,6 +578,40 @@
 			path = SearchGameByTitle;
 			sourceTree = "<group>";
 		};
+		25EB24392AA784200024F01C /* SelectAddGameMethod */ = {
+			isa = PBXGroup;
+			children = (
+				251C87122A9BBD3F0020C794 /* SelectAddGameMethodSectionTests.swift */,
+				251C87102A9BBD290020C794 /* SelectAddGameMethodViewModelTests.swift */,
+			);
+			path = SelectAddGameMethod;
+			sourceTree = "<group>";
+		};
+		25EB243A2AA7842B0024F01C /* SelectPlatform */ = {
+			isa = PBXGroup;
+			children = (
+				251C871D2A9C889A0020C794 /* SelectPlatformViewModelTests.swift */,
+				251C871B2A9C888B0020C794 /* SelectPlatformSectionTests.swift */,
+			);
+			path = SelectPlatform;
+			sourceTree = "<group>";
+		};
+		25EB243B2AA784350024F01C /* SearchGameByTitle */ = {
+			isa = PBXGroup;
+			children = (
+				25EB240D2AA5BC550024F01C /* SearchGameByTitleSectionTests.swift */,
+				25EB240F2AA5C0600024F01C /* SearchGameByTitleViewModelTests.swift */,
+			);
+			path = SearchGameByTitle;
+			sourceTree = "<group>";
+		};
+		25EB243C2AA7843C0024F01C /* AddGameDetails */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = AddGameDetails;
+			sourceTree = "<group>";
+		};
 		25F663232A94C93B005F5412 /* Common */ = {
 			isa = PBXGroup;
 			children = (
@@ -621,8 +635,10 @@
 		25F663252A94C95D005F5412 /* AddGame */ = {
 			isa = PBXGroup;
 			children = (
-				25EB24112AA5CD670024F01C /* ViewModels */,
-				25EB24122AA5CD750024F01C /* Sections */,
+				25EB24392AA784200024F01C /* SelectAddGameMethod */,
+				25EB243A2AA7842B0024F01C /* SelectPlatform */,
+				25EB243B2AA784350024F01C /* SearchGameByTitle */,
+				25EB243C2AA7843C0024F01C /* AddGameDetails */,
 			);
 			path = AddGame;
 			sourceTree = "<group>";
