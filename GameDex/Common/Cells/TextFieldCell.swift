@@ -32,6 +32,8 @@ final class TextFieldCell: UICollectionViewCell, CellConfigurable {
         return textField
     }()
     
+    private var cellVM: TextFieldCellViewModel?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         contentView.backgroundColor = .primaryBackgroundColor
@@ -60,6 +62,8 @@ final class TextFieldCell: UICollectionViewCell, CellConfigurable {
         guard let cellVM = cellViewModel as? TextFieldCellViewModel else {
             return
         }
+        self.cellVM = cellVM
+        
         switch cellVM.textFieldType {
         case .numbers:
             self.textField.keyboardType = .decimalPad
@@ -76,6 +80,13 @@ final class TextFieldCell: UICollectionViewCell, CellConfigurable {
     }
     
     func cellPressed(cellViewModel: CellViewModel) {}
+    
+    private func storeEntry(cellViewModel: CellViewModel?, with text: String) {
+        guard let cellVM = self.cellVM else {
+            return
+        }
+        cellVM.title = text
+    }
 }
 
 // MARK: TextFieldDelegate
@@ -84,5 +95,12 @@ extension TextFieldCell: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        guard let text = self.textField.text else {
+            return
+        }
+        self.storeEntry(cellViewModel: self.cellVM, with: text)
     }
 }

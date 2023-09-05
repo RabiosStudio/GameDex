@@ -20,7 +20,7 @@ class TextViewCell: UICollectionViewCell, CellConfigurable {
         return label
     }()
     
-    private let textView: SwiftyTextView = {
+    private lazy var textView: SwiftyTextView = {
         let view = SwiftyTextView()
         view.textAlignment = .left
         view.placeholderColor = UIColor.lightGray
@@ -33,9 +33,12 @@ class TextViewCell: UICollectionViewCell, CellConfigurable {
         view.layer.borderColor = UIColor.secondaryBackgroundColor.cgColor
         view.layer.cornerRadius = DesignSystem.cornerRadiusRegular
         view.isEditable = true
+        view.delegate = self
         view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
+    
+    private var cellVM: TextViewCellViewModel?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -50,11 +53,19 @@ class TextViewCell: UICollectionViewCell, CellConfigurable {
         guard let cellVM = cellViewModel as? TextViewCellViewModel else {
             return
         }
+        self.cellVM = cellVM
         self.setupConstraints()
         self.label.text = cellVM.title
     }
     
     func cellPressed(cellViewModel: CellViewModel) {}
+    
+    private func storeEntry(cellViewModel: CellViewModel?, with text: String) {
+        guard let cellVM = self.cellVM else {
+            return
+        }
+        cellVM.title = text
+    }
     
     private func setupViews() {
         self.backgroundColor = .primaryBackgroundColor
@@ -98,5 +109,14 @@ class TextViewCell: UICollectionViewCell, CellConfigurable {
                 constant: -DesignSystem.paddingSmall
             )
         ])
+    }
+}
+
+extension TextViewCell: UITextViewDelegate {
+    func textViewDidEndEditing(_ textView: UITextView) {
+        guard let text = self.textView.text else {
+            return
+        }
+        self.storeEntry(cellViewModel: self.cellVM, with: text)
     }
 }
