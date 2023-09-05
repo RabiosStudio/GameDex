@@ -1,5 +1,5 @@
 //
-//  EnterGameDetailsViewModel.swift
+//  AddGameDetailsViewModel.swift
 //  GameDex
 //
 //  Created by Gabrielle Dalbera on 04/09/2023.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class EnterGameDetailsViewModel: CollectionViewModel {
+final class AddGameDetailsViewModel: CollectionViewModel {
     lazy var searchViewModel = SearchViewModel(
         isSearchable: false,
         isActivated: false
@@ -27,7 +27,7 @@ final class EnterGameDetailsViewModel: CollectionViewModel {
     }
     
     func loadData(callback: @escaping (EmptyError?) -> ()) {
-        self.sections = [GamePreviewSection(game: self.game), GameFormBasicSection(), GameFormOtherDetailsSection()]
+        self.sections = [AddGameDetailsSection(game: self.game)]
         callback(nil)
     }
 }

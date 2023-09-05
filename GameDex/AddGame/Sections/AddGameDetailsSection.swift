@@ -1,5 +1,5 @@
 //
-//  GameFormBasicSection.swift
+//  AddGameDetailsSection.swift
 //  GameDex
 //
 //  Created by Gabrielle Dalbera on 04/09/2023.
@@ -7,11 +7,22 @@
 
 import Foundation
 
-final class GameFormBasicSection: Section {
+final class AddGameDetailsSection: Section {
     
-    override init() {
+    var game: Game
+    
+    init(game: Game) {
+        self.game = game
         super.init()
-        self.position = 1
+        self.position = 0
+        
+        let gameCellVM = ImageDescriptionCellViewModel(
+            imageStringURL: game.image,
+            title: game.title,
+            subtitle1: game.platform,
+            subtitle2: game.description
+        )
+        self.cellsVM.append(gameCellVM)
         
         let yearOfAcquisitionCellVM = TextFieldCellViewModel(
             title: L10n.yearOfAcquisition,
@@ -43,5 +54,8 @@ final class GameFormBasicSection: Section {
         
         let personalRating = StarRatingCellViewModel(title: L10n.personalRating)
         self.cellsVM.append(personalRating)
+        
+        let otherDetails = TextViewCellViewModel(title: L10n.otherDetails)
+        self.cellsVM.append(otherDetails)
     }
 }

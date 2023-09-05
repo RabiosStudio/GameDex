@@ -1,5 +1,5 @@
 //
-//  EnterGameDetailsScreenFactory.swift
+//  AddGameDetailsScreenFactory.swift
 //  GameDex
 //
 //  Created by Gabrielle Dalbera on 04/09/2023.
@@ -8,10 +8,10 @@
 import Foundation
 import UIKit
 
-struct EnterGameDetailsScreenFactory: ScreenFactory {
+struct AddGameDetailsScreenFactory: ScreenFactory {
     
     var viewController: UIViewController {
-        let viewModel = EnterGameDetailsViewModel(game: self.game)
+        let viewModel = AddGameDetailsViewModel(game: self.game)
         let layout = UICollectionViewFlowLayout()
         let containerController = ContainerViewController(
             viewModel: viewModel,
