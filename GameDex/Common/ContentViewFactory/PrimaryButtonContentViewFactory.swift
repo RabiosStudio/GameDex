@@ -1,5 +1,5 @@
 //
-//  NextContentViewFactory.swift
+//  PrimaryButtonContentViewFactory.swift
 //  GameDex
 //
 //  Created by Gabrielle Dalbera on 18/08/2023.
@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-final class ContinueContentViewFactory: ContentViewFactory {
+final class PrimaryButtonContentViewFactory: ContentViewFactory {
     lazy var bottomView: UIView = {
         let continueButton = PrimaryButton(delegate: self.delegate)
         continueButton.configure(
