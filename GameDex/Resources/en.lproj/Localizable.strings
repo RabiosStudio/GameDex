@@ -15,7 +15,8 @@
 "apiErrorDescription" = "There has been an issue while fetching data";
 
 // Button
-"addGame" = "Add a game";
+"addAGame" = "Add a game";
+"addGameToCollection" = "Add to collection";
 "continue" = "Continue";
 "searchPlatform" = "Search a platform";
 "retry" = "Retry";

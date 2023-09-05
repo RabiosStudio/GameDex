@@ -15,7 +15,7 @@ final class SelectAddGameMethodViewModel: CollectionViewModel {
     var isBounceable: Bool = false
     var progress: Float?
     var rightButtonItem: AnyBarButtonItem? = .close
-    let screenTitle: String? = L10n.addGame
+    let screenTitle: String? = L10n.addAGame
     var sections: [Section]
     weak var containerDelegate: ContainerViewControllerDelegate?
     

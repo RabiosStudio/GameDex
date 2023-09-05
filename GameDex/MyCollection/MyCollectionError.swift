@@ -32,7 +32,7 @@ enum MyCollectionError: EmptyError {
     var buttonTitle: String {
         switch self {
         case .noItems:
-            return L10n.addGame
+            return L10n.addAGame
         }
     }
     

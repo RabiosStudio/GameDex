@@ -15,7 +15,8 @@
 "apiErrorDescription" = "Une erreur est survenue lors de la récupération des données";
 
 // Button
-"addGame" = "Ajouter un jeu";
+"addAGame" = "Ajouter un jeu";
+"addGameToCollection" = "Ajouter à ma collection";
 "continue" = "Continuer";
 "searchPlatform" = "Rechercher une console";
 "retry" = "Réessayer";
@@ -42,5 +43,5 @@
 "condition" = "État";
 "storageArea" = "Lieu de stockage";
 "personalRating" = "Note personnelle";
-"otherDetails" = "Other details";
+"otherDetails" = "Autres informations";
 "fillGameDetails" = "Spécifications du jeu";
