@@ -76,7 +76,7 @@ final class TextFieldCell: UICollectionViewCell, CellConfigurable {
         }
         self.textField.placeholder = cellVM.title
         self.textField.errorMessage = cellVM.title + L10n.isRequired
-        setupConstraints()
+        self.setupConstraints()
     }
     
     func cellPressed(cellViewModel: CellViewModel) {}
