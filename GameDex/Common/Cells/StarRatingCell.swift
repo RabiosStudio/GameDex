@@ -22,7 +22,7 @@ class StarRatingCell: UICollectionViewCell, CellConfigurable {
     
     private let starRatingView: CosmosView = {
         let view = CosmosView()
-        view.rating = 5
+        view.rating = .zero
         view.settings.fillMode = .full
         view.settings.starSize = DesignSystem.sizeTiny
         view.settings.starMargin = DesignSystem.paddingSmall
