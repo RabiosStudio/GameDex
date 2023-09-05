@@ -18,10 +18,11 @@ final class TextFieldCell: UICollectionViewCell, CellConfigurable {
     
     private lazy var textField: DTTextField = {
         let textField = DTTextField()
-        textField.floatPlaceholderActiveColor = .black
+        textField.floatPlaceholderActiveColor = .secondaryColor
         textField.placeholderColor = .systemGray
-        textField.textColor = .black
+        textField.textColor = .secondaryColor
         textField.tintColor = .primaryColor
+        textField.dtLayer.backgroundColor = UIColor.primaryBackgroundColor.cgColor
         textField.errorTextColor = .primaryColor
         textField.paddingYErrorLabel = DesignSystem.paddingSmall
         textField.animateFloatPlaceholder = true

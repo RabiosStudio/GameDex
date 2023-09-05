@@ -27,7 +27,7 @@ class StarRatingCell: UICollectionViewCell, CellConfigurable {
         view.settings.starSize = DesignSystem.sizeTiny
         view.settings.starMargin = DesignSystem.paddingSmall
         view.settings.filledColor = UIColor.systemYellow
-        view.settings.emptyBorderColor = UIColor.systemYellow
+        view.settings.emptyBorderColor = .secondaryColor
         view.settings.filledBorderColor = UIColor.systemYellow
         view.translatesAutoresizingMaskIntoConstraints = false
         return view

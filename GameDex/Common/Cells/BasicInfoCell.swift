@@ -19,7 +19,7 @@ final class BasicInfoCell: UICollectionViewCell, CellConfigurable {
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.font = Typography.title3bold.font
-        label.textColor = .black
+        label.textColor = .secondaryColor
         label.textAlignment = .left
         label.numberOfLines = .zero
         return label
@@ -28,7 +28,7 @@ final class BasicInfoCell: UICollectionViewCell, CellConfigurable {
     private lazy var primarySubtitle: UILabel = {
         let label = UILabel()
         label.font = Typography.body.font
-        label.textColor = .black
+        label.textColor = .secondaryColor
         label.textAlignment = .left
         return label
     }()
@@ -36,7 +36,7 @@ final class BasicInfoCell: UICollectionViewCell, CellConfigurable {
     private lazy var secondarySubtitle: UILabel = {
         let label = UILabel()
         label.font = Typography.body.font
-        label.textColor = .systemGray
+        label.textColor = .secondaryColor
         label.text = ""
         label.textAlignment = .left
         return label
