@@ -28,6 +28,19 @@ final class AddGameDetailsViewModel: CollectionViewModel {
     
     func loadData(callback: @escaping (EmptyError?) -> ()) {
         self.sections = [AddGameDetailsSection(game: self.game)]
+        let continueContentViewFactory = ContinueContentViewFactory(
+            delegate: self,
+            buttonTitle: L10n.addGameToCollection
+        )
+        self.containerDelegate?.configureBottomView(
+            contentViewFactory: continueContentViewFactory
+        )
         callback(nil)
+    }
+}
+
+extension AddGameDetailsViewModel: PrimaryButtonDelegate {
+    func didTapPrimaryButton() {
+        print("button tapped!")
     }
 }

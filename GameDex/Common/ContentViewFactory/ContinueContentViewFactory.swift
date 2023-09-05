@@ -13,11 +13,10 @@ final class ContinueContentViewFactory: ContentViewFactory {
         let continueButton = PrimaryButton(delegate: self.delegate)
         continueButton.configure(
             viewModel: ButtonViewModel(
-                title: L10n.continue,
+                title: self.buttonTitle,
                 buttonStyle: .regular
             )
         )
-        
         continueButton.layoutMargins = UIEdgeInsets(
             top: DesignSystem.paddingLarge,
             left: DesignSystem.paddingLarge,
@@ -28,7 +27,10 @@ final class ContinueContentViewFactory: ContentViewFactory {
     }()
     weak var delegate: PrimaryButtonDelegate?
     
-    init(delegate: PrimaryButtonDelegate?) {
+    private let buttonTitle: String
+    
+    init(delegate: PrimaryButtonDelegate?, buttonTitle: String) {
         self.delegate = delegate
+        self.buttonTitle = buttonTitle
     }        
 }

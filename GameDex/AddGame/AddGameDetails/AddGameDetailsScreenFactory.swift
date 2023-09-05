@@ -17,6 +17,7 @@ struct AddGameDetailsScreenFactory: ScreenFactory {
             viewModel: viewModel,
             layout: layout
         )
+        viewModel.containerDelegate = containerController
         return containerController
     }
     
