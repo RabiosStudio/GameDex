@@ -7,10 +7,11 @@
 
 import Foundation
 
-final class StarRatingCellViewModel: CellViewModel {
+final class StarRatingCellViewModel: CollectionCellViewModel {
     var cellClass: AnyClass = StarRatingCell.self
     var indexPath: IndexPath?
     var navigationStyle: NavigationStyle?
+    var size: CGFloat = DesignSystem.sizeSmall
     
     var title: String
     

@@ -7,8 +7,7 @@
 
 import Foundation
 
-final class InfoCardCellViewModel: CellViewModel {
-    
+final class InfoCardCellViewModel: CollectionCellViewModel {
     var cellClass: AnyClass = InfoCardCell.self
     var indexPath: IndexPath?
     var title: String
@@ -20,6 +19,7 @@ final class InfoCardCellViewModel: CellViewModel {
             controller: screenFactory.viewController
         )
     }()
+    var size: CGFloat = DesignSystem.sizeRegular
     
     private let screenFactory: ScreenFactory?
     

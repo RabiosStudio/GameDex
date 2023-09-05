@@ -7,15 +7,15 @@
 
 import Foundation
 
-final class TextViewCellViewModel: CellViewModel {
+final class TextViewCellViewModel: CollectionCellViewModel {
     var cellClass: AnyClass = TextViewCell.self
     var indexPath: IndexPath?
     var navigationStyle: NavigationStyle?
+    var size: CGFloat = DesignSystem.sizeBig
     
     let title: String
     
     init(title: String) {
         self.title = title
     }
-    
 }

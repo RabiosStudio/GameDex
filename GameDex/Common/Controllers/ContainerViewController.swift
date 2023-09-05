@@ -62,9 +62,9 @@ class ContainerViewController: UIViewController {
     
     // MARK: - Init
     
-    init(viewModel: CollectionViewModel, layoutBuilder: CollectionLayoutBuilder) {
+    init(viewModel: CollectionViewModel, layout: UICollectionViewLayout) {
         self.viewModel = viewModel
-        self.layout = layoutBuilder.create()
+        self.layout = layout
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -389,5 +389,17 @@ extension ContainerViewController: ContainerViewControllerDelegate {
         self.bottomView = contentViewFactory.bottomView
         self.stackView.addArrangedSubview(self.separatorView)
         self.stackView.addArrangedSubview(self.bottomView)
+    }
+}
+
+extension ContainerViewController: UICollectionViewDelegateFlowLayout {    
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        sizeForItemAt indexPath: IndexPath
+    ) -> CGSize {
+        let cellVM = self.viewModel.item(at: indexPath)
+        let collectionCellVM = cellVM as? CollectionCellViewModel
+        return CGSize(width: collectionView.frame.size.width - DesignSystem.paddingRegular, height: collectionCellVM?.size ?? DesignSystem.sizeRegular)
     }
 }

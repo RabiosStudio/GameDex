@@ -12,16 +12,10 @@ struct SelectAddGameMethodScreenFactory: ScreenFactory {
     
     var viewController: UIViewController {
         let viewModel = SelectAddGameMethodViewModel()
-        let layoutBuilder = BasicLayoutBuilder(
-            cellLayout: CellLayout(
-                size: .big,
-                horizontalSpacing: .small,
-                verticalSpacing: .regular
-            )
-        )
+        let layout = UICollectionViewFlowLayout()
         let containerController = ContainerViewController(
             viewModel: viewModel,
-            layoutBuilder: layoutBuilder
+            layout: layout
         )
         let navigationController = UINavigationController(rootViewController: containerController)
         return navigationController

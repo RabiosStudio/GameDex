@@ -7,14 +7,15 @@
 
 import Foundation
 
-final class TextFieldCellViewModel: CellViewModel {
-    
+final class TextFieldCellViewModel: CollectionCellViewModel {
     var cellClass: AnyClass = TextFieldCell.self
     let shouldActiveTextField: Bool
     var indexPath: IndexPath?
-    var title: String
     var navigationStyle: NavigationStyle?
+    var size: CGFloat = DesignSystem.sizeVerySmall
+    
     var textFieldType: FormTextFieldType
+    var title: String
     
     init(title: String, shouldActiveTextField: Bool, textFieldType: FormTextFieldType) {
         self.title = title

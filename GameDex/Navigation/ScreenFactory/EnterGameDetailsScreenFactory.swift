@@ -10,23 +10,12 @@ import UIKit
 
 struct EnterGameDetailsScreenFactory: ScreenFactory {
     
-    var section1LayoutBuilder: BasicGroupLayoutBuilder
-    var section2LayoutBuilder: BasicGroupLayoutBuilder
-    var section3LayoutBuilder: BasicGroupLayoutBuilder
-    
     var viewController: UIViewController {
         let viewModel = EnterGameDetailsViewModel(game: self.game)
-        
-        let sectionsBuilder: [BasicGroupLayoutBuilder] = [
-            section1LayoutBuilder,
-            section2LayoutBuilder,
-            section3LayoutBuilder
-        ]
-        
-        let layoutBuilder = TestLayoutBuilder(sectionsBuilder: sectionsBuilder)
+        let layout = UICollectionViewFlowLayout()
         let containerController = ContainerViewController(
             viewModel: viewModel,
-            layoutBuilder: layoutBuilder
+            layout: layout
         )
         return containerController
     }
@@ -35,29 +24,5 @@ struct EnterGameDetailsScreenFactory: ScreenFactory {
     
     init(game: Game) {
         self.game = game
-        self.section1LayoutBuilder = BasicGroupLayoutBuilder(
-            cellLayout:
-                CellLayout(
-                    size: .veryBig,
-                    horizontalSpacing: .small,
-                    verticalSpacing: .none
-                )
-        )
-        self.section2LayoutBuilder = BasicGroupLayoutBuilder(
-            cellLayout:
-                CellLayout(
-                    size: .small,
-                    horizontalSpacing: .small,
-                    verticalSpacing: .small
-                )
-        )
-        self.section3LayoutBuilder = BasicGroupLayoutBuilder(
-            cellLayout:
-                CellLayout(
-                    size: .regular,
-                    horizontalSpacing: .small,
-                    verticalSpacing: .small
-                )
-        )
     }
 }
