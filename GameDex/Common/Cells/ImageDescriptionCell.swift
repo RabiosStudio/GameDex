@@ -29,7 +29,7 @@ class ImageDescriptionCell: UICollectionViewCell, CellConfigurable {
         let label = UILabel()
         label.textAlignment = .center
         label.textColor = .secondaryColor
-        label.font = Typography.body.font
+        label.font = Typography.title3.font
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -72,7 +72,6 @@ class ImageDescriptionCell: UICollectionViewCell, CellConfigurable {
     
     private func setupConstraints() {
         NSLayoutConstraint.activate([
-            
             self.imageView.topAnchor.constraint(
                 equalTo: self.topAnchor,
                 constant: DesignSystem.paddingSmall
@@ -130,7 +129,7 @@ class ImageDescriptionCell: UICollectionViewCell, CellConfigurable {
             ),
             self.subTitle2.bottomAnchor.constraint(
                 equalTo: self.bottomAnchor,
-                constant: -DesignSystem.paddingLarge
+                constant: -DesignSystem.paddingRegular
             )
         ])
     }

@@ -13,7 +13,7 @@ class TextViewCell: UICollectionViewCell, CellConfigurable {
     
     private let label: UILabel = {
         let label = UILabel()
-        label.font = Typography.body.font
+        label.font = Typography.headline.font
         label.textColor = .secondaryColor
         label.textAlignment = .left
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -27,7 +27,8 @@ class TextViewCell: UICollectionViewCell, CellConfigurable {
         view.minNumberOfWords = 0
         view.maxNumberOfWords = 50
         view.showTextCountView = true
-        view.font = Typography.body.font
+        view.font = Typography.title2.font
+        view.tintColor = .primaryColor
         view.layer.borderWidth = 1
         view.layer.borderColor = UIColor.secondaryBackgroundColor.cgColor
         view.layer.cornerRadius = DesignSystem.cornerRadiusRegular
