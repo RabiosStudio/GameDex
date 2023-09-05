@@ -47,7 +47,6 @@ class StarRatingCell: UICollectionViewCell, CellConfigurable {
         self.label.text = cellVM.title
         self.starRatingView.didFinishTouchingCosmos = { rating in
             cellVM.rating = self.starRatingView.rating
-            print(cellVM.rating)
         }
     }
     
