@@ -315,28 +315,6 @@
 			path = Protocols;
 			sourceTree = "<group>";
 		};
-		251C873E2A9DE3A30020C794 /* ViewModels */ = {
-			isa = PBXGroup;
-			children = (
-				251C86DD2A98AD400020C794 /* SelectAddGameMethodViewModel.swift */,
-				251C86ED2A98F25C0020C794 /* SelectPlatformViewModel.swift */,
-				251C87322A9CEF4D0020C794 /* SearchGameByTitleViewModel.swift */,
-				25EB241B2AA5F8C30024F01C /* AddGameDetailsViewModel.swift */,
-			);
-			path = ViewModels;
-			sourceTree = "<group>";
-		};
-		251C873F2A9DE3B40020C794 /* Sections */ = {
-			isa = PBXGroup;
-			children = (
-				251C86DF2A98AD4D0020C794 /* SelectAddGameMethodSection.swift */,
-				251C86EB2A98F1A60020C794 /* SelectPlatformSection.swift */,
-				251C87302A9CEF2D0020C794 /* SearchGameByTitleSection.swift */,
-				25EB24132AA5D4470024F01C /* AddGameDetailsSection.swift */,
-			);
-			path = Sections;
-			sourceTree = "<group>";
-		};
 		2528185D2A93DF39003FDC87 /* Mock */ = {
 			isa = PBXGroup;
 			children = (
@@ -428,8 +406,10 @@
 		25AE1EE72A8E4E0B00F2D06A /* AddGame */ = {
 			isa = PBXGroup;
 			children = (
-				251C873E2A9DE3A30020C794 /* ViewModels */,
-				251C873F2A9DE3B40020C794 /* Sections */,
+				25EB24352AA751E00024F01C /* SelectAddGameMethod */,
+				25EB24362AA752D50024F01C /* SelectPlatform */,
+				25EB24382AA753D10024F01C /* SearchGameByTitle */,
+				25EB24372AA752FB0024F01C /* AddGameDetails */,
 				251C86F92A9A44B60020C794 /* AddGameError.swift */,
 			);
 			path = AddGame;
@@ -489,24 +469,12 @@
 		25AE1EFF2A8F497700F2D06A /* Navigation */ = {
 			isa = PBXGroup;
 			children = (
-				25AE1F0D2A8F50FF00F2D06A /* ScreenFactory */,
 				25AE1F012A8F499800F2D06A /* Navigator+NavigationStyle.swift */,
 				25AE1F032A8F4A6200F2D06A /* Routing.swift */,
 				25AE1F072A8F4D2000F2D06A /* NavigationController.swift */,
 				25AE1F0B2A8F508700F2D06A /* UIViewController+Navigation.swift */,
 			);
 			path = Navigation;
-			sourceTree = "<group>";
-		};
-		25AE1F0D2A8F50FF00F2D06A /* ScreenFactory */ = {
-			isa = PBXGroup;
-			children = (
-				251C86E52A98BD020020C794 /* SelectAddGameMethodScreenFactory.swift */,
-				251C86EF2A98F6D10020C794 /* SelectPlatformScreenFactory.swift */,
-				251C87382A9D08100020C794 /* SearchGameByTitleScreenFactory.swift */,
-				25EB24192AA5F8940024F01C /* AddGameDetailsScreenFactory.swift */,
-			);
-			path = ScreenFactory;
 			sourceTree = "<group>";
 		};
 		25AE1F1E2A8F949900F2D06A /* ContentViewFactory */ = {
@@ -588,6 +556,46 @@
 				25EB240D2AA5BC550024F01C /* SearchGameByTitleSectionTests.swift */,
 			);
 			path = Sections;
+			sourceTree = "<group>";
+		};
+		25EB24352AA751E00024F01C /* SelectAddGameMethod */ = {
+			isa = PBXGroup;
+			children = (
+				251C86DD2A98AD400020C794 /* SelectAddGameMethodViewModel.swift */,
+				251C86DF2A98AD4D0020C794 /* SelectAddGameMethodSection.swift */,
+				251C86E52A98BD020020C794 /* SelectAddGameMethodScreenFactory.swift */,
+			);
+			path = SelectAddGameMethod;
+			sourceTree = "<group>";
+		};
+		25EB24362AA752D50024F01C /* SelectPlatform */ = {
+			isa = PBXGroup;
+			children = (
+				251C86ED2A98F25C0020C794 /* SelectPlatformViewModel.swift */,
+				251C86EB2A98F1A60020C794 /* SelectPlatformSection.swift */,
+				251C86EF2A98F6D10020C794 /* SelectPlatformScreenFactory.swift */,
+			);
+			path = SelectPlatform;
+			sourceTree = "<group>";
+		};
+		25EB24372AA752FB0024F01C /* AddGameDetails */ = {
+			isa = PBXGroup;
+			children = (
+				25EB241B2AA5F8C30024F01C /* AddGameDetailsViewModel.swift */,
+				25EB24132AA5D4470024F01C /* AddGameDetailsSection.swift */,
+				25EB24192AA5F8940024F01C /* AddGameDetailsScreenFactory.swift */,
+			);
+			path = AddGameDetails;
+			sourceTree = "<group>";
+		};
+		25EB24382AA753D10024F01C /* SearchGameByTitle */ = {
+			isa = PBXGroup;
+			children = (
+				251C87322A9CEF4D0020C794 /* SearchGameByTitleViewModel.swift */,
+				251C87302A9CEF2D0020C794 /* SearchGameByTitleSection.swift */,
+				251C87382A9D08100020C794 /* SearchGameByTitleScreenFactory.swift */,
+			);
+			path = SearchGameByTitle;
 			sourceTree = "<group>";
 		};
 		25F663232A94C93B005F5412 /* Common */ = {
