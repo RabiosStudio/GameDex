@@ -45,6 +45,10 @@ final class TextFieldCell: UICollectionViewCell, CellConfigurable {
         return nil
     }
     
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        self.textField.dtLayer.backgroundColor = UIColor.primaryBackgroundColor.cgColor
+    }
+    
     private func setupConstraints() {
         NSLayoutConstraint.activate([
             self.textField.topAnchor.constraint(equalTo: self.topAnchor),
