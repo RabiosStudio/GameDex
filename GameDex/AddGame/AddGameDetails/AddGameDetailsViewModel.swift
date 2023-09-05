@@ -24,10 +24,10 @@ final class AddGameDetailsViewModel: CollectionViewModel {
     init(game: Game) {
         self.progress = 3/3
         self.game = game
+        self.sections = [AddGameDetailsSection(game: self.game)]
     }
     
     func loadData(callback: @escaping (EmptyError?) -> ()) {
-        self.sections = [AddGameDetailsSection(game: self.game)]
         let buttonContentViewFactory = PrimaryButtonContentViewFactory(
             delegate: self,
             buttonTitle: L10n.addGameToCollection
