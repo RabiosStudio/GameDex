@@ -16,6 +16,7 @@ target 'GameDex' do
   pod 'Alamofire'
   pod 'SDWebImage'
   pod 'SwiftyTextView'
+  pod 'Cosmos', '~> 23.0'
 
   target 'GameDexTests' do
     inherit! :search_paths
