@@ -107,6 +107,9 @@
 		25EB244A2AA8ABCB0024F01C /* Region.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EB24492AA8ABCB0024F01C /* Region.swift */; };
 		25EB244C2AA8AC120024F01C /* Completeness.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EB244B2AA8AC120024F01C /* Completeness.swift */; };
 		25EB244E2AA8AC210024F01C /* Condition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EB244D2AA8AC210024F01C /* Condition.swift */; };
+		25EB24502AA8B1280024F01C /* StarRatingCellViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EB244F2AA8B1280024F01C /* StarRatingCellViewModelTests.swift */; };
+		25EB24522AA8B1350024F01C /* ImageDescriptionCellViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EB24512AA8B1350024F01C /* ImageDescriptionCellViewModelTests.swift */; };
+		25EB24542AA8B1430024F01C /* TextViewCellViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EB24532AA8B1430024F01C /* TextViewCellViewModelTests.swift */; };
 		25EB24572AA8B39C0024F01C /* PickerViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EB24562AA8B39C0024F01C /* PickerViewModel.swift */; };
 		25F6632B2A94CF13005F5412 /* ContinueContentViewFactoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F663282A94CF13005F5412 /* ContinueContentViewFactoryTests.swift */; };
 		25F6632C2A94CF13005F5412 /* MyCollectionViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F663292A94CF13005F5412 /* MyCollectionViewModelTests.swift */; };
@@ -230,6 +233,9 @@
 		25EB24492AA8ABCB0024F01C /* Region.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Region.swift; sourceTree = "<group>"; };
 		25EB244B2AA8AC120024F01C /* Completeness.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Completeness.swift; sourceTree = "<group>"; };
 		25EB244D2AA8AC210024F01C /* Condition.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Condition.swift; sourceTree = "<group>"; };
+		25EB244F2AA8B1280024F01C /* StarRatingCellViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StarRatingCellViewModelTests.swift; sourceTree = "<group>"; };
+		25EB24512AA8B1350024F01C /* ImageDescriptionCellViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageDescriptionCellViewModelTests.swift; sourceTree = "<group>"; };
+		25EB24532AA8B1430024F01C /* TextViewCellViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextViewCellViewModelTests.swift; sourceTree = "<group>"; };
 		25EB24562AA8B39C0024F01C /* PickerViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PickerViewModel.swift; sourceTree = "<group>"; };
 		25F663282A94CF13005F5412 /* ContinueContentViewFactoryTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContinueContentViewFactoryTests.swift; sourceTree = "<group>"; };
 		25F663292A94CF13005F5412 /* MyCollectionViewModelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyCollectionViewModelTests.swift; sourceTree = "<group>"; };
@@ -646,6 +652,9 @@
 				25EB24072AA1D5C20024F01C /* LabelCellViewModelTests.swift */,
 				25EB24092AA1D76D0024F01C /* InfoCardCellViewModelTests.swift */,
 				25EB240B2AA1D77A0024F01C /* BasicInfoCellViewModelTests.swift */,
+				25EB244F2AA8B1280024F01C /* StarRatingCellViewModelTests.swift */,
+				25EB24512AA8B1350024F01C /* ImageDescriptionCellViewModelTests.swift */,
+				25EB24532AA8B1430024F01C /* TextViewCellViewModelTests.swift */,
 			);
 			path = CellsViewModel;
 			sourceTree = "<group>";
@@ -1019,6 +1028,7 @@
 				251C87132A9BBD3F0020C794 /* SelectAddGameMethodSectionTests.swift in Sources */,
 				25F6632C2A94CF13005F5412 /* MyCollectionViewModelTests.swift in Sources */,
 				251C86742A94D5E80020C794 /* Mock.generated.swift in Sources */,
+				25EB24502AA8B1280024F01C /* StarRatingCellViewModelTests.swift in Sources */,
 				25AE1F3D2A939BE300F2D06A /* ButtonViewModelTests.swift in Sources */,
 				251C87112A9BBD290020C794 /* SelectAddGameMethodViewModelTests.swift in Sources */,
 				25EB240A2AA1D76D0024F01C /* InfoCardCellViewModelTests.swift in Sources */,
@@ -1029,8 +1039,10 @@
 				251C871E2A9C889A0020C794 /* SelectPlatformViewModelTests.swift in Sources */,
 				25F6632B2A94CF13005F5412 /* ContinueContentViewFactoryTests.swift in Sources */,
 				25EB24102AA5C0600024F01C /* SearchGameByTitleViewModelTests.swift in Sources */,
+				25EB24542AA8B1430024F01C /* TextViewCellViewModelTests.swift in Sources */,
 				25EB243E2AA785FC0024F01C /* AddGameDetailsViewModelTests.swift in Sources */,
 				25EB240C2AA1D77A0024F01C /* BasicInfoCellViewModelTests.swift in Sources */,
+				25EB24522AA8B1350024F01C /* ImageDescriptionCellViewModelTests.swift in Sources */,
 				25D6EAF92A8A265D00C2BE57 /* TextFieldCellViewModelTests.swift in Sources */,
 				25EB24082AA1D5C20024F01C /* LabelCellViewModelTests.swift in Sources */,
 			);
