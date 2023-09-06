@@ -9,7 +9,7 @@ import Foundation
 
 final class AddGameDetailsSection: Section {
     
-    var game: Game
+    private let game: Game
     
     init(game: Game) {
         self.game = game
@@ -25,28 +25,28 @@ final class AddGameDetailsSection: Section {
         self.cellsVM.append(gameCellVM)
         
         let yearOfAcquisitionCellVM = TextFieldCellViewModel(
-            title: L10n.yearOfAcquisition,
+            placeholder: L10n.yearOfAcquisition,
             shouldActiveTextField: true,
             textFieldType: .numbers
         )
         self.cellsVM.append(yearOfAcquisitionCellVM)
         
         let purchasePrice = TextFieldCellViewModel(
-            title: L10n.purchasePrice,
+            placeholder: L10n.purchasePrice,
             shouldActiveTextField: false,
             textFieldType: .numbers
         )
         self.cellsVM.append(purchasePrice)
         
         let condition = TextFieldCellViewModel(
-            title: L10n.condition,
+            placeholder: L10n.condition,
             shouldActiveTextField: false,
             textFieldType: .text
         )
         self.cellsVM.append(condition)
         
         let storageArea = TextFieldCellViewModel(
-            title: L10n.storageArea,
+            placeholder: L10n.storageArea,
             shouldActiveTextField: false,
             textFieldType: .text
         )

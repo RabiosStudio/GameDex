@@ -34,9 +34,8 @@ class StarRatingCell: UICollectionViewCell, CellConfigurable {
     }()
     
     override public func prepareForReuse() {
-        // Ensures the reused view is as good as new
         self.starRatingView.prepareForReuse()
-      }
+    }
     
     func configure(cellViewModel: CellViewModel) {
         guard let cellVM = cellViewModel as? StarRatingCellViewModel else {
@@ -74,7 +73,7 @@ class StarRatingCell: UICollectionViewCell, CellConfigurable {
                 equalTo: self.starRatingView.topAnchor,
                 constant: DesignSystem.paddingSmall
             ),
-
+            
             self.starRatingView.leadingAnchor.constraint(
                 equalTo: self.leadingAnchor,
                 constant: DesignSystem.paddingSmall

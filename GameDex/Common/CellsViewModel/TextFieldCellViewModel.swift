@@ -14,11 +14,12 @@ final class TextFieldCellViewModel: CollectionCellViewModel {
     var navigationStyle: NavigationStyle?
     var size: CGFloat = DesignSystem.sizeVerySmall
     
-    var textFieldType: FormTextFieldType
-    var title: String
+    let textFieldType: FormTextFieldType
+    let placeholder: String
+    var value: String?
     
-    init(title: String, shouldActiveTextField: Bool, textFieldType: FormTextFieldType) {
-        self.title = title
+    init(placeholder: String, shouldActiveTextField: Bool, textFieldType: FormTextFieldType) {
+        self.placeholder = placeholder
         self.shouldActiveTextField = shouldActiveTextField
         self.textFieldType = textFieldType
     }

@@ -13,7 +13,8 @@ final class TextViewCellViewModel: CollectionCellViewModel {
     var navigationStyle: NavigationStyle?
     var size: CGFloat = DesignSystem.sizeBig
     
-    var title: String
+    let title: String
+    var value: String?
     
     init(title: String) {
         self.title = title

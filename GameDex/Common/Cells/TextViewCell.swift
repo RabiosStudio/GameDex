@@ -49,6 +49,11 @@ class TextViewCell: UICollectionViewCell, CellConfigurable {
         return nil
     }
     
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.label.text = nil
+    }
+    
     func configure(cellViewModel: CellViewModel) {
         guard let cellVM = cellViewModel as? TextViewCellViewModel else {
             return
@@ -64,7 +69,7 @@ class TextViewCell: UICollectionViewCell, CellConfigurable {
         guard let cellVM = self.cellVM else {
             return
         }
-        cellVM.title = text
+        cellVM.value = text
     }
     
     private func setupViews() {

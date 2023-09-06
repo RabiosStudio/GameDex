@@ -79,8 +79,7 @@ final class TextFieldCell: UICollectionViewCell, CellConfigurable {
         if cellVM.shouldActiveTextField {
             self.textField.becomeFirstResponder()
         }
-        self.textField.placeholder = cellVM.title
-        self.textField.errorMessage = cellVM.title + L10n.isRequired
+        self.textField.placeholder = cellVM.placeholder
         self.setupConstraints()
     }
     
@@ -90,7 +89,7 @@ final class TextFieldCell: UICollectionViewCell, CellConfigurable {
         guard let cellVM = self.cellVM else {
             return
         }
-        cellVM.title = text
+        cellVM.value = text
     }
 }
 
