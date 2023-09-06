@@ -130,7 +130,7 @@ class ContainerViewController: UIViewController {
                 if let error = error {
                     let tabBarOffset = -(self?.tabBarController?.tabBar.frame.size.height ?? 0)
                     strongSelf.updateEmptyState(error: error,
-                                           tabBarOffset: tabBarOffset)
+                                                tabBarOffset: tabBarOffset)
                 } else {
                     strongSelf.refresh()
                     if strongSelf.viewModel.searchViewModel.isActivated {
@@ -330,13 +330,13 @@ extension ContainerViewController: UICollectionViewDataSource {
 extension ContainerViewController: UISearchTextFieldDelegate {
     func textFieldShouldClear(_ textField: UITextField) -> Bool {
         self.viewModel.searchViewModel.delegate?.updateSearchTextField(with: "", callback: { [weak self] error in
-                if let error = error {
-                    let tabBarOffset = -(self?.tabBarController?.tabBar.frame.size.height ?? 0)
-                    self?.updateEmptyState(error: error,
-                                           tabBarOffset: tabBarOffset)
-                } else {
-                    self?.refresh()
-                }
+            if let error = error {
+                let tabBarOffset = -(self?.tabBarController?.tabBar.frame.size.height ?? 0)
+                self?.updateEmptyState(error: error,
+                                       tabBarOffset: tabBarOffset)
+            } else {
+                self?.refresh()
+            }
         })
         return true
     }
@@ -363,20 +363,20 @@ extension ContainerViewController: UISearchBarDelegate {
                         self?.refresh()
                     }
                 }
-        })
+            })
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         // called when text changes (including clear)
         self.viewModel.searchViewModel.delegate?.updateSearchTextField(with: searchText, callback: { [weak self] error in
-                if let error = error {
-                    let tabBarOffset = -(self?.tabBarController?.tabBar.frame.size.height ?? 0)
-                    self?.updateEmptyState(error: error,
-                                           tabBarOffset: tabBarOffset)
-                } else {
-                    self?.refresh()
-                }
-        })        
+            if let error = error {
+                let tabBarOffset = -(self?.tabBarController?.tabBar.frame.size.height ?? 0)
+                self?.updateEmptyState(error: error,
+                                       tabBarOffset: tabBarOffset)
+            } else {
+                self?.refresh()
+            }
+        })
     }
 }
 
