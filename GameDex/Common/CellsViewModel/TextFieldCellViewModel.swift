@@ -9,18 +9,18 @@ import Foundation
 
 final class TextFieldCellViewModel: CollectionCellViewModel {
     var cellClass: AnyClass = TextFieldCell.self
-    let shouldActiveTextField: Bool
     var indexPath: IndexPath?
     var navigationStyle: NavigationStyle?
     var size: CGFloat = DesignSystem.sizeVerySmall
     
-    let textFieldType: FormTextFieldType
     let placeholder: String
+    let textFieldType: FormTextFieldType
+    
     var value: String?
     
-    init(placeholder: String, shouldActiveTextField: Bool, textFieldType: FormTextFieldType) {
+    init(placeholder: String,
+         textFieldType: FormTextFieldType) {
         self.placeholder = placeholder
-        self.shouldActiveTextField = shouldActiveTextField
         self.textFieldType = textFieldType
     }
     

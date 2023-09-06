@@ -26,36 +26,71 @@ final class AddGameDetailsSection: Section {
         
         let yearOfAcquisitionCellVM = TextFieldCellViewModel(
             placeholder: L10n.yearOfAcquisition,
-            shouldActiveTextField: true,
-            textFieldType: .numbers
+            textFieldType: .year
         )
         self.cellsVM.append(yearOfAcquisitionCellVM)
         
-        let purchasePrice = TextFieldCellViewModel(
+        let purchasePriceCellVM = TextFieldCellViewModel(
             placeholder: L10n.purchasePrice,
-            shouldActiveTextField: false,
-            textFieldType: .numbers
+            textFieldType: .price
         )
-        self.cellsVM.append(purchasePrice)
+        self.cellsVM.append(purchasePriceCellVM)
         
-        let condition = TextFieldCellViewModel(
+        let conditionCellVM = TextFieldCellViewModel(
             placeholder: L10n.condition,
-            shouldActiveTextField: false,
-            textFieldType: .text
+            textFieldType: .picker(
+                PickerViewModel(
+                    data: [
+                        Condition.mint.value,
+                        Condition.good.value,
+                        Condition.acceptable.value,
+                        Condition.poor.value
+                    ]
+                )
+            )
         )
-        self.cellsVM.append(condition)
+        self.cellsVM.append(conditionCellVM)
         
-        let storageArea = TextFieldCellViewModel(
+        let completenessCellVM = TextFieldCellViewModel(
+            placeholder: L10n.completeness,
+            textFieldType: .picker(
+                PickerViewModel(
+                    data: [
+                        Completeness.complete.value,
+                        Completeness.noNotice.value,
+                        Completeness.loose.value,
+                        Completeness.sealed.value
+                    ]
+                )
+            )
+        )
+        self.cellsVM.append(completenessCellVM)
+        
+        let regionCellVM = TextFieldCellViewModel(
+            placeholder: L10n.region,
+            textFieldType: .picker(
+                PickerViewModel(
+                    data: [
+                        Region.pal.rawValue,
+                        Region.ntscu.rawValue,
+                        Region.ntscj.rawValue,
+                        Region.ntscc.rawValue
+                    ]
+                )
+            )
+        )
+        self.cellsVM.append(regionCellVM)
+        
+        let storageAreaCellVM = TextFieldCellViewModel(
             placeholder: L10n.storageArea,
-            shouldActiveTextField: false,
             textFieldType: .text
         )
-        self.cellsVM.append(storageArea)
+        self.cellsVM.append(storageAreaCellVM)
         
-        let personalRating = StarRatingCellViewModel(title: L10n.personalRating)
-        self.cellsVM.append(personalRating)
+        let personalRatingCellVM = StarRatingCellViewModel(title: L10n.personalRating)
+        self.cellsVM.append(personalRatingCellVM)
         
-        let otherDetails = TextViewCellViewModel(title: L10n.otherDetails)
-        self.cellsVM.append(otherDetails)
+        let otherDetailsCellVM = TextViewCellViewModel(title: L10n.otherDetails)
+        self.cellsVM.append(otherDetailsCellVM)
     }
 }

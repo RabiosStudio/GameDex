@@ -14,3 +14,9 @@ extension Platform: Equatable {
         lhs.title == rhs.title
     }
 }
+
+extension FormTextFieldType: Equatable {
+    public static func == (lhs: FormTextFieldType, rhs: FormTextFieldType) -> Bool {
+        return true
+    }
+}

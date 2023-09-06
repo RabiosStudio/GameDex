@@ -40,8 +40,19 @@
 "isRequired" = "is Required";
 "yearOfAcquisition" = "Year of acquisition";
 "purchasePrice" = "Purchase price";
-"condition" = "Condition";
 "storageArea" = "Storage area";
 "personalRating" = "Personal rating";
 "otherDetails" = "Other details";
 "fillGameDetails" = "Fill Game details";
+"completeness" = "Completeness";
+"complete" = "Complete in box";
+"noNotice" = "Box without notice";
+"loose" = "Loose";
+"sealed" = "Sealed";
+"condition" = "Condition";
+"mint" = "Mint";
+"good" = "Good";
+"acceptable" = "Acceptable";
+"poor" = "Poor";
+"region" = "Region";
+
