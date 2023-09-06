@@ -8,7 +8,7 @@
 "emptyMyCollectionDescription" = "Commencez par ajouter un premier jeu à votre collection";
 "emptyItemsTitle" = "Aucun résultat ne correspond à votre recherche";
 "emptyItemsDescription" = "Essayez une nouvelle recherche";
-"emptyGameSearch" = "Lancez une recherche d'un jeu par son titre";
+"emptyGameSearch" = "Lancez une recherche d'un jeu sur";
 
 // Errors
 "apiErrorTitle" = "Oups!";

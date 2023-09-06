@@ -34,7 +34,7 @@ final class SearchGameByTitleViewModel: CollectionViewModel {
     }
     
     func loadData(callback: @escaping (EmptyError?) -> ()) {
-        let error = AddGameError.noSearch
+        let error = AddGameError.noSearch(platformName: self.platform.title)
         callback(error)
     }
 }

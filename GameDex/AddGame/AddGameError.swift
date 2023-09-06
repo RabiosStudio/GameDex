@@ -11,7 +11,7 @@ enum AddGameError: EmptyError {
     
     case noItems
     case server
-    case noSearch
+    case noSearch(platformName: String)
     
     var errorTitle: String {
         switch self {
@@ -19,8 +19,8 @@ enum AddGameError: EmptyError {
             return L10n.emptyItemsTitle
         case .server:
             return L10n.apiErrorTitle
-        case .noSearch:
-            return L10n.emptyGameSearch
+        case .noSearch(let platformName):
+            return L10n.emptyGameSearch + " " + platformName
         }
     }
     

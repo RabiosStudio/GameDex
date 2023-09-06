@@ -34,8 +34,8 @@ internal enum L10n {
   internal static let `continue` = L10n.tr("Localizable", "continue", fallback: "Continue")
   /// Discover
   internal static let discover = L10n.tr("Localizable", "discover", fallback: "Discover")
-  /// Start researching a game by its title
-  internal static let emptyGameSearch = L10n.tr("Localizable", "emptyGameSearch", fallback: "Start researching a game by its title")
+  /// Start researching a game on
+  internal static let emptyGameSearch = L10n.tr("Localizable", "emptyGameSearch", fallback: "Start researching a game on")
   /// There are no items available for your selected options
   internal static let emptyItemsDescription = L10n.tr("Localizable", "emptyItemsDescription", fallback: "There are no items available for your selected options")
   /// Could not find any items

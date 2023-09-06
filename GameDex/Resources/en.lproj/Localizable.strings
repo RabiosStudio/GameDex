@@ -8,7 +8,7 @@
 "emptyMyCollectionDescription" = "It's time to add the very first game to your collection ! ";
 "emptyItemsTitle" = "Could not find any items";
 "emptyItemsDescription" = "There are no items available for your selected options";
-"emptyGameSearch" = "Start researching a game by its title";
+"emptyGameSearch" = "Start researching a game on";
 
 // Errors
 "apiErrorTitle" = "Oops!";
