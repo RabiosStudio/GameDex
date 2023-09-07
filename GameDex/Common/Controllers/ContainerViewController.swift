@@ -133,9 +133,10 @@ class ContainerViewController: UIViewController {
                                                 tabBarOffset: tabBarOffset)
                 } else {
                     strongSelf.refresh()
-                    if strongSelf.viewModel.searchViewModel.isActivated {
-                        strongSelf.searchBar.becomeFirstResponder()
+                    guard let searchVM = strongSelf.viewModel.searchViewModel else {
+                        return
                     }
+                    strongSelf.searchBar.becomeFirstResponder()
                 }
             }
         }
@@ -181,8 +182,8 @@ class ContainerViewController: UIViewController {
     
     private func configureNavBar() {
         self.navigationController?.configure()
-        if self.viewModel.searchViewModel.isSearchable {
-            self.searchBar.placeholder = self.viewModel.searchViewModel.placeholder
+        if let searchVM = self.viewModel.searchViewModel {
+            self.searchBar.placeholder = searchVM.placeholder
             self.navigationItem.titleView = self.searchBar
         } else {
             self.title = self.viewModel.screenTitle
@@ -331,7 +332,7 @@ extension ContainerViewController: UICollectionViewDataSource {
 
 extension ContainerViewController: UISearchTextFieldDelegate {
     func textFieldShouldClear(_ textField: UITextField) -> Bool {
-        self.viewModel.searchViewModel.delegate?.updateSearchTextField(with: "", callback: { [weak self] error in
+        self.viewModel.searchViewModel?.delegate?.updateSearchTextField(with: "", callback: { [weak self] error in
             if let error = error {
                 let tabBarOffset = -(self?.tabBarController?.tabBar.frame.size.height ?? 0)
                 self?.updateEmptyState(error: error,
@@ -353,7 +354,7 @@ extension ContainerViewController: UISearchBarDelegate {
         }
         self.searchBar.endEditing(true)
         self.configureLoader()
-        self.viewModel.searchViewModel.delegate?.startSearch(
+        self.viewModel.searchViewModel?.delegate?.startSearch(
             from: searchQuery,
             callback: { [weak self] error in
                 DispatchQueue.main.async {
@@ -370,7 +371,7 @@ extension ContainerViewController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         // called when text changes (including clear)
-        self.viewModel.searchViewModel.delegate?.updateSearchTextField(with: searchText, callback: { [weak self] error in
+        self.viewModel.searchViewModel?.delegate?.updateSearchTextField(with: searchText, callback: { [weak self] error in
             if let error = error {
                 let tabBarOffset = -(self?.tabBarController?.tabBar.frame.size.height ?? 0)
                 self?.updateEmptyState(error: error,

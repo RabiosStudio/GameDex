@@ -8,9 +8,7 @@
 import Foundation
 
 final class SearchGameByTitleViewModel: CollectionViewModel {
-    lazy var searchViewModel = SearchViewModel(
-        isSearchable: true,
-        isActivated: true,
+    lazy var searchViewModel: SearchViewModel? = SearchViewModel(
         placeholder: L10n.searchGame,
         delegate: self
     )

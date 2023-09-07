@@ -8,10 +8,7 @@
 import Foundation
 
 final class AddGameDetailsViewModel: CollectionViewModel {
-    lazy var searchViewModel = SearchViewModel(
-        isSearchable: false,
-        isActivated: false
-    )
+    var searchViewModel: SearchViewModel?
     var isBounceable: Bool = true
     var progress: Float?
     var rightButtonItem: AnyBarButtonItem? = .close
