@@ -50,7 +50,7 @@ final class AddGameDetailsSectionTests: XCTestCase {
             conditionCellVM.textFieldType,
             .picker(
                 PickerViewModel(
-                    data: GameCondition.allCases.map { $0.value }
+                    data: [GameCondition.allCases.map { $0.value }]
                 )
             )
         )
@@ -60,7 +60,7 @@ final class AddGameDetailsSectionTests: XCTestCase {
             conditionCellVM.textFieldType,
             .picker(
                 PickerViewModel(
-                    data: GameCompleteness.allCases.map { $0.value }
+                    data: [GameCompleteness.allCases.map { $0.value }]
                 )
             )
         )
@@ -70,7 +70,7 @@ final class AddGameDetailsSectionTests: XCTestCase {
             conditionCellVM.textFieldType,
             .picker(
                 PickerViewModel(
-                    data: GameRegion.allCases.map { $0.rawValue }
+                    data: [GameRegion.allCases.map { $0.rawValue }]
                 )
             )
         )
