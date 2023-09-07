@@ -15,8 +15,8 @@ extension Platform: Equatable {
     }
 }
 
-extension FormTextFieldType: Equatable {
-    public static func == (lhs: FormTextFieldType, rhs: FormTextFieldType) -> Bool {
+extension TextFieldType: Equatable {
+    public static func == (lhs: TextFieldType, rhs: TextFieldType) -> Bool {
         return true
     }
 }

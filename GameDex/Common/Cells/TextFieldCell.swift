@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 import DTTextField
 
-enum FormTextFieldType {
+enum TextFieldType {
     case year
     case text
     case picker(PickerViewModel)

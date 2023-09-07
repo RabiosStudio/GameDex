@@ -14,12 +14,12 @@ final class TextFieldCellViewModel: CollectionCellViewModel {
     var size: CGFloat = DesignSystem.sizeVerySmall
     
     let placeholder: String
-    let textFieldType: FormTextFieldType
+    let textFieldType: TextFieldType
     
     var value: String?
     
     init(placeholder: String,
-         textFieldType: FormTextFieldType) {
+         textFieldType: TextFieldType) {
         self.placeholder = placeholder
         self.textFieldType = textFieldType
     }
