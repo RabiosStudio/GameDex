@@ -120,7 +120,7 @@ extension TextFieldCell: UITextFieldDelegate {
         return true
     }
     
-    func textFieldDidEndEditing(_ textField: UITextField) {
+    func textFieldDidChange(_ textField: UITextField) {
         guard let text = self.textField.text else {
             return
         }

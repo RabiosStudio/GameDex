@@ -24,9 +24,7 @@ class TextViewCell: UICollectionViewCell, CellConfigurable {
         let view = SwiftyTextView()
         view.textAlignment = .left
         view.placeholderColor = UIColor.lightGray
-        view.minNumberOfWords = 0
-        view.maxNumberOfWords = 50
-        view.showTextCountView = true
+        view.showTextCountView = false
         view.font = Typography.title2.font
         view.tintColor = .primaryColor
         view.layer.borderWidth = 1
@@ -118,7 +116,7 @@ class TextViewCell: UICollectionViewCell, CellConfigurable {
 }
 
 extension TextViewCell: UITextViewDelegate {
-    func textViewDidEndEditing(_ textView: UITextView) {
+    func textViewDidChange(_ textView: UITextView) {
         guard let text = self.textView.text else {
             return
         }
