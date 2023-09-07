@@ -22,7 +22,7 @@ final class AddGameDetailsViewModelTests: XCTestCase {
     
     // MARK: Tests
     
-    func test_init_AddGameDetailsViewModel_ThenShouldSetPropertiesCorrectly() {
+    func test_init_ThenShouldSetPropertiesCorrectly() {
         // Given
         let viewModel = AddGameDetailsViewModel(game: self.game)
         
@@ -49,6 +49,6 @@ final class AddGameDetailsViewModelTests: XCTestCase {
         let numberOfItems = viewModel.numberOfItems(in: .zero)
         // Then
         XCTAssertEqual(numberOfItems, 8)
-        }
-
+    }
+    
 }

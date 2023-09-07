@@ -11,10 +11,10 @@ final class StarRatingCellViewModel: CollectionCellViewModel {
     var cellClass: AnyClass = StarRatingCell.self
     var indexPath: IndexPath?
     var navigationStyle: NavigationStyle?
-    var size: CGFloat = DesignSystem.sizeSmall
+    let size: CGFloat = DesignSystem.sizeSmall
     var rating: Double
     
-    var title: String
+    let title: String
     
     init(title: String) {
         self.title = title
