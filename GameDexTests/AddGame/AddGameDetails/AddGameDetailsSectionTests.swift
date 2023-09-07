@@ -17,7 +17,7 @@ final class AddGameDetailsSectionTests: XCTestCase {
             description: "description",
             id: "id",
             platform: "Game Boy Advance",
-            image: "imageURL"
+            imageURL: "imageURL"
         )
         
         let section = AddGameDetailsSection(game: game)

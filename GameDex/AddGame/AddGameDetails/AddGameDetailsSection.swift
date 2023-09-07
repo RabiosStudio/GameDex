@@ -17,7 +17,7 @@ final class AddGameDetailsSection: Section {
         self.position = 0
         
         let gameCellVM = ImageDescriptionCellViewModel(
-            imageStringURL: game.image,
+            imageStringURL: game.imageURL,
             title: game.title,
             subtitle1: game.platform,
             subtitle2: game.description

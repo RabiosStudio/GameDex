@@ -12,5 +12,5 @@ struct Game {
     let description: String
     let id: String
     var platform: String
-    let image: String
+    let imageURL: String
 }

@@ -24,7 +24,7 @@ enum DataConverter {
                 description: remoteGame.deck,
                 id: remoteGame.guid,
                 platform: platform.title,
-                image: remoteGame.image.mediumURL
+                imageURL: remoteGame.image.mediumURL
             )
         }
     }

@@ -17,7 +17,7 @@ final class AddGameDetailsViewModelTests: XCTestCase {
         description: "description",
         id: "id",
         platform: "Game Boy Advance",
-        image: "imageURL"
+        imageURL: "imageURL"
     )
     
     // MARK: Tests
