@@ -17,7 +17,16 @@ extension Platform: Equatable {
 
 extension TextFieldType: Equatable {
     public static func == (lhs: TextFieldType, rhs: TextFieldType) -> Bool {
-        return true
+        switch (lhs, rhs) {
+        case (.year, .year):
+            return true
+        case (.text, .text):
+            return true
+        case (.picker(let lhsType), .picker(let rhsType)):
+            return lhsType == rhsType
+        default:
+            return false
+        }
     }
 }
 
@@ -31,10 +40,15 @@ extension AddGameError: Equatable {
     }
 }
 
-extension ErrorAction:  Equatable {
+extension ErrorAction: Equatable {
     public static func == (lhs: GameDex.ErrorAction, rhs: GameDex.ErrorAction) -> Bool {
-        return true
+        switch (lhs, rhs) {
+        case (.refresh, .refresh):
+            return true
+        case (.navigate(style: _), .navigate(style: _)):
+            return true
+        default:
+            return false
+        }
     }
-    
-    
 }
