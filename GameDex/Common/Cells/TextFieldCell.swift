@@ -55,8 +55,8 @@ final class TextFieldCell: UICollectionViewCell, CellConfigurable {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        contentView.backgroundColor = .primaryBackgroundColor
-        contentView.addSubview(textField)
+        self.contentView.addSubview(textField)
+        self.contentView.backgroundColor = .clear
     }
     
     required init?(coder: NSCoder) {

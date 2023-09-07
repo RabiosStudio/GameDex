@@ -33,6 +33,16 @@ class StarRatingCell: UICollectionViewCell, CellConfigurable {
         return view
     }()
     
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        self.contentView.backgroundColor = .clear
+        self.setupViews()
+    }
+    
+    required init?(coder: NSCoder) {
+        return nil
+    }
+    
     override public func prepareForReuse() {
         self.starRatingView.prepareForReuse()
     }
@@ -41,7 +51,6 @@ class StarRatingCell: UICollectionViewCell, CellConfigurable {
         guard let cellVM = cellViewModel as? StarRatingCellViewModel else {
             return
         }
-        self.setupViews()
         self.setupConstraints()
         self.label.text = cellVM.title
         self.starRatingView.didFinishTouchingCosmos = { rating in
@@ -49,8 +58,9 @@ class StarRatingCell: UICollectionViewCell, CellConfigurable {
         }
     }
     
+    func cellPressed(cellViewModel: CellViewModel) {}
+    
     private func setupViews() {
-        self.backgroundColor = .primaryBackgroundColor
         self.contentView.addSubview(self.label)
         self.contentView.addSubview(self.starRatingView)
     }
@@ -88,7 +98,5 @@ class StarRatingCell: UICollectionViewCell, CellConfigurable {
             )
         ])
     }
-    
-    func cellPressed(cellViewModel: CellViewModel) {}
     
 }

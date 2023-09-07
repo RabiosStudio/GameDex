@@ -44,8 +44,17 @@ class ImageDescriptionCell: UICollectionViewCell, CellConfigurable {
         return label
     }()
     
-    func configure(cellViewModel: CellViewModel) {
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        self.contentView.backgroundColor = .clear
         self.setupViews()
+    }
+    
+    required init?(coder: NSCoder) {
+        return nil
+    }
+    
+    func configure(cellViewModel: CellViewModel) {
         guard let cellVM = cellViewModel as? ImageDescriptionCellViewModel else {
             return
         }
@@ -63,7 +72,6 @@ class ImageDescriptionCell: UICollectionViewCell, CellConfigurable {
     func cellPressed(cellViewModel: CellViewModel) {}
     
     private func setupViews() {
-        self.contentView.backgroundColor = .primaryBackgroundColor
         self.contentView.addSubview(self.imageView)
         self.contentView.addSubview(self.title)
         self.contentView.addSubview(self.subTitle1)

@@ -32,18 +32,13 @@ final class InfoCardCell: UICollectionViewCell, CellConfigurable {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        self.contentView.backgroundColor = .clear
         self.setupViews()
         self.setupLayer()
     }
     
     required init?(coder: NSCoder) {
         return nil
-    }
-    
-    private func setupViews() {
-        self.contentView.addSubview(self.imageView)
-        self.contentView.addSubview(self.titleLabel)
-        self.contentView.addSubview(self.descriptionLabel)
     }
     
     func configure(cellViewModel: CellViewModel) {
@@ -61,6 +56,12 @@ final class InfoCardCell: UICollectionViewCell, CellConfigurable {
             return
         }
         _ =  Routing.shared.route(navigationStyle: navigationStyle)
+    }
+    
+    private func setupViews() {
+        self.contentView.addSubview(self.imageView)
+        self.contentView.addSubview(self.titleLabel)
+        self.contentView.addSubview(self.descriptionLabel)
     }
     
     private func setupLayer() {

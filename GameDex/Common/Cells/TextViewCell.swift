@@ -42,6 +42,7 @@ class TextViewCell: UICollectionViewCell, CellConfigurable {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        self.contentView.backgroundColor = .clear
         self.setupViews()
     }
     
@@ -65,15 +66,7 @@ class TextViewCell: UICollectionViewCell, CellConfigurable {
     
     func cellPressed(cellViewModel: CellViewModel) {}
     
-    private func storeEntry(cellViewModel: CellViewModel?, with text: String) {
-        guard let cellVM = self.cellVM else {
-            return
-        }
-        cellVM.value = text
-    }
-    
     private func setupViews() {
-        self.backgroundColor = .primaryBackgroundColor
         self.contentView.addSubview(self.label)
         self.contentView.addSubview(self.textView)
     }
@@ -114,6 +107,13 @@ class TextViewCell: UICollectionViewCell, CellConfigurable {
                 constant: -DesignSystem.paddingSmall
             )
         ])
+    }
+    
+    private func storeEntry(cellViewModel: CellViewModel?, with text: String) {
+        guard let cellVM = self.cellVM else {
+            return
+        }
+        cellVM.value = text
     }
 }
 
