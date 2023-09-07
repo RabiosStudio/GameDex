@@ -20,3 +20,21 @@ extension FormTextFieldType: Equatable {
         return true
     }
 }
+
+extension AddGameError: Equatable {
+    public static func == (lhs: AddGameError, rhs: AddGameError) -> Bool {
+        lhs.errorTitle == rhs.errorTitle &&
+        lhs.imageName == rhs.imageName &&
+        lhs.errorDescription == rhs.errorDescription &&
+        lhs.errorAction == rhs.errorAction &&
+        lhs.buttonTitle == rhs.buttonTitle
+    }
+}
+
+extension ErrorAction:  Equatable {
+    public static func == (lhs: GameDex.ErrorAction, rhs: GameDex.ErrorAction) -> Bool {
+        return true
+    }
+    
+    
+}

@@ -90,7 +90,7 @@ final class SearchGameByTitleViewModelTests: XCTestCase {
                 XCTFail("Error type is not correct")
                 return
             }
-            XCTAssertEqual(error, AddGameError.noSearch)
+            XCTAssertEqual(error, AddGameError.noSearch(platformName: self.platform.title))
         }
     }
     
