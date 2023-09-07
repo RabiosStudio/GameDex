@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum Condition {
+enum GameCondition: CaseIterable {
     case mint
     case good
     case acceptable

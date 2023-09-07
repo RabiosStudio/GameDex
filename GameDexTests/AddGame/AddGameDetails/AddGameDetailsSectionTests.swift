@@ -54,12 +54,7 @@ final class AddGameDetailsSectionTests: XCTestCase {
             conditionCellVM.textFieldType,
             .picker(
                 PickerViewModel(
-                    data: [
-                        Condition.mint.value,
-                        Condition.good.value,
-                        Condition.acceptable.value,
-                        Condition.poor.value
-                    ]
+                    data: GameCondition.allCases.map { $0.value }
                 )
             )
         )
@@ -69,12 +64,7 @@ final class AddGameDetailsSectionTests: XCTestCase {
             conditionCellVM.textFieldType,
             .picker(
                 PickerViewModel(
-                    data: [
-                        Completeness.complete.value,
-                        Completeness.noNotice.value,
-                        Completeness.loose.value,
-                        Completeness.sealed.value
-                    ]
+                    data: GameCompleteness.allCases.map { $0.value }
                 )
             )
         )
@@ -84,12 +74,7 @@ final class AddGameDetailsSectionTests: XCTestCase {
             conditionCellVM.textFieldType,
             .picker(
                 PickerViewModel(
-                    data: [
-                        Region.pal.rawValue,
-                        Region.ntscu.rawValue,
-                        Region.ntscj.rawValue,
-                        Region.ntscc.rawValue
-                    ]
+                    data: GameRegion.allCases.map { $0.rawValue }
                 )
             )
         )

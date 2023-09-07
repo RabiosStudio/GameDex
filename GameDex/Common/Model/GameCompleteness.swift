@@ -7,12 +7,11 @@
 
 import Foundation
 
-enum Completeness {
+enum GameCompleteness: CaseIterable {
     case complete
     case noNotice
     case loose
     case sealed
-    
     
     var value: String {
         switch self {

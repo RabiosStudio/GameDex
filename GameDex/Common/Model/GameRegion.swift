@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum Region: String {
+enum GameRegion: String, CaseIterable {
     case pal = "PAL"
     case ntscu = "NTSC-U"
     case ntscj = "NTSC-J"
