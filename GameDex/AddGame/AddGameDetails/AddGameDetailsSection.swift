@@ -34,7 +34,7 @@ final class AddGameDetailsSection: Section {
             placeholder: L10n.condition,
             textFieldType: .picker(
                 PickerViewModel(
-                    data: GameCondition.allCases.map { $0.value }
+                    data: [GameCondition.allCases.map { $0.value }]
                 )
             )
         )
@@ -44,7 +44,7 @@ final class AddGameDetailsSection: Section {
             placeholder: L10n.completeness,
             textFieldType: .picker(
                 PickerViewModel(
-                    data: GameCompleteness.allCases.map { $0.value }
+                    data: [GameCompleteness.allCases.map { $0.value }]
                 )
             )
         )
@@ -54,7 +54,7 @@ final class AddGameDetailsSection: Section {
             placeholder: L10n.region,
             textFieldType: .picker(
                 PickerViewModel(
-                    data: GameRegion.allCases.map { $0.rawValue }
+                    data: [GameRegion.allCases.map { $0.rawValue }]
                 )
             )
         )

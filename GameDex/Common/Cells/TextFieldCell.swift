@@ -50,7 +50,7 @@ final class TextFieldCell: UICollectionViewCell, CellConfigurable {
     }()
     
     private var cellVM: TextFieldCellViewModel?
-    private var pickerData: [String]?
+    private var pickerData: [[String]]?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -132,13 +132,17 @@ extension TextFieldCell: UITextFieldDelegate {
 
 extension TextFieldCell: UIPickerViewDataSource {
     func numberOfComponents(in pickerView: UIPickerView) -> Int {
-        return 1
-    }
-    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
         guard let data = self.pickerData else {
             return .zero
         }
         return data.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        guard let data = self.pickerData else {
+            return .zero
+        }
+        return data[component].count
     }
 }
 
@@ -149,13 +153,13 @@ extension TextFieldCell: UIPickerViewDelegate {
         guard let data = self.pickerData else {
             return nil
         }
-        return data[row]
+        return data[component][row]
     }
     
     func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
         guard let data = self.pickerData else {
             return
         }
-        self.textField.text = data[row]
+        self.textField.text = data[component][row]
     }
 }

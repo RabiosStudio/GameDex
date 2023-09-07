@@ -8,5 +8,5 @@
 import Foundation
 
 struct PickerViewModel: Equatable {
-    let data: [String]
+    let data: [[String]]
 }
