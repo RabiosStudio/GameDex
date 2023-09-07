@@ -117,7 +117,7 @@ class TextViewCell: UICollectionViewCell, CellConfigurable {
 
 extension TextViewCell: UITextViewDelegate {
     func textViewDidChange(_ textView: UITextView) {
-        guard let text = self.textView.text else {
+        guard let text = textView.text else {
             return
         }
         self.storeEntry(cellViewModel: self.cellVM, with: text)

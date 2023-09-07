@@ -19,16 +19,7 @@ final class TextFieldCell: UICollectionViewCell, CellConfigurable {
     
     private lazy var textField: DTTextField = {
         let textField = DTTextField()
-        textField.floatPlaceholderActiveColor = .secondaryColor
-        textField.placeholderColor = .secondaryColor
-        textField.textColor = .secondaryColor
-        textField.tintColor = .primaryColor
-        textField.dtLayer.backgroundColor = UIColor.primaryBackgroundColor.cgColor
-        textField.errorTextColor = .primaryColor
-        textField.paddingYErrorLabel = DesignSystem.paddingSmall
-        textField.animateFloatPlaceholder = true
-        textField.hideErrorWhenEditing = true
-        textField.floatingDisplayStatus = .defaults
+        textField.configure()
         textField.delegate = self
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
@@ -120,8 +111,12 @@ extension TextFieldCell: UITextFieldDelegate {
         return true
     }
     
-    func textFieldDidChange(_ textField: UITextField) {
-        guard let text = self.textField.text else {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        return true
+    }
+    
+    func textFieldDidChangeSelection(_ textField: UITextField) {
+        guard let text = textField.text else {
             return
         }
         self.storeEntry(cellViewModel: self.cellVM, with: text)
