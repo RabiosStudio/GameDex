@@ -59,13 +59,10 @@ final class BasicInfoCell: UICollectionViewCell, CellConfigurable {
         return nil
     }
     
-    private func setupViews() {
-        self.backgroundColor = .primaryBackgroundColor
-        self.contentView.addSubview(self.imageView)
-        self.stackView.addArrangedSubview(self.titleLabel)
-        self.stackView.addArrangedSubview(self.primarySubtitle)
-        self.stackView.addArrangedSubview(self.secondarySubtitle)
-        self.contentView.addSubview(self.stackView)
+    override var isSelected: Bool {
+        didSet {
+            self.contentView.backgroundColor = isSelected ? .secondaryBackgroundColor : .clear
+        }
     }
     
     func configure(cellViewModel: CellViewModel) {
@@ -93,6 +90,14 @@ final class BasicInfoCell: UICollectionViewCell, CellConfigurable {
             return
         }
         _ =  Routing.shared.route(navigationStyle: navigationStyle)
+    }
+    
+    private func setupViews() {
+        self.contentView.addSubview(self.imageView)
+        self.stackView.addArrangedSubview(self.titleLabel)
+        self.stackView.addArrangedSubview(self.primarySubtitle)
+        self.stackView.addArrangedSubview(self.secondarySubtitle)
+        self.contentView.addSubview(self.stackView)
     }
     
     private func setupConstraints() {

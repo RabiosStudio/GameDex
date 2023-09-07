@@ -22,12 +22,17 @@ final class LabelCell: UICollectionViewCell, CellConfigurable {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        contentView.backgroundColor = .primaryBackgroundColor
-        contentView.addSubview(self.label)
+        self.contentView.addSubview(self.label)
     }
     
     required init?(coder: NSCoder) {
         return nil
+    }
+    
+    override var isSelected: Bool {
+        didSet {
+            self.contentView.backgroundColor = isSelected ? .secondaryBackgroundColor : .clear
+        }
     }
     
     override func prepareForReuse() {
@@ -47,7 +52,7 @@ final class LabelCell: UICollectionViewCell, CellConfigurable {
         guard let navigationStyle = cellViewModel.navigationStyle else {
             return
         }
-        _ =  Routing.shared.route(navigationStyle: navigationStyle)
+        _ =  Routing.shared.route(navigationStyle: navigationStyle)        
     }
     
     private func setupConstraints() {
