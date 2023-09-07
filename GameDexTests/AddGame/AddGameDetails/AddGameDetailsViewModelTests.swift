@@ -48,7 +48,7 @@ final class AddGameDetailsViewModelTests: XCTestCase {
         // When
         let numberOfItems = viewModel.numberOfItems(in: .zero)
         // Then
-        XCTAssertEqual(numberOfItems, 9)
+        XCTAssertEqual(numberOfItems, 8)
         }
 
 }

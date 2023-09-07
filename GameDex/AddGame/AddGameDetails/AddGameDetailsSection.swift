@@ -30,12 +30,6 @@ final class AddGameDetailsSection: Section {
         )
         self.cellsVM.append(yearOfAcquisitionCellVM)
         
-        let purchasePriceCellVM = TextFieldCellViewModel(
-            placeholder: L10n.purchasePrice,
-            textFieldType: .price
-        )
-        self.cellsVM.append(purchasePriceCellVM)
-        
         let conditionCellVM = TextFieldCellViewModel(
             placeholder: L10n.condition,
             textFieldType: .picker(

@@ -12,7 +12,6 @@ import DTTextField
 enum FormTextFieldType {
     case year
     case text
-    case price
     case picker(PickerViewModel)
 }
 
@@ -85,9 +84,6 @@ final class TextFieldCell: UICollectionViewCell, CellConfigurable {
             self.textField.keyboardType = .asciiCapable
         case .year:
             self.textField.keyboardType = .asciiCapableNumberPad
-        case .price:
-            self.textField.keyboardType = .decimalPad
-            
         case .picker(let pickerVM):
             self.pickerData = pickerVM.data
             self.textField.inputView = pickerView

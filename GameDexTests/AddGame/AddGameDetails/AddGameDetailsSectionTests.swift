@@ -23,16 +23,15 @@ final class AddGameDetailsSectionTests: XCTestCase {
         let section = AddGameDetailsSection(game: game)
         
         // Then
-        XCTAssertEqual(section.cellsVM.count, 9)
+        XCTAssertEqual(section.cellsVM.count, 8)
         
         guard let gameCellVM = section.cellsVM.first as? ImageDescriptionCellViewModel,
               let yearOfAcquisitionCellVM = section.cellsVM[1] as? TextFieldCellViewModel,
-              let purchasePriceCellVM = section.cellsVM[2] as? TextFieldCellViewModel,
-              let conditionCellVM = section.cellsVM[3] as? TextFieldCellViewModel,
-              let completenessCellVM = section.cellsVM[4] as? TextFieldCellViewModel,
-              let regionCellVM = section.cellsVM[5] as? TextFieldCellViewModel,
-              let storageAreaCellVM = section.cellsVM[6] as? TextFieldCellViewModel,
-              let personalRatingCellVM = section.cellsVM[7] as? StarRatingCellViewModel,
+              let conditionCellVM = section.cellsVM[2] as? TextFieldCellViewModel,
+              let completenessCellVM = section.cellsVM[3] as? TextFieldCellViewModel,
+              let regionCellVM = section.cellsVM[4] as? TextFieldCellViewModel,
+              let storageAreaCellVM = section.cellsVM[5] as? TextFieldCellViewModel,
+              let personalRatingCellVM = section.cellsVM[6] as? StarRatingCellViewModel,
               let otherDetailsCellVM = section.cellsVM.last as? TextViewCellViewModel else {
             XCTFail("Cell View Models are not correct")
             return
@@ -45,9 +44,6 @@ final class AddGameDetailsSectionTests: XCTestCase {
         
         XCTAssertEqual(yearOfAcquisitionCellVM.placeholder, L10n.yearOfAcquisition)
         XCTAssertEqual(yearOfAcquisitionCellVM.textFieldType, .year)
-        
-        XCTAssertEqual(purchasePriceCellVM.placeholder, L10n.purchasePrice)
-        XCTAssertEqual(purchasePriceCellVM.textFieldType, .price)
         
         XCTAssertEqual(conditionCellVM.placeholder, L10n.condition)
         XCTAssertEqual(
