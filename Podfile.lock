@@ -1,5 +1,6 @@
 PODS:
   - Alamofire (5.7.1)
+  - Cosmos (23.0.0)
   - DTTextField (0.7.0)
   - EmptyDataSet-Swift (5.0.0)
   - IQKeyboardManagerSwift (6.5.12)
@@ -14,9 +15,11 @@ PODS:
   - SwiftLint (0.52.4)
   - SwiftyMocky (4.1.0):
     - Sourcery (= 1.6.0)
+  - SwiftyTextView (0.2.0)
 
 DEPENDENCIES:
   - Alamofire
+  - Cosmos (~> 23.0)
   - DTTextField
   - EmptyDataSet-Swift (~> 5.0.0)
   - IQKeyboardManagerSwift (~> 6.5.0)
@@ -25,10 +28,12 @@ DEPENDENCIES:
   - SwiftGen (~> 6.0)
   - SwiftLint
   - SwiftyMocky
+  - SwiftyTextView
 
 SPEC REPOS:
   trunk:
     - Alamofire
+    - Cosmos
     - DTTextField
     - EmptyDataSet-Swift
     - IQKeyboardManagerSwift
@@ -38,9 +43,11 @@ SPEC REPOS:
     - SwiftGen
     - SwiftLint
     - SwiftyMocky
+    - SwiftyTextView
 
 SPEC CHECKSUMS:
   Alamofire: 0123a34370cb170936ae79a8df46cc62b2edeb88
+  Cosmos: b5c6a9a637e28a061b54c8f8b1d8529d7d4db73f
   DTTextField: 768d5991211599145f289971e5936f8bb29990bb
   EmptyDataSet-Swift: eb382c0c87a2d9c678077385a595cec52da38171
   IQKeyboardManagerSwift: 371b08cb39664fb56030f5345c815a4ffc74bbc0
@@ -50,7 +57,8 @@ SPEC CHECKSUMS:
   SwiftGen: 1366a7f71aeef49954ca5a63ba4bef6b0f24138c
   SwiftLint: 1cc5cd61ba9bacb2194e340aeb47a2a37fda00b3
   SwiftyMocky: 014739247afadb65efb5bb92ede32c22b9365762
+  SwiftyTextView: be873b6b426d148fef9e2a341b3c5989b167572b
 
-PODFILE CHECKSUM: 7ba1be49a0edc57cc49114de86ebf011e9ef390b
+PODFILE CHECKSUM: 8eb6164e3bd3e40c8e0112d29737a43e5e1eb35f
 
 COCOAPODS: 1.12.1

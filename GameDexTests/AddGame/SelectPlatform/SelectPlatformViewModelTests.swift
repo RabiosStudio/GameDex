@@ -49,9 +49,7 @@ final class SelectPlatformViewModelTests: XCTestCase {
         XCTAssertEqual(viewModel.numberOfSections(), .zero)
         XCTAssertEqual(viewModel.progress, 1/3)
         
-        XCTAssertTrue(viewModel.searchViewModel.isSearchable)
-        XCTAssertTrue(viewModel.searchViewModel.isActivated)
-        XCTAssertEqual(viewModel.searchViewModel.placeholder, L10n.searchPlatform)
+        XCTAssertEqual(viewModel.searchViewModel?.placeholder, L10n.searchPlatform)
     }
     
     func test_loadData_GivenAPIErrorServer_ThenShouldReturnAddGameErrorServer() {

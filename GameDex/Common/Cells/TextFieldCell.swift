@@ -9,33 +9,82 @@ import Foundation
 import UIKit
 import DTTextField
 
+enum TextFieldType {
+    case year
+    case text
+    case picker(PickerViewModel)
+}
+
 final class TextFieldCell: UICollectionViewCell, CellConfigurable {
     
     private lazy var textField: DTTextField = {
         let textField = DTTextField()
-        textField.floatPlaceholderActiveColor = .black
-        textField.placeholderColor = .systemGray
-        textField.textColor = .black
-        textField.tintColor = .primaryColor
-        textField.errorTextColor = .primaryColor
-        textField.paddingYErrorLabel = DesignSystem.paddingSmall
-        textField.animateFloatPlaceholder = true
-        textField.hideErrorWhenEditing = true
-        textField.floatingDisplayStatus = .defaults
+        textField.configure()
         textField.delegate = self
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
     }()
     
+    private lazy var pickerView: UIPickerView = {
+        let pickerView = UIPickerView(
+            frame: CGRect(
+                origin: .zero,
+                size: CGSize(
+                    width: self.contentView.frame.size.width,
+                    height: DesignSystem.sizeBig
+                )
+            )
+        )
+        pickerView.delegate = self
+        pickerView.dataSource = self
+        return pickerView
+    }()
+    
+    private var cellVM: TextFieldCellViewModel?
+    private var pickerData: [[String]]?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
-        contentView.backgroundColor = .primaryBackgroundColor
-        contentView.addSubview(textField)
+        self.contentView.addSubview(textField)
+        self.contentView.backgroundColor = .clear
     }
     
     required init?(coder: NSCoder) {
         return nil
     }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        self.textField.dtLayer.backgroundColor = UIColor.primaryBackgroundColor.cgColor
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        self.textField.placeholder = nil
+        self.textField.inputView = nil
+    }
+    
+    func configure(cellViewModel: CellViewModel) {
+        guard let cellVM = cellViewModel as? TextFieldCellViewModel else {
+            return
+        }
+        self.cellVM = cellVM
+        
+        switch cellVM.textFieldType {
+        case .text:
+            self.textField.keyboardType = .asciiCapable
+        case .year:
+            self.textField.keyboardType = .asciiCapableNumberPad
+        case .picker(let pickerVM):
+            self.pickerData = pickerVM.data
+            self.textField.inputView = pickerView
+        }
+        self.textField.autocorrectionType = .no
+        self.textField.placeholder = cellVM.placeholder
+        self.setupConstraints()
+    }
+    
+    func cellPressed(cellViewModel: CellViewModel) {}
     
     private func setupConstraints() {
         NSLayoutConstraint.activate([
@@ -46,24 +95,12 @@ final class TextFieldCell: UICollectionViewCell, CellConfigurable {
         ])
     }
     
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        self.textField.placeholder = nil
-    }
-    
-    func configure(cellViewModel: CellViewModel) {
-        guard let cellVM = cellViewModel as? TextFieldCellViewModel else {
+    private func storeEntry(cellViewModel: CellViewModel?, with text: String) {
+        guard let cellVM = self.cellVM else {
             return
         }
-        if cellVM.shouldActiveTextField {
-            self.textField.becomeFirstResponder()
-        }
-        self.textField.placeholder = cellVM.title
-        self.textField.errorMessage = cellVM.title + L10n.isRequired
-        setupConstraints()
+        cellVM.value = text
     }
-    
-    func cellPressed(cellViewModel: CellViewModel) {}
 }
 
 // MARK: TextFieldDelegate
@@ -72,5 +109,52 @@ extension TextFieldCell: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         return true
+    }
+    
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        return true
+    }
+    
+    func textFieldDidChangeSelection(_ textField: UITextField) {
+        guard let text = textField.text else {
+            return
+        }
+        self.storeEntry(cellViewModel: self.cellVM, with: text)
+    }
+}
+
+// MARK: - PickerView DataSource
+
+extension TextFieldCell: UIPickerViewDataSource {
+    func numberOfComponents(in pickerView: UIPickerView) -> Int {
+        guard let data = self.pickerData else {
+            return .zero
+        }
+        return data.count
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, numberOfRowsInComponent component: Int) -> Int {
+        guard let data = self.pickerData else {
+            return .zero
+        }
+        return data[component].count
+    }
+}
+
+// MARK: - PickerView Delegate
+
+extension TextFieldCell: UIPickerViewDelegate {
+    internal func pickerView(_ pickerView: UIPickerView, titleForRow row: Int, forComponent component: Int) -> String? {
+        guard let data = self.pickerData else {
+            return nil
+        }
+        return data[component][row]
+    }
+    
+    func pickerView(_ pickerView: UIPickerView, didSelectRow row: Int, inComponent component: Int) {
+        guard let data = self.pickerData else {
+            return
+        }
+        self.textField.text = data[component][row]
     }
 }

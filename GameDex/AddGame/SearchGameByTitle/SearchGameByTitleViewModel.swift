@@ -8,9 +8,7 @@
 import Foundation
 
 final class SearchGameByTitleViewModel: CollectionViewModel {
-    lazy var searchViewModel = SearchViewModel(
-        isSearchable: true,
-        isActivated: true,
+    lazy var searchViewModel: SearchViewModel? = SearchViewModel(
         placeholder: L10n.searchGame,
         delegate: self
     )
@@ -34,7 +32,7 @@ final class SearchGameByTitleViewModel: CollectionViewModel {
     }
     
     func loadData(callback: @escaping (EmptyError?) -> ()) {
-        let error = AddGameError.noSearch
+        let error = AddGameError.noSearch(platformName: self.platform.title)
         callback(error)
     }
 }

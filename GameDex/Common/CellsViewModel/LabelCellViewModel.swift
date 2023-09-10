@@ -7,8 +7,7 @@
 
 import Foundation
 
-final class LabelCellViewModel: CellViewModel {
-    
+final class LabelCellViewModel: CollectionCellViewModel {
     var cellClass: AnyClass = LabelCell.self
     var indexPath: IndexPath?
     var text: String
@@ -18,6 +17,7 @@ final class LabelCellViewModel: CellViewModel {
             controller: screenFactory.viewController
         )
     }()
+    var size: CGFloat = DesignSystem.sizeTiny
     
     private let screenFactory: ScreenFactory?
     

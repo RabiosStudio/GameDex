@@ -8,14 +8,15 @@
 "emptyMyCollectionDescription" = "Commencez par ajouter un premier jeu à votre collection";
 "emptyItemsTitle" = "Aucun résultat ne correspond à votre recherche";
 "emptyItemsDescription" = "Essayez une nouvelle recherche";
-"emptyGameSearch" = "Lancez une recherche d'un jeu par son titre";
+"emptyGameSearch" = "Lancez une recherche d'un jeu sur";
 
 // Errors
 "apiErrorTitle" = "Oups!";
 "apiErrorDescription" = "Une erreur est survenue lors de la récupération des données";
 
 // Button
-"addGame" = "Ajouter un jeu";
+"addAGame" = "Ajouter un jeu";
+"addGameToCollection" = "Ajouter à ma collection";
 "continue" = "Continuer";
 "searchPlatform" = "Rechercher une console";
 "retry" = "Réessayer";
@@ -37,3 +38,20 @@
 "title" = "Titre";
 "platform" = "Console";
 "isRequired" = "obligatoire";
+"yearOfAcquisition" = "Année d'acquisition";
+"purchasePrice" = "Prix d'achat";
+"storageArea" = "Lieu de stockage";
+"personalRating" = "Note personnelle";
+"otherDetails" = "Autres informations";
+"fillGameDetails" = "Spécifications du jeu";
+"completeness" = "Condition";
+"complete" = "Complet en boîte";
+"noNotice" = "En boîte sans notice";
+"loose" = "Jeu seul";
+"sealed" = "Sous blister";
+"condition" = "État";
+"mint" = "Parfait";
+"good" = "Bon";
+"acceptable" = "Moyen";
+"poor" = "Mauvais";
+"region" = "Région";

@@ -70,9 +70,7 @@ final class SearchGameByTitleViewModelTests: XCTestCase {
         XCTAssertEqual(viewModel.numberOfSections(), 1)
         XCTAssertEqual(viewModel.progress, 2/3)
         
-        XCTAssertTrue(viewModel.searchViewModel.isSearchable)
-        XCTAssertTrue(viewModel.searchViewModel.isActivated)
-        XCTAssertEqual(viewModel.searchViewModel.placeholder, L10n.searchGame)
+        XCTAssertEqual(viewModel.searchViewModel?.placeholder, L10n.searchGame)
     }
     
     func test_loadData_ThenCallbackShouldReturnNoSearch() {
@@ -90,7 +88,7 @@ final class SearchGameByTitleViewModelTests: XCTestCase {
                 XCTFail("Error type is not correct")
                 return
             }
-            XCTAssertEqual(error, AddGameError.noSearch)
+            XCTAssertEqual(error, AddGameError.noSearch(platformName: self.platform.title))
         }
     }
     

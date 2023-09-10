@@ -19,3 +19,7 @@ extension CellViewModel {
         return String(describing: self.cellClass)
     }
 }
+
+protocol CollectionCellViewModel: CellViewModel {
+    var size: CGFloat { get }
+}

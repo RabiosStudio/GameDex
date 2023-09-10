@@ -7,8 +7,7 @@
 
 import Foundation
 
-final class BasicInfoCellViewModel: CellViewModel {
-    
+final class BasicInfoCellViewModel: CollectionCellViewModel {
     var cellClass: AnyClass = BasicInfoCell.self
     var indexPath: IndexPath?
     lazy var navigationStyle: NavigationStyle? = {
@@ -17,6 +16,7 @@ final class BasicInfoCellViewModel: CellViewModel {
             controller: screenFactory.viewController
         )
     }()
+    var size: CGFloat = DesignSystem.sizeRegular
     
     private let screenFactory: ScreenFactory?
     

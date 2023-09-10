@@ -16,12 +16,11 @@ final class TextFieldCellViewModelTests: XCTestCase {
         let shouldActiveTextField = true
         // When
         let cellVM = TextFieldCellViewModel(
-            title: title,
-            shouldActiveTextField: shouldActiveTextField
+            placeholder: title,
+            textFieldType: .text
         )
         // Then
-        XCTAssertEqual(cellVM.title, "Title")
-        XCTAssertTrue(cellVM.shouldActiveTextField)
+        XCTAssertEqual(cellVM.placeholder, "Title")
     }
     
 }

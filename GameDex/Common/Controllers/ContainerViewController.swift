@@ -62,9 +62,9 @@ class ContainerViewController: UIViewController {
     
     // MARK: - Init
     
-    init(viewModel: CollectionViewModel, layoutBuilder: CollectionLayoutBuilder) {
+    init(viewModel: CollectionViewModel, layout: UICollectionViewLayout) {
         self.viewModel = viewModel
-        self.layout = layoutBuilder.create()
+        self.layout = layout
         super.init(nibName: nil, bundle: nil)
     }
     
@@ -130,12 +130,13 @@ class ContainerViewController: UIViewController {
                 if let error = error {
                     let tabBarOffset = -(self?.tabBarController?.tabBar.frame.size.height ?? 0)
                     strongSelf.updateEmptyState(error: error,
-                                           tabBarOffset: tabBarOffset)
+                                                tabBarOffset: tabBarOffset)
                 } else {
                     strongSelf.refresh()
-                    if strongSelf.viewModel.searchViewModel.isActivated {
-                        strongSelf.searchBar.becomeFirstResponder()
+                    guard let searchVM = strongSelf.viewModel.searchViewModel else {
+                        return
                     }
+                    strongSelf.searchBar.becomeFirstResponder()
                 }
             }
         }
@@ -181,8 +182,8 @@ class ContainerViewController: UIViewController {
     
     private func configureNavBar() {
         self.navigationController?.configure()
-        if self.viewModel.searchViewModel.isSearchable {
-            self.searchBar.placeholder = self.viewModel.searchViewModel.placeholder
+        if let searchVM = self.viewModel.searchViewModel {
+            self.searchBar.placeholder = searchVM.placeholder
             self.navigationItem.titleView = self.searchBar
         } else {
             self.title = self.viewModel.screenTitle
@@ -298,8 +299,10 @@ extension ContainerViewController: UICollectionViewDelegate {
             withReuseIdentifier: cellVM.reuseIdentifier,
             for: indexPath
         )
-        let configurableCell = cell as? CellConfigurable
-        configurableCell?.cellPressed(cellViewModel: cellVM)
+                
+        let configurableCell = cell as? CellConfigurable                
+        configurableCell?.cellPressed(cellViewModel: cellVM)        
+        collectionView.deselectItem(at: indexPath, animated: true)
     }
 }
 
@@ -329,14 +332,14 @@ extension ContainerViewController: UICollectionViewDataSource {
 
 extension ContainerViewController: UISearchTextFieldDelegate {
     func textFieldShouldClear(_ textField: UITextField) -> Bool {
-        self.viewModel.searchViewModel.delegate?.updateSearchTextField(with: "", callback: { [weak self] error in
-                if let error = error {
-                    let tabBarOffset = -(self?.tabBarController?.tabBar.frame.size.height ?? 0)
-                    self?.updateEmptyState(error: error,
-                                           tabBarOffset: tabBarOffset)
-                } else {
-                    self?.refresh()
-                }
+        self.viewModel.searchViewModel?.delegate?.updateSearchTextField(with: "", callback: { [weak self] error in
+            if let error = error {
+                let tabBarOffset = -(self?.tabBarController?.tabBar.frame.size.height ?? 0)
+                self?.updateEmptyState(error: error,
+                                       tabBarOffset: tabBarOffset)
+            } else {
+                self?.refresh()
+            }
         })
         return true
     }
@@ -351,7 +354,7 @@ extension ContainerViewController: UISearchBarDelegate {
         }
         self.searchBar.endEditing(true)
         self.configureLoader()
-        self.viewModel.searchViewModel.delegate?.startSearch(
+        self.viewModel.searchViewModel?.delegate?.startSearch(
             from: searchQuery,
             callback: { [weak self] error in
                 DispatchQueue.main.async {
@@ -363,20 +366,20 @@ extension ContainerViewController: UISearchBarDelegate {
                         self?.refresh()
                     }
                 }
-        })
+            })
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         // called when text changes (including clear)
-        self.viewModel.searchViewModel.delegate?.updateSearchTextField(with: searchText, callback: { [weak self] error in
-                if let error = error {
-                    let tabBarOffset = -(self?.tabBarController?.tabBar.frame.size.height ?? 0)
-                    self?.updateEmptyState(error: error,
-                                           tabBarOffset: tabBarOffset)
-                } else {
-                    self?.refresh()
-                }
-        })        
+        self.viewModel.searchViewModel?.delegate?.updateSearchTextField(with: searchText, callback: { [weak self] error in
+            if let error = error {
+                let tabBarOffset = -(self?.tabBarController?.tabBar.frame.size.height ?? 0)
+                self?.updateEmptyState(error: error,
+                                       tabBarOffset: tabBarOffset)
+            } else {
+                self?.refresh()
+            }
+        })
     }
 }
 
@@ -389,5 +392,19 @@ extension ContainerViewController: ContainerViewControllerDelegate {
         self.bottomView = contentViewFactory.bottomView
         self.stackView.addArrangedSubview(self.separatorView)
         self.stackView.addArrangedSubview(self.bottomView)
+    }
+}
+
+// MARK: UICollectionViewDelegateFlowLayout
+
+extension ContainerViewController: UICollectionViewDelegateFlowLayout {    
+    func collectionView(
+        _ collectionView: UICollectionView,
+        layout collectionViewLayout: UICollectionViewLayout,
+        sizeForItemAt indexPath: IndexPath
+    ) -> CGSize {
+        let cellVM = self.viewModel.item(at: indexPath)
+        let collectionCellVM = cellVM as? CollectionCellViewModel
+        return CGSize(width: collectionView.frame.size.width - DesignSystem.paddingRegular, height: collectionCellVM?.size ?? DesignSystem.sizeRegular)
     }
 }

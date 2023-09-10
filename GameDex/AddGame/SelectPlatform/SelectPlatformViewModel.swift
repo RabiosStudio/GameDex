@@ -8,9 +8,7 @@
 import Foundation
 
 final class SelectPlatformViewModel: CollectionViewModel {
-    lazy var searchViewModel = SearchViewModel(
-        isSearchable: true,
-        isActivated: true,
+    lazy var searchViewModel: SearchViewModel? = SearchViewModel(
         placeholder: L10n.searchPlatform,
         delegate: self
     )

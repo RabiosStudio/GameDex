@@ -19,7 +19,7 @@ final class BasicInfoCell: UICollectionViewCell, CellConfigurable {
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.font = Typography.title3bold.font
-        label.textColor = .black
+        label.textColor = .secondaryColor
         label.textAlignment = .left
         label.numberOfLines = .zero
         return label
@@ -28,7 +28,7 @@ final class BasicInfoCell: UICollectionViewCell, CellConfigurable {
     private lazy var primarySubtitle: UILabel = {
         let label = UILabel()
         label.font = Typography.body.font
-        label.textColor = .black
+        label.textColor = .secondaryColor
         label.textAlignment = .left
         return label
     }()
@@ -36,7 +36,7 @@ final class BasicInfoCell: UICollectionViewCell, CellConfigurable {
     private lazy var secondarySubtitle: UILabel = {
         let label = UILabel()
         label.font = Typography.body.font
-        label.textColor = .systemGray
+        label.textColor = .secondaryColor
         label.text = ""
         label.textAlignment = .left
         return label
@@ -59,13 +59,10 @@ final class BasicInfoCell: UICollectionViewCell, CellConfigurable {
         return nil
     }
     
-    private func setupViews() {
-        self.backgroundColor = .primaryBackgroundColor
-        self.contentView.addSubview(self.imageView)
-        self.stackView.addArrangedSubview(self.titleLabel)
-        self.stackView.addArrangedSubview(self.primarySubtitle)
-        self.stackView.addArrangedSubview(self.secondarySubtitle)
-        self.contentView.addSubview(self.stackView)
+    override var isSelected: Bool {
+        didSet {
+            self.contentView.backgroundColor = isSelected ? .secondaryBackgroundColor : .clear
+        }
     }
     
     func configure(cellViewModel: CellViewModel) {
@@ -93,6 +90,14 @@ final class BasicInfoCell: UICollectionViewCell, CellConfigurable {
             return
         }
         _ =  Routing.shared.route(navigationStyle: navigationStyle)
+    }
+    
+    private func setupViews() {
+        self.contentView.addSubview(self.imageView)
+        self.stackView.addArrangedSubview(self.titleLabel)
+        self.stackView.addArrangedSubview(self.primarySubtitle)
+        self.stackView.addArrangedSubview(self.secondarySubtitle)
+        self.contentView.addSubview(self.stackView)
     }
     
     private func setupConstraints() {

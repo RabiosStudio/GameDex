@@ -19,12 +19,12 @@ final class SearchGameByTitleSectionTests: XCTestCase {
              description: "description",
              id: "id",
              platform: "Game Boy Advance",
-             image: "imageURL"),
+             imageURL: "imageURL"),
         Game(title: "The Legend of Zelda: A link to the past",
              description: "description",
              id: "id",
              platform: "Game Boy Advance",
-             image: "imageURL")
+             imageURL: "imageURL")
         ]
         
         let section = SearchGameByTitleSection(gamesQuery: games, platform: platform)

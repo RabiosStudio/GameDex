@@ -14,8 +14,6 @@ protocol SearchViewModelDelegate {
 }
 
 struct SearchViewModel {
-    var isSearchable: Bool
-    var isActivated: Bool
     var placeholder: String?    
     var delegate: SearchViewModelDelegate?
 }

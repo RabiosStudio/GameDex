@@ -7,17 +7,21 @@
 
 import Foundation
 
-final class TextFieldCellViewModel: CellViewModel {
-    
+final class TextFieldCellViewModel: CollectionCellViewModel {
     var cellClass: AnyClass = TextFieldCell.self
-    let shouldActiveTextField: Bool
     var indexPath: IndexPath?
-    var title: String
     var navigationStyle: NavigationStyle?
+    var size: CGFloat = DesignSystem.sizeVerySmall
     
-    init(title: String, shouldActiveTextField: Bool) {
-        self.title = title
-        self.shouldActiveTextField = shouldActiveTextField
+    let placeholder: String
+    let textFieldType: TextFieldType
+    
+    var value: String?
+    
+    init(placeholder: String,
+         textFieldType: TextFieldType) {
+        self.placeholder = placeholder
+        self.textFieldType = textFieldType
     }
     
 }
