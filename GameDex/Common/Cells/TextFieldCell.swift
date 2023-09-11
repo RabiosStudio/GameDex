@@ -127,6 +127,15 @@ extension TextFieldCell: UITextFieldDelegate {
         }
         self.storeEntry(cellViewModel: self.cellVM, with: text)
     }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        guard let data = self.pickerData,
+              let firstValue = data.first?.first else {
+            return
+        }
+        self.storeEntry(cellViewModel: self.cellVM, with: firstValue)
+        textField.text = firstValue
+    }
 }
 
 // MARK: - PickerView DataSource
