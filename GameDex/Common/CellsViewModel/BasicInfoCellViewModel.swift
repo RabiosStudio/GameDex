@@ -16,7 +16,7 @@ final class BasicInfoCellViewModel: CollectionCellViewModel {
             controller: screenFactory.viewController
         )
     }()
-    var size: CGFloat = DesignSystem.sizeRegular
+    var height: CGFloat = DesignSystem.sizeRegular
     
     private let screenFactory: ScreenFactory?
     

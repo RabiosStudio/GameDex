@@ -405,6 +405,9 @@ extension ContainerViewController: UICollectionViewDelegateFlowLayout {
     ) -> CGSize {
         let cellVM = self.viewModel.item(at: indexPath)
         let collectionCellVM = cellVM as? CollectionCellViewModel
-        return CGSize(width: collectionView.frame.size.width - DesignSystem.paddingRegular, height: collectionCellVM?.size ?? DesignSystem.sizeRegular)
+        return CGSize(
+            width: collectionView.frame.size.width - DesignSystem.paddingRegular,
+            height: collectionCellVM?.height ?? DesignSystem.sizeRegular
+        )
     }
 }

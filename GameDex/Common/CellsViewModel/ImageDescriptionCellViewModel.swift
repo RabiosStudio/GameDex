@@ -11,7 +11,7 @@ final class ImageDescriptionCellViewModel: CollectionCellViewModel {
     var cellClass: AnyClass = ImageDescriptionCell.self
     var indexPath: IndexPath?
     var navigationStyle: NavigationStyle?
-    var size: CGFloat = DesignSystem.sizeVeryBig
+    var height: CGFloat = DesignSystem.sizeVeryBig
     
     let imageStringURL: String
     let title: String

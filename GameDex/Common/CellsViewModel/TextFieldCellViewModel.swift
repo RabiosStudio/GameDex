@@ -13,7 +13,7 @@ final class TextFieldCellViewModel: CollectionFormCellViewModel {
     var cellClass: AnyClass = TextFieldCell.self
     var indexPath: IndexPath?
     var navigationStyle: NavigationStyle?
-    var size: CGFloat = DesignSystem.sizeVerySmall
+    var height: CGFloat = DesignSystem.sizeVerySmall
     
     let placeholder: String
     var formType: FormType
