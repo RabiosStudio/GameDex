@@ -133,7 +133,7 @@ class ContainerViewController: UIViewController {
                                                 tabBarOffset: tabBarOffset)
                 } else {
                     strongSelf.refresh()
-                    guard let searchVM = strongSelf.viewModel.searchViewModel else {
+                    guard (strongSelf.viewModel.searchViewModel) != nil else {
                         return
                     }
                     strongSelf.searchBar.becomeFirstResponder()
