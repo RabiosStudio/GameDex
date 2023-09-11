@@ -28,6 +28,10 @@ enum DesignSystem {
     static let sizeBig: CGFloat = 200
     static let sizeVeryBig: CGFloat = 280
     
+    // MARK: - Button height
+    static let buttonHeightRegular: CGFloat = 50
+    static let buttonHeightBig: CGFloat = 70
+    
     // MARK: - Corner radius
     static let cornerRadiusRegular: CGFloat = 4
     static let cornerRadiusBig: CGFloat = 8
