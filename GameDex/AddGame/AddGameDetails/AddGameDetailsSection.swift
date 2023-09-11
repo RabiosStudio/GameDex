@@ -26,13 +26,13 @@ final class AddGameDetailsSection: Section {
         
         let yearOfAcquisitionCellVM = TextFieldCellViewModel(
             placeholder: L10n.yearOfAcquisition,
-            textFieldType: .year
+            formType: .yearOfAcquisition
         )
         self.cellsVM.append(yearOfAcquisitionCellVM)
         
         let conditionCellVM = TextFieldCellViewModel(
             placeholder: L10n.condition,
-            textFieldType: .picker(
+            formType: .gameCondition(
                 PickerViewModel(
                     data: [GameCondition.allCases.map { $0.value }]
                 )
@@ -42,7 +42,7 @@ final class AddGameDetailsSection: Section {
         
         let completenessCellVM = TextFieldCellViewModel(
             placeholder: L10n.completeness,
-            textFieldType: .picker(
+            formType: .gameCompleteness(
                 PickerViewModel(
                     data: [GameCompleteness.allCases.map { $0.value }]
                 )
@@ -52,7 +52,7 @@ final class AddGameDetailsSection: Section {
         
         let regionCellVM = TextFieldCellViewModel(
             placeholder: L10n.region,
-            textFieldType: .picker(
+            formType: .gameRegion(
                 PickerViewModel(
                     data: [GameRegion.allCases.map { $0.rawValue }]
                 )
@@ -62,7 +62,7 @@ final class AddGameDetailsSection: Section {
         
         let storageAreaCellVM = TextFieldCellViewModel(
             placeholder: L10n.storageArea,
-            textFieldType: .text
+            formType: .storageArea
         )
         self.cellsVM.append(storageAreaCellVM)
         

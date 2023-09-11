@@ -9,10 +9,14 @@ import Foundation
 import UIKit
 import DTTextField
 
-enum TextFieldType {
-    case year
-    case text
-    case picker(PickerViewModel)
+enum FormType: Equatable {
+    case yearOfAcquisition
+    case gameCondition(PickerViewModel)
+    case gameCompleteness(PickerViewModel)
+    case gameRegion(PickerViewModel)
+    case storageArea
+    case rating
+    case notes
 }
 
 final class TextFieldCell: UICollectionViewCell, CellConfigurable {
@@ -70,14 +74,16 @@ final class TextFieldCell: UICollectionViewCell, CellConfigurable {
         }
         self.cellVM = cellVM
         
-        switch cellVM.textFieldType {
-        case .text:
+        switch cellVM.formType {
+        case .storageArea:
             self.textField.keyboardType = .asciiCapable
-        case .year:
+        case .yearOfAcquisition:
             self.textField.keyboardType = .asciiCapableNumberPad
-        case .picker(let pickerVM):
+        case .gameRegion(let pickerVM), .gameCondition(let pickerVM), .gameCompleteness(let pickerVM):
             self.pickerData = pickerVM.data
             self.textField.inputView = pickerView
+        default:
+            break
         }
         self.textField.autocorrectionType = .no
         self.textField.placeholder = cellVM.placeholder

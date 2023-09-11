@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class TextViewCellViewModel: CollectionCellViewModel {
+final class TextViewCellViewModel: CollectionFormCellViewModel {
     var cellClass: AnyClass = TextViewCell.self
     var indexPath: IndexPath?
     var navigationStyle: NavigationStyle?
@@ -15,6 +15,7 @@ final class TextViewCellViewModel: CollectionCellViewModel {
     
     let title: String
     var value: String?
+    var formType: FormType = .notes
     
     init(title: String) {
         self.title = title

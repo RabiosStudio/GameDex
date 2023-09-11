@@ -18,6 +18,6 @@ final class StarRatingCellViewModelTests: XCTestCase {
         
         // Then
         XCTAssertEqual(cellVM.title, "Title")
-        XCTAssertEqual(cellVM.rating, .zero)
+        XCTAssertEqual(cellVM.value, nil)
     }
 }
