@@ -423,6 +423,7 @@
 		25AE1EB72A8CB7CC00F2D06A /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				25AE1EFF2A8F497700F2D06A /* Navigation */,
 				25AE1ECC2A8D1D5000F2D06A /* EmptyScreens */,
 				25AE1EB82A8CB7D200F2D06A /* Protocols */,
 				25AE1EAD2A8BB89400F2D06A /* Section.swift */,
@@ -578,7 +579,6 @@
 				25AE1EDD2A8E12FF00F2D06A /* MyCollection */,
 				25AE1EE72A8E4E0B00F2D06A /* AddGame */,
 				25AE1EE82A8E4E2E00F2D06A /* Common */,
-				25AE1EFF2A8F497700F2D06A /* Navigation */,
 				25AE1EB72A8CB7CC00F2D06A /* Helpers */,
 				254E8B832A8A81C600C101C8 /* DesignSystem */,
 				254E8B822A8A7DFD00C101C8 /* Resources */,
