@@ -7,7 +7,7 @@
 
 import Foundation
 
-class LocalDatabase {
+class LocalDatabase: Database {
     
     static func fetchAll<T: SavedData>(databaseKey: DatabaseKey) -> Result<[T], DatabaseError> {
         guard let data = UserDefaults.standard.array(forKey: databaseKey.rawValue) as? [Data] else {

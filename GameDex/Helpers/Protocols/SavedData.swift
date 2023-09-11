@@ -7,10 +7,6 @@
 
 import Foundation
 
-public enum DatabaseKey: String, Codable {
-    case savedGame = "Saved Game"
-}
-
 public protocol SavedData: Codable {
     var databaseKey: DatabaseKey { get }
     var id: UUID { get set }

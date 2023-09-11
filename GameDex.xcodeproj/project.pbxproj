@@ -55,6 +55,8 @@
 		25939FF72AAF3C09000FC253 /* DatabaseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25939FF62AAF3C09000FC253 /* DatabaseError.swift */; };
 		25939FFB2AAF5D01000FC253 /* AlertService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25939FFA2AAF5D01000FC253 /* AlertService.swift */; };
 		25939FFD2AAF6FBF000FC253 /* AddGameFormType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25939FFC2AAF6FBF000FC253 /* AddGameFormType.swift */; };
+		2593A0012AAF7564000FC253 /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2593A0002AAF7564000FC253 /* Database.swift */; };
+		2593A0032AAF7652000FC253 /* DatabaseKey.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2593A0022AAF7652000FC253 /* DatabaseKey.swift */; };
 		25AE1EAE2A8BB89400F2D06A /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AE1EAD2A8BB89400F2D06A /* Section.swift */; };
 		25AE1EBA2A8CB7E300F2D06A /* CollectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AE1EB92A8CB7E300F2D06A /* CollectionViewModel.swift */; };
 		25AE1EBC2A8CB82500F2D06A /* CellConfigurable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AE1EBB2A8CB82500F2D06A /* CellConfigurable.swift */; };
@@ -185,6 +187,8 @@
 		25939FF62AAF3C09000FC253 /* DatabaseError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseError.swift; sourceTree = "<group>"; };
 		25939FFA2AAF5D01000FC253 /* AlertService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertService.swift; sourceTree = "<group>"; };
 		25939FFC2AAF6FBF000FC253 /* AddGameFormType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddGameFormType.swift; sourceTree = "<group>"; };
+		2593A0002AAF7564000FC253 /* Database.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
+		2593A0022AAF7652000FC253 /* DatabaseKey.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseKey.swift; sourceTree = "<group>"; };
 		25AE1EAD2A8BB89400F2D06A /* Section.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Section.swift; sourceTree = "<group>"; };
 		25AE1EB92A8CB7E300F2D06A /* CollectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewModel.swift; sourceTree = "<group>"; };
 		25AE1EBB2A8CB82500F2D06A /* CellConfigurable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellConfigurable.swift; sourceTree = "<group>"; };
@@ -398,10 +402,10 @@
 		25939FFE2AAF7005000FC253 /* Database */ = {
 			isa = PBXGroup;
 			children = (
-				25DA8CBB2AADE9A700B40F84 /* SavedData.swift */,
 				25DA8CB72AADE7E300B40F84 /* SavedGame.swift */,
 				25DA8CB92AADE88600B40F84 /* LocalDatabase.swift */,
 				25939FF62AAF3C09000FC253 /* DatabaseError.swift */,
+				2593A0022AAF7652000FC253 /* DatabaseKey.swift */,
 			);
 			path = Database;
 			sourceTree = "<group>";
@@ -430,6 +434,8 @@
 		25AE1EB82A8CB7D200F2D06A /* Protocols */ = {
 			isa = PBXGroup;
 			children = (
+				2593A0002AAF7564000FC253 /* Database.swift */,
+				25DA8CBB2AADE9A700B40F84 /* SavedData.swift */,
 				25AE1EB92A8CB7E300F2D06A /* CollectionViewModel.swift */,
 				25AE1EBB2A8CB82500F2D06A /* CellConfigurable.swift */,
 				25AE1EBD2A8CB85900F2D06A /* CellViewModel.swift */,
@@ -1034,6 +1040,7 @@
 				251C87352A9CF8C20020C794 /* GetGamesEndpoint.swift in Sources */,
 				25AE1EF52A8E663B00F2D06A /* PrimaryButton.swift in Sources */,
 				25AE1EF72A8E664E00F2D06A /* ButtonViewModel.swift in Sources */,
+				2593A0032AAF7652000FC253 /* DatabaseKey.swift in Sources */,
 				25AE1EDA2A8D236000F2D06A /* MyCollectionError.swift in Sources */,
 				25AE1F0C2A8F508700F2D06A /* UIViewController+Navigation.swift in Sources */,
 				25EB245B2AA9F0360024F01C /* DTTextField+Extension.swift in Sources */,
@@ -1044,6 +1051,7 @@
 				251C86F62A994EBF0020C794 /* SearchViewModel.swift in Sources */,
 				25939FFB2AAF5D01000FC253 /* AlertService.swift in Sources */,
 				25AE1EBE2A8CB85900F2D06A /* CellViewModel.swift in Sources */,
+				2593A0012AAF7564000FC253 /* Database.swift in Sources */,
 				251C86BF2A97A29D0020C794 /* GetPlatformsEndpoint.swift in Sources */,
 				251C86D62A9899F40020C794 /* Platform.swift in Sources */,
 				25DA8CB82AADE7E300B40F84 /* SavedGame.swift in Sources */,
