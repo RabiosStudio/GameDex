@@ -55,3 +55,6 @@
 "acceptable" = "Moyen";
 "poor" = "Mauvais";
 "region" = "Région";
+
+// Other
+"success" = "Succès";

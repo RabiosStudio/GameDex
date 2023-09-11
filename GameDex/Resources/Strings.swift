@@ -94,6 +94,8 @@ internal enum L10n {
   internal static let stepOneOutOfThree = L10n.tr("Localizable", "stepOneOutOfThree", fallback: "Step 1/3")
   /// Storage area
   internal static let storageArea = L10n.tr("Localizable", "storageArea", fallback: "Storage area")
+  /// Success
+  internal static let success = L10n.tr("Localizable", "success", fallback: "Success")
   /// Title
   internal static let title = L10n.tr("Localizable", "title", fallback: "Title")
   /// Year of acquisition
