@@ -11,8 +11,14 @@
 "emptyGameSearch" = "Lancez une recherche d'un jeu sur";
 
 // Errors
+"errorTitle" = "Erreur";
 "apiErrorTitle" = "Oups!";
 "apiErrorDescription" = "Une erreur est survenue lors de la récupération des données";
+"saveGameErrorTitle" = "Une erreur est survenue lors de la sauvegarde du jeu.";
+
+// Success
+"successTitle" = "Succès";
+"gameSavedSuccessTitle" = "Le jeu a bien été enregistré dans votre collection";
 
 // Button
 "addAGame" = "Ajouter un jeu";
@@ -55,6 +61,3 @@
 "acceptable" = "Moyen";
 "poor" = "Mauvais";
 "region" = "Région";
-
-// Other
-"success" = "Succès";

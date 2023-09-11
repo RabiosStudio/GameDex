@@ -11,8 +11,14 @@
 "emptyGameSearch" = "Start researching a game on";
 
 // Errors
+"errorTitle" = "Error";
 "apiErrorTitle" = "Oops!";
 "apiErrorDescription" = "There has been an issue while fetching data";
+"saveGameErrorTitle" = "An error occured while saving game details.";
+
+// Success
+"successTitle" = "Success";
+"gameSavedSuccessTitle" = "The game was saved to your collection";
 
 // Button
 "addAGame" = "Add a game";
@@ -55,6 +61,3 @@
 "acceptable" = "Acceptable";
 "poor" = "Poor";
 "region" = "Region";
-
-// Other
-"success" = "Success";

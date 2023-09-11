@@ -44,8 +44,12 @@ internal enum L10n {
   internal static let emptyMyCollectionDescription = L10n.tr("Localizable", "emptyMyCollectionDescription", fallback: "It's time to add the very first game to your collection ! ")
   /// Your collection is empty
   internal static let emptyMyCollectionTitle = L10n.tr("Localizable", "emptyMyCollectionTitle", fallback: "Your collection is empty")
+  /// Error
+  internal static let errorTitle = L10n.tr("Localizable", "errorTitle", fallback: "Error")
   /// Fill Game details
   internal static let fillGameDetails = L10n.tr("Localizable", "fillGameDetails", fallback: "Fill Game details")
+  /// The game was saved to your collection
+  internal static let gameSavedSuccessTitle = L10n.tr("Localizable", "gameSavedSuccessTitle", fallback: "The game was saved to your collection")
   /// Good
   internal static let good = L10n.tr("Localizable", "good", fallback: "Good")
   /// Import
@@ -80,6 +84,8 @@ internal enum L10n {
   internal static let region = L10n.tr("Localizable", "region", fallback: "Region")
   /// Retry
   internal static let retry = L10n.tr("Localizable", "retry", fallback: "Retry")
+  /// An error occured while saving game details.
+  internal static let saveGameErrorTitle = L10n.tr("Localizable", "saveGameErrorTitle", fallback: "An error occured while saving game details.")
   /// Scan codebar
   internal static let scan = L10n.tr("Localizable", "scan", fallback: "Scan codebar")
   /// Sealed
@@ -95,7 +101,7 @@ internal enum L10n {
   /// Storage area
   internal static let storageArea = L10n.tr("Localizable", "storageArea", fallback: "Storage area")
   /// Success
-  internal static let success = L10n.tr("Localizable", "success", fallback: "Success")
+  internal static let successTitle = L10n.tr("Localizable", "successTitle", fallback: "Success")
   /// Title
   internal static let title = L10n.tr("Localizable", "title", fallback: "Title")
   /// Year of acquisition
