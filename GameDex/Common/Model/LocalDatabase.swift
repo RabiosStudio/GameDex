@@ -10,12 +10,17 @@ import Foundation
 class LocalDatabase {
     
     static func fetchAll<T: SavedData>(databaseKey: DatabaseKey) -> Result<[T], DatabaseError> {
-        guard let data = UserDefaults.standard.data(forKey: databaseKey.rawValue) else {
+        guard let data = UserDefaults.standard.array(forKey: databaseKey.rawValue) as? [Data] else {
             return .success([T]())
         }
         do {
             let decoder = JSONDecoder()
-            let decodedData = try decoder.decode([T].self, from: data)
+            var decodedData = [T]()
+            
+            for datum in data {
+                let decodedDatum = try decoder.decode(T.self, from: datum)
+                decodedData.append(decodedDatum)
+            }
             return .success(decodedData)
         } catch {
             return .failure(DatabaseError.fetchError)
@@ -33,7 +38,7 @@ class LocalDatabase {
                 let encoder = JSONEncoder()
                 let encodedData = try encoder.encode(allDataFetched)
                 UserDefaults.standard.set(encodedData, forKey: newEntity.databaseKey.rawValue)
-                return .success(L10n.success)
+                return .success(L10n.successTitle)
             } catch {
                 return .failure(DatabaseError.saveError)
             }
@@ -59,7 +64,7 @@ class LocalDatabase {
                 let encoder = JSONEncoder()
                 let encodedData = try encoder.encode(allDataFetched)
                 UserDefaults.standard.set(encodedData, forKey: newEntity.databaseKey.rawValue)
-                return .success(L10n.success)
+                return .success(L10n.successTitle)
             } catch {
                 return .failure(DatabaseError.replaceError)
             }
