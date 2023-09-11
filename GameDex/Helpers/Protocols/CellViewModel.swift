@@ -29,6 +29,6 @@ protocol CollectionFormCellViewModel: CollectionCellViewModel, FormCellViewModel
 protocol FormCellViewModel {
     associatedtype ValueType
     
-    var formType: FormType { get set }
+    var formType: AddGameFormType { get set }
     var value: ValueType? { get set }
 }

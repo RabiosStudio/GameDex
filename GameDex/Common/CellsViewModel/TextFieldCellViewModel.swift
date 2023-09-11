@@ -16,11 +16,11 @@ final class TextFieldCellViewModel: CollectionFormCellViewModel {
     var height: CGFloat = DesignSystem.sizeVerySmall
     
     let placeholder: String
-    var formType: FormType
+    var formType: AddGameFormType
     var value: ValueType?
     
     init(placeholder: String,
-         formType: FormType) {
+         formType: AddGameFormType) {
         self.placeholder = placeholder
         self.formType = formType
     }

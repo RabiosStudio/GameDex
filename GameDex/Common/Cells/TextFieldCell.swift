@@ -9,16 +9,6 @@ import Foundation
 import UIKit
 import DTTextField
 
-enum FormType: Equatable {
-    case yearOfAcquisition
-    case gameCondition(PickerViewModel)
-    case gameCompleteness(PickerViewModel)
-    case gameRegion(PickerViewModel)
-    case storageArea
-    case rating
-    case notes
-}
-
 final class TextFieldCell: UICollectionViewCell, CellConfigurable {
     
     private lazy var textField: DTTextField = {
