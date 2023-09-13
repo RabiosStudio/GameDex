@@ -7,9 +7,9 @@
 
 import Foundation
 
-class LocalDatabase: Database {
+class LocalDatabase {
     
-    static func fetchAll<T: SavedData>(databaseKey: DatabaseKey) -> Result<[T], DatabaseError> {
+    func fetchAll<T: SavedData>(databaseKey: DatabaseKey) -> Result<[T], DatabaseError> {
         guard let data = UserDefaults.standard.array(forKey: databaseKey.rawValue) as? [Data] else {
             return .success([T]())
         }
@@ -27,8 +27,8 @@ class LocalDatabase: Database {
         }
     }
     
-    static func add<T: SavedData>(newEntity: T) -> Result<String, DatabaseError> {
-        let fetchAllResult: Result<[T], DatabaseError> = LocalDatabase.fetchAll(
+    func add<T: SavedData>(newEntity: T) -> Result<String, DatabaseError> {
+        let fetchAllResult: Result<[T], DatabaseError> = self.fetchAll(
             databaseKey: newEntity.databaseKey
         )
         switch fetchAllResult {
@@ -47,8 +47,8 @@ class LocalDatabase: Database {
         }
     }
     
-    static func replace<T: SavedData>(newEntity: T) -> Result<String, DatabaseError> {
-        let fetchAllResult: Result<[T], DatabaseError> = LocalDatabase.fetchAll(
+    func replace<T: SavedData>(newEntity: T) -> Result<String, DatabaseError> {
+        let fetchAllResult: Result<[T], DatabaseError> = self.fetchAll(
             databaseKey: newEntity.databaseKey
         )
         switch fetchAllResult {

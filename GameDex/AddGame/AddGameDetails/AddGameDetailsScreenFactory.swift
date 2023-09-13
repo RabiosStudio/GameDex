@@ -11,7 +11,10 @@ import UIKit
 struct AddGameDetailsScreenFactory: ScreenFactory {
     
     var viewController: UIViewController {
-        let viewModel = AddGameDetailsViewModel(game: self.game)
+        let viewModel = AddGameDetailsViewModel(
+            game: self.game,
+            localDatabase: LocalDatabase()
+        )
         let layout = UICollectionViewFlowLayout()
         let containerController = ContainerViewController(
             viewModel: viewModel,

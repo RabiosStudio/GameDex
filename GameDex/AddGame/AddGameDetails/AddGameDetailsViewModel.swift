@@ -18,10 +18,12 @@ final class AddGameDetailsViewModel: CollectionViewModel {
     private let navigationStyle: NavigationStyle = .dismiss(completionBlock: nil)
     
     private let game: Game
+    private let localDatabase: LocalDatabase
     
-    init(game: Game) {
+    init(game: Game, localDatabase: LocalDatabase) {
         self.progress = 3/3
         self.game = game
+        self.localDatabase = localDatabase
         self.sections = [AddGameDetailsSection(game: self.game)]
     }
     
@@ -88,7 +90,9 @@ extension AddGameDetailsViewModel: PrimaryButtonDelegate {
             notes: notes
         )
         
-        let saveResult = LocalDatabase.add(newEntity: gameToSave)
+        let saveResult = self.localDatabase.add(
+            newEntity: gameToSave
+        )
         switch saveResult {
         case .success(let successText):
             AlertService.shared.presentAlert(
