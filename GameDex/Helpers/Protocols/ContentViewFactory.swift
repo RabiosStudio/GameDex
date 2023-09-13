@@ -8,6 +8,6 @@
 import Foundation
 import UIKit
 
-protocol ContentViewFactory {
+public protocol ContentViewFactory {
     var bottomView: UIView { get }
 }

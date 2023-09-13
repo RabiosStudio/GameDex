@@ -7,6 +7,7 @@
 
 import XCTest
 @testable import GameDex
+import SwiftyMocky
 
 final class AddGameDetailsViewModelTests: XCTestCase {
     
@@ -24,16 +25,29 @@ final class AddGameDetailsViewModelTests: XCTestCase {
     
     func test_init_ThenShouldSetPropertiesCorrectly() {
         // Given
-        let viewModel = AddGameDetailsViewModel(game: self.game)
+        let viewModel = AddGameDetailsViewModel(
+            game: self.game,
+            localDatabase: MockLocalDatabase(
+                data: nil,
+                response: nil
+            )
+        )
         
         // Then
         XCTAssertEqual(viewModel.sections.count, 1)
         XCTAssertEqual(viewModel.numberOfSections(), 1)
+        XCTAssertEqual(viewModel.numberOfItems(in: .zero), 8)
     }
     
     func test_loadData_ThenCallBackIsCalled() {
         // Given
-        let viewModel = AddGameDetailsViewModel(game: self.game)
+        let viewModel = AddGameDetailsViewModel(
+            game: self.game,
+            localDatabase: MockLocalDatabase(
+                data: nil,
+                response: nil
+            )
+        )
         var callbackIsCalled = false
         // When
         viewModel.loadData { _ in
@@ -42,13 +56,23 @@ final class AddGameDetailsViewModelTests: XCTestCase {
         XCTAssertTrue(callbackIsCalled)
     }
     
-    func test_numberOfItems_ThenShouldReturnOne() {
+    func test_didTapPrimaryButton_GivenErrorSavingGame_ThenContainerDelegateIsCalledOnce() {
         // Given
-        let viewModel = AddGameDetailsViewModel(game: self.game)
+        let localDatabase = MockLocalDatabase(
+            data: nil,
+            response: nil
+        )
+        let viewModel = AddGameDetailsViewModel(
+            game: self.game,
+            localDatabase: localDatabase
+        )
+        let delegate = ContainerViewControllerDelegateMock()
+        viewModel.containerDelegate = delegate
+        
         // When
-        let numberOfItems = viewModel.numberOfItems(in: .zero)
+        viewModel.didTapPrimaryButton()
+        
         // Then
-        XCTAssertEqual(numberOfItems, 8)
+        delegate.verify(.configureBottomView(contentViewFactory: .any))
     }
-    
 }
