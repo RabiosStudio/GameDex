@@ -15,6 +15,7 @@ final class AddGameDetailsViewModel: CollectionViewModel {
     let screenTitle: String? = L10n.fillGameDetails
     var sections = [Section]()
     weak var containerDelegate: ContainerViewControllerDelegate?
+    private let navigationStyle: NavigationStyle = .dismiss(completionBlock: nil)
     
     private let game: Game
     
@@ -25,6 +26,11 @@ final class AddGameDetailsViewModel: CollectionViewModel {
     }
     
     func loadData(callback: @escaping (EmptyError?) -> ()) {
+        self.configureBottomView()
+        callback(nil)
+    }
+    
+    private func configureBottomView() {
         let buttonContentViewFactory = PrimaryButtonContentViewFactory(
             delegate: self,
             buttonTitle: L10n.addGameToCollection
@@ -32,7 +38,6 @@ final class AddGameDetailsViewModel: CollectionViewModel {
         self.containerDelegate?.configureBottomView(
             contentViewFactory: buttonContentViewFactory
         )
-        callback(nil)
     }
 }
 
@@ -91,12 +96,14 @@ extension AddGameDetailsViewModel: PrimaryButtonDelegate {
                 description: L10n.gameSavedSuccessTitle,
                 type: .success
             )
+            _ =  Routing.shared.route(navigationStyle: self.navigationStyle)
         case .failure(_):
             AlertService.shared.presentAlert(
                 title: L10n.errorTitle,
                 description: L10n.saveGameErrorTitle,
                 type: .error
             )
+            self.configureBottomView()
         }
     }
 }
