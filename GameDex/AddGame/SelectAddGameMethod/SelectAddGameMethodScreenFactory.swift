@@ -10,8 +10,10 @@ import UIKit
 
 struct SelectAddGameMethodScreenFactory: ScreenFactory {
     
+    weak var addGameDelegate: AddGameDetailsViewModelDelegate?
+    
     var viewController: UIViewController {
-        let viewModel = SelectAddGameMethodViewModel()
+        let viewModel = SelectAddGameMethodViewModel(delegate: self.addGameDelegate)
         let layout = UICollectionViewFlowLayout()
         let containerController = ContainerViewController(
             viewModel: viewModel,
@@ -19,5 +21,9 @@ struct SelectAddGameMethodScreenFactory: ScreenFactory {
         )
         let navigationController = UINavigationController(rootViewController: containerController)
         return navigationController
+    }
+    
+    init(delegate: AddGameDetailsViewModelDelegate?) {
+        self.addGameDelegate = delegate
     }
 }

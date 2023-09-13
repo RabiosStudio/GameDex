@@ -11,6 +11,7 @@ import UIKit
 // sourcery: AutoMockable
 public protocol ContainerViewControllerDelegate: AnyObject {
     func configureBottomView(contentViewFactory: ContentViewFactory)
+    func reloadSections()
 }
 
 class ContainerViewController: UIViewController {
@@ -392,6 +393,10 @@ extension ContainerViewController: ContainerViewControllerDelegate {
         self.bottomView = contentViewFactory.bottomView
         self.stackView.addArrangedSubview(self.separatorView)
         self.stackView.addArrangedSubview(self.bottomView)
+    }
+    
+    func reloadSections() {
+        self.loadData()
     }
 }
 

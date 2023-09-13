@@ -4,11 +4,18 @@ class TabBarController: UITabBarController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        let layout = UICollectionViewFlowLayout()
-        let vc1 = ContainerViewController(
-            viewModel: MyCollectionViewModel(),
-            layout: layout
-        )
+        
+        var vc1: UIViewController {
+            let viewModel = MyCollectionViewModel(localDatabase: LocalDatabase())
+            let layout = UICollectionViewFlowLayout()
+            let containerController = ContainerViewController(
+                viewModel: viewModel,
+                layout: layout
+            )
+            viewModel.containerDelegate = containerController
+            return containerController
+        }
+        
         let vc2 = UIViewController()
         let vc3 = UIViewController()
         

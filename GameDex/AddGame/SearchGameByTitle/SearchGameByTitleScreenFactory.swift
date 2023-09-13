@@ -11,7 +11,11 @@ import UIKit
 struct SearchGameByTitleScreenFactory: ScreenFactory {
     
     var viewController: UIViewController {
-        let viewModel = SearchGameByTitleViewModel(networkingSession: AlamofireAPI(), platform: self.platform)
+        let viewModel = SearchGameByTitleViewModel(
+            networkingSession: AlamofireAPI(),
+            platform: self.platform,
+            addGameDelegate: self.addGameDelegate
+        )
         let layout = UICollectionViewFlowLayout()
         let containerController = ContainerViewController(
             viewModel: viewModel,
@@ -21,9 +25,11 @@ struct SearchGameByTitleScreenFactory: ScreenFactory {
     }
     
     private let platform: Platform
+    weak var addGameDelegate: AddGameDetailsViewModelDelegate?
     
-    init(platform: Platform) {
+    init(platform: Platform, addGameDelegate: AddGameDetailsViewModelDelegate?) {
         self.platform = platform
+        self.addGameDelegate = addGameDelegate
     }
     
 }

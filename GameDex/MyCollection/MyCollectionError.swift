@@ -9,12 +9,15 @@ import Foundation
 
 enum MyCollectionError: EmptyError {
     
-    case noItems
+    case noItems(addGameDelegate: AddGameDetailsViewModelDelegate?)
+    case fetchError
     
     var errorTitle: String {
         switch self {
         case .noItems:
             return L10n.emptyMyCollectionTitle
+        case .fetchError:
+            return "Error fetching data"
         }
     }
     
@@ -22,28 +25,41 @@ enum MyCollectionError: EmptyError {
         switch self {
         case .noItems:
             return L10n.emptyMyCollectionDescription
+        case .fetchError:
+            return "Please try again later"
         }
     }
     
     var imageName: String {
-        return Asset.noItems.name
+        switch self {
+        case .noItems:
+            return Asset.noItems.name
+        case .fetchError:
+            return Asset.exclamationMark.name
+        }
     }
     
     var buttonTitle: String {
         switch self {
         case .noItems:
             return L10n.addAGame
+        case .fetchError:
+            return "Refresh"
         }
     }
     
     var errorAction: ErrorAction {
         switch self {
-        case .noItems:
-            let selectAddGameTypeController = SelectAddGameMethodScreenFactory().viewController
+        case .noItems(addGameDelegate: let delegate):
+            let selectAddGameTypeController = SelectAddGameMethodScreenFactory(
+                delegate: delegate
+            ).viewController
             let startToAddGame: NavigationStyle = .present(
                 controller: selectAddGameTypeController,
                 completionBlock: nil)
             return .navigate(style: startToAddGame)
+        case .fetchError:
+            return .refresh
         }
     }
 }

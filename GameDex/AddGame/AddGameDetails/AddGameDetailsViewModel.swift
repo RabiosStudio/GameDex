@@ -7,6 +7,10 @@
 
 import Foundation
 
+protocol AddGameDetailsViewModelDelegate: AnyObject {
+    func didAddNewGame()
+}
+
 final class AddGameDetailsViewModel: CollectionViewModel {
     var searchViewModel: SearchViewModel?
     var isBounceable: Bool = true
@@ -15,16 +19,24 @@ final class AddGameDetailsViewModel: CollectionViewModel {
     let screenTitle: String? = L10n.fillGameDetails
     var sections = [Section]()
     weak var containerDelegate: ContainerViewControllerDelegate?
-    private let navigationStyle: NavigationStyle = .dismiss(completionBlock: nil)
+    weak var addGameDelegate: AddGameDetailsViewModelDelegate?
+    private lazy var navigationStyle: NavigationStyle = .dismiss {
+        self.addGameDelegate?.didAddNewGame()
+    }
     
     private let game: Game
     private let localDatabase: LocalDatabase
     
-    init(game: Game, localDatabase: LocalDatabase) {
+    init(
+        game: Game,
+        localDatabase: LocalDatabase,
+        addGameDelegate: AddGameDetailsViewModelDelegate?
+    ) {
         self.progress = 3/3
         self.game = game
         self.localDatabase = localDatabase
         self.sections = [AddGameDetailsSection(game: self.game)]
+        self.addGameDelegate = addGameDelegate
     }
     
     func loadData(callback: @escaping (EmptyError?) -> ()) {
