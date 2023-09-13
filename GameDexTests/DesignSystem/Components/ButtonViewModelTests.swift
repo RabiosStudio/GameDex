@@ -16,12 +16,9 @@ final class ButtonViewModelTests: XCTestCase {
         let buttonStyle: ButtonStyle = .big
         // When
         let viewModel = ButtonViewModel(
-            title: title,
-            buttonStyle: buttonStyle
+            title: title
         )
         // Then
         XCTAssertEqual(viewModel.title, title)
-        XCTAssertEqual(viewModel.buttonStyle, buttonStyle)
     }
-    
 }
