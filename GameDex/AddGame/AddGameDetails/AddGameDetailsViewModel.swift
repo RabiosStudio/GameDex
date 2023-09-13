@@ -63,7 +63,7 @@ extension AddGameDetailsViewModel: PrimaryButtonDelegate {
               }) as? [any CollectionFormCellViewModel] else {
             return
         }
-                   
+        
         var acquisitionYear: String?
         var gameCondition: String?
         var gameCompleteness: String?
@@ -90,7 +90,7 @@ extension AddGameDetailsViewModel: PrimaryButtonDelegate {
                 notes = formCellVM.value as? String
             }
         }
-             
+        
         let gameToSave = SavedGame(
             game: self.game,
             acquisitionYear: acquisitionYear,
@@ -102,24 +102,21 @@ extension AddGameDetailsViewModel: PrimaryButtonDelegate {
             notes: notes
         )
         
-        let saveResult = self.localDatabase.add(
-            newEntity: gameToSave
-        )
-        switch saveResult {
-        case .success(let successText):
+        self.localDatabase.add(newEntity: gameToSave) { error in
+            if let error {
+                AlertService.shared.presentAlert(
+                    title: L10n.errorTitle,
+                    description: L10n.saveGameErrorTitle,
+                    type: .error
+                )
+                self.configureBottomView()
+            }
             AlertService.shared.presentAlert(
-                title: successText,
+                title: L10n.successTitle,
                 description: L10n.gameSavedSuccessTitle,
                 type: .success
             )
             _ =  Routing.shared.route(navigationStyle: self.navigationStyle)
-        case .failure(_):
-            AlertService.shared.presentAlert(
-                title: L10n.errorTitle,
-                description: L10n.saveGameErrorTitle,
-                type: .error
-            )
-            self.configureBottomView()
         }
     }
 }

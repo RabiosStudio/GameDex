@@ -25,9 +25,7 @@ final class MyCollectionViewModel: CollectionViewModel {
     }
     
     func loadData(callback: @escaping (EmptyError?) -> ()) {
-        let fetchCollectionResult: Result<[SavedGame], DatabaseError> = self.localDatabase.fetchAll(
-            databaseKey: DatabaseKey.savedGame
-        )
+        let fetchCollectionResult = self.localDatabase.fetchAll()
         switch fetchCollectionResult {
         case .success(let result):
             guard !result.isEmpty else {
@@ -35,7 +33,7 @@ final class MyCollectionViewModel: CollectionViewModel {
                 callback(error)
                 return
             }
-            self.collection = result
+            self.collection = DataConverter.convert(gamesCollected: result)
             self.sections = [MyCollectionSection(gamesCollection: self.collection)]
         case .failure(_):
             let error: MyCollectionError = .fetchError
@@ -48,16 +46,14 @@ final class MyCollectionViewModel: CollectionViewModel {
 
 extension MyCollectionViewModel: AddGameDetailsViewModelDelegate {
     func didAddNewGame() {
-        let fetchCollectionResult: Result<[SavedGame], DatabaseError> = self.localDatabase.fetchAll(
-            databaseKey: DatabaseKey.savedGame
-        )
+        let fetchCollectionResult = self.localDatabase.fetchAll()
         switch fetchCollectionResult {
         case .success(let result):
             guard !result.isEmpty else {
                 self.sections = []
                 return
             }
-            self.collection = result
+            self.collection = DataConverter.convert(gamesCollected: result)
             self.sections = [MyCollectionSection(gamesCollection: self.collection)]
         case .failure(_):
             AlertService.shared.presentAlert(

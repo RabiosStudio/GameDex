@@ -7,9 +7,7 @@
 
 import Foundation
 
-struct SavedGame: SavedData {
-    var databaseKey: DatabaseKey = .savedGame
-    
+struct SavedGame {
     var game: Game
     var acquisitionYear: String?
     var gameCondition: String?
@@ -18,7 +16,6 @@ struct SavedGame: SavedData {
     var storageArea: String?
     var rating: Int?
     var notes: String?
-    var id: UUID
     
     init(game: Game,
          acquisitionYear: String?,
@@ -37,7 +34,5 @@ struct SavedGame: SavedData {
         self.storageArea = storageArea
         self.rating = rating
         self.notes = notes
-        
-        self.id = UUID()
     }
 }
