@@ -56,6 +56,7 @@ final class TextFieldCell: UICollectionViewCell, CellConfigurable {
         super.prepareForReuse()
         self.textField.placeholder = nil
         self.textField.inputView = nil
+        self.pickerData = nil
     }
     
     func configure(cellViewModel: CellViewModel) {
