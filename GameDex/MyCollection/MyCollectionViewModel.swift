@@ -8,10 +8,15 @@
 import Foundation
 
 final class MyCollectionViewModel: CollectionViewModel {
+    lazy var navigationStyle: NavigationStyle = .present(
+        controller: SelectAddGameMethodScreenFactory(
+            delegate: self
+        ).viewController,
+        completionBlock: nil)
     var searchViewModel: SearchViewModel?
     var isBounceable: Bool = true
     var progress: Float?
-    var rightButtonItem: AnyBarButtonItem?
+    var rightButtonItem: AnyBarButtonItem? = .add
     let screenTitle: String? = L10n.myCollection
     var sections: [Section] = []
     var collection: [SavedGame] = []
@@ -37,10 +42,15 @@ final class MyCollectionViewModel: CollectionViewModel {
             }
             self.collection = DataConverter.convert(gamesCollected: result)
             self.sections = [MyCollectionSection(gamesCollection: self.collection)]
+            callback(nil)
         case .failure(_):
             let error: MyCollectionError = .fetchError
             callback(error)
         }
+    }
+    
+    func didTapRightButtonItem() {
+        _ = Routing.shared.route(navigationStyle: self.navigationStyle)
     }
 }
 

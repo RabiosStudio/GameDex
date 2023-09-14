@@ -194,10 +194,10 @@ class ContainerViewController: UIViewController {
             return
         }
         switch rightButtonItem {
-        case .close:
+        default:
             self.navigationItem.rightBarButtonItem = BarButtonItem(image: rightButtonItem.image()
             ) { [weak self] in
-                self?.dismiss(animated: true)
+                self?.viewModel.didTapRightButtonItem()
             }
         }
     }

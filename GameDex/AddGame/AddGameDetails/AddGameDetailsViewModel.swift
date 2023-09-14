@@ -20,9 +20,6 @@ final class AddGameDetailsViewModel: CollectionViewModel {
     var sections = [Section]()
     weak var containerDelegate: ContainerViewControllerDelegate?
     weak var addGameDelegate: AddGameDetailsViewModelDelegate?
-    private lazy var navigationStyle: NavigationStyle = .dismiss {
-        self.addGameDelegate?.didAddNewGame()
-    }
     
     private let game: Game
     private let localDatabase: LocalDatabase
@@ -45,6 +42,14 @@ final class AddGameDetailsViewModel: CollectionViewModel {
     func loadData(callback: @escaping (EmptyError?) -> ()) {
         self.configureBottomView()
         callback(nil)
+    }
+    
+    func didTapRightButtonItem() {
+        _ =  Routing.shared.route(
+            navigationStyle: .dismiss {
+                self.addGameDelegate?.didAddNewGame()
+            }
+        )
     }
     
     private func configureBottomView() {
@@ -119,8 +124,8 @@ extension AddGameDetailsViewModel: PrimaryButtonDelegate {
                     description: L10n.gameSavedSuccessTitle,
                     type: .success
                 )
+                self?.didTapRightButtonItem()
             }
-            _ =  Routing.shared.route(navigationStyle: self.navigationStyle)
         }
     }
 }

@@ -23,4 +23,8 @@ final class SelectAddGameMethodViewModel: CollectionViewModel {
     func loadData(callback: @escaping (EmptyError?) -> ()) {
         callback(nil)
     }
+    
+    func didTapRightButtonItem() {
+        _ = Routing.shared.route(navigationStyle: .dismiss {})
+    }
 }

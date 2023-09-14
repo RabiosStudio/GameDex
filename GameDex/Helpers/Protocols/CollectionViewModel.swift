@@ -15,6 +15,7 @@ protocol CollectionViewModel {
     var sections: [Section] { get }
     var progress: Float? { get }
     func loadData(callback: @escaping (EmptyError?) -> ())
+    func didTapRightButtonItem()
 }
 
 extension CollectionViewModel {
@@ -35,5 +36,5 @@ extension CollectionViewModel {
     
     func itemAvailable(at indexPath: IndexPath) -> Bool {
         return self.sections.count > indexPath.section && self.sections[indexPath.section].cellsVM.count > indexPath.row
-    }    
+    }
 }

@@ -46,6 +46,10 @@ final class SearchGameByTitleViewModel: CollectionViewModel {
         let error = AddGameError.noSearch(platformName: self.platform.title)
         callback(error)
     }
+    
+    func didTapRightButtonItem() {
+        _ = Routing.shared.route(navigationStyle: .dismiss {})
+    }
 }
 
 extension SearchGameByTitleViewModel: SearchViewModelDelegate {
