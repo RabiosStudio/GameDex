@@ -11,19 +11,15 @@ import SwiftyMocky
 
 final class AddGameDetailsViewModelTests: XCTestCase {
     
-    // MARK: Setup
-    
-    
     // MARK: Tests
     
     func test_init_ThenShouldSetPropertiesCorrectly() {
         // Given
         let viewModel = AddGameDetailsViewModel(
-            localDatabase: MockLocalDatabase(
-                data: nil,
-                response: nil
-            )
             game: MockData.game,
+            localDatabase: DatabaseMock(),
+            addGameDelegate: AddGameDetailsViewModelDelegateMock(),
+            alertDisplayer: AlertServiceMock()
         )
         
         // Then
@@ -34,13 +30,13 @@ final class AddGameDetailsViewModelTests: XCTestCase {
     
     func test_loadData_ThenCallBackIsCalled() {
         // Given
-        let viewModel = AddGameDetailsViewModel(
-            localDatabase: MockLocalDatabase(
-                data: nil,
-                response: nil
-            )
+        let viewModel  = AddGameDetailsViewModel(
             game: MockData.game,
+            localDatabase: DatabaseMock(),
+            addGameDelegate: AddGameDetailsViewModelDelegateMock(),
+            alertDisplayer: AlertServiceMock()
         )
+        
         var callbackIsCalled = false
         // When
         viewModel.loadData { _ in
@@ -49,23 +45,48 @@ final class AddGameDetailsViewModelTests: XCTestCase {
         XCTAssertTrue(callbackIsCalled)
     }
     
-    func test_didTapPrimaryButton_GivenErrorSavingGame_ThenContainerDelegateIsCalledOnce() {
+    func test_didTapPrimaryButton_ThenNavigationStyleIsDismissAndAlertParametersAreCorrect() {
         // Given
-        let localDatabase = MockLocalDatabase(
-            data: nil,
-            response: nil
+        let expectation = XCTestExpectation()
+        let localDatabase = DatabaseMock()
+        let alertService = AlertServiceMock()
+
+        let viewModel  = AddGameDetailsViewModel(
             game: MockData.game,
+            localDatabase: localDatabase,
+            addGameDelegate: AddGameDetailsViewModelDelegateMock(),
+            alertDisplayer: alertService
         )
-        let viewModel = AddGameDetailsViewModel(
-            localDatabase: localDatabase
+        
+        localDatabase.perform(
+            .add(
+                newEntity: .any,
+                callback: .any,
+                perform: { saveGame, completion in
+                    completion(nil)
+                    // Then
+                    alertService.verify(
+                        .presentAlert(
+                            title: .value(L10n.successTitle),
+                            description: .value(L10n.gameSavedSuccessTitle),
+                            type: .value(.success)
+                        )
+                    )
+                                        
+                    if case .dismiss = Routing.shared.lastNavigationStyle {
+                        XCTAssertTrue(true)
+                    } else {
+                        XCTFail("Wrong navigation style")
+                    }
+                    expectation.fulfill()
+                }
+            )
         )
-        let delegate = ContainerViewControllerDelegateMock()
-        viewModel.containerDelegate = delegate
         
         // When
         viewModel.didTapPrimaryButton()
         
-        // Then
-        delegate.verify(.configureBottomView(contentViewFactory: .any))
+        
+        wait(for: [expectation], timeout: Constants.timeout)
     }
 }
