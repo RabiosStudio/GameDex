@@ -22,12 +22,12 @@ final class AddGameDetailsViewModel: CollectionViewModel {
     weak var addGameDelegate: AddGameDetailsViewModelDelegate?
     
     private let game: Game
-    private let localDatabase: LocalDatabase
+    private let localDatabase: Database
     private let alertDisplayer: AlertService
     
     init(
         game: Game,
-        localDatabase: LocalDatabase,
+        localDatabase: Database,
         addGameDelegate: AddGameDetailsViewModelDelegate?,
         alertDisplayer: AlertService
     ) {

@@ -8,7 +8,12 @@
 import Foundation
 import CoreData
 
-class LocalDatabase {
+protocol Database {
+    func add(newEntity: SavedGame, callback: @escaping (DatabaseError?) -> ())
+    func fetchAll() -> Result<[GameCollected], DatabaseError>
+}
+
+class LocalDatabase: Database {
     let managedObjectContext: NSManagedObjectContext
     let coreDataStack: CoreDataStack
     
@@ -43,5 +48,3 @@ extension LocalDatabase {
         }
     }
 }
-
-
