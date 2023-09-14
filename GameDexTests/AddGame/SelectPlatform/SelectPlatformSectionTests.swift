@@ -12,16 +12,10 @@ final class SelectPlatformSectionTests: XCTestCase {
 
     func test_init_GivenSelectPlatformSection_ThenShouldSetPropertiesCorrectly() {
         // Given
-        let platforms: [Platform] = [
-            Platform(title: "Atari 2600", id: 28),
-            Platform(title: "Dreamcast", id: 8),
-            Platform(title: "Game Boy Color", id: 11),
-            Platform(title: "Jaguar", id: 17),
-            Platform(title: "SNES", id: 15)
-        ]
-        
-        // When
-        let section = SelectPlatformSection(platforms: platforms)
+        let section = SelectPlatformSection(
+            platforms: MockData.platforms,
+            addGameDelegate: AddGameDetailsViewModelDelegateMock()
+        )
         
         // Then
         XCTAssertEqual(section.cellsVM.count, 5)

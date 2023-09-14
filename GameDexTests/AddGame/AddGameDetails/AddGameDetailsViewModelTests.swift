@@ -13,24 +13,17 @@ final class AddGameDetailsViewModelTests: XCTestCase {
     
     // MARK: Setup
     
-    let game = Game(
-        title: "The Legend of Zelda: The Minish Cap",
-        description: "description",
-        id: "id",
-        platform: "Game Boy Advance",
-        imageURL: "imageURL"
-    )
     
     // MARK: Tests
     
     func test_init_ThenShouldSetPropertiesCorrectly() {
         // Given
         let viewModel = AddGameDetailsViewModel(
-            game: self.game,
             localDatabase: MockLocalDatabase(
                 data: nil,
                 response: nil
             )
+            game: MockData.game,
         )
         
         // Then
@@ -42,11 +35,11 @@ final class AddGameDetailsViewModelTests: XCTestCase {
     func test_loadData_ThenCallBackIsCalled() {
         // Given
         let viewModel = AddGameDetailsViewModel(
-            game: self.game,
             localDatabase: MockLocalDatabase(
                 data: nil,
                 response: nil
             )
+            game: MockData.game,
         )
         var callbackIsCalled = false
         // When
@@ -61,9 +54,9 @@ final class AddGameDetailsViewModelTests: XCTestCase {
         let localDatabase = MockLocalDatabase(
             data: nil,
             response: nil
+            game: MockData.game,
         )
         let viewModel = AddGameDetailsViewModel(
-            game: self.game,
             localDatabase: localDatabase
         )
         let delegate = ContainerViewControllerDelegateMock()

@@ -37,3 +37,33 @@ extension ErrorAction: Equatable {
         }
     }
 }
+
+extension MyCollectionError: Equatable {
+    public static func == (lhs: MyCollectionError, rhs: MyCollectionError) -> Bool {
+        lhs.errorTitle == rhs.errorTitle &&
+        lhs.imageName == rhs.imageName &&
+        lhs.errorDescription == rhs.errorDescription &&
+        lhs.errorAction == rhs.errorAction &&
+        lhs.buttonTitle == rhs.buttonTitle
+    }
+}
+
+extension NavigationStyle: Equatable {
+    public static func == (lhs: GameDex.NavigationStyle, rhs: GameDex.NavigationStyle) -> Bool {
+        switch (lhs, rhs) {
+        case (.push(controller: _), .push(controller: _)):
+            return true
+        case (.pop, .pop):
+            return true
+        case (.present(controller: _, screenSize: _, completionBlock: _), .present(controller: _, screenSize: _, completionBlock: _)):
+            return true
+        case (.dismiss(completionBlock: _), .dismiss(completionBlock: _)):
+            return true
+        case (.selectTab(index: _, completionBlock: _), .selectTab(index: _, completionBlock: _)):
+            return true
+        default:
+            return false
+        }
+    }
+}
+

@@ -122,6 +122,8 @@
 		25EDF7A32AB223C700648717 /* GameDex.xcdatamodeld in Sources */ = {isa = PBXBuildFile; fileRef = 25EDF7A12AB223C700648717 /* GameDex.xcdatamodeld */; };
 		25EDF7A52AB2242400648717 /* CoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EDF7A42AB2242400648717 /* CoreDataStack.swift */; };
 		25EDF7A72AB22E4700648717 /* GameCollected.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EDF7A62AB22E4600648717 /* GameCollected.swift */; };
+		25EDF7AF2AB2E49A00648717 /* MockData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EDF7AE2AB2E49A00648717 /* MockData.swift */; };
+		25EDF7B12AB3053A00648717 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EDF7B02AB3053A00648717 /* Constants.swift */; };
 		25F6632B2A94CF13005F5412 /* ContinueContentViewFactoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F663282A94CF13005F5412 /* ContinueContentViewFactoryTests.swift */; };
 		25F6632C2A94CF13005F5412 /* MyCollectionViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F663292A94CF13005F5412 /* MyCollectionViewModelTests.swift */; };
 		AA97798407A80D347D6A8608 /* Pods_GameDexTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4443ED930B6E67BE6E3AB6A0 /* Pods_GameDexTests.framework */; };
@@ -259,6 +261,8 @@
 		25EDF7A22AB223C700648717 /* GameDex.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = GameDex.xcdatamodel; sourceTree = "<group>"; };
 		25EDF7A42AB2242400648717 /* CoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoreDataStack.swift; sourceTree = "<group>"; };
 		25EDF7A62AB22E4600648717 /* GameCollected.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCollected.swift; sourceTree = "<group>"; };
+		25EDF7AE2AB2E49A00648717 /* MockData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockData.swift; sourceTree = "<group>"; };
+		25EDF7B02AB3053A00648717 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		25F663282A94CF13005F5412 /* ContinueContentViewFactoryTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContinueContentViewFactoryTests.swift; sourceTree = "<group>"; };
 		25F663292A94CF13005F5412 /* MyCollectionViewModelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyCollectionViewModelTests.swift; sourceTree = "<group>"; };
 		4443ED930B6E67BE6E3AB6A0 /* Pods_GameDexTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GameDexTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -360,6 +364,7 @@
 		2528185D2A93DF39003FDC87 /* Mock */ = {
 			isa = PBXGroup;
 			children = (
+				25EDF7AE2AB2E49A00648717 /* MockData.swift */,
 				251C86732A94D5E80020C794 /* Mock.generated.swift */,
 				251C87272A9CE82B0020C794 /* Matcher+Extension.swift */,
 				25EDF79E2AB1E07E00648717 /* MockLocalDatabase.swift */,
@@ -592,6 +597,7 @@
 				25F663262A94C97B005F5412 /* DesignSystem */,
 				2528185D2A93DF39003FDC87 /* Mock */,
 				251C872A2A9CE93B0020C794 /* Equatables.swift */,
+				25EDF7B02AB3053A00648717 /* Constants.swift */,
 			);
 			path = GameDexTests;
 			sourceTree = "<group>";
@@ -1083,6 +1089,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				25EDF7B12AB3053A00648717 /* Constants.swift in Sources */,
 				251C871C2A9C888B0020C794 /* SelectPlatformSectionTests.swift in Sources */,
 				251C87132A9BBD3F0020C794 /* SelectAddGameMethodSectionTests.swift in Sources */,
 				25F6632C2A94CF13005F5412 /* MyCollectionViewModelTests.swift in Sources */,
@@ -1100,6 +1107,7 @@
 				25F6632B2A94CF13005F5412 /* ContinueContentViewFactoryTests.swift in Sources */,
 				25EB24102AA5C0600024F01C /* SearchGameByTitleViewModelTests.swift in Sources */,
 				25EB24542AA8B1430024F01C /* TextViewCellViewModelTests.swift in Sources */,
+				25EDF7AF2AB2E49A00648717 /* MockData.swift in Sources */,
 				25EB243E2AA785FC0024F01C /* AddGameDetailsViewModelTests.swift in Sources */,
 				25EB240C2AA1D77A0024F01C /* BasicInfoCellViewModelTests.swift in Sources */,
 				25EB24522AA8B1350024F01C /* ImageDescriptionCellViewModelTests.swift in Sources */,

@@ -15,7 +15,7 @@ final class InfoCardCellViewModelTests: XCTestCase {
         let text = "Title"
         let description = "Description"
         let imageName = "ImageName"
-        let screenFactory = SelectPlatformScreenFactory()
+        let screenFactory = SelectPlatformScreenFactory(delegate: AddGameDetailsViewModelDelegateMock())
         // When
         let cellVM = InfoCardCellViewModel(
             title: text,

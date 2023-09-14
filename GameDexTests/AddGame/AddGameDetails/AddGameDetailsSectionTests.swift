@@ -10,17 +10,11 @@ import XCTest
 
 final class AddGameDetailsSectionTests: XCTestCase {
     
+    // MARK: Tests
+    
     func test_init_GivenAddGameDetailsSection_ThenShouldSetPropertiesCorrectly() {
         // Given
-        let game = Game(
-            title: "The Legend of Zelda: The Minish Cap",
-            description: "description",
-            id: "id",
-            platform: "Game Boy Advance",
-            imageURL: "imageURL"
-        )
-        
-        let section = AddGameDetailsSection(game: game)
+        let section = AddGameDetailsSection(game: MockData.game)
         
         // Then
         XCTAssertEqual(section.cellsVM.count, 8)
