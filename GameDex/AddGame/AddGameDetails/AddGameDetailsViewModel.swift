@@ -112,7 +112,7 @@ extension AddGameDetailsViewModel: PrimaryButtonDelegate {
         )
         
         self.localDatabase.add(newEntity: gameToSave) { [weak self] error in
-            if let error {
+            if error != nil {
                 self?.alertDisplayer.presentAlert(
                     title: L10n.errorTitle,
                     description: L10n.saveGameErrorTitle,
