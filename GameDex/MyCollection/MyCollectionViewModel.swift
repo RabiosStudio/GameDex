@@ -19,9 +19,11 @@ final class MyCollectionViewModel: CollectionViewModel {
     weak var containerDelegate: ContainerViewControllerDelegate?
     
     private let localDatabase: LocalDatabase
+    private let alertDisplayer: AlertService
     
-    init(localDatabase: LocalDatabase) {
+    init(localDatabase: LocalDatabase, alertDisplayer: AlertService) {
         self.localDatabase = localDatabase
+        self.alertDisplayer = alertDisplayer
     }
     
     func loadData(callback: @escaping (EmptyError?) -> ()) {
@@ -56,7 +58,7 @@ extension MyCollectionViewModel: AddGameDetailsViewModelDelegate {
             self.collection = DataConverter.convert(gamesCollected: result)
             self.sections = [MyCollectionSection(gamesCollection: self.collection)]
         case .failure(_):
-            AlertService.shared.presentAlert(
+            self.alertDisplayer.presentAlert(
                 title: L10n.errorTitle,
                 description: L10n.saveGameErrorTitle,
                 type: .error

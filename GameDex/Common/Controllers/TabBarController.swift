@@ -6,7 +6,10 @@ class TabBarController: UITabBarController {
         super.viewDidLoad()
         
         var vc1: UIViewController {
-            let viewModel = MyCollectionViewModel(localDatabase: LocalDatabase())
+            let viewModel = MyCollectionViewModel(
+                localDatabase: LocalDatabase(),
+                alertDisplayer: AlertScreen()
+            )
             let layout = UICollectionViewFlowLayout()
             let containerController = ContainerViewController(
                 viewModel: viewModel,

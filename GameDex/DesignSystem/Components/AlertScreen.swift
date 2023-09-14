@@ -32,9 +32,11 @@ enum AlertType {
     }
 }
 
-class AlertService {
-    
-    static let shared = AlertService()
+protocol AlertService {
+    func presentAlert(title: String, description: String, type: AlertType)
+}
+
+struct AlertScreen: AlertService {
     
     func presentAlert(title: String, description: String, type: AlertType) {
         

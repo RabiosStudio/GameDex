@@ -26,17 +26,20 @@ final class AddGameDetailsViewModel: CollectionViewModel {
     
     private let game: Game
     private let localDatabase: LocalDatabase
+    private let alertDisplayer: AlertService
     
     init(
         game: Game,
         localDatabase: LocalDatabase,
-        addGameDelegate: AddGameDetailsViewModelDelegate?
+        addGameDelegate: AddGameDetailsViewModelDelegate?,
+        alertDisplayer: AlertService
     ) {
         self.progress = 3/3
         self.game = game
         self.localDatabase = localDatabase
         self.sections = [AddGameDetailsSection(game: self.game)]
         self.addGameDelegate = addGameDelegate
+        self.alertDisplayer = alertDisplayer
     }
     
     func loadData(callback: @escaping (EmptyError?) -> ()) {
@@ -102,20 +105,21 @@ extension AddGameDetailsViewModel: PrimaryButtonDelegate {
             notes: notes
         )
         
-        self.localDatabase.add(newEntity: gameToSave) { error in
+        self.localDatabase.add(newEntity: gameToSave) { [weak self] error in
             if let error {
-                AlertService.shared.presentAlert(
+                self?.alertDisplayer.presentAlert(
                     title: L10n.errorTitle,
                     description: L10n.saveGameErrorTitle,
                     type: .error
                 )
-                self.configureBottomView()
+                self?.configureBottomView()
+            } else {
+                self?.alertDisplayer.presentAlert(
+                    title: L10n.successTitle,
+                    description: L10n.gameSavedSuccessTitle,
+                    type: .success
+                )
             }
-            AlertService.shared.presentAlert(
-                title: L10n.successTitle,
-                description: L10n.gameSavedSuccessTitle,
-                type: .success
-            )
             _ =  Routing.shared.route(navigationStyle: self.navigationStyle)
         }
     }
