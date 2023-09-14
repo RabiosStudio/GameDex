@@ -7,6 +7,7 @@
 
 import Foundation
 
+// sourcery: AutoMockable
 protocol AddGameDetailsViewModelDelegate: AnyObject {
     func didAddNewGame()
 }

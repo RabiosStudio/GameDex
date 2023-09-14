@@ -32,6 +32,7 @@ enum AlertType {
     }
 }
 
+// sourcery: AutoMockable
 protocol AlertService {
     func presentAlert(title: String, description: String, type: AlertType)
 }

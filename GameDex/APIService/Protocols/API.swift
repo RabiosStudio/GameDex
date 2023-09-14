@@ -8,8 +8,7 @@
 import Foundation
 
 // sourcery: AutoMockable
-public protocol API {
-    
+protocol API {
     var lastTask: URLSessionTask? { get set }
     var basePath: String { get }
     var commonParameters: [String: Any]? { get }
