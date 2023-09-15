@@ -11,4 +11,6 @@ import Foundation
 protocol Database {
     func add(newEntity: SavedGame, callback: @escaping (DatabaseError?) -> ())
     func fetchAll() -> Result<[GameCollected], DatabaseError>
+    func replace(savedGame: SavedGame, callback: @escaping (DatabaseError?) -> ())
+    func remove(savedGame: SavedGame, callback: @escaping (DatabaseError?) -> ())
 }
