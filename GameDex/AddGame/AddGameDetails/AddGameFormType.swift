@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 enum AddGameFormType: FormType, Equatable {
     case yearOfAcquisition
@@ -15,4 +16,24 @@ enum AddGameFormType: FormType, Equatable {
     case storageArea
     case rating
     case notes
+    
+    var keyboardType: UIKeyboardType? {
+        switch self {
+        case .storageArea, .notes:
+            return .asciiCapable
+        case .yearOfAcquisition:
+            return .asciiCapableNumberPad
+        default:
+            return nil
+        }
+    }
+    
+    var inputPickerViewModel: PickerViewModel? {
+        switch self {
+        case .gameCompleteness(let pickerVM), .gameCondition(let pickerVM), .gameRegion(let pickerVM):
+            return pickerVM
+        default:
+            return nil
+        }
+    }
 }

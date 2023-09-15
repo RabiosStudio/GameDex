@@ -6,5 +6,9 @@
 //
 
 import Foundation
+import UIKit
 
-protocol FormType {}
+protocol FormType {
+    var keyboardType: UIKeyboardType? { get }
+    var inputPickerViewModel: PickerViewModel? { get }
+}
