@@ -8,11 +8,6 @@
 import Foundation
 
 final class MyCollectionViewModel: CollectionViewModel {
-    lazy var navigationStyle: NavigationStyle = .present(
-        controller: SelectAddGameMethodScreenFactory(
-            delegate: self
-        ).viewController,
-        completionBlock: nil)
     var searchViewModel: SearchViewModel?
     var isBounceable: Bool = true
     var progress: Float?
@@ -50,7 +45,13 @@ final class MyCollectionViewModel: CollectionViewModel {
     }
     
     func didTapRightButtonItem() {
-        _ = Routing.shared.route(navigationStyle: self.navigationStyle)
+        _ = Routing.shared.route(
+            navigationStyle: .present(
+                controller: SelectAddGameMethodScreenFactory(
+                    delegate: self
+                ).viewController,
+                completionBlock: nil)
+        )
     }
 }
 
