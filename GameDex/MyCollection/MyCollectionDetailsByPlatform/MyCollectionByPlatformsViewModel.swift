@@ -25,7 +25,7 @@ final class MyCollectionByPlatformsViewModel: CollectionViewModel {
     
     func loadData(callback: @escaping (EmptyError?) -> ()) {
         guard !self.gamesCollection.isEmpty else {
-            self.containerDelegate?.goBack()
+            self.containerDelegate?.goBackToRootViewController()
             return
         }
         self.sections = [MyCollectionByPlatformsSection(gamesCollection: self.gamesCollection)]

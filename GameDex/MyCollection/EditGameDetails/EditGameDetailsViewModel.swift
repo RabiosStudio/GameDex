@@ -149,6 +149,7 @@ extension EditGameDetailsViewModel: AlertDisplayerDelegate {
                         description: L10n.removeGameSuccessDescription
                     )
                 )
+                self?.containerDelegate?.goBackToRootViewController()
             }
         }
     }

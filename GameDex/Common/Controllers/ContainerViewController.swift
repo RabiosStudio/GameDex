@@ -12,6 +12,7 @@ import UIKit
 protocol ContainerViewControllerDelegate: AnyObject {
     func configureBottomView(contentViewFactory: ContentViewFactory)
     func reloadSections()
+    func goBackToRootViewController()
 }
 
 class ContainerViewController: UIViewController {
@@ -387,6 +388,11 @@ extension ContainerViewController: UISearchBarDelegate {
 // MARK: ContainerViewControllerDelegate
 
 extension ContainerViewController: ContainerViewControllerDelegate {
+    func goBackToRootViewController() {
+        self.navigationController?.popToRootViewController(animated: true)
+        self.reloadSections()
+    }
+    
     func configureBottomView(contentViewFactory: ContentViewFactory) {
         self.separatorView.removeFromSuperview()
         self.bottomView.removeFromSuperview()
