@@ -21,13 +21,13 @@ final class BasicInfoCellViewModel: CollectionCellViewModel {
     private let screenFactory: ScreenFactory?
     
     let title: String
-    let subtitle1: String
+    let subtitle1: String?
     let subtitle2: String?
     let caption: String?
     
     init(
         title: String,
-        subtitle1: String,
+        subtitle1: String?,
         subtitle2: String?,
         caption: String?,
         screenFactory: ScreenFactory?

@@ -11,6 +11,7 @@ import UIKit
 enum AnyBarButtonItem {
     case close
     case add
+    case delete
     
     func image() -> UIImage {
         switch self {
@@ -18,6 +19,8 @@ enum AnyBarButtonItem {
             return UIImage(systemName: "xmark")!
         case .add:
             return UIImage(systemName: "plus")!
+        case .delete:
+            return UIImage(systemName: "trash")!
         }
     }
 }

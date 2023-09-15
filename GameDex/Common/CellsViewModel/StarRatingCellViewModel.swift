@@ -16,12 +16,24 @@ final class StarRatingCellViewModel: CollectionFormCellViewModel {
     let height: CGFloat = DesignSystem.sizeSmall
     
     let title: String
-    var value: ValueType?
     var formType: FormType
+    var value: ValueType? {
+        didSet {
+            self.editFormDelegate?.enableSaveButton()
+        }
+    }
+    let rating: Int
+    
+    weak var editFormDelegate: EditFormDelegate?
     
     init(title: String,
          formType: FormType,
+         rating: Int,
+         editDelegate: EditFormDelegate?
+    ) {
         self.title = title
         self.formType = formType
+        self.rating = rating
+        self.editFormDelegate = editDelegate
     }
 }

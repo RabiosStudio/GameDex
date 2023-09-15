@@ -16,13 +16,25 @@ final class TextFieldCellViewModel: CollectionFormCellViewModel {
     var height: CGFloat = DesignSystem.sizeVerySmall
     
     let placeholder: String
-    var value: ValueType?
     var formType: FormType
+    var value: ValueType? {
+        didSet {
+            self.editFormDelegate?.enableSaveButton()
+        }
+    }
+    let text: String?
+    
+    weak var editFormDelegate: EditFormDelegate?
     
     init(placeholder: String,
          formType: FormType,
+         text: String?,
+         editDelegate: EditFormDelegate?
+    ) {
         self.placeholder = placeholder
         self.formType = formType
+        self.text = text
+        self.editFormDelegate = editDelegate
     }
     
 }

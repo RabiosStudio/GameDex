@@ -39,6 +39,7 @@ final class BasicInfoCell: UICollectionViewCell, CellConfigurable {
         label.textColor = .secondaryColor
         label.text = ""
         label.textAlignment = .left
+        label.numberOfLines = .zero
         return label
     }()
     
@@ -52,7 +53,6 @@ final class BasicInfoCell: UICollectionViewCell, CellConfigurable {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.setupViews()
     }
     
     required init?(coder: NSCoder) {
@@ -66,6 +66,7 @@ final class BasicInfoCell: UICollectionViewCell, CellConfigurable {
     }
     
     func configure(cellViewModel: CellViewModel) {
+        self.setupViews(cellViewModel: cellViewModel)
         guard let cellVM = cellViewModel as? BasicInfoCellViewModel else {
             return
         }
@@ -92,10 +93,15 @@ final class BasicInfoCell: UICollectionViewCell, CellConfigurable {
         _ =  Routing.shared.route(navigationStyle: navigationStyle)
     }
     
-    private func setupViews() {
+    private func setupViews(cellViewModel: CellViewModel) {
         self.contentView.addSubview(self.imageView)
         self.stackView.addArrangedSubview(self.titleLabel)
-        self.stackView.addArrangedSubview(self.primarySubtitle)
+        guard let cellVM = cellViewModel as? BasicInfoCellViewModel else {
+            return
+        }
+        if let shouldDisplaySubtitle = cellVM.subtitle1 {
+            self.stackView.addArrangedSubview(self.primarySubtitle)
+        }
         self.stackView.addArrangedSubview(self.secondarySubtitle)
         self.contentView.addSubview(self.stackView)
     }

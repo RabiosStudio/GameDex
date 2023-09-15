@@ -19,6 +19,7 @@ class ImageDescriptionCell: UICollectionViewCell, CellConfigurable {
     private lazy var title: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
+        label.numberOfLines = .zero
         label.textColor = .secondaryColor
         label.font = Typography.title2bold.font
         label.translatesAutoresizingMaskIntoConstraints = false

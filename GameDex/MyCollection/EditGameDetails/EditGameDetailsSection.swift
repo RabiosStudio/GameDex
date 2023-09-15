@@ -1,34 +1,34 @@
 //
-//  AddGameDetailsSection.swift
+//  EditGameDetailsSection.swift
 //  GameDex
 //
-//  Created by Gabrielle Dalbera on 04/09/2023.
+//  Created by Gabrielle Dalbera on 14/09/2023.
 //
 
 import Foundation
 
-final class AddGameDetailsSection: Section {
+final class EditGameDetailsSection: Section {
     
-    private let game: Game
+    private let savedGame: SavedGame
     
-    init(game: Game) {
-        self.game = game
+    init(savedGame: SavedGame, editDelegate: EditFormDelegate) {
+        self.savedGame = savedGame
         super.init()
         self.position = 0
         
         let gameCellVM = ImageDescriptionCellViewModel(
-            imageStringURL: game.imageURL,
-            title: game.title,
-            subtitle1: game.platform,
-            subtitle2: game.description
+            imageStringURL: savedGame.game.imageURL,
+            title: savedGame.game.title,
+            subtitle1: savedGame.game.platform,
+            subtitle2: savedGame.game.description
         )
         self.cellsVM.append(gameCellVM)
         
         let yearOfAcquisitionCellVM = TextFieldCellViewModel(
             placeholder: L10n.yearOfAcquisition,
             formType: AddGameFormType.yearOfAcquisition,
-            text: nil,
-            editDelegate: nil
+            text: savedGame.acquisitionYear,
+            editDelegate: editDelegate
         )
         self.cellsVM.append(yearOfAcquisitionCellVM)
         
@@ -38,9 +38,8 @@ final class AddGameDetailsSection: Section {
                 PickerViewModel(
                     data: [GameCondition.allCases.map { $0.value }]
                 )
-            ),
-            text: nil,
-            editDelegate: nil
+            ), text: savedGame.gameCondition,
+            editDelegate: editDelegate
         )
         self.cellsVM.append(conditionCellVM)
         
@@ -50,9 +49,8 @@ final class AddGameDetailsSection: Section {
                 PickerViewModel(
                     data: [GameCompleteness.allCases.map { $0.value }]
                 )
-            ),
-            text: nil,
-            editDelegate: nil
+            ), text: savedGame.gameCompleteness,
+            editDelegate: editDelegate
         )
         self.cellsVM.append(completenessCellVM)
         
@@ -62,34 +60,34 @@ final class AddGameDetailsSection: Section {
                 PickerViewModel(
                     data: [GameRegion.allCases.map { $0.rawValue }]
                 )
-            ),
-            text: nil,
-            editDelegate: nil
+            ), text: savedGame.gameRegion,
+            editDelegate: editDelegate
         )
         self.cellsVM.append(regionCellVM)
         
         let storageAreaCellVM = TextFieldCellViewModel(
             placeholder: L10n.storageArea,
             formType: AddGameFormType.storageArea,
-            text: nil,
-            editDelegate: nil
+            text: savedGame.storageArea,
+            editDelegate: editDelegate
         )
         self.cellsVM.append(storageAreaCellVM)
         
         let personalRatingCellVM = StarRatingCellViewModel(
             title: L10n.personalRating,
             formType: AddGameFormType.rating,
-            rating: .zero,
-            editDelegate: nil
+            rating: savedGame.rating ?? .zero,
+            editDelegate: editDelegate
         )
         self.cellsVM.append(personalRatingCellVM)
         
         let otherDetailsCellVM = TextViewCellViewModel(
             title: L10n.otherDetails,
             formType: AddGameFormType.notes,
-            text: nil,
-            editDelegate: nil
+            text: savedGame.notes ?? "",
+            editDelegate: editDelegate
         )
         self.cellsVM.append(otherDetailsCellVM)
     }
+
 }

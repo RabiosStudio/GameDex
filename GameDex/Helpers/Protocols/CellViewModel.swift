@@ -31,4 +31,9 @@ protocol FormCellViewModel {
     
     var formType: FormType { get set }
     var value: ValueType? { get set }
+    var editFormDelegate: EditFormDelegate? { get }
 }
+protocol EditFormDelegate: AnyObject {
+    func enableSaveButton()
+}
+

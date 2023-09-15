@@ -22,7 +22,6 @@ class StarRatingCell: UICollectionViewCell, CellConfigurable {
     
     private let starRatingView: CosmosView = {
         let view = CosmosView()
-        view.rating = .zero
         view.settings.fillMode = .full
         view.settings.starSize = DesignSystem.sizeTiny
         view.settings.starMargin = DesignSystem.paddingSmall
@@ -51,6 +50,7 @@ class StarRatingCell: UICollectionViewCell, CellConfigurable {
         guard let cellVM = cellViewModel as? StarRatingCellViewModel else {
             return
         }
+        self.starRatingView.rating = Double(cellVM.rating)
         self.setupConstraints()
         self.label.text = cellVM.title
         self.starRatingView.didFinishTouchingCosmos = { rating in

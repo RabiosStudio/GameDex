@@ -15,12 +15,19 @@
 "apiErrorTitle" = "Oops!";
 "apiErrorDescription" = "There has been an issue while fetching data";
 "saveGameErrorDescription" = "An error occured while saving game details.";
+"updateGameErrorDescription" = "An error occured while updating data.";
+"removeGameErrorDescription" = "An error occured while removing data.";
 "fetchGamesErrorDescription" = "An error occured while fetching data.";
 
 // Success
 "successTitle" = "Success";
 "saveGameSuccessDescription" = "The game was saved to your collection.";
+"updateGameSuccessDescription" = "The game information were updated.";
+"removeGameSuccessDescription" = "The game was removed from your collection.";
+
 // Warnings
+"warningTitle" = "One moment !";
+"warningRemoveGameDescription" = "Are you sure you want to remove this game from your collection?";
 "warningTryAgain" = "Please try again later";
 
 // Button
@@ -29,6 +36,9 @@
 "continue" = "Continue";
 "searchPlatform" = "Search a platform";
 "retry" = "Retry";
+"cancel" = "Cancel";
+"confirm" = "Confirm";
+"saveChanges" = "Save changes";
 "refresh" = "Refresh";
 
 // Add Game Steps

@@ -13,6 +13,17 @@ struct EditGameDetailsScreenFactory: ScreenFactory {
     private let savedGame: SavedGame
     
     var viewController: UIViewController {
+        let viewModel = EditGameDetailsViewModel(
+            savedGame: self.savedGame,
+            localDatabase: LocalDatabase()
+        )
+        let layout = UICollectionViewFlowLayout()
+        let containerController = ContainerViewController(
+            viewModel: viewModel,
+            layout: layout
+        )
+        viewModel.containerDelegate = containerController
+        return containerController
     }
 
     init(savedGame: SavedGame) {

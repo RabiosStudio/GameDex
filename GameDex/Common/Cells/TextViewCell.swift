@@ -57,6 +57,7 @@ class TextViewCell: UICollectionViewCell, CellConfigurable {
         guard let cellVM = cellViewModel as? TextViewCellViewModel else {
             return
         }
+        self.textView.text = cellVM.text
         self.cellVM = cellVM
         self.setupConstraints()
         self.label.text = cellVM.title

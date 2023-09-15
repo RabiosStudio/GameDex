@@ -15,12 +15,19 @@
 "apiErrorTitle" = "Oups!";
 "apiErrorDescription" = "Une erreur est survenue lors de la récupération des données";
 "saveGameErrorDescription" = "Une erreur est survenue lors de la sauvegarde des données.";
+"updateGameErrorDescription" = "Une erreur est survenue lors de la mise à jour des données.";
+"removeGameErrorDescription" = "Une erreur est survenue lors de la suppression des données";
 "fetchGamesErrorDescription" = "Une erreur est survenue lors de la récupération des données.";
 
 // Success
 "successTitle" = "Succès";
 "saveGameSuccessDescription" = "Le jeu a bien été enregistré dans votre collection.";
+"updateGameSuccessDescription" = "Les informations ont bien été mises à jour";
+"removeGameSuccessDescription" = "Le jeu a bien été supprimé de votre collection";
+
 // Warnings
+"warningTitle" = "Un instant !";
+"warningRemoveGameDescription" = "Etes-vous sûr(e) de vouloir supprimer ce jeu de votre collection?";
 "warningTryAgain" = "Veuillez réessayer ultérieurement";
 
 // Button
@@ -29,6 +36,9 @@
 "continue" = "Continuer";
 "searchPlatform" = "Rechercher une console";
 "retry" = "Réessayer";
+"cancel" = "Annuler";
+"confirm" = "Confirmer";
+"saveChanges" = "Sauvegarder les modifications";
 "refresh" = "Actualiser";
 
 // Add Game Steps

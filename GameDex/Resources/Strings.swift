@@ -22,6 +22,8 @@ internal enum L10n {
   internal static let apiErrorDescription = L10n.tr("Localizable", "apiErrorDescription", fallback: "There has been an issue while fetching data")
   /// Oops!
   internal static let apiErrorTitle = L10n.tr("Localizable", "apiErrorTitle", fallback: "Oops!")
+  /// Cancel
+  internal static let cancel = L10n.tr("Localizable", "cancel", fallback: "Cancel")
   /// Coming soon...!
   internal static let comingSoon = L10n.tr("Localizable", "comingSoon", fallback: "Coming soon...!")
   /// Complete in box
@@ -30,6 +32,8 @@ internal enum L10n {
   internal static let completeness = L10n.tr("Localizable", "completeness", fallback: "Completeness")
   /// Condition
   internal static let condition = L10n.tr("Localizable", "condition", fallback: "Condition")
+  /// Confirm
+  internal static let confirm = L10n.tr("Localizable", "confirm", fallback: "Confirm")
   /// Continue
   internal static let `continue` = L10n.tr("Localizable", "continue", fallback: "Continue")
   /// Discover
@@ -84,8 +88,14 @@ internal enum L10n {
   internal static let refresh = L10n.tr("Localizable", "refresh", fallback: "Refresh")
   /// Region
   internal static let region = L10n.tr("Localizable", "region", fallback: "Region")
+  /// An error occured while removing data.
+  internal static let removeGameErrorDescription = L10n.tr("Localizable", "removeGameErrorDescription", fallback: "An error occured while removing data.")
+  /// The game was removed from your collection.
+  internal static let removeGameSuccessDescription = L10n.tr("Localizable", "removeGameSuccessDescription", fallback: "The game was removed from your collection.")
   /// Retry
   internal static let retry = L10n.tr("Localizable", "retry", fallback: "Retry")
+  /// Save changes
+  internal static let saveChanges = L10n.tr("Localizable", "saveChanges", fallback: "Save changes")
   /// An error occured while saving game details.
   internal static let saveGameErrorDescription = L10n.tr("Localizable", "saveGameErrorDescription", fallback: "An error occured while saving game details.")
   /// The game was saved to your collection.
@@ -108,6 +118,14 @@ internal enum L10n {
   internal static let successTitle = L10n.tr("Localizable", "successTitle", fallback: "Success")
   /// Title
   internal static let title = L10n.tr("Localizable", "title", fallback: "Title")
+  /// An error occured while updating data.
+  internal static let updateGameErrorDescription = L10n.tr("Localizable", "updateGameErrorDescription", fallback: "An error occured while updating data.")
+  /// The game information were updated.
+  internal static let updateGameSuccessDescription = L10n.tr("Localizable", "updateGameSuccessDescription", fallback: "The game information were updated.")
+  /// Are you sure you want to remove this game from your collection?
+  internal static let warningRemoveGameDescription = L10n.tr("Localizable", "warningRemoveGameDescription", fallback: "Are you sure you want to remove this game from your collection?")
+  /// One moment !
+  internal static let warningTitle = L10n.tr("Localizable", "warningTitle", fallback: "One moment !")
   /// Please try again later
   internal static let warningTryAgain = L10n.tr("Localizable", "warningTryAgain", fallback: "Please try again later")
   /// Year of acquisition
