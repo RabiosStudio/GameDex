@@ -16,10 +16,12 @@ final class StarRatingCellViewModel: CollectionFormCellViewModel {
     let height: CGFloat = DesignSystem.sizeSmall
     
     let title: String
-    var formType: AddGameFormType = .rating
     var value: ValueType?
+    var formType: FormType
     
-    init(title: String) {
+    init(title: String,
+         formType: FormType,
         self.title = title
+        self.formType = formType
     }
 }

@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum AddGameFormType: Equatable {
+enum AddGameFormType: FormType, Equatable {
     case yearOfAcquisition
     case gameCondition(PickerViewModel)
     case gameCompleteness(PickerViewModel)

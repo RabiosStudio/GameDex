@@ -65,16 +65,18 @@ final class TextFieldCell: UICollectionViewCell, CellConfigurable {
         }
         self.cellVM = cellVM
         
-        switch cellVM.formType {
-        case .storageArea:
-            self.textField.keyboardType = .asciiCapable
-        case .yearOfAcquisition:
-            self.textField.keyboardType = .asciiCapableNumberPad
-        case .gameRegion(let pickerVM), .gameCondition(let pickerVM), .gameCompleteness(let pickerVM):
-            self.pickerData = pickerVM.data
-            self.textField.inputView = pickerView
-        default:
-            break
+        if let addGameFormType = cellVM.formType as? AddGameFormType {
+            switch addGameFormType {
+            case .storageArea:
+                self.textField.keyboardType = .asciiCapable
+            case .yearOfAcquisition:
+                self.textField.keyboardType = .asciiCapableNumberPad
+            case .gameRegion(let pickerVM), .gameCondition(let pickerVM), .gameCompleteness(let pickerVM):
+                self.pickerData = pickerVM.data
+                self.textField.inputView = pickerView
+            default:
+                break
+            }
         }
         self.textField.autocorrectionType = .no
         self.textField.placeholder = cellVM.placeholder

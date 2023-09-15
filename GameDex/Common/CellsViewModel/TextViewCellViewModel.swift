@@ -15,9 +15,13 @@ final class TextViewCellViewModel: CollectionFormCellViewModel {
     
     let title: String
     var value: String?
-    var formType: AddGameFormType = .notes
+    var formType: AddGameFormType
+    var formType: FormType
     
-    init(title: String) {
+    init(title: String,
+         formType: FormType,
+    ) {
         self.title = title
+        self.formType = formType
     }
 }

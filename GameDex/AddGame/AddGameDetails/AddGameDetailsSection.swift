@@ -26,13 +26,13 @@ final class AddGameDetailsSection: Section {
         
         let yearOfAcquisitionCellVM = TextFieldCellViewModel(
             placeholder: L10n.yearOfAcquisition,
-            formType: .yearOfAcquisition
+            formType: AddGameFormType.yearOfAcquisition
         )
         self.cellsVM.append(yearOfAcquisitionCellVM)
         
         let conditionCellVM = TextFieldCellViewModel(
             placeholder: L10n.condition,
-            formType: .gameCondition(
+            formType: AddGameFormType.gameCondition(
                 PickerViewModel(
                     data: [GameCondition.allCases.map { $0.value }]
                 )
@@ -42,7 +42,7 @@ final class AddGameDetailsSection: Section {
         
         let completenessCellVM = TextFieldCellViewModel(
             placeholder: L10n.completeness,
-            formType: .gameCompleteness(
+            formType: AddGameFormType.gameCompleteness(
                 PickerViewModel(
                     data: [GameCompleteness.allCases.map { $0.value }]
                 )
@@ -52,7 +52,7 @@ final class AddGameDetailsSection: Section {
         
         let regionCellVM = TextFieldCellViewModel(
             placeholder: L10n.region,
-            formType: .gameRegion(
+            formType: AddGameFormType.gameRegion(
                 PickerViewModel(
                     data: [GameRegion.allCases.map { $0.rawValue }]
                 )
@@ -62,14 +62,20 @@ final class AddGameDetailsSection: Section {
         
         let storageAreaCellVM = TextFieldCellViewModel(
             placeholder: L10n.storageArea,
-            formType: .storageArea
+            formType: AddGameFormType.storageArea
         )
         self.cellsVM.append(storageAreaCellVM)
         
-        let personalRatingCellVM = StarRatingCellViewModel(title: L10n.personalRating)
+        let personalRatingCellVM = StarRatingCellViewModel(
+            title: L10n.personalRating,
+            formType: AddGameFormType.rating
+        )
         self.cellsVM.append(personalRatingCellVM)
         
-        let otherDetailsCellVM = TextViewCellViewModel(title: L10n.otherDetails)
+        let otherDetailsCellVM = TextViewCellViewModel(
+            title: L10n.otherDetails,
+            formType: AddGameFormType.notes
+        )
         self.cellsVM.append(otherDetailsCellVM)
     }
 }
