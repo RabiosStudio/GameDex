@@ -194,12 +194,22 @@ class ContainerViewController: UIViewController {
         guard let rightButtonItem = self.viewModel.rightButtonItem else {
             return
         }
+        
+        var buttonItemsConfigured = [BarButtonItem]()
+        for (index, item) in rightButtonItem.enumerated() {
+            buttonItemsConfigured.append(
+                BarButtonItem(
+                    image: item.image(), actionHandler: {
+                        [weak self] in
+                        self?.viewModel.didTapRightButtonItem(atIndex: index)
+                    }
+                )
+            )
+        }
+        
         switch rightButtonItem {
         default:
-            self.navigationItem.rightBarButtonItem = BarButtonItem(image: rightButtonItem.image()
-            ) { [weak self] in
-                self?.viewModel.didTapRightButtonItem()
-            }
+            self.navigationItem.rightBarButtonItems = buttonItemsConfigured
         }
     }
     

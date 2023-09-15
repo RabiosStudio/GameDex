@@ -11,7 +11,7 @@ final class MyCollectionViewModel: CollectionViewModel {
     var searchViewModel: SearchViewModel?
     var isBounceable: Bool = true
     var progress: Float?
-    var rightButtonItem: AnyBarButtonItem? = .add
+    var rightButtonItem: [AnyBarButtonItem]? = [.add]
     let screenTitle: String? = L10n.myCollection
     var sections: [Section] = []
     var collection: [SavedGame] = []
@@ -44,7 +44,7 @@ final class MyCollectionViewModel: CollectionViewModel {
         }
     }
     
-    func didTapRightButtonItem() {
+    func didTapRightButtonItem(atIndex: Int) {
         _ = Routing.shared.route(
             navigationStyle: .present(
                 controller: SelectAddGameMethodScreenFactory(

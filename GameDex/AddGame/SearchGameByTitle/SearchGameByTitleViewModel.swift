@@ -14,7 +14,7 @@ final class SearchGameByTitleViewModel: CollectionViewModel {
     )
     var isBounceable: Bool = true
     var progress: Float?
-    var rightButtonItem: AnyBarButtonItem? = .close
+    var rightButtonItem: [AnyBarButtonItem]? = [.close]
     let screenTitle: String? = L10n.searchGame
     var sections = [Section]()
     weak var containerDelegate: ContainerViewControllerDelegate?
@@ -48,7 +48,7 @@ final class SearchGameByTitleViewModel: CollectionViewModel {
         callback(error)
     }
     
-    func didTapRightButtonItem() {
+    func didTapRightButtonItem(atIndex: Int) {
         _ = Routing.shared.route(navigationStyle: .dismiss {})
     }
 }

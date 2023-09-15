@@ -16,7 +16,7 @@ final class AddGameDetailsViewModel: CollectionViewModel {
     var searchViewModel: SearchViewModel?
     var isBounceable: Bool = true
     var progress: Float?
-    var rightButtonItem: AnyBarButtonItem? = .close
+    var rightButtonItem: [AnyBarButtonItem]? = [.close]
     let screenTitle: String? = L10n.fillGameDetails
     var sections = [Section]()
     weak var containerDelegate: ContainerViewControllerDelegate?
@@ -45,7 +45,7 @@ final class AddGameDetailsViewModel: CollectionViewModel {
         callback(nil)
     }
     
-    func didTapRightButtonItem() {
+    func didTapRightButtonItem(atIndex: Int) {
         self.addGameDelegate?.didAddNewGame()
         _ =  Routing.shared.route(
             navigationStyle: .dismiss {
@@ -125,7 +125,7 @@ extension AddGameDetailsViewModel: PrimaryButtonDelegate {
                     )
                 )
                 // the right button item is .close so the method will dismiss the view presented
-                self?.didTapRightButtonItem()
+                self?.didTapRightButtonItem(atIndex: .zero)
             }
         }
     }

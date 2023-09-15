@@ -14,7 +14,7 @@ final class SelectPlatformViewModel: CollectionViewModel {
     )
     var isBounceable: Bool = true
     var progress: Float?
-    var rightButtonItem: AnyBarButtonItem? = .close
+    var rightButtonItem: [AnyBarButtonItem]? = [.close]
     let screenTitle: String? = L10n.selectPlatform
     var sections = [Section]()
     private var platforms: [Platform] = []
@@ -46,7 +46,7 @@ final class SelectPlatformViewModel: CollectionViewModel {
         }
     }
     
-    func didTapRightButtonItem() {
+    func didTapRightButtonItem(atIndex: Int) {
         _ = Routing.shared.route(navigationStyle: .dismiss {})
     }
     

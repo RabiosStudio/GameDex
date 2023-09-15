@@ -11,7 +11,7 @@ final class MyCollectionByPlatformsViewModel: CollectionViewModel {
     var searchViewModel: SearchViewModel?
     var isBounceable: Bool = true
     var progress: Float?
-    var rightButtonItem: AnyBarButtonItem?
+    var rightButtonItem: [AnyBarButtonItem]? = [.add, .search]
     let screenTitle: String?
     var sections = [Section]()
     weak var containerDelegate: ContainerViewControllerDelegate?
@@ -32,5 +32,5 @@ final class MyCollectionByPlatformsViewModel: CollectionViewModel {
         callback(nil)
     }
     
-    func didTapRightButtonItem() {}
+    func didTapRightButtonItem(atIndex: Int) {
 }
