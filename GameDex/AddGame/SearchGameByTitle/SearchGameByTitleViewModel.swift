@@ -34,11 +34,12 @@ final class SearchGameByTitleViewModel: CollectionViewModel {
         self.networkingSession = networkingSession
         self.platform = platform
         self.addGameDelegate = addGameDelegate
-        self.sections = [SearchGameByTitleSection(
-            gamesQuery: gamesQuery,
-            platform: self.platform,
-            addGameDelegate: addGameDelegate
-        )
+        self.sections = [
+            SearchGameByTitleSection(
+                gamesQuery: gamesQuery,
+                platform: self.platform,
+                addGameDelegate: addGameDelegate
+            )
         ]
     }
     

@@ -14,11 +14,14 @@
 "errorTitle" = "Error";
 "apiErrorTitle" = "Oops!";
 "apiErrorDescription" = "There has been an issue while fetching data";
-"saveGameErrorTitle" = "An error occured while saving game details.";
+"saveGameErrorDescription" = "An error occured while saving game details.";
+"fetchGamesErrorDescription" = "An error occured while fetching data.";
 
 // Success
 "successTitle" = "Success";
-"gameSavedSuccessTitle" = "The game was saved to your collection";
+"saveGameSuccessDescription" = "The game was saved to your collection.";
+// Warnings
+"warningTryAgain" = "Please try again later";
 
 // Button
 "addAGame" = "Add a game";
@@ -26,6 +29,7 @@
 "continue" = "Continue";
 "searchPlatform" = "Search a platform";
 "retry" = "Retry";
+"refresh" = "Refresh";
 
 // Add Game Steps
 "stepOneOutOfThree" = "Step 1/3";

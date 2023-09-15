@@ -17,7 +17,7 @@ enum MyCollectionError: EmptyError {
         case .noItems:
             return L10n.emptyMyCollectionTitle
         case .fetchError:
-            return "Error fetching data"
+            return L10n.fetchGamesErrorDescription
         }
     }
     
@@ -26,7 +26,7 @@ enum MyCollectionError: EmptyError {
         case .noItems:
             return L10n.emptyMyCollectionDescription
         case .fetchError:
-            return "Please try again later"
+            return L10n.warningTryAgain
         }
     }
     
@@ -44,7 +44,7 @@ enum MyCollectionError: EmptyError {
         case .noItems:
             return L10n.addAGame
         case .fetchError:
-            return "Refresh"
+            return L10n.refresh
         }
     }
     
