@@ -10,7 +10,7 @@ import UIKit
 import SwiftEntryKit
 
 // sourcery: AutoMockable
-protocol AlertServiceDelegate: AnyObject {
+protocol AlertDisplayerDelegate: AnyObject {
     func didTapOkButton()
 }
 
@@ -20,11 +20,11 @@ protocol AlertDisplayer {
     func presentBasicAlert(parameters: AlertViewModel)
 }
 
-class AlertView: AlertDisplayer {
+class AlertDisplayerImpl: AlertDisplayer {
     
-    weak var alertDelegate: AlertServiceDelegate?
+    weak var alertDelegate: AlertDisplayerDelegate?
     
-    init(alertDelegate: AlertServiceDelegate?) {
+    init(alertDelegate: AlertDisplayerDelegate?) {
         self.alertDelegate = alertDelegate
     }
     

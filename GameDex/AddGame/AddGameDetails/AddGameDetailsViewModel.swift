@@ -109,17 +109,19 @@ extension AddGameDetailsViewModel: PrimaryButtonDelegate {
         
         self.localDatabase.add(newEntity: gameToSave) { [weak self] error in
             if error != nil {
-                self?.alertDisplayer.presentAlert(
-                    title: L10n.errorTitle,
-                    description: L10n.saveGameErrorTitle,
-                    type: .error
+                self?.alertDisplayer.presentTopFloatAlert(
+                    parameters: AlertViewModel(
+                        alertType: .error,
+                        description: L10n.saveGameErrorDescription
+                    )
                 )
                 self?.configureBottomView()
             } else {
-                self?.alertDisplayer.presentAlert(
-                    title: L10n.successTitle,
-                    description: L10n.gameSavedSuccessTitle,
-                    type: .success
+                self?.alertDisplayer.presentTopFloatAlert(
+                    parameters: AlertViewModel(
+                        alertType: .success,
+                        description: L10n.saveGameSuccessDescription
+                    )
                 )
                 // the right button item is .close so the method will dismiss the view presented
                 self?.didTapRightButtonItem()

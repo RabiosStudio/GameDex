@@ -53,7 +53,7 @@
 		254E8B912A8B6BC000C101C8 /* Assets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254E8B902A8B6BC000C101C8 /* Assets.swift */; };
 		254E8B942A8B6BCA00C101C8 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254E8B932A8B6BCA00C101C8 /* Strings.swift */; };
 		25939FF72AAF3C09000FC253 /* DatabaseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25939FF62AAF3C09000FC253 /* DatabaseError.swift */; };
-		25939FFB2AAF5D01000FC253 /* AlertScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25939FFA2AAF5D01000FC253 /* AlertScreen.swift */; };
+		25939FFB2AAF5D01000FC253 /* AlertDisplayerImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25939FFA2AAF5D01000FC253 /* AlertDisplayerImpl.swift */; };
 		25939FFD2AAF6FBF000FC253 /* AddGameFormType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25939FFC2AAF6FBF000FC253 /* AddGameFormType.swift */; };
 		2593A0092AB19373000FC253 /* MyCollectionSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2593A0082AB19373000FC253 /* MyCollectionSection.swift */; };
 		25AE1EAE2A8BB89400F2D06A /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AE1EAD2A8BB89400F2D06A /* Section.swift */; };
@@ -123,6 +123,8 @@
 		25EDF7A72AB22E4700648717 /* GameCollected.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EDF7A62AB22E4600648717 /* GameCollected.swift */; };
 		25EDF7AF2AB2E49A00648717 /* MockData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EDF7AE2AB2E49A00648717 /* MockData.swift */; };
 		25EDF7B12AB3053A00648717 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EDF7B02AB3053A00648717 /* Constants.swift */; };
+		25EDF7BE2AB43E0100648717 /* AlertViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EDF7BD2AB43E0100648717 /* AlertViewModel.swift */; };
+		25EDF7C02AB43E3100648717 /* AlertType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EDF7BF2AB43E3100648717 /* AlertType.swift */; };
 		25EDF7C22AB463B000648717 /* FormType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EDF7C12AB463B000648717 /* FormType.swift */; };
 		25EDF7C42AB46A4F00648717 /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EDF7C32AB46A4F00648717 /* Database.swift */; };
 		25F6632B2A94CF13005F5412 /* ContinueContentViewFactoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F663282A94CF13005F5412 /* ContinueContentViewFactoryTests.swift */; };
@@ -190,7 +192,7 @@
 		254E8B902A8B6BC000C101C8 /* Assets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Assets.swift; sourceTree = "<group>"; };
 		254E8B932A8B6BCA00C101C8 /* Strings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
 		25939FF62AAF3C09000FC253 /* DatabaseError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseError.swift; sourceTree = "<group>"; };
-		25939FFA2AAF5D01000FC253 /* AlertScreen.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertScreen.swift; sourceTree = "<group>"; };
+		25939FFA2AAF5D01000FC253 /* AlertDisplayerImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertDisplayerImpl.swift; sourceTree = "<group>"; };
 		25939FFC2AAF6FBF000FC253 /* AddGameFormType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddGameFormType.swift; sourceTree = "<group>"; };
 		2593A0082AB19373000FC253 /* MyCollectionSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCollectionSection.swift; sourceTree = "<group>"; };
 		25AE1EAD2A8BB89400F2D06A /* Section.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Section.swift; sourceTree = "<group>"; };
@@ -263,6 +265,8 @@
 		25EDF7A62AB22E4600648717 /* GameCollected.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameCollected.swift; sourceTree = "<group>"; };
 		25EDF7AE2AB2E49A00648717 /* MockData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockData.swift; sourceTree = "<group>"; };
 		25EDF7B02AB3053A00648717 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		25EDF7BD2AB43E0100648717 /* AlertViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertViewModel.swift; sourceTree = "<group>"; };
+		25EDF7BF2AB43E3100648717 /* AlertType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertType.swift; sourceTree = "<group>"; };
 		25EDF7C12AB463B000648717 /* FormType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormType.swift; sourceTree = "<group>"; };
 		25EDF7C32AB46A4F00648717 /* Database.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
 		25F663282A94CF13005F5412 /* ContinueContentViewFactoryTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContinueContentViewFactoryTests.swift; sourceTree = "<group>"; };
@@ -499,7 +503,9 @@
 				25AE1EF62A8E664E00F2D06A /* ButtonViewModel.swift */,
 				25AE1EF82A8E666E00F2D06A /* ButtonStyle.swift */,
 				25AE1F182A8F910800F2D06A /* BarButtonItem.swift */,
-				25939FFA2AAF5D01000FC253 /* AlertScreen.swift */,
+				25939FFA2AAF5D01000FC253 /* AlertDisplayerImpl.swift */,
+				25EDF7BD2AB43E0100648717 /* AlertViewModel.swift */,
+				25EDF7BF2AB43E3100648717 /* AlertType.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -1061,13 +1067,15 @@
 				25AE1EF72A8E664E00F2D06A /* ButtonViewModel.swift in Sources */,
 				25AE1EDA2A8D236000F2D06A /* MyCollectionError.swift in Sources */,
 				25AE1F0C2A8F508700F2D06A /* UIViewController+Navigation.swift in Sources */,
+				25EDF7C02AB43E3100648717 /* AlertType.swift in Sources */,
+				25EDF7BE2AB43E0100648717 /* AlertViewModel.swift in Sources */,
 				25EB245B2AA9F0360024F01C /* DTTextField+Extension.swift in Sources */,
 				251C86BC2A97A29D0020C794 /* AlamofireAPI.swift in Sources */,
 				251C86BE2A97A29D0020C794 /* APIMethod.swift in Sources */,
 				25AE1F302A92234000F2D06A /* UINavigationController+ProgressBar.swift in Sources */,
 				251C87392A9D08100020C794 /* SearchGameByTitleScreenFactory.swift in Sources */,
 				251C86F62A994EBF0020C794 /* SearchViewModel.swift in Sources */,
-				25939FFB2AAF5D01000FC253 /* AlertScreen.swift in Sources */,
+				25939FFB2AAF5D01000FC253 /* AlertDisplayerImpl.swift in Sources */,
 				25AE1EBE2A8CB85900F2D06A /* CellViewModel.swift in Sources */,
 				251C86BF2A97A29D0020C794 /* GetPlatformsEndpoint.swift in Sources */,
 				251C86D62A9899F40020C794 /* Platform.swift in Sources */,
