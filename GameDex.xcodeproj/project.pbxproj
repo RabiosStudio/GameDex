@@ -75,7 +75,6 @@
 		25AE1EEC2A8E4E6500F2D06A /* TextFieldCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AE1EEB2A8E4E6500F2D06A /* TextFieldCell.swift */; };
 		25AE1EF52A8E663B00F2D06A /* PrimaryButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AE1EF42A8E663B00F2D06A /* PrimaryButton.swift */; };
 		25AE1EF72A8E664E00F2D06A /* ButtonViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AE1EF62A8E664E00F2D06A /* ButtonViewModel.swift */; };
-		25AE1EF92A8E666E00F2D06A /* ButtonStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AE1EF82A8E666E00F2D06A /* ButtonStyle.swift */; };
 		25AE1F022A8F499800F2D06A /* Navigator+NavigationStyle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AE1F012A8F499800F2D06A /* Navigator+NavigationStyle.swift */; };
 		25AE1F042A8F4A6200F2D06A /* Routing.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AE1F032A8F4A6200F2D06A /* Routing.swift */; };
 		25AE1F082A8F4D2000F2D06A /* NavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AE1F072A8F4D2000F2D06A /* NavigationController.swift */; };
@@ -218,7 +217,6 @@
 		25AE1EEB2A8E4E6500F2D06A /* TextFieldCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldCell.swift; sourceTree = "<group>"; };
 		25AE1EF42A8E663B00F2D06A /* PrimaryButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PrimaryButton.swift; sourceTree = "<group>"; };
 		25AE1EF62A8E664E00F2D06A /* ButtonViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonViewModel.swift; sourceTree = "<group>"; };
-		25AE1EF82A8E666E00F2D06A /* ButtonStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonStyle.swift; sourceTree = "<group>"; };
 		25AE1F012A8F499800F2D06A /* Navigator+NavigationStyle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Navigator+NavigationStyle.swift"; sourceTree = "<group>"; };
 		25AE1F032A8F4A6200F2D06A /* Routing.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Routing.swift; sourceTree = "<group>"; };
 		25AE1F072A8F4D2000F2D06A /* NavigationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationController.swift; sourceTree = "<group>"; };
@@ -510,7 +508,6 @@
 				25EB24562AA8B39C0024F01C /* PickerViewModel.swift */,
 				25AE1EF42A8E663B00F2D06A /* PrimaryButton.swift */,
 				25AE1EF62A8E664E00F2D06A /* ButtonViewModel.swift */,
-				25AE1EF82A8E666E00F2D06A /* ButtonStyle.swift */,
 				25AE1F182A8F910800F2D06A /* BarButtonItem.swift */,
 				25939FFA2AAF5D01000FC253 /* AlertDisplayerImpl.swift */,
 				25EDF7BD2AB43E0100648717 /* AlertViewModel.swift */,
@@ -1046,7 +1043,6 @@
 				25AE1F042A8F4A6200F2D06A /* Routing.swift in Sources */,
 				25AE1F192A8F910800F2D06A /* BarButtonItem.swift in Sources */,
 				25AE1ECE2A8D1D6F00F2D06A /* EmptyReason.swift in Sources */,
-				25AE1EF92A8E666E00F2D06A /* ButtonStyle.swift in Sources */,
 				25EDF79D2AB1C2E200648717 /* MyCollectionByPlatformsSection.swift in Sources */,
 				251C86C12A97A29D0020C794 /* APIEndpoint.swift in Sources */,
 				25EDF7C42AB46A4F00648717 /* Database.swift in Sources */,

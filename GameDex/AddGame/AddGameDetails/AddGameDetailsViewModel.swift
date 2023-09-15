@@ -56,7 +56,8 @@ final class AddGameDetailsViewModel: CollectionViewModel {
     private func configureBottomView() {
         let buttonContentViewFactory = PrimaryButtonContentViewFactory(
             delegate: self,
-            buttonTitle: L10n.addGameToCollection
+            buttonTitle: L10n.addGameToCollection,
+            shouldEnable: true
         )
         self.containerDelegate?.configureBottomView(
             contentViewFactory: buttonContentViewFactory
