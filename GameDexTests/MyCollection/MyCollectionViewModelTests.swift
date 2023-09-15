@@ -14,7 +14,7 @@ final class MyCollectionViewModelTests: XCTestCase {
         // Given
         let viewModel = MyCollectionViewModel(
             localDatabase: LocalDatabase(),
-            alertDisplayer: AlertServiceMock()
+            alertDisplayer: AlertDisplayerMock()
         )
         // When
         viewModel.loadData { error in
@@ -31,7 +31,7 @@ final class MyCollectionViewModelTests: XCTestCase {
         // Given
         let viewModel = MyCollectionViewModel(
             localDatabase: LocalDatabase(),
-            alertDisplayer: AlertServiceMock()
+            alertDisplayer: AlertDisplayerMock()
         )
         // When
         let numberOfSections = viewModel.numberOfSections()
@@ -43,7 +43,7 @@ final class MyCollectionViewModelTests: XCTestCase {
         // Given
         let viewModel = MyCollectionViewModel(
             localDatabase: LocalDatabase(),
-            alertDisplayer: AlertServiceMock()
+            alertDisplayer: AlertDisplayerMock()
         )
         // When
         let numberOfItems = viewModel.numberOfItems(in: .zero)

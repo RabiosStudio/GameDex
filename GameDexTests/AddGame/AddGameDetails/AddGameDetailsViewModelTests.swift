@@ -11,6 +11,16 @@ import SwiftyMocky
 
 final class AddGameDetailsViewModelTests: XCTestCase {
     
+    // MARK: Setup
+    
+    override class func setUp() {
+        super.setUp()
+        Matcher.default.register(
+            AlertViewModel.self,
+            match: Matcher.AlertViewModel.matcher
+        )
+    }
+    
     // MARK: Tests
     
     func test_init_ThenShouldSetPropertiesCorrectly() {
@@ -19,7 +29,7 @@ final class AddGameDetailsViewModelTests: XCTestCase {
             game: MockData.game,
             localDatabase: DatabaseMock(),
             addGameDelegate: AddGameDetailsViewModelDelegateMock(),
-            alertDisplayer: AlertServiceMock()
+            alertDisplayer: AlertDisplayerMock()
         )
         
         // Then
@@ -34,7 +44,7 @@ final class AddGameDetailsViewModelTests: XCTestCase {
             game: MockData.game,
             localDatabase: DatabaseMock(),
             addGameDelegate: AddGameDetailsViewModelDelegateMock(),
-            alertDisplayer: AlertServiceMock()
+            alertDisplayer: AlertDisplayerMock()
         )
         
         var callbackIsCalled = false
@@ -45,17 +55,17 @@ final class AddGameDetailsViewModelTests: XCTestCase {
         XCTAssertTrue(callbackIsCalled)
     }
     
-    func test_didTapPrimaryButton_ThenNavigationStyleIsDismissAndAlertParametersAreCorrect() {
+    func test_didTapPrimaryButton_GivenNoError_ThenNavigationStyleIsDismissAndAlertParametersAreCorrect() {
         // Given
         let expectation = XCTestExpectation()
         let localDatabase = DatabaseMock()
-        let alertService = AlertServiceMock()
-
+        let alertDisplayer = AlertDisplayerMock()
+        
         let viewModel  = AddGameDetailsViewModel(
             game: MockData.game,
             localDatabase: localDatabase,
             addGameDelegate: AddGameDetailsViewModelDelegateMock(),
-            alertDisplayer: alertService
+            alertDisplayer: alertDisplayer
         )
         
         localDatabase.perform(
@@ -64,15 +74,19 @@ final class AddGameDetailsViewModelTests: XCTestCase {
                 callback: .any,
                 perform: { saveGame, completion in
                     completion(nil)
+                    
                     // Then
-                    alertService.verify(
-                        .presentAlert(
-                            title: .value(L10n.successTitle),
-                            description: .value(L10n.gameSavedSuccessTitle),
-                            type: .value(.success)
+                    alertDisplayer.verify(
+                        .presentTopFloatAlert(
+                            parameters: .value(
+                                AlertViewModel(
+                                    alertType: .success,
+                                    description: L10n.saveGameSuccessDescription
+                                )
+                            )
                         )
                     )
-                                        
+                    
                     if case .dismiss = Routing.shared.lastNavigationStyle {
                         XCTAssertTrue(true)
                     } else {
@@ -83,10 +97,50 @@ final class AddGameDetailsViewModelTests: XCTestCase {
             )
         )
         
-        // When
         viewModel.didTapPrimaryButton()
         
+        wait(for: [expectation], timeout: Constants.timeout)
+    }
+    
+    func test_didTapPrimaryButton_GivenDatabaseError_ThenAlertParametersAreSetCorrectly() {
+        // Given
+        let expectation = XCTestExpectation()
+        let localDatabase = DatabaseMock()
+        let alertDisplayer = AlertDisplayerMock()
+        
+        let viewModel  = AddGameDetailsViewModel(
+            game: MockData.game,
+            localDatabase: localDatabase,
+            addGameDelegate: AddGameDetailsViewModelDelegateMock(),
+            alertDisplayer: alertDisplayer
+        )
+        
+        localDatabase.perform(
+            .add(
+                newEntity: .any,
+                callback: .any,
+                perform: { saveGame, completion in
+                    completion(DatabaseError.saveError)
+                    
+                    // Then
+                    alertDisplayer.verify(
+                        .presentTopFloatAlert(
+                            parameters: .value(
+                                AlertViewModel(
+                                    alertType: .error,
+                                    description: L10n.saveGameErrorDescription
+                                )
+                            )
+                        )
+                    )
+                    expectation.fulfill()
+                }
+            )
+        )
+        
+        viewModel.didTapPrimaryButton()
         
         wait(for: [expectation], timeout: Constants.timeout)
     }
 }
+

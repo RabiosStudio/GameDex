@@ -36,7 +36,11 @@ final class AddGameDetailsSectionTests: XCTestCase {
         }
         
         for formCellVM in formCellsVM {
-            switch formCellVM.formType {
+            guard let formType = formCellVM.formType as? AddGameFormType else {
+                XCTFail("Wrong type")
+                return
+            }
+            switch formType {
             case .yearOfAcquisition:
                 guard let acquisitionYearCellVM = formCellVM as? TextFieldCellViewModel else {
                     XCTFail("Wrong type")
@@ -44,13 +48,14 @@ final class AddGameDetailsSectionTests: XCTestCase {
                 }
                 XCTAssertEqual(acquisitionYearCellVM.placeholder, L10n.yearOfAcquisition)
             case .gameCondition(_):
-                guard let gameConditionCellVM = formCellVM as? TextFieldCellViewModel else {
+                guard let gameConditionCellVM = formCellVM as? TextFieldCellViewModel,
+                      let gameConditionCellVMFormType = gameConditionCellVM.formType as? AddGameFormType else {
                     XCTFail("Wrong type")
                     return
                 }
                 XCTAssertEqual(gameConditionCellVM.placeholder, L10n.condition)
                 XCTAssertEqual(
-                    gameConditionCellVM.formType,
+                    gameConditionCellVMFormType,
                     .gameCondition(
                         PickerViewModel(
                             data: [GameCondition.allCases.map { $0.value }]
@@ -58,13 +63,14 @@ final class AddGameDetailsSectionTests: XCTestCase {
                     )
                 )
             case .gameCompleteness(_):
-                guard let gameCompletenessCellVM = formCellVM as? TextFieldCellViewModel else {
+                guard let gameCompletenessCellVM = formCellVM as? TextFieldCellViewModel,
+                      let gameCompletenessCellVMFormType = gameCompletenessCellVM.formType as? AddGameFormType  else {
                     XCTFail("Wrong type")
                     return
                 }
                 XCTAssertEqual(gameCompletenessCellVM.placeholder, L10n.completeness)
                 XCTAssertEqual(
-                    gameCompletenessCellVM.formType,
+                    gameCompletenessCellVMFormType,
                     .gameCompleteness(
                         PickerViewModel(
                             data: [GameCompleteness.allCases.map { $0.value }]
@@ -72,13 +78,14 @@ final class AddGameDetailsSectionTests: XCTestCase {
                     )
                 )
             case .gameRegion(_):
-                guard let gameRegionCellVM = formCellVM as? TextFieldCellViewModel else {
+                guard let gameRegionCellVM = formCellVM as? TextFieldCellViewModel,
+                      let gameRegionCellVMFormType = gameRegionCellVM.formType as? AddGameFormType else {
                     XCTFail("Wrong type")
                     return
                 }
                 XCTAssertEqual(gameRegionCellVM.placeholder, L10n.region)
                 XCTAssertEqual(
-                    gameRegionCellVM.formType,
+                    gameRegionCellVMFormType,
                     .gameRegion(
                         PickerViewModel(
                             data: [GameRegion.allCases.map { $0.rawValue }]
