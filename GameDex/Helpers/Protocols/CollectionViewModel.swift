@@ -14,6 +14,7 @@ protocol CollectionViewModel {
     var searchViewModel: SearchViewModel? { get }
     var sections: [Section] { get }
     var progress: Float? { get }
+    var containerDelegate: ContainerViewControllerDelegate? { get set }
     func loadData(callback: @escaping (EmptyError?) -> ())
     func didTapRightButtonItem()
 }

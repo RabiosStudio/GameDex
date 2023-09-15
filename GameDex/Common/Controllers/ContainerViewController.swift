@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 // sourcery: AutoMockable
-public protocol ContainerViewControllerDelegate: AnyObject {
+protocol ContainerViewControllerDelegate: AnyObject {
     func configureBottomView(contentViewFactory: ContentViewFactory)
     func reloadSections()
 }

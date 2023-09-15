@@ -5,19 +5,12 @@ class TabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        var vc1: UIViewController {
-            let viewModel = MyCollectionViewModel(
+        let vc1 = self.createViewController(
+            viewModel: MyCollectionViewModel(
                 localDatabase: LocalDatabase(),
                 alertDisplayer: AlertScreen()
             )
-            let layout = UICollectionViewFlowLayout()
-            let containerController = ContainerViewController(
-                viewModel: viewModel,
-                layout: layout
-            )
-            viewModel.containerDelegate = containerController
-            return containerController
-        }
+        )
         
         let vc2 = UIViewController()
         let vc3 = UIViewController()
@@ -32,5 +25,16 @@ class TabBarController: UITabBarController {
         
         setViewControllers([nav1, nav2, nav3], animated: false)
         tabBar.tintColor = .systemRed
+    }
+    
+    private func createViewController(viewModel: CollectionViewModel) -> UIViewController {
+        var viewModel = viewModel
+        let layout = UICollectionViewFlowLayout()
+        let containerController = ContainerViewController(
+            viewModel: viewModel,
+            layout: layout
+        )
+        viewModel.containerDelegate = containerController
+        return containerController
     }
 }
