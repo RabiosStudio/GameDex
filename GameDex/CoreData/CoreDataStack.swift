@@ -12,14 +12,11 @@ import CoreData
 
 class CoreDataStack {
     static let persistentContainerName = "GameDex"
-    static let sharedInstance = CoreDataStack()
     
     static let model: NSManagedObjectModel = {
         let modelURL = Bundle.main.url(forResource: persistentContainerName, withExtension: "momd")!
         return NSManagedObjectModel(contentsOf: modelURL)!
     }()
-    
-    init() {}
     
     lazy var viewContext: NSManagedObjectContext = {
         return persistentContainer.viewContext
