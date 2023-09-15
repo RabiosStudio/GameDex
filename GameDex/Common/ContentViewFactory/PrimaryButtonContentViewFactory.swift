@@ -10,11 +10,10 @@ import UIKit
 
 final class PrimaryButtonContentViewFactory: ContentViewFactory {
     lazy var bottomView: UIView = {
-        let continueButton = PrimaryButton(delegate: self.delegate)
+        let continueButton = PrimaryButton(delegate: self.delegate, shouldEnable: true)
         continueButton.configure(
             viewModel: ButtonViewModel(
-                title: self.buttonTitle,
-                buttonStyle: .regular
+                title: self.buttonTitle
             )
         )
         continueButton.layoutMargins = UIEdgeInsets(

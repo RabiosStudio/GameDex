@@ -7,17 +7,21 @@
 
 import Foundation
 
-final class StarRatingCellViewModel: CollectionCellViewModel {
+final class StarRatingCellViewModel: CollectionFormCellViewModel {
+    typealias ValueType = Int
+    
     var cellClass: AnyClass = StarRatingCell.self
     var indexPath: IndexPath?
     var navigationStyle: NavigationStyle?
-    let size: CGFloat = DesignSystem.sizeSmall
-    var rating: Double
+    let height: CGFloat = DesignSystem.sizeSmall
     
     let title: String
+    var value: ValueType?
+    var formType: FormType
     
-    init(title: String) {
+    init(title: String,
+         formType: FormType,
         self.title = title
-        self.rating = .zero
+        self.formType = formType
     }
 }

@@ -13,7 +13,7 @@ final class LabelCellViewModelTests: XCTestCase {
     func test_init_GivenCorrectParameters_ThenShouldSetPropertiesCorrectly() {
         // Given
         let text = "Title"
-        let screenFactory = SelectPlatformScreenFactory()
+        let screenFactory = SelectPlatformScreenFactory(delegate: AddGameDetailsViewModelDelegateMock())
         // When
         let cellVM = LabelCellViewModel(
             text: text,

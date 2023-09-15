@@ -11,39 +11,6 @@ import SwiftyMocky
 
 final class SearchGameByTitleViewModelTests: XCTestCase {
     
-    // MARK: Properties
-    
-    let platform =  Platform(title: "Nintendo Switch", id: 157)
-    let searchQuery = "Zelda"
-    let searchGamesData = SearchGamesData(
-        offset: .zero,
-        statusCode: 1,
-        results: [
-            GameData(
-                deck: "description",
-                guid: "id",
-                image: Image(mediumURL: "mediumSize",
-                             screenURL: "BigSize",
-                             imageTags: "imageTags"),
-                imageTags: [ImageTag(apiDetailURL: "", name: "", total: 1)],
-                name: "The Legend of Zelda: Breath of the Wild",
-                originalReleaseDate: "releaseDate",
-                platforms: [PlatformInfo(id: 157, name: "Nintendo Switch", abbreviation: "NSW")],
-                siteDetailURL: "url"),
-            GameData(
-                deck: "description",
-                guid: "id",
-                image: Image(mediumURL: "mediumSize",
-                             screenURL: "BigSize",
-                             imageTags: "imageTags"),
-                imageTags: [ImageTag(apiDetailURL: "", name: "", total: 1)],
-                name: "The Legend of Zelda: Tears of the Kingdom",
-                originalReleaseDate: "releaseDate",
-                platforms: [PlatformInfo(id: 157, name: "Nintendo Switch", abbreviation: "NSW")],
-                siteDetailURL: "url")
-        ]
-    )
-    
     // MARK: Setup
     
     override class func setUp() {
@@ -63,7 +30,8 @@ final class SearchGameByTitleViewModelTests: XCTestCase {
         // When
         let viewModel = SearchGameByTitleViewModel(
             networkingSession: networkingSession,
-            platform: self.platform
+            platform: MockData.platform,
+            addGameDelegate: AddGameDetailsViewModelDelegateMock()
         )
         
         // Then
@@ -78,7 +46,8 @@ final class SearchGameByTitleViewModelTests: XCTestCase {
         let networkingSession = APIMock()
         let viewModel = SearchGameByTitleViewModel(
             networkingSession: networkingSession,
-            platform: self.platform
+            platform: MockData.platform,
+            addGameDelegate: AddGameDetailsViewModelDelegateMock()
         )
         
         // When
@@ -88,7 +57,7 @@ final class SearchGameByTitleViewModelTests: XCTestCase {
                 XCTFail("Error type is not correct")
                 return
             }
-            XCTAssertEqual(error, AddGameError.noSearch(platformName: self.platform.title))
+            XCTAssertEqual(error, AddGameError.noSearch(platformName: MockData.platform.title))
         }
     }
     
@@ -96,7 +65,11 @@ final class SearchGameByTitleViewModelTests: XCTestCase {
         // Given
         let expectation = XCTestExpectation(description: "perform loadData() asynchronously")
         
-        let endpoint = GetGamesEndpoint(platformId: self.platform.id, title: self.platform.title)
+        let endpoint = GetGamesEndpoint(
+            platformId: MockData.platform.id,
+            title: MockData.platform.title
+        )
+        
         let networkingSession = APIMock()
         networkingSession.given(
             .getData(
@@ -107,11 +80,12 @@ final class SearchGameByTitleViewModelTests: XCTestCase {
         
         let viewModel = SearchGameByTitleViewModel(
             networkingSession: networkingSession,
-            platform: self.platform
+            platform: MockData.platform,
+            addGameDelegate: AddGameDetailsViewModelDelegateMock()
         )
         
         // When
-        viewModel.startSearch(from: self.searchQuery) { error in
+        viewModel.startSearch(from: MockData.searchQuery) { error in
             // Then
             guard let error = error as? AddGameError else {
                 XCTFail("Error type is not correct")
@@ -121,14 +95,18 @@ final class SearchGameByTitleViewModelTests: XCTestCase {
             expectation.fulfill()
         }
         
-        wait(for: [expectation], timeout: 1.0)
+        wait(for: [expectation], timeout: Constants.timeout)
     }
     
     func test_startSearch_GivenAPIErrorWrongURL_ThenShouldReturnAddGameErrorServer() {
         // Given
         let expectation = XCTestExpectation(description: "perform loadData() asynchronously")
         
-        let endpoint = GetGamesEndpoint(platformId: self.platform.id, title: self.platform.title)
+        let endpoint = GetGamesEndpoint(
+            platformId: MockData.platform.id,
+            title: MockData.platform.title
+        )
+        
         let networkingSession = APIMock()
         networkingSession.given(
             .getData(
@@ -139,11 +117,12 @@ final class SearchGameByTitleViewModelTests: XCTestCase {
         
         let viewModel = SearchGameByTitleViewModel(
             networkingSession: networkingSession,
-            platform: self.platform
+            platform: MockData.platform,
+            addGameDelegate: AddGameDetailsViewModelDelegateMock()
         )
         
         // When
-        viewModel.startSearch(from: self.searchQuery) { error in
+        viewModel.startSearch(from: MockData.searchQuery) { error in
             // Then
             guard let error = error as? AddGameError else {
                 XCTFail("Error type is not correct")
@@ -153,14 +132,18 @@ final class SearchGameByTitleViewModelTests: XCTestCase {
             expectation.fulfill()
         }
         
-        wait(for: [expectation], timeout: 1.0)
+        wait(for: [expectation], timeout: Constants.timeout)
     }
     
     func test_startSearch_GivenAPIErrorNoData_ThenShouldReturnAddGameErrorServer() {
         // Given
         let expectation = XCTestExpectation(description: "perform loadData() asynchronously")
         
-        let endpoint = GetGamesEndpoint(platformId: self.platform.id, title: self.platform.title)
+        let endpoint = GetGamesEndpoint(
+            platformId: MockData.platform.id,
+            title: MockData.platform.title
+        )
+        
         let networkingSession = APIMock()
         networkingSession.given(
             .getData(
@@ -171,11 +154,12 @@ final class SearchGameByTitleViewModelTests: XCTestCase {
         
         let viewModel = SearchGameByTitleViewModel(
             networkingSession: networkingSession,
-            platform: self.platform
+            platform: MockData.platform,
+            addGameDelegate: AddGameDetailsViewModelDelegateMock()
         )
         
         // When
-        viewModel.startSearch(from: self.searchQuery) { error in
+        viewModel.startSearch(from: MockData.searchQuery) { error in
             // Then
             guard let error = error as? AddGameError else {
                 XCTFail("Error type is not correct")
@@ -185,14 +169,18 @@ final class SearchGameByTitleViewModelTests: XCTestCase {
             expectation.fulfill()
         }
         
-        wait(for: [expectation], timeout: 1.0)
+        wait(for: [expectation], timeout: Constants.timeout)
     }
     
     func test_startSearch_GivenAPIErrorParsing_ThenShouldReturnAddGameErrorServer() {
         // Given
         let expectation = XCTestExpectation(description: "perform loadData() asynchronously")
         
-        let endpoint = GetGamesEndpoint(platformId: self.platform.id, title: self.platform.title)
+        let endpoint = GetGamesEndpoint(
+            platformId: MockData.platform.id,
+            title: MockData.platform.title
+        )
+        
         let networkingSession = APIMock()
         networkingSession.given(
             .getData(
@@ -203,11 +191,12 @@ final class SearchGameByTitleViewModelTests: XCTestCase {
         
         let viewModel = SearchGameByTitleViewModel(
             networkingSession: networkingSession,
-            platform: self.platform
+            platform: MockData.platform,
+            addGameDelegate: AddGameDetailsViewModelDelegateMock()
         )
         
         // When
-        viewModel.startSearch(from: self.searchQuery) { error in
+        viewModel.startSearch(from: MockData.searchQuery) { error in
             // Then
             guard let error = error as? AddGameError else {
                 XCTFail("Error type is not correct")
@@ -217,42 +206,47 @@ final class SearchGameByTitleViewModelTests: XCTestCase {
             expectation.fulfill()
         }
         
-        wait(for: [expectation], timeout: 1.0)
+        wait(for: [expectation], timeout: Constants.timeout)
     }
     
     func test_startSearch_GivenNoAPIError_ThenShouldReturnData() {
         // Given
         let expectation = XCTestExpectation(description: "perform loadData() asynchronously")
         
-        let endpoint = GetGamesEndpoint(platformId: self.platform.id, title: self.platform.title)
+        let endpoint = GetGamesEndpoint(
+            platformId: MockData.platform.id,
+            title: MockData.platform.title
+        )
+        
         let networkingSession = APIMock()
         
         networkingSession.given(
             .getData(
                 with: .value(endpoint),
-                willReturn:  Result<SearchGamesData, APIError>.success(self.searchGamesData)
+                willReturn:  Result<SearchGamesData, APIError>.success(MockData.searchGamesData)
             )
         )
         
         let viewModel = SearchGameByTitleViewModel(
             networkingSession: networkingSession,
-            platform: self.platform
+            platform: MockData.platform,
+            addGameDelegate: AddGameDetailsViewModelDelegateMock()
         )
         
         let games = DataConverter.convert(
-            remoteGames: self.searchGamesData.results,
-            platform: self.platform
+            remoteGames: MockData.searchGamesData.results,
+            platform: MockData.platform
         )
         
         // When
-        viewModel.startSearch(from: self.searchQuery) { _ in
+        viewModel.startSearch(from: MockData.searchQuery) { _ in
             // Then
             XCTAssertEqual(viewModel.numberOfSections(), 1)
             XCTAssertEqual(viewModel.numberOfItems(in: 0), games.count)
             
             expectation.fulfill()
         }
-        wait(for: [expectation], timeout: 1.0)
+        wait(for: [expectation], timeout: Constants.timeout)
     }
     
     func test_updateSearchTextField_ThenShouldCallCallback() {
@@ -260,7 +254,8 @@ final class SearchGameByTitleViewModelTests: XCTestCase {
         let networkingSession = APIMock()
         let viewModel = SearchGameByTitleViewModel(
             networkingSession: networkingSession,
-            platform: self.platform
+            platform: MockData.platform,
+            addGameDelegate: AddGameDetailsViewModelDelegateMock()
         )
         
         var callbackIsCalled = false
@@ -278,30 +273,35 @@ final class SearchGameByTitleViewModelTests: XCTestCase {
         // Given
         let expectation = XCTestExpectation(description: "perform loadData() asynchronously")
         
-        let endpoint = GetGamesEndpoint(platformId: self.platform.id, title: self.platform.title)
+        let endpoint = GetGamesEndpoint(
+            platformId: MockData.platform.id,
+            title: MockData.platform.title
+        )
+        
         let networkingSession = APIMock()
         
         networkingSession.given(
             .getData(
                 with: .value(endpoint),
-                willReturn:  Result<SearchGamesData, APIError>.success(self.searchGamesData)
+                willReturn:  Result<SearchGamesData, APIError>.success(MockData.searchGamesData)
             )
         )
         
         let viewModel = SearchGameByTitleViewModel(
             networkingSession: networkingSession,
-            platform: self.platform
+            platform: MockData.platform,
+            addGameDelegate: AddGameDetailsViewModelDelegateMock()
         )
         
         let games = DataConverter.convert(
-            remoteGames: self.searchGamesData.results,
-            platform: self.platform
+            remoteGames: MockData.searchGamesData.results,
+            platform: MockData.platform
         )
         
         viewModel.loadData { _ in
             
             // When
-            viewModel.startSearch(from: self.searchQuery) { _ in
+            viewModel.startSearch(from: MockData.searchQuery) { _ in
                 
                 // Then
                 XCTAssertEqual(viewModel.numberOfSections(), 1)
@@ -309,6 +309,6 @@ final class SearchGameByTitleViewModelTests: XCTestCase {
             }
             expectation.fulfill()
         }
-        wait(for: [expectation], timeout: 1.0)
+        wait(for: [expectation], timeout: Constants.timeout)
     }
 }

@@ -21,5 +21,14 @@ extension CellViewModel {
 }
 
 protocol CollectionCellViewModel: CellViewModel {
-    var size: CGFloat { get }
+    var height: CGFloat { get }
+}
+
+protocol CollectionFormCellViewModel: CollectionCellViewModel, FormCellViewModel {}
+
+protocol FormCellViewModel {
+    associatedtype ValueType
+    
+    var formType: FormType { get set }
+    var value: ValueType? { get set }
 }

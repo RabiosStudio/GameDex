@@ -15,7 +15,10 @@ final class PrimaryButtonContentViewFactoryTests: XCTestCase {
         // Given
         let delegateMock = PrimaryButtonDelegateMock()
         // When
-        let viewFactory = PrimaryButtonContentViewFactory(delegate: delegateMock, buttonTitle: "Button title")
+        let viewFactory = PrimaryButtonContentViewFactory(
+            delegate: delegateMock,
+            buttonTitle: "Button title"
+        )
         
         // Then
         guard viewFactory.delegate is PrimaryButtonDelegateMock else {

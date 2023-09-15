@@ -19,12 +19,14 @@ final class SelectPlatformViewModel: CollectionViewModel {
     var sections = [Section]()
     private var platforms: [Platform] = []
     weak var containerDelegate: ContainerViewControllerDelegate?
+    weak var addGameDelegate: AddGameDetailsViewModelDelegate?
     
     private let networkingSession: API
     
-    init(networkingSession: API) {
+    init(networkingSession: API, addGameDelegate: AddGameDetailsViewModelDelegate?) {
         self.progress = 1/3
         self.networkingSession = networkingSession
+        self.addGameDelegate = addGameDelegate
     }
     
     func loadData(callback: @escaping (EmptyError?) -> ()) {
@@ -35,10 +37,17 @@ final class SelectPlatformViewModel: CollectionViewModel {
                 self.platforms.sort {
                     $0.title < $1.title
                 }
-                self.sections = [SelectPlatformSection(platforms: self.platforms)]
+                self.sections = [SelectPlatformSection(
+                    platforms: self.platforms,
+                    addGameDelegate: self.addGameDelegate
+                )]
                 callback(nil)
             }
         }
+    }
+    
+    func didTapRightButtonItem() {
+        _ = Routing.shared.route(navigationStyle: .dismiss {})
     }
     
     private func requestData() async -> AddGameError? {
@@ -65,7 +74,10 @@ final class SelectPlatformViewModel: CollectionViewModel {
     }
     
     private func updateListOfPlatforms(with list: [Platform]) {
-        self.sections = [SelectPlatformSection(platforms: list)]
+        self.sections = [SelectPlatformSection(
+            platforms: list,
+            addGameDelegate: self.addGameDelegate
+        )]
     }
 }
 

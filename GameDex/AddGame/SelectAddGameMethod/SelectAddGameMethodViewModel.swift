@@ -16,11 +16,15 @@ final class SelectAddGameMethodViewModel: CollectionViewModel {
     var sections: [Section]
     weak var containerDelegate: ContainerViewControllerDelegate?
     
-    init() {
-        self.sections = [SelectAddGameMethodSection()]
+    init(delegate: AddGameDetailsViewModelDelegate?) {
+        self.sections = [SelectAddGameMethodSection(delegate: delegate)]
     }
     
     func loadData(callback: @escaping (EmptyError?) -> ()) {
         callback(nil)
+    }
+    
+    func didTapRightButtonItem() {
+        _ = Routing.shared.route(navigationStyle: .dismiss {})
     }
 }

@@ -9,12 +9,6 @@ import Foundation
 import UIKit
 import DTTextField
 
-enum TextFieldType {
-    case year
-    case text
-    case picker(PickerViewModel)
-}
-
 final class TextFieldCell: UICollectionViewCell, CellConfigurable {
     
     private lazy var textField: DTTextField = {
@@ -62,6 +56,7 @@ final class TextFieldCell: UICollectionViewCell, CellConfigurable {
         super.prepareForReuse()
         self.textField.placeholder = nil
         self.textField.inputView = nil
+        self.pickerData = nil
     }
     
     func configure(cellViewModel: CellViewModel) {
@@ -69,16 +64,16 @@ final class TextFieldCell: UICollectionViewCell, CellConfigurable {
             return
         }
         self.cellVM = cellVM
-        
-        switch cellVM.textFieldType {
-        case .text:
-            self.textField.keyboardType = .asciiCapable
-        case .year:
-            self.textField.keyboardType = .asciiCapableNumberPad
-        case .picker(let pickerVM):
-            self.pickerData = pickerVM.data
+        self.textField.text = cellVM.text
+
+        if let keyboardType = cellVM.formType.keyboardType {
+            self.textField.keyboardType = keyboardType
+        }
+        if let inputVM = cellVM.formType.inputPickerViewModel {
+            self.pickerData = inputVM.data
             self.textField.inputView = pickerView
         }
+        
         self.textField.autocorrectionType = .no
         self.textField.placeholder = cellVM.placeholder
         self.setupConstraints()
@@ -120,6 +115,15 @@ extension TextFieldCell: UITextFieldDelegate {
             return
         }
         self.storeEntry(cellViewModel: self.cellVM, with: text)
+    }
+    
+    func textFieldDidBeginEditing(_ textField: UITextField) {
+        guard let data = self.pickerData,
+              let firstValue = data.first?.first else {
+            return
+        }
+        self.storeEntry(cellViewModel: self.cellVM, with: firstValue)
+        textField.text = firstValue
     }
 }
 

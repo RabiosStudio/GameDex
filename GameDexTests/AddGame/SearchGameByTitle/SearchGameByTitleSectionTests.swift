@@ -12,25 +12,14 @@ final class SearchGameByTitleSectionTests: XCTestCase {
     
     func test_init_GivenSearchGameByTitleSection_ThenShouldSetPropertiesCorrectly() {
         // Given
-        
-        let platform = Platform(title: "Game Boy Advance", id: 4)
-        let games = [
-        Game(title: "The Legend of Zelda: The Minish Cap",
-             description: "description",
-             id: "id",
-             platform: "Game Boy Advance",
-             imageURL: "imageURL"),
-        Game(title: "The Legend of Zelda: A link to the past",
-             description: "description",
-             id: "id",
-             platform: "Game Boy Advance",
-             imageURL: "imageURL")
-        ]
-        
-        let section = SearchGameByTitleSection(gamesQuery: games, platform: platform)
+        let section = SearchGameByTitleSection(
+            gamesQuery: MockData.games,
+            platform: MockData.platform,
+            addGameDelegate: AddGameDetailsViewModelDelegateMock()
+        )
         
         // Then
-        XCTAssertEqual(section.cellsVM.count, games.count)
+        XCTAssertEqual(section.cellsVM.count, MockData.games.count)
         
         guard let game1CellVM = section.cellsVM.first as? BasicInfoCellViewModel,
               let game2CellVM = section.cellsVM.last as? BasicInfoCellViewModel else {

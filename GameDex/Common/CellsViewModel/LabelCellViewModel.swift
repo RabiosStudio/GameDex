@@ -17,7 +17,7 @@ final class LabelCellViewModel: CollectionCellViewModel {
             controller: screenFactory.viewController
         )
     }()
-    var size: CGFloat = DesignSystem.sizeTiny
+    var height: CGFloat = DesignSystem.sizeTiny
     
     private let screenFactory: ScreenFactory?
     

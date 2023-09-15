@@ -12,7 +12,10 @@ final class MyCollectionViewModelTests: XCTestCase {
     
     func test_loadData_GivenEmptyCollection_ThenCallbackShouldReturnNoItems() {
         // Given
-        let viewModel = MyCollectionViewModel()
+        let viewModel = MyCollectionViewModel(
+            localDatabase: LocalDatabase(),
+            alertDisplayer: AlertDisplayerMock()
+        )
         // When
         viewModel.loadData { error in
             // Then
@@ -26,20 +29,25 @@ final class MyCollectionViewModelTests: XCTestCase {
     
     func test_numberOfSections_ThenShouldReturnZero() {
         // Given
-        let viewModel = MyCollectionViewModel()
+        let viewModel = MyCollectionViewModel(
+            localDatabase: LocalDatabase(),
+            alertDisplayer: AlertDisplayerMock()
+        )
         // When
         let numberOfSections = viewModel.numberOfSections()
         // Then
         XCTAssertEqual(numberOfSections, .zero)
-        }
-
+    }
+    
     func test_numberOfItems_ThenShouldReturnZero() {
         // Given
-        let viewModel = MyCollectionViewModel()
+        let viewModel = MyCollectionViewModel(
+            localDatabase: LocalDatabase(),
+            alertDisplayer: AlertDisplayerMock()
+        )
         // When
         let numberOfItems = viewModel.numberOfItems(in: .zero)
         // Then
         XCTAssertEqual(numberOfItems, .zero)
-        }
-
+    }
 }

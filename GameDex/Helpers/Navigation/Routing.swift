@@ -80,7 +80,10 @@ class Routing: NSObject, Navigator {
             case .selectTab(let index, let completionBlock):
                 print("selectTab \(index) with completionBlock \(String(describing: completionBlock))")
             case .dismiss(let completionBlock):
-                print("dismiss with completionBlock \(String(describing: completionBlock))")
+                fromVC?.dismissController(animated: animated,
+                                          completion: {() -> Void in
+                    completionBlock?()
+                })
             }
         })
         

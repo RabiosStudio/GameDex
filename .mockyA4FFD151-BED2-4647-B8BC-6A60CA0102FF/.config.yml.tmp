@@ -1,0 +1,13 @@
+sources:
+  include:
+  - ../GameDex
+templates:
+- /Users/gabrielledalbera/Dev/OpenClassrooms/Projet12/GameDex/.mockyA4FFD151-BED2-4647-B8BC-6A60CA0102FF/.template.swifttemplate
+output: ../GameDexTests/Mock/Mock.generated.swift
+args:
+  swiftyMocky:
+    import:
+    - Foundation
+    - UIKit
+    testable:
+    - GameDex

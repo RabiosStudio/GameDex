@@ -18,22 +18,38 @@ final class SearchGameByTitleViewModel: CollectionViewModel {
     let screenTitle: String? = L10n.searchGame
     var sections = [Section]()
     weak var containerDelegate: ContainerViewControllerDelegate?
+    weak var addGameDelegate: AddGameDetailsViewModelDelegate?
     
     private let platform: Platform
     private var gamesQuery: [Game] = []
     
     private let networkingSession: API
     
-    init(networkingSession: API, platform: Platform) {
+    init(
+        networkingSession: API,
+        platform: Platform,
+        addGameDelegate: AddGameDetailsViewModelDelegate?
+    ) {
         self.progress = 2/3
         self.networkingSession = networkingSession
         self.platform = platform
-        self.sections = [SearchGameByTitleSection(gamesQuery: gamesQuery, platform: self.platform)]
+        self.addGameDelegate = addGameDelegate
+        self.sections = [
+            SearchGameByTitleSection(
+                gamesQuery: gamesQuery,
+                platform: self.platform,
+                addGameDelegate: addGameDelegate
+            )
+        ]
     }
     
     func loadData(callback: @escaping (EmptyError?) -> ()) {
         let error = AddGameError.noSearch(platformName: self.platform.title)
         callback(error)
+    }
+    
+    func didTapRightButtonItem() {
+        _ = Routing.shared.route(navigationStyle: .dismiss {})
     }
 }
 
@@ -51,7 +67,8 @@ extension SearchGameByTitleViewModel: SearchViewModelDelegate {
                 self.gamesQuery = games
                 self.sections = [SearchGameByTitleSection(
                     gamesQuery: self.gamesQuery,
-                    platform: self.platform
+                    platform: self.platform,
+                    addGameDelegate: self.addGameDelegate
                 )]
                 callback(nil)
             case .failure(_):

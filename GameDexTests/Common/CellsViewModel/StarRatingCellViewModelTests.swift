@@ -14,10 +14,13 @@ final class StarRatingCellViewModelTests: XCTestCase {
         let title = "Title"
         
         // When
-        let cellVM = StarRatingCellViewModel(title: title)
+        let cellVM = StarRatingCellViewModel(
+            title: title,
+            formType: AddGameFormType.rating
+        )
         
         // Then
         XCTAssertEqual(cellVM.title, "Title")
-        XCTAssertEqual(cellVM.rating, .zero)
+        XCTAssertEqual(cellVM.value, nil)
     }
 }

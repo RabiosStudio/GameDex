@@ -11,6 +11,7 @@ import UIKit
 // sourcery: AutoMockable
 protocol ContainerViewControllerDelegate: AnyObject {
     func configureBottomView(contentViewFactory: ContentViewFactory)
+    func reloadSections()
 }
 
 class ContainerViewController: UIViewController {
@@ -133,7 +134,7 @@ class ContainerViewController: UIViewController {
                                                 tabBarOffset: tabBarOffset)
                 } else {
                     strongSelf.refresh()
-                    guard let searchVM = strongSelf.viewModel.searchViewModel else {
+                    guard (strongSelf.viewModel.searchViewModel) != nil else {
                         return
                     }
                     strongSelf.searchBar.becomeFirstResponder()
@@ -193,10 +194,10 @@ class ContainerViewController: UIViewController {
             return
         }
         switch rightButtonItem {
-        case .close:
+        default:
             self.navigationItem.rightBarButtonItem = BarButtonItem(image: rightButtonItem.image()
             ) { [weak self] in
-                self?.dismiss(animated: true)
+                self?.viewModel.didTapRightButtonItem()
             }
         }
     }
@@ -393,6 +394,10 @@ extension ContainerViewController: ContainerViewControllerDelegate {
         self.stackView.addArrangedSubview(self.separatorView)
         self.stackView.addArrangedSubview(self.bottomView)
     }
+    
+    func reloadSections() {
+        self.loadData()
+    }
 }
 
 // MARK: UICollectionViewDelegateFlowLayout
@@ -405,6 +410,9 @@ extension ContainerViewController: UICollectionViewDelegateFlowLayout {
     ) -> CGSize {
         let cellVM = self.viewModel.item(at: indexPath)
         let collectionCellVM = cellVM as? CollectionCellViewModel
-        return CGSize(width: collectionView.frame.size.width - DesignSystem.paddingRegular, height: collectionCellVM?.size ?? DesignSystem.sizeRegular)
+        return CGSize(
+            width: collectionView.frame.size.width - DesignSystem.paddingRegular,
+            height: collectionCellVM?.height ?? DesignSystem.sizeRegular
+        )
     }
 }

@@ -11,6 +11,7 @@ PODS:
     - SDWebImage/Core (= 5.17.0)
   - SDWebImage/Core (5.17.0)
   - Sourcery (1.6.0)
+  - SwiftEntryKit (2.0.0)
   - SwiftGen (6.6.2)
   - SwiftLint (0.52.4)
   - SwiftyMocky (4.1.0):
@@ -25,6 +26,7 @@ DEPENDENCIES:
   - IQKeyboardManagerSwift (~> 6.5.0)
   - NVActivityIndicatorView
   - SDWebImage
+  - SwiftEntryKit (= 2.0.0)
   - SwiftGen (~> 6.0)
   - SwiftLint
   - SwiftyMocky
@@ -40,6 +42,7 @@ SPEC REPOS:
     - NVActivityIndicatorView
     - SDWebImage
     - Sourcery
+    - SwiftEntryKit
     - SwiftGen
     - SwiftLint
     - SwiftyMocky
@@ -54,11 +57,12 @@ SPEC CHECKSUMS:
   NVActivityIndicatorView: 1f6c5687f1171810aa27a3296814dc2d7dec3667
   SDWebImage: 750adf017a315a280c60fde706ab1e552a3ae4e9
   Sourcery: 744f43178637c79bf23127dfe34e2103b3f28499
+  SwiftEntryKit: 61b5fa36f34a97dd8013e48a7345bc4c4720be9a
   SwiftGen: 1366a7f71aeef49954ca5a63ba4bef6b0f24138c
   SwiftLint: 1cc5cd61ba9bacb2194e340aeb47a2a37fda00b3
   SwiftyMocky: 014739247afadb65efb5bb92ede32c22b9365762
   SwiftyTextView: be873b6b426d148fef9e2a341b3c5989b167572b
 
-PODFILE CHECKSUM: 8eb6164e3bd3e40c8e0112d29737a43e5e1eb35f
+PODFILE CHECKSUM: 16fb77d0ce7ffff0f968bc7a0ab51e9740ce96a2
 
 COCOAPODS: 1.12.1

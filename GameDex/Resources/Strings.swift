@@ -44,6 +44,10 @@ internal enum L10n {
   internal static let emptyMyCollectionDescription = L10n.tr("Localizable", "emptyMyCollectionDescription", fallback: "It's time to add the very first game to your collection ! ")
   /// Your collection is empty
   internal static let emptyMyCollectionTitle = L10n.tr("Localizable", "emptyMyCollectionTitle", fallback: "Your collection is empty")
+  /// Error
+  internal static let errorTitle = L10n.tr("Localizable", "errorTitle", fallback: "Error")
+  /// An error occured while fetching data.
+  internal static let fetchGamesErrorDescription = L10n.tr("Localizable", "fetchGamesErrorDescription", fallback: "An error occured while fetching data.")
   /// Fill Game details
   internal static let fillGameDetails = L10n.tr("Localizable", "fillGameDetails", fallback: "Fill Game details")
   /// Good
@@ -76,10 +80,16 @@ internal enum L10n {
   internal static let poor = L10n.tr("Localizable", "poor", fallback: "Poor")
   /// Purchase price
   internal static let purchasePrice = L10n.tr("Localizable", "purchasePrice", fallback: "Purchase price")
+  /// Refresh
+  internal static let refresh = L10n.tr("Localizable", "refresh", fallback: "Refresh")
   /// Region
   internal static let region = L10n.tr("Localizable", "region", fallback: "Region")
   /// Retry
   internal static let retry = L10n.tr("Localizable", "retry", fallback: "Retry")
+  /// An error occured while saving game details.
+  internal static let saveGameErrorDescription = L10n.tr("Localizable", "saveGameErrorDescription", fallback: "An error occured while saving game details.")
+  /// The game was saved to your collection.
+  internal static let saveGameSuccessDescription = L10n.tr("Localizable", "saveGameSuccessDescription", fallback: "The game was saved to your collection.")
   /// Scan codebar
   internal static let scan = L10n.tr("Localizable", "scan", fallback: "Scan codebar")
   /// Sealed
@@ -94,8 +104,12 @@ internal enum L10n {
   internal static let stepOneOutOfThree = L10n.tr("Localizable", "stepOneOutOfThree", fallback: "Step 1/3")
   /// Storage area
   internal static let storageArea = L10n.tr("Localizable", "storageArea", fallback: "Storage area")
+  /// Success
+  internal static let successTitle = L10n.tr("Localizable", "successTitle", fallback: "Success")
   /// Title
   internal static let title = L10n.tr("Localizable", "title", fallback: "Title")
+  /// Please try again later
+  internal static let warningTryAgain = L10n.tr("Localizable", "warningTryAgain", fallback: "Please try again later")
   /// Year of acquisition
   internal static let yearOfAcquisition = L10n.tr("Localizable", "yearOfAcquisition", fallback: "Year of acquisition")
 }

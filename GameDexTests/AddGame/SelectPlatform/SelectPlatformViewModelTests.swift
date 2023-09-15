@@ -11,21 +11,6 @@ import SwiftyMocky
 
 final class SelectPlatformViewModelTests: XCTestCase {
     
-    // MARK: Properties
-    
-    let searchPlaformsData = SearchPlatformsData(
-        offset: .zero,
-        numberOfPageResults: 5,
-        numberOfTotalResults: 5,
-        statusCode: 1,
-        results: [
-            PlatformData(id: 28, name: "Atari 2600"),
-            PlatformData(id: 8, name: "Dreamcast"),
-            PlatformData(id: 11, name: "Game Boy Color"),
-            PlatformData(id: 17, name: "Jaguar"),
-            PlatformData(id: 15, name: "SNES")
-        ])
-    
     // MARK: Setup
     
     override class func setUp() {
@@ -43,7 +28,10 @@ final class SelectPlatformViewModelTests: XCTestCase {
         let networkingSession = APIMock()
         
         // When
-        let viewModel = SelectPlatformViewModel(networkingSession: networkingSession)
+        let viewModel = SelectPlatformViewModel(
+            networkingSession: networkingSession,
+            addGameDelegate: AddGameDetailsViewModelDelegateMock()
+        )
         
         // Then
         XCTAssertEqual(viewModel.numberOfSections(), .zero)
@@ -64,7 +52,10 @@ final class SelectPlatformViewModelTests: XCTestCase {
                 willReturn:  Result<SearchPlatformsData, APIError>.failure(.server)
             )
         )
-        let viewModel = SelectPlatformViewModel(networkingSession: networkingSession)
+        let viewModel = SelectPlatformViewModel(
+            networkingSession: networkingSession,
+            addGameDelegate: AddGameDetailsViewModelDelegateMock()
+        )
         
         // When
         viewModel.loadData { error in
@@ -77,7 +68,7 @@ final class SelectPlatformViewModelTests: XCTestCase {
             expectation.fulfill()
         }
         
-        wait(for: [expectation], timeout: 1.0)
+        wait(for: [expectation], timeout: Constants.timeout)
     }
     
     func test_loadData_GivenAPIErrorWrongURL_ThenShouldReturnAddGameErrorServer() {
@@ -92,7 +83,10 @@ final class SelectPlatformViewModelTests: XCTestCase {
                 willReturn:  Result<SearchPlatformsData, APIError>.failure(.wrongUrl)
             )
         )
-        let viewModel = SelectPlatformViewModel(networkingSession: networkingSession)
+        let viewModel = SelectPlatformViewModel(
+            networkingSession: networkingSession,
+            addGameDelegate: AddGameDetailsViewModelDelegateMock()
+        )
         
         // When
         viewModel.loadData { error in
@@ -105,7 +99,7 @@ final class SelectPlatformViewModelTests: XCTestCase {
             expectation.fulfill()
         }
         
-        wait(for: [expectation], timeout: 1.0)
+        wait(for: [expectation], timeout: Constants.timeout)
     }
     
     func test_loadData_GivenAPIErrorNoData_ThenShouldReturnAddGameErrorServer() {
@@ -120,7 +114,10 @@ final class SelectPlatformViewModelTests: XCTestCase {
                 willReturn:  Result<SearchPlatformsData, APIError>.failure(.noData)
             )
         )
-        let viewModel = SelectPlatformViewModel(networkingSession: networkingSession)
+        let viewModel = SelectPlatformViewModel(
+            networkingSession: networkingSession,
+            addGameDelegate: AddGameDetailsViewModelDelegateMock()
+        )
         
         // When
         viewModel.loadData { error in
@@ -133,7 +130,7 @@ final class SelectPlatformViewModelTests: XCTestCase {
             expectation.fulfill()
         }
         
-        wait(for: [expectation], timeout: 1.0)
+        wait(for: [expectation], timeout: Constants.timeout)
     }
     
     func test_loadData_GivenAPIErrorParsing_ThenShouldReturnAddGameErrorServer() {
@@ -148,7 +145,10 @@ final class SelectPlatformViewModelTests: XCTestCase {
                 willReturn:  Result<SearchPlatformsData, APIError>.failure(.parsingError)
             )
         )
-        let viewModel = SelectPlatformViewModel(networkingSession: networkingSession)
+        let viewModel = SelectPlatformViewModel(
+            networkingSession: networkingSession,
+            addGameDelegate: AddGameDetailsViewModelDelegateMock()
+        )
         
         // When
         viewModel.loadData { error in
@@ -161,7 +161,7 @@ final class SelectPlatformViewModelTests: XCTestCase {
             expectation.fulfill()
         }
         
-        wait(for: [expectation], timeout: 1.0)
+        wait(for: [expectation], timeout: Constants.timeout)
     }
     
     func test_loadData_GivenNoAPIError_ThenShouldReturnData() {
@@ -174,13 +174,18 @@ final class SelectPlatformViewModelTests: XCTestCase {
         networkingSession.given(
             .getData(
                 with: .value(endpoint),
-                willReturn:  Result<SearchPlatformsData, APIError>.success(self.searchPlaformsData)
+                willReturn:  Result<SearchPlatformsData, APIError>.success(MockData.searchPlaformsData)
             )
         )
         
-        let viewModel = SelectPlatformViewModel(networkingSession: networkingSession)
+        let viewModel = SelectPlatformViewModel(
+            networkingSession: networkingSession,
+            addGameDelegate: AddGameDetailsViewModelDelegateMock()
+        )
         
-        let platforms = DataConverter.convert(remotePlatforms: self.searchPlaformsData.results)
+        let platforms = DataConverter.convert(
+            remotePlatforms: MockData.searchPlaformsData.results
+        )
         
         // When
         viewModel.loadData { _ in
@@ -191,7 +196,7 @@ final class SelectPlatformViewModelTests: XCTestCase {
             
             expectation.fulfill()
         }
-        wait(for: [expectation], timeout: 1.0)
+        wait(for: [expectation], timeout: Constants.timeout)
     }
     
     func test_updateSearch_GivenListOfPlatforms_ThenShouldSetupSectionsAndCellsVMAccordingly() {
@@ -204,13 +209,18 @@ final class SelectPlatformViewModelTests: XCTestCase {
         networkingSession.given(
             .getData(
                 with: .value(endpoint),
-                willReturn:  Result<SearchPlatformsData, APIError>.success(self.searchPlaformsData)
+                willReturn:  Result<SearchPlatformsData, APIError>.success(MockData.searchPlaformsData)
             )
         )
         
-        let viewModel = SelectPlatformViewModel(networkingSession: networkingSession)
+        let viewModel = SelectPlatformViewModel(
+            networkingSession: networkingSession,
+            addGameDelegate: AddGameDetailsViewModelDelegateMock()
+        )
         
-        let platforms = DataConverter.convert(remotePlatforms: self.searchPlaformsData.results)
+        let platforms = DataConverter.convert(
+            remotePlatforms: MockData.searchPlaformsData.results
+        )
         
         viewModel.loadData { _ in
             
@@ -223,7 +233,7 @@ final class SelectPlatformViewModelTests: XCTestCase {
             }
             expectation.fulfill()
         }
-        wait(for: [expectation], timeout: 1.0)
+        wait(for: [expectation], timeout: Constants.timeout)
     }
     
     func test_updateSearch_GivenNoMatchingPlatforms_ThenShouldReturnErrorNoItems() {
@@ -236,13 +246,18 @@ final class SelectPlatformViewModelTests: XCTestCase {
         networkingSession.given(
             .getData(
                 with: .value(endpoint),
-                willReturn:  Result<SearchPlatformsData, APIError>.success(self.searchPlaformsData)
+                willReturn:  Result<SearchPlatformsData, APIError>.success(MockData.searchPlaformsData)
             )
         )
         
-        let viewModel = SelectPlatformViewModel(networkingSession: networkingSession)
+        let viewModel = SelectPlatformViewModel(
+            networkingSession: networkingSession,
+            addGameDelegate: AddGameDetailsViewModelDelegateMock()
+        )
         
-        let platforms = DataConverter.convert(remotePlatforms: self.searchPlaformsData.results)
+        let platforms = DataConverter.convert(
+            remotePlatforms: MockData.searchPlaformsData.results
+        )
         
         viewModel.loadData { _ in
             
@@ -256,7 +271,7 @@ final class SelectPlatformViewModelTests: XCTestCase {
             }
             expectation.fulfill()
         }
-        wait(for: [expectation], timeout: 1.0)
+        wait(for: [expectation], timeout: Constants.timeout)
     }
     
     func test_updateSearch_GivenEmptySearchQuery_ThenShouldReturnFullListOfPlatforms() {
@@ -269,13 +284,18 @@ final class SelectPlatformViewModelTests: XCTestCase {
         networkingSession.given(
             .getData(
                 with: .value(endpoint),
-                willReturn:  Result<SearchPlatformsData, APIError>.success(self.searchPlaformsData)
+                willReturn:  Result<SearchPlatformsData, APIError>.success(MockData.searchPlaformsData)
             )
         )
         
-        let viewModel = SelectPlatformViewModel(networkingSession: networkingSession)
+        let viewModel = SelectPlatformViewModel(
+            networkingSession: networkingSession,
+            addGameDelegate: AddGameDetailsViewModelDelegateMock()
+        )
         
-        let platforms = DataConverter.convert(remotePlatforms: self.searchPlaformsData.results)
+        let platforms = DataConverter.convert(
+            remotePlatforms: MockData.searchPlaformsData.results
+        )
         
         viewModel.loadData { _ in
             
@@ -286,13 +306,16 @@ final class SelectPlatformViewModelTests: XCTestCase {
             }
             expectation.fulfill()
         }
-        wait(for: [expectation], timeout: 1.0)
+        wait(for: [expectation], timeout: Constants.timeout)
     }
     
     func test_startSearch_ThenShouldCallCallback() {
         // Given
         let networkingSession = APIMock()
-        let viewModel = SelectPlatformViewModel(networkingSession: networkingSession)
+        let viewModel = SelectPlatformViewModel(
+            networkingSession: networkingSession,
+            addGameDelegate: AddGameDetailsViewModelDelegateMock()
+        )
         
         var callbackIsCalled = false
         

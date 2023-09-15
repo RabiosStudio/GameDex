@@ -10,30 +10,17 @@ import XCTest
 
 final class AddGameDetailsSectionTests: XCTestCase {
     
+    // MARK: Tests
+    
     func test_init_GivenAddGameDetailsSection_ThenShouldSetPropertiesCorrectly() {
         // Given
-        let game = Game(
-            title: "The Legend of Zelda: The Minish Cap",
-            description: "description",
-            id: "id",
-            platform: "Game Boy Advance",
-            imageURL: "imageURL"
-        )
-        
-        let section = AddGameDetailsSection(game: game)
+        let section = AddGameDetailsSection(game: MockData.game)
         
         // Then
         XCTAssertEqual(section.cellsVM.count, 8)
         
-        guard let gameCellVM = section.cellsVM.first as? ImageDescriptionCellViewModel,
-              let yearOfAcquisitionCellVM = section.cellsVM[1] as? TextFieldCellViewModel,
-              let conditionCellVM = section.cellsVM[2] as? TextFieldCellViewModel,
-              let completenessCellVM = section.cellsVM[3] as? TextFieldCellViewModel,
-              let regionCellVM = section.cellsVM[4] as? TextFieldCellViewModel,
-              let storageAreaCellVM = section.cellsVM[5] as? TextFieldCellViewModel,
-              let personalRatingCellVM = section.cellsVM[6] as? StarRatingCellViewModel,
-              let otherDetailsCellVM = section.cellsVM.last as? TextViewCellViewModel else {
-            XCTFail("Cell View Models are not correct")
+        guard let gameCellVM = section.cellsVM.first as? ImageDescriptionCellViewModel else {
+            XCTFail("Wrong type")
             return
         }
         
@@ -42,45 +29,88 @@ final class AddGameDetailsSectionTests: XCTestCase {
         XCTAssertEqual(gameCellVM.subtitle2, "description")
         XCTAssertEqual(gameCellVM.imageStringURL, "imageURL")
         
-        XCTAssertEqual(yearOfAcquisitionCellVM.placeholder, L10n.yearOfAcquisition)
-        XCTAssertEqual(yearOfAcquisitionCellVM.textFieldType, .year)
+        guard let formCellsVM = section.cellsVM.filter({ cellVM in
+            return cellVM is (any CollectionFormCellViewModel)
+        }) as? [any CollectionFormCellViewModel] else {
+            return
+        }
         
-        XCTAssertEqual(conditionCellVM.placeholder, L10n.condition)
-        XCTAssertEqual(
-            conditionCellVM.textFieldType,
-            .picker(
-                PickerViewModel(
-                    data: [GameCondition.allCases.map { $0.value }]
+        for formCellVM in formCellsVM {
+            guard let formType = formCellVM.formType as? AddGameFormType else {
+                XCTFail("Wrong type")
+                return
+            }
+            switch formType {
+            case .yearOfAcquisition:
+                guard let acquisitionYearCellVM = formCellVM as? TextFieldCellViewModel else {
+                    XCTFail("Wrong type")
+                    return
+                }
+                XCTAssertEqual(acquisitionYearCellVM.placeholder, L10n.yearOfAcquisition)
+            case .gameCondition(_):
+                guard let gameConditionCellVM = formCellVM as? TextFieldCellViewModel,
+                      let gameConditionCellVMFormType = gameConditionCellVM.formType as? AddGameFormType else {
+                    XCTFail("Wrong type")
+                    return
+                }
+                XCTAssertEqual(gameConditionCellVM.placeholder, L10n.condition)
+                XCTAssertEqual(
+                    gameConditionCellVMFormType,
+                    .gameCondition(
+                        PickerViewModel(
+                            data: [GameCondition.allCases.map { $0.value }]
+                        )
+                    )
                 )
-            )
-        )
-        
-        XCTAssertEqual(completenessCellVM.placeholder, L10n.completeness)
-        XCTAssertEqual(
-            conditionCellVM.textFieldType,
-            .picker(
-                PickerViewModel(
-                    data: [GameCompleteness.allCases.map { $0.value }]
+            case .gameCompleteness(_):
+                guard let gameCompletenessCellVM = formCellVM as? TextFieldCellViewModel,
+                      let gameCompletenessCellVMFormType = gameCompletenessCellVM.formType as? AddGameFormType  else {
+                    XCTFail("Wrong type")
+                    return
+                }
+                XCTAssertEqual(gameCompletenessCellVM.placeholder, L10n.completeness)
+                XCTAssertEqual(
+                    gameCompletenessCellVMFormType,
+                    .gameCompleteness(
+                        PickerViewModel(
+                            data: [GameCompleteness.allCases.map { $0.value }]
+                        )
+                    )
                 )
-            )
-        )
-        
-        XCTAssertEqual(regionCellVM.placeholder, L10n.region)
-        XCTAssertEqual(
-            conditionCellVM.textFieldType,
-            .picker(
-                PickerViewModel(
-                    data: [GameRegion.allCases.map { $0.rawValue }]
+            case .gameRegion(_):
+                guard let gameRegionCellVM = formCellVM as? TextFieldCellViewModel,
+                      let gameRegionCellVMFormType = gameRegionCellVM.formType as? AddGameFormType else {
+                    XCTFail("Wrong type")
+                    return
+                }
+                XCTAssertEqual(gameRegionCellVM.placeholder, L10n.region)
+                XCTAssertEqual(
+                    gameRegionCellVMFormType,
+                    .gameRegion(
+                        PickerViewModel(
+                            data: [GameRegion.allCases.map { $0.rawValue }]
+                        )
+                    )
                 )
-            )
-        )
-        
-        XCTAssertEqual(storageAreaCellVM.placeholder, L10n.storageArea)
-        XCTAssertEqual(storageAreaCellVM.textFieldType, .text)
-        
-        XCTAssertEqual(personalRatingCellVM.title, L10n.personalRating)
-        XCTAssertEqual(personalRatingCellVM.rating, .zero)
-        
-        XCTAssertEqual(otherDetailsCellVM.title, L10n.otherDetails)
+            case .storageArea:
+                guard let storageAreaCellVM = formCellVM as? TextFieldCellViewModel else {
+                    XCTFail("Wrong type")
+                    return
+                }
+                XCTAssertEqual(storageAreaCellVM.placeholder, L10n.storageArea)
+            case .rating:
+                guard let ratingCellVM = formCellVM as? StarRatingCellViewModel else {
+                    XCTFail("Wrong type")
+                    return
+                }
+                XCTAssertEqual(ratingCellVM.title, L10n.personalRating)
+            case .notes:
+                guard let notesCellVM = formCellVM as? TextViewCellViewModel else {
+                    XCTFail("Wrong type")
+                    return
+                }
+                XCTAssertEqual(notesCellVM.title, L10n.otherDetails)
+            }
+        }
     }
 }

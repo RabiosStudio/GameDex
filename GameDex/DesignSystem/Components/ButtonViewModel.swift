@@ -8,13 +8,9 @@
 import Foundation
 
 struct ButtonViewModel {
-    
-    let buttonStyle: ButtonStyle
-    
     let title: String
     
-    init(title: String, buttonStyle: ButtonStyle) {
+    init(title: String) {
         self.title = title
-        self.buttonStyle = buttonStyle
     }
 }

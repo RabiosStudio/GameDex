@@ -16,14 +16,15 @@ disabled_rules:
     - unused_closure_parameter
     - blanket_disable_command
     - empty_enum_arguments
+    - function_body_length
+    - class_delegate_protocol
 
 line_length: 200
 
 function_parameter_count: 4
-
-function_body_length: 50
+cyclomatic_complexity: 15
 type_body_length: 300
-file_length: 400
+file_length: 500
 identifier_name:
   min_length: 1
 

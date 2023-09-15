@@ -11,8 +11,17 @@
 "emptyGameSearch" = "Lancez une recherche d'un jeu sur";
 
 // Errors
+"errorTitle" = "Erreur";
 "apiErrorTitle" = "Oups!";
 "apiErrorDescription" = "Une erreur est survenue lors de la récupération des données";
+"saveGameErrorDescription" = "Une erreur est survenue lors de la sauvegarde des données.";
+"fetchGamesErrorDescription" = "Une erreur est survenue lors de la récupération des données.";
+
+// Success
+"successTitle" = "Succès";
+"saveGameSuccessDescription" = "Le jeu a bien été enregistré dans votre collection.";
+// Warnings
+"warningTryAgain" = "Veuillez réessayer ultérieurement";
 
 // Button
 "addAGame" = "Ajouter un jeu";
@@ -20,6 +29,7 @@
 "continue" = "Continuer";
 "searchPlatform" = "Rechercher une console";
 "retry" = "Réessayer";
+"refresh" = "Actualiser";
 
 // Add Game Steps
 "stepOneOutOfThree" = "Etape 1/3";

@@ -12,15 +12,15 @@ final class TextFieldCellViewModelTests: XCTestCase {
     
     func test_init_GivenCorrectParameters_ThenShouldSetPropertiesCorrectly() {
         // Given
-        let title = "Title"
+        let placeholder = "Some placeholder"
         let shouldActiveTextField = true
         // When
         let cellVM = TextFieldCellViewModel(
-            placeholder: title,
-            textFieldType: .text
+            placeholder: placeholder,
+            formType: .storageArea
         )
         // Then
-        XCTAssertEqual(cellVM.placeholder, "Title")
+        XCTAssertEqual(cellVM.placeholder, "Some placeholder")
     }
     
 }

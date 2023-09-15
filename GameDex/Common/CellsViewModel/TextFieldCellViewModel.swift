@@ -7,21 +7,22 @@
 
 import Foundation
 
-final class TextFieldCellViewModel: CollectionCellViewModel {
+final class TextFieldCellViewModel: CollectionFormCellViewModel {
+    typealias ValueType = String
+    
     var cellClass: AnyClass = TextFieldCell.self
     var indexPath: IndexPath?
     var navigationStyle: NavigationStyle?
-    var size: CGFloat = DesignSystem.sizeVerySmall
+    var height: CGFloat = DesignSystem.sizeVerySmall
     
     let placeholder: String
-    let textFieldType: TextFieldType
-    
-    var value: String?
+    var value: ValueType?
+    var formType: FormType
     
     init(placeholder: String,
-         textFieldType: TextFieldType) {
+         formType: FormType,
         self.placeholder = placeholder
-        self.textFieldType = textFieldType
+        self.formType = formType
     }
     
 }

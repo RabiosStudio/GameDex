@@ -9,7 +9,7 @@ import Foundation
 
 final class SelectAddGameMethodSection: Section {
     
-    override init() {
+    init(delegate: AddGameDetailsViewModelDelegate?) {
         super.init()
         self.position = 0
         
@@ -17,7 +17,7 @@ final class SelectAddGameMethodSection: Section {
             title: L10n.manually,
             description: L10n.manuallyDescription,
             imageName: Asset.form.name,
-            screenFactory: SelectPlatformScreenFactory()
+            screenFactory: SelectPlatformScreenFactory(delegate: delegate)
         )
         self.cellsVM.append(manualCellVM)
         
