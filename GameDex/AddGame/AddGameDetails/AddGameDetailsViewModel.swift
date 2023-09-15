@@ -24,13 +24,13 @@ final class AddGameDetailsViewModel: CollectionViewModel {
     
     private let game: Game
     private let localDatabase: Database
-    private let alertDisplayer: AlertService
+    private let alertDisplayer: AlertDisplayer
     
     init(
         game: Game,
         localDatabase: Database,
         addGameDelegate: AddGameDetailsViewModelDelegate?,
-        alertDisplayer: AlertService
+        alertDisplayer: AlertDisplayer
     ) {
         self.progress = 3/3
         self.game = game
@@ -73,13 +73,8 @@ extension AddGameDetailsViewModel: PrimaryButtonDelegate {
             return
         }
         
-        var acquisitionYear: String?
-        var gameCondition: String?
-        var gameCompleteness: String?
-        var gameRegion: String?
-        var storageArea: String?
+        var acquisitionYear, gameCondition, gameCompleteness, gameRegion, storageArea, notes: String?
         var rating: Int?
-        var notes: String?
         
         for formCellVM in formCellsVM {
             switch formCellVM.formType {
@@ -125,6 +120,7 @@ extension AddGameDetailsViewModel: PrimaryButtonDelegate {
                     description: L10n.gameSavedSuccessTitle,
                     type: .success
                 )
+                // the right button item is .close so the method will dismiss the view presented
                 self?.didTapRightButtonItem()
             }
         }

@@ -24,9 +24,9 @@ final class MyCollectionViewModel: CollectionViewModel {
     weak var containerDelegate: ContainerViewControllerDelegate?
     
     private let localDatabase: LocalDatabase
-    private let alertDisplayer: AlertService
+    private let alertDisplayer: AlertDisplayer
     
-    init(localDatabase: LocalDatabase, alertDisplayer: AlertService) {
+    init(localDatabase: LocalDatabase, alertDisplayer: AlertDisplayer) {
         self.localDatabase = localDatabase
         self.alertDisplayer = alertDisplayer
     }
