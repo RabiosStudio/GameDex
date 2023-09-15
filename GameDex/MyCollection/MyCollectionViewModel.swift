@@ -59,22 +59,6 @@ final class MyCollectionViewModel: CollectionViewModel {
 
 extension MyCollectionViewModel: AddGameDetailsViewModelDelegate {
     func didAddNewGame() {
-        let fetchCollectionResult = self.localDatabase.fetchAll()
-        switch fetchCollectionResult {
-        case .success(let result):
-            guard !result.isEmpty else {
-                self.sections = []
-                return
-            }
-            self.collection = DataConverter.convert(gamesCollected: result)
-            self.sections = [MyCollectionSection(gamesCollection: self.collection)]
-        case .failure(_):
-            self.alertDisplayer.presentAlert(
-                title: L10n.errorTitle,
-                description: L10n.saveGameErrorTitle,
-                type: .error
-            )
-        }
         self.containerDelegate?.reloadSections()
     }
 }
