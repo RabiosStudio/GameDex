@@ -63,12 +63,93 @@ final class EditGameDetailsViewModel: CollectionViewModel {
 
 extension EditGameDetailsViewModel: PrimaryButtonDelegate {
     func didTapPrimaryButton() {
+        guard let firstSection = self.sections.first,
+              let formCellsVM = firstSection.cellsVM.filter({ cellVM in
+                  return cellVM is (any CollectionFormCellViewModel)
+              }) as? [any CollectionFormCellViewModel] else {
+            return
+        }
+        
+        var acquisitionYear, gameCondition, gameCompleteness, gameRegion, storageArea, notes: String?
+        var rating: Int?
+        
+        for formCellVM in formCellsVM {
+            guard let formType = formCellVM.formType as? AddGameFormType else { return }
+            switch formType {
+            case .yearOfAcquisition:
+                acquisitionYear = formCellVM.value as? String
+            case .gameCondition(_):
+                gameCondition = formCellVM.value as? String
+            case .gameCompleteness(_):
+                gameCompleteness = formCellVM.value as? String
+            case .gameRegion(_):
+                gameRegion = formCellVM.value as? String
+            case .storageArea:
+                storageArea = formCellVM.value as? String
+            case .rating:
+                rating = formCellVM.value as? Int
+            case .notes:
+                notes = formCellVM.value as? String
+            }
+        }
+        
+        let gameToSave = SavedGame(
+            game: self.savedGame.game,
+            acquisitionYear: acquisitionYear,
+            gameCondition: gameCondition,
+            gameCompleteness: gameCompleteness,
+            gameRegion: gameRegion,
+            storageArea: storageArea,
+            rating: rating,
+            notes: notes
+        )
+        
+        self.localDatabase.replace(savedGame: gameToSave) { [weak self] error in
+            if error != nil {
+                self?.alertDisplayer.presentTopFloatAlert(
+                    parameters: AlertViewModel(
+                        alertType: .error,
+                        description: L10n.updateGameErrorDescription
+                    )
+                )
+                self?.configureBottomView(shouldEnableButton: true)
+            } else {
+                self?.alertDisplayer.presentTopFloatAlert(
+                    parameters: AlertViewModel(
+                        alertType: .success,
+                        description: L10n.updateGameSuccessDescription
+                    )
+                )
+            }
+        }
+    }
+}
+
 extension EditGameDetailsViewModel: EditFormDelegate {
     func enableSaveButton() {
         configureBottomView(shouldEnableButton: true)
     }
 }
+
 extension EditGameDetailsViewModel: AlertDisplayerDelegate {
     func didTapOkButton() {
+        self.localDatabase.remove(savedGame: self.savedGame) { [weak self] error in
+            if error != nil {
+                self?.alertDisplayer.presentTopFloatAlert(
+                    parameters: AlertViewModel(
+                        alertType: .error,
+                        description: L10n.removeGameErrorDescription
+                    )
+                )
+                self?.configureBottomView(shouldEnableButton: true)
+            } else {
+                self?.alertDisplayer.presentTopFloatAlert(
+                    parameters: AlertViewModel(
+                        alertType: .success,
+                        description: L10n.removeGameSuccessDescription
+                    )
+                )
+            }
         }
+    }
 }
