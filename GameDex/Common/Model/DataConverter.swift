@@ -24,7 +24,7 @@ enum DataConverter {
                 title: remoteGame.name,
                 description: remoteGame.deck,
                 id: remoteGame.guid,
-                platform: platform.title,
+                platform: platform,
                 imageURL: remoteGame.image.mediumURL
             )
         }
@@ -42,20 +42,25 @@ enum DataConverter {
         gameCollected.gameCondition = gameDetails.gameCondition ?? ""
         gameCollected.gameCompleteness = gameDetails.gameCompleteness ?? ""
         gameCollected.acquisitionYear = gameDetails.acquisitionYear ?? ""
-        gameCollected.stringID = gameDetails.game.id
-        gameCollected.platform = gameDetails.game.platform
+        gameCollected.gameID = gameDetails.game.id
+        gameCollected.platformTitle = gameDetails.game.platform.title
+        gameCollected.platformID = Int16(gameDetails.game.platform.id)
         return gameCollected
     }
     
     // from CoreData "GameCollected" to SavedGame
     static func convert(gamesCollected: [GameCollected]) -> [SavedGame] {
         return gamesCollected.map { gameCollected in
+            let platform = Platform(
+                title: gameCollected.platformTitle,
+                id: Int(gameCollected.platformID)
+            )
             return SavedGame(
                 game: Game(
                     title: gameCollected.title,
                     description: gameCollected.summary,
-                    id: gameCollected.stringID,
-                    platform: gameCollected.platform,
+                    id: gameCollected.gameID,
+                    platform: platform,
                     imageURL: gameCollected.imageURL
                 ),
                 acquisitionYear: gameCollected.acquisitionYear,

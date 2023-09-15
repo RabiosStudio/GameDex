@@ -19,7 +19,7 @@ final class EditGameDetailsSection: Section {
         let gameCellVM = ImageDescriptionCellViewModel(
             imageStringURL: savedGame.game.imageURL,
             title: savedGame.game.title,
-            subtitle1: savedGame.game.platform,
+            subtitle1: savedGame.game.platform.title,
             subtitle2: savedGame.game.description
         )
         self.cellsVM.append(gameCellVM)

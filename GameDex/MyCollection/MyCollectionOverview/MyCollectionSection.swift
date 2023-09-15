@@ -20,7 +20,7 @@ final class MyCollectionSection: Section {
         var platformsArray = [String]()
         // Get all platforms from fetched collection
         for item in gamesCollection {
-            platformsArray.append(item.game.platform)
+            platformsArray.append(item.game.platform.title)
         }
         
         // Remove duplicates platforms using set
@@ -31,7 +31,7 @@ final class MyCollectionSection: Section {
         for platform in uniquePlatforms {
             var gameArrayByPlatform = [SavedGame]()
             gamesCollection.forEach {
-                if $0.game.platform == platform {
+                if $0.game.platform.title == platform {
                     gameArrayByPlatform.append($0)
                 }
             }

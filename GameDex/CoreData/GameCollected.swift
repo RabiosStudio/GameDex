@@ -11,8 +11,8 @@ import CoreData
 class GameCollected: NSManagedObject {
     
     @NSManaged var title: String
-    @NSManaged var detail: String
-    @NSManaged var platform: String
+    @NSManaged var platformID: Int16
+    @NSManaged var platformTitle: String
     @NSManaged var imageURL: String
     @NSManaged var summary: String
     @NSManaged var storageArea: String
@@ -22,7 +22,7 @@ class GameCollected: NSManagedObject {
     @NSManaged var gameCondition: String
     @NSManaged var gameCompleteness: String
     @NSManaged var gameRegion: String
-    @NSManaged var stringID: String
+    @NSManaged var gameID: String
     
     public static let entityName = "GameCollected"
     

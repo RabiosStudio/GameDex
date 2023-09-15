@@ -20,7 +20,7 @@ final class MyCollectionByPlatformsViewModel: CollectionViewModel {
     
     init(gamesCollection: [SavedGame]) {
         self.gamesCollection = gamesCollection
-        self.screenTitle = self.gamesCollection.first?.game.platform
+        self.screenTitle = self.gamesCollection.first?.game.platform.title
     }
     
     func loadData(callback: @escaping (EmptyError?) -> ()) {
