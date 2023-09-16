@@ -475,7 +475,7 @@
 			isa = PBXGroup;
 			children = (
 				25EDF7B42AB342DC00648717 /* MyCollectionOverview */,
-				25EDF7B52AB3430C00648717 /* MyCollectionDetailsByPlatform */,
+				25EDF7B52AB3430C00648717 /* MyCollectionByPlatform */,
 				25EDF7B82AB34E6600648717 /* EditGameDetails */,
 				25AE1ED92A8D236000F2D06A /* MyCollectionError.swift */,
 			);
@@ -719,14 +719,14 @@
 			path = MyCollectionOverview;
 			sourceTree = "<group>";
 		};
-		25EDF7B52AB3430C00648717 /* MyCollectionDetailsByPlatform */ = {
+		25EDF7B52AB3430C00648717 /* MyCollectionByPlatform */ = {
 			isa = PBXGroup;
 			children = (
 				2593A00C2AB19DEE000FC253 /* MyCollectionByPlatformsViewModel.swift */,
 				25EDF79C2AB1C2E200648717 /* MyCollectionByPlatformsSection.swift */,
 				2593A00A2AB19D4E000FC253 /* MyCollectionByPlatformsScreenFactory.swift */,
 			);
-			path = MyCollectionDetailsByPlatform;
+			path = MyCollectionByPlatform;
 			sourceTree = "<group>";
 		};
 		25EDF7B82AB34E6600648717 /* EditGameDetails */ = {

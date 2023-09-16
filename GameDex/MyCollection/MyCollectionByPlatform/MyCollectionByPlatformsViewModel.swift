@@ -56,6 +56,10 @@ final class MyCollectionByPlatformsViewModel: CollectionViewModel {
             )
         )
     }
+    
+    private func updateListOfGames(with list: [SavedGame]) {
+        self.sections = [MyCollectionByPlatformsSection(gamesCollection: list)]
+    }
 }
 
 extension MyCollectionByPlatformsViewModel: AddGameDetailsViewModelDelegate {
@@ -65,9 +69,25 @@ extension MyCollectionByPlatformsViewModel: AddGameDetailsViewModelDelegate {
 }
 
 extension MyCollectionByPlatformsViewModel: SearchViewModelDelegate {
-    func updateSearchTextField(with text: String, callback: @escaping (EmptyError?) -> ()) {
+    func startSearch(from searchQuery: String, callback: @escaping (EmptyError?) -> ()) {
+        callback(nil)
     }
     
-    func startSearch(from searchQuery: String, callback: @escaping (EmptyError?) -> ()) {
+    func updateSearchTextField(with text: String, callback: @escaping (EmptyError?) -> ()) {
+        guard text != "" else {
+            self.updateListOfGames(with: self.gamesCollection)
+            callback(nil)
+            return
+        }
+        let matchingGames = self.gamesCollection.filter({
+            $0.game.title.localizedCaseInsensitiveContains(text)
+        })
+        self.updateListOfGames(with: matchingGames)
+        
+        if matchingGames.isEmpty {
+            callback(MyCollectionError.noItems)
+        } else {
+            callback(nil)
+        }
     }
 }

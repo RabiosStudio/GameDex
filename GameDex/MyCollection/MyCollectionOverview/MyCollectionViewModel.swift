@@ -31,7 +31,7 @@ final class MyCollectionViewModel: CollectionViewModel {
         switch fetchCollectionResult {
         case .success(let result):
             guard !result.isEmpty else {
-                let error: MyCollectionError = .noItems(addGameDelegate: self)
+                let error: MyCollectionError = .emptyCollection(addGameDelegate: self)
                 callback(error)
                 return
             }
