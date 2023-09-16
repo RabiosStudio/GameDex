@@ -21,10 +21,18 @@ final class MyCollectionByPlatformsViewModel: CollectionViewModel {
     var sections = [Section]()
     weak var containerDelegate: ContainerViewControllerDelegate?
     
-    private let gamesCollection: [SavedGame]
+    private let database: Database
+    private let alertDisplayer: AlertDisplayer
+    private var gamesCollection: [SavedGame]
     
-    init(gamesCollection: [SavedGame]) {
+    init(
+        gamesCollection: [SavedGame],
+        database: Database,
+        alertDisplayer: AlertDisplayer
+    ) {
         self.gamesCollection = gamesCollection
+        self.database = database
+        self.alertDisplayer = alertDisplayer
         self.screenTitle = self.gamesCollection.first?.game.platform.title
     }
     
@@ -64,7 +72,41 @@ final class MyCollectionByPlatformsViewModel: CollectionViewModel {
 
 extension MyCollectionByPlatformsViewModel: AddGameDetailsViewModelDelegate {
     func didAddNewGame() {
-        self.containerDelegate?.reloadSections()
+        let fetchCollectionResult = self.database.fetchAll()
+        switch fetchCollectionResult {
+        case .success(let result):
+            guard !result.isEmpty else {
+                self.alertDisplayer.presentTopFloatAlert(
+                    parameters: AlertViewModel(
+                        alertType: .error,
+                        description: L10n.fetchGamesErrorDescription
+                    )
+                )
+                return
+            }
+            let collection = DataConverter.convert(gamesCollected: result)
+            
+            var updatedGamesCollection = [SavedGame]()
+            for item in collection {
+                if item.game.platform.id == self.gamesCollection.first?.game.platform.id {
+                    updatedGamesCollection.append(item)
+                }
+            }
+            self.gamesCollection = updatedGamesCollection
+            self.sections = [
+                MyCollectionByPlatformsSection(
+                    gamesCollection: self.gamesCollection
+                )
+            ]
+            self.containerDelegate?.reloadSections()
+        case .failure(_):
+            self.alertDisplayer.presentTopFloatAlert(
+                parameters: AlertViewModel(
+                    alertType: .error,
+                    description: L10n.fetchGamesErrorDescription
+                )
+            )
+        }
     }
 }
 

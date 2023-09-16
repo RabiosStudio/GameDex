@@ -27,6 +27,6 @@ class GameCollected: NSManagedObject {
     public static let entityName = "GameCollected"
     
     public class func fetchRequest() -> NSFetchRequest<GameCollected> {
-        NSFetchRequest<GameCollected>(entityName: Self.entityName)
+        NSFetchRequest<GameCollected>(entityName: self.entityName)
     }
 }

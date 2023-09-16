@@ -13,7 +13,11 @@ struct MyCollectionByPlatformsScreenFactory: ScreenFactory {
     private let gamesCollection: [SavedGame]
     
     var viewController: UIViewController {
-        let viewModel = MyCollectionByPlatformsViewModel(gamesCollection: self.gamesCollection)
+        let viewModel = MyCollectionByPlatformsViewModel(
+            gamesCollection: self.gamesCollection,
+            database: LocalDatabase(),
+            alertDisplayer: AlertDisplayerImpl(alertDelegate: nil)
+        )
         let layout = UICollectionViewFlowLayout()
         let containerController = ContainerViewController(
             viewModel: viewModel,
