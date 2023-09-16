@@ -38,6 +38,32 @@ final class MyCollectionByPlatformsViewModel: CollectionViewModel {
     }
     
     func didTapRightButtonItem() {
+        guard let platform = self.gamesCollection.first?.game.platform else {
+            return
+        }
+        
+        let containerController = SearchGameByTitleScreenFactory(
+            platform: platform,
+            addGameDelegate: self
+        ).viewController
+        
+        let navigationController = UINavigationController(rootViewController: containerController)
+        
+        _ = Routing.shared.route(
+            navigationStyle: .present(
+                controller: navigationController,
+                completionBlock: nil
+            )
+        )
+    }
+}
+
+extension MyCollectionByPlatformsViewModel: AddGameDetailsViewModelDelegate {
+    func didAddNewGame() {
+        self.containerDelegate?.reloadSections()
+    }
+}
+
 extension MyCollectionByPlatformsViewModel: SearchViewModelDelegate {
     func updateSearchTextField(with text: String, callback: @escaping (EmptyError?) -> ()) {
     }
