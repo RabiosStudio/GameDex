@@ -8,15 +8,14 @@
 import Foundation
 
 final class MyCollectionByPlatformsSection: Section {
-    
-    var gamesCollection: [SavedGame]
-    
+  
     init(gamesCollection: [SavedGame]) {
-        self.gamesCollection = gamesCollection
         super.init()
         self.position = 0
         
-        for item in gamesCollection {
+        let sortedCollection = gamesCollection.sorted { $0.game.title < $1.game.title }
+        
+        for item in sortedCollection {
             let gameCellVM = BasicInfoCellViewModel(
                 title: item.game.title,
                 subtitle1: nil,
