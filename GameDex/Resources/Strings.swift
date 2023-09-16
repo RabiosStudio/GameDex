@@ -54,6 +54,10 @@ internal enum L10n {
   internal static let fetchGamesErrorDescription = L10n.tr("Localizable", "fetchGamesErrorDescription", fallback: "An error occured while fetching data.")
   /// Fill Game details
   internal static let fillGameDetails = L10n.tr("Localizable", "fillGameDetails", fallback: "Fill Game details")
+  /// game
+  internal static let game = L10n.tr("Localizable", "game", fallback: "game")
+  /// games
+  internal static let games = L10n.tr("Localizable", "games", fallback: "games")
   /// Good
   internal static let good = L10n.tr("Localizable", "good", fallback: "Good")
   /// Import

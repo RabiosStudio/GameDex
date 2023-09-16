@@ -75,3 +75,7 @@
 "acceptable" = "Acceptable";
 "poor" = "Poor";
 "region" = "Region";
+
+// Other
+"game" = "game";
+"games" = "games";

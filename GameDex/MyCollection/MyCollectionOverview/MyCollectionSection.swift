@@ -36,8 +36,11 @@ final class MyCollectionSection: Section {
                 }
             }
             
+            let text = gameArrayByPlatform.count > 1 ? L10n.games : L10n.game
+            
             let labelCellVM = LabelCellViewModel(
-                text: platform,
+                mainText: platform,
+                optionalText: "\(gameArrayByPlatform.count) \(text)",
                 screenFactory: MyCollectionByPlatformsScreenFactory(
                     gamesCollection: gameArrayByPlatform
                 )
