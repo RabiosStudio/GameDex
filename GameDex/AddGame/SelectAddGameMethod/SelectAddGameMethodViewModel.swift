@@ -24,7 +24,7 @@ final class SelectAddGameMethodViewModel: CollectionViewModel {
         callback(nil)
     }
     
-    func didTapRightButtonItem(atIndex: Int) {
+    func didTapRightButtonItem() {
         _ = Routing.shared.route(navigationStyle: .dismiss {})
     }
 }

@@ -45,7 +45,7 @@ final class AddGameDetailsViewModel: CollectionViewModel {
         callback(nil)
     }
     
-    func didTapRightButtonItem(atIndex: Int) {
+    func didTapRightButtonItem() {
         self.addGameDelegate?.didAddNewGame()
         _ =  Routing.shared.route(
             navigationStyle: .dismiss {
@@ -125,7 +125,7 @@ extension AddGameDetailsViewModel: PrimaryButtonDelegate {
                     )
                 )
                 // the right button item is .close so the method will dismiss the view presented
-                self?.didTapRightButtonItem(atIndex: .zero)
+                self?.didTapRightButtonItem()
             }
         }
     }

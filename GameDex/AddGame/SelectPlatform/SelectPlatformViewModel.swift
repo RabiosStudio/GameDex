@@ -10,6 +10,7 @@ import Foundation
 final class SelectPlatformViewModel: CollectionViewModel {
     lazy var searchViewModel: SearchViewModel? = SearchViewModel(
         placeholder: L10n.searchPlatform,
+        activateOnTap: false,
         delegate: self
     )
     var isBounceable: Bool = true
@@ -46,7 +47,7 @@ final class SelectPlatformViewModel: CollectionViewModel {
         }
     }
     
-    func didTapRightButtonItem(atIndex: Int) {
+    func didTapRightButtonItem() {
         _ = Routing.shared.route(navigationStyle: .dismiss {})
     }
     

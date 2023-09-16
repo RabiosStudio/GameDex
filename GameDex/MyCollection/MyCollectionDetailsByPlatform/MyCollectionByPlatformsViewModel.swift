@@ -6,9 +6,14 @@
 //
 
 import Foundation
+import UIKit
 
 final class MyCollectionByPlatformsViewModel: CollectionViewModel {
-    var searchViewModel: SearchViewModel?
+    lazy var searchViewModel: SearchViewModel? = SearchViewModel(
+        placeholder: L10n.searchGame,
+        activateOnTap: true,
+        delegate: self
+    )
     var isBounceable: Bool = true
     var progress: Float?
     var rightButtonItem: [AnyBarButtonItem]? = [.add, .search]
@@ -32,5 +37,11 @@ final class MyCollectionByPlatformsViewModel: CollectionViewModel {
         callback(nil)
     }
     
-    func didTapRightButtonItem(atIndex: Int) {
+    func didTapRightButtonItem() {
+extension MyCollectionByPlatformsViewModel: SearchViewModelDelegate {
+    func updateSearchTextField(with text: String, callback: @escaping (EmptyError?) -> ()) {
+    }
+    
+    func startSearch(from searchQuery: String, callback: @escaping (EmptyError?) -> ()) {
+    }
 }

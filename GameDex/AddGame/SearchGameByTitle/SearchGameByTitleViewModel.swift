@@ -10,6 +10,7 @@ import Foundation
 final class SearchGameByTitleViewModel: CollectionViewModel {
     lazy var searchViewModel: SearchViewModel? = SearchViewModel(
         placeholder: L10n.searchGame,
+        activateOnTap: false,
         delegate: self
     )
     var isBounceable: Bool = true
@@ -48,7 +49,7 @@ final class SearchGameByTitleViewModel: CollectionViewModel {
         callback(error)
     }
     
-    func didTapRightButtonItem(atIndex: Int) {
+    func didTapRightButtonItem() {
         _ = Routing.shared.route(navigationStyle: .dismiss {})
     }
 }

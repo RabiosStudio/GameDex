@@ -184,27 +184,32 @@ class ContainerViewController: UIViewController {
     
     private func configureNavBar() {
         self.navigationController?.configure()
-        if let searchVM = self.viewModel.searchViewModel {
-            self.searchBar.placeholder = searchVM.placeholder
-            self.navigationItem.titleView = self.searchBar
-        } else {
-            self.title = self.viewModel.screenTitle
-        }
+        self.configureSearchBar()
         
         guard let rightButtonItem = self.viewModel.rightButtonItem else {
             return
         }
         
         var buttonItemsConfigured = [BarButtonItem]()
-        for (index, item) in rightButtonItem.enumerated() {
-            buttonItemsConfigured.append(
-                BarButtonItem(
-                    image: item.image(), actionHandler: {
-                        [weak self] in
-                        self?.viewModel.didTapRightButtonItem(atIndex: index)
-                    }
+        for (_, item) in rightButtonItem.enumerated() {
+            switch item {
+            case .search:
+                buttonItemsConfigured.append(
+                    BarButtonItem(
+                        image: item.image(), actionHandler: { [weak self] in
+                            self?.handleShowSearchBarOnTap()
+                        }
+                    )
                 )
-            )
+            default:
+                buttonItemsConfigured.append(
+                    BarButtonItem(
+                        image: item.image(), actionHandler: { [weak self] in
+                            self?.viewModel.didTapRightButtonItem()
+                        }
+                    )
+                )
+            }
         }
         
         switch rightButtonItem {
@@ -226,6 +231,25 @@ class ContainerViewController: UIViewController {
         
         // update progress bar with given value
         self.navigationController?.setProgress(progress, animated: false)
+    }
+    
+    private func configureSearchBar() {
+        guard let searchVM = self.viewModel.searchViewModel,
+              searchVM.activateOnTap == false else {
+            self.title = self.viewModel.screenTitle
+            return
+        }
+        self.searchBar.placeholder = searchVM.placeholder
+        self.navigationItem.titleView = self.searchBar
+    }
+    
+    private func handleShowSearchBarOnTap() {
+        guard let searchVM = self.viewModel.searchViewModel else { return }
+        self.searchBar.placeholder = searchVM.placeholder
+        self.searchBar.showsCancelButton = true
+        self.searchBar.becomeFirstResponder()
+        self.navigationItem.rightBarButtonItems = nil
+        self.navigationItem.titleView = self.searchBar
     }
     
     private func configureLoader() {
@@ -360,6 +384,12 @@ extension ContainerViewController: UISearchTextFieldDelegate {
 // MARK: UISearchDelegate
 
 extension ContainerViewController: UISearchBarDelegate {
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        self.navigationItem.titleView = nil
+        self.configureNavBar()
+    }
+    
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard let searchQuery = searchBar.text else {
             return

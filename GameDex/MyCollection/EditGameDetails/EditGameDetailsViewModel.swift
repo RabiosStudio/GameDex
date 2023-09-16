@@ -38,7 +38,7 @@ final class EditGameDetailsViewModel: CollectionViewModel {
         callback(nil)
     }
     
-    func didTapRightButtonItem(atIndex: Int) {
+    func didTapRightButtonItem() {
         self.alertDisplayer.presentBasicAlert(
             parameters: AlertViewModel(
                 alertType: .warning,

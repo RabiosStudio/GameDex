@@ -44,7 +44,7 @@ final class MyCollectionViewModel: CollectionViewModel {
         }
     }
     
-    func didTapRightButtonItem(atIndex: Int) {
+    func didTapRightButtonItem() {
         _ = Routing.shared.route(
             navigationStyle: .present(
                 controller: SelectAddGameMethodScreenFactory(
