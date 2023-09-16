@@ -191,7 +191,7 @@ class ContainerViewController: UIViewController {
         }
         
         var buttonItemsConfigured = [BarButtonItem]()
-        for (_, item) in rightButtonItem.enumerated() {
+        for item in rightButtonItem {
             switch item {
             case .search:
                 buttonItemsConfigured.append(

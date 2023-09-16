@@ -826,7 +826,7 @@
 				25D6EADC2A8A265C00C2BE57 /* Resources */,
 				254E8B742A8A720D00C101C8 /* Run SwiftLint */,
 				58A74874355C3C96C8682A6E /* [CP] Embed Pods Frameworks */,
-				251C86752A94D73C0020C794 /* ShellScript */,
+				251C86752A94D73C0020C794 /* Run SwiftyMocky */,
 			);
 			buildRules = (
 			);
@@ -919,8 +919,9 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		251C86752A94D73C0020C794 /* ShellScript */ = {
+		251C86752A94D73C0020C794 /* Run SwiftyMocky */ = {
 			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);
@@ -928,6 +929,7 @@
 			);
 			inputPaths = (
 			);
+			name = "Run SwiftyMocky";
 			outputFileListPaths = (
 			);
 			outputPaths = (

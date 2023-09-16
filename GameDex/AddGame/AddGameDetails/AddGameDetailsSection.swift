@@ -9,10 +9,7 @@ import Foundation
 
 final class AddGameDetailsSection: Section {
     
-    private let game: Game
-    
     init(game: Game) {
-        self.game = game
         super.init()
         self.position = 0
         

@@ -84,14 +84,14 @@ extension MyCollectionByPlatformsViewModel: AddGameDetailsViewModelDelegate {
                 )
                 return
             }
+            
             let collection = DataConverter.convert(gamesCollected: result)
             
             var updatedGamesCollection = [SavedGame]()
-            for item in collection {
-                if item.game.platform.id == self.gamesCollection.first?.game.platform.id {
-                    updatedGamesCollection.append(item)
-                }
+            for item in collection where item.game.platform.id == self.gamesCollection.first?.game.platform.id {
+                updatedGamesCollection.append(item)
             }
+            
             self.gamesCollection = updatedGamesCollection
             self.sections = [
                 MyCollectionByPlatformsSection(

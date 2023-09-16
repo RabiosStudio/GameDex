@@ -9,14 +9,11 @@ import Foundation
 
 final class SearchGameByTitleSection: Section {
     
-    var gamesQuery: [Game]
-    
     init(
         gamesQuery: [Game],
         platform: Platform,
         addGameDelegate: AddGameDetailsViewModelDelegate?
     ) {
-        self.gamesQuery = gamesQuery
         super.init()
         self.position = 0
         

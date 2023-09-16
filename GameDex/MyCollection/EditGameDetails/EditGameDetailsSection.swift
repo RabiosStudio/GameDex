@@ -9,10 +9,7 @@ import Foundation
 
 final class EditGameDetailsSection: Section {
     
-    private let savedGame: SavedGame
-    
     init(savedGame: SavedGame, editDelegate: EditFormDelegate) {
-        self.savedGame = savedGame
         super.init()
         self.position = 0
         

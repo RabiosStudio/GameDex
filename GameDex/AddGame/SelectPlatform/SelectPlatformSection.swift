@@ -9,10 +9,7 @@ import Foundation
 
 final class SelectPlatformSection: Section {
     
-    var platforms: [Platform]
-    
     init(platforms: [Platform], addGameDelegate: AddGameDetailsViewModelDelegate?) {
-        self.platforms = platforms
         super.init()
         self.position = 0
         

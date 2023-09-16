@@ -9,10 +9,7 @@ import Foundation
 
 final class MyCollectionSection: Section {
     
-    var gamesCollection: [SavedGame]
-    
     init(gamesCollection: [SavedGame]) {
-        self.gamesCollection = gamesCollection
         super.init()
         self.position = 0
         
