@@ -120,6 +120,7 @@ extension EditGameDetailsViewModel: PrimaryButtonDelegate {
                         description: L10n.updateGameSuccessDescription
                     )
                 )
+                self?.configureBottomView(shouldEnableButton: false)
             }
         }
     }
