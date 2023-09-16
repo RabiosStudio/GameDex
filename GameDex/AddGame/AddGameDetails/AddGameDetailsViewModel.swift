@@ -109,13 +109,23 @@ extension AddGameDetailsViewModel: PrimaryButtonDelegate {
         )
         
         self.localDatabase.add(newEntity: gameToSave) { [weak self] error in
-            if error != nil {
-                self?.alertDisplayer.presentTopFloatAlert(
-                    parameters: AlertViewModel(
-                        alertType: .error,
-                        description: L10n.saveGameErrorDescription
+            if let error {
+                switch error {
+                case .itemAlreadySaved:
+                    self?.alertDisplayer.presentTopFloatAlert(
+                        parameters: AlertViewModel(
+                            alertType: .warning,
+                            description: L10n.warningGameAlreadyInDatabase
+                        )
                     )
-                )
+                default:
+                    self?.alertDisplayer.presentTopFloatAlert(
+                        parameters: AlertViewModel(
+                            alertType: .error,
+                            description: L10n.saveGameErrorDescription
+                        )
+                    )
+                }
                 self?.configureBottomView()
             } else {
                 self?.alertDisplayer.presentTopFloatAlert(

@@ -29,6 +29,7 @@
 "warningTitle" = "One moment !";
 "warningRemoveGameDescription" = "Are you sure you want to remove this game from your collection?";
 "warningTryAgain" = "Please try again later";
+"warningGameAlreadyInDatabase" = "Ce jeu est déjà dans votre collection !";
 
 // Button
 "addAGame" = "Add a game";

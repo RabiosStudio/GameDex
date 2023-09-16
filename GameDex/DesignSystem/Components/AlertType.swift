@@ -20,7 +20,7 @@ enum AlertType {
         case .error:
             return EKColor(.systemRed)
         case .warning:
-            return EKColor(.systemRed)
+            return EKColor(.systemOrange)
         }
     }
     
@@ -31,7 +31,7 @@ enum AlertType {
         case .error:
             return UIImage(systemName: "exclamationmark.circle.fill")!
         case .warning:
-            return UIImage(systemName: "hand.raised")!
+            return UIImage(systemName: "hand.raised.fill")!
         }
     }
     

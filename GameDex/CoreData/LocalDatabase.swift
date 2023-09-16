@@ -21,14 +21,31 @@ class LocalDatabase: Database {
 extension LocalDatabase {
     
     func add(newEntity: SavedGame, callback: @escaping (DatabaseError?) -> ()) {
-        // Save the object in the following context
-        _ = DataConverter.convert(gameDetails: newEntity, context: managedObjectContext)
-        // Save the context
-        coreDataStack.saveContext(managedObjectContext) { error in
-            if error != nil {
-                callback(DatabaseError.saveError)
+        // Check if the item is already in database
+        let request: NSFetchRequest<GameCollected> = GameCollected.fetchRequest()
+        guard let games = try? coreDataStack.viewContext.fetch(request) else {
+            callback(DatabaseError.fetchError)
+            return
+        }
+        if games.contains(
+            where: { aGame in
+                aGame.title == newEntity.game.title &&
+                aGame.platformTitle == newEntity.game.platform.title
             }
-            callback(nil)
+        ) {
+            callback(DatabaseError.itemAlreadySaved)
+            return
+        } else {
+            
+            // Save the object in the following context
+            _ = DataConverter.convert(gameDetails: newEntity, context: managedObjectContext)
+            // Save the context
+            coreDataStack.saveContext(managedObjectContext) { error in
+                if error != nil {
+                    callback(DatabaseError.saveError)
+                }
+                callback(nil)
+            }
         }
     }
     

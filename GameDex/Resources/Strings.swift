@@ -126,6 +126,8 @@ internal enum L10n {
   internal static let updateGameErrorDescription = L10n.tr("Localizable", "updateGameErrorDescription", fallback: "An error occured while updating data.")
   /// The game information were updated.
   internal static let updateGameSuccessDescription = L10n.tr("Localizable", "updateGameSuccessDescription", fallback: "The game information were updated.")
+  /// Ce jeu est déjà dans votre collection !
+  internal static let warningGameAlreadyInDatabase = L10n.tr("Localizable", "warningGameAlreadyInDatabase", fallback: "Ce jeu est déjà dans votre collection !")
   /// Are you sure you want to remove this game from your collection?
   internal static let warningRemoveGameDescription = L10n.tr("Localizable", "warningRemoveGameDescription", fallback: "Are you sure you want to remove this game from your collection?")
   /// One moment !
