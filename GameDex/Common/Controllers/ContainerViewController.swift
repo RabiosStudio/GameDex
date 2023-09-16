@@ -388,6 +388,16 @@ extension ContainerViewController: UISearchBarDelegate {
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         self.navigationItem.titleView = nil
         self.configureNavBar()
+        
+        self.viewModel.searchViewModel?.delegate?.updateSearchTextField(with: "") { [weak self] error in
+            if let error = error {
+                let tabBarOffset = -(self?.tabBarController?.tabBar.frame.size.height ?? 0)
+                self?.updateEmptyState(error: error,
+                                       tabBarOffset: tabBarOffset)
+            } else {
+                self?.refresh()
+            }
+        }
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
@@ -397,8 +407,7 @@ extension ContainerViewController: UISearchBarDelegate {
         self.searchBar.endEditing(true)
         self.configureLoader()
         self.viewModel.searchViewModel?.delegate?.startSearch(
-            from: searchQuery,
-            callback: { [weak self] error in
+            from: searchQuery) { [weak self] error in
                 DispatchQueue.main.async {
                     if let error = error {
                         let tabBarOffset = -(self?.tabBarController?.tabBar.frame.size.height ?? 0)
@@ -408,12 +417,12 @@ extension ContainerViewController: UISearchBarDelegate {
                         self?.refresh()
                     }
                 }
-            })
+            }
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         // called when text changes (including clear)
-        self.viewModel.searchViewModel?.delegate?.updateSearchTextField(with: searchText, callback: { [weak self] error in
+        self.viewModel.searchViewModel?.delegate?.updateSearchTextField(with: searchText) { [weak self] error in
             if let error = error {
                 let tabBarOffset = -(self?.tabBarController?.tabBar.frame.size.height ?? 0)
                 self?.updateEmptyState(error: error,
@@ -421,7 +430,7 @@ extension ContainerViewController: UISearchBarDelegate {
             } else {
                 self?.refresh()
             }
-        })
+        }
     }
 }
 
