@@ -55,6 +55,7 @@ final class TextFieldCell: UICollectionViewCell, CellConfigurable {
     override func prepareForReuse() {
         super.prepareForReuse()
         self.textField.inputView = nil
+        self.textField.text = nil
         self.pickerData = nil
     }
     
@@ -63,7 +64,8 @@ final class TextFieldCell: UICollectionViewCell, CellConfigurable {
             return
         }
         self.cellVM = cellVM
-        self.textField.text = cellVM.text
+        self.textField.placeholder = cellVM.placeholder
+        self.textField.text = cellVM.value
 
         if let keyboardType = cellVM.formType.keyboardType {
             self.textField.keyboardType = keyboardType
@@ -74,7 +76,6 @@ final class TextFieldCell: UICollectionViewCell, CellConfigurable {
         }
         
         self.textField.autocorrectionType = .no
-        self.textField.placeholder = cellVM.placeholder
         self.setupConstraints()
     }
     

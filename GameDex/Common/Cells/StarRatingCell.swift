@@ -50,7 +50,7 @@ class StarRatingCell: UICollectionViewCell, CellConfigurable {
         guard let cellVM = cellViewModel as? StarRatingCellViewModel else {
             return
         }
-        self.starRatingView.rating = Double(cellVM.rating)
+        self.starRatingView.rating = Double(cellVM.value ?? cellVM.rating)
         self.setupConstraints()
         self.label.text = cellVM.title
         self.starRatingView.didFinishTouchingCosmos = { rating in
