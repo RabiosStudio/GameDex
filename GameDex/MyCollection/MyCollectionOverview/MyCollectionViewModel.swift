@@ -8,10 +8,14 @@
 import Foundation
 
 final class MyCollectionViewModel: CollectionViewModel {
-    var searchViewModel: SearchViewModel?
+    lazy var searchViewModel: SearchViewModel? = SearchViewModel(
+        placeholder: L10n.searchGame,
+        activateOnTap: true,
+        delegate: self
+    )
     var isBounceable: Bool = true
     var progress: Float?
-    var rightButtonItem: [AnyBarButtonItem]? = [.add]
+    var rightButtonItem: [AnyBarButtonItem]? = [.add, .search]
     let screenTitle: String? = L10n.myCollection
     var sections: [Section] = []
     var collection: [SavedGame] = []
@@ -53,6 +57,10 @@ final class MyCollectionViewModel: CollectionViewModel {
                 completionBlock: nil)
         )
     }
+    
+    private func updateListOfCollections(with list: [SavedGame]) {
+        self.sections = [MyCollectionSection(gamesCollection: list)]
+    }
 }
 
 // MARK: - AddGameDetailsViewModelDelegate
@@ -60,5 +68,29 @@ final class MyCollectionViewModel: CollectionViewModel {
 extension MyCollectionViewModel: AddGameDetailsViewModelDelegate {
     func didAddNewGame() {
         self.containerDelegate?.reloadSections()
+    }
+}
+
+extension MyCollectionViewModel: SearchViewModelDelegate {
+    func startSearch(from searchQuery: String, callback: @escaping (EmptyError?) -> ()) {
+        callback(nil)
+    }
+    
+    func updateSearchTextField(with text: String, callback: @escaping (EmptyError?) -> ()) {
+        guard text != "" else {
+            self.updateListOfCollections(with: self.collection)
+            callback(nil)
+            return
+        }
+        let matchingCollections = self.collection.filter({
+            $0.game.platform.title.localizedCaseInsensitiveContains(text)
+        })
+        self.updateListOfCollections(with: matchingCollections)
+        
+        if matchingCollections.isEmpty {
+            callback(MyCollectionError.noItems)
+        } else {
+            callback(nil)
+        }
     }
 }
