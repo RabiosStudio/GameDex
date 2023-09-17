@@ -74,7 +74,7 @@ extension EditGameDetailsViewModel: PrimaryButtonDelegate {
         var rating: Int?
         
         for formCellVM in formCellsVM {
-            guard let formType = formCellVM.formType as? AddGameFormType else { return }
+            guard let formType = formCellVM.formType as? GameFormType else { return }
             switch formType {
             case .yearOfAcquisition:
                 acquisitionYear = formCellVM.value as? String

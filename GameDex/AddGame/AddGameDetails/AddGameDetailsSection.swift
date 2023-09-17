@@ -23,7 +23,7 @@ final class AddGameDetailsSection: Section {
         
         let yearOfAcquisitionCellVM = TextFieldCellViewModel(
             placeholder: L10n.yearOfAcquisition,
-            formType: AddGameFormType.yearOfAcquisition,
+            formType: GameFormType.yearOfAcquisition,
             value: nil,
             editDelegate: nil
         )
@@ -31,7 +31,7 @@ final class AddGameDetailsSection: Section {
         
         let conditionCellVM = TextFieldCellViewModel(
             placeholder: L10n.condition,
-            formType: AddGameFormType.gameCondition(
+            formType: GameFormType.gameCondition(
                 PickerViewModel(
                     data: [GameCondition.allCases.map { $0.value }]
                 )
@@ -43,7 +43,7 @@ final class AddGameDetailsSection: Section {
         
         let completenessCellVM = TextFieldCellViewModel(
             placeholder: L10n.completeness,
-            formType: AddGameFormType.gameCompleteness(
+            formType: GameFormType.gameCompleteness(
                 PickerViewModel(
                     data: [GameCompleteness.allCases.map { $0.value }]
                 )
@@ -55,7 +55,7 @@ final class AddGameDetailsSection: Section {
         
         let regionCellVM = TextFieldCellViewModel(
             placeholder: L10n.region,
-            formType: AddGameFormType.gameRegion(
+            formType: GameFormType.gameRegion(
                 PickerViewModel(
                     data: [GameRegion.allCases.map { $0.rawValue }]
                 )
@@ -67,7 +67,7 @@ final class AddGameDetailsSection: Section {
         
         let storageAreaCellVM = TextFieldCellViewModel(
             placeholder: L10n.storageArea,
-            formType: AddGameFormType.storageArea,
+            formType: GameFormType.storageArea,
             value: nil,
             editDelegate: nil
         )
@@ -75,7 +75,7 @@ final class AddGameDetailsSection: Section {
         
         let personalRatingCellVM = StarRatingCellViewModel(
             title: L10n.personalRating,
-            formType: AddGameFormType.rating,
+            formType: GameFormType.rating,
             value: nil,
             editDelegate: nil
         )
@@ -83,7 +83,7 @@ final class AddGameDetailsSection: Section {
         
         let otherDetailsCellVM = TextViewCellViewModel(
             title: L10n.otherDetails,
-            formType: AddGameFormType.notes,
+            formType: GameFormType.notes,
             value: nil,
             editDelegate: nil
         )
