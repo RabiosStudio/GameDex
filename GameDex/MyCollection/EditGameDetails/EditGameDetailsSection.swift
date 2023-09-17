@@ -24,7 +24,7 @@ final class EditGameDetailsSection: Section {
         let yearOfAcquisitionCellVM = TextFieldCellViewModel(
             placeholder: L10n.yearOfAcquisition,
             formType: AddGameFormType.yearOfAcquisition,
-            text: savedGame.acquisitionYear,
+            value: savedGame.acquisitionYear,
             editDelegate: editDelegate
         )
         self.cellsVM.append(yearOfAcquisitionCellVM)
@@ -35,7 +35,8 @@ final class EditGameDetailsSection: Section {
                 PickerViewModel(
                     data: [GameCondition.allCases.map { $0.value }]
                 )
-            ), text: savedGame.gameCondition,
+            ),
+            value: savedGame.gameCondition,
             editDelegate: editDelegate
         )
         self.cellsVM.append(conditionCellVM)
@@ -46,7 +47,8 @@ final class EditGameDetailsSection: Section {
                 PickerViewModel(
                     data: [GameCompleteness.allCases.map { $0.value }]
                 )
-            ), text: savedGame.gameCompleteness,
+            ),
+            value: savedGame.gameCompleteness,
             editDelegate: editDelegate
         )
         self.cellsVM.append(completenessCellVM)
@@ -57,7 +59,8 @@ final class EditGameDetailsSection: Section {
                 PickerViewModel(
                     data: [GameRegion.allCases.map { $0.rawValue }]
                 )
-            ), text: savedGame.gameRegion,
+            ),
+            value: savedGame.gameRegion,
             editDelegate: editDelegate
         )
         self.cellsVM.append(regionCellVM)
@@ -65,7 +68,7 @@ final class EditGameDetailsSection: Section {
         let storageAreaCellVM = TextFieldCellViewModel(
             placeholder: L10n.storageArea,
             formType: AddGameFormType.storageArea,
-            text: savedGame.storageArea,
+            value: savedGame.storageArea,
             editDelegate: editDelegate
         )
         self.cellsVM.append(storageAreaCellVM)
@@ -73,7 +76,7 @@ final class EditGameDetailsSection: Section {
         let personalRatingCellVM = StarRatingCellViewModel(
             title: L10n.personalRating,
             formType: AddGameFormType.rating,
-            rating: savedGame.rating ?? .zero,
+            value: savedGame.rating,
             editDelegate: editDelegate
         )
         self.cellsVM.append(personalRatingCellVM)
@@ -81,7 +84,7 @@ final class EditGameDetailsSection: Section {
         let otherDetailsCellVM = TextViewCellViewModel(
             title: L10n.otherDetails,
             formType: AddGameFormType.notes,
-            text: savedGame.notes ?? "",
+            value: savedGame.notes,
             editDelegate: editDelegate
         )
         self.cellsVM.append(otherDetailsCellVM)

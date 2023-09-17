@@ -24,7 +24,7 @@ final class AddGameDetailsSection: Section {
         let yearOfAcquisitionCellVM = TextFieldCellViewModel(
             placeholder: L10n.yearOfAcquisition,
             formType: AddGameFormType.yearOfAcquisition,
-            text: nil,
+            value: nil,
             editDelegate: nil
         )
         self.cellsVM.append(yearOfAcquisitionCellVM)
@@ -36,7 +36,7 @@ final class AddGameDetailsSection: Section {
                     data: [GameCondition.allCases.map { $0.value }]
                 )
             ),
-            text: nil,
+            value: nil,
             editDelegate: nil
         )
         self.cellsVM.append(conditionCellVM)
@@ -48,7 +48,7 @@ final class AddGameDetailsSection: Section {
                     data: [GameCompleteness.allCases.map { $0.value }]
                 )
             ),
-            text: nil,
+            value: nil,
             editDelegate: nil
         )
         self.cellsVM.append(completenessCellVM)
@@ -60,7 +60,7 @@ final class AddGameDetailsSection: Section {
                     data: [GameRegion.allCases.map { $0.rawValue }]
                 )
             ),
-            text: nil,
+            value: nil,
             editDelegate: nil
         )
         self.cellsVM.append(regionCellVM)
@@ -68,7 +68,7 @@ final class AddGameDetailsSection: Section {
         let storageAreaCellVM = TextFieldCellViewModel(
             placeholder: L10n.storageArea,
             formType: AddGameFormType.storageArea,
-            text: nil,
+            value: nil,
             editDelegate: nil
         )
         self.cellsVM.append(storageAreaCellVM)
@@ -76,7 +76,7 @@ final class AddGameDetailsSection: Section {
         let personalRatingCellVM = StarRatingCellViewModel(
             title: L10n.personalRating,
             formType: AddGameFormType.rating,
-            rating: .zero,
+            value: nil,
             editDelegate: nil
         )
         self.cellsVM.append(personalRatingCellVM)
@@ -84,7 +84,7 @@ final class AddGameDetailsSection: Section {
         let otherDetailsCellVM = TextViewCellViewModel(
             title: L10n.otherDetails,
             formType: AddGameFormType.notes,
-            text: nil,
+            value: nil,
             editDelegate: nil
         )
         self.cellsVM.append(otherDetailsCellVM)

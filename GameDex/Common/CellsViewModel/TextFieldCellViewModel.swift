@@ -22,18 +22,17 @@ final class TextFieldCellViewModel: CollectionFormCellViewModel {
             self.editFormDelegate?.enableSaveButton()
         }
     }
-    let text: String?
     
     weak var editFormDelegate: EditFormDelegate?
     
     init(placeholder: String,
          formType: FormType,
-         text: String?,
+         value: String?,
          editDelegate: EditFormDelegate?
     ) {
         self.placeholder = placeholder
         self.formType = formType
-        self.text = text
+        self.value = value
         self.editFormDelegate = editDelegate
     }
     

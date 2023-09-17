@@ -22,18 +22,17 @@ final class StarRatingCellViewModel: CollectionFormCellViewModel {
             self.editFormDelegate?.enableSaveButton()
         }
     }
-    let rating: Int
     
     weak var editFormDelegate: EditFormDelegate?
     
     init(title: String,
          formType: FormType,
-         rating: Int,
+         value: Int?,
          editDelegate: EditFormDelegate?
     ) {
         self.title = title
         self.formType = formType
-        self.rating = rating
+        self.value = value
         self.editFormDelegate = editDelegate
     }
 }
