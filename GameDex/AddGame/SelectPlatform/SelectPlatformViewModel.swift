@@ -48,7 +48,7 @@ final class SelectPlatformViewModel: CollectionViewModel {
     }
     
     func didTapRightButtonItem() {
-        _ = Routing.shared.route(navigationStyle: .dismiss {})
+        _ = Routing.shared.route(navigationStyle: .dismiss(completionBlock: nil))
     }
     
     private func requestData() async -> AddGameError? {

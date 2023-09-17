@@ -23,7 +23,7 @@ final class SelectPlatformViewModelTests: XCTestCase {
     
     // MARK: Tests
     
-    func test_init_GivenSelectPlatformViewModel_ThenShouldSetPropertiesCorrectly() {
+    func test_init_ThenShouldSetPropertiesCorrectly() {
         // Given
         let networkingSession = APIMock()
         
@@ -36,7 +36,7 @@ final class SelectPlatformViewModelTests: XCTestCase {
         // Then
         XCTAssertEqual(viewModel.numberOfSections(), .zero)
         XCTAssertEqual(viewModel.progress, 1/3)
-        
+        XCTAssertEqual(viewModel.numberOfItems(in: .zero), .zero)
         XCTAssertEqual(viewModel.searchViewModel?.placeholder, L10n.searchPlatform)
     }
     
@@ -65,6 +65,8 @@ final class SelectPlatformViewModelTests: XCTestCase {
                 return
             }
             XCTAssertEqual(error, AddGameError.server)
+            XCTAssertEqual(endpoint.url, URL(string: "platforms"))
+            
             expectation.fulfill()
         }
         
@@ -218,10 +220,6 @@ final class SelectPlatformViewModelTests: XCTestCase {
             addGameDelegate: AddGameDetailsViewModelDelegateMock()
         )
         
-        let platforms = DataConverter.convert(
-            remotePlatforms: MockData.searchPlaformsData.results
-        )
-        
         viewModel.loadData { _ in
             
             // When
@@ -253,10 +251,6 @@ final class SelectPlatformViewModelTests: XCTestCase {
         let viewModel = SelectPlatformViewModel(
             networkingSession: networkingSession,
             addGameDelegate: AddGameDetailsViewModelDelegateMock()
-        )
-        
-        let platforms = DataConverter.convert(
-            remotePlatforms: MockData.searchPlaformsData.results
         )
         
         viewModel.loadData { _ in
@@ -326,5 +320,25 @@ final class SelectPlatformViewModelTests: XCTestCase {
         
         // Then
         XCTAssertTrue(callbackIsCalled)
+    }
+    
+    func test_didTapRightButtonItem_ThenShouldSetNavigationStyleCorrectly() {
+        // Given
+        let networkingSession = APIMock()
+        let viewModel = SelectPlatformViewModel(
+            networkingSession: networkingSession,
+            addGameDelegate: AddGameDetailsViewModelDelegateMock()
+        )
+        
+        // When
+        viewModel.didTapRightButtonItem()
+        
+        // Then
+        let expectedNavigationStyle: NavigationStyle = {
+            return .dismiss(completionBlock: nil)
+        }()
+        let lastNavigationStyle = Routing.shared.lastNavigationStyle
+        
+        XCTAssertEqual(lastNavigationStyle, expectedNavigationStyle)
     }
 }

@@ -698,8 +698,8 @@
 		25EB24392AA784200024F01C /* SelectAddGameMethod */ = {
 			isa = PBXGroup;
 			children = (
-				251C87122A9BBD3F0020C794 /* SelectAddGameMethodSectionTests.swift */,
 				251C87102A9BBD290020C794 /* SelectAddGameMethodViewModelTests.swift */,
+				251C87122A9BBD3F0020C794 /* SelectAddGameMethodSectionTests.swift */,
 			);
 			path = SelectAddGameMethod;
 			sourceTree = "<group>";
@@ -716,8 +716,8 @@
 		25EB243B2AA784350024F01C /* SearchGameByTitle */ = {
 			isa = PBXGroup;
 			children = (
-				25EB240D2AA5BC550024F01C /* SearchGameByTitleSectionTests.swift */,
 				25EB240F2AA5C0600024F01C /* SearchGameByTitleViewModelTests.swift */,
+				25EB240D2AA5BC550024F01C /* SearchGameByTitleSectionTests.swift */,
 			);
 			path = SearchGameByTitle;
 			sourceTree = "<group>";

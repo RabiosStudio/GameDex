@@ -47,10 +47,7 @@ final class AddGameDetailsViewModel: CollectionViewModel {
     
     func didTapRightButtonItem() {
         self.addGameDelegate?.didAddNewGame()
-        _ =  Routing.shared.route(
-            navigationStyle: .dismiss {
-            }
-        )
+        _ = Routing.shared.route(navigationStyle: .dismiss(completionBlock: nil))
     }
     
     private func configureBottomView() {
