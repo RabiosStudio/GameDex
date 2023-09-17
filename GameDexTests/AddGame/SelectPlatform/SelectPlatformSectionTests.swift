@@ -29,10 +29,10 @@ final class SelectPlatformSectionTests: XCTestCase {
             return
         }
         
-        XCTAssertEqual(platform1CellVM.text, "Atari 2600")
-        XCTAssertEqual(platform2CellVM.text, "Dreamcast")
-        XCTAssertEqual(platform3CellVM.text, "Game Boy Color")
-        XCTAssertEqual(platform4CellVM.text, "Jaguar")
-        XCTAssertEqual(platform5CellVM.text, "SNES")
+        XCTAssertEqual(platform1CellVM.mainText, "Atari 2600")
+        XCTAssertEqual(platform2CellVM.mainText, "Dreamcast")
+        XCTAssertEqual(platform3CellVM.mainText, "Game Boy Color")
+        XCTAssertEqual(platform4CellVM.mainText, "Jaguar")
+        XCTAssertEqual(platform5CellVM.mainText, "SNES")
     }
 }
