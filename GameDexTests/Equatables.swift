@@ -8,13 +8,6 @@
 import Foundation
 @testable import GameDex
 
-extension Platform: Equatable {
-    public static func == (lhs: Platform, rhs: Platform) -> Bool {
-        lhs.id == rhs.id &&
-        lhs.title == rhs.title
-    }
-}
-
 extension AddGameError: Equatable {
     public static func == (lhs: AddGameError, rhs: AddGameError) -> Bool {
         lhs.errorTitle == rhs.errorTitle &&
