@@ -40,6 +40,8 @@ final class SearchGameByTitleViewModelTests: XCTestCase {
         XCTAssertEqual(viewModel.numberOfItems(in: .zero), .zero)
         
         XCTAssertEqual(viewModel.searchViewModel?.placeholder, L10n.searchGame)
+        XCTAssertEqual(viewModel.searchViewModel?.activateOnTap, false)
+
     }
     
     func test_loadData_ThenCallbackShouldReturnNoSearch() {
