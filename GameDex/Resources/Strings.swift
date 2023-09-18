@@ -108,12 +108,12 @@ internal enum L10n {
   internal static let scan = L10n.tr("Localizable", "scan", fallback: "Scan codebar")
   /// Sealed
   internal static let sealed = L10n.tr("Localizable", "sealed", fallback: "Sealed")
+  /// Search for a collection
+  internal static let searchCollection = L10n.tr("Localizable", "searchCollection", fallback: "Search for a collection")
   /// Search game
   internal static let searchGame = L10n.tr("Localizable", "searchGame", fallback: "Search game")
   /// Search a platform
   internal static let searchPlatform = L10n.tr("Localizable", "searchPlatform", fallback: "Search a platform")
-  /// Select platform
-  internal static let selectPlatform = L10n.tr("Localizable", "selectPlatform", fallback: "Select platform")
   /// Step 1/3
   internal static let stepOneOutOfThree = L10n.tr("Localizable", "stepOneOutOfThree", fallback: "Step 1/3")
   /// Storage area

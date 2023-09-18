@@ -35,7 +35,6 @@
 "addAGame" = "Ajouter un jeu";
 "addGameToCollection" = "Ajouter à ma collection";
 "continue" = "Continuer";
-"searchPlatform" = "Rechercher une console";
 "retry" = "Réessayer";
 "cancel" = "Annuler";
 "confirm" = "Confirmer";
@@ -44,9 +43,7 @@
 
 // Add Game Steps
 "stepOneOutOfThree" = "Etape 1/3";
-"selectPlatform" = "Sélectionnez une console";
 "addBasicGameInformationDescription" = "Renseignez le titre du jeu, et optionnellement la console correspondante";
-"searchGame" = "Rechercher un jeu";
 
 // Add Game Methods
 "manually" = "Via un formulaire";
@@ -54,6 +51,11 @@
 "scan" = "Scan codebar";
 "comingSoon" = "A venir...!";
 "import" = "Via un Import";
+
+// SearchBar Placeholder
+"searchGame" = "Rechercher un jeu";
+"searchPlatform" = "Rechercher une console";
+"searchCollection" = "Rechercher une collection";
 
 // Forms
 "title" = "Titre";

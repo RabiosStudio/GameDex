@@ -9,7 +9,7 @@ import Foundation
 
 final class MyCollectionViewModel: CollectionViewModel {
     lazy var searchViewModel: SearchViewModel? = SearchViewModel(
-        placeholder: L10n.searchGame,
+        placeholder: L10n.searchCollection,
         activateOnTap: true,
         delegate: self
     )
@@ -22,10 +22,10 @@ final class MyCollectionViewModel: CollectionViewModel {
     
     weak var containerDelegate: ContainerViewControllerDelegate?
     
-    private let localDatabase: LocalDatabase
+    private let localDatabase: Database
     private let alertDisplayer: AlertDisplayer
     
-    init(localDatabase: LocalDatabase, alertDisplayer: AlertDisplayer) {
+    init(localDatabase: Database, alertDisplayer: AlertDisplayer) {
         self.localDatabase = localDatabase
         self.alertDisplayer = alertDisplayer
     }
