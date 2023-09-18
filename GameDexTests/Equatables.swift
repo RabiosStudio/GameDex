@@ -60,3 +60,11 @@ extension NavigationStyle: Equatable {
     }
 }
 
+extension AlertViewModel: Equatable {
+    public static func == (lhs: AlertViewModel, rhs: AlertViewModel) -> Bool {
+        lhs.alertType == rhs.alertType &&
+        lhs.cancelButtonTitle == rhs.cancelButtonTitle &&
+        lhs.description == rhs.description &&
+        lhs.okButtonTitle == rhs.okButtonTitle
+    }
+}

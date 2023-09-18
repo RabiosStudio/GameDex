@@ -658,6 +658,12 @@ open class AlertDisplayerMock: AlertDisplayer, Mock {
         if scopes.contains(.perform) { methodPerformValues = [] }
     }
 
+    public var lastAlertVM: AlertViewModel? {
+		get {	invocations.append(.p_lastAlertVM_get); return __p_lastAlertVM ?? optionalGivenGetterValue(.p_lastAlertVM_get, "AlertDisplayerMock - stub value for lastAlertVM was not defined") }
+		set {	invocations.append(.p_lastAlertVM_set(.value(newValue))); __p_lastAlertVM = newValue }
+	}
+	private var __p_lastAlertVM: (AlertViewModel)?
+
 
 
 
@@ -678,6 +684,8 @@ open class AlertDisplayerMock: AlertDisplayer, Mock {
     fileprivate enum MethodType {
         case m_presentTopFloatAlert__parameters_parameters(Parameter<AlertViewModel>)
         case m_presentBasicAlert__parameters_parameters(Parameter<AlertViewModel>)
+        case p_lastAlertVM_get
+		case p_lastAlertVM_set(Parameter<AlertViewModel?>)
 
         static func compareParameters(lhs: MethodType, rhs: MethodType, matcher: Matcher) -> Matcher.ComparisonResult {
             switch (lhs, rhs) {
@@ -690,6 +698,8 @@ open class AlertDisplayerMock: AlertDisplayer, Mock {
 				var results: [Matcher.ParameterComparisonResult] = []
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsParameters, rhs: rhsParameters, with: matcher), lhsParameters, rhsParameters, "parameters"))
 				return Matcher.ComparisonResult(results)
+            case (.p_lastAlertVM_get,.p_lastAlertVM_get): return Matcher.ComparisonResult.match
+			case (.p_lastAlertVM_set(let left),.p_lastAlertVM_set(let right)): return Matcher.ComparisonResult([Matcher.ParameterComparisonResult(Parameter<AlertViewModel?>.compare(lhs: left, rhs: right, with: matcher), left, right, "newValue")])
             default: return .none
             }
         }
@@ -698,12 +708,16 @@ open class AlertDisplayerMock: AlertDisplayer, Mock {
             switch self {
             case let .m_presentTopFloatAlert__parameters_parameters(p0): return p0.intValue
             case let .m_presentBasicAlert__parameters_parameters(p0): return p0.intValue
+            case .p_lastAlertVM_get: return 0
+			case .p_lastAlertVM_set(let newValue): return newValue.intValue
             }
         }
         func assertionName() -> String {
             switch self {
             case .m_presentTopFloatAlert__parameters_parameters: return ".presentTopFloatAlert(parameters:)"
             case .m_presentBasicAlert__parameters_parameters: return ".presentBasicAlert(parameters:)"
+            case .p_lastAlertVM_get: return "[get] .lastAlertVM"
+			case .p_lastAlertVM_set: return "[set] .lastAlertVM"
             }
         }
     }
@@ -716,6 +730,9 @@ open class AlertDisplayerMock: AlertDisplayer, Mock {
             super.init(products)
         }
 
+        public static func lastAlertVM(getter defaultValue: AlertViewModel?...) -> PropertyStub {
+            return Given(method: .p_lastAlertVM_get, products: defaultValue.map({ StubProduct.return($0 as Any) }))
+        }
 
     }
 
@@ -724,6 +741,8 @@ open class AlertDisplayerMock: AlertDisplayer, Mock {
 
         public static func presentTopFloatAlert(parameters: Parameter<AlertViewModel>) -> Verify { return Verify(method: .m_presentTopFloatAlert__parameters_parameters(`parameters`))}
         public static func presentBasicAlert(parameters: Parameter<AlertViewModel>) -> Verify { return Verify(method: .m_presentBasicAlert__parameters_parameters(`parameters`))}
+        public static var lastAlertVM: Verify { return Verify(method: .p_lastAlertVM_get) }
+		public static func lastAlertVM(set newValue: Parameter<AlertViewModel?>) -> Verify { return Verify(method: .p_lastAlertVM_set(newValue)) }
     }
 
     public struct Perform {

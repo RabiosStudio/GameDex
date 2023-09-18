@@ -34,4 +34,10 @@ extension Matcher {
             lhs.okButtonTitle == rhs.okButtonTitle
         }
     }
+    
+    enum ContentViewFactory {
+        static func matcher(lhs: GameDex.ContentViewFactory, rhs: GameDex.ContentViewFactory) -> Bool {
+            lhs.bottomView == rhs.bottomView
+        }
+    }
 }
