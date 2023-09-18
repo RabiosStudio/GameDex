@@ -11,7 +11,7 @@ import XCTest
 final class SelectAddGameMethodViewModelTests: XCTestCase {
     func test_init_ThenShouldSetupPropertiesCorrectly() {
         // Given
-        let viewModel = SelectAddGameMethodViewModel(delegate: AddGameDetailsViewModelDelegateMock()
+        let viewModel = SelectAddGameMethodViewModel(delegate: GameDetailsViewModelDelegateMock()
         )
         
         let numberOfItems = viewModel.numberOfItems(in: .zero)
@@ -22,7 +22,7 @@ final class SelectAddGameMethodViewModelTests: XCTestCase {
     
     func test_loadData_ThenCallBackIsCalled() {
         // Given
-        let viewModel = SelectAddGameMethodViewModel(delegate: AddGameDetailsViewModelDelegateMock()
+        let viewModel = SelectAddGameMethodViewModel(delegate: GameDetailsViewModelDelegateMock()
         )
         var callbackIsCalled = false
         // When
@@ -34,7 +34,7 @@ final class SelectAddGameMethodViewModelTests: XCTestCase {
     
     func test_didTapRightButtonItem_ThenShouldSetNavigationStyleCorrectly() {
         // Given
-        let viewModel = SelectAddGameMethodViewModel(delegate: AddGameDetailsViewModelDelegateMock()
+        let viewModel = SelectAddGameMethodViewModel(delegate: GameDetailsViewModelDelegateMock()
         )
         
         // When

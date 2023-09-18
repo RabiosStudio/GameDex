@@ -20,6 +20,7 @@ final class MyCollectionByPlatformsViewModel: CollectionViewModel {
     let screenTitle: String?
     var sections = [Section]()
     weak var containerDelegate: ContainerViewControllerDelegate?
+    weak var gameDetailsDelegate: GameDetailsViewModelDelegate?
     
     private let database: Database
     private let alertDisplayer: AlertDisplayer
@@ -28,11 +29,13 @@ final class MyCollectionByPlatformsViewModel: CollectionViewModel {
     init(
         gamesCollection: [SavedGame],
         database: Database,
-        alertDisplayer: AlertDisplayer
+        alertDisplayer: AlertDisplayer,
+        gameDetailsDelegate: GameDetailsViewModelDelegate?
     ) {
         self.gamesCollection = gamesCollection
         self.database = database
         self.alertDisplayer = alertDisplayer
+        self.gameDetailsDelegate = gameDetailsDelegate
         self.screenTitle = self.gamesCollection.first?.game.platform.title
     }
     
@@ -41,7 +44,12 @@ final class MyCollectionByPlatformsViewModel: CollectionViewModel {
             self.containerDelegate?.goBackToRootViewController()
             return
         }
-        self.sections = [MyCollectionByPlatformsSection(gamesCollection: self.gamesCollection)]
+        self.sections = [
+            MyCollectionByPlatformsSection(
+                gamesCollection: self.gamesCollection,
+                gameDetailsDelegate: gameDetailsDelegate
+            )
+        ]
         callback(nil)
     }
     
@@ -52,7 +60,7 @@ final class MyCollectionByPlatformsViewModel: CollectionViewModel {
         
         let containerController = SearchGameByTitleScreenFactory(
             platform: platform,
-            addGameDelegate: self
+            gameDetailsDelegate: self
         ).viewController
         
         let navigationController = UINavigationController(rootViewController: containerController)
@@ -66,12 +74,17 @@ final class MyCollectionByPlatformsViewModel: CollectionViewModel {
     }
     
     private func updateListOfGames(with list: [SavedGame]) {
-        self.sections = [MyCollectionByPlatformsSection(gamesCollection: list)]
+        self.sections = [
+            MyCollectionByPlatformsSection(
+                gamesCollection: list,
+                gameDetailsDelegate: gameDetailsDelegate
+            )
+        ]
     }
 }
 
-extension MyCollectionByPlatformsViewModel: AddGameDetailsViewModelDelegate {
-    func didAddNewGame() {
+extension MyCollectionByPlatformsViewModel: GameDetailsViewModelDelegate {
+    func reloadCollection() {
         let fetchCollectionResult = self.database.fetchAll()
         switch fetchCollectionResult {
         case .success(let result):
@@ -95,7 +108,8 @@ extension MyCollectionByPlatformsViewModel: AddGameDetailsViewModelDelegate {
             self.gamesCollection = updatedGamesCollection
             self.sections = [
                 MyCollectionByPlatformsSection(
-                    gamesCollection: self.gamesCollection
+                    gamesCollection: self.gamesCollection,
+                    gameDetailsDelegate: gameDetailsDelegate
                 )
             ]
             self.containerDelegate?.reloadSections()

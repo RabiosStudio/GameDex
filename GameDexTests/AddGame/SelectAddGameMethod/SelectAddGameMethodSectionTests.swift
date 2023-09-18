@@ -12,7 +12,7 @@ final class SelectAddGameMethodSectionTests: XCTestCase {
 
     func test_init_GivenSelectAddGameMethodSection_ThenShouldSetPropertiesCorrectly() {
         // Given
-        let section = SelectAddGameMethodSection(delegate: AddGameDetailsViewModelDelegateMock())
+        let section = SelectAddGameMethodSection(delegate: GameDetailsViewModelDelegateMock())
         
         // Then
         XCTAssertEqual(section.cellsVM.count, 2)

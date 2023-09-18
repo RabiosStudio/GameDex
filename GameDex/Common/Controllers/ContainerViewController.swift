@@ -439,7 +439,6 @@ extension ContainerViewController: UISearchBarDelegate {
 extension ContainerViewController: ContainerViewControllerDelegate {
     func goBackToRootViewController() {
         self.navigationController?.popToRootViewController(animated: true)
-        self.reloadSections()
     }
     
     func configureBottomView(contentViewFactory: ContentViewFactory) {

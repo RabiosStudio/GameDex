@@ -15,7 +15,7 @@ final class SearchGameByTitleSectionTests: XCTestCase {
         let section = SearchGameByTitleSection(
             gamesQuery: MockData.games,
             platform: MockData.platform,
-            addGameDelegate: AddGameDetailsViewModelDelegateMock()
+            gameDetailsDelegate: GameDetailsViewModelDelegateMock()
         )
         
         // Then

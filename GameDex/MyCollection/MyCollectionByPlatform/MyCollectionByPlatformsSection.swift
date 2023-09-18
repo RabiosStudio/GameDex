@@ -9,7 +9,7 @@ import Foundation
 
 final class MyCollectionByPlatformsSection: Section {
   
-    init(gamesCollection: [SavedGame]) {
+    init(gamesCollection: [SavedGame], gameDetailsDelegate: GameDetailsViewModelDelegate?) {
         super.init()
         self.position = 0
         
@@ -21,7 +21,9 @@ final class MyCollectionByPlatformsSection: Section {
                 subtitle1: nil,
                 subtitle2: item.game.description,
                 caption: item.game.imageURL,
-                screenFactory: EditGameDetailsScreenFactory(savedGame: item)
+                screenFactory: EditGameDetailsScreenFactory(
+                    savedGame: item,
+                    gameDetailsDelegate: gameDetailsDelegate)
             )
             self.cellsVM.append(gameCellVM)
         }

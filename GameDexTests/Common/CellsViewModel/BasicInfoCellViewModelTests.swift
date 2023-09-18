@@ -15,7 +15,7 @@ final class BasicInfoCellViewModelTests: XCTestCase {
         let subtitle1 = "Subtitle 1"
         let subtitle2 = "Subtitle 2"
         let captionName = "Caption Name"
-        let screenFactory = SelectPlatformScreenFactory(delegate: AddGameDetailsViewModelDelegateMock())
+        let screenFactory = SelectPlatformScreenFactory(delegate: GameDetailsViewModelDelegateMock())
         // When
         let cellVM = BasicInfoCellViewModel(
             title: text,

@@ -45,6 +45,7 @@
 		251C87412A9DE9F30020C794 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251C87402A9DE9F30020C794 /* Game.swift */; };
 		254354762A93AFF700E53351 /* LabelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254354752A93AFF700E53351 /* LabelCell.swift */; };
 		254354782A93B1BB00E53351 /* LabelCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254354772A93B1BB00E53351 /* LabelCellViewModel.swift */; };
+		2548E5CD2AB8709C004151EF /* GameDetailsViewModelDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2548E5CC2AB8709C004151EF /* GameDetailsViewModelDelegate.swift */; };
 		254E8B732A8A679F00C101C8 /* TabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254E8B722A8A679F00C101C8 /* TabBarController.swift */; };
 		254E8B7E2A8A7D2600C101C8 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 254E8B802A8A7D2600C101C8 /* Localizable.strings */; };
 		254E8B852A8A81F400C101C8 /* UIColorExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254E8B842A8A81F400C101C8 /* UIColorExtension.swift */; };
@@ -193,6 +194,7 @@
 		251C87402A9DE9F30020C794 /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
 		254354752A93AFF700E53351 /* LabelCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelCell.swift; sourceTree = "<group>"; };
 		254354772A93B1BB00E53351 /* LabelCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelCellViewModel.swift; sourceTree = "<group>"; };
+		2548E5CC2AB8709C004151EF /* GameDetailsViewModelDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameDetailsViewModelDelegate.swift; sourceTree = "<group>"; };
 		254E8B722A8A679F00C101C8 /* TabBarController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TabBarController.swift; sourceTree = "<group>"; };
 		254E8B7A2A8A7C9D00C101C8 /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/LaunchScreen.strings; sourceTree = "<group>"; };
 		254E8B7F2A8A7D2600C101C8 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -468,6 +470,7 @@
 				25AE1F1C2A8F926400F2D06A /* ContentViewFactory.swift */,
 				25EDF7C12AB463B000648717 /* FormType.swift */,
 				25EDF7C32AB46A4F00648717 /* Database.swift */,
+				2548E5CC2AB8709C004151EF /* GameDetailsViewModelDelegate.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -1125,6 +1128,7 @@
 				25AE1F132A8F8DDF00F2D06A /* UINavigationController+Configure.swift in Sources */,
 				251C87312A9CEF2D0020C794 /* SearchGameByTitleSection.swift in Sources */,
 				25AE1EEC2A8E4E6500F2D06A /* TextFieldCell.swift in Sources */,
+				2548E5CD2AB8709C004151EF /* GameDetailsViewModelDelegate.swift in Sources */,
 				25AE1ED62A8D1E9B00F2D06A /* Typography.swift in Sources */,
 				25EB24142AA5D4470024F01C /* AddGameDetailsSection.swift in Sources */,
 				251C86E42A98B3C00020C794 /* InfoCardCellViewModel.swift in Sources */,

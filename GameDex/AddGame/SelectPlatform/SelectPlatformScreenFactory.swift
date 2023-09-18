@@ -10,12 +10,12 @@ import UIKit
 
 struct SelectPlatformScreenFactory: ScreenFactory {
     
-    weak var delegate: AddGameDetailsViewModelDelegate?
+    weak var delegate: GameDetailsViewModelDelegate?
     
     var viewController: UIViewController {
         let viewModel = SelectPlatformViewModel(
             networkingSession: AlamofireAPI(),
-            addGameDelegate: self.delegate
+            gameDetailsDelegate: self.delegate
         )
         let layout = UICollectionViewFlowLayout()
         let containerController = ContainerViewController(
@@ -25,7 +25,7 @@ struct SelectPlatformScreenFactory: ScreenFactory {
         return containerController
     }
     
-    init(delegate: AddGameDetailsViewModelDelegate?) {
+    init(delegate: GameDetailsViewModelDelegate?) {
         self.delegate = delegate
     }
     

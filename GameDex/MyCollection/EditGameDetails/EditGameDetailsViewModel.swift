@@ -17,19 +17,23 @@ final class EditGameDetailsViewModel: CollectionViewModel {
     
     private let savedGame: SavedGame
     private let localDatabase: Database
-    private let alertDisplayer: AlertDisplayer
+    private var alertDisplayer: AlertDisplayer
     
     weak var containerDelegate: ContainerViewControllerDelegate?
     weak var alertDelegate: AlertDisplayerDelegate?
+    weak var gameDetailsDelegate: GameDetailsViewModelDelegate?
     
     init(
         savedGame: SavedGame,
         localDatabase: Database,
-        alertDisplayer: AlertDisplayer
+        alertDisplayer: AlertDisplayer,
+        gameDetailsDelegate: GameDetailsViewModelDelegate?
     ) {
         self.savedGame = savedGame
         self.localDatabase = localDatabase
         self.alertDisplayer = alertDisplayer
+        self.alertDisplayer.alertDelegate = self
+        self.gameDetailsDelegate = gameDetailsDelegate
     }
     
     func loadData(callback: @escaping (EmptyError?) -> ()) {
@@ -154,6 +158,7 @@ extension EditGameDetailsViewModel: AlertDisplayerDelegate {
                     )
                 )
                 self?.containerDelegate?.goBackToRootViewController()
+                self?.gameDetailsDelegate?.reloadCollection()
             }
         }
     }

@@ -9,7 +9,7 @@ import Foundation
 
 final class SelectPlatformSection: Section {
     
-    init(platforms: [Platform], addGameDelegate: AddGameDetailsViewModelDelegate?) {
+    init(platforms: [Platform], gameDetailsDelegate: GameDetailsViewModelDelegate?) {
         super.init()
         self.position = 0
         
@@ -19,7 +19,7 @@ final class SelectPlatformSection: Section {
                 optionalText: nil,
                 screenFactory: SearchGameByTitleScreenFactory(
                     platform: platform,
-                    addGameDelegate: addGameDelegate
+                    gameDetailsDelegate: gameDetailsDelegate
                 )
             )
             

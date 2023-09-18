@@ -191,7 +191,7 @@ final class MyCollectionViewModelTests: XCTestCase {
         }
     }
     
-    func test_didAddNewGame_ThenContainerDelegateIsCalled() {
+    func test_reloadCollection_ThenContainerDelegateIsCalled() {
         // Given
         let localDatabase = DatabaseMock()
         let viewModel = MyCollectionViewModel(
@@ -203,7 +203,7 @@ final class MyCollectionViewModelTests: XCTestCase {
         viewModel.containerDelegate = containerDelegate
         
         // When
-        viewModel.didAddNewGame()
+        viewModel.reloadCollection()
         
         containerDelegate.verify(.reloadSections())
     }

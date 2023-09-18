@@ -12,7 +12,7 @@ final class SearchGameByTitleSection: Section {
     init(
         gamesQuery: [Game],
         platform: Platform,
-        addGameDelegate: AddGameDetailsViewModelDelegate?
+        gameDetailsDelegate: GameDetailsViewModelDelegate?
     ) {
         super.init()
         self.position = 0
@@ -25,7 +25,7 @@ final class SearchGameByTitleSection: Section {
                 caption: game.imageURL,
                 screenFactory: AddGameDetailsScreenFactory(
                     game: game,
-                    addGameDelegate: addGameDelegate
+                    gameDetailsDelegate: gameDetailsDelegate
                 )
             )
             self.cellsVM.append(gameCellVM)

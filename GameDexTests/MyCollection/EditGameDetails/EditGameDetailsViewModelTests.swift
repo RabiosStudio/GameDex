@@ -32,7 +32,8 @@ final class EditGameDetailsViewModelTests: XCTestCase {
         let viewModel = EditGameDetailsViewModel(
             savedGame: MockData.savedGame,
             localDatabase: DatabaseMock(),
-            alertDisplayer: AlertDisplayerMock()
+            alertDisplayer: AlertDisplayerMock(),
+            gameDetailsDelegate: GameDetailsViewModelDelegateMock()
         )
         // When
         let numberOfSections = viewModel.numberOfSections()
@@ -47,7 +48,8 @@ final class EditGameDetailsViewModelTests: XCTestCase {
         let viewModel = EditGameDetailsViewModel(
             savedGame: MockData.savedGame,
             localDatabase: DatabaseMock(),
-            alertDisplayer: AlertDisplayerMock()
+            alertDisplayer: AlertDisplayerMock(),
+            gameDetailsDelegate: GameDetailsViewModelDelegateMock()
         )
         
         var callbackIsCalled = false
@@ -73,7 +75,8 @@ final class EditGameDetailsViewModelTests: XCTestCase {
         let viewModel = EditGameDetailsViewModel(
             savedGame: MockData.savedGame,
             localDatabase: localDatabase,
-            alertDisplayer: alertDisplayer
+            alertDisplayer: alertDisplayer,
+            gameDetailsDelegate: GameDetailsViewModelDelegateMock()
         )
         
         viewModel.containerDelegate = containerDelegate
@@ -121,7 +124,8 @@ final class EditGameDetailsViewModelTests: XCTestCase {
         let viewModel = EditGameDetailsViewModel(
             savedGame: MockData.savedGame,
             localDatabase: localDatabase,
-            alertDisplayer: alertDisplayer
+            alertDisplayer: alertDisplayer,
+            gameDetailsDelegate: GameDetailsViewModelDelegateMock()
         )
         
         viewModel.containerDelegate = containerDelegate
@@ -167,7 +171,8 @@ final class EditGameDetailsViewModelTests: XCTestCase {
         let viewModel = EditGameDetailsViewModel(
             savedGame: MockData.savedGame,
             localDatabase: localDatabase,
-            alertDisplayer: AlertDisplayerMock()
+            alertDisplayer: AlertDisplayerMock(),
+            gameDetailsDelegate: GameDetailsViewModelDelegateMock()
         )
         
         viewModel.containerDelegate = containerDelegate
@@ -189,7 +194,8 @@ final class EditGameDetailsViewModelTests: XCTestCase {
         let viewModel = EditGameDetailsViewModel(
             savedGame: MockData.savedGame,
             localDatabase: DatabaseMock(),
-            alertDisplayer: alertDisplayer
+            alertDisplayer: alertDisplayer,
+            gameDetailsDelegate: GameDetailsViewModelDelegateMock()
         )
         
         // When
@@ -219,7 +225,8 @@ final class EditGameDetailsViewModelTests: XCTestCase {
         let viewModel = EditGameDetailsViewModel(
             savedGame: MockData.savedGame,
             localDatabase: localDatabase,
-            alertDisplayer: alertDisplayer
+            alertDisplayer: alertDisplayer,
+            gameDetailsDelegate: GameDetailsViewModelDelegateMock()
         )
         viewModel.containerDelegate = containerDelegate
         viewModel.alertDelegate = viewModel
@@ -265,7 +272,8 @@ final class EditGameDetailsViewModelTests: XCTestCase {
         let viewModel = EditGameDetailsViewModel(
             savedGame: MockData.savedGame,
             localDatabase: localDatabase,
-            alertDisplayer: alertDisplayer
+            alertDisplayer: alertDisplayer,
+            gameDetailsDelegate: GameDetailsViewModelDelegateMock()
         )
         viewModel.containerDelegate = containerDelegate
         viewModel.alertDelegate = viewModel

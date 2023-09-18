@@ -7,11 +7,6 @@
 
 import Foundation
 
-// sourcery: AutoMockable
-protocol AddGameDetailsViewModelDelegate: AnyObject {
-    func didAddNewGame()
-}
-
 final class AddGameDetailsViewModel: CollectionViewModel {
     var searchViewModel: SearchViewModel?
     var isBounceable: Bool = true
@@ -20,7 +15,7 @@ final class AddGameDetailsViewModel: CollectionViewModel {
     let screenTitle: String? = L10n.fillGameDetails
     var sections = [Section]()
     weak var containerDelegate: ContainerViewControllerDelegate?
-    weak var addGameDelegate: AddGameDetailsViewModelDelegate?
+    weak var gameDetailsDelegate: GameDetailsViewModelDelegate?
     
     private let game: Game
     private let localDatabase: Database
@@ -29,14 +24,14 @@ final class AddGameDetailsViewModel: CollectionViewModel {
     init(
         game: Game,
         localDatabase: Database,
-        addGameDelegate: AddGameDetailsViewModelDelegate?,
+        gameDetailsDelegate: GameDetailsViewModelDelegate?,
         alertDisplayer: AlertDisplayer
     ) {
         self.progress = 3/3
         self.game = game
         self.localDatabase = localDatabase
         self.sections = [AddGameDetailsSection(game: self.game)]
-        self.addGameDelegate = addGameDelegate
+        self.gameDetailsDelegate = gameDetailsDelegate
         self.alertDisplayer = alertDisplayer
     }
     
@@ -46,7 +41,7 @@ final class AddGameDetailsViewModel: CollectionViewModel {
     }
     
     func didTapRightButtonItem() {
-        self.addGameDelegate?.didAddNewGame()
+        self.gameDetailsDelegate?.reloadCollection()
         _ = Routing.shared.route(navigationStyle: .dismiss(completionBlock: nil))
     }
     

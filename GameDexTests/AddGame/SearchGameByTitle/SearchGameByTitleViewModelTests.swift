@@ -31,7 +31,7 @@ final class SearchGameByTitleViewModelTests: XCTestCase {
         let viewModel = SearchGameByTitleViewModel(
             networkingSession: networkingSession,
             platform: MockData.platform,
-            addGameDelegate: AddGameDetailsViewModelDelegateMock()
+            gameDetailsDelegate: GameDetailsViewModelDelegateMock()
         )
         
         // Then
@@ -50,7 +50,7 @@ final class SearchGameByTitleViewModelTests: XCTestCase {
         let viewModel = SearchGameByTitleViewModel(
             networkingSession: networkingSession,
             platform: MockData.platform,
-            addGameDelegate: AddGameDetailsViewModelDelegateMock()
+            gameDetailsDelegate: GameDetailsViewModelDelegateMock()
         )
         
         // When
@@ -84,7 +84,7 @@ final class SearchGameByTitleViewModelTests: XCTestCase {
         let viewModel = SearchGameByTitleViewModel(
             networkingSession: networkingSession,
             platform: MockData.platform,
-            addGameDelegate: AddGameDetailsViewModelDelegateMock()
+            gameDetailsDelegate: GameDetailsViewModelDelegateMock()
         )
         
         // When
@@ -121,7 +121,7 @@ final class SearchGameByTitleViewModelTests: XCTestCase {
         let viewModel = SearchGameByTitleViewModel(
             networkingSession: networkingSession,
             platform: MockData.platform,
-            addGameDelegate: AddGameDetailsViewModelDelegateMock()
+            gameDetailsDelegate: GameDetailsViewModelDelegateMock()
         )
         
         // When
@@ -158,7 +158,7 @@ final class SearchGameByTitleViewModelTests: XCTestCase {
         let viewModel = SearchGameByTitleViewModel(
             networkingSession: networkingSession,
             platform: MockData.platform,
-            addGameDelegate: AddGameDetailsViewModelDelegateMock()
+            gameDetailsDelegate: GameDetailsViewModelDelegateMock()
         )
         
         // When
@@ -195,7 +195,7 @@ final class SearchGameByTitleViewModelTests: XCTestCase {
         let viewModel = SearchGameByTitleViewModel(
             networkingSession: networkingSession,
             platform: MockData.platform,
-            addGameDelegate: AddGameDetailsViewModelDelegateMock()
+            gameDetailsDelegate: GameDetailsViewModelDelegateMock()
         )
         
         // When
@@ -233,7 +233,7 @@ final class SearchGameByTitleViewModelTests: XCTestCase {
         let viewModel = SearchGameByTitleViewModel(
             networkingSession: networkingSession,
             platform: MockData.platform,
-            addGameDelegate: AddGameDetailsViewModelDelegateMock()
+            gameDetailsDelegate: GameDetailsViewModelDelegateMock()
         )
         
         let games = DataConverter.convert(
@@ -258,7 +258,7 @@ final class SearchGameByTitleViewModelTests: XCTestCase {
         let viewModel = SearchGameByTitleViewModel(
             networkingSession: networkingSession,
             platform: MockData.platform,
-            addGameDelegate: AddGameDetailsViewModelDelegateMock()
+            gameDetailsDelegate: GameDetailsViewModelDelegateMock()
         )
         
         var callbackIsCalled = false
@@ -293,7 +293,7 @@ final class SearchGameByTitleViewModelTests: XCTestCase {
         let viewModel = SearchGameByTitleViewModel(
             networkingSession: networkingSession,
             platform: MockData.platform,
-            addGameDelegate: AddGameDetailsViewModelDelegateMock()
+            gameDetailsDelegate: GameDetailsViewModelDelegateMock()
         )
         
         let games = DataConverter.convert(
@@ -321,7 +321,7 @@ final class SearchGameByTitleViewModelTests: XCTestCase {
         let viewModel = SearchGameByTitleViewModel(
             networkingSession: networkingSession,
             platform: MockData.platform,
-            addGameDelegate: AddGameDetailsViewModelDelegateMock()
+            gameDetailsDelegate: GameDetailsViewModelDelegateMock()
         )
         
         // When

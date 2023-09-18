@@ -11,15 +11,15 @@ import UIKit
 struct EditGameDetailsScreenFactory: ScreenFactory {
     
     private let savedGame: SavedGame
+    weak var gameDetailsDelegate: GameDetailsViewModelDelegate?
     
     var viewController: UIViewController {
         let viewModel = EditGameDetailsViewModel(
             savedGame: self.savedGame,
             localDatabase: LocalDatabase(),
-            alertDisplayer: AlertDisplayerImpl()
+            alertDisplayer: AlertDisplayerImpl(),
+            gameDetailsDelegate: gameDetailsDelegate
         )
-        viewModel.alertDelegate = viewModel
-        
         let layout = UICollectionViewFlowLayout()
         let containerController = ContainerViewController(
             viewModel: viewModel,
@@ -29,7 +29,8 @@ struct EditGameDetailsScreenFactory: ScreenFactory {
         return containerController
     }
 
-    init(savedGame: SavedGame) {
+    init(savedGame: SavedGame, gameDetailsDelegate: GameDetailsViewModelDelegate?) {
         self.savedGame = savedGame
+        self.gameDetailsDelegate = gameDetailsDelegate
     }
 }

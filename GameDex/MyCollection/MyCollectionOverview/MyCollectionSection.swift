@@ -9,7 +9,9 @@ import Foundation
 
 final class MyCollectionSection: Section {
     
-    init(gamesCollection: [SavedGame]) {
+    init(gamesCollection: [SavedGame],
+         gameDetailsDelegate: GameDetailsViewModelDelegate?
+    ) {
         super.init()
         self.position = 0
         
@@ -39,7 +41,8 @@ final class MyCollectionSection: Section {
                 mainText: platform,
                 optionalText: "\(gameArrayByPlatform.count) \(text)",
                 screenFactory: MyCollectionByPlatformsScreenFactory(
-                    gamesCollection: gameArrayByPlatform
+                    gamesCollection: gameArrayByPlatform,
+                    gameDetailsDelegate: gameDetailsDelegate
                 )
             )
             self.cellsVM.append(labelCellVM)

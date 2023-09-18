@@ -14,7 +14,7 @@ final class SelectPlatformSectionTests: XCTestCase {
         // Given
         let section = SelectPlatformSection(
             platforms: MockData.platforms,
-            addGameDelegate: AddGameDetailsViewModelDelegateMock()
+            gameDetailsDelegate: GameDetailsViewModelDelegateMock()
         )
         
         // Then

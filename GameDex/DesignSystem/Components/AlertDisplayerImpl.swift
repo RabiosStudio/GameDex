@@ -16,12 +16,12 @@ protocol AlertDisplayerDelegate: AnyObject {
 
 // sourcery: AutoMockable
 protocol AlertDisplayer {
+    var alertDelegate: AlertDisplayerDelegate? { get set }
     func presentTopFloatAlert(parameters: AlertViewModel)
     func presentBasicAlert(parameters: AlertViewModel)
 }
 
 class AlertDisplayerImpl: AlertDisplayer {
-    
     
     weak var alertDelegate: AlertDisplayerDelegate?
     

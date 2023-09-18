@@ -12,7 +12,10 @@ final class MyCollectionSectionTests: XCTestCase {
     
     func test_init_ThenShouldSetPropertiesCorrectly() {
         // Given
-        let section = MyCollectionSection(gamesCollection: MockData.savedGames)
+        let section = MyCollectionSection(
+            gamesCollection: MockData.savedGames,
+            gameDetailsDelegate: GameDetailsViewModelDelegateMock()
+        )
         
         // Then
         XCTAssertEqual(section.cellsVM.count, 1)

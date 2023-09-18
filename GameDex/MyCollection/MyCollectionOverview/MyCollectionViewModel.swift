@@ -21,6 +21,7 @@ final class MyCollectionViewModel: CollectionViewModel {
     var collection: [SavedGame] = []
     
     weak var containerDelegate: ContainerViewControllerDelegate?
+    weak var gameDetailsDelegate: GameDetailsViewModelDelegate?
     
     private let localDatabase: Database
     private let alertDisplayer: AlertDisplayer
@@ -35,12 +36,17 @@ final class MyCollectionViewModel: CollectionViewModel {
         switch fetchCollectionResult {
         case .success(let result):
             guard !result.isEmpty else {
-                let error: MyCollectionError = .emptyCollection(addGameDelegate: self)
+                let error: MyCollectionError = .emptyCollection(gameDetailsDelegate: self)
                 callback(error)
                 return
             }
             self.collection = DataConverter.convert(gamesCollected: result)
-            self.sections = [MyCollectionSection(gamesCollection: self.collection)]
+            self.sections = [
+                MyCollectionSection(
+                    gamesCollection: self.collection,
+                    gameDetailsDelegate: self
+                )
+            ]
             callback(nil)
         case .failure(_):
             let error: MyCollectionError = .fetchError
@@ -59,14 +65,19 @@ final class MyCollectionViewModel: CollectionViewModel {
     }
     
     private func updateListOfCollections(with list: [SavedGame]) {
-        self.sections = [MyCollectionSection(gamesCollection: list)]
+        self.sections = [
+            MyCollectionSection(
+                gamesCollection: list,
+                gameDetailsDelegate: self
+            )
+        ]
     }
 }
 
 // MARK: - AddGameDetailsViewModelDelegate
 
-extension MyCollectionViewModel: AddGameDetailsViewModelDelegate {
-    func didAddNewGame() {
+extension MyCollectionViewModel: GameDetailsViewModelDelegate {
+    func reloadCollection() {
         self.containerDelegate?.reloadSections()
     }
 }

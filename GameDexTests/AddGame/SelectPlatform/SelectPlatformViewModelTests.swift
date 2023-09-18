@@ -30,7 +30,7 @@ final class SelectPlatformViewModelTests: XCTestCase {
         // When
         let viewModel = SelectPlatformViewModel(
             networkingSession: networkingSession,
-            addGameDelegate: AddGameDetailsViewModelDelegateMock()
+            gameDetailsDelegate: GameDetailsViewModelDelegateMock()
         )
         
         // Then
@@ -55,7 +55,7 @@ final class SelectPlatformViewModelTests: XCTestCase {
         )
         let viewModel = SelectPlatformViewModel(
             networkingSession: networkingSession,
-            addGameDelegate: AddGameDetailsViewModelDelegateMock()
+            gameDetailsDelegate: GameDetailsViewModelDelegateMock()
         )
         
         // When
@@ -88,7 +88,7 @@ final class SelectPlatformViewModelTests: XCTestCase {
         )
         let viewModel = SelectPlatformViewModel(
             networkingSession: networkingSession,
-            addGameDelegate: AddGameDetailsViewModelDelegateMock()
+            gameDetailsDelegate: GameDetailsViewModelDelegateMock()
         )
         
         // When
@@ -119,7 +119,7 @@ final class SelectPlatformViewModelTests: XCTestCase {
         )
         let viewModel = SelectPlatformViewModel(
             networkingSession: networkingSession,
-            addGameDelegate: AddGameDetailsViewModelDelegateMock()
+            gameDetailsDelegate: GameDetailsViewModelDelegateMock()
         )
         
         // When
@@ -150,7 +150,7 @@ final class SelectPlatformViewModelTests: XCTestCase {
         )
         let viewModel = SelectPlatformViewModel(
             networkingSession: networkingSession,
-            addGameDelegate: AddGameDetailsViewModelDelegateMock()
+            gameDetailsDelegate: GameDetailsViewModelDelegateMock()
         )
         
         // When
@@ -183,7 +183,7 @@ final class SelectPlatformViewModelTests: XCTestCase {
         
         let viewModel = SelectPlatformViewModel(
             networkingSession: networkingSession,
-            addGameDelegate: AddGameDetailsViewModelDelegateMock()
+            gameDetailsDelegate: GameDetailsViewModelDelegateMock()
         )
         
         let platforms = DataConverter.convert(
@@ -218,7 +218,7 @@ final class SelectPlatformViewModelTests: XCTestCase {
         
         let viewModel = SelectPlatformViewModel(
             networkingSession: networkingSession,
-            addGameDelegate: AddGameDetailsViewModelDelegateMock()
+            gameDetailsDelegate: GameDetailsViewModelDelegateMock()
         )
         
         viewModel.loadData { _ in
@@ -251,7 +251,7 @@ final class SelectPlatformViewModelTests: XCTestCase {
         
         let viewModel = SelectPlatformViewModel(
             networkingSession: networkingSession,
-            addGameDelegate: AddGameDetailsViewModelDelegateMock()
+            gameDetailsDelegate: GameDetailsViewModelDelegateMock()
         )
         
         viewModel.loadData { _ in
@@ -285,7 +285,7 @@ final class SelectPlatformViewModelTests: XCTestCase {
         
         let viewModel = SelectPlatformViewModel(
             networkingSession: networkingSession,
-            addGameDelegate: AddGameDetailsViewModelDelegateMock()
+            gameDetailsDelegate: GameDetailsViewModelDelegateMock()
         )
         
         let platforms = DataConverter.convert(
@@ -309,7 +309,7 @@ final class SelectPlatformViewModelTests: XCTestCase {
         let networkingSession = APIMock()
         let viewModel = SelectPlatformViewModel(
             networkingSession: networkingSession,
-            addGameDelegate: AddGameDetailsViewModelDelegateMock()
+            gameDetailsDelegate: GameDetailsViewModelDelegateMock()
         )
         
         var callbackIsCalled = false
@@ -328,7 +328,7 @@ final class SelectPlatformViewModelTests: XCTestCase {
         let networkingSession = APIMock()
         let viewModel = SelectPlatformViewModel(
             networkingSession: networkingSession,
-            addGameDelegate: AddGameDetailsViewModelDelegateMock()
+            gameDetailsDelegate: GameDetailsViewModelDelegateMock()
         )
         
         // When

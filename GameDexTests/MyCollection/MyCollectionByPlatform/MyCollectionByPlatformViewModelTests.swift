@@ -15,7 +15,8 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
         let viewModel = MyCollectionByPlatformsViewModel(
             gamesCollection: MockData.savedGames,
             database: DatabaseMock(),
-            alertDisplayer: AlertDisplayerMock()
+            alertDisplayer: AlertDisplayerMock(),
+            gameDetailsDelegate: GameDetailsViewModelDelegateMock()
         )
         
         // When
@@ -36,7 +37,8 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
         let viewModel = MyCollectionByPlatformsViewModel(
             gamesCollection: gamesCollection,
             database: DatabaseMock(),
-            alertDisplayer: AlertDisplayerMock()
+            alertDisplayer: AlertDisplayerMock(),
+            gameDetailsDelegate: GameDetailsViewModelDelegateMock()
         )
         var callbackIsCalled = false
         
@@ -58,7 +60,8 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
         let viewModel = MyCollectionByPlatformsViewModel(
             gamesCollection: gamesCollection,
             database: DatabaseMock(),
-            alertDisplayer: AlertDisplayerMock()
+            alertDisplayer: AlertDisplayerMock(),
+            gameDetailsDelegate: GameDetailsViewModelDelegateMock()
         )
         let containerDelegate = ContainerViewControllerDelegateMock()
         viewModel.containerDelegate = containerDelegate
@@ -77,7 +80,8 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
         let viewModel = MyCollectionByPlatformsViewModel(
             gamesCollection: MockData.savedGames,
             database: DatabaseMock(),
-            alertDisplayer: AlertDisplayerMock()
+            alertDisplayer: AlertDisplayerMock(),
+            gameDetailsDelegate: GameDetailsViewModelDelegateMock()
         )
         
         // When
@@ -92,7 +96,7 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
                 controller: UINavigationController(
                     rootViewController: SearchGameByTitleScreenFactory(
                         platform: platform,
-                        addGameDelegate: viewModel
+                        gameDetailsDelegate: viewModel
                     ).viewController
                 ),
                 completionBlock: nil
@@ -110,7 +114,8 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
         let viewModel = MyCollectionByPlatformsViewModel(
             gamesCollection: gamesCollection,
             database: DatabaseMock(),
-            alertDisplayer: AlertDisplayerMock()
+            alertDisplayer: AlertDisplayerMock(),
+            gameDetailsDelegate: GameDetailsViewModelDelegateMock()
         )
         
         viewModel.loadData { _ in
@@ -130,7 +135,8 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
         let viewModel = MyCollectionByPlatformsViewModel(
             gamesCollection: MockData.savedGames,
             database: DatabaseMock(),
-            alertDisplayer: AlertDisplayerMock()
+            alertDisplayer: AlertDisplayerMock(),
+            gameDetailsDelegate: GameDetailsViewModelDelegateMock()
         )
         
         viewModel.loadData { _ in
@@ -151,7 +157,8 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
         let viewModel = MyCollectionByPlatformsViewModel(
             gamesCollection: MockData.savedGames,
             database: DatabaseMock(),
-            alertDisplayer: AlertDisplayerMock()
+            alertDisplayer: AlertDisplayerMock(),
+            gameDetailsDelegate: GameDetailsViewModelDelegateMock()
         )
         
         viewModel.loadData { _ in
@@ -169,7 +176,8 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
         let viewModel = MyCollectionByPlatformsViewModel(
             gamesCollection: MockData.savedGames,
             database: DatabaseMock(),
-            alertDisplayer: AlertDisplayerMock()
+            alertDisplayer: AlertDisplayerMock(),
+            gameDetailsDelegate: GameDetailsViewModelDelegateMock()
         )
         
         var callbackIsCalled = false
@@ -183,7 +191,7 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
         XCTAssertTrue(callbackIsCalled)
     }
     
-    func test_didAddNewGame_GivenFetchDataError_ThenResultsInErrorAlert() {
+    func test_reloadCollection_GivenFetchDataError_ThenResultsInErrorAlert() {
         // Given
         let localDatabase = DatabaseMock()
         localDatabase.given(
@@ -195,13 +203,14 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
         let viewModel = MyCollectionByPlatformsViewModel(
             gamesCollection: MockData.savedGames,
             database: localDatabase,
-            alertDisplayer: alertDisplayer
+            alertDisplayer: alertDisplayer,
+            gameDetailsDelegate: GameDetailsViewModelDelegateMock()
         )
         
         viewModel.loadData { _ in
             
             // When
-            viewModel.didAddNewGame()
+            viewModel.reloadCollection()
             
             // Then
             alertDisplayer.verify(
@@ -217,7 +226,7 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
         }
     }
     
-    func test_didAddNewGame_GivenEmptyCollectionFetched_ThenResultsInErrorAlert() {
+    func test_reloadCollection_GivenEmptyCollectionFetched_ThenResultsInErrorAlert() {
         // Given
         let emptyCollection = [GameCollected]()
         let localDatabase = DatabaseMock()
@@ -230,10 +239,11 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
         let viewModel = MyCollectionByPlatformsViewModel(
             gamesCollection: [SavedGame](),
             database: localDatabase,
-            alertDisplayer: alertDisplayer
+            alertDisplayer: alertDisplayer,
+            gameDetailsDelegate: GameDetailsViewModelDelegateMock()
         )
         // When
-        viewModel.didAddNewGame()
+        viewModel.reloadCollection()
         
         // Then
         alertDisplayer.verify(
@@ -248,7 +258,7 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
         )
     }
     
-    func test_didAddNewGame_GivenDataFetchedCorrectly_ThenSectionsAreSetAndContainerDelegateCalled() {
+    func test_reloadCollection_GivenDataFetchedCorrectly_ThenSectionsAreSetAndContainerDelegateCalled() {
         // Given
         let localDatabase = DatabaseMock()
         localDatabase.given(
@@ -260,7 +270,8 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
         let viewModel = MyCollectionByPlatformsViewModel(
             gamesCollection: MockData.savedGames,
             database: localDatabase,
-            alertDisplayer: alertDisplayer
+            alertDisplayer: alertDisplayer,
+            gameDetailsDelegate: GameDetailsViewModelDelegateMock()
         )
         let containerDelegate = ContainerViewControllerDelegateMock()
         viewModel.containerDelegate = containerDelegate
@@ -270,7 +281,7 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
         viewModel.loadData { _ in
             
             // When
-            viewModel.didAddNewGame()
+            viewModel.reloadCollection()
             
             // Then
             let expectedItems = convertedData.filter({

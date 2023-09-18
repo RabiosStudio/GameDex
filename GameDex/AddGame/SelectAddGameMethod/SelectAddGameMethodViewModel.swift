@@ -16,7 +16,7 @@ final class SelectAddGameMethodViewModel: CollectionViewModel {
     var sections: [Section]
     weak var containerDelegate: ContainerViewControllerDelegate?
     
-    init(delegate: AddGameDetailsViewModelDelegate?) {
+    init(delegate: GameDetailsViewModelDelegate?) {
         self.sections = [SelectAddGameMethodSection(delegate: delegate)]
     }
     
