@@ -18,7 +18,7 @@ struct AddGameDetailsScreenFactory: ScreenFactory {
             game: self.game,
             localDatabase: LocalDatabase(),
             addGameDelegate: self.addGameDelegate,
-            alertDisplayer: AlertDisplayerImpl(alertDelegate: nil)
+            alertDisplayer: AlertDisplayerImpl()
         )
         let layout = UICollectionViewFlowLayout()
         let containerController = ContainerViewController(

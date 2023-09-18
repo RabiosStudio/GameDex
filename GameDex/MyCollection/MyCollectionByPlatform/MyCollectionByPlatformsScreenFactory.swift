@@ -16,7 +16,7 @@ struct MyCollectionByPlatformsScreenFactory: ScreenFactory {
         let viewModel = MyCollectionByPlatformsViewModel(
             gamesCollection: self.gamesCollection,
             database: LocalDatabase(),
-            alertDisplayer: AlertDisplayerImpl(alertDelegate: nil)
+            alertDisplayer: AlertDisplayerImpl()
         )
         let layout = UICollectionViewFlowLayout()
         let containerController = ContainerViewController(

@@ -15,18 +15,21 @@ final class EditGameDetailsViewModel: CollectionViewModel {
     let screenTitle: String? = L10n.myCollection
     var sections = [Section]()
     
-    weak var containerDelegate: ContainerViewControllerDelegate?
-    
     private let savedGame: SavedGame
     private let localDatabase: Database
-    private lazy var alertDisplayer = AlertDisplayerImpl(alertDelegate: self)
+    private let alertDisplayer: AlertDisplayer
+    
+    weak var containerDelegate: ContainerViewControllerDelegate?
+    weak var alertDelegate: AlertDisplayerDelegate?
     
     init(
         savedGame: SavedGame,
-        localDatabase: Database
+        localDatabase: Database,
+        alertDisplayer: AlertDisplayer
     ) {
         self.savedGame = savedGame
         self.localDatabase = localDatabase
+        self.alertDisplayer = alertDisplayer
     }
     
     func loadData(callback: @escaping (EmptyError?) -> ()) {

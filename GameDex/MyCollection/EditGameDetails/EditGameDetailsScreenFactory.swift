@@ -15,8 +15,11 @@ struct EditGameDetailsScreenFactory: ScreenFactory {
     var viewController: UIViewController {
         let viewModel = EditGameDetailsViewModel(
             savedGame: self.savedGame,
-            localDatabase: LocalDatabase()
+            localDatabase: LocalDatabase(),
+            alertDisplayer: AlertDisplayerImpl()
         )
+        viewModel.alertDelegate = viewModel
+        
         let layout = UICollectionViewFlowLayout()
         let containerController = ContainerViewController(
             viewModel: viewModel,

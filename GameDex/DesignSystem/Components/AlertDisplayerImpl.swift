@@ -22,11 +22,8 @@ protocol AlertDisplayer {
 
 class AlertDisplayerImpl: AlertDisplayer {
     
-    weak var alertDelegate: AlertDisplayerDelegate?
     
-    init(alertDelegate: AlertDisplayerDelegate?) {
-        self.alertDelegate = alertDelegate
-    }
+    weak var alertDelegate: AlertDisplayerDelegate?
     
     func presentTopFloatAlert(parameters: AlertViewModel) {
         
