@@ -386,6 +386,7 @@ extension ContainerViewController: UISearchTextFieldDelegate {
 extension ContainerViewController: UISearchBarDelegate {
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.text = nil
         self.navigationItem.titleView = nil
         self.configureNavBar()
         
