@@ -19,8 +19,8 @@ extension DTTextField {
     }
     
     func configure() {
-        self.floatPlaceholderColor = .systemBlue
-        self.floatPlaceholderActiveColor = .systemBlue
+        self.floatPlaceholderColor = .systemGray
+        self.floatPlaceholderActiveColor = .systemGray
         self.placeholderColor = .systemGray2
         self.textColor = .secondaryColor
         self.tintColor = .primaryColor
