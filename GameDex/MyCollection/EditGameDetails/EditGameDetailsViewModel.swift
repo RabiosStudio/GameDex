@@ -135,7 +135,47 @@ extension EditGameDetailsViewModel: PrimaryButtonDelegate {
 
 extension EditGameDetailsViewModel: EditFormDelegate {
     func enableSaveButtonIfNeeded() {
-        configureBottomView(shouldEnableButton: true)
+            guard let firstSection = self.sections.first,
+                  let formCellsVM = firstSection.cellsVM.filter({ cellVM in
+                      return cellVM is (any CollectionFormCellViewModel)
+                  }) as? [any CollectionFormCellViewModel] else {
+                return
+            }
+            
+            var acquisitionYear, gameCondition, gameCompleteness, gameRegion, storageArea, notes: String?
+            var rating: Int?
+            
+            for formCellVM in formCellsVM {
+                guard let formType = formCellVM.formType as? GameFormType else { return }
+                switch formType {
+                case .yearOfAcquisition:
+                    acquisitionYear = formCellVM.value as? String
+                case .gameCondition(_):
+                    gameCondition = formCellVM.value as? String
+                case .gameCompleteness(_):
+                    gameCompleteness = formCellVM.value as? String
+                case .gameRegion(_):
+                    gameRegion = formCellVM.value as? String
+                case .storageArea:
+                    storageArea = formCellVM.value as? String
+                case .rating:
+                    rating = formCellVM.value as? Int
+                case .notes:
+                    notes = formCellVM.value as? String
+                }
+            }
+        
+        if self.savedGame.acquisitionYear != acquisitionYear ||
+            self.savedGame.gameCondition != gameCondition ||
+            self.savedGame.gameCompleteness != gameCompleteness ||
+            self.savedGame.gameRegion != gameRegion ||
+            self.savedGame.storageArea != storageArea ||
+            self.savedGame.rating != rating ||
+            self.savedGame.notes != notes {
+            configureBottomView(shouldEnableButton: true)
+        } else {
+            configureBottomView(shouldEnableButton: false)
+        }
     }
 }
 
