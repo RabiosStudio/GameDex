@@ -18,6 +18,7 @@ final class EditGameDetailsViewModel: CollectionViewModel {
     private let savedGame: SavedGame
     private let localDatabase: Database
     private var alertDisplayer: AlertDisplayer
+    private let savedValues: [Any?]
     
     weak var containerDelegate: ContainerViewControllerDelegate?
     weak var alertDelegate: AlertDisplayerDelegate?
@@ -30,6 +31,15 @@ final class EditGameDetailsViewModel: CollectionViewModel {
         gameDetailsDelegate: GameDetailsViewModelDelegate?
     ) {
         self.savedGame = savedGame
+        self.savedValues = [
+            self.savedGame.acquisitionYear,
+            self.savedGame.gameCondition,
+            self.savedGame.gameCompleteness,
+            self.savedGame.gameRegion,
+            self.savedGame.storageArea,
+            self.savedGame.rating,
+            self.savedGame.notes
+        ]
         self.localDatabase = localDatabase
         self.alertDisplayer = alertDisplayer
         self.alertDisplayer.alertDelegate = self
@@ -135,47 +145,35 @@ extension EditGameDetailsViewModel: PrimaryButtonDelegate {
 
 extension EditGameDetailsViewModel: EditFormDelegate {
     func enableSaveButtonIfNeeded() {
-            guard let firstSection = self.sections.first,
-                  let formCellsVM = firstSection.cellsVM.filter({ cellVM in
-                      return cellVM is (any CollectionFormCellViewModel)
-                  }) as? [any CollectionFormCellViewModel] else {
-                return
-            }
-            
-            var acquisitionYear, gameCondition, gameCompleteness, gameRegion, storageArea, notes: String?
-            var rating: Int?
-            
-            for formCellVM in formCellsVM {
-                guard let formType = formCellVM.formType as? GameFormType else { return }
-                switch formType {
-                case .yearOfAcquisition:
-                    acquisitionYear = formCellVM.value as? String
-                case .gameCondition(_):
-                    gameCondition = formCellVM.value as? String
-                case .gameCompleteness(_):
-                    gameCompleteness = formCellVM.value as? String
-                case .gameRegion(_):
-                    gameRegion = formCellVM.value as? String
-                case .storageArea:
-                    storageArea = formCellVM.value as? String
-                case .rating:
-                    rating = formCellVM.value as? Int
-                case .notes:
-                    notes = formCellVM.value as? String
-                }
-            }
-        
-        if self.savedGame.acquisitionYear != acquisitionYear ||
-            self.savedGame.gameCondition != gameCondition ||
-            self.savedGame.gameCompleteness != gameCompleteness ||
-            self.savedGame.gameRegion != gameRegion ||
-            self.savedGame.storageArea != storageArea ||
-            self.savedGame.rating != rating ||
-            self.savedGame.notes != notes {
-            configureBottomView(shouldEnableButton: true)
-        } else {
-            configureBottomView(shouldEnableButton: false)
+        guard let firstSection = self.sections.first,
+              let formCellsVM = firstSection.cellsVM.filter({ cellVM in
+                  return cellVM is (any CollectionFormCellViewModel)
+              }) as? [any CollectionFormCellViewModel] else {
+            return
         }
+        
+        let currentValues: [Any?] = formCellsVM.map { $0.value }
+        guard currentValues.count == savedValues.count else {
+            return
+        }
+        
+        var shouldEnableButton = false
+        for index in 0..<savedValues.count {
+            let savedValue = savedValues[index]
+            let currentValue = currentValues[index]
+            
+            if let savedStringValue = savedValue as? String,
+               let currentStringValue = currentValue as? String {
+                shouldEnableButton = savedStringValue != currentStringValue
+            } else if let saveIntValue = savedValue as? Int,
+               let currentIntValue = currentValue as? Int {
+                shouldEnableButton = saveIntValue != currentIntValue
+            }
+            if shouldEnableButton {
+                break
+            }
+        }
+        configureBottomView(shouldEnableButton: shouldEnableButton)
     }
 }
 

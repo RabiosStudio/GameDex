@@ -163,7 +163,7 @@ final class EditGameDetailsViewModelTests: XCTestCase {
         wait(for: [expectation], timeout: Constants.timeout)
     }
     
-    func test_enableSaveButton_ThenShouldCallContainerDelegate() {
+    func test_enableSaveButton_GivenStringValueChanged_ThenShouldCallContainerDelegate() {
         // Given
         let localDatabase = DatabaseMock()
         let containerDelegate = ContainerViewControllerDelegateMock()
@@ -177,7 +177,32 @@ final class EditGameDetailsViewModelTests: XCTestCase {
         
         viewModel.containerDelegate = containerDelegate
         
-        // When
+        viewModel.loadData { _ in
+            
+            guard let firstSection = viewModel.sections.first,
+                  let formCellsVM = firstSection.cellsVM.filter({ cellVM in
+                      return cellVM is (any CollectionFormCellViewModel)
+                  }) as? [any CollectionFormCellViewModel] else {
+                XCTFail("Wrong type")
+                return
+            }
+            var acquisitionYear: String?
+            var rating: Int?
+            
+            for formCellVM in formCellsVM {
+                guard let formType = formCellVM.formType as? GameFormType else { return }
+                switch formType {
+                case .yearOfAcquisition:
+                    acquisitionYear = formCellVM.value as? String
+                    acquisitionYear = "2023"
+                case .rating:
+                    rating = formCellVM.value as? Int
+                    rating = 3
+                default:
+                    break
+                }
+            }
+        }
         viewModel.enableSaveButtonIfNeeded()
         
         // Then
