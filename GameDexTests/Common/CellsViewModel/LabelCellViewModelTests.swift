@@ -23,8 +23,8 @@ final class LabelCellViewModelTests: XCTestCase {
             screenFactory: screenFactory
         )
         // Then
-        XCTAssertEqual(cellVM.mainText, "Primary label")
-        XCTAssertEqual(cellVM.optionalText, "Secondary Label")
+        XCTAssertEqual(cellVM.primaryText, "Primary label")
+        XCTAssertEqual(cellVM.secondaryText, "Secondary Label")
         
         let expectedNavigationStyle: NavigationStyle = {
             return .push(

@@ -27,8 +27,8 @@ final class StarRatingCellViewModel: CollectionFormCellViewModel {
     
     init(title: String,
          formType: FormType,
-         value: Int?,
-         editDelegate: EditFormDelegate?
+         value: Int? = nil,
+         editDelegate: EditFormDelegate? = nil
     ) {
         self.title = title
         self.formType = formType

@@ -25,7 +25,7 @@ final class MyCollectionSectionTests: XCTestCase {
             return
         }
         
-        XCTAssertEqual(collectionCellVM.mainText, "Game Boy Advance")
-        XCTAssertEqual(collectionCellVM.optionalText, "2 \(L10n.games)")
+        XCTAssertEqual(collectionCellVM.primaryText, "Game Boy Advance")
+        XCTAssertEqual(collectionCellVM.secondaryText, "2 \(L10n.games)")
     }
 }

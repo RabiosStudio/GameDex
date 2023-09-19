@@ -27,8 +27,8 @@ final class TextFieldCellViewModel: CollectionFormCellViewModel {
     
     init(placeholder: String,
          formType: FormType,
-         value: String?,
-         editDelegate: EditFormDelegate?
+         value: String? = nil,
+         editDelegate: EditFormDelegate? = nil
     ) {
         self.placeholder = placeholder
         self.formType = formType

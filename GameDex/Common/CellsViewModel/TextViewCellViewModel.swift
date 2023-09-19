@@ -27,8 +27,8 @@ final class TextViewCellViewModel: CollectionFormCellViewModel {
     
     init(title: String,
          formType: FormType,
-         value: String?,
-         editDelegate: EditFormDelegate?
+         value: String? = nil,
+         editDelegate: EditFormDelegate? = nil
     ) {
         self.title = title
         self.formType = formType

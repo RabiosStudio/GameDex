@@ -56,8 +56,8 @@ final class LabelCell: UICollectionViewCell, CellConfigurable {
         guard let cellVM = cellViewModel as? LabelCellViewModel else {
             return
         }
-        self.primaryLabel.text = cellVM.mainText
-        self.secondaryLabel.text = cellVM.optionalText
+        self.primaryLabel.text = cellVM.primaryText
+        self.secondaryLabel.text = cellVM.secondaryText
         self.setupConstraints()
     }
     

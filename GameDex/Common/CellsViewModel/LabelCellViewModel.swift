@@ -19,12 +19,12 @@ final class LabelCellViewModel: CollectionCellViewModel {
     var height: CGFloat = DesignSystem.sizeTiny
     
     private let screenFactory: ScreenFactory?
-    var mainText: String
-    var optionalText: String?
+    var primaryText: String
+    var secondaryText: String?
     
     init(mainText: String, optionalText: String?, screenFactory: ScreenFactory?) {
-        self.mainText = mainText
-        self.optionalText = optionalText
+        self.primaryText = mainText
+        self.secondaryText = optionalText
         self.screenFactory = screenFactory
     }
     
