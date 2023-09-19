@@ -70,8 +70,7 @@ class ImageDescriptionCell: UICollectionViewCell, CellConfigurable {
             return
         }
         let imageURL = URL(string: cellVM.imageStringURL)!
-        let placeholderImage = UIImage(systemName: "eraser")!
-        self.imageView.setImageWith(url: imageURL, placeholderImage: placeholderImage)
+        self.imageView.setImageWith(url: imageURL)
         
         self.title.text = cellVM.title
         self.subTitle1.text = cellVM.subtitle1
