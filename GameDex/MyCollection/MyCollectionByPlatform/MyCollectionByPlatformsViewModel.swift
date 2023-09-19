@@ -16,7 +16,7 @@ final class MyCollectionByPlatformsViewModel: CollectionViewModel {
     )
     var isBounceable: Bool = true
     var progress: Float?
-    var rightButtonItem: [AnyBarButtonItem]? = [.add, .search]
+    var rightButtonItems: [AnyBarButtonItem]? = [.add, .search]
     let screenTitle: String?
     var sections = [Section]()
     weak var containerDelegate: ContainerViewControllerDelegate?

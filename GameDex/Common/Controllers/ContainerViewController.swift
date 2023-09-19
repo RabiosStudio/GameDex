@@ -186,7 +186,7 @@ class ContainerViewController: UIViewController {
         self.navigationController?.configure()
         self.configureSearchBar()
         
-        guard let rightButtonItem = self.viewModel.rightButtonItem else {
+        guard let rightButtonItem = self.viewModel.rightButtonItems else {
             return
         }
         

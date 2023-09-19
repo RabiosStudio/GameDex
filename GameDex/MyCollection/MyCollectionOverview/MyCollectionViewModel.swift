@@ -15,7 +15,7 @@ final class MyCollectionViewModel: CollectionViewModel {
     )
     var isBounceable: Bool = true
     var progress: Float?
-    var rightButtonItem: [AnyBarButtonItem]? = [.add, .search]
+    var rightButtonItems: [AnyBarButtonItem]? = [.add, .search]
     let screenTitle: String? = L10n.myCollection
     var sections: [Section] = []
     var collection: [SavedGame] = []

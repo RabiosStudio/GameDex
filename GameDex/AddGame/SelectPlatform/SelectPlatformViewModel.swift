@@ -15,7 +15,7 @@ final class SelectPlatformViewModel: CollectionViewModel {
     )
     var isBounceable: Bool = true
     var progress: Float?
-    var rightButtonItem: [AnyBarButtonItem]? = [.close]
+    var rightButtonItems: [AnyBarButtonItem]? = [.close]
     let screenTitle: String? = L10n.searchPlatform
     var sections = [Section]()
     private var platforms: [Platform] = []

@@ -15,7 +15,7 @@ final class SearchGameByTitleViewModel: CollectionViewModel {
     )
     var isBounceable: Bool = true
     var progress: Float?
-    var rightButtonItem: [AnyBarButtonItem]? = [.close]
+    var rightButtonItems: [AnyBarButtonItem]? = [.close]
     let screenTitle: String? = L10n.searchGame
     var sections = [Section]()
     weak var containerDelegate: ContainerViewControllerDelegate?

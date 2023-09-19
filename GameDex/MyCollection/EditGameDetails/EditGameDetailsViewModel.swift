@@ -11,7 +11,7 @@ final class EditGameDetailsViewModel: CollectionViewModel {
     var searchViewModel: SearchViewModel?
     var isBounceable: Bool = true
     var progress: Float?
-    var rightButtonItem: [AnyBarButtonItem]? = [.delete]
+    var rightButtonItems: [AnyBarButtonItem]? = [.delete]
     let screenTitle: String? = L10n.myCollection
     var sections = [Section]()
     
