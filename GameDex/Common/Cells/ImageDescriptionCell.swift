@@ -26,7 +26,7 @@ class ImageDescriptionCell: UICollectionViewCell, CellConfigurable {
         return label
     }()
     
-    private lazy var subTitle1: UILabel = {
+    private lazy var subtitle1: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
         label.textColor = .secondaryColor
@@ -35,7 +35,7 @@ class ImageDescriptionCell: UICollectionViewCell, CellConfigurable {
         return label
     }()
     
-    private lazy var subTitle2: UILabel = {
+    private lazy var subtitle2: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
         label.textColor = .secondaryColor
@@ -45,7 +45,7 @@ class ImageDescriptionCell: UICollectionViewCell, CellConfigurable {
         return label
     }()
     
-    private lazy var subTitle3: UILabel = {
+    private lazy var subtitle3: UILabel = {
         let label = UILabel()
         label.textAlignment = .center
         label.textColor = .secondaryColor
@@ -73,9 +73,9 @@ class ImageDescriptionCell: UICollectionViewCell, CellConfigurable {
         self.imageView.setImageWith(url: imageURL)
         
         self.title.text = cellVM.title
-        self.subTitle1.text = cellVM.subtitle1
-        self.subTitle2.text = cellVM.subtitle2
-        self.subTitle3.text = cellVM.subtitle3
+        self.subtitle1.text = cellVM.subtitle1
+        self.subtitle2.text = cellVM.subtitle2
+        self.subtitle3.text = cellVM.subtitle3
         
         self.setupConstraints()
     }
@@ -85,9 +85,9 @@ class ImageDescriptionCell: UICollectionViewCell, CellConfigurable {
     private func setupViews() {
         self.contentView.addSubview(self.imageView)
         self.contentView.addSubview(self.title)
-        self.contentView.addSubview(self.subTitle1)
-        self.contentView.addSubview(self.subTitle2)
-        self.contentView.addSubview(self.subTitle3)
+        self.contentView.addSubview(self.subtitle1)
+        self.contentView.addSubview(self.subtitle2)
+        self.contentView.addSubview(self.subtitle3)
     }
     
     private func setupConstraints() {
@@ -122,45 +122,45 @@ class ImageDescriptionCell: UICollectionViewCell, CellConfigurable {
                 constant: -DesignSystem.paddingSmall
             ),
             
-            self.subTitle1.topAnchor.constraint(
+            self.subtitle1.topAnchor.constraint(
                 equalTo: self.title.bottomAnchor,
                 constant: DesignSystem.paddingSmall
             ),
-            self.subTitle1.leadingAnchor.constraint(
+            self.subtitle1.leadingAnchor.constraint(
                 equalTo: self.leadingAnchor,
                 constant: DesignSystem.paddingSmall
             ),
-            self.subTitle1.trailingAnchor.constraint(
+            self.subtitle1.trailingAnchor.constraint(
                 equalTo: self.trailingAnchor,
                 constant: -DesignSystem.paddingSmall
             ),
             
-            self.subTitle2.topAnchor.constraint(
-                equalTo: self.subTitle1.bottomAnchor,
+            self.subtitle2.topAnchor.constraint(
+                equalTo: self.subtitle1.bottomAnchor,
                 constant: DesignSystem.paddingSmall
             ),
-            self.subTitle2.leadingAnchor.constraint(
+            self.subtitle2.leadingAnchor.constraint(
                 equalTo: self.leadingAnchor,
                 constant: DesignSystem.paddingSmall
             ),
-            self.subTitle2.trailingAnchor.constraint(
+            self.subtitle2.trailingAnchor.constraint(
                 equalTo: self.trailingAnchor,
                 constant: -DesignSystem.paddingSmall
             ),
             
-            self.subTitle3.topAnchor.constraint(
-                equalTo: self.subTitle2.bottomAnchor,
+            self.subtitle3.topAnchor.constraint(
+                equalTo: self.subtitle2.bottomAnchor,
                 constant: DesignSystem.paddingSmall
             ),
-            self.subTitle3.leadingAnchor.constraint(
+            self.subtitle3.leadingAnchor.constraint(
                 equalTo: self.leadingAnchor,
                 constant: DesignSystem.paddingSmall
             ),
-            self.subTitle3.trailingAnchor.constraint(
+            self.subtitle3.trailingAnchor.constraint(
                 equalTo: self.trailingAnchor,
                 constant: -DesignSystem.paddingSmall
             ),
-            self.subTitle3.bottomAnchor.constraint(
+            self.subtitle3.bottomAnchor.constraint(
                 equalTo: self.bottomAnchor,
                 constant: -DesignSystem.paddingRegular
             )
