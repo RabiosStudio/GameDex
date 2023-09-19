@@ -12,6 +12,7 @@ import UIKit
 protocol ContainerViewControllerDelegate: AnyObject {
     func configureBottomView(contentViewFactory: ContentViewFactory)
     func reloadSections()
+    func goBackToRootViewController()
 }
 
 class ContainerViewController: UIViewController {
@@ -183,22 +184,37 @@ class ContainerViewController: UIViewController {
     
     private func configureNavBar() {
         self.navigationController?.configure()
-        if let searchVM = self.viewModel.searchViewModel {
-            self.searchBar.placeholder = searchVM.placeholder
-            self.navigationItem.titleView = self.searchBar
-        } else {
-            self.title = self.viewModel.screenTitle
-        }
+        self.configureSearchBar()
         
-        guard let rightButtonItem = self.viewModel.rightButtonItem else {
+        guard let rightButtonItem = self.viewModel.rightButtonItems else {
             return
         }
+        
+        var buttonItemsConfigured = [BarButtonItem]()
+        for item in rightButtonItem {
+            switch item {
+            case .search:
+                buttonItemsConfigured.append(
+                    BarButtonItem(
+                        image: item.image(), actionHandler: { [weak self] in
+                            self?.handleShowSearchBarOnTap()
+                        }
+                    )
+                )
+            default:
+                buttonItemsConfigured.append(
+                    BarButtonItem(
+                        image: item.image(), actionHandler: { [weak self] in
+                            self?.viewModel.didTapRightButtonItem()
+                        }
+                    )
+                )
+            }
+        }
+        
         switch rightButtonItem {
         default:
-            self.navigationItem.rightBarButtonItem = BarButtonItem(image: rightButtonItem.image()
-            ) { [weak self] in
-                self?.viewModel.didTapRightButtonItem()
-            }
+            self.navigationItem.rightBarButtonItems = buttonItemsConfigured
         }
     }
     
@@ -215,6 +231,25 @@ class ContainerViewController: UIViewController {
         
         // update progress bar with given value
         self.navigationController?.setProgress(progress, animated: false)
+    }
+    
+    private func configureSearchBar() {
+        guard let searchVM = self.viewModel.searchViewModel,
+              searchVM.activateOnTap == false else {
+            self.title = self.viewModel.screenTitle
+            return
+        }
+        self.searchBar.placeholder = searchVM.placeholder
+        self.navigationItem.titleView = self.searchBar
+    }
+    
+    private func handleShowSearchBarOnTap() {
+        guard let searchVM = self.viewModel.searchViewModel else { return }
+        self.searchBar.placeholder = searchVM.placeholder
+        self.searchBar.showsCancelButton = true
+        self.searchBar.becomeFirstResponder()
+        self.navigationItem.rightBarButtonItems = nil
+        self.navigationItem.titleView = self.searchBar
     }
     
     private func configureLoader() {
@@ -349,6 +384,23 @@ extension ContainerViewController: UISearchTextFieldDelegate {
 // MARK: UISearchDelegate
 
 extension ContainerViewController: UISearchBarDelegate {
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.text = nil
+        self.navigationItem.titleView = nil
+        self.configureNavBar()
+        
+        self.viewModel.searchViewModel?.delegate?.updateSearchTextField(with: "") { [weak self] error in
+            if let error = error {
+                let tabBarOffset = -(self?.tabBarController?.tabBar.frame.size.height ?? 0)
+                self?.updateEmptyState(error: error,
+                                       tabBarOffset: tabBarOffset)
+            } else {
+                self?.refresh()
+            }
+        }
+    }
+    
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard let searchQuery = searchBar.text else {
             return
@@ -356,8 +408,7 @@ extension ContainerViewController: UISearchBarDelegate {
         self.searchBar.endEditing(true)
         self.configureLoader()
         self.viewModel.searchViewModel?.delegate?.startSearch(
-            from: searchQuery,
-            callback: { [weak self] error in
+            from: searchQuery) { [weak self] error in
                 DispatchQueue.main.async {
                     if let error = error {
                         let tabBarOffset = -(self?.tabBarController?.tabBar.frame.size.height ?? 0)
@@ -367,12 +418,12 @@ extension ContainerViewController: UISearchBarDelegate {
                         self?.refresh()
                     }
                 }
-            })
+            }
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         // called when text changes (including clear)
-        self.viewModel.searchViewModel?.delegate?.updateSearchTextField(with: searchText, callback: { [weak self] error in
+        self.viewModel.searchViewModel?.delegate?.updateSearchTextField(with: searchText) { [weak self] error in
             if let error = error {
                 let tabBarOffset = -(self?.tabBarController?.tabBar.frame.size.height ?? 0)
                 self?.updateEmptyState(error: error,
@@ -380,13 +431,17 @@ extension ContainerViewController: UISearchBarDelegate {
             } else {
                 self?.refresh()
             }
-        })
+        }
     }
 }
 
 // MARK: ContainerViewControllerDelegate
 
 extension ContainerViewController: ContainerViewControllerDelegate {
+    func goBackToRootViewController() {
+        self.navigationController?.popToRootViewController(animated: true)
+    }
+    
     func configureBottomView(contentViewFactory: ContentViewFactory) {
         self.separatorView.removeFromSuperview()
         self.bottomView.removeFromSuperview()

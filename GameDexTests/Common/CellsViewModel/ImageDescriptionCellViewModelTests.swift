@@ -9,7 +9,7 @@ import XCTest
 @testable import GameDex
 
 final class ImageDescriptionCellViewModelTests: XCTestCase {
-    func test_init_GivenCorrectParameters_ThenShouldSetPropertiesCorrectly() {
+    func test_init_ThenShouldSetPropertiesCorrectly() {
         // Given
         let imageStringURL = "Image URL"
         let title = "Title"

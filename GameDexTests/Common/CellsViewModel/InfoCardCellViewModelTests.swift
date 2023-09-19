@@ -10,12 +10,12 @@ import XCTest
 
 final class InfoCardCellViewModelTests: XCTestCase {
 
-    func test_init_GivenCorrectParameters_ThenShouldSetPropertiesCorrectly() {
+    func test_init_ThenShouldSetPropertiesCorrectly() {
         // Given
         let text = "Title"
         let description = "Description"
         let imageName = "ImageName"
-        let screenFactory = SelectPlatformScreenFactory(delegate: AddGameDetailsViewModelDelegateMock())
+        let screenFactory = SelectPlatformScreenFactory(delegate: GameDetailsViewModelDelegateMock())
         // When
         let cellVM = InfoCardCellViewModel(
             title: text,
@@ -27,5 +27,12 @@ final class InfoCardCellViewModelTests: XCTestCase {
         XCTAssertEqual(cellVM.title, "Title")
         XCTAssertEqual(cellVM.description, "Description")
         XCTAssertEqual(cellVM.imageName, "ImageName")
+        
+        let expectedNavigationStyle: NavigationStyle = {
+            return .push(
+                controller: screenFactory.viewController
+            )
+        }()
+        XCTAssertEqual(cellVM.navigationStyle, expectedNavigationStyle)
     }
 }

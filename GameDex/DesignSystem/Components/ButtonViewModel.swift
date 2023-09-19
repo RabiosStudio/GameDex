@@ -9,8 +9,4 @@ import Foundation
 
 struct ButtonViewModel {
     let title: String
-    
-    init(title: String) {
-        self.title = title
-    }
 }

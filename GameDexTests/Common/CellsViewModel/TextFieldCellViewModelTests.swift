@@ -10,17 +10,21 @@ import XCTest
 
 final class TextFieldCellViewModelTests: XCTestCase {
     
-    func test_init_GivenCorrectParameters_ThenShouldSetPropertiesCorrectly() {
+    func test_init_ThenShouldSetPropertiesCorrectly() {
         // Given
         let placeholder = "Some placeholder"
-        let shouldActiveTextField = true
+        let text = "Some text"
+        
         // When
         let cellVM = TextFieldCellViewModel(
             placeholder: placeholder,
-            formType: .storageArea
+            formType: GameFormType.storageArea,
+            value: text,
+            editDelegate: EditFormDelegateMock()
         )
         // Then
         XCTAssertEqual(cellVM.placeholder, "Some placeholder")
+        XCTAssertEqual(cellVM.value, "Some text")
     }
     
 }

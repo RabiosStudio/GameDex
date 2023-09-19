@@ -11,6 +11,6 @@ struct Game: Codable {
     let title: String
     let description: String
     let id: String
-    var platform: String
+    var platform: Platform
     let imageURL: String
 }

@@ -16,6 +16,7 @@ protocol AlertDisplayerDelegate: AnyObject {
 
 // sourcery: AutoMockable
 protocol AlertDisplayer {
+    var alertDelegate: AlertDisplayerDelegate? { get set }
     func presentTopFloatAlert(parameters: AlertViewModel)
     func presentBasicAlert(parameters: AlertViewModel)
 }
@@ -24,16 +25,12 @@ class AlertDisplayerImpl: AlertDisplayer {
     
     weak var alertDelegate: AlertDisplayerDelegate?
     
-    init(alertDelegate: AlertDisplayerDelegate?) {
-        self.alertDelegate = alertDelegate
-    }
-    
     func presentTopFloatAlert(parameters: AlertViewModel) {
         
         var attributes: EKAttributes = .topFloat
         
         attributes.entryBackground = EKAttributes.BackgroundStyle.color(color: parameters.alertType.color)
-        attributes.displayDuration = 3
+        attributes.displayDuration = 1.5
         attributes.entryInteraction = .dismiss
         attributes.screenInteraction = .dismiss
         
@@ -76,7 +73,7 @@ class AlertDisplayerImpl: AlertDisplayer {
     }
     
     func presentBasicAlert(parameters: AlertViewModel) {
-        var displayMode = EKAttributes.DisplayMode.inferred
+        let displayMode = EKAttributes.DisplayMode.inferred
         var attributes: EKAttributes = .centerFloat
         attributes.screenBackground = .color(color: EKColor(UIColor(white: 0.5, alpha: 0.5)))
         attributes.shadow = .active(with: .init(color: .black, opacity: 0.3, radius: 10, offset: .zero))

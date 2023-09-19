@@ -12,7 +12,7 @@ final class AddGameDetailsSectionTests: XCTestCase {
     
     // MARK: Tests
     
-    func test_init_GivenAddGameDetailsSection_ThenShouldSetPropertiesCorrectly() {
+    func test_init_ThenShouldSetPropertiesCorrectly() {
         // Given
         let section = AddGameDetailsSection(game: MockData.game)
         
@@ -36,7 +36,7 @@ final class AddGameDetailsSectionTests: XCTestCase {
         }
         
         for formCellVM in formCellsVM {
-            guard let formType = formCellVM.formType as? AddGameFormType else {
+            guard let formType = formCellVM.formType as? GameFormType else {
                 XCTFail("Wrong type")
                 return
             }
@@ -49,7 +49,7 @@ final class AddGameDetailsSectionTests: XCTestCase {
                 XCTAssertEqual(acquisitionYearCellVM.placeholder, L10n.yearOfAcquisition)
             case .gameCondition(_):
                 guard let gameConditionCellVM = formCellVM as? TextFieldCellViewModel,
-                      let gameConditionCellVMFormType = gameConditionCellVM.formType as? AddGameFormType else {
+                      let gameConditionCellVMFormType = gameConditionCellVM.formType as? GameFormType else {
                     XCTFail("Wrong type")
                     return
                 }
@@ -64,7 +64,7 @@ final class AddGameDetailsSectionTests: XCTestCase {
                 )
             case .gameCompleteness(_):
                 guard let gameCompletenessCellVM = formCellVM as? TextFieldCellViewModel,
-                      let gameCompletenessCellVMFormType = gameCompletenessCellVM.formType as? AddGameFormType  else {
+                      let gameCompletenessCellVMFormType = gameCompletenessCellVM.formType as? GameFormType  else {
                     XCTFail("Wrong type")
                     return
                 }
@@ -79,7 +79,7 @@ final class AddGameDetailsSectionTests: XCTestCase {
                 )
             case .gameRegion(_):
                 guard let gameRegionCellVM = formCellVM as? TextFieldCellViewModel,
-                      let gameRegionCellVMFormType = gameRegionCellVM.formType as? AddGameFormType else {
+                      let gameRegionCellVMFormType = gameRegionCellVM.formType as? GameFormType else {
                     XCTFail("Wrong type")
                     return
                 }

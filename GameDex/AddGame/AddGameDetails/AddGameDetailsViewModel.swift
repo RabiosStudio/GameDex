@@ -7,20 +7,15 @@
 
 import Foundation
 
-// sourcery: AutoMockable
-protocol AddGameDetailsViewModelDelegate: AnyObject {
-    func didAddNewGame()
-}
-
 final class AddGameDetailsViewModel: CollectionViewModel {
     var searchViewModel: SearchViewModel?
     var isBounceable: Bool = true
     var progress: Float?
-    var rightButtonItem: AnyBarButtonItem? = .close
+    var rightButtonItems: [AnyBarButtonItem]? = [.close]
     let screenTitle: String? = L10n.fillGameDetails
     var sections = [Section]()
     weak var containerDelegate: ContainerViewControllerDelegate?
-    weak var addGameDelegate: AddGameDetailsViewModelDelegate?
+    weak var gameDetailsDelegate: GameDetailsViewModelDelegate?
     
     private let game: Game
     private let localDatabase: Database
@@ -29,14 +24,14 @@ final class AddGameDetailsViewModel: CollectionViewModel {
     init(
         game: Game,
         localDatabase: Database,
-        addGameDelegate: AddGameDetailsViewModelDelegate?,
+        gameDetailsDelegate: GameDetailsViewModelDelegate?,
         alertDisplayer: AlertDisplayer
     ) {
         self.progress = 3/3
         self.game = game
         self.localDatabase = localDatabase
         self.sections = [AddGameDetailsSection(game: self.game)]
-        self.addGameDelegate = addGameDelegate
+        self.gameDetailsDelegate = gameDetailsDelegate
         self.alertDisplayer = alertDisplayer
     }
     
@@ -46,17 +41,15 @@ final class AddGameDetailsViewModel: CollectionViewModel {
     }
     
     func didTapRightButtonItem() {
-        self.addGameDelegate?.didAddNewGame()
-        _ =  Routing.shared.route(
-            navigationStyle: .dismiss {
-            }
-        )
+        self.gameDetailsDelegate?.reloadCollection()
+        _ = Routing.shared.route(navigationStyle: .dismiss(completionBlock: nil))
     }
     
     private func configureBottomView() {
         let buttonContentViewFactory = PrimaryButtonContentViewFactory(
             delegate: self,
-            buttonTitle: L10n.addGameToCollection
+            buttonTitle: L10n.addGameToCollection,
+            shouldEnable: true
         )
         self.containerDelegate?.configureBottomView(
             contentViewFactory: buttonContentViewFactory
@@ -77,7 +70,7 @@ extension AddGameDetailsViewModel: PrimaryButtonDelegate {
         var rating: Int?
         
         for formCellVM in formCellsVM {
-            guard let formType = formCellVM.formType as? AddGameFormType else { return }
+            guard let formType = formCellVM.formType as? GameFormType else { return }
             switch formType {
             case .yearOfAcquisition:
                 acquisitionYear = formCellVM.value as? String
@@ -108,13 +101,23 @@ extension AddGameDetailsViewModel: PrimaryButtonDelegate {
         )
         
         self.localDatabase.add(newEntity: gameToSave) { [weak self] error in
-            if error != nil {
-                self?.alertDisplayer.presentTopFloatAlert(
-                    parameters: AlertViewModel(
-                        alertType: .error,
-                        description: L10n.saveGameErrorDescription
+            if let error {
+                switch error {
+                case .itemAlreadySaved:
+                    self?.alertDisplayer.presentTopFloatAlert(
+                        parameters: AlertViewModel(
+                            alertType: .warning,
+                            description: L10n.warningGameAlreadyInDatabase
+                        )
                     )
-                )
+                default:
+                    self?.alertDisplayer.presentTopFloatAlert(
+                        parameters: AlertViewModel(
+                            alertType: .error,
+                            description: L10n.saveGameErrorDescription
+                        )
+                    )
+                }
                 self?.configureBottomView()
             } else {
                 self?.alertDisplayer.presentTopFloatAlert(

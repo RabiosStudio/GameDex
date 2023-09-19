@@ -50,6 +50,7 @@ class TextViewCell: UICollectionViewCell, CellConfigurable {
     
     override func prepareForReuse() {
         super.prepareForReuse()
+        self.textView.text = nil
         self.label.text = nil
     }
     
@@ -57,6 +58,7 @@ class TextViewCell: UICollectionViewCell, CellConfigurable {
         guard let cellVM = cellViewModel as? TextViewCellViewModel else {
             return
         }
+        self.textView.text = cellVM.value
         self.cellVM = cellVM
         self.setupConstraints()
         self.label.text = cellVM.title

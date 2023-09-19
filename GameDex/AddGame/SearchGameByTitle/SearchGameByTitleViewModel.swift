@@ -10,15 +10,16 @@ import Foundation
 final class SearchGameByTitleViewModel: CollectionViewModel {
     lazy var searchViewModel: SearchViewModel? = SearchViewModel(
         placeholder: L10n.searchGame,
+        activateOnTap: false,
         delegate: self
     )
     var isBounceable: Bool = true
     var progress: Float?
-    var rightButtonItem: AnyBarButtonItem? = .close
+    var rightButtonItems: [AnyBarButtonItem]? = [.close]
     let screenTitle: String? = L10n.searchGame
     var sections = [Section]()
     weak var containerDelegate: ContainerViewControllerDelegate?
-    weak var addGameDelegate: AddGameDetailsViewModelDelegate?
+    weak var gameDetailsDelegate: GameDetailsViewModelDelegate?
     
     private let platform: Platform
     private var gamesQuery: [Game] = []
@@ -28,17 +29,17 @@ final class SearchGameByTitleViewModel: CollectionViewModel {
     init(
         networkingSession: API,
         platform: Platform,
-        addGameDelegate: AddGameDetailsViewModelDelegate?
+        gameDetailsDelegate: GameDetailsViewModelDelegate?
     ) {
         self.progress = 2/3
         self.networkingSession = networkingSession
         self.platform = platform
-        self.addGameDelegate = addGameDelegate
+        self.gameDetailsDelegate = gameDetailsDelegate
         self.sections = [
             SearchGameByTitleSection(
                 gamesQuery: gamesQuery,
                 platform: self.platform,
-                addGameDelegate: addGameDelegate
+                gameDetailsDelegate: gameDetailsDelegate
             )
         ]
     }
@@ -49,7 +50,7 @@ final class SearchGameByTitleViewModel: CollectionViewModel {
     }
     
     func didTapRightButtonItem() {
-        _ = Routing.shared.route(navigationStyle: .dismiss {})
+        _ = Routing.shared.route(navigationStyle: .dismiss(completionBlock: nil))
     }
 }
 
@@ -68,7 +69,7 @@ extension SearchGameByTitleViewModel: SearchViewModelDelegate {
                 self.sections = [SearchGameByTitleSection(
                     gamesQuery: self.gamesQuery,
                     platform: self.platform,
-                    addGameDelegate: self.addGameDelegate
+                    gameDetailsDelegate: self.gameDetailsDelegate
                 )]
                 callback(nil)
             case .failure(_):

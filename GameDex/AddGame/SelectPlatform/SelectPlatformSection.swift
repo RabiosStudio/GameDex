@@ -9,19 +9,17 @@ import Foundation
 
 final class SelectPlatformSection: Section {
     
-    var platforms: [Platform]
-    
-    init(platforms: [Platform], addGameDelegate: AddGameDetailsViewModelDelegate?) {
-        self.platforms = platforms
+    init(platforms: [Platform], gameDetailsDelegate: GameDetailsViewModelDelegate?) {
         super.init()
         self.position = 0
         
         for platform in platforms {
             let labelCellVM = LabelCellViewModel(
-                text: platform.title,
+                mainText: platform.title,
+                optionalText: nil,
                 screenFactory: SearchGameByTitleScreenFactory(
                     platform: platform,
-                    addGameDelegate: addGameDelegate
+                    gameDetailsDelegate: gameDetailsDelegate
                 )
             )
             

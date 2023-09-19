@@ -9,12 +9,13 @@ import Foundation
 
 protocol CollectionViewModel {
     var screenTitle: String? { get }
-    var rightButtonItem: AnyBarButtonItem? { get }
+    var rightButtonItems: [AnyBarButtonItem]? { get }
     var isBounceable: Bool { get }
     var searchViewModel: SearchViewModel? { get }
     var sections: [Section] { get }
     var progress: Float? { get }
     var containerDelegate: ContainerViewControllerDelegate? { get set }
+    
     func loadData(callback: @escaping (EmptyError?) -> ())
     func didTapRightButtonItem()
 }

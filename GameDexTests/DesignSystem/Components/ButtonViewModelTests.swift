@@ -10,10 +10,9 @@ import XCTest
 
 final class ButtonViewModelTests: XCTestCase {
 
-    func test_init_GivenTitleAndButtonStyle_ThenShouldSetPropertiesCorrectly() {
+    func test_init_GivenTitle_ThenShouldSetPropertiesCorrectly() {
         // Given
         let title = "Button title"
-        let buttonStyle: ButtonStyle = .big
         // When
         let viewModel = ButtonViewModel(
             title: title

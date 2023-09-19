@@ -8,20 +8,31 @@
 import Foundation
 
 final class TextViewCellViewModel: CollectionFormCellViewModel {
+    typealias ValueType = String
+    
     var cellClass: AnyClass = TextViewCell.self
     var indexPath: IndexPath?
     var navigationStyle: NavigationStyle?
     var height: CGFloat = DesignSystem.sizeBig
     
     let title: String
-    var value: String?
-    var formType: AddGameFormType
     var formType: FormType
+    var value: ValueType? {
+        didSet {
+            self.editFormDelegate?.enableSaveButtonIfNeeded()
+        }
+    }
+    
+    weak var editFormDelegate: EditFormDelegate?
     
     init(title: String,
          formType: FormType,
+         value: String? = nil,
+         editDelegate: EditFormDelegate? = nil
     ) {
         self.title = title
         self.formType = formType
+        self.value = value
+        self.editFormDelegate = editDelegate
     }
 }

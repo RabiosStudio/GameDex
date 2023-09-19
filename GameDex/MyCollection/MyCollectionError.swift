@@ -9,48 +9,57 @@ import Foundation
 
 enum MyCollectionError: EmptyError {
     
-    case noItems(addGameDelegate: AddGameDetailsViewModelDelegate?)
+    case emptyCollection(gameDetailsDelegate: GameDetailsViewModelDelegate?)
     case fetchError
+    case noItems
     
     var errorTitle: String {
         switch self {
-        case .noItems:
+        case .emptyCollection:
             return L10n.emptyMyCollectionTitle
         case .fetchError:
             return L10n.fetchGamesErrorDescription
+        case .noItems:
+            return L10n.emptyItemsTitle
         }
     }
     
     var errorDescription: String {
         switch self {
-        case .noItems:
+        case .emptyCollection:
             return L10n.emptyMyCollectionDescription
         case .fetchError:
             return L10n.warningTryAgain
+        case .noItems:
+            return L10n.emptyItemsDescription
         }
     }
     
     var imageName: String {
         switch self {
-        case .noItems:
+        case .emptyCollection:
             return Asset.noItems.name
         case .fetchError:
             return Asset.exclamationMark.name
+        case .noItems:
+            return Asset.noItems.name
         }
     }
     
-    var buttonTitle: String {
+    var buttonTitle: String? {
         switch self {
-        case .noItems:
+        case .emptyCollection:
             return L10n.addAGame
         case .fetchError:
             return L10n.refresh
+        case .noItems:
+            return nil
         }
     }
     
     var errorAction: ErrorAction {
         switch self {
-        case .noItems(addGameDelegate: let delegate):
+        case .emptyCollection(gameDetailsDelegate: let delegate):
             let selectAddGameTypeController = SelectAddGameMethodScreenFactory(
                 delegate: delegate
             ).viewController
@@ -59,6 +68,8 @@ enum MyCollectionError: EmptyError {
                 completionBlock: nil)
             return .navigate(style: startToAddGame)
         case .fetchError:
+            return .refresh
+        case .noItems:
             return .refresh
         }
     }

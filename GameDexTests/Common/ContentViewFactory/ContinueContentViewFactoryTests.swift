@@ -17,7 +17,8 @@ final class PrimaryButtonContentViewFactoryTests: XCTestCase {
         // When
         let viewFactory = PrimaryButtonContentViewFactory(
             delegate: delegateMock,
-            buttonTitle: "Button title"
+            buttonTitle: "Button title",
+            shouldEnable: true
         )
         
         // Then

@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Platform {
+struct Platform: Codable, Equatable {
     let title: String
     let id: Int
 }

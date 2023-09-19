@@ -28,7 +28,7 @@ final class AddGameDetailsViewModelTests: XCTestCase {
         let viewModel = AddGameDetailsViewModel(
             game: MockData.game,
             localDatabase: DatabaseMock(),
-            addGameDelegate: AddGameDetailsViewModelDelegateMock(),
+            gameDetailsDelegate: GameDetailsViewModelDelegateMock(),
             alertDisplayer: AlertDisplayerMock()
         )
         
@@ -43,7 +43,7 @@ final class AddGameDetailsViewModelTests: XCTestCase {
         let viewModel  = AddGameDetailsViewModel(
             game: MockData.game,
             localDatabase: DatabaseMock(),
-            addGameDelegate: AddGameDetailsViewModelDelegateMock(),
+            gameDetailsDelegate: GameDetailsViewModelDelegateMock(),
             alertDisplayer: AlertDisplayerMock()
         )
         
@@ -64,7 +64,7 @@ final class AddGameDetailsViewModelTests: XCTestCase {
         let viewModel  = AddGameDetailsViewModel(
             game: MockData.game,
             localDatabase: localDatabase,
-            addGameDelegate: AddGameDetailsViewModelDelegateMock(),
+            gameDetailsDelegate: GameDetailsViewModelDelegateMock(),
             alertDisplayer: alertDisplayer
         )
         
@@ -102,7 +102,7 @@ final class AddGameDetailsViewModelTests: XCTestCase {
         wait(for: [expectation], timeout: Constants.timeout)
     }
     
-    func test_didTapPrimaryButton_GivenDatabaseError_ThenAlertParametersAreSetCorrectly() {
+    func test_didTapPrimaryButton_GivenDatabaseSaveError_ThenAlertParametersAreSetCorrectly() {
         // Given
         let expectation = XCTestExpectation()
         let localDatabase = DatabaseMock()
@@ -111,7 +111,7 @@ final class AddGameDetailsViewModelTests: XCTestCase {
         let viewModel  = AddGameDetailsViewModel(
             game: MockData.game,
             localDatabase: localDatabase,
-            addGameDelegate: AddGameDetailsViewModelDelegateMock(),
+            gameDetailsDelegate: GameDetailsViewModelDelegateMock(),
             alertDisplayer: alertDisplayer
         )
         
@@ -141,6 +141,73 @@ final class AddGameDetailsViewModelTests: XCTestCase {
         viewModel.didTapPrimaryButton()
         
         wait(for: [expectation], timeout: Constants.timeout)
+    }
+    
+    func test_didTapPrimaryButton_GivenDatabaseItemAlreadySavedError_ThenAlertParametersAreSetCorrectly() {
+        // Given
+        let expectation = XCTestExpectation()
+        let localDatabase = DatabaseMock()
+        let alertDisplayer = AlertDisplayerMock()
+        
+        let viewModel  = AddGameDetailsViewModel(
+            game: MockData.game,
+            localDatabase: localDatabase,
+            gameDetailsDelegate: GameDetailsViewModelDelegateMock(),
+            alertDisplayer: alertDisplayer
+        )
+        
+        localDatabase.perform(
+            .add(
+                newEntity: .any,
+                callback: .any,
+                perform: { saveGame, completion in
+                    completion(DatabaseError.itemAlreadySaved)
+                    
+                    // Then
+                    alertDisplayer.verify(
+                        .presentTopFloatAlert(
+                            parameters: .value(
+                                AlertViewModel(
+                                    alertType: .warning,
+                                    description: L10n.warningGameAlreadyInDatabase
+                                )
+                            )
+                        )
+                    )
+                    expectation.fulfill()
+                }
+            )
+        )
+        
+        viewModel.didTapPrimaryButton()
+        
+        wait(for: [expectation], timeout: Constants.timeout)
+    }
+    
+    func test_didTapRightButtonItem_ThenShouldSetNavigationStyleCorrectlyAndCallgameDetailsDelegate() {
+        // Given
+        let localDatabase = DatabaseMock()
+        let alertDisplayer = AlertDisplayerMock()
+        let gameDetailsDelegate = GameDetailsViewModelDelegateMock()
+        
+        let viewModel  = AddGameDetailsViewModel(
+            game: MockData.game,
+            localDatabase: localDatabase,
+            gameDetailsDelegate: gameDetailsDelegate,
+            alertDisplayer: alertDisplayer
+        )
+        
+        // When
+        viewModel.didTapRightButtonItem()
+        
+        // Then
+        let expectedNavigationStyle: NavigationStyle = {
+            return .dismiss(completionBlock: nil)
+        }()
+        let lastNavigationStyle = Routing.shared.lastNavigationStyle
+        
+        XCTAssertEqual(lastNavigationStyle, expectedNavigationStyle)
+        gameDetailsDelegate.verify(.reloadCollection())
     }
 }
 

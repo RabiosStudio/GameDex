@@ -9,13 +9,13 @@ import XCTest
 @testable import GameDex
 
 final class BasicInfoCellViewModelTests: XCTestCase {
-    func test_init_GivenCorrectParameters_ThenShouldSetPropertiesCorrectly() {
+    func test_init_ThenShouldSetPropertiesCorrectly() {
         // Given
         let text = "Title"
         let subtitle1 = "Subtitle 1"
         let subtitle2 = "Subtitle 2"
         let captionName = "Caption Name"
-        let screenFactory = SelectPlatformScreenFactory(delegate: AddGameDetailsViewModelDelegateMock())
+        let screenFactory = SelectPlatformScreenFactory(delegate: GameDetailsViewModelDelegateMock())
         // When
         let cellVM = BasicInfoCellViewModel(
             title: text,
@@ -29,5 +29,12 @@ final class BasicInfoCellViewModelTests: XCTestCase {
         XCTAssertEqual(cellVM.subtitle1, "Subtitle 1")
         XCTAssertEqual(cellVM.subtitle2, "Subtitle 2")
         XCTAssertEqual(cellVM.caption, "Caption Name")
+        
+        let expectedNavigationStyle: NavigationStyle = {
+            return .push(
+                controller: screenFactory.viewController
+            )
+        }()
+        XCTAssertEqual(cellVM.navigationStyle, expectedNavigationStyle)
     }
 }

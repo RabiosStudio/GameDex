@@ -9,18 +9,21 @@ import XCTest
 @testable import GameDex
 
 final class SelectAddGameMethodViewModelTests: XCTestCase {
-    func test_init_GivenSelectAddGameMethodViewModel_ThenShouldSetPropertiesCorrectly() {
+    func test_init_ThenShouldSetupPropertiesCorrectly() {
         // Given
-        let viewModel = SelectAddGameMethodViewModel(delegate: AddGameDetailsViewModelDelegateMock())
+        let viewModel = SelectAddGameMethodViewModel(delegate: GameDetailsViewModelDelegateMock()
+        )
         
+        let numberOfItems = viewModel.numberOfItems(in: .zero)
         // Then
-        XCTAssertEqual(viewModel.sections.count, 1)
         XCTAssertEqual(viewModel.numberOfSections(), 1)
+        XCTAssertEqual(numberOfItems, 2)
     }
     
     func test_loadData_ThenCallBackIsCalled() {
         // Given
-        let viewModel = SelectAddGameMethodViewModel(delegate: AddGameDetailsViewModelDelegateMock())
+        let viewModel = SelectAddGameMethodViewModel(delegate: GameDetailsViewModelDelegateMock()
+        )
         var callbackIsCalled = false
         // When
         viewModel.loadData { _ in
@@ -29,12 +32,20 @@ final class SelectAddGameMethodViewModelTests: XCTestCase {
         XCTAssertTrue(callbackIsCalled)
     }
     
-    func test_numberOfItems_ThenShouldReturnOne() {
+    func test_didTapRightButtonItem_ThenShouldSetNavigationStyleCorrectly() {
         // Given
-        let viewModel = SelectAddGameMethodViewModel(delegate: AddGameDetailsViewModelDelegateMock())
+        let viewModel = SelectAddGameMethodViewModel(delegate: GameDetailsViewModelDelegateMock()
+        )
+        
         // When
-        let numberOfItems = viewModel.numberOfItems(in: .zero)
+        viewModel.didTapRightButtonItem()
+        
         // Then
-        XCTAssertEqual(numberOfItems, 2)
-        }
+        let expectedNavigationStyle: NavigationStyle = {
+            return .dismiss(completionBlock: nil)
+        }()
+        let lastNavigationStyle = Routing.shared.lastNavigationStyle
+        
+        XCTAssertEqual(lastNavigationStyle, expectedNavigationStyle)
+    }
 }

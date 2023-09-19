@@ -9,14 +9,21 @@ import XCTest
 @testable import GameDex
 
 final class TextViewCellViewModelTests: XCTestCase {
-    func test_init_GivenCorrectParameters_ThenShouldSetPropertiesCorrectly() {
+    func test_init_ThenShouldSetPropertiesCorrectly() {
         // Given
         let title = "Title"
+        let text = "Text"
         
         // When
-        let cellVM = TextViewCellViewModel(title: title)
+        let cellVM = TextViewCellViewModel(
+            title: title,
+            formType: GameFormType.notes,
+            value: text,
+            editDelegate: EditFormDelegateMock()
+        )
         
         // Then
         XCTAssertEqual(cellVM.title, "Title")
+        XCTAssertEqual(cellVM.value, "Text")
     }
 }

@@ -10,23 +10,24 @@ import Foundation
 final class SelectPlatformViewModel: CollectionViewModel {
     lazy var searchViewModel: SearchViewModel? = SearchViewModel(
         placeholder: L10n.searchPlatform,
+        activateOnTap: false,
         delegate: self
     )
     var isBounceable: Bool = true
     var progress: Float?
-    var rightButtonItem: AnyBarButtonItem? = .close
-    let screenTitle: String? = L10n.selectPlatform
+    var rightButtonItems: [AnyBarButtonItem]? = [.close]
+    let screenTitle: String? = L10n.searchPlatform
     var sections = [Section]()
     private var platforms: [Platform] = []
     weak var containerDelegate: ContainerViewControllerDelegate?
-    weak var addGameDelegate: AddGameDetailsViewModelDelegate?
+    weak var gameDetailsDelegate: GameDetailsViewModelDelegate?
     
     private let networkingSession: API
     
-    init(networkingSession: API, addGameDelegate: AddGameDetailsViewModelDelegate?) {
+    init(networkingSession: API, gameDetailsDelegate: GameDetailsViewModelDelegate?) {
         self.progress = 1/3
         self.networkingSession = networkingSession
-        self.addGameDelegate = addGameDelegate
+        self.gameDetailsDelegate = gameDetailsDelegate
     }
     
     func loadData(callback: @escaping (EmptyError?) -> ()) {
@@ -39,7 +40,7 @@ final class SelectPlatformViewModel: CollectionViewModel {
                 }
                 self.sections = [SelectPlatformSection(
                     platforms: self.platforms,
-                    addGameDelegate: self.addGameDelegate
+                    gameDetailsDelegate: self.gameDetailsDelegate
                 )]
                 callback(nil)
             }
@@ -47,7 +48,7 @@ final class SelectPlatformViewModel: CollectionViewModel {
     }
     
     func didTapRightButtonItem() {
-        _ = Routing.shared.route(navigationStyle: .dismiss {})
+        _ = Routing.shared.route(navigationStyle: .dismiss(completionBlock: nil))
     }
     
     private func requestData() async -> AddGameError? {
@@ -76,7 +77,7 @@ final class SelectPlatformViewModel: CollectionViewModel {
     private func updateListOfPlatforms(with list: [Platform]) {
         self.sections = [SelectPlatformSection(
             platforms: list,
-            addGameDelegate: self.addGameDelegate
+            gameDetailsDelegate: self.gameDetailsDelegate
         )]
     }
 }

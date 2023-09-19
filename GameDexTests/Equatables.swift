@@ -8,13 +8,6 @@
 import Foundation
 @testable import GameDex
 
-extension Platform: Equatable {
-    public static func == (lhs: Platform, rhs: Platform) -> Bool {
-        lhs.id == rhs.id &&
-        lhs.title == rhs.title
-    }
-}
-
 extension AddGameError: Equatable {
     public static func == (lhs: AddGameError, rhs: AddGameError) -> Bool {
         lhs.errorTitle == rhs.errorTitle &&
@@ -67,3 +60,11 @@ extension NavigationStyle: Equatable {
     }
 }
 
+extension AlertViewModel: Equatable {
+    public static func == (lhs: AlertViewModel, rhs: AlertViewModel) -> Bool {
+        lhs.alertType == rhs.alertType &&
+        lhs.cancelButtonTitle == rhs.cancelButtonTitle &&
+        lhs.description == rhs.description &&
+        lhs.okButtonTitle == rhs.okButtonTitle
+    }
+}

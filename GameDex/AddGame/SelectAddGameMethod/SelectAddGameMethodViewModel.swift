@@ -11,12 +11,12 @@ final class SelectAddGameMethodViewModel: CollectionViewModel {
     var searchViewModel: SearchViewModel?
     var isBounceable: Bool = false
     var progress: Float?
-    var rightButtonItem: AnyBarButtonItem? = .close
+    var rightButtonItems: [AnyBarButtonItem]? = [.close]
     let screenTitle: String? = L10n.addAGame
     var sections: [Section]
     weak var containerDelegate: ContainerViewControllerDelegate?
     
-    init(delegate: AddGameDetailsViewModelDelegate?) {
+    init(delegate: GameDetailsViewModelDelegate?) {
         self.sections = [SelectAddGameMethodSection(delegate: delegate)]
     }
     
@@ -25,6 +25,6 @@ final class SelectAddGameMethodViewModel: CollectionViewModel {
     }
     
     func didTapRightButtonItem() {
-        _ = Routing.shared.route(navigationStyle: .dismiss {})
+        _ = Routing.shared.route(navigationStyle: .dismiss(completionBlock: nil))
     }
 }

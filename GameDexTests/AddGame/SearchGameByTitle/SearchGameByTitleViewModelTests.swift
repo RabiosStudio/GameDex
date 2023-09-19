@@ -23,7 +23,7 @@ final class SearchGameByTitleViewModelTests: XCTestCase {
     
     // MARK: Tests
     
-    func test_init_GivenSearchGameByTitleViewModel_ThenShouldSetPropertiesCorrectly() {
+    func test_init_ThenShouldSetPropertiesCorrectly() {
         // Given
         let networkingSession = APIMock()
         
@@ -31,14 +31,17 @@ final class SearchGameByTitleViewModelTests: XCTestCase {
         let viewModel = SearchGameByTitleViewModel(
             networkingSession: networkingSession,
             platform: MockData.platform,
-            addGameDelegate: AddGameDetailsViewModelDelegateMock()
+            gameDetailsDelegate: GameDetailsViewModelDelegateMock()
         )
         
         // Then
         XCTAssertEqual(viewModel.numberOfSections(), 1)
         XCTAssertEqual(viewModel.progress, 2/3)
+        XCTAssertEqual(viewModel.numberOfItems(in: .zero), .zero)
         
         XCTAssertEqual(viewModel.searchViewModel?.placeholder, L10n.searchGame)
+        XCTAssertEqual(viewModel.searchViewModel?.activateOnTap, false)
+
     }
     
     func test_loadData_ThenCallbackShouldReturnNoSearch() {
@@ -47,7 +50,7 @@ final class SearchGameByTitleViewModelTests: XCTestCase {
         let viewModel = SearchGameByTitleViewModel(
             networkingSession: networkingSession,
             platform: MockData.platform,
-            addGameDelegate: AddGameDetailsViewModelDelegateMock()
+            gameDetailsDelegate: GameDetailsViewModelDelegateMock()
         )
         
         // When
@@ -81,20 +84,20 @@ final class SearchGameByTitleViewModelTests: XCTestCase {
         let viewModel = SearchGameByTitleViewModel(
             networkingSession: networkingSession,
             platform: MockData.platform,
-            addGameDelegate: AddGameDetailsViewModelDelegateMock()
+            gameDetailsDelegate: GameDetailsViewModelDelegateMock()
         )
         
         // When
-        viewModel.startSearch(from: MockData.searchQuery) { error in
+        viewModel.startSearch(from: MockData.searchGameQuery) { error in
             // Then
             guard let error = error as? AddGameError else {
                 XCTFail("Error type is not correct")
                 return
             }
             XCTAssertEqual(error, AddGameError.server)
+            XCTAssertEqual(endpoint.url, URL(string: "games"))
             expectation.fulfill()
         }
-        
         wait(for: [expectation], timeout: Constants.timeout)
     }
     
@@ -118,11 +121,11 @@ final class SearchGameByTitleViewModelTests: XCTestCase {
         let viewModel = SearchGameByTitleViewModel(
             networkingSession: networkingSession,
             platform: MockData.platform,
-            addGameDelegate: AddGameDetailsViewModelDelegateMock()
+            gameDetailsDelegate: GameDetailsViewModelDelegateMock()
         )
         
         // When
-        viewModel.startSearch(from: MockData.searchQuery) { error in
+        viewModel.startSearch(from: MockData.searchGameQuery) { error in
             // Then
             guard let error = error as? AddGameError else {
                 XCTFail("Error type is not correct")
@@ -155,11 +158,11 @@ final class SearchGameByTitleViewModelTests: XCTestCase {
         let viewModel = SearchGameByTitleViewModel(
             networkingSession: networkingSession,
             platform: MockData.platform,
-            addGameDelegate: AddGameDetailsViewModelDelegateMock()
+            gameDetailsDelegate: GameDetailsViewModelDelegateMock()
         )
         
         // When
-        viewModel.startSearch(from: MockData.searchQuery) { error in
+        viewModel.startSearch(from: MockData.searchGameQuery) { error in
             // Then
             guard let error = error as? AddGameError else {
                 XCTFail("Error type is not correct")
@@ -192,11 +195,11 @@ final class SearchGameByTitleViewModelTests: XCTestCase {
         let viewModel = SearchGameByTitleViewModel(
             networkingSession: networkingSession,
             platform: MockData.platform,
-            addGameDelegate: AddGameDetailsViewModelDelegateMock()
+            gameDetailsDelegate: GameDetailsViewModelDelegateMock()
         )
         
         // When
-        viewModel.startSearch(from: MockData.searchQuery) { error in
+        viewModel.startSearch(from: MockData.searchGameQuery) { error in
             // Then
             guard let error = error as? AddGameError else {
                 XCTFail("Error type is not correct")
@@ -230,7 +233,7 @@ final class SearchGameByTitleViewModelTests: XCTestCase {
         let viewModel = SearchGameByTitleViewModel(
             networkingSession: networkingSession,
             platform: MockData.platform,
-            addGameDelegate: AddGameDetailsViewModelDelegateMock()
+            gameDetailsDelegate: GameDetailsViewModelDelegateMock()
         )
         
         let games = DataConverter.convert(
@@ -239,7 +242,7 @@ final class SearchGameByTitleViewModelTests: XCTestCase {
         )
         
         // When
-        viewModel.startSearch(from: MockData.searchQuery) { _ in
+        viewModel.startSearch(from: MockData.searchGameQuery) { _ in
             // Then
             XCTAssertEqual(viewModel.numberOfSections(), 1)
             XCTAssertEqual(viewModel.numberOfItems(in: 0), games.count)
@@ -255,7 +258,7 @@ final class SearchGameByTitleViewModelTests: XCTestCase {
         let viewModel = SearchGameByTitleViewModel(
             networkingSession: networkingSession,
             platform: MockData.platform,
-            addGameDelegate: AddGameDetailsViewModelDelegateMock()
+            gameDetailsDelegate: GameDetailsViewModelDelegateMock()
         )
         
         var callbackIsCalled = false
@@ -290,7 +293,7 @@ final class SearchGameByTitleViewModelTests: XCTestCase {
         let viewModel = SearchGameByTitleViewModel(
             networkingSession: networkingSession,
             platform: MockData.platform,
-            addGameDelegate: AddGameDetailsViewModelDelegateMock()
+            gameDetailsDelegate: GameDetailsViewModelDelegateMock()
         )
         
         let games = DataConverter.convert(
@@ -301,7 +304,7 @@ final class SearchGameByTitleViewModelTests: XCTestCase {
         viewModel.loadData { _ in
             
             // When
-            viewModel.startSearch(from: MockData.searchQuery) { _ in
+            viewModel.startSearch(from: MockData.searchGameQuery) { _ in
                 
                 // Then
                 XCTAssertEqual(viewModel.numberOfSections(), 1)
@@ -310,5 +313,26 @@ final class SearchGameByTitleViewModelTests: XCTestCase {
             expectation.fulfill()
         }
         wait(for: [expectation], timeout: Constants.timeout)
+    }
+    
+    func test_didTapRightButtonItem_ThenShouldSetNavigationStyleCorrectly() {
+        // Given
+        let networkingSession = APIMock()
+        let viewModel = SearchGameByTitleViewModel(
+            networkingSession: networkingSession,
+            platform: MockData.platform,
+            gameDetailsDelegate: GameDetailsViewModelDelegateMock()
+        )
+        
+        // When
+        viewModel.didTapRightButtonItem()
+        
+        // Then
+        let expectedNavigationStyle: NavigationStyle = {
+            return .dismiss(completionBlock: nil)
+        }()
+        let lastNavigationStyle = Routing.shared.lastNavigationStyle
+        
+        XCTAssertEqual(lastNavigationStyle, expectedNavigationStyle)
     }
 }

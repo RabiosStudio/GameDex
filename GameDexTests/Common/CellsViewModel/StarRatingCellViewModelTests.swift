@@ -9,18 +9,20 @@ import XCTest
 @testable import GameDex
 
 final class StarRatingCellViewModelTests: XCTestCase {
-    func test_init_GivenCorrectParameters_ThenShouldSetPropertiesCorrectly() {
+    func test_init_ThenShouldSetPropertiesCorrectly() {
         // Given
         let title = "Title"
         
         // When
         let cellVM = StarRatingCellViewModel(
             title: title,
-            formType: AddGameFormType.rating
+            formType: GameFormType.rating,
+            value: .zero,
+            editDelegate: EditFormDelegateMock()
         )
         
         // Then
         XCTAssertEqual(cellVM.title, "Title")
-        XCTAssertEqual(cellVM.value, nil)
+        XCTAssertEqual(cellVM.value, .zero)
     }
 }

@@ -23,21 +23,22 @@ final class SelectPlatformViewModelTests: XCTestCase {
     
     // MARK: Tests
     
-    func test_init_GivenSelectPlatformViewModel_ThenShouldSetPropertiesCorrectly() {
+    func test_init_ThenShouldSetPropertiesCorrectly() {
         // Given
         let networkingSession = APIMock()
         
         // When
         let viewModel = SelectPlatformViewModel(
             networkingSession: networkingSession,
-            addGameDelegate: AddGameDetailsViewModelDelegateMock()
+            gameDetailsDelegate: GameDetailsViewModelDelegateMock()
         )
         
         // Then
         XCTAssertEqual(viewModel.numberOfSections(), .zero)
         XCTAssertEqual(viewModel.progress, 1/3)
-        
+        XCTAssertEqual(viewModel.numberOfItems(in: .zero), .zero)
         XCTAssertEqual(viewModel.searchViewModel?.placeholder, L10n.searchPlatform)
+        XCTAssertEqual(viewModel.searchViewModel?.activateOnTap, false)
     }
     
     func test_loadData_GivenAPIErrorServer_ThenShouldReturnAddGameErrorServer() {
@@ -54,7 +55,7 @@ final class SelectPlatformViewModelTests: XCTestCase {
         )
         let viewModel = SelectPlatformViewModel(
             networkingSession: networkingSession,
-            addGameDelegate: AddGameDetailsViewModelDelegateMock()
+            gameDetailsDelegate: GameDetailsViewModelDelegateMock()
         )
         
         // When
@@ -65,6 +66,8 @@ final class SelectPlatformViewModelTests: XCTestCase {
                 return
             }
             XCTAssertEqual(error, AddGameError.server)
+            XCTAssertEqual(endpoint.url, URL(string: "platforms"))
+            
             expectation.fulfill()
         }
         
@@ -85,7 +88,7 @@ final class SelectPlatformViewModelTests: XCTestCase {
         )
         let viewModel = SelectPlatformViewModel(
             networkingSession: networkingSession,
-            addGameDelegate: AddGameDetailsViewModelDelegateMock()
+            gameDetailsDelegate: GameDetailsViewModelDelegateMock()
         )
         
         // When
@@ -116,7 +119,7 @@ final class SelectPlatformViewModelTests: XCTestCase {
         )
         let viewModel = SelectPlatformViewModel(
             networkingSession: networkingSession,
-            addGameDelegate: AddGameDetailsViewModelDelegateMock()
+            gameDetailsDelegate: GameDetailsViewModelDelegateMock()
         )
         
         // When
@@ -147,7 +150,7 @@ final class SelectPlatformViewModelTests: XCTestCase {
         )
         let viewModel = SelectPlatformViewModel(
             networkingSession: networkingSession,
-            addGameDelegate: AddGameDetailsViewModelDelegateMock()
+            gameDetailsDelegate: GameDetailsViewModelDelegateMock()
         )
         
         // When
@@ -180,7 +183,7 @@ final class SelectPlatformViewModelTests: XCTestCase {
         
         let viewModel = SelectPlatformViewModel(
             networkingSession: networkingSession,
-            addGameDelegate: AddGameDetailsViewModelDelegateMock()
+            gameDetailsDelegate: GameDetailsViewModelDelegateMock()
         )
         
         let platforms = DataConverter.convert(
@@ -215,11 +218,7 @@ final class SelectPlatformViewModelTests: XCTestCase {
         
         let viewModel = SelectPlatformViewModel(
             networkingSession: networkingSession,
-            addGameDelegate: AddGameDetailsViewModelDelegateMock()
-        )
-        
-        let platforms = DataConverter.convert(
-            remotePlatforms: MockData.searchPlaformsData.results
+            gameDetailsDelegate: GameDetailsViewModelDelegateMock()
         )
         
         viewModel.loadData { _ in
@@ -252,11 +251,7 @@ final class SelectPlatformViewModelTests: XCTestCase {
         
         let viewModel = SelectPlatformViewModel(
             networkingSession: networkingSession,
-            addGameDelegate: AddGameDetailsViewModelDelegateMock()
-        )
-        
-        let platforms = DataConverter.convert(
-            remotePlatforms: MockData.searchPlaformsData.results
+            gameDetailsDelegate: GameDetailsViewModelDelegateMock()
         )
         
         viewModel.loadData { _ in
@@ -290,7 +285,7 @@ final class SelectPlatformViewModelTests: XCTestCase {
         
         let viewModel = SelectPlatformViewModel(
             networkingSession: networkingSession,
-            addGameDelegate: AddGameDetailsViewModelDelegateMock()
+            gameDetailsDelegate: GameDetailsViewModelDelegateMock()
         )
         
         let platforms = DataConverter.convert(
@@ -314,7 +309,7 @@ final class SelectPlatformViewModelTests: XCTestCase {
         let networkingSession = APIMock()
         let viewModel = SelectPlatformViewModel(
             networkingSession: networkingSession,
-            addGameDelegate: AddGameDetailsViewModelDelegateMock()
+            gameDetailsDelegate: GameDetailsViewModelDelegateMock()
         )
         
         var callbackIsCalled = false
@@ -326,5 +321,25 @@ final class SelectPlatformViewModelTests: XCTestCase {
         
         // Then
         XCTAssertTrue(callbackIsCalled)
+    }
+    
+    func test_didTapRightButtonItem_ThenShouldSetNavigationStyleCorrectly() {
+        // Given
+        let networkingSession = APIMock()
+        let viewModel = SelectPlatformViewModel(
+            networkingSession: networkingSession,
+            gameDetailsDelegate: GameDetailsViewModelDelegateMock()
+        )
+        
+        // When
+        viewModel.didTapRightButtonItem()
+        
+        // Then
+        let expectedNavigationStyle: NavigationStyle = {
+            return .dismiss(completionBlock: nil)
+        }()
+        let lastNavigationStyle = Routing.shared.lastNavigationStyle
+        
+        XCTAssertEqual(lastNavigationStyle, expectedNavigationStyle)
     }
 }

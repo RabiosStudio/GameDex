@@ -14,7 +14,7 @@ final class SelectPlatformSectionTests: XCTestCase {
         // Given
         let section = SelectPlatformSection(
             platforms: MockData.platforms,
-            addGameDelegate: AddGameDetailsViewModelDelegateMock()
+            gameDetailsDelegate: GameDetailsViewModelDelegateMock()
         )
         
         // Then
@@ -29,10 +29,10 @@ final class SelectPlatformSectionTests: XCTestCase {
             return
         }
         
-        XCTAssertEqual(platform1CellVM.text, "Atari 2600")
-        XCTAssertEqual(platform2CellVM.text, "Dreamcast")
-        XCTAssertEqual(platform3CellVM.text, "Game Boy Color")
-        XCTAssertEqual(platform4CellVM.text, "Jaguar")
-        XCTAssertEqual(platform5CellVM.text, "SNES")
+        XCTAssertEqual(platform1CellVM.primaryText, "Atari 2600")
+        XCTAssertEqual(platform2CellVM.primaryText, "Dreamcast")
+        XCTAssertEqual(platform3CellVM.primaryText, "Game Boy Color")
+        XCTAssertEqual(platform4CellVM.primaryText, "Jaguar")
+        XCTAssertEqual(platform5CellVM.primaryText, "SNES")
     }
 }

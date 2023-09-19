@@ -10,7 +10,10 @@ import UIKit
 
 final class PrimaryButtonContentViewFactory: ContentViewFactory {
     lazy var bottomView: UIView = {
-        let continueButton = PrimaryButton(delegate: self.delegate, shouldEnable: true)
+        let continueButton = PrimaryButton(
+            delegate: self.delegate,
+            shouldEnable: self.shouldEnable
+        )
         continueButton.configure(
             viewModel: ButtonViewModel(
                 title: self.buttonTitle
@@ -27,9 +30,11 @@ final class PrimaryButtonContentViewFactory: ContentViewFactory {
     weak var delegate: PrimaryButtonDelegate?
     
     private let buttonTitle: String
+    private let shouldEnable: Bool
     
-    init(delegate: PrimaryButtonDelegate?, buttonTitle: String) {
+    init(delegate: PrimaryButtonDelegate?, buttonTitle: String, shouldEnable: Bool) {
         self.delegate = delegate
         self.buttonTitle = buttonTitle
+        self.shouldEnable = shouldEnable
     }        
 }
