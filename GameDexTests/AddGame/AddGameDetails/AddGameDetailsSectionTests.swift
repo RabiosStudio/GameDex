@@ -26,7 +26,8 @@ final class AddGameDetailsSectionTests: XCTestCase {
         
         XCTAssertEqual(gameCellVM.title, "The Legend of Zelda: The Minish Cap")
         XCTAssertEqual(gameCellVM.subtitle1, "Game Boy Advance")
-        XCTAssertEqual(gameCellVM.subtitle2, "description")
+        XCTAssertEqual(gameCellVM.subtitle2, DataConverter.convertDateToString(date: Date.now))
+        XCTAssertEqual(gameCellVM.subtitle3, "description")
         XCTAssertEqual(gameCellVM.imageStringURL, "imageURL")
         
         guard let formCellsVM = section.cellsVM.filter({ cellVM in
