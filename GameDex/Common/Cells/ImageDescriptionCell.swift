@@ -39,6 +39,16 @@ class ImageDescriptionCell: UICollectionViewCell, CellConfigurable {
         let label = UILabel()
         label.textAlignment = .center
         label.textColor = .secondaryColor
+        label.font = Typography.title3.font
+        label.numberOfLines = .zero
+        label.translatesAutoresizingMaskIntoConstraints = false
+        return label
+    }()
+    
+    private lazy var subTitle3: UILabel = {
+        let label = UILabel()
+        label.textAlignment = .center
+        label.textColor = .secondaryColor
         label.font = Typography.body.font
         label.numberOfLines = .zero
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -66,6 +76,7 @@ class ImageDescriptionCell: UICollectionViewCell, CellConfigurable {
         self.title.text = cellVM.title
         self.subTitle1.text = cellVM.subtitle1
         self.subTitle2.text = cellVM.subtitle2
+        self.subTitle3.text = cellVM.subtitle3
         
         self.setupConstraints()
     }
@@ -77,6 +88,7 @@ class ImageDescriptionCell: UICollectionViewCell, CellConfigurable {
         self.contentView.addSubview(self.title)
         self.contentView.addSubview(self.subTitle1)
         self.contentView.addSubview(self.subTitle2)
+        self.contentView.addSubview(self.subTitle3)
     }
     
     private func setupConstraints() {
@@ -136,7 +148,20 @@ class ImageDescriptionCell: UICollectionViewCell, CellConfigurable {
                 equalTo: self.trailingAnchor,
                 constant: -DesignSystem.paddingSmall
             ),
-            self.subTitle2.bottomAnchor.constraint(
+            
+            self.subTitle3.topAnchor.constraint(
+                equalTo: self.subTitle2.bottomAnchor,
+                constant: DesignSystem.paddingSmall
+            ),
+            self.subTitle3.leadingAnchor.constraint(
+                equalTo: self.leadingAnchor,
+                constant: DesignSystem.paddingSmall
+            ),
+            self.subTitle3.trailingAnchor.constraint(
+                equalTo: self.trailingAnchor,
+                constant: -DesignSystem.paddingSmall
+            ),
+            self.subTitle3.bottomAnchor.constraint(
                 equalTo: self.bottomAnchor,
                 constant: -DesignSystem.paddingRegular
             )

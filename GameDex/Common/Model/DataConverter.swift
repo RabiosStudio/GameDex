@@ -25,7 +25,8 @@ enum DataConverter {
                 description: remoteGame.deck,
                 id: remoteGame.guid,
                 platform: platform,
-                imageURL: remoteGame.image.mediumURL
+                imageURL: remoteGame.image.mediumUrl,
+                releaseDate: remoteGame.originalReleaseDate
             )
         }
     }
@@ -34,17 +35,18 @@ enum DataConverter {
         let gameCollected = GameCollected(context: context)
         gameCollected.title = gameDetails.game.title
         gameCollected.summary = gameDetails.game.description
-        gameCollected.storageArea = gameDetails.storageArea ?? ""
-        gameCollected.notes = gameDetails.notes ?? ""
+        gameCollected.storageArea = gameDetails.storageArea
+        gameCollected.notes = gameDetails.notes
         gameCollected.imageURL = gameDetails.game.imageURL
         gameCollected.rating = Int16(gameDetails.rating ?? .zero)
-        gameCollected.gameRegion = gameDetails.gameRegion ?? ""
-        gameCollected.gameCondition = gameDetails.gameCondition ?? ""
-        gameCollected.gameCompleteness = gameDetails.gameCompleteness ?? ""
-        gameCollected.acquisitionYear = gameDetails.acquisitionYear ?? ""
+        gameCollected.gameRegion = gameDetails.gameRegion
+        gameCollected.gameCondition = gameDetails.gameCondition
+        gameCollected.gameCompleteness = gameDetails.gameCompleteness
+        gameCollected.acquisitionYear = gameDetails.acquisitionYear
         gameCollected.gameID = gameDetails.game.id
         gameCollected.platformTitle = gameDetails.game.platform.title
         gameCollected.platformID = Int16(gameDetails.game.platform.id)
+        gameCollected.releaseDate = gameDetails.game.releaseDate
         return gameCollected
     }
     
@@ -61,7 +63,8 @@ enum DataConverter {
                     description: gameCollected.summary,
                     id: gameCollected.gameID,
                     platform: platform,
-                    imageURL: gameCollected.imageURL
+                    imageURL: gameCollected.imageURL,
+                    releaseDate: gameCollected.releaseDate
                 ),
                 acquisitionYear: gameCollected.acquisitionYear,
                 gameCondition: gameCollected.gameCondition,
@@ -72,5 +75,11 @@ enum DataConverter {
                 notes: gameCollected.notes
             )
         }
+    }
+    
+    static func convertDateToString(date: Date) -> String {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateStyle = .medium
+        return dateFormatter.string(from: date)
     }
 }

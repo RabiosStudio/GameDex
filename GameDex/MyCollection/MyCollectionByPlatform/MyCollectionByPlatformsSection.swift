@@ -16,10 +16,12 @@ final class MyCollectionByPlatformsSection: Section {
         let sortedCollection = gamesCollection.sorted { $0.game.title < $1.game.title }
         
         for item in sortedCollection {
+            let releaseDate = DataConverter.convertDateToString(date: item.game.releaseDate ?? Date())
+            
             let gameCellVM = BasicInfoCellViewModel(
                 title: item.game.title,
                 subtitle1: nil,
-                subtitle2: item.game.description,
+                subtitle2: releaseDate,
                 caption: item.game.imageURL,
                 screenFactory: EditGameDetailsScreenFactory(
                     savedGame: item,

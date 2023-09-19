@@ -14,14 +14,6 @@ struct SearchPlatformsData: Codable {
     let numberOfTotalResults: Int
     let statusCode: Int
     let results: [PlatformData]
-    
-    enum CodingKeys: String, CodingKey {
-        case offset
-        case numberOfPageResults = "number_of_page_results"
-        case numberOfTotalResults = "number_of_total_results"
-        case statusCode = "status_code"
-        case results
-    }
 }
 
 // MARK: - PlatformData
