@@ -17,4 +17,8 @@ extension UIColor {
     class var secondaryBackgroundColor: UIColor {
         return UIColor.systemGray4
     }
+    
+    class var placeholderColor: UIColor {
+        return UIColor.systemGray
+    }
 }
