@@ -19,7 +19,7 @@ final class TextViewCellViewModel: CollectionFormCellViewModel {
     var formType: FormType
     var value: ValueType? {
         didSet {
-            self.editFormDelegate?.enableSaveButton()
+            self.editFormDelegate?.enableSaveButtonIfNeeded()
         }
     }
     

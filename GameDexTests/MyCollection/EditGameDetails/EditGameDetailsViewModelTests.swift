@@ -178,7 +178,7 @@ final class EditGameDetailsViewModelTests: XCTestCase {
         viewModel.containerDelegate = containerDelegate
         
         // When
-        viewModel.enableSaveButton()
+        viewModel.enableSaveButtonIfNeeded()
         
         // Then
         containerDelegate.verify(

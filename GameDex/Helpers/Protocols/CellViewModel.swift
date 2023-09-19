@@ -36,5 +36,5 @@ protocol FormCellViewModel {
 
 // sourcery: AutoMockable
 protocol EditFormDelegate: AnyObject {
-    func enableSaveButton()
+    func enableSaveButtonIfNeeded()
 }

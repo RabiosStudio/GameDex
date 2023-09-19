@@ -1326,30 +1326,30 @@ open class EditFormDelegateMock: EditFormDelegate, Mock {
 
 
 
-    open func enableSaveButton() {
-        addInvocation(.m_enableSaveButton)
-		let perform = methodPerformValue(.m_enableSaveButton) as? () -> Void
+    open func enableSaveButtonIfNeeded() {
+        addInvocation(.m_enableSaveButtonIfNeeded)
+		let perform = methodPerformValue(.m_enableSaveButtonIfNeeded) as? () -> Void
 		perform?()
     }
 
 
     fileprivate enum MethodType {
-        case m_enableSaveButton
+        case m_enableSaveButtonIfNeeded
 
         static func compareParameters(lhs: MethodType, rhs: MethodType, matcher: Matcher) -> Matcher.ComparisonResult {
             switch (lhs, rhs) {
-            case (.m_enableSaveButton, .m_enableSaveButton): return .match
+            case (.m_enableSaveButtonIfNeeded, .m_enableSaveButtonIfNeeded): return .match
             }
         }
 
         func intValue() -> Int {
             switch self {
-            case .m_enableSaveButton: return 0
+            case .m_enableSaveButtonIfNeeded: return 0
             }
         }
         func assertionName() -> String {
             switch self {
-            case .m_enableSaveButton: return ".enableSaveButton()"
+            case .m_enableSaveButtonIfNeeded: return ".enableSaveButtonIfNeeded()"
             }
         }
     }
@@ -1368,15 +1368,15 @@ open class EditFormDelegateMock: EditFormDelegate, Mock {
     public struct Verify {
         fileprivate var method: MethodType
 
-        public static func enableSaveButton() -> Verify { return Verify(method: .m_enableSaveButton)}
+        public static func enableSaveButtonIfNeeded() -> Verify { return Verify(method: .m_enableSaveButtonIfNeeded)}
     }
 
     public struct Perform {
         fileprivate var method: MethodType
         var performs: Any
 
-        public static func enableSaveButton(perform: @escaping () -> Void) -> Perform {
-            return Perform(method: .m_enableSaveButton, performs: perform)
+        public static func enableSaveButtonIfNeeded(perform: @escaping () -> Void) -> Perform {
+            return Perform(method: .m_enableSaveButtonIfNeeded, performs: perform)
         }
     }
 

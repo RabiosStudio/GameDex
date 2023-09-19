@@ -134,7 +134,7 @@ extension EditGameDetailsViewModel: PrimaryButtonDelegate {
 }
 
 extension EditGameDetailsViewModel: EditFormDelegate {
-    func enableSaveButton() {
+    func enableSaveButtonIfNeeded() {
         configureBottomView(shouldEnableButton: true)
     }
 }
