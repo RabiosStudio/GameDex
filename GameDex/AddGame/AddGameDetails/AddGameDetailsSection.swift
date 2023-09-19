@@ -13,13 +13,11 @@ final class AddGameDetailsSection: Section {
         super.init()
         self.position = 0
         
-        let releaseDate = DataConverter.convertDateToString(date: game.releaseDate ?? Date())
-        
         let gameCellVM = ImageDescriptionCellViewModel(
             imageStringURL: game.imageURL,
             title: game.title,
             subtitle1: game.platform.title,
-            subtitle2: releaseDate,
+            subtitle2: game.releaseDate?.convertToString(),
             subtitle3: game.description
         )
         self.cellsVM.append(gameCellVM)

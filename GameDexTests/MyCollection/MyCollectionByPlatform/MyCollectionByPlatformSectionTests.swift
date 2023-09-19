@@ -28,12 +28,12 @@ final class MyCollectionByPlatformSectionTests: XCTestCase {
         
         XCTAssertEqual(game1CellVM.title, "The Legend of Zelda: A link to the past")
         XCTAssertEqual(game1CellVM.subtitle1, nil)
-        XCTAssertEqual(game1CellVM.subtitle2, DataConverter.convertDateToString(date: Date.now))
+        XCTAssertEqual(game1CellVM.subtitle2, Date.now.convertToString())
         XCTAssertEqual(game1CellVM.caption, "imageURL")
         
         XCTAssertEqual(game2CellVM.title, "The Legend of Zelda: The Minish Cap")
         XCTAssertEqual(game2CellVM.subtitle1, nil)
-        XCTAssertEqual(game1CellVM.subtitle2, DataConverter.convertDateToString(date: Date.now))
+        XCTAssertEqual(game1CellVM.subtitle2, Date.now.convertToString())
         XCTAssertEqual(game2CellVM.caption, "imageURL")
     }
 }

@@ -18,12 +18,10 @@ final class SearchGameByTitleSection: Section {
         self.position = 0
         
         for game in gamesQuery {
-            let releaseDate = DataConverter.convertDateToString(date: game.releaseDate ?? Date())
-            
             let gameCellVM = BasicInfoCellViewModel(
                 title: game.title,
                 subtitle1: platform.title,
-                subtitle2: releaseDate,
+                subtitle2: game.releaseDate?.convertToString(),
                 caption: game.imageURL,
                 screenFactory: AddGameDetailsScreenFactory(
                     game: game,
