@@ -78,10 +78,7 @@ final class BasicInfoCell: UICollectionViewCell, CellConfigurable {
         if let imageName = cellVM.caption,
            let imageURL = URL(string: imageName),
            let placeholderImage = UIImage(named: Asset.noItems.name) {
-            self.imageView.setImageWith(
-                url: imageURL,
-                placeholderImage: placeholderImage
-            )
+            self.imageView.setImageWith(url: imageURL)
         }
         self.setupConstraints()
     }

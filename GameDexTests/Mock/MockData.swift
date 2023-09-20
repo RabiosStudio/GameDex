@@ -40,25 +40,49 @@ enum MockData {
             GameData(
                 deck: "description",
                 guid: "id",
-                image: Image(mediumURL: "mediumSize",
-                             screenURL: "BigSize",
+                image: Image(mediumUrl: "mediumSize",
+                             screenUrl: "BigSize",
                              imageTags: "imageTags"),
-                imageTags: [ImageTag(apiDetailURL: "", name: "", total: 1)],
+                imageTags: [
+                    ImageTag(
+                        apiDetailUrl: "",
+                        name: "",
+                        total: 1
+                    )
+                ],
                 name: "The Legend of Zelda: The Minish Cap",
-                originalReleaseDate: "releaseDate",
-                platforms: [PlatformInfo(id: 4, name: "Game Boy Advance", abbreviation: "GBA")],
-                siteDetailURL: "url"),
+                originalReleaseDate: Date.now,
+                platforms: [
+                    PlatformInfo(
+                        id: 4,
+                        name: "Game Boy Advance",
+                        abbreviation: "GBA"
+                    )
+                ],
+                siteDetailUrl: "url"),
             GameData(
                 deck: "description",
                 guid: "id",
-                image: Image(mediumURL: "mediumSize",
-                             screenURL: "BigSize",
+                image: Image(mediumUrl: "mediumSize",
+                             screenUrl: "BigSize",
                              imageTags: "imageTags"),
-                imageTags: [ImageTag(apiDetailURL: "", name: "", total: 1)],
+                imageTags: [
+                    ImageTag(
+                        apiDetailUrl: "",
+                        name: "",
+                        total: 1
+                    )
+                ],
                 name: "The Legend of Zelda: A link to the past",
-                originalReleaseDate: "releaseDate",
-                platforms: [PlatformInfo(id: 4, name: "Game Boy Advance", abbreviation: "GBA")],
-                siteDetailURL: "url")
+                originalReleaseDate: Date.now,
+                platforms: [
+                    PlatformInfo(
+                        id: 4,
+                        name: "Game Boy Advance",
+                        abbreviation: "GBA"
+                    )
+                ],
+                siteDetailUrl: "url")
         ]
     )
     
@@ -70,7 +94,8 @@ enum MockData {
             title: "Game Boy Advance",
             id: 4
         ),
-        imageURL: "imageURL"
+        imageURL: "imageURL",
+        releaseDate: Date.now
     )
     
     static let games = [
@@ -81,7 +106,9 @@ enum MockData {
                 title: "Game Boy Advance",
                 id: 4
              ),
-             imageURL: "imageURL"),
+             imageURL: "imageURL",
+             releaseDate: Date.now
+            ),
         Game(title: "The Legend of Zelda: A link to the past",
              description: "description",
              id: "id",
@@ -89,7 +116,9 @@ enum MockData {
                 title: "Game Boy Advance",
                 id: 4
              ),
-             imageURL: "imageURL")
+             imageURL: "imageURL",
+             releaseDate: Date.now
+            )
     ]
     
     static let savedGame = SavedGame(

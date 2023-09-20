@@ -13,4 +13,5 @@ struct Game: Codable {
     let id: String
     var platform: Platform
     let imageURL: String
+    let releaseDate: Date?
 }

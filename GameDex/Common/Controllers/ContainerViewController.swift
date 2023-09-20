@@ -135,10 +135,6 @@ class ContainerViewController: UIViewController {
                                                 tabBarOffset: tabBarOffset)
                 } else {
                     strongSelf.refresh()
-                    guard (strongSelf.viewModel.searchViewModel) != nil else {
-                        return
-                    }
-                    strongSelf.searchBar.becomeFirstResponder()
                 }
             }
         }
@@ -239,6 +235,7 @@ class ContainerViewController: UIViewController {
             self.title = self.viewModel.screenTitle
             return
         }
+        self.searchBar.becomeFirstResponder()
         self.searchBar.placeholder = searchVM.placeholder
         self.navigationItem.titleView = self.searchBar
     }

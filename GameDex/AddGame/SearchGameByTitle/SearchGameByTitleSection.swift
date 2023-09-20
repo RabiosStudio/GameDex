@@ -21,7 +21,7 @@ final class SearchGameByTitleSection: Section {
             let gameCellVM = BasicInfoCellViewModel(
                 title: game.title,
                 subtitle1: platform.title,
-                subtitle2: game.description,
+                subtitle2: game.releaseDate?.convertToString(),
                 caption: game.imageURL,
                 screenFactory: AddGameDetailsScreenFactory(
                     game: game,

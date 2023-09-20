@@ -64,6 +64,16 @@ class AlamofireAPI: API {
             }
             
             let decoder = JSONDecoder()
+            decoder.dateDecodingStrategy = .custom { decoder -> Date in
+                let container = try decoder.singleValueContainer()
+                let value = try container.decode(String.self)
+                
+                if let date = DateFormatter.date.date(from: value) {
+                    return date
+                }
+                return Date()
+            }
+            decoder.keyDecodingStrategy = .convertFromSnakeCase
             let decodedResponse: U
             decodedResponse = try decoder.decode(U.self, from: requestData)
             return .success(decodedResponse)

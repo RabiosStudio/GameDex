@@ -16,17 +16,20 @@ final class ImageDescriptionCellViewModel: CollectionCellViewModel {
     let imageStringURL: String
     let title: String
     let subtitle1: String
-    let subtitle2: String
+    let subtitle2: String?
+    let subtitle3: String
     
     init(imageStringURL: String,
          title: String,
          subtitle1: String,
-         subtitle2: String
+         subtitle2: String?,
+         subtitle3: String
     ) {
         self.imageStringURL = imageStringURL
         self.title = title
         self.subtitle1 = subtitle1
         self.subtitle2 = subtitle2
+        self.subtitle3 = subtitle3
     }
     
 }

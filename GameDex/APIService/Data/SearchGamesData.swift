@@ -12,12 +12,6 @@ struct SearchGamesData: Codable {
     let offset: Int
     let statusCode: Int
     let results: [GameData]
-    
-    enum CodingKeys: String, CodingKey {
-        case offset
-        case statusCode = "status_code"
-        case results
-    }
 }
 
 // MARK: - GameData
@@ -27,46 +21,23 @@ struct GameData: Codable {
     let image: Image
     let imageTags: [ImageTag]
     let name: String
-    let originalReleaseDate: String
+    let originalReleaseDate: Date?
     let platforms: [PlatformInfo]
-    let siteDetailURL: String
-    
-    enum CodingKeys: String, CodingKey {
-        case deck
-        case guid
-        case image
-        case imageTags = "image_tags"
-        case name
-        case originalReleaseDate = "original_release_date"
-        case platforms
-        case siteDetailURL = "site_detail_url"
-    }
+    let siteDetailUrl: String
 }
 
 // MARK: - Image
 struct Image: Codable {
-    let mediumURL: String
-    let screenURL: String
+    let mediumUrl: String
+    let screenUrl: String
     let imageTags: String
-    
-    enum CodingKeys: String, CodingKey {
-        case mediumURL = "medium_url"
-        case screenURL = "screen_url"
-        case imageTags = "image_tags"
-    }
 }
 
 // MARK: - ImageTag
 struct ImageTag: Codable {
-    let apiDetailURL: String
+    let apiDetailUrl: String
     let name: String
     let total: Int
-    
-    enum CodingKeys: String, CodingKey {
-        case apiDetailURL = "api_detail_url"
-        case name
-        case total
-    }
 }
 
 // MARK: - Platform
@@ -74,10 +45,4 @@ struct PlatformInfo: Codable {
     let id: Int
     let name: String
     let abbreviation: String
-    
-    enum CodingKeys: String, CodingKey {
-        case id
-        case name
-        case abbreviation
-    }
 }

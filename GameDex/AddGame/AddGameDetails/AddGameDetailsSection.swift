@@ -17,7 +17,8 @@ final class AddGameDetailsSection: Section {
             imageStringURL: game.imageURL,
             title: game.title,
             subtitle1: game.platform.title,
-            subtitle2: game.description
+            subtitle2: game.releaseDate?.convertToString(),
+            subtitle3: game.description
         )
         self.cellsVM.append(gameCellVM)
         
