@@ -162,7 +162,9 @@ extension EditGameDetailsViewModel: EditFormDelegate {
             let savedValue = savedValues[index]
             let currentValue = currentValues[index]
             
-            if let savedStringValue = savedValue as? String,
+            if currentValue == nil && savedValue != nil || currentValue != nil && savedValue == nil {
+                shouldEnableButton = true
+            } else if let savedStringValue = savedValue as? String,
                let currentStringValue = currentValue as? String {
                 shouldEnableButton = savedStringValue != currentStringValue
             } else if let saveIntValue = savedValue as? Int,
