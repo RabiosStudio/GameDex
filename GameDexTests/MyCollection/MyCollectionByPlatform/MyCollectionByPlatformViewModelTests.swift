@@ -196,7 +196,7 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
         let localDatabase = DatabaseMock()
         localDatabase.given(
             .fetchAll(
-                willReturn: Result<[GameCollected], DatabaseError>.failure(.fetchError)
+                willReturn: Result<[PlatformCollected], DatabaseError>.failure(.fetchError)
             )
         )
         let alertDisplayer = AlertDisplayerMock()
@@ -228,11 +228,11 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
     
     func test_reloadCollection_GivenEmptyCollectionFetched_ThenResultsInErrorAlert() {
         // Given
-        let emptyCollection = [GameCollected]()
+        let emptyCollection = [PlatformCollected]()
         let localDatabase = DatabaseMock()
         localDatabase.given(
             .fetchAll(
-                willReturn: Result<[GameCollected], DatabaseError>.success(emptyCollection)
+                willReturn: Result<[PlatformCollected], DatabaseError>.success(emptyCollection)
             )
         )
         let alertDisplayer = AlertDisplayerMock()
@@ -263,7 +263,7 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
         let localDatabase = DatabaseMock()
         localDatabase.given(
             .fetchAll(
-                willReturn: Result<[GameCollected], DatabaseError>.success(MockData.gamesCollected)
+                willReturn: Result<[PlatformCollected], DatabaseError>.success(MockData.platformsCollected)
             )
         )
         let alertDisplayer = AlertDisplayerMock()
@@ -276,7 +276,9 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
         let containerDelegate = ContainerViewControllerDelegateMock()
         viewModel.containerDelegate = containerDelegate
         
-        let convertedData = DataConverter.convert(gamesCollected: MockData.gamesCollected)
+        let collection = DataConverter.convert(platformCollected: MockData.platformsCollected)
+        let mergedCollection = Array(collection.joined())
+
         
         viewModel.loadData { _ in
             
@@ -284,7 +286,7 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
             viewModel.reloadCollection()
             
             // Then
-            let expectedItems = convertedData.filter({
+            let expectedItems = mergedCollection.filter({
                 $0.game.platform.title.localizedCaseInsensitiveContains("Game Boy")
             })
             let expectedNumberOfitems = expectedItems.count

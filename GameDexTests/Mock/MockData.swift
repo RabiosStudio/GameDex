@@ -7,6 +7,7 @@
 
 import Foundation
 @testable import GameDex
+import CoreData
 
 enum MockData {
     
@@ -155,7 +156,7 @@ enum MockData {
         )
     ]
     
-    static let gamesCollected = [
+    static let platformsCollected: [PlatformCollected] = [
         DataConverter.convert(
             gameDetails: MockData.savedGames[0],
             context: CoreDataStack().viewContext

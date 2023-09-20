@@ -1085,11 +1085,11 @@ open class DatabaseMock: Database, Mock {
 		perform?(`newEntity`, `callback`)
     }
 
-    open func fetchAll() -> Result<[GameCollected], DatabaseError> {
+    open func fetchAll() -> Result<[PlatformCollected], DatabaseError> {
         addInvocation(.m_fetchAll)
 		let perform = methodPerformValue(.m_fetchAll) as? () -> Void
 		perform?()
-		var __value: Result<[GameCollected], DatabaseError>
+		var __value: Result<[PlatformCollected], DatabaseError>
 		do {
 		    __value = try methodReturnValue(.m_fetchAll).casted()
 		} catch {
@@ -1170,13 +1170,13 @@ open class DatabaseMock: Database, Mock {
         }
 
 
-        public static func fetchAll(willReturn: Result<[GameCollected], DatabaseError>...) -> MethodStub {
+        public static func fetchAll(willReturn: Result<[PlatformCollected], DatabaseError>...) -> MethodStub {
             return Given(method: .m_fetchAll, products: willReturn.map({ StubProduct.return($0 as Any) }))
         }
-        public static func fetchAll(willProduce: (Stubber<Result<[GameCollected], DatabaseError>>) -> Void) -> MethodStub {
-            let willReturn: [Result<[GameCollected], DatabaseError>] = []
+        public static func fetchAll(willProduce: (Stubber<Result<[PlatformCollected], DatabaseError>>) -> Void) -> MethodStub {
+            let willReturn: [Result<[PlatformCollected], DatabaseError>] = []
 			let given: Given = { return Given(method: .m_fetchAll, products: willReturn.map({ StubProduct.return($0 as Any) })) }()
-			let stubber = given.stub(for: (Result<[GameCollected], DatabaseError>).self)
+			let stubber = given.stub(for: (Result<[PlatformCollected], DatabaseError>).self)
 			willProduce(stubber)
 			return given
         }

@@ -38,7 +38,7 @@ final class MyCollectionViewModelTests: XCTestCase {
         var callbackIsCalled = false
         localDatabase.given(
             .fetchAll(
-                willReturn: Result<[GameCollected], DatabaseError>.failure(.fetchError)
+                willReturn: Result<[PlatformCollected], DatabaseError>.failure(.fetchError)
             )
         )
         
@@ -58,11 +58,11 @@ final class MyCollectionViewModelTests: XCTestCase {
     
     func test_loadData_GivenEmptyCollectionFetched_ThenCallbackShouldReturnNoItems() {
         // Given
-        let emptyCollection = [GameCollected]()
+        let emptyCollection = [PlatformCollected]()
         let localDatabase = DatabaseMock()
         localDatabase.given(
             .fetchAll(
-                willReturn: Result<[GameCollected], DatabaseError>.success(emptyCollection)
+                willReturn: Result<[PlatformCollected], DatabaseError>.success(emptyCollection)
             )
         )
         let viewModel = MyCollectionViewModel(
@@ -104,7 +104,7 @@ final class MyCollectionViewModelTests: XCTestCase {
         let localDatabase = DatabaseMock()
         localDatabase.given(
             .fetchAll(
-                willReturn: Result<[GameCollected], DatabaseError>.success(MockData.gamesCollected)
+                willReturn: Result<[PlatformCollected], DatabaseError>.success(MockData.platformsCollected)
             )
         )
         let viewModel = MyCollectionViewModel(
@@ -112,7 +112,8 @@ final class MyCollectionViewModelTests: XCTestCase {
             alertDisplayer: AlertDisplayerMock()
         )
         
-        let convertedData = DataConverter.convert(gamesCollected: MockData.gamesCollected)
+        let collection = DataConverter.convert(platformCollected: MockData.platformsCollected)
+        let mergedCollection = Array(collection.joined())
         
         var callBackIsCalled = false
         
@@ -123,7 +124,7 @@ final class MyCollectionViewModelTests: XCTestCase {
                 callBackIsCalled = true
                 
                 // Then
-                let expectedItems = convertedData.filter({
+                let expectedItems = mergedCollection.filter({
                     $0.game.platform.title.localizedCaseInsensitiveContains("Game Boy")
                 })
                 let expectedNumberOfitems = expectedItems.count
@@ -140,7 +141,7 @@ final class MyCollectionViewModelTests: XCTestCase {
         let localDatabase = DatabaseMock()
         localDatabase.given(
             .fetchAll(
-                willReturn: Result<[GameCollected], DatabaseError>.success(MockData.gamesCollected)
+                willReturn: Result<[PlatformCollected], DatabaseError>.success(MockData.platformsCollected)
             )
         )
         let viewModel = MyCollectionViewModel(
@@ -166,7 +167,7 @@ final class MyCollectionViewModelTests: XCTestCase {
         let localDatabase = DatabaseMock()
         localDatabase.given(
             .fetchAll(
-                willReturn: Result<[GameCollected], DatabaseError>.success(MockData.gamesCollected)
+                willReturn: Result<[PlatformCollected], DatabaseError>.success(MockData.platformsCollected)
             )
         )
         let viewModel = MyCollectionViewModel(
@@ -174,9 +175,11 @@ final class MyCollectionViewModelTests: XCTestCase {
             alertDisplayer: AlertDisplayerMock()
         )
         
-        let convertedData = DataConverter.convert(gamesCollected: MockData.gamesCollected)
+        let collection = DataConverter.convert(platformCollected: MockData.platformsCollected)
+        let mergedCollection = Array(collection.joined())
+        
         var collectionsArray = [String]()
-        for item in convertedData {
+        for item in mergedCollection {
             collectionsArray.append(item.game.platform.title)
         }
         let uniqueCollections = Array(Set(collectionsArray))
