@@ -40,7 +40,9 @@ final class MyCollectionViewModel: CollectionViewModel {
                 callback(error)
                 return
             }
-            self.collection = DataConverter.convert(gamesCollected: result)
+            let collection = DataConverter.convert(platformCollected: result)
+            self.collection = Array(collection.joined())
+            
             self.sections = [
                 MyCollectionSection(
                     gamesCollection: self.collection,
