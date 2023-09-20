@@ -22,35 +22,38 @@ extension LocalDatabase {
     
     func add(newEntity: SavedGame, callback: @escaping (DatabaseError?) -> ()) {
         // Check if the item is already in database
-        let request: NSFetchRequest<GameCollected> = GameCollected.fetchRequest()
-        guard let games = try? coreDataStack.viewContext.fetch(request) else {
-            callback(DatabaseError.fetchError)
-            return
-        }
-        if games.contains(
-            where: { aGame in
-                aGame.title == newEntity.game.title &&
-                aGame.platformTitle == newEntity.game.platform.title
-            }
-        ) {
-            callback(DatabaseError.itemAlreadySaved)
-            return
-        } else {
-            
-            // Save the object in the following context
-            _ = DataConverter.convert(gameDetails: newEntity, context: managedObjectContext)
-            // Save the context
-            coreDataStack.saveContext(managedObjectContext) { error in
-                if error != nil {
-                    callback(DatabaseError.saveError)
+        let request: NSFetchRequest<PlatformCollected> = PlatformCollected.fetchRequest()
+        
+        do {
+            let platforms = try coreDataStack.viewContext.fetch(request)
+            for platform in platforms {
+                if platform.gamesArray.contains(
+                    where: { aGame in
+                        aGame.title == newEntity.game.title
+                    }
+                ) {
+                    callback(DatabaseError.itemAlreadySaved)
+                    return
                 }
-                callback(nil)
             }
+        } catch {
+            callback(DatabaseError.fetchError)
+        }
+        
+        // Save the object in the following context
+        _ = DataConverter.convert(gameDetails: newEntity, context: managedObjectContext)
+        // Save the context
+        coreDataStack.saveContext(managedObjectContext) { error in
+            if error != nil {
+                callback(DatabaseError.saveError)
+            }
+            callback(nil)
         }
     }
     
-    func fetchAll() -> Result<[GameCollected], DatabaseError> {
-        let request: NSFetchRequest<GameCollected> = GameCollected.fetchRequest()
+    func fetchAll() -> Result<[PlatformCollected], DatabaseError> {
+        let request: NSFetchRequest<PlatformCollected> = PlatformCollected.fetchRequest()
+        var fetchedPlatforms = [PlatformCollected]()
         
         do {
             let results = try managedObjectContext.fetch(request)
@@ -68,7 +71,8 @@ extension LocalDatabase {
         if let games = try? coreDataStack.viewContext.fetch(request) {
             guard let index = games.firstIndex(where: { aGame in
                 aGame.title == savedGame.game.title &&
-                aGame.summary == savedGame.game.description
+                aGame.summary == savedGame.game.description &&
+                aGame.platform.id == savedGame.game.platform.id
             }) else {
                 callback(DatabaseError.fetchError)
                 return
@@ -94,7 +98,8 @@ extension LocalDatabase {
         if let games = try? coreDataStack.viewContext.fetch(request) {
             guard let index = games.firstIndex(where: { aGame in
                 aGame.title == savedGame.game.title &&
-                aGame.summary == savedGame.game.description
+                aGame.summary == savedGame.game.description &&
+                aGame.platform.id == savedGame.game.platform.id
             }) else {
                 callback(DatabaseError.removeError)
                 return

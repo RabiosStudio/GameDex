@@ -9,6 +9,9 @@ import Foundation
 import CoreData
 
 enum DataConverter {
+    
+    // MARK: API data to Local data
+    
     static func convert(remotePlatforms: [PlatformData]) -> [Platform] {
         return remotePlatforms.map { remotePlatform in
             return Platform(
@@ -31,7 +34,13 @@ enum DataConverter {
         }
     }
     
+    // MARK: Local data to CoreData managed objects
+    
     static func convert(gameDetails: SavedGame, context: NSManagedObjectContext) -> GameCollected {
+        let platformCollected = PlatformCollected(context: context)
+        platformCollected.id = Int16(gameDetails.game.platform.id)
+        platformCollected.title = gameDetails.game.platform.title
+        
         let gameCollected = GameCollected(context: context)
         gameCollected.title = gameDetails.game.title
         gameCollected.summary = gameDetails.game.description
@@ -44,36 +53,46 @@ enum DataConverter {
         gameCollected.gameCompleteness = gameDetails.gameCompleteness
         gameCollected.acquisitionYear = gameDetails.acquisitionYear
         gameCollected.gameID = gameDetails.game.id
-        gameCollected.platformTitle = gameDetails.game.platform.title
-        gameCollected.platformID = Int16(gameDetails.game.platform.id)
         gameCollected.releaseDate = gameDetails.game.releaseDate
+        platformCollected.addToGame(gameCollected)
         return gameCollected
     }
     
-    // from CoreData "GameCollected" to SavedGame
-    static func convert(gamesCollected: [GameCollected]) -> [SavedGame] {
-        return gamesCollected.map { gameCollected in
-            let platform = Platform(
-                title: gameCollected.platformTitle,
-                id: Int(gameCollected.platformID)
-            )
-            return SavedGame(
-                game: Game(
-                    title: gameCollected.title,
-                    description: gameCollected.summary,
-                    id: gameCollected.gameID,
-                    platform: platform,
-                    imageURL: gameCollected.imageURL,
-                    releaseDate: gameCollected.releaseDate
-                ),
-                acquisitionYear: gameCollected.acquisitionYear,
-                gameCondition: gameCollected.gameCondition,
-                gameCompleteness: gameCollected.gameCompleteness,
-                gameRegion: gameCollected.gameRegion,
-                storageArea: gameCollected.storageArea,
-                rating: Int(gameCollected.rating),
-                notes: gameCollected.notes
-            )
+    static func convert(platformCollected: PlatformCollected) -> Platform {
+        let platform = Platform(
+            title: platformCollected.title,
+            id: Int(platformCollected.id)
+        )
+        return platform
+    }
+    
+    static func convert(platformCollected: [PlatformCollected]) -> [[SavedGame]] {
+        return platformCollected.map { platformCollected in
+            
+            var savedGames: [SavedGame] = []
+            
+            for game in platformCollected.gamesArray {
+                savedGames.append(
+                    SavedGame(
+                        game: Game(
+                            title: game.title,
+                            description: game.summary,
+                            id: game.gameID,
+                            platform: DataConverter.convert(platformCollected: platformCollected),
+                            imageURL: game.imageURL,
+                            releaseDate: game.releaseDate
+                        ),
+                        acquisitionYear: game.acquisitionYear,
+                        gameCondition: game.gameCondition,
+                        gameCompleteness: game.gameCompleteness,
+                        gameRegion: game.gameRegion,
+                        storageArea: game.storageArea,
+                        rating: Int(game.rating),
+                        notes: game.notes
+                    )
+                )
+            }
+            return savedGames
         }
     }
 }
