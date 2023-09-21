@@ -25,6 +25,7 @@ final class SearchGameByTitleSection: Section {
                 caption: game.imageURL,
                 screenFactory: AddGameDetailsScreenFactory(
                     game: game,
+                    platform: platform,
                     gameDetailsDelegate: gameDetailsDelegate
                 )
             )

@@ -10,12 +10,12 @@ import UIKit
 
 struct MyCollectionByPlatformsScreenFactory: ScreenFactory {
     
-    private let gamesCollection: [SavedGame]
+    private let platform: Platform
     weak var gameDetailsDelegate: GameDetailsViewModelDelegate?
     
     var viewController: UIViewController {
         let viewModel = MyCollectionByPlatformsViewModel(
-            gamesCollection: self.gamesCollection,
+            platform: self.platform,
             database: LocalDatabase(),
             alertDisplayer: AlertDisplayerImpl(),
             gameDetailsDelegate: gameDetailsDelegate
@@ -29,8 +29,8 @@ struct MyCollectionByPlatformsScreenFactory: ScreenFactory {
         return containerController
     }
     
-    init(gamesCollection: [SavedGame], gameDetailsDelegate: GameDetailsViewModelDelegate?) {
-        self.gamesCollection = gamesCollection
+    init(platform: Platform, gameDetailsDelegate: GameDetailsViewModelDelegate?) {
+        self.platform = platform
         self.gameDetailsDelegate = gameDetailsDelegate
     }
     

@@ -7,7 +7,8 @@
 
 import Foundation
 
-struct Platform: Codable, Equatable {
+struct Platform {
     let title: String
     let id: Int
+    let games: [SavedGame]?
 }

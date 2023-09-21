@@ -18,19 +18,27 @@ final class AddGameDetailsViewModel: CollectionViewModel {
     weak var gameDetailsDelegate: GameDetailsViewModelDelegate?
     
     private let game: Game
+    private let platform: Platform
     private let localDatabase: Database
     private let alertDisplayer: AlertDisplayer
     
     init(
         game: Game,
+        platform: Platform,
         localDatabase: Database,
         gameDetailsDelegate: GameDetailsViewModelDelegate?,
         alertDisplayer: AlertDisplayer
     ) {
         self.progress = 3/3
         self.game = game
+        self.platform = platform
         self.localDatabase = localDatabase
-        self.sections = [AddGameDetailsSection(game: self.game)]
+        self.sections = [
+            AddGameDetailsSection(
+                game: self.game,
+                platform: self.platform
+            )
+        ]
         self.gameDetailsDelegate = gameDetailsDelegate
         self.alertDisplayer = alertDisplayer
     }
@@ -100,7 +108,7 @@ extension AddGameDetailsViewModel: PrimaryButtonDelegate {
             notes: notes
         )
         
-        self.localDatabase.add(newEntity: gameToSave) { [weak self] error in
+        self.localDatabase.add(newEntity: gameToSave, platform: self.platform) { [weak self] error in
             if let error {
                 switch error {
                 case .itemAlreadySaved:

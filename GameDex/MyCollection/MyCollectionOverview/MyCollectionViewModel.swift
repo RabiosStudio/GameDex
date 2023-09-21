@@ -18,7 +18,7 @@ final class MyCollectionViewModel: CollectionViewModel {
     var rightButtonItems: [AnyBarButtonItem]? = [.add, .search]
     let screenTitle: String? = L10n.myCollection
     var sections: [Section] = []
-    var collection: [SavedGame] = []
+    var platforms: [Platform] = []
     
     weak var containerDelegate: ContainerViewControllerDelegate?
     weak var gameDetailsDelegate: GameDetailsViewModelDelegate?
@@ -32,18 +32,21 @@ final class MyCollectionViewModel: CollectionViewModel {
     }
     
     func loadData(callback: @escaping (EmptyError?) -> ()) {
-        let fetchCollectionResult = self.localDatabase.fetchAll()
-        switch fetchCollectionResult {
+        let fetchPlatformsResult = self.localDatabase.fetchAllPlatforms()
+        switch fetchPlatformsResult {
         case .success(let result):
+            // TODO: Fix empty state
             guard !result.isEmpty else {
+                self.platforms = []
+                self.sections = []
                 let error: MyCollectionError = .emptyCollection(gameDetailsDelegate: self)
                 callback(error)
                 return
             }
-            self.collections = CoreDataConverter.convert(platformsCollected: result)
+            self.platforms = CoreDataConverter.convert(platformsCollected: result)
             self.sections = [
                 MyCollectionSection(
-                    gamesCollection: self.collection,
+                    platforms: self.platforms,
                     gameDetailsDelegate: self
                 )
             ]
@@ -64,10 +67,10 @@ final class MyCollectionViewModel: CollectionViewModel {
         )
     }
     
-    private func updateListOfCollections(with list: [SavedGame]) {
+    private func updateListOfCollections(with list: [Platform]) {
         self.sections = [
             MyCollectionSection(
-                gamesCollection: list,
+                platforms: list,
                 gameDetailsDelegate: self
             )
         ]
@@ -89,12 +92,12 @@ extension MyCollectionViewModel: SearchViewModelDelegate {
     
     func updateSearchTextField(with text: String, callback: @escaping (EmptyError?) -> ()) {
         guard text != "" else {
-            self.updateListOfCollections(with: self.collection)
+            self.updateListOfCollections(with: self.platforms)
             callback(nil)
             return
         }
-        let matchingCollections = self.collection.filter({
-            $0.game.platform.title.localizedCaseInsensitiveContains(text)
+        let matchingCollections = self.platforms.filter({
+            $0.title.localizedCaseInsensitiveContains(text)
         })
         self.updateListOfCollections(with: matchingCollections)
         

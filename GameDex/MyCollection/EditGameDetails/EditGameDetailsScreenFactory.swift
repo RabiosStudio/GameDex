@@ -11,11 +11,13 @@ import UIKit
 struct EditGameDetailsScreenFactory: ScreenFactory {
     
     private let savedGame: SavedGame
+    private let platformName: String
     weak var gameDetailsDelegate: GameDetailsViewModelDelegate?
     
     var viewController: UIViewController {
         let viewModel = EditGameDetailsViewModel(
             savedGame: self.savedGame,
+            platformName: self.platformName,
             localDatabase: LocalDatabase(),
             alertDisplayer: AlertDisplayerImpl(),
             gameDetailsDelegate: gameDetailsDelegate
@@ -29,8 +31,9 @@ struct EditGameDetailsScreenFactory: ScreenFactory {
         return containerController
     }
 
-    init(savedGame: SavedGame, gameDetailsDelegate: GameDetailsViewModelDelegate?) {
+    init(savedGame: SavedGame, platformName: String, gameDetailsDelegate: GameDetailsViewModelDelegate?) {
         self.savedGame = savedGame
+        self.platformName = platformName
         self.gameDetailsDelegate = gameDetailsDelegate
     }
 }

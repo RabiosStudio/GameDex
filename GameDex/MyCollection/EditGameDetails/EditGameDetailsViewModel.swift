@@ -19,6 +19,7 @@ final class EditGameDetailsViewModel: CollectionViewModel {
     private let localDatabase: Database
     private var alertDisplayer: AlertDisplayer
     private let savedValues: [Any?]
+    private let platformName: String
     
     weak var containerDelegate: ContainerViewControllerDelegate?
     weak var alertDelegate: AlertDisplayerDelegate?
@@ -26,6 +27,7 @@ final class EditGameDetailsViewModel: CollectionViewModel {
     
     init(
         savedGame: SavedGame,
+        platformName: String,
         localDatabase: Database,
         alertDisplayer: AlertDisplayer,
         gameDetailsDelegate: GameDetailsViewModelDelegate?
@@ -40,6 +42,7 @@ final class EditGameDetailsViewModel: CollectionViewModel {
             self.savedGame.rating,
             self.savedGame.notes
         ]
+        self.platformName = platformName
         self.localDatabase = localDatabase
         self.alertDisplayer = alertDisplayer
         self.alertDisplayer.alertDelegate = self
@@ -49,6 +52,7 @@ final class EditGameDetailsViewModel: CollectionViewModel {
     func loadData(callback: @escaping (EmptyError?) -> ()) {
         self.sections = [EditGameDetailsSection(
             savedGame: self.savedGame,
+            platformName: self.platformName,
             editDelegate: self
         )]
         self.configureBottomView(shouldEnableButton: false)
@@ -182,7 +186,7 @@ extension EditGameDetailsViewModel: EditFormDelegate {
 extension EditGameDetailsViewModel: AlertDisplayerDelegate {
     func didTapOkButton() {
         self.localDatabase.remove(savedGame: self.savedGame) { [weak self] error in
-            if error != nil {
+            guard error == nil else {
                 self?.alertDisplayer.presentTopFloatAlert(
                     parameters: AlertViewModel(
                         alertType: .error,
@@ -190,16 +194,16 @@ extension EditGameDetailsViewModel: AlertDisplayerDelegate {
                     )
                 )
                 self?.configureBottomView(shouldEnableButton: true)
-            } else {
-                self?.alertDisplayer.presentTopFloatAlert(
-                    parameters: AlertViewModel(
-                        alertType: .success,
-                        description: L10n.removeGameSuccessDescription
-                    )
-                )
-                self?.containerDelegate?.goBackToRootViewController()
-                self?.gameDetailsDelegate?.reloadCollection()
+                return
             }
+            self?.alertDisplayer.presentTopFloatAlert(
+                parameters: AlertViewModel(
+                    alertType: .success,
+                    description: L10n.removeGameSuccessDescription
+                )
+            )
+            self?.containerDelegate?.goBackToRootViewController()
+            self?.gameDetailsDelegate?.reloadCollection()            
         }
     }
 }

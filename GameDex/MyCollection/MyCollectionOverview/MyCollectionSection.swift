@@ -9,39 +9,28 @@ import Foundation
 
 final class MyCollectionSection: Section {
     
-    init(gamesCollection: [SavedGame],
+    init(platforms: [Platform],
          gameDetailsDelegate: GameDetailsViewModelDelegate?
     ) {
         super.init()
         self.position = 0
-        
-        // Create new array of platforms
-        var platformsArray = [String]()
-        // Get all platforms from fetched collection
-        for item in gamesCollection {
-            platformsArray.append(item.game.platform.title)
+        var platforms = platforms.sorted {
+            $0.title > $1.title
         }
         
-        // Remove duplicates platforms using set
-        var uniquePlatforms = Array(Set(platformsArray))
-        uniquePlatforms.sort()
-        
         // Check all games in collection and add those on the corresponding platform in an array that we will pass to the cell
-        for platform in uniquePlatforms {
-            var gameArrayByPlatform = [SavedGame]()
-            gamesCollection.forEach {
-                if $0.game.platform.title == platform {
-                    gameArrayByPlatform.append($0)
-                }
-            }
+        for platform in platforms {
+            let gameArrayByPlatform = platform.games
             
-            let text = gameArrayByPlatform.count > 1 ? L10n.games : L10n.game
+            guard let gameArray = gameArrayByPlatform else { return }
+            
+            let text = gameArray.count > 1 ? L10n.games : L10n.game
             
             let labelCellVM = LabelCellViewModel(
-                mainText: platform,
-                optionalText: "\(gameArrayByPlatform.count) \(text)",
+                primaryText: platform.title,
+                secondaryText: "\(gameArray.count) \(text)",
                 screenFactory: MyCollectionByPlatformsScreenFactory(
-                    gamesCollection: gameArrayByPlatform,
+                    platform: platform,
                     gameDetailsDelegate: gameDetailsDelegate
                 )
             )

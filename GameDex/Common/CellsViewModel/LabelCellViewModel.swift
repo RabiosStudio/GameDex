@@ -22,9 +22,9 @@ final class LabelCellViewModel: CollectionCellViewModel {
     var primaryText: String
     var secondaryText: String?
     
-    init(mainText: String, optionalText: String?, screenFactory: ScreenFactory?) {
-        self.primaryText = mainText
-        self.secondaryText = optionalText
+    init(primaryText: String, secondaryText: String?, screenFactory: ScreenFactory?) {
+        self.primaryText = primaryText
+        self.secondaryText = secondaryText
         self.screenFactory = screenFactory
     }
     

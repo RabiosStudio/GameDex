@@ -9,14 +9,14 @@ import Foundation
 
 final class EditGameDetailsSection: Section {
     
-    init(savedGame: SavedGame, editDelegate: EditFormDelegate) {
+    init(savedGame: SavedGame, platformName: String, editDelegate: EditFormDelegate) {
         super.init()
         self.position = 0
         
         let gameCellVM = ImageDescriptionCellViewModel(
             imageStringURL: savedGame.game.imageURL,
             title: savedGame.game.title,
-            subtitle1: savedGame.game.platform.title,
+            subtitle1: platformName,
             subtitle2: savedGame.game.releaseDate?.convertToString(),
             subtitle3: savedGame.game.description
         )

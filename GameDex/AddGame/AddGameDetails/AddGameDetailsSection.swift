@@ -9,14 +9,14 @@ import Foundation
 
 final class AddGameDetailsSection: Section {
     
-    init(game: Game) {
+    init(game: Game, platform: Platform) {
         super.init()
         self.position = 0
         
         let gameCellVM = ImageDescriptionCellViewModel(
             imageStringURL: game.imageURL,
             title: game.title,
-            subtitle1: game.platform.title,
+            subtitle1: platform.title,
             subtitle2: game.releaseDate?.convertToString(),
             subtitle3: game.description
         )
