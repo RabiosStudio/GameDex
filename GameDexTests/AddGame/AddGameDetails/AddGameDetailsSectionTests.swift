@@ -14,7 +14,7 @@ final class AddGameDetailsSectionTests: XCTestCase {
     
     func test_init_ThenShouldSetPropertiesCorrectly() {
         // Given
-        let section = AddGameDetailsSection(game: MockData.game)
+        let section = AddGameDetailsSection(game: MockData.game, platform: MockData.platform)
         
         // Then
         XCTAssertEqual(section.cellsVM.count, 8)
@@ -24,7 +24,7 @@ final class AddGameDetailsSectionTests: XCTestCase {
             return
         }
         
-        XCTAssertEqual(gameCellVM.title, "The Legend of Zelda: The Minish Cap")
+        XCTAssertEqual(gameCellVM.title, "Title")
         XCTAssertEqual(gameCellVM.subtitle1, "Game Boy Advance")
         XCTAssertEqual(gameCellVM.subtitle2, Date.now.convertToString())
         XCTAssertEqual(gameCellVM.subtitle3, "description")

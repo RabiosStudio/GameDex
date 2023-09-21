@@ -27,6 +27,7 @@ final class AddGameDetailsViewModelTests: XCTestCase {
         // Given
         let viewModel = AddGameDetailsViewModel(
             game: MockData.game,
+            platform: MockData.platform,
             localDatabase: DatabaseMock(),
             gameDetailsDelegate: GameDetailsViewModelDelegateMock(),
             alertDisplayer: AlertDisplayerMock()
@@ -42,6 +43,7 @@ final class AddGameDetailsViewModelTests: XCTestCase {
         // Given
         let viewModel  = AddGameDetailsViewModel(
             game: MockData.game,
+            platform: MockData.platform,
             localDatabase: DatabaseMock(),
             gameDetailsDelegate: GameDetailsViewModelDelegateMock(),
             alertDisplayer: AlertDisplayerMock()
@@ -63,6 +65,7 @@ final class AddGameDetailsViewModelTests: XCTestCase {
         
         let viewModel  = AddGameDetailsViewModel(
             game: MockData.game,
+            platform: MockData.platform,
             localDatabase: localDatabase,
             gameDetailsDelegate: GameDetailsViewModelDelegateMock(),
             alertDisplayer: alertDisplayer
@@ -71,8 +74,9 @@ final class AddGameDetailsViewModelTests: XCTestCase {
         localDatabase.perform(
             .add(
                 newEntity: .any,
+                platform: .any,
                 callback: .any,
-                perform: { saveGame, completion in
+                perform: { _, _, completion  in
                     completion(nil)
                     
                     // Then
@@ -110,6 +114,7 @@ final class AddGameDetailsViewModelTests: XCTestCase {
         
         let viewModel  = AddGameDetailsViewModel(
             game: MockData.game,
+            platform: MockData.platform,
             localDatabase: localDatabase,
             gameDetailsDelegate: GameDetailsViewModelDelegateMock(),
             alertDisplayer: alertDisplayer
@@ -118,8 +123,9 @@ final class AddGameDetailsViewModelTests: XCTestCase {
         localDatabase.perform(
             .add(
                 newEntity: .any,
+                platform: .any,
                 callback: .any,
-                perform: { saveGame, completion in
+                perform: { _, _, completion in
                     completion(DatabaseError.saveError)
                     
                     // Then
@@ -151,6 +157,7 @@ final class AddGameDetailsViewModelTests: XCTestCase {
         
         let viewModel  = AddGameDetailsViewModel(
             game: MockData.game,
+            platform: MockData.platform,
             localDatabase: localDatabase,
             gameDetailsDelegate: GameDetailsViewModelDelegateMock(),
             alertDisplayer: alertDisplayer
@@ -159,8 +166,9 @@ final class AddGameDetailsViewModelTests: XCTestCase {
         localDatabase.perform(
             .add(
                 newEntity: .any,
+                platform: .any,
                 callback: .any,
-                perform: { saveGame, completion in
+                perform: { _, _, completion in
                     completion(DatabaseError.itemAlreadySaved)
                     
                     // Then
@@ -192,6 +200,7 @@ final class AddGameDetailsViewModelTests: XCTestCase {
         
         let viewModel  = AddGameDetailsViewModel(
             game: MockData.game,
+            platform: MockData.platform,
             localDatabase: localDatabase,
             gameDetailsDelegate: gameDetailsDelegate,
             alertDisplayer: alertDisplayer

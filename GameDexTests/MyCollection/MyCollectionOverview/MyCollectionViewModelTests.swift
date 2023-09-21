@@ -37,7 +37,7 @@ final class MyCollectionViewModelTests: XCTestCase {
         )
         var callbackIsCalled = false
         localDatabase.given(
-            .fetchAll(
+            .fetchAllPlatforms(
                 willReturn: Result<[PlatformCollected], DatabaseError>.failure(.fetchError)
             )
         )
@@ -61,7 +61,7 @@ final class MyCollectionViewModelTests: XCTestCase {
         let emptyCollection = [PlatformCollected]()
         let localDatabase = DatabaseMock()
         localDatabase.given(
-            .fetchAll(
+            .fetchAllPlatforms(
                 willReturn: Result<[PlatformCollected], DatabaseError>.success(emptyCollection)
             )
         )
@@ -103,7 +103,7 @@ final class MyCollectionViewModelTests: XCTestCase {
         // Given
         let localDatabase = DatabaseMock()
         localDatabase.given(
-            .fetchAll(
+            .fetchAllPlatforms(
                 willReturn: Result<[PlatformCollected], DatabaseError>.success(MockData.platformsCollected)
             )
         )
@@ -112,8 +112,7 @@ final class MyCollectionViewModelTests: XCTestCase {
             alertDisplayer: AlertDisplayerMock()
         )
         
-        let collection = DataConverter.convert(platformCollected: MockData.platformsCollected)
-        let mergedCollection = Array(collection.joined())
+        let platform = CoreDataConverter.convert(platformCollected: MockData.platformsCollected[0])
         
         var callBackIsCalled = false
         
@@ -124,10 +123,10 @@ final class MyCollectionViewModelTests: XCTestCase {
                 callBackIsCalled = true
                 
                 // Then
-                let expectedItems = mergedCollection.filter({
-                    $0.game.platform.title.localizedCaseInsensitiveContains("Game Boy")
+                let expectedItems = platform.games?.filter({
+                    $0.game.platformId == 4
                 })
-                let expectedNumberOfitems = expectedItems.count
+                let expectedNumberOfitems = expectedItems?.count
                 
                 XCTAssertEqual(viewModel.numberOfSections(), 1)
                 XCTAssertEqual(viewModel.sections[0].cellsVM.count, expectedNumberOfitems)
@@ -140,7 +139,7 @@ final class MyCollectionViewModelTests: XCTestCase {
         // Given
         let localDatabase = DatabaseMock()
         localDatabase.given(
-            .fetchAll(
+            .fetchAllPlatforms(
                 willReturn: Result<[PlatformCollected], DatabaseError>.success(MockData.platformsCollected)
             )
         )
@@ -166,7 +165,7 @@ final class MyCollectionViewModelTests: XCTestCase {
         // Given
         let localDatabase = DatabaseMock()
         localDatabase.given(
-            .fetchAll(
+            .fetchAllPlatforms(
                 willReturn: Result<[PlatformCollected], DatabaseError>.success(MockData.platformsCollected)
             )
         )
@@ -175,21 +174,15 @@ final class MyCollectionViewModelTests: XCTestCase {
             alertDisplayer: AlertDisplayerMock()
         )
         
-        let collection = DataConverter.convert(platformCollected: MockData.platformsCollected)
-        let mergedCollection = Array(collection.joined())
-        
-        var collectionsArray = [String]()
-        for item in mergedCollection {
-            collectionsArray.append(item.game.platform.title)
-        }
-        let uniqueCollections = Array(Set(collectionsArray))
-        
+        let expectedItems = CoreDataConverter.convert(platformsCollected: MockData.platformsCollected)
+        let expectedNumberOfitems = expectedItems.count
+       
         viewModel.loadData { _ in
             
             // When
             viewModel.updateSearchTextField(with: "") { _ in
                 XCTAssertEqual(viewModel.numberOfSections(), 1)
-                XCTAssertEqual(viewModel.numberOfItems(in: 0), uniqueCollections.count)
+                XCTAssertEqual(viewModel.numberOfItems(in: 0), expectedItems.count)
             }
         }
     }

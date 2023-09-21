@@ -18,8 +18,8 @@ final class LabelCellViewModelTests: XCTestCase {
         let screenFactory = SelectPlatformScreenFactory(delegate: GameDetailsViewModelDelegateMock())
         // When
         let cellVM = LabelCellViewModel(
-            mainText: primaryLabel,
-            optionalText: secondaryLabel,
+            primaryText: primaryLabel,
+            secondaryText: secondaryLabel,
             screenFactory: screenFactory
         )
         // Then

@@ -31,6 +31,7 @@ final class EditGameDetailsViewModelTests: XCTestCase {
         // Given
         let viewModel = EditGameDetailsViewModel(
             savedGame: MockData.savedGame,
+            platformName: MockData.platform.title,
             localDatabase: DatabaseMock(),
             alertDisplayer: AlertDisplayerMock(),
             gameDetailsDelegate: GameDetailsViewModelDelegateMock()
@@ -47,6 +48,7 @@ final class EditGameDetailsViewModelTests: XCTestCase {
         // Given
         let viewModel = EditGameDetailsViewModel(
             savedGame: MockData.savedGame,
+            platformName: MockData.platform.title,
             localDatabase: DatabaseMock(),
             alertDisplayer: AlertDisplayerMock(),
             gameDetailsDelegate: GameDetailsViewModelDelegateMock()
@@ -74,6 +76,7 @@ final class EditGameDetailsViewModelTests: XCTestCase {
         
         let viewModel = EditGameDetailsViewModel(
             savedGame: MockData.savedGame,
+            platformName: MockData.platform.title,
             localDatabase: localDatabase,
             alertDisplayer: alertDisplayer,
             gameDetailsDelegate: GameDetailsViewModelDelegateMock()
@@ -123,6 +126,7 @@ final class EditGameDetailsViewModelTests: XCTestCase {
         
         let viewModel = EditGameDetailsViewModel(
             savedGame: MockData.savedGame,
+            platformName: MockData.platform.title,
             localDatabase: localDatabase,
             alertDisplayer: alertDisplayer,
             gameDetailsDelegate: GameDetailsViewModelDelegateMock()
@@ -170,6 +174,7 @@ final class EditGameDetailsViewModelTests: XCTestCase {
         
         let viewModel = EditGameDetailsViewModel(
             savedGame: MockData.savedGame,
+            platformName: MockData.platform.title,
             localDatabase: localDatabase,
             alertDisplayer: AlertDisplayerMock(),
             gameDetailsDelegate: GameDetailsViewModelDelegateMock()
@@ -218,6 +223,7 @@ final class EditGameDetailsViewModelTests: XCTestCase {
         let alertDisplayer = AlertDisplayerMock()
         let viewModel = EditGameDetailsViewModel(
             savedGame: MockData.savedGame,
+            platformName: MockData.platform.title,
             localDatabase: DatabaseMock(),
             alertDisplayer: alertDisplayer,
             gameDetailsDelegate: GameDetailsViewModelDelegateMock()
@@ -249,6 +255,7 @@ final class EditGameDetailsViewModelTests: XCTestCase {
         let containerDelegate = ContainerViewControllerDelegateMock()
         let viewModel = EditGameDetailsViewModel(
             savedGame: MockData.savedGame,
+            platformName: MockData.platform.title,
             localDatabase: localDatabase,
             alertDisplayer: alertDisplayer,
             gameDetailsDelegate: GameDetailsViewModelDelegateMock()
@@ -296,6 +303,7 @@ final class EditGameDetailsViewModelTests: XCTestCase {
         let containerDelegate = ContainerViewControllerDelegateMock()
         let viewModel = EditGameDetailsViewModel(
             savedGame: MockData.savedGame,
+            platformName: MockData.platform.title,
             localDatabase: localDatabase,
             alertDisplayer: alertDisplayer,
             gameDetailsDelegate: GameDetailsViewModelDelegateMock()

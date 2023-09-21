@@ -14,6 +14,7 @@ final class EditGameDetailsSectionTests: XCTestCase {
         // Given
         let section = EditGameDetailsSection(
             savedGame: MockData.savedGame,
+            platformName: MockData.platform.title,
             editDelegate: EditFormDelegateMock()
         )
         
@@ -25,7 +26,7 @@ final class EditGameDetailsSectionTests: XCTestCase {
             return
         }
         
-        XCTAssertEqual(gameCellVM.title, "The Legend of Zelda: The Minish Cap")
+        XCTAssertEqual(gameCellVM.title, "Title")
         XCTAssertEqual(gameCellVM.subtitle1, "Game Boy Advance")
         XCTAssertEqual(gameCellVM.subtitle2, Date.now.convertToString())
         XCTAssertEqual(gameCellVM.subtitle3, "description")

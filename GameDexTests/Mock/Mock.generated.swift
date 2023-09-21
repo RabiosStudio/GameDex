@@ -1079,22 +1079,36 @@ open class DatabaseMock: Database, Mock {
 
 
 
-    open func add(newEntity: SavedGame, callback: @escaping (DatabaseError?) -> ()) {
-        addInvocation(.m_add__newEntity_newEntitycallback_callback(Parameter<SavedGame>.value(`newEntity`), Parameter<(DatabaseError?) -> ()>.value(`callback`)))
-		let perform = methodPerformValue(.m_add__newEntity_newEntitycallback_callback(Parameter<SavedGame>.value(`newEntity`), Parameter<(DatabaseError?) -> ()>.value(`callback`))) as? (SavedGame, @escaping (DatabaseError?) -> ()) -> Void
-		perform?(`newEntity`, `callback`)
+    open func add(newEntity: SavedGame, platform: Platform, callback: @escaping (DatabaseError?) -> ()) {
+        addInvocation(.m_add__newEntity_newEntityplatform_platformcallback_callback(Parameter<SavedGame>.value(`newEntity`), Parameter<Platform>.value(`platform`), Parameter<(DatabaseError?) -> ()>.value(`callback`)))
+		let perform = methodPerformValue(.m_add__newEntity_newEntityplatform_platformcallback_callback(Parameter<SavedGame>.value(`newEntity`), Parameter<Platform>.value(`platform`), Parameter<(DatabaseError?) -> ()>.value(`callback`))) as? (SavedGame, Platform, @escaping (DatabaseError?) -> ()) -> Void
+		perform?(`newEntity`, `platform`, `callback`)
     }
 
-    open func fetchAll() -> Result<[PlatformCollected], DatabaseError> {
-        addInvocation(.m_fetchAll)
-		let perform = methodPerformValue(.m_fetchAll) as? () -> Void
+    open func getPlatform(platformId: Int) -> Result<PlatformCollected?, DatabaseError> {
+        addInvocation(.m_getPlatform__platformId_platformId(Parameter<Int>.value(`platformId`)))
+		let perform = methodPerformValue(.m_getPlatform__platformId_platformId(Parameter<Int>.value(`platformId`))) as? (Int) -> Void
+		perform?(`platformId`)
+		var __value: Result<PlatformCollected?, DatabaseError>
+		do {
+		    __value = try methodReturnValue(.m_getPlatform__platformId_platformId(Parameter<Int>.value(`platformId`))).casted()
+		} catch {
+			onFatalFailure("Stub return value not specified for getPlatform(platformId: Int). Use given")
+			Failure("Stub return value not specified for getPlatform(platformId: Int). Use given")
+		}
+		return __value
+    }
+
+    open func fetchAllPlatforms() -> Result<[PlatformCollected], DatabaseError> {
+        addInvocation(.m_fetchAllPlatforms)
+		let perform = methodPerformValue(.m_fetchAllPlatforms) as? () -> Void
 		perform?()
 		var __value: Result<[PlatformCollected], DatabaseError>
 		do {
-		    __value = try methodReturnValue(.m_fetchAll).casted()
+		    __value = try methodReturnValue(.m_fetchAllPlatforms).casted()
 		} catch {
-			onFatalFailure("Stub return value not specified for fetchAll(). Use given")
-			Failure("Stub return value not specified for fetchAll(). Use given")
+			onFatalFailure("Stub return value not specified for fetchAllPlatforms(). Use given")
+			Failure("Stub return value not specified for fetchAllPlatforms(). Use given")
 		}
 		return __value
     }
@@ -1113,20 +1127,27 @@ open class DatabaseMock: Database, Mock {
 
 
     fileprivate enum MethodType {
-        case m_add__newEntity_newEntitycallback_callback(Parameter<SavedGame>, Parameter<(DatabaseError?) -> ()>)
-        case m_fetchAll
+        case m_add__newEntity_newEntityplatform_platformcallback_callback(Parameter<SavedGame>, Parameter<Platform>, Parameter<(DatabaseError?) -> ()>)
+        case m_getPlatform__platformId_platformId(Parameter<Int>)
+        case m_fetchAllPlatforms
         case m_replace__savedGame_savedGamecallback_callback(Parameter<SavedGame>, Parameter<(DatabaseError?) -> ()>)
         case m_remove__savedGame_savedGamecallback_callback(Parameter<SavedGame>, Parameter<(DatabaseError?) -> ()>)
 
         static func compareParameters(lhs: MethodType, rhs: MethodType, matcher: Matcher) -> Matcher.ComparisonResult {
             switch (lhs, rhs) {
-            case (.m_add__newEntity_newEntitycallback_callback(let lhsNewentity, let lhsCallback), .m_add__newEntity_newEntitycallback_callback(let rhsNewentity, let rhsCallback)):
+            case (.m_add__newEntity_newEntityplatform_platformcallback_callback(let lhsNewentity, let lhsPlatform, let lhsCallback), .m_add__newEntity_newEntityplatform_platformcallback_callback(let rhsNewentity, let rhsPlatform, let rhsCallback)):
 				var results: [Matcher.ParameterComparisonResult] = []
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsNewentity, rhs: rhsNewentity, with: matcher), lhsNewentity, rhsNewentity, "newEntity"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsPlatform, rhs: rhsPlatform, with: matcher), lhsPlatform, rhsPlatform, "platform"))
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsCallback, rhs: rhsCallback, with: matcher), lhsCallback, rhsCallback, "callback"))
 				return Matcher.ComparisonResult(results)
 
-            case (.m_fetchAll, .m_fetchAll): return .match
+            case (.m_getPlatform__platformId_platformId(let lhsPlatformid), .m_getPlatform__platformId_platformId(let rhsPlatformid)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsPlatformid, rhs: rhsPlatformid, with: matcher), lhsPlatformid, rhsPlatformid, "platformId"))
+				return Matcher.ComparisonResult(results)
+
+            case (.m_fetchAllPlatforms, .m_fetchAllPlatforms): return .match
 
             case (.m_replace__savedGame_savedGamecallback_callback(let lhsSavedgame, let lhsCallback), .m_replace__savedGame_savedGamecallback_callback(let rhsSavedgame, let rhsCallback)):
 				var results: [Matcher.ParameterComparisonResult] = []
@@ -1145,16 +1166,18 @@ open class DatabaseMock: Database, Mock {
 
         func intValue() -> Int {
             switch self {
-            case let .m_add__newEntity_newEntitycallback_callback(p0, p1): return p0.intValue + p1.intValue
-            case .m_fetchAll: return 0
+            case let .m_add__newEntity_newEntityplatform_platformcallback_callback(p0, p1, p2): return p0.intValue + p1.intValue + p2.intValue
+            case let .m_getPlatform__platformId_platformId(p0): return p0.intValue
+            case .m_fetchAllPlatforms: return 0
             case let .m_replace__savedGame_savedGamecallback_callback(p0, p1): return p0.intValue + p1.intValue
             case let .m_remove__savedGame_savedGamecallback_callback(p0, p1): return p0.intValue + p1.intValue
             }
         }
         func assertionName() -> String {
             switch self {
-            case .m_add__newEntity_newEntitycallback_callback: return ".add(newEntity:callback:)"
-            case .m_fetchAll: return ".fetchAll()"
+            case .m_add__newEntity_newEntityplatform_platformcallback_callback: return ".add(newEntity:platform:callback:)"
+            case .m_getPlatform__platformId_platformId: return ".getPlatform(platformId:)"
+            case .m_fetchAllPlatforms: return ".fetchAllPlatforms()"
             case .m_replace__savedGame_savedGamecallback_callback: return ".replace(savedGame:callback:)"
             case .m_remove__savedGame_savedGamecallback_callback: return ".remove(savedGame:callback:)"
             }
@@ -1170,12 +1193,22 @@ open class DatabaseMock: Database, Mock {
         }
 
 
-        public static func fetchAll(willReturn: Result<[PlatformCollected], DatabaseError>...) -> MethodStub {
-            return Given(method: .m_fetchAll, products: willReturn.map({ StubProduct.return($0 as Any) }))
+        public static func getPlatform(platformId: Parameter<Int>, willReturn: Result<PlatformCollected?, DatabaseError>...) -> MethodStub {
+            return Given(method: .m_getPlatform__platformId_platformId(`platformId`), products: willReturn.map({ StubProduct.return($0 as Any) }))
         }
-        public static func fetchAll(willProduce: (Stubber<Result<[PlatformCollected], DatabaseError>>) -> Void) -> MethodStub {
+        public static func fetchAllPlatforms(willReturn: Result<[PlatformCollected], DatabaseError>...) -> MethodStub {
+            return Given(method: .m_fetchAllPlatforms, products: willReturn.map({ StubProduct.return($0 as Any) }))
+        }
+        public static func getPlatform(platformId: Parameter<Int>, willProduce: (Stubber<Result<PlatformCollected?, DatabaseError>>) -> Void) -> MethodStub {
+            let willReturn: [Result<PlatformCollected?, DatabaseError>] = []
+			let given: Given = { return Given(method: .m_getPlatform__platformId_platformId(`platformId`), products: willReturn.map({ StubProduct.return($0 as Any) })) }()
+			let stubber = given.stub(for: (Result<PlatformCollected?, DatabaseError>).self)
+			willProduce(stubber)
+			return given
+        }
+        public static func fetchAllPlatforms(willProduce: (Stubber<Result<[PlatformCollected], DatabaseError>>) -> Void) -> MethodStub {
             let willReturn: [Result<[PlatformCollected], DatabaseError>] = []
-			let given: Given = { return Given(method: .m_fetchAll, products: willReturn.map({ StubProduct.return($0 as Any) })) }()
+			let given: Given = { return Given(method: .m_fetchAllPlatforms, products: willReturn.map({ StubProduct.return($0 as Any) })) }()
 			let stubber = given.stub(for: (Result<[PlatformCollected], DatabaseError>).self)
 			willProduce(stubber)
 			return given
@@ -1185,8 +1218,9 @@ open class DatabaseMock: Database, Mock {
     public struct Verify {
         fileprivate var method: MethodType
 
-        public static func add(newEntity: Parameter<SavedGame>, callback: Parameter<(DatabaseError?) -> ()>) -> Verify { return Verify(method: .m_add__newEntity_newEntitycallback_callback(`newEntity`, `callback`))}
-        public static func fetchAll() -> Verify { return Verify(method: .m_fetchAll)}
+        public static func add(newEntity: Parameter<SavedGame>, platform: Parameter<Platform>, callback: Parameter<(DatabaseError?) -> ()>) -> Verify { return Verify(method: .m_add__newEntity_newEntityplatform_platformcallback_callback(`newEntity`, `platform`, `callback`))}
+        public static func getPlatform(platformId: Parameter<Int>) -> Verify { return Verify(method: .m_getPlatform__platformId_platformId(`platformId`))}
+        public static func fetchAllPlatforms() -> Verify { return Verify(method: .m_fetchAllPlatforms)}
         public static func replace(savedGame: Parameter<SavedGame>, callback: Parameter<(DatabaseError?) -> ()>) -> Verify { return Verify(method: .m_replace__savedGame_savedGamecallback_callback(`savedGame`, `callback`))}
         public static func remove(savedGame: Parameter<SavedGame>, callback: Parameter<(DatabaseError?) -> ()>) -> Verify { return Verify(method: .m_remove__savedGame_savedGamecallback_callback(`savedGame`, `callback`))}
     }
@@ -1195,11 +1229,14 @@ open class DatabaseMock: Database, Mock {
         fileprivate var method: MethodType
         var performs: Any
 
-        public static func add(newEntity: Parameter<SavedGame>, callback: Parameter<(DatabaseError?) -> ()>, perform: @escaping (SavedGame, @escaping (DatabaseError?) -> ()) -> Void) -> Perform {
-            return Perform(method: .m_add__newEntity_newEntitycallback_callback(`newEntity`, `callback`), performs: perform)
+        public static func add(newEntity: Parameter<SavedGame>, platform: Parameter<Platform>, callback: Parameter<(DatabaseError?) -> ()>, perform: @escaping (SavedGame, Platform, @escaping (DatabaseError?) -> ()) -> Void) -> Perform {
+            return Perform(method: .m_add__newEntity_newEntityplatform_platformcallback_callback(`newEntity`, `platform`, `callback`), performs: perform)
         }
-        public static func fetchAll(perform: @escaping () -> Void) -> Perform {
-            return Perform(method: .m_fetchAll, performs: perform)
+        public static func getPlatform(platformId: Parameter<Int>, perform: @escaping (Int) -> Void) -> Perform {
+            return Perform(method: .m_getPlatform__platformId_platformId(`platformId`), performs: perform)
+        }
+        public static func fetchAllPlatforms(perform: @escaping () -> Void) -> Perform {
+            return Perform(method: .m_fetchAllPlatforms, performs: perform)
         }
         public static func replace(savedGame: Parameter<SavedGame>, callback: Parameter<(DatabaseError?) -> ()>, perform: @escaping (SavedGame, @escaping (DatabaseError?) -> ()) -> Void) -> Perform {
             return Perform(method: .m_replace__savedGame_savedGamecallback_callback(`savedGame`, `callback`), performs: perform)
