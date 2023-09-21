@@ -38,7 +38,7 @@ enum MyCollectionError: EmptyError {
     var imageName: String {
         switch self {
         case .emptyCollection:
-            return Asset.noItems.name
+            return Asset.ghost8.name
         case .fetchError:
             return Asset.exclamationMark.name
         case .noItems:
@@ -46,14 +46,14 @@ enum MyCollectionError: EmptyError {
         }
     }
     
-    var buttonTitle: String? {
+    var buttonTitle: String {
         switch self {
         case .emptyCollection:
             return L10n.addAGame
         case .fetchError:
             return L10n.refresh
         case .noItems:
-            return nil
+            return L10n.refresh
         }
     }
     

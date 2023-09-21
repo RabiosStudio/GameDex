@@ -27,23 +27,6 @@ protocol EmptyReason {
 }
 
 extension EmptyReason {
-    
-    var attributedTitle: NSAttributedString? {
-        return nil
-    }
-    
-    var descriptionText: String? {
-        return nil
-    }
-    
-    var attributedDescription: NSAttributedString? {
-        return nil
-    }
-    
-    var attributedButtonTitle: NSAttributedString? {
-        return nil
-    }
-    
     var imageTintColor: UIColor? {
         return nil
     }
@@ -51,7 +34,7 @@ extension EmptyReason {
     var buttonBackgroundImage: UIImage? {
         return nil
     }
-    
+
     var backgroundColor: UIColor {
         return .primaryBackgroundColor
     }
@@ -63,11 +46,11 @@ extension EmptyReason {
     var verticalOffset: CGFloat {
         return 0
     }
-    
+
     var contentOffset: CGFloat {
         return 0
     }
-    
+
     var verticalSpace: CGFloat {
         return 40
     }

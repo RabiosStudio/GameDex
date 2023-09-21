@@ -9,6 +9,7 @@ import Foundation
 
 protocol EmptyError: LocalizedError {
     var errorTitle: String { get }
+    var errorDescription: String { get }
     var imageName: String { get }
     var buttonTitle: String { get }
     var errorAction: ErrorAction { get }
@@ -17,18 +18,4 @@ protocol EmptyError: LocalizedError {
 enum ErrorAction {
     case refresh
     case navigate(style: NavigationStyle)
-}
-
-extension EmptyError {
-    var errorTitle: String {
-        return ""
-    }
-    
-    var imageName: String {
-        return ""
-    }
-    
-    var buttonTitle: String {
-        return ""
-    }
 }

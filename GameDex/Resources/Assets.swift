@@ -29,6 +29,8 @@ internal enum Asset {
   internal static let barcode = ImageAsset(name: "barcode")
   internal static let exclamationMark = ImageAsset(name: "exclamation-mark")
   internal static let form = ImageAsset(name: "form")
+  internal static let ghost7 = ImageAsset(name: "ghost-7")
+  internal static let ghost8 = ImageAsset(name: "ghost-8")
   internal static let jumelles = ImageAsset(name: "jumelles")
   internal static let noItems = ImageAsset(name: "noItems")
 }

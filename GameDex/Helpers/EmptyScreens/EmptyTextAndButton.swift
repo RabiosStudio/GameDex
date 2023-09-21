@@ -8,6 +8,7 @@
 import UIKit
 
 struct EmptyTextAndButton: EmptyReason {
+    var customView: UIView?
     
     // Vertical Offset
     var verticalOffset: CGFloat {
@@ -29,14 +30,15 @@ struct EmptyTextAndButton: EmptyReason {
     }
     
     // Description
-    var customDescription: String
+    var descriptionText: String?
     
     var attributedDescription: NSAttributedString? {
+        guard let description = self.descriptionText else { return nil }
         let attributes = [
             NSAttributedString.Key.foregroundColor: UIColor.secondaryColor,
-            NSAttributedString.Key.font: Typography.body.font
+            NSAttributedString.Key.font: Typography.title3.font
         ]
-        return NSAttributedString(string: self.customDescription,
+        return NSAttributedString(string: description,
                                   attributes: attributes)
     }
     
@@ -60,13 +62,13 @@ struct EmptyTextAndButton: EmptyReason {
     
     init(tabBarOffset: CGFloat,
          customTitle: String,
-         customDescription: String,
+         descriptionText: String,
          image: UIImage,
          buttonTitle: String,
          completionBlock: (() -> Void)? ) {
         self.tabBarOffset = tabBarOffset
         self.customTitle = customTitle
-        self.customDescription = customDescription
+        self.descriptionText = descriptionText
         self.image = image
         self.buttonTitle = buttonTitle
         self.completionBlock = completionBlock

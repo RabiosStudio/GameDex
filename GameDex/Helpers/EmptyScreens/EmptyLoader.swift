@@ -9,6 +9,16 @@ import UIKit
 import NVActivityIndicatorView
 
 struct EmptyLoader: EmptyReason {
+    var buttonBackgroundImage: UIImage?
+    
+    var attributedTitle: NSAttributedString?
+    
+    var descriptionText: String?
+    
+    var attributedDescription: NSAttributedString?
+    
+    var attributedButtonTitle: NSAttributedString?
+    
     var image: UIImage?
     
     var completionBlock: (() -> Void)?

@@ -137,6 +137,7 @@ class ContainerViewController: UIViewController {
                     strongSelf.refresh()
                 }
             }
+            
         }
     }
     
@@ -153,7 +154,7 @@ class ContainerViewController: UIViewController {
             let emptyReason = EmptyTextAndButton(
                 tabBarOffset: tabBarOffset,
                 customTitle: error.errorTitle,
-                customDescription: error.errorDescription ?? "",
+                descriptionText: error.errorDescription,
                 image: image,
                 buttonTitle: error.buttonTitle
             ) {

@@ -8,7 +8,6 @@
 import Foundation
 
 enum AddGameError: EmptyError {
-    
     case noItems
     case server
     case noSearch(platformName: String)
@@ -24,14 +23,14 @@ enum AddGameError: EmptyError {
         }
     }
     
-    var errorDescription: String? {
+    var errorDescription: String {
         switch self {
         case .noItems:
             return L10n.emptyItemsDescription
         case .server:
             return L10n.apiErrorDescription
         case .noSearch:
-            return nil
+            return ""
         }
     }
     
@@ -47,14 +46,14 @@ enum AddGameError: EmptyError {
         
     }
     
-    var buttonTitle: String? {
+    var buttonTitle: String {
         switch self {
         case .noItems:
-            return nil
+            return ""
         case .server:
             return L10n.retry
         case .noSearch:
-            return nil
+            return ""
         }
     }
     
