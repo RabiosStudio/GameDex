@@ -16,10 +16,10 @@ public class PlatformCollected: NSManagedObject {
 
     @NSManaged public var id: Int16
     @NSManaged public var title: String
-    @NSManaged public var game: NSSet?
+    @NSManaged public var games: NSSet?
 
     public var gamesArray: [GameCollected] {
-        let set = game as? Set<GameCollected> ?? []
+        let set = games as? Set<GameCollected> ?? []
         
         return set.sorted {
             $0.title < $1.title
@@ -30,16 +30,16 @@ public class PlatformCollected: NSManagedObject {
 // MARK: Generated accessors for games
 extension PlatformCollected {
 
-    @objc(addGameObject:)
-    @NSManaged public func addToGame(_ value: GameCollected)
+    @objc(addGamesObject:)
+    @NSManaged public func addToGames(_ value: GameCollected)
 
-    @objc(removeGameObject:)
-    @NSManaged public func removeFromGame(_ value: GameCollected)
+    @objc(removeGamesObject:)
+    @NSManaged public func removeFromGames(_ value: GameCollected)
 
-    @objc(addGame:)
-    @NSManaged public func addToGame(_ values: NSSet)
+    @objc(addGames:)
+    @NSManaged public func addToGames(_ values: NSSet)
 
-    @objc(removeGame:)
-    @NSManaged public func removeFromGame(_ values: NSSet)
+    @objc(removeGames:)
+    @NSManaged public func removeFromGames(_ values: NSSet)
 
 }

@@ -8,8 +8,6 @@
 import Foundation
 import CoreData
 
-// tuto: https://www.kodeco.com/11349416-unit-testing-core-data-in-ios
-
 class CoreDataStack {
     static let persistentContainerName = "GameDex"
     
@@ -41,24 +39,9 @@ class CoreDataStack {
             }
         })
     }
-    
-    func newDerivedContext() -> NSManagedObjectContext {
-        let context = persistentContainer.newBackgroundContext()
-        return context
-    }
-    
+
     func saveContext(_ context: NSManagedObjectContext, callback: @escaping (Error?) -> ()) {
-        if context != viewContext {
-            saveDerivedContext(context, callback: { error in
-                if let error {
-                    callback(error)
-                } else {
-                    callback(nil)
-                }
-            })
-            return
-        }
-        
+        context.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
         context.perform {
             do {
                 try context.save()
@@ -66,24 +49,6 @@ class CoreDataStack {
             } catch let error as NSError {
                 callback(error)
             }
-        }
-    }
-    
-    func saveDerivedContext(_ context: NSManagedObjectContext, callback: @escaping (Error?) -> ()) {
-        context.perform {
-            do {
-                try context.save()
-                callback(nil)
-            } catch let error as NSError {
-                callback(error)
-            }
-            self.saveContext(self.viewContext, callback: { error in
-                if let error {
-                    callback(error)
-                } else {
-                    callback(nil)
-                }
-            })
         }
     }
 }

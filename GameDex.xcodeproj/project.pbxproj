@@ -754,9 +754,9 @@
 		25EDF7A02AB222E900648717 /* CoreData */ = {
 			isa = PBXGroup;
 			children = (
+				25EDF7A12AB223C700648717 /* GameDex.xcdatamodeld */,
 				2548E5DD2ABAE688004151EF /* PlatformCollected.swift */,
 				2548E5DF2ABAE688004151EF /* GameCollected.swift */,
-				25EDF7A12AB223C700648717 /* GameDex.xcdatamodeld */,
 				25DA8CB92AADE88600B40F84 /* LocalDatabase.swift */,
 				25939FF62AAF3C09000FC253 /* DatabaseError.swift */,
 				25EDF7A42AB2242400648717 /* CoreDataStack.swift */,
