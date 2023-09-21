@@ -40,9 +40,7 @@ final class MyCollectionViewModel: CollectionViewModel {
                 callback(error)
                 return
             }
-            let collection = DataConverter.convert(platformCollected: result)
-            self.collection = Array(collection.joined())
-            
+            self.collections = CoreDataConverter.convert(platformsCollected: result)
             self.sections = [
                 MyCollectionSection(
                     gamesCollection: self.collection,

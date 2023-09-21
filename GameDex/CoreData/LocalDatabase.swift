@@ -28,12 +28,12 @@ extension LocalDatabase {
         switch localPlatformResult {
         case let .success(platformResult):
             guard let platformResult else {
-                let newLocalPlatform = DataConverter.convert(
+                let newLocalPlatform = CoreDataConverter.convert(
                     platform: platform,
                     context: managedObjectContext
                 )
                 newLocalPlatform.addToGames(
-                    DataConverter.convert(
+                    CoreDataConverter.convert(
                         gameDetails: newEntity,
                         context: managedObjectContext
                     )
@@ -55,7 +55,7 @@ extension LocalDatabase {
                 return
             } else {
                 platformResult.addToGames(
-                    DataConverter.convert(
+                    CoreDataConverter.convert(
                         gameDetails: newEntity,
                         context: managedObjectContext
                     )
