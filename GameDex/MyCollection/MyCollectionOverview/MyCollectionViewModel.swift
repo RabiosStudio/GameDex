@@ -35,7 +35,6 @@ final class MyCollectionViewModel: CollectionViewModel {
         let fetchPlatformsResult = self.localDatabase.fetchAllPlatforms()
         switch fetchPlatformsResult {
         case .success(let result):
-            // TODO: Fix empty state
             guard !result.isEmpty else {
                 self.platforms = []
                 self.sections = []

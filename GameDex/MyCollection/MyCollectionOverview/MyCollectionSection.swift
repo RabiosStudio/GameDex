@@ -14,7 +14,7 @@ final class MyCollectionSection: Section {
     ) {
         super.init()
         self.position = 0
-        var platforms = platforms.sorted {
+        let platforms = platforms.sorted {
             $0.title > $1.title
         }
         
