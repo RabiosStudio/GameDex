@@ -19,48 +19,90 @@ class LocalDatabase: Database {
 }
 
 extension LocalDatabase {
-    
-    func add(newEntity: SavedGame, callback: @escaping (DatabaseError?) -> ()) {
-        // Check if the item is already in database
-        let request: NSFetchRequest<PlatformCollected> = PlatformCollected.fetchRequest()
-        
-        do {
-            let platforms = try coreDataStack.viewContext.fetch(request)
-            for platform in platforms {
-                if platform.gamesArray.contains(
-                    where: { aGame in
-                        aGame.title == newEntity.game.title
+    func add(
+        newEntity: SavedGame,
+        platform: Platform,
+        callback: @escaping (DatabaseError?) -> ()
+    ) {
+        let localPlatformResult = getPlatform(platformId: Int16(platform.id))
+        switch localPlatformResult {
+        case let .success(platformResult):
+            guard let platformResult else {
+                let newLocalPlatform = DataConverter.convert(
+                    platform: platform,
+                    context: managedObjectContext
+                )
+                newLocalPlatform.addToGames(
+                    DataConverter.convert(
+                        gameDetails: newEntity,
+                        context: managedObjectContext
+                    )
+                )
+                coreDataStack.saveContext(managedObjectContext) { error in
+                    if error != nil {
+                        callback(DatabaseError.saveError)
                     }
-                ) {
-                    callback(DatabaseError.itemAlreadySaved)
-                    return
+                    callback(nil)
+                }
+                return
+            }
+            if platformResult.gamesArray.contains(
+                where: { aGame in
+                    aGame.title == newEntity.game.title
+                }
+            ) {
+                callback(DatabaseError.itemAlreadySaved)
+                return
+            } else {
+                platformResult.addToGames(
+                    DataConverter.convert(
+                        gameDetails: newEntity,
+                        context: managedObjectContext
+                    )
+                )
+                // Save the context
+                coreDataStack.saveContext(managedObjectContext) { error in
+                    if error != nil {
+                        callback(DatabaseError.saveError)
+                    }
+                    callback(nil)
                 }
             }
-        } catch {
-            callback(DatabaseError.fetchError)
-        }
-        
-        // Save the object in the following context
-        _ = DataConverter.convert(gameDetails: newEntity, context: managedObjectContext)
-        // Save the context
-        coreDataStack.saveContext(managedObjectContext) { error in
-            if error != nil {
-                callback(DatabaseError.saveError)
-            }
-            callback(nil)
+        case .failure(_):
+            callback(.fetchError)
         }
     }
     
-    func fetchAll() -> Result<[PlatformCollected], DatabaseError> {
-        let request: NSFetchRequest<PlatformCollected> = PlatformCollected.fetchRequest()
-        var fetchedPlatforms = [PlatformCollected]()
+    func getPlatform(platformId: Int16) -> Result<PlatformCollected?, DatabaseError> {
+        let fetchRequest: NSFetchRequest<PlatformCollected>
+        fetchRequest = PlatformCollected.fetchRequest()
+        fetchRequest.predicate = NSPredicate(
+            format: "id == %d", platformId
+        )
         
+        do {
+            let results = try managedObjectContext.fetch(fetchRequest)
+            guard let platformWithId = results.first else {
+                return .success(nil)
+            }
+            return .success(platformWithId)
+        } catch {
+            return .failure(DatabaseError.fetchError)
+        }
+    }
+    
+    func fetchAllPlatforms() -> Result<[PlatformCollected], DatabaseError> {
+        let request: NSFetchRequest<PlatformCollected> = PlatformCollected.fetchRequest()
         do {
             let results = try managedObjectContext.fetch(request)
             return .success(results)
         } catch {
             return .failure(DatabaseError.fetchError)
         }
+    }
+    
+    func fetchGames(from platform: PlatformCollected) -> Result<[GameCollected], DatabaseError> {
+        return .success(platform.gamesArray)
     }
     
     func replace(savedGame: SavedGame, callback: @escaping (DatabaseError?) -> ()) {
