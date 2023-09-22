@@ -8,10 +8,11 @@
 import Foundation
 
 protocol EmptyError: LocalizedError {
-    var errorTitle: String { get }
-    var imageName: String { get }
-    var buttonTitle: String { get }
-    var errorAction: ErrorAction { get }
+    var errorTitle: String? { get }
+    var errorDescription: String? { get }
+    var imageName: String? { get }
+    var buttonTitle: String? { get }
+    var errorAction: ErrorAction? { get }
 }
 
 enum ErrorAction {
@@ -20,15 +21,23 @@ enum ErrorAction {
 }
 
 extension EmptyError {
-    var errorTitle: String {
-        return ""
+    var errorTitle: String? {
+        return nil
     }
     
-    var imageName: String {
-        return ""
+    var errorDescription: String? {
+        return nil
+    }
+
+    var imageName: String? {
+        return nil
+    }
+
+    var buttonTitle: String? {
+        return nil
     }
     
-    var buttonTitle: String {
-        return ""
+    var errorAction: ErrorAction? {
+        return nil
     }
 }

@@ -9,7 +9,6 @@ import UIKit
 import NVActivityIndicatorView
 
 struct EmptyLoader: EmptyReason {
-    var image: UIImage?
     
     var completionBlock: (() -> Void)?
     

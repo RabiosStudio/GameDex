@@ -137,6 +137,7 @@ class ContainerViewController: UIViewController {
                     strongSelf.refresh()
                 }
             }
+            
         }
     }
     
@@ -147,13 +148,14 @@ class ContainerViewController: UIViewController {
     
     private func updateEmptyState(error: EmptyError?, tabBarOffset: CGFloat) {
         if let error = error {
-            guard let image = UIImage(named: error.imageName) else {
+            guard let imageName = error.imageName,
+                  let image = UIImage(named: imageName) else {
                 return
             }
             let emptyReason = EmptyTextAndButton(
                 tabBarOffset: tabBarOffset,
                 customTitle: error.errorTitle,
-                customDescription: error.errorDescription ?? "",
+                descriptionText: error.errorDescription,
                 image: image,
                 buttonTitle: error.buttonTitle
             ) {
@@ -162,6 +164,8 @@ class ContainerViewController: UIViewController {
                     _ = Routing.shared.route(navigationStyle: style)
                 case .refresh:
                     self.refresh()
+                case .none:
+                    break
                 }
             }
             self.configureNavProgress()

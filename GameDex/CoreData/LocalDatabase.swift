@@ -19,39 +19,81 @@ class LocalDatabase: Database {
 }
 
 extension LocalDatabase {
-    
-    func add(newEntity: SavedGame, callback: @escaping (DatabaseError?) -> ()) {
-        // Check if the item is already in database
-        let request: NSFetchRequest<GameCollected> = GameCollected.fetchRequest()
-        guard let games = try? coreDataStack.viewContext.fetch(request) else {
-            callback(DatabaseError.fetchError)
-            return
-        }
-        if games.contains(
-            where: { aGame in
-                aGame.title == newEntity.game.title &&
-                aGame.platformTitle == newEntity.game.platform.title
-            }
-        ) {
-            callback(DatabaseError.itemAlreadySaved)
-            return
-        } else {
-            
-            // Save the object in the following context
-            _ = DataConverter.convert(gameDetails: newEntity, context: managedObjectContext)
-            // Save the context
-            coreDataStack.saveContext(managedObjectContext) { error in
-                if error != nil {
-                    callback(DatabaseError.saveError)
+    func add(
+        newEntity: SavedGame,
+        platform: Platform,
+        callback: @escaping (DatabaseError?) -> ()
+    ) {
+        let localPlatformResult = getPlatform(platformId: platform.id)
+        switch localPlatformResult {
+        case let .success(platformResult):
+            guard let platformResult else {
+                let newLocalPlatform = CoreDataConverter.convert(
+                    platform: platform,
+                    context: managedObjectContext
+                )
+                newLocalPlatform.addToGames(
+                    CoreDataConverter.convert(
+                        gameDetails: newEntity,
+                        context: managedObjectContext
+                    )
+                )
+                coreDataStack.saveContext(managedObjectContext) { error in
+                    if error != nil {
+                        callback(DatabaseError.saveError)
+                    }
+                    callback(nil)
                 }
-                callback(nil)
+                return
             }
+            if platformResult.gamesArray.contains(
+                where: { aGame in
+                    aGame.title == newEntity.game.title
+                }
+            ) {
+                callback(DatabaseError.itemAlreadySaved)
+                return
+            } else {
+                platformResult.addToGames(
+                    CoreDataConverter.convert(
+                        gameDetails: newEntity,
+                        context: managedObjectContext
+                    )
+                )
+                // Save the context
+                coreDataStack.saveContext(managedObjectContext) { error in
+                    if error != nil {
+                        callback(DatabaseError.saveError)
+                    }
+                    callback(nil)
+                }
+            }
+        case .failure(_):
+            callback(.fetchError)
         }
     }
     
-    func fetchAll() -> Result<[GameCollected], DatabaseError> {
-        let request: NSFetchRequest<GameCollected> = GameCollected.fetchRequest()
+    func getPlatform(platformId: Int) -> Result<PlatformCollected?, DatabaseError> {
+        let convertedPlatformID = Int16(platformId)
+        let fetchRequest: NSFetchRequest<PlatformCollected>
+        fetchRequest = PlatformCollected.fetchRequest()
+        fetchRequest.predicate = NSPredicate(
+            format: "id == %d", convertedPlatformID
+        )
         
+        do {
+            let results = try managedObjectContext.fetch(fetchRequest)
+            guard let platformWithId = results.first else {
+                return .success(nil)
+            }
+            return .success(platformWithId)
+        } catch {
+            return .failure(DatabaseError.fetchError)
+        }
+    }
+    
+    func fetchAllPlatforms() -> Result<[PlatformCollected], DatabaseError> {
+        let request: NSFetchRequest<PlatformCollected> = PlatformCollected.fetchRequest()
         do {
             let results = try managedObjectContext.fetch(request)
             return .success(results)
@@ -59,58 +101,97 @@ extension LocalDatabase {
             return .failure(DatabaseError.fetchError)
         }
     }
+
+    func getGame(gameId: String) -> Result<GameCollected?, DatabaseError> {
+        let fetchRequest: NSFetchRequest<GameCollected>
+        fetchRequest = GameCollected.fetchRequest()
+        fetchRequest.predicate = NSPredicate(
+            format: "gameID == %@", gameId
+        )
+        
+        do {
+            let results = try managedObjectContext.fetch(fetchRequest)
+            guard let gameWithId = results.first else {
+                return .success(nil)
+            }
+            return .success(gameWithId)
+        } catch {
+            return .failure(DatabaseError.fetchError)
+        }
+    }
     
     func replace(savedGame: SavedGame, callback: @escaping (DatabaseError?) -> ()) {
         // Remove the object in the following context
-        let request: NSFetchRequest<GameCollected> = GameCollected.fetchRequest()
+        let gameResult = getGame(gameId: savedGame.game.id)
         
-        // We first fetch the data stored, then we compare our recipe to it, so that we remove only this specific object
-        if let games = try? coreDataStack.viewContext.fetch(request) {
-            guard let index = games.firstIndex(where: { aGame in
-                aGame.title == savedGame.game.title &&
-                aGame.summary == savedGame.game.description
-            }) else {
-                callback(DatabaseError.fetchError)
+        switch gameResult {
+        case .success(let gameToReplace):
+            guard let gameToReplace else {
+                callback(DatabaseError.removeError)
                 return
             }
-            let gameToReplace = games[index]
-            coreDataStack.viewContext.delete(gameToReplace)
+            // Delete object
+            managedObjectContext.delete(gameToReplace)
             
-            self.add(newEntity: savedGame) { error in
+            let platform = CoreDataConverter.convert(platformCollected: gameToReplace.platform)
+            
+            // Add updated object
+            self.add(newEntity: savedGame, platform: platform) { error in
                 if error != nil {
                     callback(DatabaseError.fetchError)
                 } else {
                     callback(nil)
                 }
             }
+        case .failure(_):
+            callback(DatabaseError.replaceError)
+            return
         }
     }
     
     func remove(savedGame: SavedGame, callback: @escaping (DatabaseError?) -> ()) {
         // Remove the object in the following context
-        let request: NSFetchRequest<GameCollected> = GameCollected.fetchRequest()
+        let gameResult = getGame(gameId: savedGame.game.id)
         
-        // We first fetch the data stored, then we compare our recipe to it, so that we remove only this specific object
-        if let games = try? coreDataStack.viewContext.fetch(request) {
-            guard let index = games.firstIndex(where: { aGame in
-                aGame.title == savedGame.game.title &&
-                aGame.summary == savedGame.game.description
-            }) else {
+        switch gameResult {
+        case .success(let gameToRemove):
+            guard let gameToRemove else {
                 callback(DatabaseError.removeError)
                 return
             }
-            let gameToRemove = games[index]
-            coreDataStack.viewContext.delete(gameToRemove)
-            // Save the context
-            coreDataStack.saveContext(managedObjectContext) { error in
-                if error != nil {
-                    callback(DatabaseError.removeError)
-                } else {
-                    callback(nil)
+            // We also need to make sure that there are still other games in associated to the platform, otherwise we also need to delete the platform from database.
+            let fetchedPlatform = self.getPlatform(platformId: Int(gameToRemove.platform.id))
+            
+            switch fetchedPlatform {
+            case .success(let platformResult):
+                guard let platformResult else {
+                    callback(.removeError)
+                    return
                 }
+                // Delete game and save context
+                platformResult.removeFromGames(gameToRemove)
+                managedObjectContext.delete(gameToRemove)
+                do {
+                    try managedObjectContext.save()
+                    
+                    // if there are no more games associated to the platform, we delete it and we save the context.
+                    if platformResult.gamesArray.isEmpty {
+                        managedObjectContext.delete(platformResult)
+                        try managedObjectContext.save()
+                    }
+                    callback(nil)
+                } catch {
+                    callback(DatabaseError.removeError)
+                    return
+                }
+            case .failure(_):
+                callback(DatabaseError.removeError)
+                return
             }
-            callback(nil)
+            
+        case .failure(_):
+            callback(DatabaseError.removeError)
+            return
         }
-        callback(DatabaseError.removeError)
     }
 }

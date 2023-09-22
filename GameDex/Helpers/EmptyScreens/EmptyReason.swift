@@ -51,7 +51,7 @@ extension EmptyReason {
     var buttonBackgroundImage: UIImage? {
         return nil
     }
-    
+
     var backgroundColor: UIColor {
         return .primaryBackgroundColor
     }
@@ -63,13 +63,21 @@ extension EmptyReason {
     var verticalOffset: CGFloat {
         return 0
     }
-    
+
     var contentOffset: CGFloat {
         return 0
     }
-    
+
     var verticalSpace: CGFloat {
         return 40
+    }
+    
+    var image: UIImage? {
+        return nil
+    }
+    
+    var completionBlock: (() -> Void)? {
+        return nil
     }
     
 }

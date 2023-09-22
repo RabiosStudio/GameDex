@@ -58,7 +58,7 @@ final class SelectPlatformViewModel: CollectionViewModel {
         // check result
         switch result {
         case .success(let data):
-            let platforms = DataConverter.convert(remotePlatforms: data.results)
+            let platforms = RemoteDataConverter.convert(remotePlatforms: data.results)
             // store result data
             self.platforms += platforms
             // if there is still data on other pages, we do the request again

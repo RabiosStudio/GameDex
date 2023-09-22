@@ -8,7 +8,6 @@
 import Foundation
 
 enum AddGameError: EmptyError {
-    
     case noItems
     case server
     case noSearch(platformName: String)
@@ -58,14 +57,14 @@ enum AddGameError: EmptyError {
         }
     }
     
-    var errorAction: ErrorAction {
+    var errorAction: ErrorAction? {
         switch self {
         case .noItems:
-            return .refresh
+            return nil
         case .server:
             return .refresh
         case .noSearch:
-            return .refresh
+            return nil
         }
     }
 }

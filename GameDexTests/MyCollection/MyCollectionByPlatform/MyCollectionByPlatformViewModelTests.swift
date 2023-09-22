@@ -13,19 +13,15 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
     func test_init_ThenShouldSetPropertiesCorrectly() {
         // Given
         let viewModel = MyCollectionByPlatformsViewModel(
-            gamesCollection: MockData.savedGames,
+            platform: MockData.platform,
             database: DatabaseMock(),
             alertDisplayer: AlertDisplayerMock(),
             gameDetailsDelegate: GameDetailsViewModelDelegateMock()
         )
         
-        // When
-        let numberOfSections = viewModel.numberOfSections()
-        let numberOfItems = viewModel.numberOfItems(in: .zero)
-        
         // Then
-        XCTAssertEqual(numberOfSections, .zero)
-        XCTAssertEqual(numberOfItems, .zero)
+        XCTAssertEqual(viewModel.numberOfSections(), .zero)
+        XCTAssertEqual(viewModel.numberOfItems(in: .zero), .zero)
         XCTAssertEqual(viewModel.searchViewModel?.placeholder, L10n.searchGame)
         XCTAssertEqual(viewModel.searchViewModel?.activateOnTap, true)
         
@@ -33,9 +29,8 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
     
     func test_loadData_GivenDataInCollection_ThenCallbackIsCalledAndSectionsAreSetCorrectly() {
         // Given
-        let gamesCollection = MockData.savedGames
         let viewModel = MyCollectionByPlatformsViewModel(
-            gamesCollection: gamesCollection,
+            platform: MockData.platform,
             database: DatabaseMock(),
             alertDisplayer: AlertDisplayerMock(),
             gameDetailsDelegate: GameDetailsViewModelDelegateMock()
@@ -51,18 +46,19 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
         }
         
         XCTAssertEqual(viewModel.numberOfSections(), 1)
-        XCTAssertEqual(viewModel.numberOfItems(in: .zero), gamesCollection.count)
+        XCTAssertEqual(viewModel.numberOfItems(in: .zero), MockData.games.count)
     }
     
     func test_loadData_GivenEmptyCollection_ThenContainerDelegateIsCalled() {
         // Given
-        let gamesCollection = [SavedGame]()
+        let platform = MockData.platformWithNoGames
         let viewModel = MyCollectionByPlatformsViewModel(
-            gamesCollection: gamesCollection,
+            platform: platform,
             database: DatabaseMock(),
             alertDisplayer: AlertDisplayerMock(),
             gameDetailsDelegate: GameDetailsViewModelDelegateMock()
         )
+        
         let containerDelegate = ContainerViewControllerDelegateMock()
         viewModel.containerDelegate = containerDelegate
         
@@ -77,8 +73,9 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
     
     func test_didTapRightButtonItem_ThenShouldSetNavigationStyleCorrectly() {
         // Given
+        let platform = MockData.platform
         let viewModel = MyCollectionByPlatformsViewModel(
-            gamesCollection: MockData.savedGames,
+            platform: platform,
             database: DatabaseMock(),
             alertDisplayer: AlertDisplayerMock(),
             gameDetailsDelegate: GameDetailsViewModelDelegateMock()
@@ -88,9 +85,6 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
         viewModel.didTapRightButtonItem()
         
         // Then
-        guard let platform = MockData.savedGames.first?.game.platform else {
-            return
-        }
         let expectedNavigationStyle: NavigationStyle = {
             return .present(
                 controller: UINavigationController(
@@ -110,9 +104,9 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
     
     func test_updateSearch_GivenListOfPlatforms_ThenShouldSetupSectionsAndCellsVMAccordingly() {
         // Given
-        let gamesCollection = MockData.savedGames
+        let platform = MockData.platform
         let viewModel = MyCollectionByPlatformsViewModel(
-            gamesCollection: gamesCollection,
+            platform: platform,
             database: DatabaseMock(),
             alertDisplayer: AlertDisplayerMock(),
             gameDetailsDelegate: GameDetailsViewModelDelegateMock()
@@ -125,15 +119,16 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
                 
                 // Then
                 XCTAssertEqual(viewModel.numberOfSections(), 1)
-                XCTAssertEqual(viewModel.sections[0].cellsVM.count, gamesCollection.count)
+                XCTAssertEqual(viewModel.sections[0].cellsVM.count, platform.games?.count)
             }
         }
     }
     
     func test_updateSearch_GivenNoMatchingPlatforms_ThenShouldReturnErrorNoItems() {
         // Given
+        let platform = MockData.platform
         let viewModel = MyCollectionByPlatformsViewModel(
-            gamesCollection: MockData.savedGames,
+            platform: platform,
             database: DatabaseMock(),
             alertDisplayer: AlertDisplayerMock(),
             gameDetailsDelegate: GameDetailsViewModelDelegateMock()
@@ -154,8 +149,9 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
     
     func test_updateSearch_GivenEmptySearchQuery_ThenShouldReturnFullListOfPlatforms() {
         // Given
+        let platform = MockData.platform
         let viewModel = MyCollectionByPlatformsViewModel(
-            gamesCollection: MockData.savedGames,
+            platform: platform,
             database: DatabaseMock(),
             alertDisplayer: AlertDisplayerMock(),
             gameDetailsDelegate: GameDetailsViewModelDelegateMock()
@@ -173,8 +169,9 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
     
     func test_startSearch_ThenShouldCallCallback() {
         // Given
+        let platform = MockData.platform
         let viewModel = MyCollectionByPlatformsViewModel(
-            gamesCollection: MockData.savedGames,
+            platform: platform,
             database: DatabaseMock(),
             alertDisplayer: AlertDisplayerMock(),
             gameDetailsDelegate: GameDetailsViewModelDelegateMock()
@@ -195,13 +192,20 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
         // Given
         let localDatabase = DatabaseMock()
         localDatabase.given(
-            .fetchAll(
-                willReturn: Result<[GameCollected], DatabaseError>.failure(.fetchError)
+            .fetchAllPlatforms(
+                willReturn: Result<[PlatformCollected], DatabaseError>.failure(DatabaseError.fetchError)
+            )
+        )
+        localDatabase.given(
+            .getPlatform(
+                platformId: .any,
+                willReturn: Result<PlatformCollected?, DatabaseError>.failure(DatabaseError.fetchError)
             )
         )
         let alertDisplayer = AlertDisplayerMock()
+        let platform = MockData.platform
         let viewModel = MyCollectionByPlatformsViewModel(
-            gamesCollection: MockData.savedGames,
+            platform: platform,
             database: localDatabase,
             alertDisplayer: alertDisplayer,
             gameDetailsDelegate: GameDetailsViewModelDelegateMock()
@@ -228,16 +232,23 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
     
     func test_reloadCollection_GivenEmptyCollectionFetched_ThenResultsInErrorAlert() {
         // Given
-        let emptyCollection = [GameCollected]()
+        let emptyCollection = [PlatformCollected]()
         let localDatabase = DatabaseMock()
         localDatabase.given(
-            .fetchAll(
-                willReturn: Result<[GameCollected], DatabaseError>.success(emptyCollection)
+            .fetchAllPlatforms(
+                willReturn: Result<[PlatformCollected], DatabaseError>.success(emptyCollection)
             )
         )
+        localDatabase.given(
+            .getPlatform(
+                platformId: .any,
+                willReturn: Result<PlatformCollected?, DatabaseError>.success(nil)
+            )
+        )
+        let platform = MockData.platformWithNoGames
         let alertDisplayer = AlertDisplayerMock()
         let viewModel = MyCollectionByPlatformsViewModel(
-            gamesCollection: [SavedGame](),
+            platform: platform,
             database: localDatabase,
             alertDisplayer: alertDisplayer,
             gameDetailsDelegate: GameDetailsViewModelDelegateMock()
@@ -262,13 +273,19 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
         // Given
         let localDatabase = DatabaseMock()
         localDatabase.given(
-            .fetchAll(
-                willReturn: Result<[GameCollected], DatabaseError>.success(MockData.gamesCollected)
+            .fetchAllPlatforms(
+                willReturn: Result<[PlatformCollected], DatabaseError>.success(MockData.platformsCollected)
+            )
+        )
+        localDatabase.given(
+            .getPlatform(
+                platformId: .any,
+                willReturn: Result<PlatformCollected?, DatabaseError>.success(MockData.platformCollected)
             )
         )
         let alertDisplayer = AlertDisplayerMock()
         let viewModel = MyCollectionByPlatformsViewModel(
-            gamesCollection: MockData.savedGames,
+            platform: MockData.platform,
             database: localDatabase,
             alertDisplayer: alertDisplayer,
             gameDetailsDelegate: GameDetailsViewModelDelegateMock()
@@ -276,7 +293,7 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
         let containerDelegate = ContainerViewControllerDelegateMock()
         viewModel.containerDelegate = containerDelegate
         
-        let convertedData = DataConverter.convert(gamesCollected: MockData.gamesCollected)
+        let platforms = CoreDataConverter.convert(platformCollected: MockData.platformCollected)
         
         viewModel.loadData { _ in
             
@@ -284,10 +301,10 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
             viewModel.reloadCollection()
             
             // Then
-            let expectedItems = convertedData.filter({
-                $0.game.platform.title.localizedCaseInsensitiveContains("Game Boy")
+            let expectedItems = platforms.games?.filter({
+                $0.game.platformId == 4
             })
-            let expectedNumberOfitems = expectedItems.count
+            let expectedNumberOfitems = expectedItems?.count
             
             XCTAssertEqual(viewModel.numberOfSections(), 1)
             XCTAssertEqual(viewModel.sections[0].cellsVM.count, expectedNumberOfitems)

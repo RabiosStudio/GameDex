@@ -186,7 +186,7 @@ final class SelectPlatformViewModelTests: XCTestCase {
             gameDetailsDelegate: GameDetailsViewModelDelegateMock()
         )
         
-        let platforms = DataConverter.convert(
+        let platforms = RemoteDataConverter.convert(
             remotePlatforms: MockData.searchPlaformsData.results
         )
         
@@ -288,7 +288,7 @@ final class SelectPlatformViewModelTests: XCTestCase {
             gameDetailsDelegate: GameDetailsViewModelDelegateMock()
         )
         
-        let platforms = DataConverter.convert(
+        let platforms = RemoteDataConverter.convert(
             remotePlatforms: MockData.searchPlaformsData.results
         )
         

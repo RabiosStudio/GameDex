@@ -7,6 +7,7 @@
 
 import Foundation
 @testable import GameDex
+import CoreData
 
 enum MockData {
     
@@ -24,14 +25,16 @@ enum MockData {
         ])
     
     static let platforms: [Platform] = [
-        Platform(title: "Atari 2600", id: 28),
-        Platform(title: "Dreamcast", id: 8),
-        Platform(title: "Game Boy Color", id: 11),
-        Platform(title: "Jaguar", id: 17),
-        Platform(title: "SNES", id: 15)
+        Platform(title: "Atari 2600", id: 28, games: MockData.savedGames),
+        Platform(title: "Dreamcast", id: 8, games: MockData.savedGames),
+        Platform(title: "Game Boy Color", id: 11, games: MockData.savedGames),
+        Platform(title: "Jaguar", id: 17, games: MockData.savedGames),
+        Platform(title: "SNES", id: 15, games: MockData.savedGames)
     ]
     
-    static let platform = Platform(title: "Game Boy Advance", id: 4)
+    static let platform = Platform(title: "Game Boy Advance", id: 4, games: MockData.savedGames)
+    
+    static let platformWithNoGames = Platform(title: "Game Boy Advance", id: 4, games: nil)
     
     static let searchGamesData = SearchGamesData(
         offset: .zero,
@@ -50,7 +53,7 @@ enum MockData {
                         total: 1
                     )
                 ],
-                name: "The Legend of Zelda: The Minish Cap",
+                name: "Title",
                 originalReleaseDate: Date.now,
                 platforms: [
                     PlatformInfo(
@@ -73,7 +76,7 @@ enum MockData {
                         total: 1
                     )
                 ],
-                name: "The Legend of Zelda: A link to the past",
+                name: "Title",
                 originalReleaseDate: Date.now,
                 platforms: [
                     PlatformInfo(
@@ -87,35 +90,20 @@ enum MockData {
     )
     
     static let game = Game(
-        title: "The Legend of Zelda: The Minish Cap",
+        title: "Title",
         description: "description",
         id: "id",
-        platform: Platform(
-            title: "Game Boy Advance",
-            id: 4
-        ),
+        platformId: 4,
         imageURL: "imageURL",
         releaseDate: Date.now
     )
     
     static let games = [
-        Game(title: "The Legend of Zelda: The Minish Cap",
+        MockData.game,
+        Game(title: "Title",
              description: "description",
              id: "id",
-             platform: Platform(
-                title: "Game Boy Advance",
-                id: 4
-             ),
-             imageURL: "imageURL",
-             releaseDate: Date.now
-            ),
-        Game(title: "The Legend of Zelda: A link to the past",
-             description: "description",
-             id: "id",
-             platform: Platform(
-                title: "Game Boy Advance",
-                id: 4
-             ),
+             platformId: 8,
              imageURL: "imageURL",
              releaseDate: Date.now
             )
@@ -155,16 +143,18 @@ enum MockData {
         )
     ]
     
-    static let gamesCollected = [
-        DataConverter.convert(
-            gameDetails: MockData.savedGames[0],
+    static let platformsCollected: [PlatformCollected] = [
+        CoreDataConverter.convert(
+            platform: MockData.platform,
             context: CoreDataStack().viewContext
         ),
-        DataConverter.convert(
-            gameDetails: MockData.savedGames[1],
+        CoreDataConverter.convert(
+            platform: MockData.platform,
             context: CoreDataStack().viewContext
         )
     ]
     
-    static let searchGameQuery = "Zelda"
+    static let platformCollected = CoreDataConverter.convert(platform: MockData.platform, context: CoreDataStack().viewContext)
+    
+    static let searchGameQuery = "Title"
 }

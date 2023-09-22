@@ -13,19 +13,19 @@ final class MyCollectionSectionTests: XCTestCase {
     func test_init_ThenShouldSetPropertiesCorrectly() {
         // Given
         let section = MyCollectionSection(
-            gamesCollection: MockData.savedGames,
+            platforms: MockData.platforms,
             gameDetailsDelegate: GameDetailsViewModelDelegateMock()
         )
         
         // Then
-        XCTAssertEqual(section.cellsVM.count, 1)
+        XCTAssertEqual(section.cellsVM.count, MockData.platforms.count)
         
         guard let collectionCellVM = section.cellsVM.first as? LabelCellViewModel else {
             XCTFail("Cell View Models are not correct")
             return
         }
         
-        XCTAssertEqual(collectionCellVM.primaryText, "Game Boy Advance")
+        XCTAssertEqual(collectionCellVM.primaryText, "SNES")
         XCTAssertEqual(collectionCellVM.secondaryText, "2 \(L10n.games)")
     }
 }

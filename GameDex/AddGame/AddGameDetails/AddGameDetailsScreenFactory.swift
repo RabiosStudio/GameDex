@@ -11,11 +11,13 @@ import UIKit
 struct AddGameDetailsScreenFactory: ScreenFactory {
     
     private let game: Game
+    private let platform: Platform
     weak var gameDetailsDelegate: GameDetailsViewModelDelegate?
     
     var viewController: UIViewController {
         let viewModel = AddGameDetailsViewModel(
             game: self.game,
+            platform: self.platform,
             localDatabase: LocalDatabase(),
             gameDetailsDelegate: self.gameDetailsDelegate,
             alertDisplayer: AlertDisplayerImpl()
@@ -29,8 +31,9 @@ struct AddGameDetailsScreenFactory: ScreenFactory {
         return containerController
     }
 
-    init(game: Game, gameDetailsDelegate: GameDetailsViewModelDelegate?) {
+    init(game: Game, platform: Platform, gameDetailsDelegate: GameDetailsViewModelDelegate?) {
         self.game = game
+        self.platform = platform
         self.gameDetailsDelegate = gameDetailsDelegate
     }
 }

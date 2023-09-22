@@ -236,7 +236,7 @@ final class SearchGameByTitleViewModelTests: XCTestCase {
             gameDetailsDelegate: GameDetailsViewModelDelegateMock()
         )
         
-        let games = DataConverter.convert(
+        let games = RemoteDataConverter.convert(
             remoteGames: MockData.searchGamesData.results,
             platform: MockData.platform
         )
@@ -296,7 +296,7 @@ final class SearchGameByTitleViewModelTests: XCTestCase {
             gameDetailsDelegate: GameDetailsViewModelDelegateMock()
         )
         
-        let games = DataConverter.convert(
+        let games = RemoteDataConverter.convert(
             remoteGames: MockData.searchGamesData.results,
             platform: MockData.platform
         )

@@ -27,12 +27,12 @@ final class SearchGameByTitleSectionTests: XCTestCase {
             return
         }
         
-        XCTAssertEqual(game1CellVM.title, "The Legend of Zelda: The Minish Cap")
+        XCTAssertEqual(game1CellVM.title, "Title")
         XCTAssertEqual(game1CellVM.subtitle1, "Game Boy Advance")
         XCTAssertEqual(game1CellVM.subtitle2, Date.now.convertToString())
         XCTAssertEqual(game1CellVM.caption, "imageURL")
         
-        XCTAssertEqual(game2CellVM.title, "The Legend of Zelda: A link to the past")
+        XCTAssertEqual(game2CellVM.title, "Title")
         XCTAssertEqual(game2CellVM.subtitle1, "Game Boy Advance")
         XCTAssertEqual(game1CellVM.subtitle2, Date.now.convertToString())
         XCTAssertEqual(game2CellVM.caption, "imageURL")

@@ -13,7 +13,7 @@ enum MyCollectionError: EmptyError {
     case fetchError
     case noItems
     
-    var errorTitle: String {
+    var errorTitle: String? {
         switch self {
         case .emptyCollection:
             return L10n.emptyMyCollectionTitle
@@ -24,7 +24,7 @@ enum MyCollectionError: EmptyError {
         }
     }
     
-    var errorDescription: String {
+    var errorDescription: String? {
         switch self {
         case .emptyCollection:
             return L10n.emptyMyCollectionDescription
@@ -35,10 +35,10 @@ enum MyCollectionError: EmptyError {
         }
     }
     
-    var imageName: String {
+    var imageName: String? {
         switch self {
         case .emptyCollection:
-            return Asset.noItems.name
+            return Asset.ghost8.name
         case .fetchError:
             return Asset.exclamationMark.name
         case .noItems:
@@ -57,7 +57,7 @@ enum MyCollectionError: EmptyError {
         }
     }
     
-    var errorAction: ErrorAction {
+    var errorAction: ErrorAction? {
         switch self {
         case .emptyCollection(gameDetailsDelegate: let delegate):
             let selectAddGameTypeController = SelectAddGameMethodScreenFactory(
@@ -70,7 +70,7 @@ enum MyCollectionError: EmptyError {
         case .fetchError:
             return .refresh
         case .noItems:
-            return .refresh
+            return nil
         }
     }
 }

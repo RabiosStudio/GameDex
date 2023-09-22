@@ -9,20 +9,21 @@ import Foundation
 
 final class MyCollectionByPlatformsSection: Section {
   
-    init(gamesCollection: [SavedGame], gameDetailsDelegate: GameDetailsViewModelDelegate?) {
+    init(games: [SavedGame], platformName: String, gameDetailsDelegate: GameDetailsViewModelDelegate?) {
         super.init()
         self.position = 0
         
-        let sortedCollection = gamesCollection.sorted { $0.game.title < $1.game.title }
+        let sortedCollection = games.sorted { $0.game.title < $1.game.title }
         
         for item in sortedCollection {
             let gameCellVM = BasicInfoCellViewModel(
                 title: item.game.title,
-                subtitle1: nil,
+                subtitle1: platformName,
                 subtitle2: item.game.releaseDate?.convertToString(),
                 caption: item.game.imageURL,
                 screenFactory: EditGameDetailsScreenFactory(
                     savedGame: item,
+                    platformName: platformName,
                     gameDetailsDelegate: gameDetailsDelegate)
             )
             self.cellsVM.append(gameCellVM)
