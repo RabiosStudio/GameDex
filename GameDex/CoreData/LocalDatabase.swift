@@ -101,11 +101,7 @@ extension LocalDatabase {
             return .failure(DatabaseError.fetchError)
         }
     }
-    
-    func fetchGames(from platform: PlatformCollected) -> Result<[GameCollected], DatabaseError> {
-        return .success(platform.gamesArray)
-    }
-    
+
     func getGame(gameId: String) -> Result<GameCollected?, DatabaseError> {
         let fetchRequest: NSFetchRequest<GameCollected>
         fetchRequest = GameCollected.fetchRequest()

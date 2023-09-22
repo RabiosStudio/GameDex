@@ -9,7 +9,7 @@ import Foundation
 
 enum RemoteDataConverter {
     
-    // MARK: - API data to Local data
+    // MARK: - Remote data to data
     
     static func convert(remotePlatforms: [PlatformData]) -> [Platform] {
         return remotePlatforms.map { remotePlatform in

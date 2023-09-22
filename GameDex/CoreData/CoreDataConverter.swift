@@ -10,7 +10,7 @@ import CoreData
 
 enum CoreDataConverter {
     
-    // MARK: - Local data to CoreData managed objects
+    // MARK: - Data to local CoreData managed objects
     
     static func convert(platform: Platform, context: NSManagedObjectContext) -> PlatformCollected {
         let platformCollected = PlatformCollected(context: context)
