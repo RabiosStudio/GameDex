@@ -13,18 +13,18 @@ final class SelectAddGameMethodSection: Section {
         super.init()
         self.position = 0
         
-        let manualCellVM = InfoCardCellViewModel(
+        let manualCellVM = BasicCardCellViewModel(
+            cardType: SelectGameMethodCardType.manually,
             title: L10n.manually,
             description: L10n.manuallyDescription,
-            imageName: Asset.form.name,
             screenFactory: SelectPlatformScreenFactory(delegate: delegate)
         )
         self.cellsVM.append(manualCellVM)
         
-        let scanCellVM = InfoCardCellViewModel(
+        let scanCellVM = BasicCardCellViewModel(
+            cardType: SelectGameMethodCardType.scan,
             title: L10n.scan,
             description: L10n.comingSoon,
-            imageName: Asset.barcode.name,
             screenFactory: nil
         )
         self.cellsVM.append(scanCellVM)

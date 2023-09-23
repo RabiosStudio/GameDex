@@ -31,6 +31,7 @@ protocol CollectionCardCellViewModel: CollectionCellViewModel, CardCellViewModel
 protocol CardCellViewModel {
     var cardType: CardType { get set }
     var cardTitle: String { get }
+    var cardDescription: String? { get }
 }
 
 // MARK: - Forms

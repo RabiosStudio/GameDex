@@ -17,27 +17,31 @@ final class LoginSection: Section {
         let headerCellVM = TitleCellViewModel(title: L10n.loginDescription)
         self.cellsVM.append(headerCellVM)
         
-        let emailCellVM = SmallCardCellViewModel(
-            cardType: .emailAuth,
-            title: L10n.loginEmail
+        let emailCellVM = BasicCardCellViewModel(
+            cardType: AuthCardType.emailAuth,
+            title: L10n.loginEmail,
+            screenFactory: nil
         )
         self.cellsVM.append(emailCellVM)
         
-        let appleCellVM = SmallCardCellViewModel(
-            cardType: .appleAuth,
-            title: L10n.loginApple
+        let appleCellVM = BasicCardCellViewModel(
+            cardType: AuthCardType.appleAuth,
+            title: L10n.loginApple,
+            screenFactory: nil
         )
         self.cellsVM.append(appleCellVM)
         
-        let facebookCellVM = SmallCardCellViewModel(
-            cardType: .facebookAuth,
-            title: L10n.loginFacebook
+        let facebookCellVM = BasicCardCellViewModel(
+            cardType: AuthCardType.facebookAuth,
+            title: L10n.loginFacebook,
+            screenFactory: nil
         )
         self.cellsVM.append(facebookCellVM)
         
-        let googleCellVM = SmallCardCellViewModel(
-            cardType: .googleAuth,
-            title: L10n.loginGoogle
+        let googleCellVM = BasicCardCellViewModel(
+            cardType: AuthCardType.googleAuth,
+            title: L10n.loginGoogle,
+            screenFactory: nil
         )
         self.cellsVM.append(googleCellVM)
         

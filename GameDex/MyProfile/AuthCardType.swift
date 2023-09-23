@@ -1,5 +1,5 @@
 //
-//  CardType.swift
+//  AuthCardType.swift
 //  GameDex
 //
 //  Created by Gabrielle Dalbera on 23/09/2023.
@@ -8,13 +8,17 @@
 import Foundation
 import UIKit
 
-enum CardType {
+enum AuthCardType: CardType {
     case emailAuth
     case appleAuth
     case facebookAuth
     case googleAuth
     
-    var titleColor: UIColor {
+    var height: CGFloat {
+        return DesignSystem.sizeVerySmall
+    }
+    
+    var textColor: UIColor {
         switch self {
         case .emailAuth:
             return UIColor.primaryBackgroundColor

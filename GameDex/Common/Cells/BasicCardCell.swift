@@ -1,40 +1,42 @@
 //
-//  InfoCardCell.swift
+//  BasicCardCell.swift
 //  GameDex
 //
-//  Created by Gabrielle Dalbera on 25/08/2023.
+//  Created by Gabrielle Dalbera on 23/09/2023.
 //
 
 import Foundation
 import UIKit
 
-final class InfoCardCell: UICollectionViewCell, CellConfigurable {
+final class BasicCardCell: UICollectionViewCell, CellConfigurable {
     
-    private let imageView = UIImageView()
+    private let imageView: UIImageView = {
+        let view = UIImageView()
+        view.contentMode = .scaleAspectFit
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
     
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.font = Typography.title2bold.font
-        label.textColor = .black
         label.textAlignment = .left
         label.numberOfLines = .zero
+        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
     private lazy var descriptionLabel: UILabel = {
         let label = UILabel()
         label.font = Typography.title3.font
-        label.textColor = .black
         label.textAlignment = .left
         label.numberOfLines = .zero
+        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.contentView.backgroundColor = .clear
-        self.setupViews()
-        self.setupLayer()
     }
     
     required init?(coder: NSCoder) {
@@ -42,13 +44,22 @@ final class InfoCardCell: UICollectionViewCell, CellConfigurable {
     }
     
     func configure(cellViewModel: CellViewModel) {
-        guard let cellVM = cellViewModel as? InfoCardCellViewModel else {
+        guard let cellVM = cellViewModel as? CardCellViewModel else {
             return
         }
-        self.titleLabel.text = cellVM.title
-        self.descriptionLabel.text = cellVM.description
-        self.imageView.image = UIImage(named: cellVM.imageName)
-        self.setupConstraints()
+        self.contentView.backgroundColor = cellVM.cardType.backgroundColor
+        self.contentView.addSubview(self.imageView)
+        self.contentView.addSubview(self.titleLabel)
+        if let description = cellVM.cardDescription {
+            self.descriptionLabel.text = cellVM.cardDescription
+            self.contentView.addSubview(self.descriptionLabel)
+        }
+        self.titleLabel.text = cellVM.cardTitle
+        self.titleLabel.textColor = cellVM.cardType.textColor
+        self.imageView.image = cellVM.cardType.image
+        
+        self.setupLayer()
+        self.setupConstraints(cellViewModel: cellViewModel)
     }
     
     func cellPressed(cellViewModel: CellViewModel) {
@@ -56,12 +67,6 @@ final class InfoCardCell: UICollectionViewCell, CellConfigurable {
             return
         }
         _ =  Routing.shared.route(navigationStyle: navigationStyle)
-    }
-    
-    private func setupViews() {
-        self.contentView.addSubview(self.imageView)
-        self.contentView.addSubview(self.titleLabel)
-        self.contentView.addSubview(self.descriptionLabel)
     }
     
     private func setupLayer() {
@@ -73,18 +78,14 @@ final class InfoCardCell: UICollectionViewCell, CellConfigurable {
         self.layer.shadowColor = UIColor.black.cgColor
         
         // add corner radius on contentView
-        self.contentView.backgroundColor = .white
         self.contentView.layer.cornerRadius = DesignSystem.cornerRadiusBig
     }
     
-    private func setupConstraints() {
-        self.imageView.translatesAutoresizingMaskIntoConstraints = false
-        self.titleLabel.translatesAutoresizingMaskIntoConstraints = false
-        self.descriptionLabel.translatesAutoresizingMaskIntoConstraints = false
+    private func setupConstraints(cellViewModel: CellViewModel) {
         NSLayoutConstraint.activate([
             self.imageView.topAnchor.constraint(
                 equalTo: self.topAnchor,
-                constant: DesignSystem.paddingLarge
+                constant: DesignSystem.paddingRegular
             ),
             self.imageView.leadingAnchor.constraint(
                 equalTo: self.leadingAnchor,
@@ -92,7 +93,7 @@ final class InfoCardCell: UICollectionViewCell, CellConfigurable {
             ),
             self.imageView.bottomAnchor.constraint(
                 equalTo: self.bottomAnchor,
-                constant: -DesignSystem.paddingLarge
+                constant: -DesignSystem.paddingRegular
             ),
             self.imageView.widthAnchor.constraint(
                 equalTo: self.imageView.heightAnchor
@@ -100,7 +101,7 @@ final class InfoCardCell: UICollectionViewCell, CellConfigurable {
             
             self.titleLabel.topAnchor.constraint(
                 equalTo: self.topAnchor,
-                constant: DesignSystem.paddingLarge
+                constant: DesignSystem.paddingRegular
             ),
             self.titleLabel.leadingAnchor.constraint(
                 equalTo: self.imageView.trailingAnchor,
@@ -109,12 +110,26 @@ final class InfoCardCell: UICollectionViewCell, CellConfigurable {
             self.titleLabel.trailingAnchor.constraint(
                 equalTo: self.trailingAnchor,
                 constant: -DesignSystem.paddingRegular
-            ),
+            )
+        ])
+        
+        guard let cellVM = cellViewModel as? CardCellViewModel else {
+            return
+        }
+        guard cellVM.cardDescription != nil else {
+            NSLayoutConstraint.activate([
+                self.titleLabel.bottomAnchor.constraint(
+                    equalTo: self.bottomAnchor,
+                    constant: -DesignSystem.paddingRegular
+                )
+            ])
+            return
+        }
+        NSLayoutConstraint.activate([
             self.titleLabel.heightAnchor.constraint(
                 equalTo: self.heightAnchor,
                 multiplier: DesignSystem.fractionalSizeVerySmall
             ),
-            
             self.descriptionLabel.topAnchor.constraint(
                 equalTo: self.titleLabel.bottomAnchor,
                 constant: DesignSystem.paddingSmall
