@@ -22,7 +22,7 @@ final class LabelCellViewModel: CollectionCellViewModel {
     var primaryText: String
     var secondaryText: String?
     
-    init(primaryText: String, secondaryText: String?, screenFactory: ScreenFactory?) {
+    init(primaryText: String, secondaryText: String? = nil, screenFactory: ScreenFactory?) {
         self.primaryText = primaryText
         self.secondaryText = secondaryText
         self.screenFactory = screenFactory
