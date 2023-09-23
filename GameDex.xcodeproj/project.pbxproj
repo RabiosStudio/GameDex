@@ -78,6 +78,8 @@
 		25979DB62ABF1E1B002CEDE7 /* TitleCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25979DB52ABF1E1B002CEDE7 /* TitleCellViewModel.swift */; };
 		25979DBD2ABF3023002CEDE7 /* CardType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25979DBC2ABF3023002CEDE7 /* CardType.swift */; };
 		25979DBF2ABF310B002CEDE7 /* SelectGameMethodCardType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25979DBE2ABF310B002CEDE7 /* SelectGameMethodCardType.swift */; };
+		25979DC12ABF3C00002CEDE7 /* LoginViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25979DC02ABF3C00002CEDE7 /* LoginViewModelTests.swift */; };
+		25979DC32ABF3C0E002CEDE7 /* LoginSectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25979DC22ABF3C0E002CEDE7 /* LoginSectionTests.swift */; };
 		25AE1EAE2A8BB89400F2D06A /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AE1EAD2A8BB89400F2D06A /* Section.swift */; };
 		25AE1EBA2A8CB7E300F2D06A /* CollectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AE1EB92A8CB7E300F2D06A /* CollectionViewModel.swift */; };
 		25AE1EBC2A8CB82500F2D06A /* CellConfigurable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AE1EBB2A8CB82500F2D06A /* CellConfigurable.swift */; };
@@ -120,7 +122,7 @@
 		25DA8CB82AADE7E300B40F84 /* SavedGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25DA8CB72AADE7E300B40F84 /* SavedGame.swift */; };
 		25DA8CBA2AADE88600B40F84 /* LocalDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25DA8CB92AADE88600B40F84 /* LocalDatabase.swift */; };
 		25EB24082AA1D5C20024F01C /* LabelCellViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EB24072AA1D5C20024F01C /* LabelCellViewModelTests.swift */; };
-		25EB240A2AA1D76D0024F01C /* InfoCardCellViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EB24092AA1D76D0024F01C /* InfoCardCellViewModelTests.swift */; };
+		25EB240A2AA1D76D0024F01C /* BasicCardCellViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EB24092AA1D76D0024F01C /* BasicCardCellViewModelTests.swift */; };
 		25EB240C2AA1D77A0024F01C /* BasicInfoCellViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EB240B2AA1D77A0024F01C /* BasicInfoCellViewModelTests.swift */; };
 		25EB240E2AA5BC550024F01C /* SearchGameByTitleSectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EB240D2AA5BC550024F01C /* SearchGameByTitleSectionTests.swift */; };
 		25EB24102AA5C0600024F01C /* SearchGameByTitleViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EB240F2AA5C0600024F01C /* SearchGameByTitleViewModelTests.swift */; };
@@ -246,6 +248,8 @@
 		25979DB52ABF1E1B002CEDE7 /* TitleCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TitleCellViewModel.swift; sourceTree = "<group>"; };
 		25979DBC2ABF3023002CEDE7 /* CardType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardType.swift; sourceTree = "<group>"; };
 		25979DBE2ABF310B002CEDE7 /* SelectGameMethodCardType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectGameMethodCardType.swift; sourceTree = "<group>"; };
+		25979DC02ABF3C00002CEDE7 /* LoginViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModelTests.swift; sourceTree = "<group>"; };
+		25979DC22ABF3C0E002CEDE7 /* LoginSectionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginSectionTests.swift; sourceTree = "<group>"; };
 		25AE1EAD2A8BB89400F2D06A /* Section.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Section.swift; sourceTree = "<group>"; };
 		25AE1EB92A8CB7E300F2D06A /* CollectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewModel.swift; sourceTree = "<group>"; };
 		25AE1EBB2A8CB82500F2D06A /* CellConfigurable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellConfigurable.swift; sourceTree = "<group>"; };
@@ -291,7 +295,7 @@
 		25DA8CB72AADE7E300B40F84 /* SavedGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedGame.swift; sourceTree = "<group>"; };
 		25DA8CB92AADE88600B40F84 /* LocalDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDatabase.swift; sourceTree = "<group>"; };
 		25EB24072AA1D5C20024F01C /* LabelCellViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelCellViewModelTests.swift; sourceTree = "<group>"; };
-		25EB24092AA1D76D0024F01C /* InfoCardCellViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoCardCellViewModelTests.swift; sourceTree = "<group>"; };
+		25EB24092AA1D76D0024F01C /* BasicCardCellViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicCardCellViewModelTests.swift; sourceTree = "<group>"; };
 		25EB240B2AA1D77A0024F01C /* BasicInfoCellViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicInfoCellViewModelTests.swift; sourceTree = "<group>"; };
 		25EB240D2AA5BC550024F01C /* SearchGameByTitleSectionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchGameByTitleSectionTests.swift; sourceTree = "<group>"; };
 		25EB240F2AA5C0600024F01C /* SearchGameByTitleViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchGameByTitleViewModelTests.swift; sourceTree = "<group>"; };
@@ -503,6 +507,8 @@
 			children = (
 				25979D9C2ABEF5E6002CEDE7 /* MyProfileViewModelTests.swift */,
 				25979D9E2ABEF5F2002CEDE7 /* MyProfileSectionTests.swift */,
+				25979DC02ABF3C00002CEDE7 /* LoginViewModelTests.swift */,
+				25979DC22ABF3C0E002CEDE7 /* LoginSectionTests.swift */,
 			);
 			path = MyProfile;
 			sourceTree = "<group>";
@@ -873,7 +879,7 @@
 			children = (
 				25D6EAF82A8A265D00C2BE57 /* TextFieldCellViewModelTests.swift */,
 				25EB24072AA1D5C20024F01C /* LabelCellViewModelTests.swift */,
-				25EB24092AA1D76D0024F01C /* InfoCardCellViewModelTests.swift */,
+				25EB24092AA1D76D0024F01C /* BasicCardCellViewModelTests.swift */,
 				25EB240B2AA1D77A0024F01C /* BasicInfoCellViewModelTests.swift */,
 				25EB244F2AA8B1280024F01C /* StarRatingCellViewModelTests.swift */,
 				25EB24512AA8B1350024F01C /* ImageDescriptionCellViewModelTests.swift */,
@@ -1289,6 +1295,7 @@
 				251C871C2A9C888B0020C794 /* SelectPlatformSectionTests.swift in Sources */,
 				251C87132A9BBD3F0020C794 /* SelectAddGameMethodSectionTests.swift in Sources */,
 				25979D9F2ABEF5F2002CEDE7 /* MyProfileSectionTests.swift in Sources */,
+				25979DC12ABF3C00002CEDE7 /* LoginViewModelTests.swift in Sources */,
 				25F6632C2A94CF13005F5412 /* MyCollectionViewModelTests.swift in Sources */,
 				251C86742A94D5E80020C794 /* Mock.generated.swift in Sources */,
 				25D507552AB6DCD000A772F9 /* EditGameDetailsViewModelTests.swift in Sources */,
@@ -1296,13 +1303,14 @@
 				25979D9D2ABEF5E6002CEDE7 /* MyProfileViewModelTests.swift in Sources */,
 				25AE1F3D2A939BE300F2D06A /* ButtonViewModelTests.swift in Sources */,
 				251C87112A9BBD290020C794 /* SelectAddGameMethodViewModelTests.swift in Sources */,
-				25EB240A2AA1D76D0024F01C /* InfoCardCellViewModelTests.swift in Sources */,
+				25EB240A2AA1D76D0024F01C /* BasicCardCellViewModelTests.swift in Sources */,
 				251C872B2A9CE93B0020C794 /* Equatables.swift in Sources */,
 				25EB240E2AA5BC550024F01C /* SearchGameByTitleSectionTests.swift in Sources */,
 				25D5074D2AB61BB200A772F9 /* MyCollectionSectionTests.swift in Sources */,
 				251C87282A9CE82B0020C794 /* Matcher+Extension.swift in Sources */,
 				25EB24402AA786100024F01C /* AddGameDetailsSectionTests.swift in Sources */,
 				251C871E2A9C889A0020C794 /* SelectPlatformViewModelTests.swift in Sources */,
+				25979DC32ABF3C0E002CEDE7 /* LoginSectionTests.swift in Sources */,
 				25F6632B2A94CF13005F5412 /* ContinueContentViewFactoryTests.swift in Sources */,
 				25EB24102AA5C0600024F01C /* SearchGameByTitleViewModelTests.swift in Sources */,
 				25EB24542AA8B1430024F01C /* TextViewCellViewModelTests.swift in Sources */,
