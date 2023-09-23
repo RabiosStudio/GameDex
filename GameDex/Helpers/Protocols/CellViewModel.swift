@@ -24,6 +24,17 @@ protocol CollectionCellViewModel: CellViewModel {
     var height: CGFloat { get }
 }
 
+// MARK: - Cards
+
+protocol CollectionCardCellViewModel: CollectionCellViewModel, CardCellViewModel {}
+
+protocol CardCellViewModel {
+    var cardType: CardType { get set }
+    var cardTitle: String { get }
+}
+
+// MARK: - Forms
+
 protocol CollectionFormCellViewModel: CollectionCellViewModel, FormCellViewModel {}
 
 protocol FormCellViewModel {

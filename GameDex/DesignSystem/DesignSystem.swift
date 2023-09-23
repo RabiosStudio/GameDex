@@ -24,6 +24,7 @@ enum DesignSystem {
     static let sizeTiny: CGFloat = 30
     static let sizeVerySmall: CGFloat = 60
     static let sizeSmall: CGFloat = 80
+    static let sizeMedium: CGFloat = 100
     static let sizeRegular: CGFloat = 130
     static let sizeBig: CGFloat = 200
     static let sizeVeryBig: CGFloat = 280

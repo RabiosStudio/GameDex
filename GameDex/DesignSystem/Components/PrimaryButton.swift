@@ -33,9 +33,12 @@ final class PrimaryButton: UIButton {
         return view
     }()
     
+    private var displayLoaderIfNeeded: Bool
+    
     weak var delegate: PrimaryButtonDelegate?
     
-    init(delegate: PrimaryButtonDelegate?, shouldEnable: Bool) {
+    init(delegate: PrimaryButtonDelegate?, shouldEnable: Bool, displayLoaderIfNeeded: Bool) {
+        self.displayLoaderIfNeeded = displayLoaderIfNeeded
         super.init(frame: .zero)
         self.delegate = delegate
         self.addTarget(
@@ -46,8 +49,8 @@ final class PrimaryButton: UIButton {
         self.isEnabled = shouldEnable
     }
     
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
+    required init?(coder: NSCoder) {
+        return nil
     }
     
     func configure(viewModel: ButtonViewModel) {
@@ -81,10 +84,12 @@ final class PrimaryButton: UIButton {
     }
     
     @objc private func didTapPrimaryButton(_ sender: PrimaryButton) {
-        self.addSubview(self.loader)
-        self.isEnabled = false
-        self.updateButtonDesignForState(viewModel: ButtonViewModel(title: ""))
-        self.setupLoaderConstraints()
+        if self.displayLoaderIfNeeded {
+            self.addSubview(self.loader)
+            self.isEnabled = false
+            self.updateButtonDesignForState(viewModel: ButtonViewModel(title: ""))
+            self.setupLoaderConstraints()
+        }
         self.delegate?.didTapPrimaryButton()
     }
     
