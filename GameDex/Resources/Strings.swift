@@ -40,6 +40,8 @@ internal enum L10n {
   internal static let contactUs = L10n.tr("Localizable", "contactUs", fallback: "Contact Us")
   /// Continue
   internal static let `continue` = L10n.tr("Localizable", "continue", fallback: "Continue")
+  /// Create account
+  internal static let createAccount = L10n.tr("Localizable", "createAccount", fallback: "Create account")
   /// Start researching a game on
   internal static let emptyGameSearch = L10n.tr("Localizable", "emptyGameSearch", fallback: "Start researching a game on")
   /// There are no items available for your selected options
@@ -68,6 +70,16 @@ internal enum L10n {
   internal static let isRequired = L10n.tr("Localizable", "isRequired", fallback: "is Required")
   /// Login
   internal static let login = L10n.tr("Localizable", "login", fallback: "Login")
+  /// Login with Apple
+  internal static let loginApple = L10n.tr("Localizable", "loginApple", fallback: "Login with Apple")
+  /// Login to sync your collection across all your devices
+  internal static let loginDescription = L10n.tr("Localizable", "loginDescription", fallback: "Login to sync your collection across all your devices")
+  /// Login with email
+  internal static let loginEmail = L10n.tr("Localizable", "loginEmail", fallback: "Login with email")
+  /// Login with Facebook
+  internal static let loginFacebook = L10n.tr("Localizable", "loginFacebook", fallback: "Login with Facebook")
+  /// Login with Google
+  internal static let loginGoogle = L10n.tr("Localizable", "loginGoogle", fallback: "Login with Google")
   /// Loose
   internal static let loose = L10n.tr("Localizable", "loose", fallback: "Loose")
   /// Manually
@@ -80,6 +92,8 @@ internal enum L10n {
   internal static let myCollection = L10n.tr("Localizable", "myCollection", fallback: "My Collection")
   /// My Profile
   internal static let myProfile = L10n.tr("Localizable", "myProfile", fallback: "My Profile")
+  /// No account yet?
+  internal static let noAccountYet = L10n.tr("Localizable", "noAccountYet", fallback: "No account yet?")
   /// Box without notice
   internal static let noNotice = L10n.tr("Localizable", "noNotice", fallback: "Box without notice")
   /// Other details

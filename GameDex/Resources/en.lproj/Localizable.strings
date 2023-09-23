@@ -60,6 +60,13 @@
 "login" = "Login";
 "collectionManagement" = "Collection management";
 "contactUs" = "Contact Us";
+"loginDescription" = "Login to sync your collection across all your devices";
+"loginEmail" = "Login with email";
+"loginApple" = "Login with Apple";
+"loginFacebook" = "Login with Facebook";
+"loginGoogle" = "Login with Google";
+"noAccountYet" = "No account yet?";
+"createAccount" = "Create account";
 
 // Forms
 "title" = "Title";

@@ -15,7 +15,7 @@ final class MyProfileSection: Section {
         
         let loginCellVM = LabelCellViewModel(
             primaryText: L10n.login,
-            screenFactory: nil
+            screenFactory: LoginScreenFactory()
         )
         self.cellsVM.append(loginCellVM)
         
