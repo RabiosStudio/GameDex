@@ -17,25 +17,25 @@ final class LoginSection: Section {
         let headerCellVM = TitleCellViewModel(title: L10n.loginDescription)
         self.cellsVM.append(headerCellVM)
         
-        let emailCellVM = ColoredCardCellViewModel(
+        let emailCellVM = SmallCardCellViewModel(
             cardType: .emailAuth,
             title: L10n.loginEmail
         )
         self.cellsVM.append(emailCellVM)
         
-        let appleCellVM = ColoredCardCellViewModel(
+        let appleCellVM = SmallCardCellViewModel(
             cardType: .appleAuth,
             title: L10n.loginApple
         )
         self.cellsVM.append(appleCellVM)
         
-        let facebookCellVM = ColoredCardCellViewModel(
+        let facebookCellVM = SmallCardCellViewModel(
             cardType: .facebookAuth,
             title: L10n.loginFacebook
         )
         self.cellsVM.append(facebookCellVM)
         
-        let googleCellVM = ColoredCardCellViewModel(
+        let googleCellVM = SmallCardCellViewModel(
             cardType: .googleAuth,
             title: L10n.loginGoogle
         )

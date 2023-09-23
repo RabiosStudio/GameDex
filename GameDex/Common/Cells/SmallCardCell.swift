@@ -1,5 +1,5 @@
 //
-//  ColoredCardCell.swift
+//  SmallCardCell.swift
 //  GameDex
 //
 //  Created by Gabrielle Dalbera on 23/09/2023.
