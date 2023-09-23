@@ -24,6 +24,8 @@ internal enum L10n {
   internal static let apiErrorTitle = L10n.tr("Localizable", "apiErrorTitle", fallback: "Oops!")
   /// Cancel
   internal static let cancel = L10n.tr("Localizable", "cancel", fallback: "Cancel")
+  /// Collection management
+  internal static let collectionManagement = L10n.tr("Localizable", "collectionManagement", fallback: "Collection management")
   /// Coming soon...!
   internal static let comingSoon = L10n.tr("Localizable", "comingSoon", fallback: "Coming soon...!")
   /// Complete in box
@@ -34,10 +36,10 @@ internal enum L10n {
   internal static let condition = L10n.tr("Localizable", "condition", fallback: "Condition")
   /// Confirm
   internal static let confirm = L10n.tr("Localizable", "confirm", fallback: "Confirm")
+  /// Contact Us
+  internal static let contactUs = L10n.tr("Localizable", "contactUs", fallback: "Contact Us")
   /// Continue
   internal static let `continue` = L10n.tr("Localizable", "continue", fallback: "Continue")
-  /// Discover
-  internal static let discover = L10n.tr("Localizable", "discover", fallback: "Discover")
   /// Start researching a game on
   internal static let emptyGameSearch = L10n.tr("Localizable", "emptyGameSearch", fallback: "Start researching a game on")
   /// There are no items available for your selected options
@@ -64,6 +66,8 @@ internal enum L10n {
   internal static let `import` = L10n.tr("Localizable", "import", fallback: "Import")
   /// is Required
   internal static let isRequired = L10n.tr("Localizable", "isRequired", fallback: "is Required")
+  /// Login
+  internal static let login = L10n.tr("Localizable", "login", fallback: "Login")
   /// Loose
   internal static let loose = L10n.tr("Localizable", "loose", fallback: "Loose")
   /// Manually

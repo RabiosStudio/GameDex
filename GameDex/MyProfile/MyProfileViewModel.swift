@@ -19,6 +19,7 @@ final class MyProfileViewModel: CollectionViewModel {
     init() {}
     
     func loadData(callback: @escaping (EmptyError?) -> ()) {
+        self.sections = [MyProfileSection()]
         callback(nil)
     }
     

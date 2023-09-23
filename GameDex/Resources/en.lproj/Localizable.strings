@@ -1,6 +1,5 @@
 // Tab Bar
 "myCollection" = "My Collection";
-"discover" = "Discover";
 "myProfile" = "My Profile";
 
 // Empty States
@@ -56,6 +55,11 @@
 "searchGame" = "Search game";
 "searchPlatform" = "Search a platform";
 "searchCollection" = "Search for a collection";
+
+// Profile
+"login" = "Login";
+"collectionManagement" = "Collection management";
+"contactUs" = "Contact Us";
 
 // Forms
 "title" = "Title";

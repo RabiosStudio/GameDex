@@ -57,6 +57,11 @@
 "searchPlatform" = "Rechercher une console";
 "searchCollection" = "Rechercher une collection";
 
+// Profile
+"login" = "Se connecter";
+"collectionManagement" = "Gestion de la collection";
+"contactUs" = "Nous contacter";
+
 // Forms
 "title" = "Titre";
 "platform" = "Console";
