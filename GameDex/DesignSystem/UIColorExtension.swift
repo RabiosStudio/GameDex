@@ -21,4 +21,12 @@ extension UIColor {
     class var placeholderColor: UIColor {
         return UIColor.systemGray
     }
+    
+    class var appleColor: UIColor {
+        return UIColor(red: 27/255.0, green: 26/255.0, blue: 26/255.0, alpha: 1.0)
+    }
+
+    class var facebookColor: UIColor {
+        return UIColor(red: 66/255.0, green: 103/255.0, blue: 178/255.0, alpha: 1.0)
+    }
 }

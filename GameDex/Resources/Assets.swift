@@ -27,10 +27,13 @@ internal enum Asset {
   internal static let accentColor = ColorAsset(name: "AccentColor")
   internal static let bannerRedBlack = ImageAsset(name: "BannerRedBlack")
   internal static let barcode = ImageAsset(name: "barcode")
+  internal static let devices = ImageAsset(name: "devices")
   internal static let exclamationMark = ImageAsset(name: "exclamation-mark")
+  internal static let facebookLogo = ImageAsset(name: "facebook-logo")
   internal static let form = ImageAsset(name: "form")
   internal static let ghost7 = ImageAsset(name: "ghost-7")
   internal static let ghost8 = ImageAsset(name: "ghost-8")
+  internal static let googleLogo = ImageAsset(name: "google-logo")
   internal static let jumelles = ImageAsset(name: "jumelles")
   internal static let noItems = ImageAsset(name: "noItems")
 }

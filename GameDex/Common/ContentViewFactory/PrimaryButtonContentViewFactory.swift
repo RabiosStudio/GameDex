@@ -12,7 +12,8 @@ final class PrimaryButtonContentViewFactory: ContentViewFactory {
     lazy var bottomView: UIView = {
         let continueButton = PrimaryButton(
             delegate: self.delegate,
-            shouldEnable: self.shouldEnable
+            shouldEnable: self.shouldEnable,
+            displayLoaderIfNeeded: true
         )
         continueButton.configure(
             viewModel: ButtonViewModel(
