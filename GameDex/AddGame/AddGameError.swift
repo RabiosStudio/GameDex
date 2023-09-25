@@ -12,7 +12,7 @@ enum AddGameError: EmptyError {
     case server
     case noSearch(platformName: String)
     
-    var errorTitle: String {
+    var errorTitle: String? {
         switch self {
         case .noItems:
             return L10n.emptyItemsTitle
@@ -34,7 +34,7 @@ enum AddGameError: EmptyError {
         }
     }
     
-    var imageName: String {
+    var imageName: String? {
         switch self {
         case .noItems:
             return Asset.noItems.name
