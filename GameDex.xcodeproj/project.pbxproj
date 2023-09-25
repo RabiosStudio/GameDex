@@ -80,6 +80,9 @@
 		25979DBF2ABF310B002CEDE7 /* SelectAddGameMethodCardType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25979DBE2ABF310B002CEDE7 /* SelectAddGameMethodCardType.swift */; };
 		25979DC12ABF3C00002CEDE7 /* LoginViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25979DC02ABF3C00002CEDE7 /* LoginViewModelTests.swift */; };
 		25979DC32ABF3C0E002CEDE7 /* LoginSectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25979DC22ABF3C0E002CEDE7 /* LoginSectionTests.swift */; };
+		25979DC62AC17295002CEDE7 /* AuthenticationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25979DC52AC17295002CEDE7 /* AuthenticationViewModel.swift */; };
+		25979DC82AC172A9002CEDE7 /* AuthenticationSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25979DC72AC172A9002CEDE7 /* AuthenticationSection.swift */; };
+		25979DCA2AC1733D002CEDE7 /* AuthenticationScreenFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25979DC92AC1733D002CEDE7 /* AuthenticationScreenFactory.swift */; };
 		25979DCC2AC17C22002CEDE7 /* ImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25979DCB2AC17C22002CEDE7 /* ImageCell.swift */; };
 		25979DCE2AC17C2C002CEDE7 /* ImageCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25979DCD2AC17C2C002CEDE7 /* ImageCellViewModel.swift */; };
 		25AE1EAE2A8BB89400F2D06A /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AE1EAD2A8BB89400F2D06A /* Section.swift */; };
@@ -252,6 +255,9 @@
 		25979DBE2ABF310B002CEDE7 /* SelectAddGameMethodCardType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectAddGameMethodCardType.swift; sourceTree = "<group>"; };
 		25979DC02ABF3C00002CEDE7 /* LoginViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModelTests.swift; sourceTree = "<group>"; };
 		25979DC22ABF3C0E002CEDE7 /* LoginSectionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginSectionTests.swift; sourceTree = "<group>"; };
+		25979DC52AC17295002CEDE7 /* AuthenticationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationViewModel.swift; sourceTree = "<group>"; };
+		25979DC72AC172A9002CEDE7 /* AuthenticationSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationSection.swift; sourceTree = "<group>"; };
+		25979DC92AC1733D002CEDE7 /* AuthenticationScreenFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationScreenFactory.swift; sourceTree = "<group>"; };
 		25979DCB2AC17C22002CEDE7 /* ImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCell.swift; sourceTree = "<group>"; };
 		25979DCD2AC17C2C002CEDE7 /* ImageCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCellViewModel.swift; sourceTree = "<group>"; };
 		25AE1EAD2A8BB89400F2D06A /* Section.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Section.swift; sourceTree = "<group>"; };
@@ -451,6 +457,7 @@
 			isa = PBXGroup;
 			children = (
 				25979DB72ABF2AB5002CEDE7 /* Login */,
+				25979DC42AC17279002CEDE7 /* Authentication */,
 				2548E5F62ABEDF49004151EF /* MyProfileViewModel.swift */,
 				2548E5F82ABEDF53004151EF /* MyProfileSection.swift */,
 				25979DAD2ABF11B5002CEDE7 /* AuthCardType.swift */,
@@ -525,6 +532,16 @@
 				25979DA52ABF0E07002CEDE7 /* LoginScreenFactory.swift */,
 			);
 			path = Login;
+			sourceTree = "<group>";
+		};
+		25979DC42AC17279002CEDE7 /* Authentication */ = {
+			isa = PBXGroup;
+			children = (
+				25979DC52AC17295002CEDE7 /* AuthenticationViewModel.swift */,
+				25979DC72AC172A9002CEDE7 /* AuthenticationSection.swift */,
+				25979DC92AC1733D002CEDE7 /* AuthenticationScreenFactory.swift */,
+			);
+			path = Authentication;
 			sourceTree = "<group>";
 		};
 		25AE1EB72A8CB7CC00F2D06A /* Helpers */ = {
@@ -1181,6 +1198,7 @@
 				251C86D42A9899A70020C794 /* RemoteDataConverter.swift in Sources */,
 				25EB24182AA5F7440024F01C /* StarRatingCellViewModel.swift in Sources */,
 				25AE1F042A8F4A6200F2D06A /* Routing.swift in Sources */,
+				25979DC82AC172A9002CEDE7 /* AuthenticationSection.swift in Sources */,
 				25AE1F192A8F910800F2D06A /* BarButtonItem.swift in Sources */,
 				25979DB42ABF1E07002CEDE7 /* TitleCell.swift in Sources */,
 				25AE1ECE2A8D1D6F00F2D06A /* EmptyReason.swift in Sources */,
@@ -1225,6 +1243,7 @@
 				251C87312A9CEF2D0020C794 /* SearchGameByTitleSection.swift in Sources */,
 				25AE1EEC2A8E4E6500F2D06A /* TextFieldCell.swift in Sources */,
 				2548E5CD2AB8709C004151EF /* GameDetailsViewModelDelegate.swift in Sources */,
+				25979DCA2AC1733D002CEDE7 /* AuthenticationScreenFactory.swift in Sources */,
 				25AE1ED62A8D1E9B00F2D06A /* Typography.swift in Sources */,
 				25EB24142AA5D4470024F01C /* AddGameDetailsSection.swift in Sources */,
 				2548E5E12ABAE688004151EF /* PlatformCollected.swift in Sources */,
@@ -1278,6 +1297,7 @@
 				25EB242C2AA621800024F01C /* ImageDescriptionCell.swift in Sources */,
 				251C86E02A98AD4D0020C794 /* SelectAddGameMethodSection.swift in Sources */,
 				254E8B942A8B6BCA00C101C8 /* Strings.swift in Sources */,
+				25979DC62AC17295002CEDE7 /* AuthenticationViewModel.swift in Sources */,
 				2548E5F92ABEDF53004151EF /* MyProfileSection.swift in Sources */,
 				2548E5E32ABAE688004151EF /* GameCollected.swift in Sources */,
 				251C86E62A98BD020020C794 /* SelectAddGameMethodScreenFactory.swift in Sources */,
