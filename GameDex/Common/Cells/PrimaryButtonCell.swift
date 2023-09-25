@@ -1,5 +1,5 @@
 //
-//  ButtonCell.swift
+//  PrimaryButtonCell.swift
 //  GameDex
 //
 //  Created by Gabrielle Dalbera on 23/09/2023.
@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-final class ButtonCell: UICollectionViewCell, CellConfigurable {
+final class PrimaryButtonCell: UICollectionViewCell, CellConfigurable {
     
     private lazy var primaryButton: PrimaryButton = {
         let primaryButton = PrimaryButton(
@@ -38,7 +38,7 @@ final class ButtonCell: UICollectionViewCell, CellConfigurable {
     }
     
     func configure(cellViewModel: CellViewModel) {
-        guard let cellVM = cellViewModel as? ButtonCellViewModel else {
+        guard let cellVM = cellViewModel as? PrimaryButtonCellViewModel else {
             return
         }
         self.primaryButton.configure(

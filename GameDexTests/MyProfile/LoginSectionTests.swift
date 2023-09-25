@@ -18,8 +18,8 @@ final class LoginSectionTests: XCTestCase {
         
         guard let imageCellVM = section.cellsVM.first as? ImageCellViewModel,
               let titleCellVM = section.cellsVM[1] as? TitleCellViewModel,
-              let loginButtonCellVM = section.cellsVM[2] as? ButtonCellViewModel,
-              let signupButtonCellVM = section.cellsVM.last as? ButtonCellViewModel else {
+              let loginButtonCellVM = section.cellsVM[2] as? PrimaryButtonCellViewModel,
+              let signupButtonCellVM = section.cellsVM.last as? PrimaryButtonCellViewModel else {
             XCTFail("Cell View Models are not correct")
             return
         }

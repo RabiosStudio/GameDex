@@ -20,13 +20,13 @@ final class LoginSection: Section {
         let titleCellVM = TitleCellViewModel(title: L10n.loginDescription)
         self.cellsVM.append(titleCellVM)
         
-        let loginButtonCellVM = ButtonCellViewModel(
+        let loginButtonCellVM = PrimaryButtonCellViewModel(
             title: L10n.login,
             screenFactory: nil
         )
         self.cellsVM.append(loginButtonCellVM)
         
-        let signupButtonCellVM = ButtonCellViewModel(
+        let signupButtonCellVM = PrimaryButtonCellViewModel(
             title: L10n.createAccount,
             screenFactory: nil
         )

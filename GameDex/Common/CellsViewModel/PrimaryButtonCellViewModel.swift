@@ -1,5 +1,5 @@
 //
-//  ButtonCellViewModel.swift
+//  PrimaryButtonCellViewModel.swift
 //  GameDex
 //
 //  Created by Gabrielle Dalbera on 23/09/2023.
@@ -7,8 +7,8 @@
 
 import Foundation
 
-final class ButtonCellViewModel: CollectionCellViewModel {
-    var cellClass: AnyClass = ButtonCell.self
+final class PrimaryButtonCellViewModel: CollectionCellViewModel {
+    var cellClass: AnyClass = PrimaryButtonCell.self
     var indexPath: IndexPath?
     var height: CGFloat = DesignSystem.buttonHeightRegular
     

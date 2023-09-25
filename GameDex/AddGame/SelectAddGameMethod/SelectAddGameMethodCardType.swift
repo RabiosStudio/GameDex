@@ -1,5 +1,5 @@
 //
-//  SelectGameMethodCardType.swift
+//  SelectAddGameMethodCardType.swift
 //  GameDex
 //
 //  Created by Gabrielle Dalbera on 23/09/2023.
@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-enum SelectGameMethodCardType: CardType {
+enum SelectAddGameMethodCardType: CardType {
     case manually
     case scan
     
