@@ -9,7 +9,6 @@ import Foundation
 import UIKit
 
 enum AuthCardType: CardType {
-    case emailAuth
     case appleAuth
     case facebookAuth
     case googleAuth
@@ -20,8 +19,6 @@ enum AuthCardType: CardType {
     
     var textColor: UIColor {
         switch self {
-        case .emailAuth:
-            return .white
         case .appleAuth:
             return .white
         case .facebookAuth:
@@ -33,8 +30,6 @@ enum AuthCardType: CardType {
     
     var backgroundColor: UIColor {
         switch self {
-        case .emailAuth:
-            return .primaryColor
         case .appleAuth:
             return .appleColor
         case .facebookAuth:
@@ -46,8 +41,6 @@ enum AuthCardType: CardType {
     
     var image: UIImage? {
         switch self {
-        case .emailAuth:
-            return UIImage(systemName: "envelope.fill")?.withTintColor(.white, renderingMode: .alwaysOriginal)
         case .appleAuth:
             return UIImage(systemName: "applelogo")?.withTintColor(.white, renderingMode: .alwaysOriginal)
         case .facebookAuth:

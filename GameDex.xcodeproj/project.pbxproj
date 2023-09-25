@@ -465,7 +465,6 @@
 				25979DC42AC17279002CEDE7 /* Authentication */,
 				2548E5F62ABEDF49004151EF /* MyProfileViewModel.swift */,
 				2548E5F82ABEDF53004151EF /* MyProfileSection.swift */,
-				25979DAD2ABF11B5002CEDE7 /* AuthCardType.swift */,
 				25E8E49A2AC1926A0093E7F8 /* UserAccountFormType.swift */,
 			);
 			path = MyProfile;
@@ -546,6 +545,7 @@
 				25979DC52AC17295002CEDE7 /* AuthenticationViewModel.swift */,
 				25979DC72AC172A9002CEDE7 /* AuthenticationSection.swift */,
 				25979DC92AC1733D002CEDE7 /* AuthenticationScreenFactory.swift */,
+				25979DAD2ABF11B5002CEDE7 /* AuthCardType.swift */,
 			);
 			path = Authentication;
 			sourceTree = "<group>";
