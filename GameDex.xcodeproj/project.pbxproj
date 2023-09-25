@@ -80,6 +80,8 @@
 		25979DBF2ABF310B002CEDE7 /* SelectGameMethodCardType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25979DBE2ABF310B002CEDE7 /* SelectGameMethodCardType.swift */; };
 		25979DC12ABF3C00002CEDE7 /* LoginViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25979DC02ABF3C00002CEDE7 /* LoginViewModelTests.swift */; };
 		25979DC32ABF3C0E002CEDE7 /* LoginSectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25979DC22ABF3C0E002CEDE7 /* LoginSectionTests.swift */; };
+		25979DCC2AC17C22002CEDE7 /* ImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25979DCB2AC17C22002CEDE7 /* ImageCell.swift */; };
+		25979DCE2AC17C2C002CEDE7 /* ImageCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25979DCD2AC17C2C002CEDE7 /* ImageCellViewModel.swift */; };
 		25AE1EAE2A8BB89400F2D06A /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AE1EAD2A8BB89400F2D06A /* Section.swift */; };
 		25AE1EBA2A8CB7E300F2D06A /* CollectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AE1EB92A8CB7E300F2D06A /* CollectionViewModel.swift */; };
 		25AE1EBC2A8CB82500F2D06A /* CellConfigurable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AE1EBB2A8CB82500F2D06A /* CellConfigurable.swift */; };
@@ -250,6 +252,8 @@
 		25979DBE2ABF310B002CEDE7 /* SelectGameMethodCardType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectGameMethodCardType.swift; sourceTree = "<group>"; };
 		25979DC02ABF3C00002CEDE7 /* LoginViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModelTests.swift; sourceTree = "<group>"; };
 		25979DC22ABF3C0E002CEDE7 /* LoginSectionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginSectionTests.swift; sourceTree = "<group>"; };
+		25979DCB2AC17C22002CEDE7 /* ImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCell.swift; sourceTree = "<group>"; };
+		25979DCD2AC17C2C002CEDE7 /* ImageCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCellViewModel.swift; sourceTree = "<group>"; };
 		25AE1EAD2A8BB89400F2D06A /* Section.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Section.swift; sourceTree = "<group>"; };
 		25AE1EB92A8CB7E300F2D06A /* CollectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewModel.swift; sourceTree = "<group>"; };
 		25AE1EBB2A8CB82500F2D06A /* CellConfigurable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellConfigurable.swift; sourceTree = "<group>"; };
@@ -623,6 +627,7 @@
 				25979DA32ABF0D5D002CEDE7 /* BasicCardCell.swift */,
 				25979DAF2ABF17C5002CEDE7 /* ButtonCell.swift */,
 				25979DB32ABF1E07002CEDE7 /* TitleCell.swift */,
+				25979DCB2AC17C22002CEDE7 /* ImageCell.swift */,
 			);
 			path = Cells;
 			sourceTree = "<group>";
@@ -639,6 +644,7 @@
 				25979DAB2ABF10FC002CEDE7 /* BasicCardCellViewModel.swift */,
 				25979DB12ABF17D1002CEDE7 /* ButtonCellViewModel.swift */,
 				25979DB52ABF1E1B002CEDE7 /* TitleCellViewModel.swift */,
+				25979DCD2AC17C2C002CEDE7 /* ImageCellViewModel.swift */,
 			);
 			path = CellsViewModel;
 			sourceTree = "<group>";
@@ -1192,6 +1198,7 @@
 				25939FF72AAF3C09000FC253 /* DatabaseError.swift in Sources */,
 				25AE1F022A8F499800F2D06A /* Navigator+NavigationStyle.swift in Sources */,
 				251C86C22A97A29D0020C794 /* SearchPlatformsData.swift in Sources */,
+				25979DCC2AC17C22002CEDE7 /* ImageCell.swift in Sources */,
 				25AE1EAE2A8BB89400F2D06A /* Section.swift in Sources */,
 				25AE1ED42A8D1E4000F2D06A /* EmptyError.swift in Sources */,
 				25EB24572AA8B39C0024F01C /* PickerViewModel.swift in Sources */,
@@ -1274,6 +1281,7 @@
 				2548E5F92ABEDF53004151EF /* MyProfileSection.swift in Sources */,
 				2548E5E32ABAE688004151EF /* GameCollected.swift in Sources */,
 				251C86E62A98BD020020C794 /* SelectAddGameMethodScreenFactory.swift in Sources */,
+				25979DCE2AC17C2C002CEDE7 /* ImageCellViewModel.swift in Sources */,
 				254354762A93AFF700E53351 /* LabelCell.swift in Sources */,
 				25979DB62ABF1E1B002CEDE7 /* TitleCellViewModel.swift in Sources */,
 				251C87412A9DE9F30020C794 /* Game.swift in Sources */,

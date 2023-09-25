@@ -12,7 +12,7 @@ final class ButtonCell: UICollectionViewCell, CellConfigurable {
     
     private lazy var primaryButton: PrimaryButton = {
         let primaryButton = PrimaryButton(
-            delegate: self.delegate,
+            delegate: nil,
             shouldEnable: true,
             displayLoaderIfNeeded: false
         )
@@ -23,10 +23,9 @@ final class ButtonCell: UICollectionViewCell, CellConfigurable {
             right: DesignSystem.paddingLarge
         )
         primaryButton.translatesAutoresizingMaskIntoConstraints = false
+        primaryButton.isUserInteractionEnabled = false
         return primaryButton
     }()
-    
-    weak var delegate: PrimaryButtonDelegate?
     
     override init(frame: CGRect) {
         super.init(frame: frame)

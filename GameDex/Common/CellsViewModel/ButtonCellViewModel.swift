@@ -11,12 +11,21 @@ final class ButtonCellViewModel: CollectionCellViewModel {
     var cellClass: AnyClass = ButtonCell.self
     var indexPath: IndexPath?
     var height: CGFloat = DesignSystem.buttonHeightRegular
-    var navigationStyle: NavigationStyle?
+    
+    lazy var navigationStyle: NavigationStyle? = {
+        guard let screenFactory else { return nil }
+        return .push(
+            controller: screenFactory.viewController
+        )
+    }()
+    
+    private let screenFactory: ScreenFactory?
     
     let title: String
     
-    init(title: String) {
+    init(title: String, screenFactory: ScreenFactory?) {
         self.title = title
+        self.screenFactory = screenFactory
     }
     
 }

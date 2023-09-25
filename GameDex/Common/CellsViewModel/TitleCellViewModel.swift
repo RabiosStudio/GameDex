@@ -10,7 +10,7 @@ import Foundation
 final class TitleCellViewModel: CollectionCellViewModel {
     var cellClass: AnyClass = TitleCell.self
     var indexPath: IndexPath?
-    var height: CGFloat = DesignSystem.sizeMedium
+    var height: CGFloat = DesignSystem.sizeRegular
     var navigationStyle: NavigationStyle?
     
     let title: String
