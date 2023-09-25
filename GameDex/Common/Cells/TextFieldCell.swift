@@ -69,10 +69,14 @@ final class TextFieldCell: UICollectionViewCell, CellConfigurable {
 
         if let keyboardType = cellVM.formType.keyboardType {
             self.textField.keyboardType = keyboardType
-        }
-        if let inputVM = cellVM.formType.inputPickerViewModel {
+        } else if let inputVM = cellVM.formType.inputPickerViewModel {
             self.pickerData = inputVM.data
             self.textField.inputView = pickerView
+        }
+        
+        if cellVM.formType.enableSecureTextEntry {
+            self.textField.isSecureTextEntry = true
+            self.textField.enableEntryVisibilityToggle()
         }
         
         self.textField.autocorrectionType = .no

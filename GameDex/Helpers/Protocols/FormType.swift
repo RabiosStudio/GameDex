@@ -10,5 +10,6 @@ import UIKit
 
 protocol FormType {
     var keyboardType: UIKeyboardType? { get }
+    var enableSecureTextEntry: Bool { get }
     var inputPickerViewModel: PickerViewModel? { get }
 }
