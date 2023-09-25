@@ -61,7 +61,7 @@
 "login" = "Se connecter";
 "collectionManagement" = "Gestion de la collection";
 "contactUs" = "Nous contacter";
-"loginDescription" = "Connectez-vous pour synchroniser votre connexion sur tous vos appareils";
+"loginDescription" = "Connectez-vous pour synchroniser votre collection sur tous vos appareils";
 "loginEmail" = "Connexion avec adresse mail";
 "loginApple" = "Connexion avec Apple";
 "loginFacebook" = "Connexion avec Facebook";
