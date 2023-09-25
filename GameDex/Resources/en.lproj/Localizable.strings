@@ -58,13 +58,18 @@
 
 // Profile
 "login" = "Login";
+"signup" = "Sign up";
 "collectionManagement" = "Collection management";
 "contactUs" = "Contact Us";
-"loginDescription" = "Login to sync your collection across all your devices";
+"loginDescription" = "Login or sign up to save and sync your collection across all your devices";
 "loginEmail" = "Login with email";
 "loginApple" = "Login with Apple";
 "loginFacebook" = "Login with Facebook";
 "loginGoogle" = "Login with Google";
+"signupEmail" = "Sign up with email";
+"signupApple" = "Sign up with Apple";
+"signupFacebook" = "Sign up with Facebook";
+"signupGoogle" = "Sign up with Google";
 "noAccountYet" = "No account yet?";
 "createAccount" = "Create account";
 

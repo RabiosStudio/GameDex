@@ -72,8 +72,8 @@ internal enum L10n {
   internal static let login = L10n.tr("Localizable", "login", fallback: "Login")
   /// Login with Apple
   internal static let loginApple = L10n.tr("Localizable", "loginApple", fallback: "Login with Apple")
-  /// Login to sync your collection across all your devices
-  internal static let loginDescription = L10n.tr("Localizable", "loginDescription", fallback: "Login to sync your collection across all your devices")
+  /// Login or sign up to save and sync your collection across all your devices
+  internal static let loginDescription = L10n.tr("Localizable", "loginDescription", fallback: "Login or sign up to save and sync your collection across all your devices")
   /// Login with email
   internal static let loginEmail = L10n.tr("Localizable", "loginEmail", fallback: "Login with email")
   /// Login with Facebook
@@ -132,6 +132,16 @@ internal enum L10n {
   internal static let searchGame = L10n.tr("Localizable", "searchGame", fallback: "Search game")
   /// Search a platform
   internal static let searchPlatform = L10n.tr("Localizable", "searchPlatform", fallback: "Search a platform")
+  /// Sign up
+  internal static let signup = L10n.tr("Localizable", "signup", fallback: "Sign up")
+  /// Sign up with Apple
+  internal static let signupApple = L10n.tr("Localizable", "signupApple", fallback: "Sign up with Apple")
+  /// Sign up with email
+  internal static let signupEmail = L10n.tr("Localizable", "signupEmail", fallback: "Sign up with email")
+  /// Sign up with Facebook
+  internal static let signupFacebook = L10n.tr("Localizable", "signupFacebook", fallback: "Sign up with Facebook")
+  /// Sign up with Google
+  internal static let signupGoogle = L10n.tr("Localizable", "signupGoogle", fallback: "Sign up with Google")
   /// Step 1/3
   internal static let stepOneOutOfThree = L10n.tr("Localizable", "stepOneOutOfThree", fallback: "Step 1/3")
   /// Storage area

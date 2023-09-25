@@ -1,6 +1,5 @@
 // Tab Bar
 "myCollection" = "Ma collection";
-"discover" = "Découverte";
 "myProfile" = "Mon compte";
 
 // Empty States
@@ -59,13 +58,18 @@
 
 // Profile
 "login" = "Se connecter";
+"signup" = "Créer un compte";
 "collectionManagement" = "Gestion de la collection";
 "contactUs" = "Nous contacter";
-"loginDescription" = "Connectez-vous pour synchroniser votre collection sur tous vos appareils";
+"loginDescription" = "Connectez-vous pour sauvegarder votre collection et la rendre accessible sur tous vos appareils";
 "loginEmail" = "Connexion avec adresse mail";
 "loginApple" = "Connexion avec Apple";
 "loginFacebook" = "Connexion avec Facebook";
 "loginGoogle" = "Connexion avec Google";
+"signupEmail" = "Avec une adresse email";
+"signupApple" = "Avec un compte Apple";
+"signupFacebook" = "Avec un compte Facebook";
+"signupGoogle" = "Avec un compte Google";
 "noAccountYet" = "Vous n'avez pas encore de compte ?";
 "createAccount" = "Créer un compte";
 
