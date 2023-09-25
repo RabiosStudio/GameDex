@@ -17,7 +17,10 @@ final class LoginSection: Section {
         let imageCellVM = ImageCellViewModel(imageName: Asset.devices.name)
         self.cellsVM.append(imageCellVM)
         
-        let titleCellVM = TitleCellViewModel(title: L10n.loginDescription)
+        let titleCellVM = TitleCellViewModel(
+            title: L10n.loginDescription,
+            size: .big
+        )
         self.cellsVM.append(titleCellVM)
         
         let loginButtonCellVM = PrimaryButtonCellViewModel(

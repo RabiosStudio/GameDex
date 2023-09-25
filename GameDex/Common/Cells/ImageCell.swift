@@ -41,7 +41,7 @@ final class ImageCell: UICollectionViewCell, CellConfigurable {
             self.imageView.topAnchor.constraint(equalTo: self.topAnchor, constant: DesignSystem.paddingLarge),
             self.imageView.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: DesignSystem.paddingLarge),
             self.imageView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -DesignSystem.paddingLarge),
-            self.imageView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -DesignSystem.paddingRegular),
+            self.imageView.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -DesignSystem.paddingLarge)
         ])
     }
     
