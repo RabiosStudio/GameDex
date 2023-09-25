@@ -10,13 +10,14 @@ import Foundation
 final class TitleCellViewModel: CollectionCellViewModel {
     var cellClass: AnyClass = TitleCell.self
     var indexPath: IndexPath?
-    var height: CGFloat = DesignSystem.sizeRegular
+    var height: CGFloat
     var navigationStyle: NavigationStyle?
     
     let title: String
     
-    init(title: String) {
+    init(title: String, size: CellSize) {
         self.title = title
+        self.height = size.height
     }
     
 }

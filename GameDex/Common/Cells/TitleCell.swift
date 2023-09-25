@@ -14,7 +14,7 @@ final class TitleCell: UICollectionViewCell, CellConfigurable {
     private lazy var titleLabel: UILabel = {
         let label = UILabel()
         label.textColor = .secondaryColor
-        label.font = Typography.title1.font
+        label.font = Typography.title1bold.font
         label.textAlignment = .center
         label.numberOfLines = .zero
         label.translatesAutoresizingMaskIntoConstraints = false
@@ -50,7 +50,7 @@ final class TitleCell: UICollectionViewCell, CellConfigurable {
             self.titleLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: DesignSystem.paddingRegular),
             self.titleLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: DesignSystem.paddingRegular),
             self.titleLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -DesignSystem.paddingRegular),
-            self.titleLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -DesignSystem.paddingRegular),
+            self.titleLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: -DesignSystem.paddingRegular)
         ])
     }
     

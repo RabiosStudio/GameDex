@@ -72,6 +72,8 @@
 "signupGoogle" = "Sign up with Google";
 "noAccountYet" = "No account yet?";
 "createAccount" = "Create account";
+"authThroughOtherMethods" = "through other methods below";
+"or" = "OR";
 
 // Forms
 "title" = "Title";
@@ -94,6 +96,8 @@
 "acceptable" = "Acceptable";
 "poor" = "Poor";
 "region" = "Region";
+"email" = "Email";
+"password" = "Password";
 
 // Other
 "game" = "game";

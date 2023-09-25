@@ -28,6 +28,10 @@ enum GameFormType: FormType, Equatable {
         }
     }
     
+    var enableSecureTextEntry: Bool {
+        return false
+    }
+    
     var inputPickerViewModel: PickerViewModel? {
         switch self {
         case .gameCompleteness(let pickerVM), .gameCondition(let pickerVM), .gameRegion(let pickerVM):

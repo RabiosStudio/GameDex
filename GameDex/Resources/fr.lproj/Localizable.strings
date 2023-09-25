@@ -72,6 +72,8 @@
 "signupGoogle" = "Avec un compte Google";
 "noAccountYet" = "Vous n'avez pas encore de compte ?";
 "createAccount" = "Créer un compte";
+"authThroughOtherMethods" = "via d'autres méthodes d'authentification";
+"or" = "OU";
 
 // Forms
 "title" = "Titre";
@@ -94,6 +96,8 @@
 "acceptable" = "Moyen";
 "poor" = "Mauvais";
 "region" = "Région";
+"email" = "Email";
+"password" = "Mot de passe";
 
 // Other
 "game" = "jeu";

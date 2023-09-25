@@ -17,18 +17,21 @@ final class LoginSection: Section {
         let imageCellVM = ImageCellViewModel(imageName: Asset.devices.name)
         self.cellsVM.append(imageCellVM)
         
-        let titleCellVM = TitleCellViewModel(title: L10n.loginDescription)
+        let titleCellVM = TitleCellViewModel(
+            title: L10n.loginDescription,
+            size: .big
+        )
         self.cellsVM.append(titleCellVM)
         
         let loginButtonCellVM = PrimaryButtonCellViewModel(
             title: L10n.login,
-            screenFactory: nil
+            screenFactory: AuthenticationScreenFactory(userHasAccount: true)
         )
         self.cellsVM.append(loginButtonCellVM)
         
         let signupButtonCellVM = PrimaryButtonCellViewModel(
             title: L10n.createAccount,
-            screenFactory: nil
+            screenFactory: AuthenticationScreenFactory(userHasAccount: false)
         )
         self.cellsVM.append(signupButtonCellVM)
     }

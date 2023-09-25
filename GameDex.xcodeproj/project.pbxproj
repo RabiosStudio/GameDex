@@ -80,6 +80,9 @@
 		25979DBF2ABF310B002CEDE7 /* SelectAddGameMethodCardType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25979DBE2ABF310B002CEDE7 /* SelectAddGameMethodCardType.swift */; };
 		25979DC12ABF3C00002CEDE7 /* LoginViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25979DC02ABF3C00002CEDE7 /* LoginViewModelTests.swift */; };
 		25979DC32ABF3C0E002CEDE7 /* LoginSectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25979DC22ABF3C0E002CEDE7 /* LoginSectionTests.swift */; };
+		25979DC62AC17295002CEDE7 /* AuthenticationViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25979DC52AC17295002CEDE7 /* AuthenticationViewModel.swift */; };
+		25979DC82AC172A9002CEDE7 /* AuthenticationSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25979DC72AC172A9002CEDE7 /* AuthenticationSection.swift */; };
+		25979DCA2AC1733D002CEDE7 /* AuthenticationScreenFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25979DC92AC1733D002CEDE7 /* AuthenticationScreenFactory.swift */; };
 		25979DCC2AC17C22002CEDE7 /* ImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25979DCB2AC17C22002CEDE7 /* ImageCell.swift */; };
 		25979DCE2AC17C2C002CEDE7 /* ImageCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25979DCD2AC17C2C002CEDE7 /* ImageCellViewModel.swift */; };
 		25AE1EAE2A8BB89400F2D06A /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AE1EAD2A8BB89400F2D06A /* Section.swift */; };
@@ -123,6 +126,10 @@
 		25D6EAF92A8A265D00C2BE57 /* TextFieldCellViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D6EAF82A8A265D00C2BE57 /* TextFieldCellViewModelTests.swift */; };
 		25DA8CB82AADE7E300B40F84 /* SavedGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25DA8CB72AADE7E300B40F84 /* SavedGame.swift */; };
 		25DA8CBA2AADE88600B40F84 /* LocalDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25DA8CB92AADE88600B40F84 /* LocalDatabase.swift */; };
+		25E8E49B2AC1926A0093E7F8 /* UserAccountFormType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E8E49A2AC1926A0093E7F8 /* UserAccountFormType.swift */; };
+		25E8E49F2AC1B0D80093E7F8 /* AuthenticationViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E8E49E2AC1B0D80093E7F8 /* AuthenticationViewModelTests.swift */; };
+		25E8E4A12AC1B1050093E7F8 /* AuthenticationSectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E8E4A02AC1B1050093E7F8 /* AuthenticationSectionTests.swift */; };
+		25E8E4A32AC1B7AF0093E7F8 /* CellSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E8E4A22AC1B7AF0093E7F8 /* CellSize.swift */; };
 		25EB24082AA1D5C20024F01C /* LabelCellViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EB24072AA1D5C20024F01C /* LabelCellViewModelTests.swift */; };
 		25EB240A2AA1D76D0024F01C /* BasicCardCellViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EB24092AA1D76D0024F01C /* BasicCardCellViewModelTests.swift */; };
 		25EB240C2AA1D77A0024F01C /* BasicInfoCellViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EB240B2AA1D77A0024F01C /* BasicInfoCellViewModelTests.swift */; };
@@ -252,6 +259,9 @@
 		25979DBE2ABF310B002CEDE7 /* SelectAddGameMethodCardType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectAddGameMethodCardType.swift; sourceTree = "<group>"; };
 		25979DC02ABF3C00002CEDE7 /* LoginViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewModelTests.swift; sourceTree = "<group>"; };
 		25979DC22ABF3C0E002CEDE7 /* LoginSectionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginSectionTests.swift; sourceTree = "<group>"; };
+		25979DC52AC17295002CEDE7 /* AuthenticationViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationViewModel.swift; sourceTree = "<group>"; };
+		25979DC72AC172A9002CEDE7 /* AuthenticationSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationSection.swift; sourceTree = "<group>"; };
+		25979DC92AC1733D002CEDE7 /* AuthenticationScreenFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationScreenFactory.swift; sourceTree = "<group>"; };
 		25979DCB2AC17C22002CEDE7 /* ImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCell.swift; sourceTree = "<group>"; };
 		25979DCD2AC17C2C002CEDE7 /* ImageCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCellViewModel.swift; sourceTree = "<group>"; };
 		25AE1EAD2A8BB89400F2D06A /* Section.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Section.swift; sourceTree = "<group>"; };
@@ -298,6 +308,10 @@
 		25D6EAF82A8A265D00C2BE57 /* TextFieldCellViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldCellViewModelTests.swift; sourceTree = "<group>"; };
 		25DA8CB72AADE7E300B40F84 /* SavedGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedGame.swift; sourceTree = "<group>"; };
 		25DA8CB92AADE88600B40F84 /* LocalDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDatabase.swift; sourceTree = "<group>"; };
+		25E8E49A2AC1926A0093E7F8 /* UserAccountFormType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAccountFormType.swift; sourceTree = "<group>"; };
+		25E8E49E2AC1B0D80093E7F8 /* AuthenticationViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationViewModelTests.swift; sourceTree = "<group>"; };
+		25E8E4A02AC1B1050093E7F8 /* AuthenticationSectionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationSectionTests.swift; sourceTree = "<group>"; };
+		25E8E4A22AC1B7AF0093E7F8 /* CellSize.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellSize.swift; sourceTree = "<group>"; };
 		25EB24072AA1D5C20024F01C /* LabelCellViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelCellViewModelTests.swift; sourceTree = "<group>"; };
 		25EB24092AA1D76D0024F01C /* BasicCardCellViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicCardCellViewModelTests.swift; sourceTree = "<group>"; };
 		25EB240B2AA1D77A0024F01C /* BasicInfoCellViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicInfoCellViewModelTests.swift; sourceTree = "<group>"; };
@@ -424,6 +438,7 @@
 				25DA8CB72AADE7E300B40F84 /* SavedGame.swift */,
 				25939FFC2AAF6FBF000FC253 /* GameFormType.swift */,
 				251C86D32A9899A70020C794 /* RemoteDataConverter.swift */,
+				25E8E4A22AC1B7AF0093E7F8 /* CellSize.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -451,9 +466,10 @@
 			isa = PBXGroup;
 			children = (
 				25979DB72ABF2AB5002CEDE7 /* Login */,
+				25979DC42AC17279002CEDE7 /* Authentication */,
 				2548E5F62ABEDF49004151EF /* MyProfileViewModel.swift */,
 				2548E5F82ABEDF53004151EF /* MyProfileSection.swift */,
-				25979DAD2ABF11B5002CEDE7 /* AuthCardType.swift */,
+				25E8E49A2AC1926A0093E7F8 /* UserAccountFormType.swift */,
 			);
 			path = MyProfile;
 			sourceTree = "<group>";
@@ -509,10 +525,10 @@
 		25979D9B2ABEF5C6002CEDE7 /* MyProfile */ = {
 			isa = PBXGroup;
 			children = (
+				25E8E49C2AC1B0A80093E7F8 /* Login */,
+				25E8E49D2AC1B0AD0093E7F8 /* Authentication */,
 				25979D9C2ABEF5E6002CEDE7 /* MyProfileViewModelTests.swift */,
 				25979D9E2ABEF5F2002CEDE7 /* MyProfileSectionTests.swift */,
-				25979DC02ABF3C00002CEDE7 /* LoginViewModelTests.swift */,
-				25979DC22ABF3C0E002CEDE7 /* LoginSectionTests.swift */,
 			);
 			path = MyProfile;
 			sourceTree = "<group>";
@@ -525,6 +541,17 @@
 				25979DA52ABF0E07002CEDE7 /* LoginScreenFactory.swift */,
 			);
 			path = Login;
+			sourceTree = "<group>";
+		};
+		25979DC42AC17279002CEDE7 /* Authentication */ = {
+			isa = PBXGroup;
+			children = (
+				25979DC52AC17295002CEDE7 /* AuthenticationViewModel.swift */,
+				25979DC72AC172A9002CEDE7 /* AuthenticationSection.swift */,
+				25979DC92AC1733D002CEDE7 /* AuthenticationScreenFactory.swift */,
+				25979DAD2ABF11B5002CEDE7 /* AuthCardType.swift */,
+			);
+			path = Authentication;
 			sourceTree = "<group>";
 		};
 		25AE1EB72A8CB7CC00F2D06A /* Helpers */ = {
@@ -749,6 +776,24 @@
 				25EDF7B02AB3053A00648717 /* Constants.swift */,
 			);
 			path = GameDexTests;
+			sourceTree = "<group>";
+		};
+		25E8E49C2AC1B0A80093E7F8 /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				25979DC02ABF3C00002CEDE7 /* LoginViewModelTests.swift */,
+				25979DC22ABF3C0E002CEDE7 /* LoginSectionTests.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		25E8E49D2AC1B0AD0093E7F8 /* Authentication */ = {
+			isa = PBXGroup;
+			children = (
+				25E8E49E2AC1B0D80093E7F8 /* AuthenticationViewModelTests.swift */,
+				25E8E4A02AC1B1050093E7F8 /* AuthenticationSectionTests.swift */,
+			);
+			path = Authentication;
 			sourceTree = "<group>";
 		};
 		25EB24352AA751E00024F01C /* SelectAddGameMethod */ = {
@@ -1181,6 +1226,7 @@
 				251C86D42A9899A70020C794 /* RemoteDataConverter.swift in Sources */,
 				25EB24182AA5F7440024F01C /* StarRatingCellViewModel.swift in Sources */,
 				25AE1F042A8F4A6200F2D06A /* Routing.swift in Sources */,
+				25979DC82AC172A9002CEDE7 /* AuthenticationSection.swift in Sources */,
 				25AE1F192A8F910800F2D06A /* BarButtonItem.swift in Sources */,
 				25979DB42ABF1E07002CEDE7 /* TitleCell.swift in Sources */,
 				25AE1ECE2A8D1D6F00F2D06A /* EmptyReason.swift in Sources */,
@@ -1225,6 +1271,7 @@
 				251C87312A9CEF2D0020C794 /* SearchGameByTitleSection.swift in Sources */,
 				25AE1EEC2A8E4E6500F2D06A /* TextFieldCell.swift in Sources */,
 				2548E5CD2AB8709C004151EF /* GameDetailsViewModelDelegate.swift in Sources */,
+				25979DCA2AC1733D002CEDE7 /* AuthenticationScreenFactory.swift in Sources */,
 				25AE1ED62A8D1E9B00F2D06A /* Typography.swift in Sources */,
 				25EB24142AA5D4470024F01C /* AddGameDetailsSection.swift in Sources */,
 				2548E5E12ABAE688004151EF /* PlatformCollected.swift in Sources */,
@@ -1233,6 +1280,7 @@
 				251C86FA2A9A44B60020C794 /* AddGameError.swift in Sources */,
 				25AE1EBC2A8CB82500F2D06A /* CellConfigurable.swift in Sources */,
 				254E8B732A8A679F00C101C8 /* TabBarController.swift in Sources */,
+				25E8E4A32AC1B7AF0093E7F8 /* CellSize.swift in Sources */,
 				251C86F02A98F6D10020C794 /* SelectPlatformScreenFactory.swift in Sources */,
 				25EDF7A52AB2242400648717 /* CoreDataStack.swift in Sources */,
 				25AE1EDC2A8D271D00F2D06A /* UIScrollView+Empty.swift in Sources */,
@@ -1278,11 +1326,13 @@
 				25EB242C2AA621800024F01C /* ImageDescriptionCell.swift in Sources */,
 				251C86E02A98AD4D0020C794 /* SelectAddGameMethodSection.swift in Sources */,
 				254E8B942A8B6BCA00C101C8 /* Strings.swift in Sources */,
+				25979DC62AC17295002CEDE7 /* AuthenticationViewModel.swift in Sources */,
 				2548E5F92ABEDF53004151EF /* MyProfileSection.swift in Sources */,
 				2548E5E32ABAE688004151EF /* GameCollected.swift in Sources */,
 				251C86E62A98BD020020C794 /* SelectAddGameMethodScreenFactory.swift in Sources */,
 				25979DCE2AC17C2C002CEDE7 /* ImageCellViewModel.swift in Sources */,
 				254354762A93AFF700E53351 /* LabelCell.swift in Sources */,
+				25E8E49B2AC1926A0093E7F8 /* UserAccountFormType.swift in Sources */,
 				25979DB62ABF1E1B002CEDE7 /* TitleCellViewModel.swift in Sources */,
 				251C87412A9DE9F30020C794 /* Game.swift in Sources */,
 				251C873B2A9D099E0020C794 /* BasicInfoCell.swift in Sources */,
@@ -1314,8 +1364,10 @@
 				25EB240A2AA1D76D0024F01C /* BasicCardCellViewModelTests.swift in Sources */,
 				251C872B2A9CE93B0020C794 /* Equatables.swift in Sources */,
 				25EB240E2AA5BC550024F01C /* SearchGameByTitleSectionTests.swift in Sources */,
+				25E8E49F2AC1B0D80093E7F8 /* AuthenticationViewModelTests.swift in Sources */,
 				25D5074D2AB61BB200A772F9 /* MyCollectionSectionTests.swift in Sources */,
 				251C87282A9CE82B0020C794 /* Matcher+Extension.swift in Sources */,
+				25E8E4A12AC1B1050093E7F8 /* AuthenticationSectionTests.swift in Sources */,
 				25EB24402AA786100024F01C /* AddGameDetailsSectionTests.swift in Sources */,
 				251C871E2A9C889A0020C794 /* SelectPlatformViewModelTests.swift in Sources */,
 				25979DC32ABF3C0E002CEDE7 /* LoginSectionTests.swift in Sources */,
