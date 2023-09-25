@@ -28,6 +28,6 @@ final class LoginViewModelTests: XCTestCase {
         }
         XCTAssertTrue(callbackIsCalled)
         XCTAssertEqual(viewModel.numberOfSections(), 1)
-        XCTAssertEqual(viewModel.numberOfItems(in: .zero), 7)
+        XCTAssertEqual(viewModel.numberOfItems(in: .zero), 4)
     }
 }

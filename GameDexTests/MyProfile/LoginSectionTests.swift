@@ -14,43 +14,19 @@ final class LoginSectionTests: XCTestCase {
         let section = LoginSection()
         
         // Then
-        XCTAssertEqual(section.cellsVM.count, 7)
+        XCTAssertEqual(section.cellsVM.count, 4)
         
-        guard let headerCellVM = section.cellsVM.first as? TitleCellViewModel,
-              let emailCellVM = section.cellsVM[1] as? BasicCardCellViewModel,
-              let appleCellVM = section.cellsVM[2] as? BasicCardCellViewModel,
-              let facebookCellVM = section.cellsVM[3] as? BasicCardCellViewModel,
-              let googleCellVM = section.cellsVM[4] as? BasicCardCellViewModel,
-              let footerCellVM = section.cellsVM[5] as? TitleCellViewModel,
-              let buttonCellVM = section.cellsVM.last as? ButtonCellViewModel else {
+        guard let imageCellVM = section.cellsVM.first as? ImageCellViewModel,
+              let titleCellVM = section.cellsVM[1] as? TitleCellViewModel,
+              let loginButtonCellVM = section.cellsVM[2] as? ButtonCellViewModel,
+              let signupButtonCellVM = section.cellsVM.last as? ButtonCellViewModel else {
             XCTFail("Cell View Models are not correct")
             return
         }
         
-        guard let emailCellVMCardType = emailCellVM.cardType as? AuthCardType,
-              let appleCellVMCardType = appleCellVM.cardType as? AuthCardType,
-              let facebookCellVMCardType = facebookCellVM.cardType as? AuthCardType,
-              let googleCellVMCardType = googleCellVM.cardType as? AuthCardType else {
-            XCTFail("Wrong type")
-            return
-        }
-        
-        XCTAssertEqual(headerCellVM.title, L10n.loginDescription)
-        
-        XCTAssertEqual(emailCellVMCardType, AuthCardType.emailAuth)
-        XCTAssertEqual(emailCellVM.cardTitle, L10n.loginEmail)
-        
-        XCTAssertEqual(appleCellVMCardType, AuthCardType.appleAuth)
-        XCTAssertEqual(appleCellVM.cardTitle, L10n.loginApple)
-        
-        XCTAssertEqual(facebookCellVMCardType, AuthCardType.facebookAuth)
-        XCTAssertEqual(facebookCellVM.cardTitle, L10n.loginFacebook)
-        
-        XCTAssertEqual(googleCellVMCardType, AuthCardType.googleAuth)
-        XCTAssertEqual(googleCellVM.cardTitle, L10n.loginGoogle)
-        
-        XCTAssertEqual(footerCellVM.title, L10n.noAccountYet)
-        
-        XCTAssertEqual(buttonCellVM.title, L10n.createAccount)
+        XCTAssertEqual(imageCellVM.imageName, Asset.devices.name)
+        XCTAssertEqual(titleCellVM.title, L10n.loginDescription)
+        XCTAssertEqual(loginButtonCellVM.title, L10n.login)
+        XCTAssertEqual(signupButtonCellVM.title, L10n.createAccount)
     }
 }
