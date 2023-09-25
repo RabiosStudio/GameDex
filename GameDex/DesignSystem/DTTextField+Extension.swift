@@ -46,15 +46,15 @@ extension DTTextField {
         button.addTarget(self, action: #selector(self.togglePasswordView), for: .touchUpInside)
         guard let size = button.imageView?.image?.size else { return }
         button.frame = CGRect(
-            x: 0,
-            y: 0,
+            x: .zero,
+            y: .zero,
             width: size.width,
             height: size.height
         )
         let container = UIView(
             frame: CGRect(
-                x: 0,
-                y: 0,
+                x: .zero,
+                y: .zero,
                 width: size.width +
                 DesignSystem.paddingSmall,
                 height: size.height
