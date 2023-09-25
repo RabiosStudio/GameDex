@@ -44,12 +44,12 @@ enum AuthCardType: CardType {
         }
     }
     
-    var image: UIImage {
+    var image: UIImage? {
         switch self {
         case .emailAuth:
-            return UIImage(systemName: "envelope.fill")!.withTintColor(.alwaysWhite, renderingMode: .alwaysOriginal)
+            return UIImage(systemName: "envelope.fill")?.withTintColor(.alwaysWhite, renderingMode: .alwaysOriginal)
         case .appleAuth:
-            return UIImage(systemName: "applelogo")!.withTintColor(.alwaysWhite, renderingMode: .alwaysOriginal)
+            return UIImage(systemName: "applelogo")?.withTintColor(.alwaysWhite, renderingMode: .alwaysOriginal)
         case .facebookAuth:
             return Asset.facebookLogo.image
         case .googleAuth:

@@ -11,6 +11,6 @@ import UIKit
 protocol CardType {
     var textColor: UIColor { get }
     var backgroundColor: UIColor { get }
-    var image: UIImage { get }
+    var image: UIImage? { get }
     var height: CGFloat { get }
 }

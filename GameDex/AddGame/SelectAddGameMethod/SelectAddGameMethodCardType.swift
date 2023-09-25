@@ -24,7 +24,7 @@ enum SelectAddGameMethodCardType: CardType {
         return .primaryBackgroundColor
     }
     
-    var image: UIImage {
+    var image: UIImage? {
         switch self {
         case .manually:
             return Asset.form.image
