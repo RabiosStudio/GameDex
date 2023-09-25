@@ -22,6 +22,8 @@ internal enum L10n {
   internal static let apiErrorDescription = L10n.tr("Localizable", "apiErrorDescription", fallback: "There has been an issue while fetching data")
   /// Oops!
   internal static let apiErrorTitle = L10n.tr("Localizable", "apiErrorTitle", fallback: "Oops!")
+  /// through other methods below
+  internal static let authThroughOtherMethods = L10n.tr("Localizable", "authThroughOtherMethods", fallback: "through other methods below")
   /// Cancel
   internal static let cancel = L10n.tr("Localizable", "cancel", fallback: "Cancel")
   /// Collection management
@@ -42,6 +44,8 @@ internal enum L10n {
   internal static let `continue` = L10n.tr("Localizable", "continue", fallback: "Continue")
   /// Create account
   internal static let createAccount = L10n.tr("Localizable", "createAccount", fallback: "Create account")
+  /// Email
+  internal static let email = L10n.tr("Localizable", "email", fallback: "Email")
   /// Start researching a game on
   internal static let emptyGameSearch = L10n.tr("Localizable", "emptyGameSearch", fallback: "Start researching a game on")
   /// There are no items available for your selected options
@@ -96,8 +100,12 @@ internal enum L10n {
   internal static let noAccountYet = L10n.tr("Localizable", "noAccountYet", fallback: "No account yet?")
   /// Box without notice
   internal static let noNotice = L10n.tr("Localizable", "noNotice", fallback: "Box without notice")
+  /// OR
+  internal static let or = L10n.tr("Localizable", "or", fallback: "OR")
   /// Other details
   internal static let otherDetails = L10n.tr("Localizable", "otherDetails", fallback: "Other details")
+  /// Password
+  internal static let password = L10n.tr("Localizable", "password", fallback: "Password")
   /// Personal rating
   internal static let personalRating = L10n.tr("Localizable", "personalRating", fallback: "Personal rating")
   /// Platform
