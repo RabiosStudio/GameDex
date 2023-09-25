@@ -85,6 +85,7 @@ final class PrimaryButton: UIButton {
     
     @objc private func didTapPrimaryButton(_ sender: PrimaryButton) {
         if self.displayLoaderIfNeeded {
+            self.loader.removeFromSuperview()
             self.addSubview(self.loader)
             self.isEnabled = false
             self.updateButtonDesignForState(viewModel: ButtonViewModel(title: ""))
