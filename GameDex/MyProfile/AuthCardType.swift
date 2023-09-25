@@ -21,35 +21,35 @@ enum AuthCardType: CardType {
     var textColor: UIColor {
         switch self {
         case .emailAuth:
-            return UIColor.primaryBackgroundColor
+            return .alwaysWhite
         case .appleAuth:
-            return UIColor.primaryBackgroundColor
+            return .alwaysWhite
         case .facebookAuth:
-            return UIColor.primaryBackgroundColor
+            return .alwaysWhite
         case .googleAuth:
-            return UIColor.secondaryColor
+            return .alwaysBlack
         }
     }
     
     var backgroundColor: UIColor {
         switch self {
         case .emailAuth:
-            return UIColor.primaryColor
+            return .primaryColor
         case .appleAuth:
-            return UIColor.secondaryColor
+            return .appleColor
         case .facebookAuth:
-            return UIColor(red: 66/255.0, green: 103/255.0, blue: 178/255.0, alpha: 1.0)
+            return .facebookColor
         case .googleAuth:
-            return UIColor.primaryBackgroundColor
+            return .alwaysWhite
         }
     }
     
     var image: UIImage {
         switch self {
         case .emailAuth:
-            return UIImage(systemName: "envelope.fill")!.withTintColor(.primaryBackgroundColor, renderingMode: .alwaysOriginal)
+            return UIImage(systemName: "envelope.fill")!.withTintColor(.alwaysWhite, renderingMode: .alwaysOriginal)
         case .appleAuth:
-            return UIImage(systemName: "applelogo")!.withTintColor(.primaryBackgroundColor, renderingMode: .alwaysOriginal)
+            return UIImage(systemName: "applelogo")!.withTintColor(.alwaysWhite, renderingMode: .alwaysOriginal)
         case .facebookAuth:
             return Asset.facebookLogo.image
         case .googleAuth:
