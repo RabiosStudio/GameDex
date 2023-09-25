@@ -29,12 +29,4 @@ extension UIColor {
     class var facebookColor: UIColor {
         return UIColor(red: 66/255.0, green: 103/255.0, blue: 178/255.0, alpha: 1.0)
     }
-    
-    class var alwaysWhite: UIColor {
-        return UIColor.white
-    }
-    
-    class var alwaysBlack: UIColor {
-        return UIColor.black
-    }
 }

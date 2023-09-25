@@ -21,13 +21,13 @@ enum AuthCardType: CardType {
     var textColor: UIColor {
         switch self {
         case .emailAuth:
-            return .alwaysWhite
+            return .white
         case .appleAuth:
-            return .alwaysWhite
+            return .white
         case .facebookAuth:
-            return .alwaysWhite
+            return .white
         case .googleAuth:
-            return .alwaysBlack
+            return .black
         }
     }
     
@@ -40,16 +40,16 @@ enum AuthCardType: CardType {
         case .facebookAuth:
             return .facebookColor
         case .googleAuth:
-            return .alwaysWhite
+            return .white
         }
     }
     
     var image: UIImage? {
         switch self {
         case .emailAuth:
-            return UIImage(systemName: "envelope.fill")?.withTintColor(.alwaysWhite, renderingMode: .alwaysOriginal)
+            return UIImage(systemName: "envelope.fill")?.withTintColor(.white, renderingMode: .alwaysOriginal)
         case .appleAuth:
-            return UIImage(systemName: "applelogo")?.withTintColor(.alwaysWhite, renderingMode: .alwaysOriginal)
+            return UIImage(systemName: "applelogo")?.withTintColor(.white, renderingMode: .alwaysOriginal)
         case .facebookAuth:
             return Asset.facebookLogo.image
         case .googleAuth:
