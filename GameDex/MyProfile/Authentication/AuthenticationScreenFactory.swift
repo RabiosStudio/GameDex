@@ -13,12 +13,17 @@ struct AuthenticationScreenFactory: ScreenFactory {
     private let userHasAccount: Bool
     
     var viewController: UIViewController {
-        let viewModel = AuthenticationViewModel(userHasAccount: self.userHasAccount)
+        let viewModel = AuthenticationViewModel(
+            userHasAccount: self.userHasAccount,
+            authenticationSerice: AuthenticationImpl(),
+            alertDisplayer: AlertDisplayerImpl()
+        )
         let layout = UICollectionViewFlowLayout()
         let containerController = ContainerViewController(
             viewModel: viewModel,
             layout: layout
         )
+        viewModel.containerDelegate = containerController
         return containerController
     }
     
