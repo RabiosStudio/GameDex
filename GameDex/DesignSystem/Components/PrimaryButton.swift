@@ -33,12 +33,9 @@ final class PrimaryButton: UIButton {
         return view
     }()
     
-    private var displayLoaderIfNeeded: Bool
-    
     weak var delegate: PrimaryButtonDelegate?
     
-    init(delegate: PrimaryButtonDelegate?, shouldEnable: Bool, displayLoaderIfNeeded: Bool) {
-        self.displayLoaderIfNeeded = displayLoaderIfNeeded
+    init(delegate: PrimaryButtonDelegate?, shouldEnable: Bool) {
         super.init(frame: .zero)
         self.delegate = delegate
         self.addTarget(
@@ -58,12 +55,13 @@ final class PrimaryButton: UIButton {
         self.titleLabel?.font = Typography.calloutBold.font
         self.titleLabel?.textAlignment = .center
         self.titleLabel?.numberOfLines = DesignSystem.numberOfLinesStandard
-        self.updateButtonDesignForState(viewModel: viewModel)
-        self.translatesAutoresizingMaskIntoConstraints = false
+        self.setTitleColor(.primaryBackgroundColor, for: .normal)
+        self.updateButtonDesignForState(buttonTitle: viewModel.title)
         self.setupConstraints()
     }
     
     private func setupConstraints() {
+        self.translatesAutoresizingMaskIntoConstraints = false
         let height: CGFloat = UIDevice.current.userInterfaceIdiom == .phone ? DesignSystem.buttonHeightRegular : DesignSystem.buttonHeightBig
         NSLayoutConstraint.activate(
             [
@@ -84,25 +82,24 @@ final class PrimaryButton: UIButton {
     }
     
     @objc private func didTapPrimaryButton(_ sender: PrimaryButton) {
-        if self.displayLoaderIfNeeded {
-            self.loader.removeFromSuperview()
-            self.addSubview(self.loader)
-            self.isEnabled = false
-            self.updateButtonDesignForState(viewModel: ButtonViewModel(title: ""))
-            self.setupLoaderConstraints()
-        }
+        self.isEnabled = false
+        self.updateButtonDesignForState(buttonTitle: nil)
         self.delegate?.didTapPrimaryButton()
     }
     
-    private func updateButtonDesignForState(viewModel: ButtonViewModel) {
+    private func showLoader() {
+        self.addSubview(self.loader)
+        self.setupLoaderConstraints()
+        
+    }
+    
+    func updateButtonDesignForState(buttonTitle: String?) {
+        self.setTitle(buttonTitle, for: .normal)
         if self.isEnabled {
             self.backgroundColor = .secondaryColor
-            self.setTitle(viewModel.title, for: .normal)
-            self.setTitleColor(.primaryBackgroundColor, for: .normal)
         } else {
+            self.showLoader()
             self.backgroundColor = .systemGray3
-            self.setTitle(viewModel.title, for: .disabled)
-            self.setTitleColor(.primaryBackgroundColor, for: .disabled)
         }
     }
 }

@@ -13,8 +13,7 @@ final class PrimaryButtonCell: UICollectionViewCell, CellConfigurable {
     private lazy var primaryButton: PrimaryButton = {
         let primaryButton = PrimaryButton(
             delegate: nil,
-            shouldEnable: true,
-            displayLoaderIfNeeded: false
+            shouldEnable: true
         )
         primaryButton.layoutMargins = UIEdgeInsets(
             top: DesignSystem.paddingLarge,
