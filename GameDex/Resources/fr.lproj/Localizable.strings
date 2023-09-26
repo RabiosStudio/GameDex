@@ -17,12 +17,14 @@
 "updateGameErrorDescription" = "Une erreur est survenue lors de la mise à jour des données.";
 "removeGameErrorDescription" = "Une erreur est survenue lors de la suppression des données";
 "fetchGamesErrorDescription" = "Une erreur est survenue lors de la récupération des données.";
+"errorAuthDescription" = "Veuillez vérifier votre adresse mail et votre mot-de-passe";
 
 // Success
 "successTitle" = "Succès";
 "saveGameSuccessDescription" = "Le jeu a bien été enregistré dans votre collection.";
 "updateGameSuccessDescription" = "Les informations ont bien été mises à jour";
 "removeGameSuccessDescription" = "Le jeu a bien été supprimé de votre collection";
+"successAuthDescription" = "Vous êtes connectés";
 
 // Warnings
 "warningTitle" = "Un instant !";
