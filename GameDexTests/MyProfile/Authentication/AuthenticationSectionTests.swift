@@ -12,7 +12,10 @@ final class AuthenticationSectionTests: XCTestCase {
     
     func test_init_GivenUserHasAccount_ThenShouldSetPropertiesCorrectly() {
         // Given
-        let section = AuthenticationSection(userHasAccount: true)
+        let section = AuthenticationSection(
+            userHasAccount: true,
+            primaryButtonDelegate: nil
+        )
         
         // Then
         XCTAssertEqual(section.cellsVM.count, 8)
@@ -29,7 +32,7 @@ final class AuthenticationSectionTests: XCTestCase {
         
         XCTAssertEqual(titleCellVM.title, L10n.loginEmail)
         XCTAssertEqual(loginButtonCellVM.title, L10n.login)
-        XCTAssertEqual(otherLoginMethodTitleCellVM.title, "\(L10n.or) \n \(L10n.login) \(L10n.authThroughOtherMethods)")
+        XCTAssertEqual(otherLoginMethodTitleCellVM.title, "\(L10n.or) \n \n \(L10n.login) \(L10n.authThroughOtherMethods)")
         
         
         guard let appleCellVMCardType = appleCellVM.cardType as? AuthCardType,
@@ -79,7 +82,10 @@ final class AuthenticationSectionTests: XCTestCase {
     
     func test_init_GivenNoUserAccount_ThenShouldSetPropertiesCorrectly() {
         // Given
-        let section = AuthenticationSection(userHasAccount: false)
+        let section = AuthenticationSection(
+            userHasAccount: false,
+            primaryButtonDelegate: nil
+        )
         
         // Then
         XCTAssertEqual(section.cellsVM.count, 8)
@@ -96,7 +102,7 @@ final class AuthenticationSectionTests: XCTestCase {
         
         XCTAssertEqual(titleCellVM.title, L10n.signupEmail)
         XCTAssertEqual(createAccountButtonCellVM.title, L10n.createAccount)
-        XCTAssertEqual(otherLoginMethodTitleCellVM.title, "\(L10n.or) \n \(L10n.signup) \(L10n.authThroughOtherMethods)")
+        XCTAssertEqual(otherLoginMethodTitleCellVM.title, "\(L10n.or) \n \n \(L10n.signup) \(L10n.authThroughOtherMethods)")
         
         
         guard let appleCellVMCardType = appleCellVM.cardType as? AuthCardType,
