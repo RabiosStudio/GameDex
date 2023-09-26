@@ -43,7 +43,7 @@ final class AuthenticationSection: Section {
         let otherLoginMethodTitle = userHasAccount ? "\(L10n.or) \n \n \(L10n.login) \(L10n.authThroughOtherMethods)" : "\(L10n.or) \n \n \(L10n.signup) \(L10n.authThroughOtherMethods)"
         let otherLoginMethodTitleCellVM = TitleCellViewModel(
             title: otherLoginMethodTitle,
-            size: .regular
+            size: .big
         )
         self.cellsVM.append(otherLoginMethodTitleCellVM)
         
