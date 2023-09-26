@@ -27,6 +27,8 @@ final class PrimaryButtonCell: UICollectionViewCell, CellConfigurable {
         return primaryButton
     }()
     
+    private var buttonTitle: String?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.contentView.addSubview(self.primaryButton)
@@ -41,19 +43,30 @@ final class PrimaryButtonCell: UICollectionViewCell, CellConfigurable {
         guard let cellVM = cellViewModel as? PrimaryButtonCellViewModel else {
             return
         }
+        self.buttonTitle = cellVM.title
         self.primaryButton.configure(
             viewModel: ButtonViewModel(
-                title: cellVM.title
+                title: self.buttonTitle
             )
         )
         self.setupConstraints()
     }
     
     func cellPressed(cellViewModel: CellViewModel) {
-        guard let navigationStyle = cellViewModel.navigationStyle else {
+        self.primaryButton.isEnabled = false
+        self.primaryButton.updateButtonDesignForState(buttonTitle: nil)
+        self.didTapPrimaryButton(cellViewModel: cellViewModel) { () -> () in
+            self.primaryButton.isEnabled = true
+            self.primaryButton.updateButtonDesignForState(buttonTitle: self.buttonTitle)
+        }
+    }
+
+    private func didTapPrimaryButton(cellViewModel: CellViewModel, completion: () -> ()) {
+        guard let cellVM = cellViewModel as? PrimaryButtonCellViewModel else {
             return
         }
-        _ =  Routing.shared.route(navigationStyle: navigationStyle)
+        cellVM.didTapButton()
+        completion()
     }
     
     private func setupConstraints() {
