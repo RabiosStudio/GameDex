@@ -27,7 +27,23 @@ final class MyProfileViewModel: CollectionViewModel {
     }
     
     func loadData(callback: @escaping (EmptyError?) -> ()) {
-        self.sections = [MyProfileSection()]
+        let isUserLoggedIn = self.authenticationService.isUserLoggedIn()
+        self.sections = [
+            MyProfileSection(
+                userIsLoggedIn: isUserLoggedIn,
+                completionBlock: { [weak self] in
+                    
+                    self?.alertDisplayer.presentBasicAlert(
+                        parameters: AlertViewModel(
+                            alertType: .warning,
+                            description: L10n.warningLogOut,
+                            cancelButtonTitle: L10n.cancel,
+                            okButtonTitle: L10n.confirm
+                        )
+                    )
+                }
+            )
+        ]
         callback(nil)
     }
     
