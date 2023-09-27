@@ -1,5 +1,5 @@
 //
-//  AuthenticationImpl.swift
+//  AuthenticationServiceImpl.swift
 //  GameDex
 //
 //  Created by Gabrielle Dalbera on 25/09/2023.
@@ -8,7 +8,7 @@
 import Foundation
 import FirebaseAuth
 
-class AuthenticationImpl: AuthenticationService {
+class AuthenticationServiceImpl: AuthenticationService {
     func login(email: String, password: String, callback: @escaping (AuthenticationError?) -> ()) {
         Auth.auth().signIn(withEmail: email, password: password) { result, error in
             guard error == nil else {

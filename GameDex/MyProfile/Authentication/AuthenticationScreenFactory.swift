@@ -15,7 +15,7 @@ struct AuthenticationScreenFactory: ScreenFactory {
     var viewController: UIViewController {
         let viewModel = AuthenticationViewModel(
             userHasAccount: self.userHasAccount,
-            authenticationSerice: AuthenticationImpl(),
+            authenticationSerice: AuthenticationServiceImpl(),
             alertDisplayer: AlertDisplayerImpl()
         )
         let layout = UICollectionViewFlowLayout()
