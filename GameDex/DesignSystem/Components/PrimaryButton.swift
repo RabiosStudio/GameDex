@@ -90,7 +90,6 @@ final class PrimaryButton: UIButton {
     private func showLoader() {
         self.addSubview(self.loader)
         self.setupLoaderConstraints()
-        
     }
     
     func updateButtonDesignForState(buttonTitle: String?) {

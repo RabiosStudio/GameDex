@@ -54,9 +54,9 @@ final class PrimaryButtonCell: UICollectionViewCell, CellConfigurable {
     func cellPressed(cellViewModel: CellViewModel) {
         self.primaryButton.isEnabled = false
         self.primaryButton.updateButtonDesignForState(buttonTitle: nil)
-        self.didTapPrimaryButton(cellViewModel: cellViewModel) { () -> () in
-            self.primaryButton.isEnabled = true
-            self.primaryButton.updateButtonDesignForState(buttonTitle: self.buttonTitle)
+        self.didTapPrimaryButton(cellViewModel: cellViewModel) { [weak self] in
+            self?.primaryButton.isEnabled = true
+            self?.primaryButton.updateButtonDesignForState(buttonTitle: self?.buttonTitle)
         }
     }
 
