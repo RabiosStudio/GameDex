@@ -8,5 +8,5 @@
 import Foundation
 
 struct ButtonViewModel {
-    let title: String
+    let title: String?
 }

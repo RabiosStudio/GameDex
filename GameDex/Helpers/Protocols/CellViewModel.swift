@@ -24,6 +24,11 @@ protocol CollectionCellViewModel: CellViewModel {
     var height: CGFloat { get }
 }
 
+// MARK: - Button
+protocol ButtonCollectionCellViewModel: CollectionCellViewModel {
+    func didTapButton()
+}
+
 // MARK: - Cards
 
 protocol CollectionCardCellViewModel: CollectionCellViewModel, CardCellViewModel {}

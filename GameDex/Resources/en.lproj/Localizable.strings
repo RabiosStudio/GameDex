@@ -17,12 +17,14 @@
 "updateGameErrorDescription" = "An error occured while updating data.";
 "removeGameErrorDescription" = "An error occured while removing data.";
 "fetchGamesErrorDescription" = "An error occured while fetching data.";
+"errorAuthDescription" = "Please check your email address and password";
 
 // Success
 "successTitle" = "Success";
 "saveGameSuccessDescription" = "The game was saved to your collection.";
 "updateGameSuccessDescription" = "The game information were updated.";
 "removeGameSuccessDescription" = "The game was removed from your collection.";
+"successAuthDescription" = "Login successful";
 
 // Warnings
 "warningTitle" = "One moment !";

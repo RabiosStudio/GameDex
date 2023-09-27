@@ -18,6 +18,7 @@ target 'GameDex' do
   pod 'SwiftyTextView'
   pod 'Cosmos', '~> 23.0'
   pod 'SwiftEntryKit', '2.0.0'
+  pod 'FirebaseAuth'
 
   target 'GameDexTests' do
     inherit! :search_paths

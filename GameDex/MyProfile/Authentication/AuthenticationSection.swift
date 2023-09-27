@@ -10,7 +10,7 @@ import UIKit
 
 final class AuthenticationSection: Section {
     
-    init(userHasAccount: Bool) {
+    init(userHasAccount: Bool, primaryButtonDelegate: PrimaryButtonDelegate?) {
         super.init()
         self.position = 0
         
@@ -35,14 +35,15 @@ final class AuthenticationSection: Section {
         
         let loginButtonCellVM = PrimaryButtonCellViewModel(
             title: userHasAccount ? L10n.login : L10n.createAccount,
-            screenFactory: AuthenticationScreenFactory(userHasAccount: true)
+            screenFactory: nil,
+            delegate: primaryButtonDelegate
         )
         self.cellsVM.append(loginButtonCellVM)
         
         let otherLoginMethodTitle = userHasAccount ? "\(L10n.or) \n \n \(L10n.login) \(L10n.authThroughOtherMethods)" : "\(L10n.or) \n \n \(L10n.signup) \(L10n.authThroughOtherMethods)"
         let otherLoginMethodTitleCellVM = TitleCellViewModel(
             title: otherLoginMethodTitle,
-            size: .regular
+            size: .big
         )
         self.cellsVM.append(otherLoginMethodTitleCellVM)
         
