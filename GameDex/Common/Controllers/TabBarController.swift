@@ -12,7 +12,12 @@ class TabBarController: UITabBarController {
             )
         )
         
-        let vc2 = self.createViewController(viewModel: MyProfileViewModel())
+        let vc2 = self.createViewController(
+            viewModel: MyProfileViewModel(
+                authenticationService: AuthenticationServiceImpl(),
+                alertDisplayer: AlertDisplayerImpl()
+            )
+        )
         
         let nav1 = UINavigationController(rootViewController: vc1)
         let nav2 = UINavigationController(rootViewController: vc2)

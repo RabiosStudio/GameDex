@@ -17,6 +17,14 @@ final class MyProfileViewModel: CollectionViewModel {
     var containerDelegate: ContainerViewControllerDelegate?
     
     init() {}
+    private let authenticationService: AuthenticationService
+    private var alertDisplayer: AlertDisplayer
+    
+    init(authenticationService: AuthenticationService, alertDisplayer: AlertDisplayer) {
+        self.authenticationService = authenticationService
+        self.alertDisplayer = alertDisplayer
+        self.alertDisplayer.alertDelegate = self
+    }
     
     func loadData(callback: @escaping (EmptyError?) -> ()) {
         self.sections = [MyProfileSection()]
@@ -24,4 +32,9 @@ final class MyProfileViewModel: CollectionViewModel {
     }
     
     func didTapRightButtonItem() {}
+}
+
+extension MyProfileViewModel: AlertDisplayerDelegate {
+    func didTapOkButton() {
+    }
 }
