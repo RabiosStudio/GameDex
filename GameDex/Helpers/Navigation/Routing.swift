@@ -76,9 +76,14 @@ class Routing: NSObject, Navigator {
                                 completion: {() -> Void in
                     completionBlock?()
                 })
-                
             case .selectTab(let index, let completionBlock):
-                print("selectTab \(index) with completionBlock \(String(describing: completionBlock))")
+                guard let navigationController = fromVC as? UINavigationController ?? fromVC?.navController as? UINavigationController,
+                      let tabBarController = navigationController.tabBarController else {
+                    return
+                }
+                
+                tabBarController.selectedIndex = index
+                completionBlock?()
             case .dismiss(let completionBlock):
                 fromVC?.dismissController(animated: animated,
                                           completion: {() -> Void in
