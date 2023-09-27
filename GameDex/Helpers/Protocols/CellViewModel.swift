@@ -25,7 +25,7 @@ protocol CollectionCellViewModel: CellViewModel {
 }
 
 // MARK: - Button
-protocol ButtonCollectionCellViewModel {
+protocol ButtonCollectionCellViewModel: CollectionCellViewModel {
     func didTapButton()
 }
 

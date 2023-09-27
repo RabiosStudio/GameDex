@@ -7,7 +7,7 @@
 
 import Foundation
 
-final class PrimaryButtonCellViewModel: CollectionCellViewModel, ButtonCollectionCellViewModel {
+final class PrimaryButtonCellViewModel: ButtonCollectionCellViewModel {
     var cellClass: AnyClass = PrimaryButtonCell.self
     var indexPath: IndexPath?
     var height: CGFloat = DesignSystem.buttonHeightRegular
