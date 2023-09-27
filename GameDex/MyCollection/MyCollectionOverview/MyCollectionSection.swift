@@ -29,9 +29,11 @@ final class MyCollectionSection: Section {
             let labelCellVM = LabelCellViewModel(
                 primaryText: platform.title,
                 secondaryText: "\(gameArray.count) \(text)",
-                screenFactory: MyCollectionByPlatformsScreenFactory(
-                    platform: platform,
-                    gameDetailsDelegate: gameDetailsDelegate
+                navigationStyle: .push(
+                    controller: MyCollectionByPlatformsScreenFactory(
+                        platform: platform,
+                        gameDetailsDelegate: gameDetailsDelegate
+                    ).viewController
                 )
             )
             self.cellsVM.append(labelCellVM)

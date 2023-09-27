@@ -10,22 +10,15 @@ import Foundation
 final class LabelCellViewModel: CollectionCellViewModel {
     var cellClass: AnyClass = LabelCell.self
     var indexPath: IndexPath?
-    lazy var navigationStyle: NavigationStyle? = {
-        guard let screenFactory else { return nil }
-        return .push(
-            controller: screenFactory.viewController
-        )
-    }()
+    var navigationStyle: NavigationStyle?
     var height: CGFloat = DesignSystem.sizeTiny
-    
-    private let screenFactory: ScreenFactory?
     var primaryText: String
     var secondaryText: String?
     
-    init(primaryText: String, secondaryText: String? = nil, screenFactory: ScreenFactory?) {
+    init(primaryText: String, secondaryText: String? = nil, navigationStyle: NavigationStyle?) {
         self.primaryText = primaryText
         self.secondaryText = secondaryText
-        self.screenFactory = screenFactory
+        self.navigationStyle = navigationStyle
     }
     
 }

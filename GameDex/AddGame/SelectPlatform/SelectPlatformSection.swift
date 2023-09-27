@@ -17,9 +17,11 @@ final class SelectPlatformSection: Section {
             let labelCellVM = LabelCellViewModel(
                 primaryText: platform.title,
                 secondaryText: nil,
-                screenFactory: SearchGameByTitleScreenFactory(
-                    platform: platform,
-                    gameDetailsDelegate: gameDetailsDelegate
+                navigationStyle: .push(
+                    controller: SearchGameByTitleScreenFactory(
+                        platform: platform,
+                        gameDetailsDelegate: gameDetailsDelegate
+                    ).viewController
                 )
             )
             
