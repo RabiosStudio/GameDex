@@ -10,4 +10,5 @@ import Foundation
 public enum AuthenticationError: Error {
     case loginError
     case createAccountError
+    case logoutError
 }

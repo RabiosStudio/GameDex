@@ -11,4 +11,6 @@ import Foundation
 protocol AuthenticationService {
     func login(email: String, password: String, callback: @escaping (AuthenticationError?) -> ())
     func createUser(email: String, password: String, callback: @escaping (AuthenticationError?) -> ())
+    func logout(callback: @escaping (AuthenticationError?) -> ())
+    func isUserLoggedIn() -> Bool 
 }
