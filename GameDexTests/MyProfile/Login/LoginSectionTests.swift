@@ -11,7 +11,7 @@ import XCTest
 final class LoginSectionTests: XCTestCase {
     func test_init_ThenShouldSetPropertiesCorrectly() {
         // Given
-        let section = LoginSection()
+        let section = LoginSection(myProfileDelegate: nil)
         
         // Then
         XCTAssertEqual(section.cellsVM.count, 4)

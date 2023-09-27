@@ -38,7 +38,6 @@ final class MyProfileViewModel: CollectionViewModel {
                 userIsLoggedIn: isUserLoggedIn,
                 myProfileDelegate: self,
                 completionBlock: { [weak self] in
-                    
                     self?.alertDisplayer.presentBasicAlert(
                         parameters: AlertViewModel(
                             alertType: .warning,

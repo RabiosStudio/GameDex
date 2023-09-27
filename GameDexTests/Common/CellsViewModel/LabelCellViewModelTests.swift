@@ -15,22 +15,20 @@ final class LabelCellViewModelTests: XCTestCase {
         let primaryLabel = "Primary label"
         let secondaryLabel = "Secondary Label"
         
-        let screenFactory = SelectPlatformScreenFactory(delegate: GameDetailsViewModelDelegateMock())
+        let navigationStyle: NavigationStyle = .push(
+            controller: SelectPlatformScreenFactory(
+                delegate: GameDetailsViewModelDelegateMock()
+            ).viewController
+        )
         // When
         let cellVM = LabelCellViewModel(
             primaryText: primaryLabel,
             secondaryText: secondaryLabel,
-            screenFactory: screenFactory
+            navigationStyle: navigationStyle
         )
         // Then
         XCTAssertEqual(cellVM.primaryText, "Primary label")
         XCTAssertEqual(cellVM.secondaryText, "Secondary Label")
-        
-        let expectedNavigationStyle: NavigationStyle = {
-            return .push(
-                controller: screenFactory.viewController
-            )
-        }()
-        XCTAssertEqual(cellVM.navigationStyle, expectedNavigationStyle)
+        XCTAssertEqual(cellVM.navigationStyle, navigationStyle)
     }
 }

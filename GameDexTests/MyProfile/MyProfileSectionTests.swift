@@ -10,9 +10,13 @@ import XCTest
 
 final class MyProfileSectionTests: XCTestCase {
     
-    func test_init_ThenShouldSetPropertiesCorrectly() {
+    func test_init_GivenUserIsNotLoggedIn_ThenShouldSetPropertiesCorrectly() {
         // Given
-        let section = MyProfileSection()
+        let section = MyProfileSection(
+            userIsLoggedIn: false,
+            myProfileDelegate: nil,
+            completionBlock: nil
+        )
         
         // Then
         XCTAssertEqual(section.cellsVM.count, 3)
@@ -25,6 +29,32 @@ final class MyProfileSectionTests: XCTestCase {
         }
         
         XCTAssertEqual(loginCellVM.primaryText, L10n.login)
+        XCTAssertEqual(loginCellVM.secondaryText, nil)
+        XCTAssertEqual(collectionManagementCellVM.primaryText, L10n.collectionManagement)
+        XCTAssertEqual(collectionManagementCellVM.secondaryText, nil)
+        XCTAssertEqual(contactUsCellVM.primaryText, L10n.contactUs)
+        XCTAssertEqual(contactUsCellVM.secondaryText, nil)
+    }
+    
+    func test_init_GivenUserIsLoggedIn_ThenShouldSetPropertiesCorrectly() {
+        // Given
+        let section = MyProfileSection(
+            userIsLoggedIn: true,
+            myProfileDelegate: nil,
+            completionBlock: nil
+        )
+        
+        // Then
+        XCTAssertEqual(section.cellsVM.count, 3)
+        
+        guard let loginCellVM = section.cellsVM.first as? LabelCellViewModel,
+              let collectionManagementCellVM = section.cellsVM[1] as? LabelCellViewModel,
+              let contactUsCellVM = section.cellsVM.last as? LabelCellViewModel else {
+            XCTFail("Cell View Models are not correct")
+            return
+        }
+        
+        XCTAssertEqual(loginCellVM.primaryText, L10n.logout)
         XCTAssertEqual(loginCellVM.secondaryText, nil)
         XCTAssertEqual(collectionManagementCellVM.primaryText, L10n.collectionManagement)
         XCTAssertEqual(collectionManagementCellVM.secondaryText, nil)
