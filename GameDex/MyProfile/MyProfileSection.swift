@@ -38,13 +38,13 @@ final class MyProfileSection: Section {
         
         let collectionManagementCellVM = LabelCellViewModel(
             primaryText: L10n.collectionManagement,
-            screenFactory: nil
+            navigationStyle: nil
         )
         self.cellsVM.append(collectionManagementCellVM)
         
         let contactUsCellVM = LabelCellViewModel(
             primaryText: L10n.contactUs,
-            screenFactory: nil
+            navigationStyle: nil
         )
         self.cellsVM.append(contactUsCellVM)
     }
