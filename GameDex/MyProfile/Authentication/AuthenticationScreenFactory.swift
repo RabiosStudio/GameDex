@@ -11,12 +11,14 @@ import UIKit
 struct AuthenticationScreenFactory: ScreenFactory {
     
     private let userHasAccount: Bool
+    private let myProfileDelegate: MyProfileViewModelDelegate?
     
     var viewController: UIViewController {
         let viewModel = AuthenticationViewModel(
             userHasAccount: self.userHasAccount,
             authenticationSerice: AuthenticationServiceImpl(),
-            alertDisplayer: AlertDisplayerImpl()
+            alertDisplayer: AlertDisplayerImpl(),
+            myProfileDelegate: self.myProfileDelegate
         )
         let layout = UICollectionViewFlowLayout()
         let containerController = ContainerViewController(
@@ -27,7 +29,8 @@ struct AuthenticationScreenFactory: ScreenFactory {
         return containerController
     }
     
-    init(userHasAccount: Bool) {
+    init(userHasAccount: Bool, myProfileDelegate: MyProfileViewModelDelegate?) {
         self.userHasAccount = userHasAccount
+        self.myProfileDelegate = myProfileDelegate
     }
 }

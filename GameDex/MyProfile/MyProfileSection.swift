@@ -11,6 +11,7 @@ final class MyProfileSection: Section {
     
     init(
         userIsLoggedIn: Bool,
+        myProfileDelegate: MyProfileViewModelDelegate?,
         completionBlock: (() -> Void)?
     ) {
         super.init()
@@ -30,6 +31,7 @@ final class MyProfileSection: Section {
                 primaryText: L10n.login,
                 navigationStyle: .push(
                     controller: LoginScreenFactory(
+                        myProfileDelegate: myProfileDelegate
                     ).viewController
                 )
             )

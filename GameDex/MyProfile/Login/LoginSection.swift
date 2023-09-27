@@ -10,7 +10,7 @@ import UIKit
 
 final class LoginSection: Section {
     
-    override init() {
+    init(myProfileDelegate: MyProfileViewModelDelegate?) {
         super.init()
         self.position = 0
         
@@ -25,14 +25,19 @@ final class LoginSection: Section {
         
         let loginButtonCellVM = PrimaryButtonCellViewModel(
             title: L10n.login,
-            screenFactory: AuthenticationScreenFactory(userHasAccount: true),
+            screenFactory: AuthenticationScreenFactory(
+                userHasAccount: true,
+                myProfileDelegate: myProfileDelegate),
             delegate: nil
         )
         self.cellsVM.append(loginButtonCellVM)
         
         let signupButtonCellVM = PrimaryButtonCellViewModel(
             title: L10n.createAccount,
-            screenFactory: AuthenticationScreenFactory(userHasAccount: false),
+            screenFactory: AuthenticationScreenFactory(
+                userHasAccount: false,
+                myProfileDelegate: myProfileDelegate
+            ),
             delegate: nil
         )
         self.cellsVM.append(signupButtonCellVM)

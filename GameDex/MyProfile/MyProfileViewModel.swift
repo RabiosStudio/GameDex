@@ -7,6 +7,11 @@
 
 import Foundation
 
+// sourcery: AutoMockable
+protocol MyProfileViewModelDelegate: AnyObject {
+    func reloadMyProfile()
+}
+
 final class MyProfileViewModel: CollectionViewModel {
     var searchViewModel: SearchViewModel?
     var isBounceable: Bool = true
@@ -14,9 +19,9 @@ final class MyProfileViewModel: CollectionViewModel {
     var rightButtonItems: [AnyBarButtonItem]?
     let screenTitle: String? = L10n.myProfile
     var sections: [Section] = []
-    var containerDelegate: ContainerViewControllerDelegate?
     
-    init() {}
+    weak var containerDelegate: ContainerViewControllerDelegate?
+    
     private let authenticationService: AuthenticationService
     private var alertDisplayer: AlertDisplayer
     
@@ -31,6 +36,7 @@ final class MyProfileViewModel: CollectionViewModel {
         self.sections = [
             MyProfileSection(
                 userIsLoggedIn: isUserLoggedIn,
+                myProfileDelegate: self,
                 completionBlock: { [weak self] in
                     
                     self?.alertDisplayer.presentBasicAlert(
@@ -72,5 +78,11 @@ extension MyProfileViewModel: AlertDisplayerDelegate {
                 }
             }
         )
+    }
+}
+
+extension MyProfileViewModel: MyProfileViewModelDelegate {
+    func reloadMyProfile() {
+        self.containerDelegate?.reloadSections()
     }
 }

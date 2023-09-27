@@ -14,12 +14,16 @@ final class LoginViewModel: CollectionViewModel {
     var rightButtonItems: [AnyBarButtonItem]?
     let screenTitle: String? = L10n.login
     var sections: [Section] = []
-    var containerDelegate: ContainerViewControllerDelegate?
     
-    init() {}
+    weak var containerDelegate: ContainerViewControllerDelegate?
+    weak var myProfileDelegate: MyProfileViewModelDelegate?
+    
+    init(myProfileDelegate: MyProfileViewModelDelegate?) {
+        self.myProfileDelegate = myProfileDelegate
+    }
     
     func loadData(callback: @escaping (EmptyError?) -> ()) {
-        self.sections = [LoginSection()]
+        self.sections = [LoginSection(myProfileDelegate: self.myProfileDelegate)]
         callback(nil)
     }
     
