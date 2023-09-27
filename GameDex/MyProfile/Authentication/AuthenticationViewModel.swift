@@ -45,21 +45,12 @@ final class AuthenticationViewModel: CollectionViewModel {
     func didTapRightButtonItem() {}
     
     private func displayAlert(success: Bool) {
-        if success {
-            self.alertDisplayer.presentTopFloatAlert(
-                parameters: AlertViewModel(
-                    alertType: .success,
-                    description: L10n.successAuthDescription
-                )
+        self.alertDisplayer.presentTopFloatAlert(
+            parameters: AlertViewModel(
+                alertType: success ? .success : .error,
+                description: success ? L10n.successAuthDescription : L10n.errorAuthDescription
             )
-        } else {
-            self.alertDisplayer.presentTopFloatAlert(
-                parameters: AlertViewModel(
-                    alertType: .error,
-                    description: L10n.errorAuthDescription
-                )
-            )
-        }
+        )
     }
 }
 
