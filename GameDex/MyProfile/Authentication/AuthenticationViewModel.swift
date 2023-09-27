@@ -72,21 +72,21 @@ extension AuthenticationViewModel: PrimaryButtonDelegate {
             return
         }
         
-        var email = String()
-        var password = String()
+        var email: String?
+        var password: String?
         
         for formCellVM in formCellsVM {
             guard let formType = formCellVM.formType as? UserAccountFormType else { return }
             switch formType {
             case .email:
-                if let value = formCellVM.value as? String {
-                    email = value
-                }
+                email = formCellVM.value as? String
             case .password:
-                if let value = formCellVM.value as? String {
-                    password = value
-                }
+                password = formCellVM.value as? String
             }
+        }
+        
+        guard let email, let password else {
+            return
         }
         
         if self.userHasAccount {

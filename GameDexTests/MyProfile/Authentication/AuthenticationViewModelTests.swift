@@ -51,31 +51,48 @@ final class AuthenticationViewModelTests: XCTestCase {
             alertDisplayer: alertDisplayer
         )
         
-        viewModel.loadData { _ in
-            authenticationService.perform(
-                .login(
-                    email: .any,
-                    password: .any,
-                    callback: .any,
-                    perform: { _, _, completion in
-                        completion(AuthenticationError.loginError)
-                        
-                        // Then
-                        alertDisplayer.verify(
-                            .presentTopFloatAlert(
-                                parameters: .value(
-                                    AlertViewModel(
-                                        alertType: .error,
-                                        description: L10n.errorAuthDescription
-                                    )
+        viewModel.loadData { _ in }
+        
+        let firstSection = viewModel.sections.first!
+        let formCellsVM = firstSection.cellsVM.filter({ cellVM in
+            return cellVM is TextFieldCellViewModel
+        }) as! [TextFieldCellViewModel]
+        
+        for formCellVM in formCellsVM {
+            guard let formType = formCellVM.formType as? UserAccountFormType else { return }
+            switch formType {
+            case .email:
+                formCellVM.value = "email"
+            case .password:
+                formCellVM.value = "password"
+            }
+        }
+        
+        authenticationService.perform(
+            .login(
+                email: .any,
+                password: .any,
+                callback: .any,
+                perform: { _, _, completion in
+                    completion(AuthenticationError.loginError)
+                    
+                    // Then
+                    alertDisplayer.verify(
+                        .presentTopFloatAlert(
+                            parameters: .value(
+                                AlertViewModel(
+                                    alertType: .error,
+                                    description: L10n.errorAuthDescription
                                 )
                             )
                         )
-                        expectation.fulfill()
-                    }
-                )
+                    )
+                    expectation.fulfill()
+                }
             )
-        }
+        )
+        
+        // When
         viewModel.didTapPrimaryButton()
         
         wait(for: [expectation], timeout: Constants.timeout)
@@ -93,31 +110,47 @@ final class AuthenticationViewModelTests: XCTestCase {
             alertDisplayer: alertDisplayer
         )
         
-        viewModel.loadData { _ in
-            authenticationService.perform(
-                .login(
-                    email: .any,
-                    password: .any,
-                    callback: .any,
-                    perform: { _, _, completion in
-                        completion(nil)
-                        
-                        // Then
-                        alertDisplayer.verify(
-                            .presentTopFloatAlert(
-                                parameters: .value(
-                                    AlertViewModel(
-                                        alertType: .success,
-                                        description: L10n.successAuthDescription
-                                    )
+        viewModel.loadData { _ in }
+        
+        let firstSection = viewModel.sections.first!
+        let formCellsVM = firstSection.cellsVM.filter({ cellVM in
+            return cellVM is TextFieldCellViewModel
+        }) as! [TextFieldCellViewModel]
+        
+        for formCellVM in formCellsVM {
+            guard let formType = formCellVM.formType as? UserAccountFormType else { return }
+            switch formType {
+            case .email:
+                formCellVM.value = "email"
+            case .password:
+                formCellVM.value = "password"
+            }
+        }
+        
+        authenticationService.perform(
+            .login(
+                email: .any,
+                password: .any,
+                callback: .any,
+                perform: { _, _, completion in
+                    completion(nil)
+                    
+                    // Then
+                    alertDisplayer.verify(
+                        .presentTopFloatAlert(
+                            parameters: .value(
+                                AlertViewModel(
+                                    alertType: .success,
+                                    description: L10n.successAuthDescription
                                 )
                             )
                         )
-                        expectation.fulfill()
-                    }
-                )
+                    )
+                    expectation.fulfill()
+                }
             )
-        }
+        )
+        
         viewModel.didTapPrimaryButton()
         
         wait(for: [expectation], timeout: Constants.timeout)
@@ -135,31 +168,47 @@ final class AuthenticationViewModelTests: XCTestCase {
             alertDisplayer: alertDisplayer
         )
         
-        viewModel.loadData { _ in
-            authenticationService.perform(
-                .createUser(
-                    email: .any,
-                    password: .any,
-                    callback: .any,
-                    perform: { _, _, completion in
-                        completion(AuthenticationError.createAccountError)
-                        
-                        // Then
-                        alertDisplayer.verify(
-                            .presentTopFloatAlert(
-                                parameters: .value(
-                                    AlertViewModel(
-                                        alertType: .error,
-                                        description: L10n.errorAuthDescription
-                                    )
+        viewModel.loadData { _ in }
+        
+        let firstSection = viewModel.sections.first!
+        let formCellsVM = firstSection.cellsVM.filter({ cellVM in
+            return cellVM is TextFieldCellViewModel
+        }) as! [TextFieldCellViewModel]
+        
+        for formCellVM in formCellsVM {
+            guard let formType = formCellVM.formType as? UserAccountFormType else { return }
+            switch formType {
+            case .email:
+                formCellVM.value = "email"
+            case .password:
+                formCellVM.value = "password"
+            }
+        }
+        
+        authenticationService.perform(
+            .createUser(
+                email: .any,
+                password: .any,
+                callback: .any,
+                perform: { _, _, completion in
+                    completion(AuthenticationError.createAccountError)
+                    
+                    // Then
+                    alertDisplayer.verify(
+                        .presentTopFloatAlert(
+                            parameters: .value(
+                                AlertViewModel(
+                                    alertType: .error,
+                                    description: L10n.errorAuthDescription
                                 )
                             )
                         )
-                        expectation.fulfill()
-                    }
-                )
+                    )
+                    expectation.fulfill()
+                }
             )
-        }
+        )
+        
         viewModel.didTapPrimaryButton()
         
         wait(for: [expectation], timeout: Constants.timeout)
@@ -177,31 +226,47 @@ final class AuthenticationViewModelTests: XCTestCase {
             alertDisplayer: alertDisplayer
         )
         
-        viewModel.loadData { _ in
-            authenticationService.perform(
-                .createUser(
-                    email: .any,
-                    password: .any,
-                    callback: .any,
-                    perform: { _, _, completion in
-                        completion(nil)
-                        
-                        // Then
-                        alertDisplayer.verify(
-                            .presentTopFloatAlert(
-                                parameters: .value(
-                                    AlertViewModel(
-                                        alertType: .success,
-                                        description: L10n.successAuthDescription
-                                    )
+        viewModel.loadData { _ in }
+        
+        let firstSection = viewModel.sections.first!
+        let formCellsVM = firstSection.cellsVM.filter({ cellVM in
+            return cellVM is TextFieldCellViewModel
+        }) as! [TextFieldCellViewModel]
+        
+        for formCellVM in formCellsVM {
+            guard let formType = formCellVM.formType as? UserAccountFormType else { return }
+            switch formType {
+            case .email:
+                formCellVM.value = "email"
+            case .password:
+                formCellVM.value = "password"
+            }
+        }
+        
+        authenticationService.perform(
+            .createUser(
+                email: .any,
+                password: .any,
+                callback: .any,
+                perform: { _, _, completion in
+                    completion(nil)
+                    
+                    // Then
+                    alertDisplayer.verify(
+                        .presentTopFloatAlert(
+                            parameters: .value(
+                                AlertViewModel(
+                                    alertType: .success,
+                                    description: L10n.successAuthDescription
                                 )
                             )
                         )
-                        expectation.fulfill()
-                    }
-                )
+                    )
+                    expectation.fulfill()
+                }
             )
-        }
+        )
+        
         viewModel.didTapPrimaryButton()
         
         wait(for: [expectation], timeout: Constants.timeout)
