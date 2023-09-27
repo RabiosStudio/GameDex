@@ -12,25 +12,28 @@
 // Errors
 "errorTitle" = "Error";
 "apiErrorTitle" = "Oops!";
-"apiErrorDescription" = "There has been an issue while fetching data";
+"apiErrorDescription" = "There has been an issue while fetching data.";
 "saveGameErrorDescription" = "An error occured while saving game details.";
 "updateGameErrorDescription" = "An error occured while updating data.";
 "removeGameErrorDescription" = "An error occured while removing data.";
 "fetchGamesErrorDescription" = "An error occured while fetching data.";
 "errorAuthDescription" = "Please check your email address and password";
+"errorLogOutDescription" = "An error occured while logging out.";
 
 // Success
 "successTitle" = "Success";
 "saveGameSuccessDescription" = "The game was saved to your collection.";
 "updateGameSuccessDescription" = "The game information were updated.";
 "removeGameSuccessDescription" = "The game was removed from your collection.";
-"successAuthDescription" = "Login successful";
+"successAuthDescription" = "Login successful.";
+"successLogOutDescription" = "You are logged out.";
 
 // Warnings
 "warningTitle" = "One moment !";
 "warningRemoveGameDescription" = "Are you sure you want to remove this game from your collection?";
 "warningTryAgain" = "Please try again later";
-"warningGameAlreadyInDatabase" = "Ce jeu est déjà dans votre collection !";
+"warningGameAlreadyInDatabase" = "This game is already in your collection !";
+"warningLogOut" = "Are you sure you want to log out?";
 
 // Button
 "addAGame" = "Add a game";
@@ -60,6 +63,7 @@
 
 // Profile
 "login" = "Login";
+"logout" = "Log out";
 "signup" = "Sign up";
 "collectionManagement" = "Collection management";
 "contactUs" = "Contact Us";

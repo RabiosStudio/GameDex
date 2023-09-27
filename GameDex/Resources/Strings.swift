@@ -18,8 +18,8 @@ internal enum L10n {
   internal static let addBasicGameInformationDescription = L10n.tr("Localizable", "addBasicGameInformationDescription", fallback: "First, add the game title and optionnally the corresponding platform.")
   /// Add to collection
   internal static let addGameToCollection = L10n.tr("Localizable", "addGameToCollection", fallback: "Add to collection")
-  /// There has been an issue while fetching data
-  internal static let apiErrorDescription = L10n.tr("Localizable", "apiErrorDescription", fallback: "There has been an issue while fetching data")
+  /// There has been an issue while fetching data.
+  internal static let apiErrorDescription = L10n.tr("Localizable", "apiErrorDescription", fallback: "There has been an issue while fetching data.")
   /// Oops!
   internal static let apiErrorTitle = L10n.tr("Localizable", "apiErrorTitle", fallback: "Oops!")
   /// through other methods below
@@ -58,6 +58,8 @@ internal enum L10n {
   internal static let emptyMyCollectionTitle = L10n.tr("Localizable", "emptyMyCollectionTitle", fallback: "Your collection is empty")
   /// Please check your email address and password
   internal static let errorAuthDescription = L10n.tr("Localizable", "errorAuthDescription", fallback: "Please check your email address and password")
+  /// An error occured while logging out.
+  internal static let errorLogOutDescription = L10n.tr("Localizable", "errorLogOutDescription", fallback: "An error occured while logging out.")
   /// Error
   internal static let errorTitle = L10n.tr("Localizable", "errorTitle", fallback: "Error")
   /// An error occured while fetching data.
@@ -86,6 +88,8 @@ internal enum L10n {
   internal static let loginFacebook = L10n.tr("Localizable", "loginFacebook", fallback: "Login with Facebook")
   /// Login with Google
   internal static let loginGoogle = L10n.tr("Localizable", "loginGoogle", fallback: "Login with Google")
+  /// Log out
+  internal static let logout = L10n.tr("Localizable", "logout", fallback: "Log out")
   /// Loose
   internal static let loose = L10n.tr("Localizable", "loose", fallback: "Loose")
   /// Manually
@@ -156,8 +160,10 @@ internal enum L10n {
   internal static let stepOneOutOfThree = L10n.tr("Localizable", "stepOneOutOfThree", fallback: "Step 1/3")
   /// Storage area
   internal static let storageArea = L10n.tr("Localizable", "storageArea", fallback: "Storage area")
-  /// Login successful
-  internal static let successAuthDescription = L10n.tr("Localizable", "successAuthDescription", fallback: "Login successful")
+  /// Login successful.
+  internal static let successAuthDescription = L10n.tr("Localizable", "successAuthDescription", fallback: "Login successful.")
+  /// You are logged out.
+  internal static let successLogOutDescription = L10n.tr("Localizable", "successLogOutDescription", fallback: "You are logged out.")
   /// Success
   internal static let successTitle = L10n.tr("Localizable", "successTitle", fallback: "Success")
   /// Title
@@ -166,8 +172,10 @@ internal enum L10n {
   internal static let updateGameErrorDescription = L10n.tr("Localizable", "updateGameErrorDescription", fallback: "An error occured while updating data.")
   /// The game information were updated.
   internal static let updateGameSuccessDescription = L10n.tr("Localizable", "updateGameSuccessDescription", fallback: "The game information were updated.")
-  /// Ce jeu est déjà dans votre collection !
-  internal static let warningGameAlreadyInDatabase = L10n.tr("Localizable", "warningGameAlreadyInDatabase", fallback: "Ce jeu est déjà dans votre collection !")
+  /// This game is already in your collection !
+  internal static let warningGameAlreadyInDatabase = L10n.tr("Localizable", "warningGameAlreadyInDatabase", fallback: "This game is already in your collection !")
+  /// Are you sure you want to log out?
+  internal static let warningLogOut = L10n.tr("Localizable", "warningLogOut", fallback: "Are you sure you want to log out?")
   /// Are you sure you want to remove this game from your collection?
   internal static let warningRemoveGameDescription = L10n.tr("Localizable", "warningRemoveGameDescription", fallback: "Are you sure you want to remove this game from your collection?")
   /// One moment !
