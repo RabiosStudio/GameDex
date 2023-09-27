@@ -56,8 +56,8 @@ internal enum L10n {
   internal static let emptyMyCollectionDescription = L10n.tr("Localizable", "emptyMyCollectionDescription", fallback: "It's time to add the very first game to your collection ! ")
   /// Your collection is empty
   internal static let emptyMyCollectionTitle = L10n.tr("Localizable", "emptyMyCollectionTitle", fallback: "Your collection is empty")
-  /// Please check your email adress and password
-  internal static let errorAuthDescription = L10n.tr("Localizable", "errorAuthDescription", fallback: "Please check your email adress and password")
+  /// Please check your email address and password
+  internal static let errorAuthDescription = L10n.tr("Localizable", "errorAuthDescription", fallback: "Please check your email address and password")
   /// Error
   internal static let errorTitle = L10n.tr("Localizable", "errorTitle", fallback: "Error")
   /// An error occured while fetching data.

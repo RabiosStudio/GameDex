@@ -17,7 +17,7 @@
 "updateGameErrorDescription" = "An error occured while updating data.";
 "removeGameErrorDescription" = "An error occured while removing data.";
 "fetchGamesErrorDescription" = "An error occured while fetching data.";
-"errorAuthDescription" = "Please check your email adress and password";
+"errorAuthDescription" = "Please check your email address and password";
 
 // Success
 "successTitle" = "Success";
