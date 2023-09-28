@@ -20,33 +20,26 @@ final class MyProfileSection: Section {
         if userIsLoggedIn {
             let logoutCellVM = LabelCellViewModel(
                 primaryText: L10n.logout,
-                navigationStyle: .selectTab(
-                    index: 1,
-                    completionBlock: completionBlock
-                )
+                screenFactory: nil
             )
             self.cellsVM.append(logoutCellVM)
         } else {
             let loginCellVM = LabelCellViewModel(
                 primaryText: L10n.login,
-                navigationStyle: .push(
-                    controller: LoginScreenFactory(
-                        myProfileDelegate: myProfileDelegate
-                    ).viewController
-                )
+                screenFactory: LoginScreenFactory(myProfileDelegate: myProfileDelegate)
             )
             self.cellsVM.append(loginCellVM)
         }
         
         let collectionManagementCellVM = LabelCellViewModel(
             primaryText: L10n.collectionManagement,
-            navigationStyle: nil
+            screenFactory: nil
         )
         self.cellsVM.append(collectionManagementCellVM)
         
         let contactUsCellVM = LabelCellViewModel(
             primaryText: L10n.contactUs,
-            navigationStyle: nil
+            screenFactory: nil
         )
         self.cellsVM.append(contactUsCellVM)
     }

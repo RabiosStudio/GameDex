@@ -32,7 +32,6 @@ final class MyProfileViewModel: CollectionViewModel {
         self.userIsLoggedIn = self.authenticationService.isUserLoggedIn()
         self.alertDisplayer = alertDisplayer
         self.alertDisplayer.alertDelegate = self
-        
     }
     
     func loadData(callback: @escaping (EmptyError?) -> ()) {
@@ -41,14 +40,7 @@ final class MyProfileViewModel: CollectionViewModel {
                 userIsLoggedIn: self.userIsLoggedIn,
                 myProfileDelegate: self,
                 completionBlock: { [weak self] in
-                    self?.alertDisplayer.presentBasicAlert(
-                        parameters: AlertViewModel(
-                            alertType: .warning,
-                            description: L10n.warningLogOut,
-                            cancelButtonTitle: L10n.cancel,
-                            okButtonTitle: L10n.confirm
-                        )
-                    )
+                    
                 }
             )
         ]
@@ -58,7 +50,14 @@ final class MyProfileViewModel: CollectionViewModel {
     func didTapRightButtonItem() {}
     
     func didSelectItem(indexPath: IndexPath) {
-        
+        self.alertDisplayer.presentBasicAlert(
+            parameters: AlertViewModel(
+                alertType: .warning,
+                description: L10n.warningLogOut,
+                cancelButtonTitle: L10n.cancel,
+                okButtonTitle: L10n.confirm
+            )
+        )
     }
 }
 
