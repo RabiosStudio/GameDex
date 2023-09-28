@@ -66,6 +66,8 @@ final class MyCollectionViewModel: CollectionViewModel {
         )
     }
     
+    func didSelectItem(indexPath: IndexPath) {}
+    
     private func updateListOfCollections(with list: [Platform]) {
         self.sections = [
             MyCollectionSection(

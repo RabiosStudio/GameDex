@@ -28,4 +28,6 @@ final class LoginViewModel: CollectionViewModel {
     }
     
     func didTapRightButtonItem() {}
+    
+    func didSelectItem(indexPath: IndexPath) {}
 }

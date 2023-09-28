@@ -18,6 +18,7 @@ protocol CollectionViewModel {
     
     func loadData(callback: @escaping (EmptyError?) -> ())
     func didTapRightButtonItem()
+    func didSelectItem(indexPath: IndexPath)
 }
 
 extension CollectionViewModel {

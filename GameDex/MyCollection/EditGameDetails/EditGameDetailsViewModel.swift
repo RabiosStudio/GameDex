@@ -70,6 +70,8 @@ final class EditGameDetailsViewModel: CollectionViewModel {
         )
     }
     
+    func didSelectItem(indexPath: IndexPath) {}
+    
     private func configureBottomView(shouldEnableButton: Bool) {
         let buttonContentViewFactory = PrimaryButtonContentViewFactory(
             delegate: self,

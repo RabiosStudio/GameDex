@@ -75,6 +75,8 @@ final class MyCollectionByPlatformsViewModel: CollectionViewModel {
         )
     }
     
+    func didSelectItem(indexPath: IndexPath) {}
+    
     private func updateListOfGames(with list: [SavedGame]) {
         guard let platform = self.platform else { return }
         self.sections = [

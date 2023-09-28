@@ -340,6 +340,7 @@ extension ContainerViewController: UICollectionViewDelegate {
         let configurableCell = cell as? CellConfigurable                
         configurableCell?.cellPressed(cellViewModel: cellVM)        
         collectionView.deselectItem(at: indexPath, animated: true)
+        viewModel.didSelectItem(indexPath: indexPath)
     }
 }
 

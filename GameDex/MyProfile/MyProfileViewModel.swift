@@ -56,6 +56,10 @@ final class MyProfileViewModel: CollectionViewModel {
     }
     
     func didTapRightButtonItem() {}
+    
+    func didSelectItem(indexPath: IndexPath) {
+        
+    }
 }
 
 extension MyProfileViewModel: AlertDisplayerDelegate {

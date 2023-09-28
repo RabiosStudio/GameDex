@@ -53,6 +53,8 @@ final class AddGameDetailsViewModel: CollectionViewModel {
         _ = Routing.shared.route(navigationStyle: .dismiss(completionBlock: nil))
     }
     
+    func didSelectItem(indexPath: IndexPath) {}
+    
     private func configureBottomView() {
         let buttonContentViewFactory = PrimaryButtonContentViewFactory(
             delegate: self,
