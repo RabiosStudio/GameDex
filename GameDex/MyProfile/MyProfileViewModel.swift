@@ -7,6 +7,11 @@
 
 import Foundation
 
+// sourcery: AutoMockable
+protocol MyProfileViewModelDelegate: AnyObject {
+    func reloadMyProfile()
+}
+
 final class MyProfileViewModel: CollectionViewModel {
     var searchViewModel: SearchViewModel?
     var isBounceable: Bool = true
@@ -14,14 +19,64 @@ final class MyProfileViewModel: CollectionViewModel {
     var rightButtonItems: [AnyBarButtonItem]?
     let screenTitle: String? = L10n.myProfile
     var sections: [Section] = []
-    var containerDelegate: ContainerViewControllerDelegate?
     
-    init() {}
+    weak var containerDelegate: ContainerViewControllerDelegate?
+    
+    private let authenticationService: AuthenticationService
+    private var alertDisplayer: AlertDisplayer
+    
+    init(authenticationService: AuthenticationService, alertDisplayer: AlertDisplayer) {
+        self.authenticationService = authenticationService
+        self.alertDisplayer = alertDisplayer
+        self.alertDisplayer.alertDelegate = self
+    }
     
     func loadData(callback: @escaping (EmptyError?) -> ()) {
-        self.sections = [MyProfileSection()]
+        let userIsLoggedIn = self.authenticationService.isUserLoggedIn()
+        self.sections = [
+            MyProfileSection(
+                userIsLoggedIn: userIsLoggedIn,
+                myProfileDelegate: self
+            )
+        ]
         callback(nil)
     }
     
-    func didTapRightButtonItem() {}
+    func didSelectItem(indexPath: IndexPath) {
+        guard self.authenticationService.isUserLoggedIn() else { return }
+        if indexPath.row == .zero {
+            self.alertDisplayer.presentBasicAlert(
+                parameters: AlertViewModel(
+                    alertType: .warning,
+                    description: L10n.warningLogOut,
+                    cancelButtonTitle: L10n.cancel,
+                    okButtonTitle: L10n.confirm
+                )
+            )
+        }
+    }
+}
+
+extension MyProfileViewModel: AlertDisplayerDelegate {
+    func didTapOkButton() {
+        self.authenticationService.logout(
+            callback: { [weak self] error in
+                self?.alertDisplayer.presentTopFloatAlert(
+                    parameters: AlertViewModel(
+                        alertType: error == nil ? .success : .error,
+                        description: error == nil ? L10n.successLogOutDescription : L10n.errorLogOutDescription
+                    )
+                )
+                if error == nil {
+                    self?.containerDelegate?.reloadSections()
+                }
+            }
+        )
+    }
+}
+
+extension MyProfileViewModel: MyProfileViewModelDelegate {
+    func reloadMyProfile() {
+        self.containerDelegate?.reloadSections()
+    }
 }

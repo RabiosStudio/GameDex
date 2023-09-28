@@ -14,7 +14,8 @@ final class AuthenticationViewModelTests: XCTestCase {
         let viewModel = AuthenticationViewModel(
             userHasAccount: true,
             authenticationSerice: AuthenticationServiceMock(),
-            alertDisplayer: AlertDisplayerMock()
+            alertDisplayer: AlertDisplayerMock(),
+            myProfileDelegate: nil
         )
         
         // Then
@@ -27,7 +28,8 @@ final class AuthenticationViewModelTests: XCTestCase {
         let viewModel = AuthenticationViewModel(
             userHasAccount: true,
             authenticationSerice: AuthenticationServiceMock(),
-            alertDisplayer: AlertDisplayerMock()
+            alertDisplayer: AlertDisplayerMock(),
+            myProfileDelegate: nil
         )
         var callbackIsCalled = false
         // When
@@ -48,7 +50,8 @@ final class AuthenticationViewModelTests: XCTestCase {
         let viewModel = AuthenticationViewModel(
             userHasAccount: true,
             authenticationSerice: authenticationService,
-            alertDisplayer: alertDisplayer
+            alertDisplayer: alertDisplayer,
+            myProfileDelegate: nil
         )
         
         viewModel.loadData { _ in }
@@ -107,7 +110,8 @@ final class AuthenticationViewModelTests: XCTestCase {
         let viewModel = AuthenticationViewModel(
             userHasAccount: true,
             authenticationSerice: authenticationService,
-            alertDisplayer: alertDisplayer
+            alertDisplayer: alertDisplayer,
+            myProfileDelegate: nil
         )
         
         viewModel.loadData { _ in }
@@ -165,7 +169,8 @@ final class AuthenticationViewModelTests: XCTestCase {
         let viewModel = AuthenticationViewModel(
             userHasAccount: false,
             authenticationSerice: authenticationService,
-            alertDisplayer: alertDisplayer
+            alertDisplayer: alertDisplayer,
+            myProfileDelegate: nil
         )
         
         viewModel.loadData { _ in }
@@ -223,7 +228,8 @@ final class AuthenticationViewModelTests: XCTestCase {
         let viewModel = AuthenticationViewModel(
             userHasAccount: false,
             authenticationSerice: authenticationService,
-            alertDisplayer: alertDisplayer
+            alertDisplayer: alertDisplayer,
+            myProfileDelegate: nil
         )
         
         viewModel.loadData { _ in }

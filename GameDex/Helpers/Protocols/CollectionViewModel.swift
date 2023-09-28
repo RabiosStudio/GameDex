@@ -18,6 +18,7 @@ protocol CollectionViewModel {
     
     func loadData(callback: @escaping (EmptyError?) -> ())
     func didTapRightButtonItem()
+    func didSelectItem(indexPath: IndexPath)
 }
 
 extension CollectionViewModel {
@@ -39,4 +40,8 @@ extension CollectionViewModel {
     func itemAvailable(at indexPath: IndexPath) -> Bool {
         return self.sections.count > indexPath.section && self.sections[indexPath.section].cellsVM.count > indexPath.row
     }
+    
+    func didSelectItem(indexPath: IndexPath) {}
+    
+    func didTapRightButtonItem() {}
 }

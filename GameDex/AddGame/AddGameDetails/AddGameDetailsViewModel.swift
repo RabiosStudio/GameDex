@@ -109,34 +109,19 @@ extension AddGameDetailsViewModel: PrimaryButtonDelegate {
         )
         
         self.localDatabase.add(newEntity: gameToSave, platform: self.platform) { [weak self] error in
-            if let error {
-                switch error {
-                case .itemAlreadySaved:
-                    self?.alertDisplayer.presentTopFloatAlert(
-                        parameters: AlertViewModel(
-                            alertType: .warning,
-                            description: L10n.warningGameAlreadyInDatabase
-                        )
-                    )
-                default:
-                    self?.alertDisplayer.presentTopFloatAlert(
-                        parameters: AlertViewModel(
-                            alertType: .error,
-                            description: L10n.saveGameErrorDescription
-                        )
-                    )
-                }
-                self?.configureBottomView()
-            } else {
-                self?.alertDisplayer.presentTopFloatAlert(
-                    parameters: AlertViewModel(
-                        alertType: .success,
-                        description: L10n.saveGameSuccessDescription
-                    )
+            self?.alertDisplayer.presentTopFloatAlert(
+                parameters: AlertViewModel(
+                    alertType: error == nil ? .success : (error == .itemAlreadySaved ? .warning : .error),
+                    description: error == nil ? L10n.saveGameSuccessDescription : (error == .itemAlreadySaved ? L10n.warningGameAlreadyInDatabase : L10n.saveGameErrorDescription)
                 )
-                // the right button item is .close so the method will dismiss the view presented
-                self?.didTapRightButtonItem()
+            )
+            
+            guard error != nil else {
+                self?.configureBottomView()
+                return
             }
+            // the right button item is .close so the method will dismiss the view presented
+            self?.didTapRightButtonItem()
         }
     }
 }

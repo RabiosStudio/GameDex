@@ -9,15 +9,26 @@ import Foundation
 
 final class MyProfileSection: Section {
     
-    override init() {
+    init(
+        userIsLoggedIn: Bool,
+        myProfileDelegate: MyProfileViewModelDelegate?
+    ) {
         super.init()
         self.position = 0
         
-        let loginCellVM = LabelCellViewModel(
-            primaryText: L10n.login,
-            screenFactory: LoginScreenFactory()
-        )
-        self.cellsVM.append(loginCellVM)
+        if userIsLoggedIn {
+            let logoutCellVM = LabelCellViewModel(
+                primaryText: L10n.logout,
+                screenFactory: nil
+            )
+            self.cellsVM.append(logoutCellVM)
+        } else {
+            let loginCellVM = LabelCellViewModel(
+                primaryText: L10n.login,
+                screenFactory: LoginScreenFactory(myProfileDelegate: myProfileDelegate)
+            )
+            self.cellsVM.append(loginCellVM)
+        }
         
         let collectionManagementCellVM = LabelCellViewModel(
             primaryText: L10n.collectionManagement,

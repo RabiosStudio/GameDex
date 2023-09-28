@@ -69,7 +69,7 @@ final class EditGameDetailsViewModel: CollectionViewModel {
             )
         )
     }
-    
+        
     private func configureBottomView(shouldEnableButton: Bool) {
         let buttonContentViewFactory = PrimaryButtonContentViewFactory(
             delegate: self,
@@ -126,23 +126,13 @@ extension EditGameDetailsViewModel: PrimaryButtonDelegate {
         )
         
         self.localDatabase.replace(savedGame: gameToSave) { [weak self] error in
-            if error != nil {
-                self?.alertDisplayer.presentTopFloatAlert(
-                    parameters: AlertViewModel(
-                        alertType: .error,
-                        description: L10n.updateGameErrorDescription
-                    )
+            self?.alertDisplayer.presentTopFloatAlert(
+                parameters: AlertViewModel(
+                    alertType: error == nil ? .success : .error,
+                    description: error == nil ? L10n.updateGameSuccessDescription : L10n.updateGameErrorDescription
                 )
-                self?.configureBottomView(shouldEnableButton: true)
-            } else {
-                self?.alertDisplayer.presentTopFloatAlert(
-                    parameters: AlertViewModel(
-                        alertType: .success,
-                        description: L10n.updateGameSuccessDescription
-                    )
-                )
-                self?.configureBottomView(shouldEnableButton: false)
-            }
+            )
+            self?.configureBottomView(shouldEnableButton: true)
         }
     }
 }
@@ -186,22 +176,16 @@ extension EditGameDetailsViewModel: EditFormDelegate {
 extension EditGameDetailsViewModel: AlertDisplayerDelegate {
     func didTapOkButton() {
         self.localDatabase.remove(savedGame: self.savedGame) { [weak self] error in
-            guard error == nil else {
-                self?.alertDisplayer.presentTopFloatAlert(
-                    parameters: AlertViewModel(
-                        alertType: .error,
-                        description: L10n.removeGameErrorDescription
-                    )
+            self?.alertDisplayer.presentTopFloatAlert(
+                parameters: AlertViewModel(
+                    alertType: error == nil ? .success : .error,
+                    description: error == nil ? L10n.removeGameSuccessDescription : L10n.removeGameErrorDescription
                 )
+            )
+            guard error == nil else {
                 self?.configureBottomView(shouldEnableButton: true)
                 return
             }
-            self?.alertDisplayer.presentTopFloatAlert(
-                parameters: AlertViewModel(
-                    alertType: .success,
-                    description: L10n.removeGameSuccessDescription
-                )
-            )
             self?.containerDelegate?.goBackToRootViewController()
             self?.gameDetailsDelegate?.reloadCollection()            
         }

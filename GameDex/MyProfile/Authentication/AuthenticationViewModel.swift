@@ -16,6 +16,7 @@ final class AuthenticationViewModel: CollectionViewModel {
     var sections: [Section] = []
     
     weak var containerDelegate: ContainerViewControllerDelegate?
+    weak var myProfileDelegate: MyProfileViewModelDelegate?
     
     private let userHasAccount: Bool
     private let authenticationSerice: AuthenticationService
@@ -24,11 +25,13 @@ final class AuthenticationViewModel: CollectionViewModel {
     init(
         userHasAccount: Bool,
         authenticationSerice: AuthenticationService,
-        alertDisplayer: AlertDisplayer
+        alertDisplayer: AlertDisplayer,
+        myProfileDelegate: MyProfileViewModelDelegate?
     ) {
         self.userHasAccount = userHasAccount
         self.authenticationSerice = authenticationSerice
         self.alertDisplayer = alertDisplayer
+        self.myProfileDelegate = myProfileDelegate
         self.screenTitle = userHasAccount ? L10n.login : L10n.signup
     }
     
@@ -41,8 +44,6 @@ final class AuthenticationViewModel: CollectionViewModel {
         ]
         callback(nil)
     }
-    
-    func didTapRightButtonItem() {}
     
     private func displayAlert(success: Bool) {
         self.alertDisplayer.presentTopFloatAlert(
@@ -89,6 +90,7 @@ extension AuthenticationViewModel: PrimaryButtonDelegate {
                     self?.displayAlert(success: false)
                 } else {
                     self?.displayAlert(success: true)
+                    self?.myProfileDelegate?.reloadMyProfile()
                     self?.containerDelegate?.goBackToRootViewController()
                 }
             }
@@ -101,6 +103,7 @@ extension AuthenticationViewModel: PrimaryButtonDelegate {
                     self?.displayAlert(success: false)
                 } else {
                     self?.displayAlert(success: true)
+                    self?.myProfileDelegate?.reloadMyProfile()
                     self?.containerDelegate?.goBackToRootViewController()
                 }
             }

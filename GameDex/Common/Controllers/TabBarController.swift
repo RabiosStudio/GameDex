@@ -7,12 +7,16 @@ class TabBarController: UITabBarController {
         
         let vc1 = self.createViewController(
             viewModel: MyCollectionViewModel(
-                localDatabase: LocalDatabase(),
-                alertDisplayer: AlertDisplayerImpl()
+                localDatabase: LocalDatabase()
             )
         )
         
-        let vc2 = self.createViewController(viewModel: MyProfileViewModel())
+        let vc2 = self.createViewController(
+            viewModel: MyProfileViewModel(
+                authenticationService: AuthenticationServiceImpl(),
+                alertDisplayer: AlertDisplayerImpl()
+            )
+        )
         
         let nav1 = UINavigationController(rootViewController: vc1)
         let nav2 = UINavigationController(rootViewController: vc2)

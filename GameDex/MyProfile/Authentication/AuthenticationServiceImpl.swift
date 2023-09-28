@@ -28,4 +28,17 @@ class AuthenticationServiceImpl: AuthenticationService {
             callback(nil)
         }
     }
+    
+    func logout(callback: @escaping (AuthenticationError?) -> ()) {
+        do {
+            try Auth.auth().signOut()
+            callback(nil)
+        } catch {
+            callback(AuthenticationError.logoutError)
+        }
+    }
+    
+    func isUserLoggedIn() -> Bool {
+        return Auth.auth().currentUser?.uid != nil
+    }
 }

@@ -15,22 +15,25 @@
 "apiErrorDescription" = "Une erreur est survenue lors de la récupération des données";
 "saveGameErrorDescription" = "Une erreur est survenue lors de la sauvegarde des données.";
 "updateGameErrorDescription" = "Une erreur est survenue lors de la mise à jour des données.";
-"removeGameErrorDescription" = "Une erreur est survenue lors de la suppression des données";
+"removeGameErrorDescription" = "Une erreur est survenue lors de la suppression des données.";
 "fetchGamesErrorDescription" = "Une erreur est survenue lors de la récupération des données.";
 "errorAuthDescription" = "Veuillez vérifier votre adresse mail et votre mot de passe";
+"errorLogOutDescription" = "Une erreur est survenue lors de la déconnexion.";
 
 // Success
 "successTitle" = "Succès";
 "saveGameSuccessDescription" = "Le jeu a bien été enregistré dans votre collection.";
-"updateGameSuccessDescription" = "Les informations ont bien été mises à jour";
-"removeGameSuccessDescription" = "Le jeu a bien été supprimé de votre collection";
-"successAuthDescription" = "Vous êtes connectés";
+"updateGameSuccessDescription" = "Les informations ont bien été mises à jour.";
+"removeGameSuccessDescription" = "Le jeu a bien été supprimé de votre collection.";
+"successAuthDescription" = "Vous êtes connectés.";
+"successLogOutDescription" = "Vous êtes déconnectés.";
 
 // Warnings
 "warningTitle" = "Un instant !";
-"warningRemoveGameDescription" = "Etes-vous sûr(e) de vouloir supprimer ce jeu de votre collection?";
-"warningTryAgain" = "Veuillez réessayer ultérieurement";
+"warningRemoveGameDescription" = "Êtes-vous sûr(e) de vouloir supprimer ce jeu de votre collection ?";
+"warningTryAgain" = "Veuillez réessayer ultérieurement.";
 "warningGameAlreadyInDatabase" = "Ce jeu est déjà dans votre collection !";
+"warningLogOut" = "Êtes-vous sûr(e) de vouloir vous déconnecter ?";
 
 // Button
 "addAGame" = "Ajouter un jeu";
@@ -44,7 +47,7 @@
 
 // Add Game Steps
 "stepOneOutOfThree" = "Etape 1/3";
-"addBasicGameInformationDescription" = "Renseignez le titre du jeu, et optionnellement la console correspondante";
+"addBasicGameInformationDescription" = "Renseignez le titre du jeu, et optionnellement la console correspondante.";
 
 // Add Game Methods
 "manually" = "Via un formulaire";
@@ -60,6 +63,7 @@
 
 // Profile
 "login" = "Se connecter";
+"logout" = "Se déconnecter";
 "signup" = "Créer un compte";
 "collectionManagement" = "Gestion de la collection";
 "contactUs" = "Nous contacter";

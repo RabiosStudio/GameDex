@@ -22,7 +22,6 @@ final class SelectPlatformSection: Section {
                     gameDetailsDelegate: gameDetailsDelegate
                 )
             )
-            
             self.cellsVM.append(labelCellVM)
         }
     }

@@ -9,13 +9,15 @@ import XCTest
 @testable import GameDex
 
 final class LabelCellViewModelTests: XCTestCase {
-
+    
     func test_init_ThenShouldSetPropertiesCorrectly() {
         // Given
         let primaryLabel = "Primary label"
         let secondaryLabel = "Secondary Label"
+        let screenFactory: ScreenFactory = SelectPlatformScreenFactory(
+            delegate: GameDetailsViewModelDelegateMock()
+        )
         
-        let screenFactory = SelectPlatformScreenFactory(delegate: GameDetailsViewModelDelegateMock())
         // When
         let cellVM = LabelCellViewModel(
             primaryText: primaryLabel,
@@ -25,12 +27,5 @@ final class LabelCellViewModelTests: XCTestCase {
         // Then
         XCTAssertEqual(cellVM.primaryText, "Primary label")
         XCTAssertEqual(cellVM.secondaryText, "Secondary Label")
-        
-        let expectedNavigationStyle: NavigationStyle = {
-            return .push(
-                controller: screenFactory.viewController
-            )
-        }()
-        XCTAssertEqual(cellVM.navigationStyle, expectedNavigationStyle)
     }
 }

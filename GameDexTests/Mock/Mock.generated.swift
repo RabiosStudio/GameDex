@@ -886,10 +886,32 @@ open class AuthenticationServiceMock: AuthenticationService, Mock {
 		perform?(`email`, `password`, `callback`)
     }
 
+    open func logout(callback: @escaping (AuthenticationError?) -> ()) {
+        addInvocation(.m_logout__callback_callback(Parameter<(AuthenticationError?) -> ()>.value(`callback`)))
+		let perform = methodPerformValue(.m_logout__callback_callback(Parameter<(AuthenticationError?) -> ()>.value(`callback`))) as? (@escaping (AuthenticationError?) -> ()) -> Void
+		perform?(`callback`)
+    }
+
+    open func isUserLoggedIn() -> Bool {
+        addInvocation(.m_isUserLoggedIn)
+		let perform = methodPerformValue(.m_isUserLoggedIn) as? () -> Void
+		perform?()
+		var __value: Bool
+		do {
+		    __value = try methodReturnValue(.m_isUserLoggedIn).casted()
+		} catch {
+			onFatalFailure("Stub return value not specified for isUserLoggedIn(). Use given")
+			Failure("Stub return value not specified for isUserLoggedIn(). Use given")
+		}
+		return __value
+    }
+
 
     fileprivate enum MethodType {
         case m_login__email_emailpassword_passwordcallback_callback(Parameter<String>, Parameter<String>, Parameter<(AuthenticationError?) -> ()>)
         case m_createUser__email_emailpassword_passwordcallback_callback(Parameter<String>, Parameter<String>, Parameter<(AuthenticationError?) -> ()>)
+        case m_logout__callback_callback(Parameter<(AuthenticationError?) -> ()>)
+        case m_isUserLoggedIn
 
         static func compareParameters(lhs: MethodType, rhs: MethodType, matcher: Matcher) -> Matcher.ComparisonResult {
             switch (lhs, rhs) {
@@ -906,6 +928,13 @@ open class AuthenticationServiceMock: AuthenticationService, Mock {
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsPassword, rhs: rhsPassword, with: matcher), lhsPassword, rhsPassword, "password"))
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsCallback, rhs: rhsCallback, with: matcher), lhsCallback, rhsCallback, "callback"))
 				return Matcher.ComparisonResult(results)
+
+            case (.m_logout__callback_callback(let lhsCallback), .m_logout__callback_callback(let rhsCallback)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsCallback, rhs: rhsCallback, with: matcher), lhsCallback, rhsCallback, "callback"))
+				return Matcher.ComparisonResult(results)
+
+            case (.m_isUserLoggedIn, .m_isUserLoggedIn): return .match
             default: return .none
             }
         }
@@ -914,12 +943,16 @@ open class AuthenticationServiceMock: AuthenticationService, Mock {
             switch self {
             case let .m_login__email_emailpassword_passwordcallback_callback(p0, p1, p2): return p0.intValue + p1.intValue + p2.intValue
             case let .m_createUser__email_emailpassword_passwordcallback_callback(p0, p1, p2): return p0.intValue + p1.intValue + p2.intValue
+            case let .m_logout__callback_callback(p0): return p0.intValue
+            case .m_isUserLoggedIn: return 0
             }
         }
         func assertionName() -> String {
             switch self {
             case .m_login__email_emailpassword_passwordcallback_callback: return ".login(email:password:callback:)"
             case .m_createUser__email_emailpassword_passwordcallback_callback: return ".createUser(email:password:callback:)"
+            case .m_logout__callback_callback: return ".logout(callback:)"
+            case .m_isUserLoggedIn: return ".isUserLoggedIn()"
             }
         }
     }
@@ -933,6 +966,16 @@ open class AuthenticationServiceMock: AuthenticationService, Mock {
         }
 
 
+        public static func isUserLoggedIn(willReturn: Bool...) -> MethodStub {
+            return Given(method: .m_isUserLoggedIn, products: willReturn.map({ StubProduct.return($0 as Any) }))
+        }
+        public static func isUserLoggedIn(willProduce: (Stubber<Bool>) -> Void) -> MethodStub {
+            let willReturn: [Bool] = []
+			let given: Given = { return Given(method: .m_isUserLoggedIn, products: willReturn.map({ StubProduct.return($0 as Any) })) }()
+			let stubber = given.stub(for: (Bool).self)
+			willProduce(stubber)
+			return given
+        }
     }
 
     public struct Verify {
@@ -940,6 +983,8 @@ open class AuthenticationServiceMock: AuthenticationService, Mock {
 
         public static func login(email: Parameter<String>, password: Parameter<String>, callback: Parameter<(AuthenticationError?) -> ()>) -> Verify { return Verify(method: .m_login__email_emailpassword_passwordcallback_callback(`email`, `password`, `callback`))}
         public static func createUser(email: Parameter<String>, password: Parameter<String>, callback: Parameter<(AuthenticationError?) -> ()>) -> Verify { return Verify(method: .m_createUser__email_emailpassword_passwordcallback_callback(`email`, `password`, `callback`))}
+        public static func logout(callback: Parameter<(AuthenticationError?) -> ()>) -> Verify { return Verify(method: .m_logout__callback_callback(`callback`))}
+        public static func isUserLoggedIn() -> Verify { return Verify(method: .m_isUserLoggedIn)}
     }
 
     public struct Perform {
@@ -951,6 +996,12 @@ open class AuthenticationServiceMock: AuthenticationService, Mock {
         }
         public static func createUser(email: Parameter<String>, password: Parameter<String>, callback: Parameter<(AuthenticationError?) -> ()>, perform: @escaping (String, String, @escaping (AuthenticationError?) -> ()) -> Void) -> Perform {
             return Perform(method: .m_createUser__email_emailpassword_passwordcallback_callback(`email`, `password`, `callback`), performs: perform)
+        }
+        public static func logout(callback: Parameter<(AuthenticationError?) -> ()>, perform: @escaping (@escaping (AuthenticationError?) -> ()) -> Void) -> Perform {
+            return Perform(method: .m_logout__callback_callback(`callback`), performs: perform)
+        }
+        public static func isUserLoggedIn(perform: @escaping () -> Void) -> Perform {
+            return Perform(method: .m_isUserLoggedIn, performs: perform)
         }
     }
 
@@ -1782,6 +1833,177 @@ open class GameDetailsViewModelDelegateMock: GameDetailsViewModelDelegate, Mock 
 
         public static func reloadCollection(perform: @escaping () -> Void) -> Perform {
             return Perform(method: .m_reloadCollection, performs: perform)
+        }
+    }
+
+    public func given(_ method: Given) {
+        methodReturnValues.append(method)
+    }
+
+    public func perform(_ method: Perform) {
+        methodPerformValues.append(method)
+        methodPerformValues.sort { $0.method.intValue() < $1.method.intValue() }
+    }
+
+    public func verify(_ method: Verify, count: Count = Count.moreOrEqual(to: 1), file: StaticString = #file, line: UInt = #line) {
+        let fullMatches = matchingCalls(method, file: file, line: line)
+        let success = count.matches(fullMatches)
+        let assertionName = method.method.assertionName()
+        let feedback: String = {
+            guard !success else { return "" }
+            return Utils.closestCallsMessage(
+                for: self.invocations.map { invocation in
+                    matcher.set(file: file, line: line)
+                    defer { matcher.clearFileAndLine() }
+                    return MethodType.compareParameters(lhs: invocation, rhs: method.method, matcher: matcher)
+                },
+                name: assertionName
+            )
+        }()
+        MockyAssert(success, "Expected: \(count) invocations of `\(assertionName)`, but was: \(fullMatches).\(feedback)", file: file, line: line)
+    }
+
+    private func addInvocation(_ call: MethodType) {
+        self.queue.sync { invocations.append(call) }
+    }
+    private func methodReturnValue(_ method: MethodType) throws -> StubProduct {
+        matcher.set(file: self.file, line: self.line)
+        defer { matcher.clearFileAndLine() }
+        let candidates = sequencingPolicy.sorted(methodReturnValues, by: { $0.method.intValue() > $1.method.intValue() })
+        let matched = candidates.first(where: { $0.isValid && MethodType.compareParameters(lhs: $0.method, rhs: method, matcher: matcher).isFullMatch })
+        guard let product = matched?.getProduct(policy: self.stubbingPolicy) else { throw MockError.notStubed }
+        return product
+    }
+    private func methodPerformValue(_ method: MethodType) -> Any? {
+        matcher.set(file: self.file, line: self.line)
+        defer { matcher.clearFileAndLine() }
+        let matched = methodPerformValues.reversed().first { MethodType.compareParameters(lhs: $0.method, rhs: method, matcher: matcher).isFullMatch }
+        return matched?.performs
+    }
+    private func matchingCalls(_ method: MethodType, file: StaticString?, line: UInt?) -> [MethodType] {
+        matcher.set(file: file ?? self.file, line: line ?? self.line)
+        defer { matcher.clearFileAndLine() }
+        return invocations.filter { MethodType.compareParameters(lhs: $0, rhs: method, matcher: matcher).isFullMatch }
+    }
+    private func matchingCalls(_ method: Verify, file: StaticString?, line: UInt?) -> Int {
+        return matchingCalls(method.method, file: file, line: line).count
+    }
+    private func givenGetterValue<T>(_ method: MethodType, _ message: String) -> T {
+        do {
+            return try methodReturnValue(method).casted()
+        } catch {
+            onFatalFailure(message)
+            Failure(message)
+        }
+    }
+    private func optionalGivenGetterValue<T>(_ method: MethodType, _ message: String) -> T? {
+        do {
+            return try methodReturnValue(method).casted()
+        } catch {
+            return nil
+        }
+    }
+    private func onFatalFailure(_ message: String) {
+        guard let file = self.file, let line = self.line else { return } // Let if fail if cannot handle gratefully
+        SwiftyMockyTestObserver.handleFatalError(message: message, file: file, line: line)
+    }
+}
+
+// MARK: - MyProfileViewModelDelegate
+
+open class MyProfileViewModelDelegateMock: MyProfileViewModelDelegate, Mock {
+    public init(sequencing sequencingPolicy: SequencingPolicy = .lastWrittenResolvedFirst, stubbing stubbingPolicy: StubbingPolicy = .wrap, file: StaticString = #file, line: UInt = #line) {
+        SwiftyMockyTestObserver.setup()
+        self.sequencingPolicy = sequencingPolicy
+        self.stubbingPolicy = stubbingPolicy
+        self.file = file
+        self.line = line
+    }
+
+    var matcher: Matcher = Matcher.default
+    var stubbingPolicy: StubbingPolicy = .wrap
+    var sequencingPolicy: SequencingPolicy = .lastWrittenResolvedFirst
+
+    private var queue = DispatchQueue(label: "com.swiftymocky.invocations", qos: .userInteractive)
+    private var invocations: [MethodType] = []
+    private var methodReturnValues: [Given] = []
+    private var methodPerformValues: [Perform] = []
+    private var file: StaticString?
+    private var line: UInt?
+
+    public typealias PropertyStub = Given
+    public typealias MethodStub = Given
+    public typealias SubscriptStub = Given
+
+    /// Convenience method - call setupMock() to extend debug information when failure occurs
+    public func setupMock(file: StaticString = #file, line: UInt = #line) {
+        self.file = file
+        self.line = line
+    }
+
+    /// Clear mock internals. You can specify what to reset (invocations aka verify, givens or performs) or leave it empty to clear all mock internals
+    public func resetMock(_ scopes: MockScope...) {
+        let scopes: [MockScope] = scopes.isEmpty ? [.invocation, .given, .perform] : scopes
+        if scopes.contains(.invocation) { invocations = [] }
+        if scopes.contains(.given) { methodReturnValues = [] }
+        if scopes.contains(.perform) { methodPerformValues = [] }
+    }
+
+
+
+
+
+    open func reloadMyProfile() {
+        addInvocation(.m_reloadMyProfile)
+		let perform = methodPerformValue(.m_reloadMyProfile) as? () -> Void
+		perform?()
+    }
+
+
+    fileprivate enum MethodType {
+        case m_reloadMyProfile
+
+        static func compareParameters(lhs: MethodType, rhs: MethodType, matcher: Matcher) -> Matcher.ComparisonResult {
+            switch (lhs, rhs) {
+            case (.m_reloadMyProfile, .m_reloadMyProfile): return .match
+            }
+        }
+
+        func intValue() -> Int {
+            switch self {
+            case .m_reloadMyProfile: return 0
+            }
+        }
+        func assertionName() -> String {
+            switch self {
+            case .m_reloadMyProfile: return ".reloadMyProfile()"
+            }
+        }
+    }
+
+    open class Given: StubbedMethod {
+        fileprivate var method: MethodType
+
+        private init(method: MethodType, products: [StubProduct]) {
+            self.method = method
+            super.init(products)
+        }
+
+
+    }
+
+    public struct Verify {
+        fileprivate var method: MethodType
+
+        public static func reloadMyProfile() -> Verify { return Verify(method: .m_reloadMyProfile)}
+    }
+
+    public struct Perform {
+        fileprivate var method: MethodType
+        var performs: Any
+
+        public static func reloadMyProfile(perform: @escaping () -> Void) -> Perform {
+            return Perform(method: .m_reloadMyProfile, performs: perform)
         }
     }
 
