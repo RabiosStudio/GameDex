@@ -25,17 +25,20 @@ final class MyProfileViewModel: CollectionViewModel {
     private let authenticationService: AuthenticationService
     private var alertDisplayer: AlertDisplayer
     
+    private let userIsLoggedIn: Bool
+    
     init(authenticationService: AuthenticationService, alertDisplayer: AlertDisplayer) {
         self.authenticationService = authenticationService
+        self.userIsLoggedIn = self.authenticationService.isUserLoggedIn()
         self.alertDisplayer = alertDisplayer
         self.alertDisplayer.alertDelegate = self
+        
     }
     
     func loadData(callback: @escaping (EmptyError?) -> ()) {
-        let isUserLoggedIn = self.authenticationService.isUserLoggedIn()
         self.sections = [
             MyProfileSection(
-                userIsLoggedIn: isUserLoggedIn,
+                userIsLoggedIn: self.userIsLoggedIn,
                 myProfileDelegate: self,
                 completionBlock: { [weak self] in
                     self?.alertDisplayer.presentBasicAlert(
