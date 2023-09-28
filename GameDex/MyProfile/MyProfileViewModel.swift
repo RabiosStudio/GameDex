@@ -25,19 +25,17 @@ final class MyProfileViewModel: CollectionViewModel {
     private let authenticationService: AuthenticationService
     private var alertDisplayer: AlertDisplayer
     
-    private let userIsLoggedIn: Bool
-    
     init(authenticationService: AuthenticationService, alertDisplayer: AlertDisplayer) {
         self.authenticationService = authenticationService
-        self.userIsLoggedIn = self.authenticationService.isUserLoggedIn()
         self.alertDisplayer = alertDisplayer
         self.alertDisplayer.alertDelegate = self
     }
     
     func loadData(callback: @escaping (EmptyError?) -> ()) {
+        let userIsLoggedIn = self.authenticationService.isUserLoggedIn()
         self.sections = [
             MyProfileSection(
-                userIsLoggedIn: self.userIsLoggedIn,
+                userIsLoggedIn: userIsLoggedIn,
                 myProfileDelegate: self
             )
         ]
@@ -47,14 +45,16 @@ final class MyProfileViewModel: CollectionViewModel {
     func didTapRightButtonItem() {}
     
     func didSelectItem(indexPath: IndexPath) {
-        self.alertDisplayer.presentBasicAlert(
-            parameters: AlertViewModel(
-                alertType: .warning,
-                description: L10n.warningLogOut,
-                cancelButtonTitle: L10n.cancel,
-                okButtonTitle: L10n.confirm
+        if self.authenticationService.isUserLoggedIn() {
+            self.alertDisplayer.presentBasicAlert(
+                parameters: AlertViewModel(
+                    alertType: .warning,
+                    description: L10n.warningLogOut,
+                    cancelButtonTitle: L10n.cancel,
+                    okButtonTitle: L10n.confirm
+                )
             )
-        )
+        }
     }
 }
 
