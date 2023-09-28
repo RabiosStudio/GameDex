@@ -50,7 +50,11 @@ final class AddGameDetailsViewModel: CollectionViewModel {
     
     func didTapRightButtonItem() {
         self.gameDetailsDelegate?.reloadCollection()
-        _ = Routing.shared.route(navigationStyle: .dismiss(completionBlock: nil))
+        Routing.shared.route(
+            navigationStyle: .dismiss(
+                completionBlock: nil
+            )
+        )
     }
     
     private func configureBottomView() {

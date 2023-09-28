@@ -63,10 +63,7 @@ final class BasicCardCell: UICollectionViewCell, CellConfigurable {
     }
     
     func cellPressed(cellViewModel: CellViewModel) {
-        guard let navigationStyle = cellViewModel.navigationStyle else {
-            return
-        }
-        _ =  Routing.shared.route(navigationStyle: navigationStyle)
+        cellViewModel.cellTappedCallback?()
     }
     
     private func setupLayer() {

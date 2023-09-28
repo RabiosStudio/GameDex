@@ -14,24 +14,16 @@ final class BasicCardCellViewModel: CollectionCardCellViewModel {
     var cardDescription: String?
     var cardType: CardType
     lazy var height: CGFloat = self.cardType.height
-    
-    lazy var navigationStyle: NavigationStyle? = {
-        guard let screenFactory else { return nil }
-        return .push(
-            controller: screenFactory.viewController
-        )
-    }()
-    
-    private let screenFactory: ScreenFactory?
-    
+    var cellTappedCallback: (() -> Void)?
+
     init(cardType: CardType,
          title: String,
          description: String? = nil,
-         screenFactory: ScreenFactory?
+         cellTappedCallback: (() -> Void)? = nil
     ) {
         self.cardType = cardType
         self.cardTitle = title
         self.cardDescription = description
-        self.screenFactory = screenFactory
+        self.cellTappedCallback = cellTappedCallback
     }
 }

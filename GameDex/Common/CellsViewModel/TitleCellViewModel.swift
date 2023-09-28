@@ -11,7 +11,7 @@ final class TitleCellViewModel: CollectionCellViewModel {
     var cellClass: AnyClass = TitleCell.self
     var indexPath: IndexPath?
     var height: CGFloat
-    var navigationStyle: NavigationStyle?
+    var cellTappedCallback: (() -> Void)?
     
     let title: String
     

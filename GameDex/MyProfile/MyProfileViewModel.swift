@@ -36,24 +36,21 @@ final class MyProfileViewModel: CollectionViewModel {
         self.sections = [
             MyProfileSection(
                 userIsLoggedIn: userIsLoggedIn,
-                myProfileDelegate: self
+                myProfileDelegate: self,
+                logOutCallback: { [weak self] in
+                    guard userIsLoggedIn else { return }
+                    self?.alertDisplayer.presentBasicAlert(
+                        parameters: AlertViewModel(
+                            alertType: .warning,
+                            description: L10n.warningLogOut,
+                            cancelButtonTitle: L10n.cancel,
+                            okButtonTitle: L10n.confirm
+                        )
+                    )
+                }
             )
         ]
         callback(nil)
-    }
-    
-    func didSelectItem(indexPath: IndexPath) {
-        guard self.authenticationService.isUserLoggedIn() else { return }
-        if indexPath.row == .zero {
-            self.alertDisplayer.presentBasicAlert(
-                parameters: AlertViewModel(
-                    alertType: .warning,
-                    description: L10n.warningLogOut,
-                    cancelButtonTitle: L10n.cancel,
-                    okButtonTitle: L10n.confirm
-                )
-            )
-        }
     }
 }
 

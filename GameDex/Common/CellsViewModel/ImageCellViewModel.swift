@@ -11,7 +11,7 @@ final class ImageCellViewModel: CollectionCellViewModel {
     var cellClass: AnyClass = ImageCell.self
     var indexPath: IndexPath?
     var height: CGFloat = DesignSystem.sizeBig
-    var navigationStyle: NavigationStyle?
+    var cellTappedCallback: (() -> Void)?
     
     let imageName: String
     

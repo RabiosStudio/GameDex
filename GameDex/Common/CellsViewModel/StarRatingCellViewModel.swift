@@ -12,7 +12,7 @@ final class StarRatingCellViewModel: CollectionFormCellViewModel {
     
     var cellClass: AnyClass = StarRatingCell.self
     var indexPath: IndexPath?
-    var navigationStyle: NavigationStyle?
+    var cellTappedCallback: (() -> Void)?
     let height: CGFloat = DesignSystem.sizeSmall
     
     let title: String

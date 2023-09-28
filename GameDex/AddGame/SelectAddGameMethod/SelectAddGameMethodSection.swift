@@ -16,16 +16,21 @@ final class SelectAddGameMethodSection: Section {
         let manualCellVM = BasicCardCellViewModel(
             cardType: SelectAddGameMethodCardType.manually,
             title: L10n.manually,
-            description: L10n.manuallyDescription,
-            screenFactory: SelectPlatformScreenFactory(delegate: delegate)
-        )
+            description: L10n.manuallyDescription
+        ) {
+            let screenFactory = SelectPlatformScreenFactory(delegate: delegate)
+            Routing.shared.route(
+                navigationStyle: .push(
+                    controller: screenFactory.viewController
+                )
+            )
+        }
         self.cellsVM.append(manualCellVM)
         
         let scanCellVM = BasicCardCellViewModel(
             cardType: SelectAddGameMethodCardType.scan,
             title: L10n.scan,
-            description: L10n.comingSoon,
-            screenFactory: nil
+            description: L10n.comingSoon
         )
         self.cellsVM.append(scanCellVM)
     }

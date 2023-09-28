@@ -22,13 +22,19 @@ final class SearchGameByTitleSection: Section {
                 title: game.title,
                 subtitle1: platform.title,
                 subtitle2: game.releaseDate?.convertToString(),
-                caption: game.imageURL,
-                screenFactory: AddGameDetailsScreenFactory(
+                caption: game.imageURL
+            ) {
+                let screenFactory = AddGameDetailsScreenFactory(
                     game: game,
                     platform: platform,
                     gameDetailsDelegate: gameDetailsDelegate
                 )
-            )
+                Routing.shared.route(
+                    navigationStyle: .push(
+                        controller: screenFactory.viewController
+                    )
+                )
+            }
             self.cellsVM.append(gameCellVM)
         }
     }

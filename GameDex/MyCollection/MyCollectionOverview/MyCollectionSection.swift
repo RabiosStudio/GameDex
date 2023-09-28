@@ -28,12 +28,18 @@ final class MyCollectionSection: Section {
             
             let labelCellVM = LabelCellViewModel(
                 primaryText: platform.title,
-                secondaryText: "\(gameArray.count) \(text)",
-                screenFactory: MyCollectionByPlatformsScreenFactory(
+                secondaryText: "\(gameArray.count) \(text)"
+            ) {
+                let screenFactory = MyCollectionByPlatformsScreenFactory(
                     platform: platform,
                     gameDetailsDelegate: gameDetailsDelegate
                 )
-            )
+                Routing.shared.route(
+                    navigationStyle: .push(
+                        controller: screenFactory.viewController
+                    )
+                )
+            }
             self.cellsVM.append(labelCellVM)
         }
     }

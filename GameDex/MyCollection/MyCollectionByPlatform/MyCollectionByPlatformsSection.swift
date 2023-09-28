@@ -20,12 +20,19 @@ final class MyCollectionByPlatformsSection: Section {
                 title: item.game.title,
                 subtitle1: platformName,
                 subtitle2: item.game.releaseDate?.convertToString(),
-                caption: item.game.imageURL,
-                screenFactory: EditGameDetailsScreenFactory(
+                caption: item.game.imageURL
+            ) {
+                let screenFactory = EditGameDetailsScreenFactory(
                     savedGame: item,
                     platformName: platformName,
-                    gameDetailsDelegate: gameDetailsDelegate)
-            )
+                    gameDetailsDelegate: gameDetailsDelegate
+                )
+                Routing.shared.route(
+                    navigationStyle: .push(
+                        controller: screenFactory.viewController
+                    )
+                )
+            }
             self.cellsVM.append(gameCellVM)
         }
     }
