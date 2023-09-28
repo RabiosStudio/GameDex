@@ -11,8 +11,7 @@ final class MyProfileSection: Section {
     
     init(
         userIsLoggedIn: Bool,
-        myProfileDelegate: MyProfileViewModelDelegate?,
-        completionBlock: (() -> Void)?
+        myProfileDelegate: MyProfileViewModelDelegate?
     ) {
         super.init()
         self.position = 0

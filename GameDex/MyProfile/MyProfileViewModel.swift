@@ -38,10 +38,7 @@ final class MyProfileViewModel: CollectionViewModel {
         self.sections = [
             MyProfileSection(
                 userIsLoggedIn: self.userIsLoggedIn,
-                myProfileDelegate: self,
-                completionBlock: { [weak self] in
-                    
-                }
+                myProfileDelegate: self
             )
         ]
         callback(nil)
