@@ -51,8 +51,6 @@ final class SelectPlatformViewModel: CollectionViewModel {
         _ = Routing.shared.route(navigationStyle: .dismiss(completionBlock: nil))
     }
     
-    func didSelectItem(indexPath: IndexPath) {}
-    
     private func requestData() async -> AddGameError? {
         // get data
         let result: Result<SearchPlatformsData, APIError> = await self.networkingSession.getData(with: GetPlatformsEndpoint(offset: self.platforms.count))

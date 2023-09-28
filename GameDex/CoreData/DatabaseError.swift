@@ -12,5 +12,5 @@ public enum DatabaseError: Error {
     case fetchError
     case replaceError
     case removeError
-    case itemAlreadySaved
+    case itemAlreadySaved    
 }

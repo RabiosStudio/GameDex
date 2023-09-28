@@ -24,11 +24,9 @@ final class MyCollectionViewModel: CollectionViewModel {
     weak var gameDetailsDelegate: GameDetailsViewModelDelegate?
     
     private let localDatabase: Database
-    private let alertDisplayer: AlertDisplayer
     
-    init(localDatabase: Database, alertDisplayer: AlertDisplayer) {
+    init(localDatabase: Database) {
         self.localDatabase = localDatabase
-        self.alertDisplayer = alertDisplayer
     }
     
     func loadData(callback: @escaping (EmptyError?) -> ()) {
@@ -66,8 +64,6 @@ final class MyCollectionViewModel: CollectionViewModel {
         )
     }
     
-    func didSelectItem(indexPath: IndexPath) {}
-    
     private func updateListOfCollections(with list: [Platform]) {
         self.sections = [
             MyCollectionSection(
@@ -76,6 +72,7 @@ final class MyCollectionViewModel: CollectionViewModel {
             )
         ]
     }
+    
 }
 
 // MARK: - AddGameDetailsViewModelDelegate

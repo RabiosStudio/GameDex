@@ -27,7 +27,4 @@ final class LoginViewModel: CollectionViewModel {
         callback(nil)
     }
     
-    func didTapRightButtonItem() {}
-    
-    func didSelectItem(indexPath: IndexPath) {}
 }

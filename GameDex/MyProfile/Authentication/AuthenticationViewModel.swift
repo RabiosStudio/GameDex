@@ -45,10 +45,6 @@ final class AuthenticationViewModel: CollectionViewModel {
         callback(nil)
     }
     
-    func didTapRightButtonItem() {}
-    
-    func didSelectItem(indexPath: IndexPath) {}
-    
     private func displayAlert(success: Bool) {
         self.alertDisplayer.presentTopFloatAlert(
             parameters: AlertViewModel(

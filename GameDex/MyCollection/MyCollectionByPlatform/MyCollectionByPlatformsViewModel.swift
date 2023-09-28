@@ -74,9 +74,7 @@ final class MyCollectionByPlatformsViewModel: CollectionViewModel {
             )
         )
     }
-    
-    func didSelectItem(indexPath: IndexPath) {}
-    
+        
     private func updateListOfGames(with list: [SavedGame]) {
         guard let platform = self.platform else { return }
         self.sections = [
@@ -86,6 +84,15 @@ final class MyCollectionByPlatformsViewModel: CollectionViewModel {
                 gameDetailsDelegate: gameDetailsDelegate
             )
         ]
+    }
+    
+    private func displayAlert() {
+        self.alertDisplayer.presentTopFloatAlert(
+            parameters: AlertViewModel(
+                alertType: .error,
+                description: L10n.fetchGamesErrorDescription
+            )
+        )
     }
 }
 
@@ -97,12 +104,7 @@ extension MyCollectionByPlatformsViewModel: GameDetailsViewModelDelegate {
         switch fetchCollectionResult {
         case .success(let result):
             guard let result else {
-                self.alertDisplayer.presentTopFloatAlert(
-                    parameters: AlertViewModel(
-                        alertType: .error,
-                        description: L10n.fetchGamesErrorDescription
-                    )
-                )
+                self.displayAlert()
                 return
             }
             
@@ -123,12 +125,7 @@ extension MyCollectionByPlatformsViewModel: GameDetailsViewModelDelegate {
             ]
             self.containerDelegate?.reloadSections()
         case .failure(_):
-            self.alertDisplayer.presentTopFloatAlert(
-                parameters: AlertViewModel(
-                    alertType: .error,
-                    description: L10n.fetchGamesErrorDescription
-                )
-            )
+            self.displayAlert()
         }
     }
 }

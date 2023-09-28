@@ -13,10 +13,8 @@ final class MyCollectionViewModelTests: XCTestCase {
     
     func test_init_ThenShouldSetPropertiesCorrectly() {
         // Given
-        let viewModel = MyCollectionViewModel(
-            localDatabase: LocalDatabase(),
-            alertDisplayer: AlertDisplayerMock()
-        )
+        let localDatabase = DatabaseMock()
+        let viewModel = MyCollectionViewModel(localDatabase: localDatabase)
         // When
         let numberOfSections = viewModel.numberOfSections()
         let numberOfItems = viewModel.numberOfItems(in: .zero)
@@ -31,10 +29,7 @@ final class MyCollectionViewModelTests: XCTestCase {
     func test_loadData_GivenDatabaseFetchError_ThenCallbackShouldReturnFetchError() {
         // Given
         let localDatabase = DatabaseMock()
-        let viewModel = MyCollectionViewModel(
-            localDatabase: localDatabase,
-            alertDisplayer: AlertDisplayerMock()
-        )
+        let viewModel = MyCollectionViewModel(localDatabase: localDatabase)
         var callbackIsCalled = false
         localDatabase.given(
             .fetchAllPlatforms(
@@ -65,10 +60,7 @@ final class MyCollectionViewModelTests: XCTestCase {
                 willReturn: Result<[PlatformCollected], DatabaseError>.success(emptyCollection)
             )
         )
-        let viewModel = MyCollectionViewModel(
-            localDatabase: localDatabase,
-            alertDisplayer: AlertDisplayerMock()
-        )
+        let viewModel = MyCollectionViewModel(localDatabase: localDatabase)
         var callbackIsCalled = false
         
         // When
@@ -84,10 +76,7 @@ final class MyCollectionViewModelTests: XCTestCase {
     func test_startSearch_ThenShouldCallCallback() {
         // Given
         let localDatabase = DatabaseMock()
-        let viewModel = MyCollectionViewModel(
-            localDatabase: localDatabase,
-            alertDisplayer: AlertDisplayerMock()
-        )
+        let viewModel = MyCollectionViewModel(localDatabase: localDatabase)
         var callbackIsCalled = false
         
         // When
@@ -107,10 +96,7 @@ final class MyCollectionViewModelTests: XCTestCase {
                 willReturn: Result<[PlatformCollected], DatabaseError>.success(MockData.platformsCollected)
             )
         )
-        let viewModel = MyCollectionViewModel(
-            localDatabase: localDatabase,
-            alertDisplayer: AlertDisplayerMock()
-        )
+        let viewModel = MyCollectionViewModel(localDatabase: localDatabase)
         
         let platform = CoreDataConverter.convert(platformCollected: MockData.platformsCollected[0])
         
@@ -143,10 +129,7 @@ final class MyCollectionViewModelTests: XCTestCase {
                 willReturn: Result<[PlatformCollected], DatabaseError>.success(MockData.platformsCollected)
             )
         )
-        let viewModel = MyCollectionViewModel(
-            localDatabase: localDatabase,
-            alertDisplayer: AlertDisplayerMock()
-        )
+        let viewModel = MyCollectionViewModel(localDatabase: localDatabase)
         
         viewModel.loadData { _ in
             
@@ -169,10 +152,7 @@ final class MyCollectionViewModelTests: XCTestCase {
                 willReturn: Result<[PlatformCollected], DatabaseError>.success(MockData.platformsCollected)
             )
         )
-        let viewModel = MyCollectionViewModel(
-            localDatabase: localDatabase,
-            alertDisplayer: AlertDisplayerMock()
-        )
+        let viewModel = MyCollectionViewModel(localDatabase: localDatabase)
         
         let expectedItems = CoreDataConverter.convert(platformsCollected: MockData.platformsCollected)
         let expectedNumberOfitems = expectedItems.count
@@ -190,10 +170,7 @@ final class MyCollectionViewModelTests: XCTestCase {
     func test_reloadCollection_ThenContainerDelegateIsCalled() {
         // Given
         let localDatabase = DatabaseMock()
-        let viewModel = MyCollectionViewModel(
-            localDatabase: localDatabase,
-            alertDisplayer: AlertDisplayerMock()
-        )
+        let viewModel = MyCollectionViewModel(localDatabase: localDatabase)
         
         let containerDelegate = ContainerViewControllerDelegateMock()
         viewModel.containerDelegate = containerDelegate
@@ -207,10 +184,7 @@ final class MyCollectionViewModelTests: XCTestCase {
     func test_didTapRightButtonItem_ThenShouldSetNavigationStyleCorrectly() {
         // Given
         let localDatabase = DatabaseMock()
-        let viewModel = MyCollectionViewModel(
-            localDatabase: localDatabase,
-            alertDisplayer: AlertDisplayerMock()
-        )
+        let viewModel = MyCollectionViewModel(localDatabase: localDatabase)
         
         // When
         viewModel.didTapRightButtonItem()

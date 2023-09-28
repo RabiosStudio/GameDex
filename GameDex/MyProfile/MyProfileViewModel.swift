@@ -42,8 +42,6 @@ final class MyProfileViewModel: CollectionViewModel {
         callback(nil)
     }
     
-    func didTapRightButtonItem() {}
-    
     func didSelectItem(indexPath: IndexPath) {
         guard self.authenticationService.isUserLoggedIn() else { return }
         if indexPath.row == .zero {
@@ -63,20 +61,13 @@ extension MyProfileViewModel: AlertDisplayerDelegate {
     func didTapOkButton() {
         self.authenticationService.logout(
             callback: { [weak self] error in
-                if error != nil {
-                    self?.alertDisplayer.presentTopFloatAlert(
-                        parameters: AlertViewModel(
-                            alertType: .error,
-                            description: L10n.errorLogOutDescription
-                        )
+                self?.alertDisplayer.presentTopFloatAlert(
+                    parameters: AlertViewModel(
+                        alertType: error == nil ? .success : .error,
+                        description: error == nil ? L10n.successLogOutDescription : L10n.errorLogOutDescription
                     )
-                } else {
-                    self?.alertDisplayer.presentTopFloatAlert(
-                        parameters: AlertViewModel(
-                            alertType: .success,
-                            description: L10n.successLogOutDescription
-                        )
-                    )
+                )
+                if error == nil {
                     self?.containerDelegate?.reloadSections()
                 }
             }
