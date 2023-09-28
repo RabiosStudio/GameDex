@@ -45,7 +45,8 @@ final class MyProfileViewModel: CollectionViewModel {
     func didTapRightButtonItem() {}
     
     func didSelectItem(indexPath: IndexPath) {
-        if self.authenticationService.isUserLoggedIn() {
+        guard self.authenticationService.isUserLoggedIn() else { return }
+        if indexPath.row == .zero {
             self.alertDisplayer.presentBasicAlert(
                 parameters: AlertViewModel(
                     alertType: .warning,
