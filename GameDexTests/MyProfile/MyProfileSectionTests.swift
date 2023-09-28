@@ -14,8 +14,7 @@ final class MyProfileSectionTests: XCTestCase {
         // Given
         let section = MyProfileSection(
             userIsLoggedIn: false,
-            myProfileDelegate: nil,
-            completionBlock: nil
+            myProfileDelegate: nil
         )
         
         // Then
@@ -40,8 +39,7 @@ final class MyProfileSectionTests: XCTestCase {
         // Given
         let section = MyProfileSection(
             userIsLoggedIn: true,
-            myProfileDelegate: nil,
-            completionBlock: nil
+            myProfileDelegate: nil
         )
         
         // Then

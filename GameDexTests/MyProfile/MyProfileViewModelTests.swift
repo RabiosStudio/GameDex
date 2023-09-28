@@ -152,4 +152,39 @@ final class MyProfileViewModelTests: XCTestCase {
         viewModel.didTapOkButton()
         wait(for: [expectation], timeout: Constants.timeout)
     }
+    
+    func test_didSelectItem_GivenUserIsLoggedIn_ThenAlertParametersAreCorrects() {
+        // Given
+        let expectation = XCTestExpectation()
+        let alertDisplayer = AlertDisplayerMock()
+        let authenticationService = AuthenticationServiceMock()
+        let viewModel = MyProfileViewModel(
+            authenticationService: authenticationService,
+            alertDisplayer: alertDisplayer
+        )
+        
+        authenticationService.given(
+            .isUserLoggedIn(
+                willReturn: true
+            )
+        )
+        let indexPath = IndexPath(row: .zero, section: .zero)
+        
+        // When
+        viewModel.didSelectItem(indexPath: indexPath)
+        
+        // Then
+        alertDisplayer.verify(
+            .presentBasicAlert(
+                parameters: .value(
+                    AlertViewModel(
+                        alertType: .warning,
+                        description: L10n.warningLogOut,
+                        cancelButtonTitle: L10n.cancel,
+                        okButtonTitle: L10n.confirm
+                    )
+                )
+            )
+        )
+    }
 }
