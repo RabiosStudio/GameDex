@@ -116,7 +116,7 @@ extension AddGameDetailsViewModel: PrimaryButtonDelegate {
                 )
             )
             
-            guard error != nil else {
+            guard error == nil else {
                 self?.configureBottomView()
                 return
             }
