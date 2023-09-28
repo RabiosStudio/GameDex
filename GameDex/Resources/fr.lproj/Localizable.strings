@@ -30,10 +30,10 @@
 
 // Warnings
 "warningTitle" = "Un instant !";
-"warningRemoveGameDescription" = "Êtes-vous sûr(e) de vouloir supprimer ce jeu de votre collection?";
+"warningRemoveGameDescription" = "Êtes-vous sûr(e) de vouloir supprimer ce jeu de votre collection ?";
 "warningTryAgain" = "Veuillez réessayer ultérieurement.";
 "warningGameAlreadyInDatabase" = "Ce jeu est déjà dans votre collection !";
-"warningLogOut" = "Êtes-vous sûr(e) de vouloir vous déconnecter?";
+"warningLogOut" = "Êtes-vous sûr(e) de vouloir vous déconnecter ?";
 
 // Button
 "addAGame" = "Ajouter un jeu";
@@ -47,7 +47,7 @@
 
 // Add Game Steps
 "stepOneOutOfThree" = "Etape 1/3";
-"addBasicGameInformationDescription" = "Renseignez le titre du jeu, et optionnellement la console correspondante";
+"addBasicGameInformationDescription" = "Renseignez le titre du jeu, et optionnellement la console correspondante.";
 
 // Add Game Methods
 "manually" = "Via un formulaire";

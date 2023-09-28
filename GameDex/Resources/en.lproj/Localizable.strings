@@ -29,10 +29,10 @@
 "successLogOutDescription" = "You are logged out.";
 
 // Warnings
-"warningTitle" = "One moment !";
+"warningTitle" = "One moment!";
 "warningRemoveGameDescription" = "Are you sure you want to remove this game from your collection?";
 "warningTryAgain" = "Please try again later";
-"warningGameAlreadyInDatabase" = "This game is already in your collection !";
+"warningGameAlreadyInDatabase" = "This game is already in your collection!";
 "warningLogOut" = "Are you sure you want to log out?";
 
 // Button
