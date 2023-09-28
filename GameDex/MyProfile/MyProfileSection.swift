@@ -18,14 +18,14 @@ final class MyProfileSection: Section {
         self.position = 0
         
         if userIsLoggedIn {
-            let loginCellVM = LabelCellViewModel(
+            let logoutCellVM = LabelCellViewModel(
                 primaryText: L10n.logout,
                 navigationStyle: .selectTab(
                     index: 1,
                     completionBlock: completionBlock
                 )
             )
-            self.cellsVM.append(loginCellVM)
+            self.cellsVM.append(logoutCellVM)
         } else {
             let loginCellVM = LabelCellViewModel(
                 primaryText: L10n.login,
