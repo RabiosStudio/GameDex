@@ -55,7 +55,11 @@ final class MyCollectionViewModel: CollectionViewModel {
     }
     
     func didTapRightButtonItem() {
-        _ = Routing.shared.route(
+        self.presentAddGameMethods()
+    }
+    
+    private func presentAddGameMethods() {
+        Routing.shared.route(
             navigationStyle: .present(
                 controller: SelectAddGameMethodScreenFactory(
                     delegate: self

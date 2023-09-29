@@ -60,6 +60,10 @@ final class EditGameDetailsViewModel: CollectionViewModel {
     }
     
     func didTapRightButtonItem() {
+        self.presentAlertBeforeDeletingGame()
+    }
+    
+    private func presentAlertBeforeDeletingGame() {
         self.alertDisplayer.presentBasicAlert(
             parameters: AlertViewModel(
                 alertType: .warning,

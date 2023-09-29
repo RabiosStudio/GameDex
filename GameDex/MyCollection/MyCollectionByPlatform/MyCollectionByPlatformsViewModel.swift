@@ -56,6 +56,10 @@ final class MyCollectionByPlatformsViewModel: CollectionViewModel {
     }
     
     func didTapRightButtonItem() {
+        self.startSearchingForGames()
+    }
+    
+    private func startSearchingForGames() {
         guard let collection = self.platform else {
             return
         }
@@ -67,14 +71,14 @@ final class MyCollectionByPlatformsViewModel: CollectionViewModel {
         
         let navigationController = UINavigationController(rootViewController: containerController)
         
-        _ = Routing.shared.route(
+        Routing.shared.route(
             navigationStyle: .present(
                 controller: navigationController,
                 completionBlock: nil
             )
         )
     }
-        
+    
     private func updateListOfGames(with list: [SavedGame]) {
         guard let platform = self.platform else { return }
         self.sections = [
