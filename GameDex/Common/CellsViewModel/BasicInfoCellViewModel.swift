@@ -23,7 +23,7 @@ final class BasicInfoCellViewModel: CollectionCellViewModel {
         subtitle1: String?,
         subtitle2: String?,
         caption: String?,
-        cellTappedCallback: (() -> Void)?
+        cellTappedCallback: (() -> Void)? = nil
     ) {
         self.title = title
         self.subtitle1 = subtitle1

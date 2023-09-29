@@ -12,16 +12,24 @@ final class MyProfileSection: Section {
     init(
         userIsLoggedIn: Bool,
         myProfileDelegate: MyProfileViewModelDelegate?,
-        logOutCallback: (() -> Void)?
+        alertDisplayer: AlertDisplayer
     ) {
         super.init()
         self.position = 0
         
         if userIsLoggedIn {
             let logoutCellVM = LabelCellViewModel(
-                primaryText: L10n.logout,
-                cellTappedCallback: logOutCallback
-            )
+                primaryText: L10n.logout
+            ) {
+                alertDisplayer.presentBasicAlert(
+                    parameters: AlertViewModel(
+                        alertType: .warning,
+                        description: L10n.warningLogOut,
+                        cancelButtonTitle: L10n.cancel,
+                        okButtonTitle: L10n.confirm
+                    )
+                )
+            }
             self.cellsVM.append(logoutCellVM)
         } else {
             let loginCellVM = LabelCellViewModel(

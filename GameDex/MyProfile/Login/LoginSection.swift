@@ -54,7 +54,6 @@ final class LoginSection: Section {
             )
         }
         
-        
         self.cellsVM.append(signupButtonCellVM)
     }
 }

@@ -37,17 +37,7 @@ final class MyProfileViewModel: CollectionViewModel {
             MyProfileSection(
                 userIsLoggedIn: userIsLoggedIn,
                 myProfileDelegate: self,
-                logOutCallback: { [weak self] in
-                    guard userIsLoggedIn else { return }
-                    self?.alertDisplayer.presentBasicAlert(
-                        parameters: AlertViewModel(
-                            alertType: .warning,
-                            description: L10n.warningLogOut,
-                            cancelButtonTitle: L10n.cancel,
-                            okButtonTitle: L10n.confirm
-                        )
-                    )
-                }
+                alertDisplayer: self.alertDisplayer
             )
         ]
         callback(nil)
