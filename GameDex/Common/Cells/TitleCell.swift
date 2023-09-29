@@ -43,8 +43,6 @@ final class TitleCell: UICollectionViewCell, CellConfigurable {
         self.setupConstraints()
     }
     
-    func cellPressed(cellViewModel: CellViewModel) {}
-    
     private func setupConstraints() {
         NSLayoutConstraint.activate([
             self.titleLabel.topAnchor.constraint(equalTo: self.topAnchor, constant: DesignSystem.paddingRegular),

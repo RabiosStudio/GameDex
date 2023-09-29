@@ -62,10 +62,6 @@ final class BasicCardCell: UICollectionViewCell, CellConfigurable {
         self.setupConstraints(cellViewModel: cellViewModel)
     }
     
-    func cellPressed(cellViewModel: CellViewModel) {
-        cellViewModel.cellTappedCallback?()
-    }
-    
     private func setupLayer() {
         self.backgroundColor = .clear
         self.layer.masksToBounds = false

@@ -19,31 +19,33 @@ final class MyProfileSection: Section {
         
         if userIsLoggedIn {
             let logoutCellVM = LabelCellViewModel(
-                primaryText: L10n.logout
-            ) {
-                alertDisplayer.presentBasicAlert(
-                    parameters: AlertViewModel(
-                        alertType: .warning,
-                        description: L10n.warningLogOut,
-                        cancelButtonTitle: L10n.cancel,
-                        okButtonTitle: L10n.confirm
+                primaryText: L10n.logout,
+                cellTappedCallback: {
+                    alertDisplayer.presentBasicAlert(
+                        parameters: AlertViewModel(
+                            alertType: .warning,
+                            description: L10n.warningLogOut,
+                            cancelButtonTitle: L10n.cancel,
+                            okButtonTitle: L10n.confirm
+                        )
                     )
-                )
-            }
+                }
+            )
             self.cellsVM.append(logoutCellVM)
         } else {
             let loginCellVM = LabelCellViewModel(
-                primaryText: L10n.login
-            ) {
-                let screenFactory = LoginScreenFactory(
-                    myProfileDelegate: myProfileDelegate
-                )
-                Routing.shared.route(
-                    navigationStyle: .push(
-                        controller: screenFactory.viewController
+                primaryText: L10n.login,
+                cellTappedCallback: {
+                    let screenFactory = LoginScreenFactory(
+                        myProfileDelegate: myProfileDelegate
                     )
-                )
-            }
+                    Routing.shared.route(
+                        navigationStyle: .push(
+                            controller: screenFactory.viewController
+                        )
+                    )
+                }
+            )
             self.cellsVM.append(loginCellVM)
         }
         

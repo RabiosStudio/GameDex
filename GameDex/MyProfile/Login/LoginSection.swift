@@ -25,34 +25,36 @@ final class LoginSection: Section {
         
         let loginButtonCellVM = PrimaryButtonCellViewModel(
             title: L10n.login,
-            delegate: nil
-        ) {
-            let screenFactory =  AuthenticationScreenFactory(
-                userHasAccount: true,
-                myProfileDelegate: myProfileDelegate
-            )
-            Routing.shared.route(
-                navigationStyle: .push(
-                    controller: screenFactory.viewController
+            delegate: nil,
+            cellTappedCallback: {
+                let screenFactory =  AuthenticationScreenFactory(
+                    userHasAccount: true,
+                    myProfileDelegate: myProfileDelegate
                 )
-            )
-        }
+                Routing.shared.route(
+                    navigationStyle: .push(
+                        controller: screenFactory.viewController
+                    )
+                )
+            }
+        )
         self.cellsVM.append(loginButtonCellVM)
         
         let signupButtonCellVM = PrimaryButtonCellViewModel(
             title: L10n.createAccount,
-            delegate: nil
-        ) {
-            let screenFactory =  AuthenticationScreenFactory(
-                userHasAccount: false,
-                myProfileDelegate: myProfileDelegate
-            )
-            Routing.shared.route(
-                navigationStyle: .push(
-                    controller: screenFactory.viewController
+            delegate: nil,
+            cellTappedCallback: {
+                let screenFactory =  AuthenticationScreenFactory(
+                    userHasAccount: false,
+                    myProfileDelegate: myProfileDelegate
                 )
-            )
-        }
+                Routing.shared.route(
+                    navigationStyle: .push(
+                        controller: screenFactory.viewController
+                    )
+                )
+            }
+        )
         
         self.cellsVM.append(signupButtonCellVM)
     }

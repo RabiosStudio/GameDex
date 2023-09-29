@@ -61,10 +61,6 @@ final class LabelCell: UICollectionViewCell, CellConfigurable {
         self.setupConstraints()
     }
     
-    func cellPressed(cellViewModel: CellViewModel) {
-        cellViewModel.cellTappedCallback?()
-    }
-    
     private func setupConstraints() {
         NSLayoutConstraint.activate([
             self.primaryLabel.topAnchor.constraint(equalTo: self.topAnchor),

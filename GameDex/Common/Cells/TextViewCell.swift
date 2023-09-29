@@ -64,8 +64,6 @@ class TextViewCell: UICollectionViewCell, CellConfigurable {
         self.label.text = cellVM.title
     }
     
-    func cellPressed(cellViewModel: CellViewModel) {}
-    
     private func setupViews() {
         self.contentView.addSubview(self.label)
         self.contentView.addSubview(self.textView)

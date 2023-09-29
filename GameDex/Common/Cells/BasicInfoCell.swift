@@ -82,17 +82,13 @@ final class BasicInfoCell: UICollectionViewCell, CellConfigurable {
         self.setupConstraints()
     }
     
-    func cellPressed(cellViewModel: CellViewModel) {
-        cellViewModel.cellTappedCallback?()
-    }
-    
     private func setupViews(cellViewModel: CellViewModel) {
         self.contentView.addSubview(self.imageView)
         self.stackView.addArrangedSubview(self.titleLabel)
         guard let cellVM = cellViewModel as? BasicInfoCellViewModel else {
             return
         }
-        if let shouldDisplaySubtitle = cellVM.subtitle1 {
+        if cellVM.subtitle1 != nil {
             self.stackView.addArrangedSubview(self.primarySubtitle)
         }
         self.stackView.addArrangedSubview(self.secondarySubtitle)

@@ -12,3 +12,9 @@ protocol CellConfigurable: UIView {
     func configure(cellViewModel: CellViewModel)
     func cellPressed(cellViewModel: CellViewModel)
 }
+
+extension CellConfigurable {
+    func cellPressed(cellViewModel: CellViewModel) {
+        cellViewModel.cellTappedCallback?()
+    }
+}

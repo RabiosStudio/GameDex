@@ -34,8 +34,6 @@ final class ImageCell: UICollectionViewCell, CellConfigurable {
         self.setupConstraints()
     }
     
-    func cellPressed(cellViewModel: CellViewModel) {}
-    
     private func setupConstraints() {
         NSLayoutConstraint.activate([
             self.imageView.topAnchor.constraint(equalTo: self.topAnchor, constant: DesignSystem.paddingLarge),
