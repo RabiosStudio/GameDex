@@ -29,7 +29,7 @@ final class MyCollectionByPlatformsSection: Section {
                     )
                     Routing.shared.route(
                         navigationStyle: .push(
-                            controller: screenFactory.viewController
+                            screenFactory: screenFactory
                         )
                     )
                 }

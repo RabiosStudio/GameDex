@@ -18,9 +18,9 @@ protocol Navigator {
 }
 
 enum NavigationStyle {
-    case push(controller: UIViewController)
+    case push(screenFactory: ScreenFactory)
     case pop
-    case present(controller: UIViewController, screenSize: ScreenSize = .full, completionBlock: (() -> Void)?)
+    case present(screenFactory: ScreenFactory, screenSize: ScreenSize = .full, completionBlock: (() -> Void)?)
     case dismiss(completionBlock: (() -> Void)?)
     case selectTab(index: Int, completionBlock: (() -> Void)?)
 }

@@ -24,7 +24,7 @@ final class SelectPlatformSection: Section {
                     )
                     Routing.shared.route(
                         navigationStyle: .push(
-                            controller: screenFactory.viewController
+                            screenFactory: screenFactory
                         )
                     )
                 }

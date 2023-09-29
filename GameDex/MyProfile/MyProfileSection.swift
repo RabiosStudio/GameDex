@@ -41,7 +41,7 @@ final class MyProfileSection: Section {
                     )
                     Routing.shared.route(
                         navigationStyle: .push(
-                            controller: screenFactory.viewController
+                            screenFactory: screenFactory
                         )
                     )
                 }

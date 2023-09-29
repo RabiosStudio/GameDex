@@ -33,7 +33,7 @@ final class LoginSection: Section {
                 )
                 Routing.shared.route(
                     navigationStyle: .push(
-                        controller: screenFactory.viewController
+                        screenFactory: screenFactory
                     )
                 )
             }
@@ -50,7 +50,7 @@ final class LoginSection: Section {
                 )
                 Routing.shared.route(
                     navigationStyle: .push(
-                        controller: screenFactory.viewController
+                        screenFactory: screenFactory
                     )
                 )
             }

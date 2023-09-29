@@ -61,9 +61,9 @@ final class MyCollectionViewModel: CollectionViewModel {
     private func presentAddGameMethods() {
         Routing.shared.route(
             navigationStyle: .present(
-                controller: SelectAddGameMethodScreenFactory(
+                screenFactory: SelectAddGameMethodScreenFactory(
                     delegate: self
-                ).viewController,
+                ),
                 completionBlock: nil)
         )
     }

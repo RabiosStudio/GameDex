@@ -31,7 +31,7 @@ final class SearchGameByTitleSection: Section {
                     )
                     Routing.shared.route(
                         navigationStyle: .push(
-                            controller: screenFactory.viewController
+                            screenFactory: screenFactory
                         )
                     )
                 }

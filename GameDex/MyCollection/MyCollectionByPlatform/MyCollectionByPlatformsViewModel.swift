@@ -64,16 +64,13 @@ final class MyCollectionByPlatformsViewModel: CollectionViewModel {
             return
         }
         
-        let containerController = SearchGameByTitleScreenFactory(
-            platform: collection,
-            gameDetailsDelegate: self
-        ).viewController
-        
-        let navigationController = UINavigationController(rootViewController: containerController)
-        
         Routing.shared.route(
             navigationStyle: .present(
-                controller: navigationController,
+                screenFactory: SearchGameByTitleScreenFactory(
+                    platform: collection,
+                    gameDetailsDelegate: self,
+                    addToNavController: true
+                ),
                 completionBlock: nil
             )
         )

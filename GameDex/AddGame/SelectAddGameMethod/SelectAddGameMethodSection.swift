@@ -21,7 +21,7 @@ final class SelectAddGameMethodSection: Section {
                 let screenFactory = SelectPlatformScreenFactory(delegate: delegate)
                 Routing.shared.route(
                     navigationStyle: .push(
-                        controller: screenFactory.viewController
+                        screenFactory: screenFactory
                     )
                 )
             }
