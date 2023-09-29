@@ -86,7 +86,7 @@ extension AuthenticationViewModel: PrimaryButtonDelegate {
                 email: email,
                 password: password
             ) { [weak self] error in
-                if let error {
+                if error != nil {
                     self?.displayAlert(success: false)
                 } else {
                     self?.displayAlert(success: true)
