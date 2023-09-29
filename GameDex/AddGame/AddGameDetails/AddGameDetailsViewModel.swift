@@ -49,7 +49,10 @@ final class AddGameDetailsViewModel: CollectionViewModel {
     }
     
     func didTapRightButtonItem() {
-        self.gameDetailsDelegate?.reloadCollection()
+        self.close()
+    }
+    
+    private func close() {
         Routing.shared.route(
             navigationStyle: .dismiss(
                 completionBlock: nil
@@ -124,8 +127,8 @@ extension AddGameDetailsViewModel: PrimaryButtonDelegate {
                 self?.configureBottomView()
                 return
             }
-            // the right button item is .close so the method will dismiss the view presented
-            self?.didTapRightButtonItem()
+            self?.gameDetailsDelegate?.reloadCollection()
+            self?.close()
         }
     }
 }
