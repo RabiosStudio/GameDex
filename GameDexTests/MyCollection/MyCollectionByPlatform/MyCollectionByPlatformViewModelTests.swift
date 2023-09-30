@@ -87,11 +87,10 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
         // Then
         let expectedNavigationStyle: NavigationStyle = {
             return .present(
-                controller: UINavigationController(
-                    rootViewController: SearchGameByTitleScreenFactory(
+                screenFactory: SearchGameByTitleScreenFactory(
                         platform: platform,
-                        gameDetailsDelegate: viewModel
-                    ).viewController
+                        gameDetailsDelegate: viewModel,
+                        addToNavController: true
                 ),
                 completionBlock: nil
             )

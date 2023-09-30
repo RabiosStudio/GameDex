@@ -192,9 +192,9 @@ final class MyCollectionViewModelTests: XCTestCase {
         // Then
         let expectedNavigationStyle: NavigationStyle = {
             return .present(
-                controller: SelectAddGameMethodScreenFactory(
+                screenFactory: SelectAddGameMethodScreenFactory(
                     delegate: viewModel
-                ).viewController,
+                ),
                 completionBlock: nil
             )
         }()

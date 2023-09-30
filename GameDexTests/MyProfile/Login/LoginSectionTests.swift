@@ -29,4 +29,45 @@ final class LoginSectionTests: XCTestCase {
         XCTAssertEqual(loginButtonCellVM.title, L10n.login)
         XCTAssertEqual(signupButtonCellVM.title, L10n.createAccount)
     }
+    
+    func test_cellTappedCallback_ThenLastNavigationStyleIsCorrect() {
+        // Given
+        let myProfileDelegate = MyProfileViewModelDelegateMock()
+        let section = LoginSection(myProfileDelegate: myProfileDelegate)
+        
+        guard let buttonCellsVM = section.cellsVM.filter({ cellVM in
+            return cellVM is PrimaryButtonCellViewModel
+        }) as? [PrimaryButtonCellViewModel] else {
+            XCTFail("Wrong type")
+            return
+        }
+        
+        let loginButtonCellVM = buttonCellsVM.first { cell in
+            cell.title == L10n.login
+        }
+        let signupButtonCellVM = buttonCellsVM.first { cell in
+            cell.title == L10n.createAccount
+        }
+        
+        // When
+        loginButtonCellVM?.cellTappedCallback?()
+        signupButtonCellVM?.cellTappedCallback?()
+        
+        // Then
+        let expectedNavigationStyle1: NavigationStyle = .push(
+            screenFactory: AuthenticationScreenFactory(
+                userHasAccount: true,
+                myProfileDelegate: myProfileDelegate
+            )
+        )
+        XCTAssertEqual(Routing.shared.lastNavigationStyle, expectedNavigationStyle1)
+        
+        let expectedNavigationStyle2: NavigationStyle = .push(
+            screenFactory: AuthenticationScreenFactory(
+                userHasAccount: false,
+                myProfileDelegate: myProfileDelegate
+            )
+        )
+        XCTAssertEqual(Routing.shared.lastNavigationStyle, expectedNavigationStyle2)
+    }
 }

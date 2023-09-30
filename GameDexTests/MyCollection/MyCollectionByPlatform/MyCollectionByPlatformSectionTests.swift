@@ -37,4 +37,32 @@ final class MyCollectionByPlatformSectionTests: XCTestCase {
         XCTAssertEqual(game1CellVM.subtitle2, Date.now.convertToString())
         XCTAssertEqual(game2CellVM.caption, "imageURL")
     }
+    
+    func test_cellTappedCallback_ThenLastNavigationStyleIsCorrect() {
+        // Given
+        let gameDetailsDelegate = GameDetailsViewModelDelegateMock()
+        
+        let section = MyCollectionByPlatformsSection(
+            games: MockData.savedGames,
+            platformName: MockData.platform.title,
+            gameDetailsDelegate: gameDetailsDelegate
+        )
+        
+        for (index, cellVM) in section.cellsVM.enumerated() {
+            
+            // When
+            cellVM.cellTappedCallback?()
+            
+            // Then
+            let expectedNavigationStyle: NavigationStyle = .push(
+                screenFactory: EditGameDetailsScreenFactory(
+                    savedGame: MockData.savedGames[index],
+                    platformName: MockData.platform.title,
+                    gameDetailsDelegate: gameDetailsDelegate
+                )
+            )
+            
+            XCTAssertEqual(Routing.shared.lastNavigationStyle, expectedNavigationStyle)
+        }
+    }
 }

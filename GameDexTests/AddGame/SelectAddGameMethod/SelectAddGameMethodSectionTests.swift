@@ -28,4 +28,22 @@ final class SelectAddGameMethodSectionTests: XCTestCase {
         XCTAssertEqual(scanCellVM.cardTitle, L10n.scan)
         XCTAssertEqual(scanCellVM.cardDescription, L10n.comingSoon)
     }
+    
+    func test_cellTappedCallback_ThenLastNavigationStyleIsCorrect() {
+        // Given
+        let delegate = GameDetailsViewModelDelegateMock()
+        let section = SelectAddGameMethodSection(delegate: delegate)
+        
+        // When
+        section.cellsVM.first?.cellTappedCallback?()
+        
+        // Then
+        let expectedNavigationStyle: NavigationStyle = .push(
+            screenFactory: SelectPlatformScreenFactory(
+                delegate: delegate
+            )
+        )
+        
+        XCTAssertEqual(Routing.shared.lastNavigationStyle, expectedNavigationStyle)
+    }
 }

@@ -48,8 +48,8 @@ extension NavigationStyle: Equatable {
             return type(of: screenFactory1) == type(of: screenFactory2)
         case (.pop, .pop):
             return true
-        case (.present(controller: _, screenSize: _, completionBlock: _), .present(controller: _, screenSize: _, completionBlock: _)):
-            return true
+        case let (.present(screenFactory1, screenSize: _, completionBlock: _), .present(screenFactory2, screenSize: _, completionBlock: _)):
+            return type(of: screenFactory1) == type(of: screenFactory2)
         case (.dismiss, .dismiss):
             return true
         case (.selectTab, .selectTab):

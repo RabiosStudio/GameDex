@@ -38,9 +38,9 @@ final class MyProfileSectionTests: XCTestCase {
         
         loginCellVM.cellTappedCallback?()
         let expectedNavigationStyle: NavigationStyle = .push(
-            controller: LoginScreenFactory(
+            screenFactory: LoginScreenFactory(
                 myProfileDelegate: nil
-            ).viewController
+            )
         )
         
         XCTAssertEqual(Routing.shared.lastNavigationStyle,  expectedNavigationStyle)
