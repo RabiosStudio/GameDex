@@ -8,19 +8,7 @@
 import Foundation
 
 enum RemoteDataConverter {
-    
     // MARK: - Remote data to data
-    
-    static func convert(remotePlatforms: [PlatformData]) -> [Platform] {
-        return remotePlatforms.map { remotePlatform in
-            return Platform(
-                title: remotePlatform.name,
-                id: remotePlatform.id,
-                games: nil
-            )
-        }
-    }
-    
     static func convert(remoteGames: [GameData], platform: Platform) -> [Game] {
         return remoteGames.map { remoteGame in
             return Game(

@@ -14,7 +14,7 @@ struct SelectPlatformScreenFactory: ScreenFactory {
     
     var viewController: UIViewController {
         let viewModel = SelectPlatformViewModel(
-            networkingSession: AlamofireAPI(),
+            cloudDatabase: FirestoreDatabase(),
             gameDetailsDelegate: self.delegate
         )
         let layout = UICollectionViewFlowLayout()

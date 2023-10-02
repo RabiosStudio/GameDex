@@ -22,11 +22,14 @@ final class SelectPlatformViewModel: CollectionViewModel {
     weak var containerDelegate: ContainerViewControllerDelegate?
     weak var gameDetailsDelegate: GameDetailsViewModelDelegate?
     
-    private let networkingSession: API
+    private let cloudDatabase: CloudDatabase
     
-    init(networkingSession: API, gameDetailsDelegate: GameDetailsViewModelDelegate?) {
+    init(
+        cloudDatabase: CloudDatabase,
+        gameDetailsDelegate: GameDetailsViewModelDelegate?
+    ) {
         self.progress = 1/3
-        self.networkingSession = networkingSession
+        self.cloudDatabase = cloudDatabase
         self.gameDetailsDelegate = gameDetailsDelegate
     }
     
@@ -60,26 +63,16 @@ final class SelectPlatformViewModel: CollectionViewModel {
     }
     
     private func requestData() async -> AddGameError? {
-        // get data
-        let result: Result<SearchPlatformsData, APIError> = await self.networkingSession.getData(with: GetPlatformsEndpoint(offset: self.platforms.count))
-        
-        // check result
-        switch result {
-        case .success(let data):
-            let platforms = RemoteDataConverter.convert(remotePlatforms: data.results)
-            // store result data
-            self.platforms += platforms
-            // if there is still data on other pages, we do the request again
-            if self.platforms.count < data.numberOfTotalResults {
-                _ = await self.requestData()
-            } else {
-                return nil
+        do {
+            let fetchedPlatforms = try await self.cloudDatabase.getAvailablePlatforms()
+            guard let platforms = fetchedPlatforms else {
+                return AddGameError.server
             }
-        case .failure(_):
-            let error: AddGameError = .server
-            return error
+            self.platforms = platforms
+            return nil
+        } catch {
+            return AddGameError.server
         }
-        return nil
     }
     
     private func updateListOfPlatforms(with list: [Platform]) {

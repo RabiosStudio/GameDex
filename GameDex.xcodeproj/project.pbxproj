@@ -12,10 +12,8 @@
 		251C86BA2A97A29D0020C794 /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251C86B02A97A29D0020C794 /* APIError.swift */; };
 		251C86BC2A97A29D0020C794 /* AlamofireAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251C86B22A97A29D0020C794 /* AlamofireAPI.swift */; };
 		251C86BE2A97A29D0020C794 /* APIMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251C86B42A97A29D0020C794 /* APIMethod.swift */; };
-		251C86BF2A97A29D0020C794 /* GetPlatformsEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251C86B52A97A29D0020C794 /* GetPlatformsEndpoint.swift */; };
 		251C86C02A97A29D0020C794 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251C86B62A97A29D0020C794 /* API.swift */; };
 		251C86C12A97A29D0020C794 /* APIEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251C86B72A97A29D0020C794 /* APIEndpoint.swift */; };
-		251C86C22A97A29D0020C794 /* SearchPlatformsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251C86B82A97A29D0020C794 /* SearchPlatformsData.swift */; };
 		251C86D42A9899A70020C794 /* RemoteDataConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251C86D32A9899A70020C794 /* RemoteDataConverter.swift */; };
 		251C86D62A9899F40020C794 /* Platform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251C86D52A9899F40020C794 /* Platform.swift */; };
 		251C86DE2A98AD400020C794 /* SelectAddGameMethodViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251C86DD2A98AD400020C794 /* SelectAddGameMethodViewModel.swift */; };
@@ -197,10 +195,8 @@
 		251C86B02A97A29D0020C794 /* APIError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
 		251C86B22A97A29D0020C794 /* AlamofireAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlamofireAPI.swift; sourceTree = "<group>"; };
 		251C86B42A97A29D0020C794 /* APIMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIMethod.swift; sourceTree = "<group>"; };
-		251C86B52A97A29D0020C794 /* GetPlatformsEndpoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetPlatformsEndpoint.swift; sourceTree = "<group>"; };
 		251C86B62A97A29D0020C794 /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		251C86B72A97A29D0020C794 /* APIEndpoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIEndpoint.swift; sourceTree = "<group>"; };
-		251C86B82A97A29D0020C794 /* SearchPlatformsData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchPlatformsData.swift; sourceTree = "<group>"; };
 		251C86D32A9899A70020C794 /* RemoteDataConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteDataConverter.swift; sourceTree = "<group>"; };
 		251C86D52A9899F40020C794 /* Platform.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Platform.swift; sourceTree = "<group>"; };
 		251C86DD2A98AD400020C794 /* SelectAddGameMethodViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectAddGameMethodViewModel.swift; sourceTree = "<group>"; };
@@ -427,7 +423,6 @@
 		251C86D72A989A600020C794 /* Endpoints */ = {
 			isa = PBXGroup;
 			children = (
-				251C86B52A97A29D0020C794 /* GetPlatformsEndpoint.swift */,
 				251C87342A9CF8C20020C794 /* GetGamesEndpoint.swift */,
 			);
 			path = Endpoints;
@@ -436,7 +431,6 @@
 		251C86D82A989A980020C794 /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				251C86B82A97A29D0020C794 /* SearchPlatformsData.swift */,
 				251C87362A9D04D70020C794 /* SearchGamesData.swift */,
 			);
 			path = Data;
@@ -1273,7 +1267,6 @@
 				25AE1ED02A8D1D9900F2D06A /* EmptyLoader.swift in Sources */,
 				25939FF72AAF3C09000FC253 /* DatabaseError.swift in Sources */,
 				25AE1F022A8F499800F2D06A /* Navigator+NavigationStyle.swift in Sources */,
-				251C86C22A97A29D0020C794 /* SearchPlatformsData.swift in Sources */,
 				25979DCC2AC17C22002CEDE7 /* ImageCell.swift in Sources */,
 				25AE1EAE2A8BB89400F2D06A /* Section.swift in Sources */,
 				25AE1ED42A8D1E4000F2D06A /* EmptyError.swift in Sources */,
@@ -1350,7 +1343,6 @@
 				25939FFB2AAF5D01000FC253 /* AlertDisplayerImpl.swift in Sources */,
 				25979DBF2ABF310B002CEDE7 /* SelectAddGameMethodCardType.swift in Sources */,
 				25AE1EBE2A8CB85900F2D06A /* CellViewModel.swift in Sources */,
-				251C86BF2A97A29D0020C794 /* GetPlatformsEndpoint.swift in Sources */,
 				251C86D62A9899F40020C794 /* Platform.swift in Sources */,
 				25DA8CB82AADE7E300B40F84 /* SavedGame.swift in Sources */,
 				25D6EAE22A8A265C00C2BE57 /* AppDelegate.swift in Sources */,
