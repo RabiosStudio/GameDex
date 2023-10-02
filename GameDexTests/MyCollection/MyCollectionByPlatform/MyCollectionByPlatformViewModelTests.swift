@@ -14,7 +14,7 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
         // Given
         let viewModel = MyCollectionByPlatformsViewModel(
             platform: MockData.platform,
-            database: DatabaseMock(),
+            database: LocalDatabaseMock(),
             alertDisplayer: AlertDisplayerMock(),
             gameDetailsDelegate: GameDetailsViewModelDelegateMock()
         )
@@ -31,7 +31,7 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
         // Given
         let viewModel = MyCollectionByPlatformsViewModel(
             platform: MockData.platform,
-            database: DatabaseMock(),
+            database: LocalDatabaseMock(),
             alertDisplayer: AlertDisplayerMock(),
             gameDetailsDelegate: GameDetailsViewModelDelegateMock()
         )
@@ -54,7 +54,7 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
         let platform = MockData.platformWithNoGames
         let viewModel = MyCollectionByPlatformsViewModel(
             platform: platform,
-            database: DatabaseMock(),
+            database: LocalDatabaseMock(),
             alertDisplayer: AlertDisplayerMock(),
             gameDetailsDelegate: GameDetailsViewModelDelegateMock()
         )
@@ -76,7 +76,7 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
         let platform = MockData.platform
         let viewModel = MyCollectionByPlatformsViewModel(
             platform: platform,
-            database: DatabaseMock(),
+            database: LocalDatabaseMock(),
             alertDisplayer: AlertDisplayerMock(),
             gameDetailsDelegate: GameDetailsViewModelDelegateMock()
         )
@@ -106,7 +106,7 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
         let platform = MockData.platform
         let viewModel = MyCollectionByPlatformsViewModel(
             platform: platform,
-            database: DatabaseMock(),
+            database: LocalDatabaseMock(),
             alertDisplayer: AlertDisplayerMock(),
             gameDetailsDelegate: GameDetailsViewModelDelegateMock()
         )
@@ -128,7 +128,7 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
         let platform = MockData.platform
         let viewModel = MyCollectionByPlatformsViewModel(
             platform: platform,
-            database: DatabaseMock(),
+            database: LocalDatabaseMock(),
             alertDisplayer: AlertDisplayerMock(),
             gameDetailsDelegate: GameDetailsViewModelDelegateMock()
         )
@@ -151,7 +151,7 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
         let platform = MockData.platform
         let viewModel = MyCollectionByPlatformsViewModel(
             platform: platform,
-            database: DatabaseMock(),
+            database: LocalDatabaseMock(),
             alertDisplayer: AlertDisplayerMock(),
             gameDetailsDelegate: GameDetailsViewModelDelegateMock()
         )
@@ -171,7 +171,7 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
         let platform = MockData.platform
         let viewModel = MyCollectionByPlatformsViewModel(
             platform: platform,
-            database: DatabaseMock(),
+            database: LocalDatabaseMock(),
             alertDisplayer: AlertDisplayerMock(),
             gameDetailsDelegate: GameDetailsViewModelDelegateMock()
         )
@@ -189,7 +189,7 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
     
     func test_reloadCollection_GivenFetchDataError_ThenResultsInErrorAlert() {
         // Given
-        let localDatabase = DatabaseMock()
+        let localDatabase = LocalDatabaseMock()
         localDatabase.given(
             .fetchAllPlatforms(
                 willReturn: Result<[PlatformCollected], DatabaseError>.failure(DatabaseError.fetchError)
@@ -232,7 +232,7 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
     func test_reloadCollection_GivenEmptyCollectionFetched_ThenResultsInErrorAlert() {
         // Given
         let emptyCollection = [PlatformCollected]()
-        let localDatabase = DatabaseMock()
+        let localDatabase = LocalDatabaseMock()
         localDatabase.given(
             .fetchAllPlatforms(
                 willReturn: Result<[PlatformCollected], DatabaseError>.success(emptyCollection)
@@ -270,7 +270,7 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
     
     func test_reloadCollection_GivenDataFetchedCorrectly_ThenSectionsAreSetAndContainerDelegateCalled() {
         // Given
-        let localDatabase = DatabaseMock()
+        let localDatabase = LocalDatabaseMock()
         localDatabase.given(
             .fetchAllPlatforms(
                 willReturn: Result<[PlatformCollected], DatabaseError>.success(MockData.platformsCollected)

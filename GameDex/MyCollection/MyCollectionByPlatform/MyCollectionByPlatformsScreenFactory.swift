@@ -16,7 +16,7 @@ struct MyCollectionByPlatformsScreenFactory: ScreenFactory {
     var viewController: UIViewController {
         let viewModel = MyCollectionByPlatformsViewModel(
             platform: self.platform,
-            database: LocalDatabase(),
+            database: LocalDatabaseImpl(),
             alertDisplayer: AlertDisplayerImpl(),
             gameDetailsDelegate: gameDetailsDelegate
         )

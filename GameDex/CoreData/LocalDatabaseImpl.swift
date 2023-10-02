@@ -8,7 +8,7 @@
 import Foundation
 import CoreData
 
-class LocalDatabase: Database {
+class LocalDatabaseImpl: LocalDatabase {
     let managedObjectContext: NSManagedObjectContext
     let coreDataStack: CoreDataStack
     
@@ -18,7 +18,7 @@ class LocalDatabase: Database {
     }
 }
 
-extension LocalDatabase {
+extension LocalDatabaseImpl {
     func add(
         newEntity: SavedGame,
         platform: Platform,
