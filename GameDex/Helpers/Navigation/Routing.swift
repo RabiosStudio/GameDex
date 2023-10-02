@@ -57,20 +57,20 @@ class Routing: NSObject, Navigator {
         // Navigate on main thread to avoid crashes
         DispatchQueue.main.async(execute: {() -> Void in
             switch navigationStyle {
-            case .push(let viewControllerToDisplay):
+            case .push(let screenFactory):
                 var fromNavigationController: UINavigationController? = fromController as? UINavigationController
                 
                 if let navigationController = fromVC?.navController as? UINavigationController {
                     fromNavigationController = navigationController
                 }
                 fromNavigationController?.pushViewController(
-                    viewControllerToDisplay,
+                    screenFactory.viewController,
                     animated: animated
                 )
             case .pop:
                 print("pop")
-            case let .present(viewControllerToDisplay, screenSize, completionBlock):
-                fromVC?.present(controller: viewControllerToDisplay,
+            case let .present(screenFactory, screenSize, completionBlock):
+                fromVC?.present(controller: screenFactory.viewController,
                                 animated: animated,
                                 screenSize: screenSize,
                                 completion: {() -> Void in

@@ -11,31 +11,23 @@ final class PrimaryButtonCellViewModel: ButtonCollectionCellViewModel {
     var cellClass: AnyClass = PrimaryButtonCell.self
     var indexPath: IndexPath?
     var height: CGFloat = DesignSystem.buttonHeightRegular
-    
-    lazy var navigationStyle: NavigationStyle? = {
-        guard let screenFactory else { return nil }
-        return .push(
-            controller: screenFactory.viewController
-        )
-    }()
+    var cellTappedCallback: (() -> Void)?
     
     private let delegate: PrimaryButtonDelegate?
-    private let screenFactory: ScreenFactory?
     
     let title: String
     
-    init(title: String, screenFactory: ScreenFactory?, delegate: PrimaryButtonDelegate?) {
+    init(
+        title: String,
+        delegate: PrimaryButtonDelegate?,
+        cellTappedCallback: (() -> Void)? = nil
+    ) {
         self.title = title
         self.delegate = delegate
-        self.screenFactory = screenFactory
+        self.cellTappedCallback = cellTappedCallback
     }
     
     func didTapButton() {
-        guard let delegate = self.delegate else {
-            guard let navigationStyle = self.navigationStyle else { return }
-            _ =  Routing.shared.route(navigationStyle: navigationStyle)
-            return
-        }
-        delegate.didTapPrimaryButton()
+        self.delegate?.didTapPrimaryButton()
     }
 }

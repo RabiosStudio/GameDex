@@ -49,8 +49,15 @@ final class AddGameDetailsViewModel: CollectionViewModel {
     }
     
     func didTapRightButtonItem() {
-        self.gameDetailsDelegate?.reloadCollection()
-        _ = Routing.shared.route(navigationStyle: .dismiss(completionBlock: nil))
+        self.close()
+    }
+    
+    private func close() {
+        Routing.shared.route(
+            navigationStyle: .dismiss(
+                completionBlock: nil
+            )
+        )
     }
     
     private func configureBottomView() {
@@ -116,12 +123,12 @@ extension AddGameDetailsViewModel: PrimaryButtonDelegate {
                 )
             )
             
-            guard error != nil else {
+            guard error == nil else {
                 self?.configureBottomView()
                 return
             }
-            // the right button item is .close so the method will dismiss the view presented
-            self?.didTapRightButtonItem()
+            self?.gameDetailsDelegate?.reloadCollection()
+            self?.close()
         }
     }
 }

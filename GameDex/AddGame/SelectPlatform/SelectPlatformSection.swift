@@ -17,10 +17,17 @@ final class SelectPlatformSection: Section {
             let labelCellVM = LabelCellViewModel(
                 primaryText: platform.title,
                 secondaryText: nil,
-                screenFactory: SearchGameByTitleScreenFactory(
-                    platform: platform,
-                    gameDetailsDelegate: gameDetailsDelegate
-                )
+                cellTappedCallback: {
+                    let screenFactory = SearchGameByTitleScreenFactory(
+                        platform: platform,
+                        gameDetailsDelegate: gameDetailsDelegate
+                    )
+                    Routing.shared.route(
+                        navigationStyle: .push(
+                            screenFactory: screenFactory
+                        )
+                    )
+                }
             )
             self.cellsVM.append(labelCellVM)
         }

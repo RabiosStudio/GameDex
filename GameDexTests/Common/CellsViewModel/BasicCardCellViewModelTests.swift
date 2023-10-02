@@ -19,18 +19,10 @@ final class BasicCardCellViewModelTests: XCTestCase {
         let cellVM = BasicCardCellViewModel(
             cardType: SelectAddGameMethodCardType.manually,
             title: text,
-            description: description,
-            screenFactory: screenFactory
+            description: description
         )
         // Then
         XCTAssertEqual(cellVM.cardTitle, "Title")
         XCTAssertEqual(cellVM.cardDescription, "Description")
-        
-        let expectedNavigationStyle: NavigationStyle = {
-            return .push(
-                controller: screenFactory.viewController
-            )
-        }()
-        XCTAssertEqual(cellVM.navigationStyle, expectedNavigationStyle)
     }
 }

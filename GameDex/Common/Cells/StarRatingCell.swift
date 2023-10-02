@@ -58,8 +58,6 @@ class StarRatingCell: UICollectionViewCell, CellConfigurable {
         }
     }
     
-    func cellPressed(cellViewModel: CellViewModel) {}
-    
     private func setupViews() {
         self.contentView.addSubview(self.label)
         self.contentView.addSubview(self.starRatingView)

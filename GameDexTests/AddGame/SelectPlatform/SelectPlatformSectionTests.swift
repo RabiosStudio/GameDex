@@ -35,4 +35,29 @@ final class SelectPlatformSectionTests: XCTestCase {
         XCTAssertEqual(platform4CellVM.primaryText, "Jaguar")
         XCTAssertEqual(platform5CellVM.primaryText, "SNES")
     }
+    
+    func test_cellTappedCallback_ThenLastNavigationStyleIsCorrect() {
+        // Given
+        let gameDetailsDelegate = GameDetailsViewModelDelegateMock()
+        let section = SelectPlatformSection(
+            platforms: MockData.platforms,
+            gameDetailsDelegate: gameDetailsDelegate
+        )
+        
+        for (index, cellVM) in section.cellsVM.enumerated() {
+            
+            // When
+            cellVM.cellTappedCallback?()
+            
+            // Then
+            let expectedNavigationStyle: NavigationStyle = .push(
+                screenFactory: SearchGameByTitleScreenFactory(
+                    platform: MockData.platforms[index],
+                    gameDetailsDelegate: gameDetailsDelegate
+                )
+            )
+            
+            XCTAssertEqual(Routing.shared.lastNavigationStyle, expectedNavigationStyle)
+        }
+    }
 }

@@ -11,7 +11,8 @@ final class MyProfileSection: Section {
     
     init(
         userIsLoggedIn: Bool,
-        myProfileDelegate: MyProfileViewModelDelegate?
+        myProfileDelegate: MyProfileViewModelDelegate?,
+        alertDisplayer: AlertDisplayer
     ) {
         super.init()
         self.position = 0
@@ -19,26 +20,42 @@ final class MyProfileSection: Section {
         if userIsLoggedIn {
             let logoutCellVM = LabelCellViewModel(
                 primaryText: L10n.logout,
-                screenFactory: nil
+                cellTappedCallback: {
+                    alertDisplayer.presentBasicAlert(
+                        parameters: AlertViewModel(
+                            alertType: .warning,
+                            description: L10n.warningLogOut,
+                            cancelButtonTitle: L10n.cancel,
+                            okButtonTitle: L10n.confirm
+                        )
+                    )
+                }
             )
             self.cellsVM.append(logoutCellVM)
         } else {
             let loginCellVM = LabelCellViewModel(
                 primaryText: L10n.login,
-                screenFactory: LoginScreenFactory(myProfileDelegate: myProfileDelegate)
+                cellTappedCallback: {
+                    let screenFactory = LoginScreenFactory(
+                        myProfileDelegate: myProfileDelegate
+                    )
+                    Routing.shared.route(
+                        navigationStyle: .push(
+                            screenFactory: screenFactory
+                        )
+                    )
+                }
             )
             self.cellsVM.append(loginCellVM)
         }
         
         let collectionManagementCellVM = LabelCellViewModel(
-            primaryText: L10n.collectionManagement,
-            screenFactory: nil
+            primaryText: L10n.collectionManagement
         )
         self.cellsVM.append(collectionManagementCellVM)
         
         let contactUsCellVM = LabelCellViewModel(
-            primaryText: L10n.contactUs,
-            screenFactory: nil
+            primaryText: L10n.contactUs
         )
         self.cellsVM.append(contactUsCellVM)
     }

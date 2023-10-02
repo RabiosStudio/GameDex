@@ -35,7 +35,6 @@ final class AuthenticationSection: Section {
         
         let loginButtonCellVM = PrimaryButtonCellViewModel(
             title: userHasAccount ? L10n.login : L10n.createAccount,
-            screenFactory: nil,
             delegate: primaryButtonDelegate
         )
         self.cellsVM.append(loginButtonCellVM)
@@ -49,22 +48,19 @@ final class AuthenticationSection: Section {
         
         let appleCellVM = BasicCardCellViewModel(
             cardType: AuthCardType.appleAuth,
-            title: userHasAccount ? L10n.loginApple : L10n.signupApple,
-            screenFactory: nil
+            title: userHasAccount ? L10n.loginApple : L10n.signupApple
         )
         self.cellsVM.append(appleCellVM)
         
         let facebookCellVM = BasicCardCellViewModel(
             cardType: AuthCardType.facebookAuth,
-            title: userHasAccount ? L10n.loginFacebook : L10n.signupFacebook,
-            screenFactory: nil
+            title: userHasAccount ? L10n.loginFacebook : L10n.signupFacebook
         )
         self.cellsVM.append(facebookCellVM)
         
         let googleCellVM = BasicCardCellViewModel(
             cardType: AuthCardType.googleAuth,
-            title: userHasAccount ? L10n.loginGoogle : L10n.signupGoogle,
-            screenFactory: nil
+            title: userHasAccount ? L10n.loginGoogle : L10n.signupGoogle
         )
         self.cellsVM.append(googleCellVM)
     }

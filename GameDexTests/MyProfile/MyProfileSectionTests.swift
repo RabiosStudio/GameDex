@@ -12,9 +12,11 @@ final class MyProfileSectionTests: XCTestCase {
     
     func test_init_GivenUserIsNotLoggedIn_ThenShouldSetPropertiesCorrectly() {
         // Given
+        let alertDisplayer = AlertDisplayerMock()
         let section = MyProfileSection(
             userIsLoggedIn: false,
-            myProfileDelegate: nil
+            myProfileDelegate: nil,
+            alertDisplayer: alertDisplayer
         )
         
         // Then
@@ -33,13 +35,24 @@ final class MyProfileSectionTests: XCTestCase {
         XCTAssertEqual(collectionManagementCellVM.secondaryText, nil)
         XCTAssertEqual(contactUsCellVM.primaryText, L10n.contactUs)
         XCTAssertEqual(contactUsCellVM.secondaryText, nil)
+        
+        loginCellVM.cellTappedCallback?()
+        let expectedNavigationStyle: NavigationStyle = .push(
+            screenFactory: LoginScreenFactory(
+                myProfileDelegate: nil
+            )
+        )
+        
+        XCTAssertEqual(Routing.shared.lastNavigationStyle,  expectedNavigationStyle)
     }
     
     func test_init_GivenUserIsLoggedIn_ThenShouldSetPropertiesCorrectly() {
         // Given
+        let alertDisplayer = AlertDisplayerMock()
         let section = MyProfileSection(
             userIsLoggedIn: true,
-            myProfileDelegate: nil
+            myProfileDelegate: nil,
+            alertDisplayer: alertDisplayer
         )
         
         // Then
@@ -58,5 +71,20 @@ final class MyProfileSectionTests: XCTestCase {
         XCTAssertEqual(collectionManagementCellVM.secondaryText, nil)
         XCTAssertEqual(contactUsCellVM.primaryText, L10n.contactUs)
         XCTAssertEqual(contactUsCellVM.secondaryText, nil)
+        
+        loginCellVM.cellTappedCallback?()
+        
+        alertDisplayer.verify(
+            .presentBasicAlert(
+                parameters: .value(
+                    AlertViewModel(
+                        alertType: .warning,
+                        description: L10n.warningLogOut,
+                        cancelButtonTitle: L10n.cancel,
+                        okButtonTitle: L10n.confirm
+                    )
+                )
+            )
+        )
     }
 }

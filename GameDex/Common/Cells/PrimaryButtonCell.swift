@@ -58,6 +58,7 @@ final class PrimaryButtonCell: UICollectionViewCell, CellConfigurable {
             self?.primaryButton.isEnabled = true
             self?.primaryButton.updateButtonDesignForState(buttonTitle: self?.buttonTitle)
         }
+        cellViewModel.cellTappedCallback?()
     }
 
     private func didTapPrimaryButton(cellViewModel: CellViewModel, completion: () -> ()) {

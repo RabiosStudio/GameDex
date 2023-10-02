@@ -62,13 +62,6 @@ final class BasicCardCell: UICollectionViewCell, CellConfigurable {
         self.setupConstraints(cellViewModel: cellViewModel)
     }
     
-    func cellPressed(cellViewModel: CellViewModel) {
-        guard let navigationStyle = cellViewModel.navigationStyle else {
-            return
-        }
-        _ =  Routing.shared.route(navigationStyle: navigationStyle)
-    }
-    
     private func setupLayer() {
         self.backgroundColor = .clear
         self.layer.masksToBounds = false

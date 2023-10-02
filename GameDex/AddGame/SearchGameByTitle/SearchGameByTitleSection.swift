@@ -23,11 +23,18 @@ final class SearchGameByTitleSection: Section {
                 subtitle1: platform.title,
                 subtitle2: game.releaseDate?.convertToString(),
                 caption: game.imageURL,
-                screenFactory: AddGameDetailsScreenFactory(
-                    game: game,
-                    platform: platform,
-                    gameDetailsDelegate: gameDetailsDelegate
-                )
+                cellTappedCallback: {
+                    let screenFactory = AddGameDetailsScreenFactory(
+                        game: game,
+                        platform: platform,
+                        gameDetailsDelegate: gameDetailsDelegate
+                    )
+                    Routing.shared.route(
+                        navigationStyle: .push(
+                            screenFactory: screenFactory
+                        )
+                    )
+                }
             )
             self.cellsVM.append(gameCellVM)
         }

@@ -83,8 +83,6 @@ final class TextFieldCell: UICollectionViewCell, CellConfigurable {
         self.setupConstraints()
     }
     
-    func cellPressed(cellViewModel: CellViewModel) {}
-    
     private func setupConstraints() {
         NSLayoutConstraint.activate([
             self.textField.topAnchor.constraint(equalTo: self.topAnchor),

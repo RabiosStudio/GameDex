@@ -80,8 +80,6 @@ class ImageDescriptionCell: UICollectionViewCell, CellConfigurable {
         self.setupConstraints()
     }
     
-    func cellPressed(cellViewModel: CellViewModel) {}
-    
     private func setupViews() {
         self.contentView.addSubview(self.imageView)
         self.contentView.addSubview(self.title)

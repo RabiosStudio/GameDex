@@ -62,12 +62,13 @@ final class AddGameDetailsViewModelTests: XCTestCase {
         let expectation = XCTestExpectation()
         let localDatabase = DatabaseMock()
         let alertDisplayer = AlertDisplayerMock()
+        let gameDetailsDelegate = GameDetailsViewModelDelegateMock()
         
         let viewModel  = AddGameDetailsViewModel(
             game: MockData.game,
             platform: MockData.platform,
             localDatabase: localDatabase,
-            gameDetailsDelegate: GameDetailsViewModelDelegateMock(),
+            gameDetailsDelegate: gameDetailsDelegate,
             alertDisplayer: alertDisplayer
         )
         
@@ -90,6 +91,8 @@ final class AddGameDetailsViewModelTests: XCTestCase {
                             )
                         )
                     )
+                    
+                    gameDetailsDelegate.verify(.reloadCollection())
                     
                     if case .dismiss = Routing.shared.lastNavigationStyle {
                         XCTAssertTrue(true)
@@ -216,7 +219,6 @@ final class AddGameDetailsViewModelTests: XCTestCase {
         let lastNavigationStyle = Routing.shared.lastNavigationStyle
         
         XCTAssertEqual(lastNavigationStyle, expectedNavigationStyle)
-        gameDetailsDelegate.verify(.reloadCollection())
     }
 }
 

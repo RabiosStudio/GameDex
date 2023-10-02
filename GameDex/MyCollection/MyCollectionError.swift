@@ -60,11 +60,10 @@ enum MyCollectionError: EmptyError {
     var errorAction: ErrorAction? {
         switch self {
         case .emptyCollection(gameDetailsDelegate: let delegate):
-            let selectAddGameTypeController = SelectAddGameMethodScreenFactory(
-                delegate: delegate
-            ).viewController
             let startToAddGame: NavigationStyle = .present(
-                controller: selectAddGameTypeController,
+                screenFactory: SelectAddGameMethodScreenFactory(
+                    delegate: delegate
+                ),
                 completionBlock: nil)
             return .navigate(style: startToAddGame)
         case .fetchError:

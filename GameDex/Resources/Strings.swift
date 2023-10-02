@@ -172,14 +172,14 @@ internal enum L10n {
   internal static let updateGameErrorDescription = L10n.tr("Localizable", "updateGameErrorDescription", fallback: "An error occured while updating data.")
   /// The game information were updated.
   internal static let updateGameSuccessDescription = L10n.tr("Localizable", "updateGameSuccessDescription", fallback: "The game information were updated.")
-  /// This game is already in your collection !
-  internal static let warningGameAlreadyInDatabase = L10n.tr("Localizable", "warningGameAlreadyInDatabase", fallback: "This game is already in your collection !")
+  /// This game is already in your collection!
+  internal static let warningGameAlreadyInDatabase = L10n.tr("Localizable", "warningGameAlreadyInDatabase", fallback: "This game is already in your collection!")
   /// Are you sure you want to log out?
   internal static let warningLogOut = L10n.tr("Localizable", "warningLogOut", fallback: "Are you sure you want to log out?")
   /// Are you sure you want to remove this game from your collection?
   internal static let warningRemoveGameDescription = L10n.tr("Localizable", "warningRemoveGameDescription", fallback: "Are you sure you want to remove this game from your collection?")
-  /// One moment !
-  internal static let warningTitle = L10n.tr("Localizable", "warningTitle", fallback: "One moment !")
+  /// One moment!
+  internal static let warningTitle = L10n.tr("Localizable", "warningTitle", fallback: "One moment!")
   /// Please try again later
   internal static let warningTryAgain = L10n.tr("Localizable", "warningTryAgain", fallback: "Please try again later")
   /// Year of acquisition

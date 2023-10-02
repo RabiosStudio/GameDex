@@ -8,7 +8,7 @@
 import Foundation
 
 final class MyCollectionByPlatformsSection: Section {
-  
+    
     init(games: [SavedGame], platformName: String, gameDetailsDelegate: GameDetailsViewModelDelegate?) {
         super.init()
         self.position = 0
@@ -21,10 +21,18 @@ final class MyCollectionByPlatformsSection: Section {
                 subtitle1: platformName,
                 subtitle2: item.game.releaseDate?.convertToString(),
                 caption: item.game.imageURL,
-                screenFactory: EditGameDetailsScreenFactory(
-                    savedGame: item,
-                    platformName: platformName,
-                    gameDetailsDelegate: gameDetailsDelegate)
+                cellTappedCallback: {
+                    let screenFactory = EditGameDetailsScreenFactory(
+                        savedGame: item,
+                        platformName: platformName,
+                        gameDetailsDelegate: gameDetailsDelegate
+                    )
+                    Routing.shared.route(
+                        navigationStyle: .push(
+                            screenFactory: screenFactory
+                        )
+                    )
+                }
             )
             self.cellsVM.append(gameCellVM)
         }

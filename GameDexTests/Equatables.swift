@@ -44,15 +44,15 @@ extension MyCollectionError: Equatable {
 extension NavigationStyle: Equatable {
     public static func == (lhs: GameDex.NavigationStyle, rhs: GameDex.NavigationStyle) -> Bool {
         switch (lhs, rhs) {
-        case (.push(controller: _), .push(controller: _)):
-            return true
+        case let (.push(screenFactory1), .push(screenFactory2)):
+            return type(of: screenFactory1) == type(of: screenFactory2)
         case (.pop, .pop):
             return true
-        case (.present(controller: _, screenSize: _, completionBlock: _), .present(controller: _, screenSize: _, completionBlock: _)):
+        case let (.present(screenFactory1, screenSize: _, completionBlock: _), .present(screenFactory2, screenSize: _, completionBlock: _)):
+            return type(of: screenFactory1) == type(of: screenFactory2)
+        case (.dismiss, .dismiss):
             return true
-        case (.dismiss(completionBlock: _), .dismiss(completionBlock: _)):
-            return true
-        case (.selectTab(index: _, completionBlock: _), .selectTab(index: _, completionBlock: _)):
+        case (.selectTab, .selectTab):
             return true
         default:
             return false

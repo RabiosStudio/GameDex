@@ -29,10 +29,17 @@ final class MyCollectionSection: Section {
             let labelCellVM = LabelCellViewModel(
                 primaryText: platform.title,
                 secondaryText: "\(gameArray.count) \(text)",
-                screenFactory: MyCollectionByPlatformsScreenFactory(
-                    platform: platform,
-                    gameDetailsDelegate: gameDetailsDelegate
-                )
+                cellTappedCallback: {
+                    let screenFactory = MyCollectionByPlatformsScreenFactory(
+                        platform: platform,
+                        gameDetailsDelegate: gameDetailsDelegate
+                    )
+                    Routing.shared.route(
+                        navigationStyle: .push(
+                            screenFactory: screenFactory
+                        )
+                    )
+                }
             )
             self.cellsVM.append(labelCellVM)
         }

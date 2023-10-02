@@ -10,8 +10,8 @@ import Foundation
 protocol CellViewModel: AnyObject {
     var cellClass: AnyClass { get set }
     var reuseIdentifier: String { get }
-    var indexPath: IndexPath? { get set }    
-    var navigationStyle: NavigationStyle? { get }
+    var indexPath: IndexPath? { get set }
+    var cellTappedCallback: (() -> Void)? { get set }
 }
 
 extension CellViewModel {

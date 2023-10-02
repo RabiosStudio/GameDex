@@ -25,21 +25,37 @@ final class LoginSection: Section {
         
         let loginButtonCellVM = PrimaryButtonCellViewModel(
             title: L10n.login,
-            screenFactory: AuthenticationScreenFactory(
-                userHasAccount: true,
-                myProfileDelegate: myProfileDelegate),
-            delegate: nil
+            delegate: nil,
+            cellTappedCallback: {
+                let screenFactory =  AuthenticationScreenFactory(
+                    userHasAccount: true,
+                    myProfileDelegate: myProfileDelegate
+                )
+                Routing.shared.route(
+                    navigationStyle: .push(
+                        screenFactory: screenFactory
+                    )
+                )
+            }
         )
         self.cellsVM.append(loginButtonCellVM)
         
         let signupButtonCellVM = PrimaryButtonCellViewModel(
             title: L10n.createAccount,
-            screenFactory: AuthenticationScreenFactory(
-                userHasAccount: false,
-                myProfileDelegate: myProfileDelegate
-            ),
-            delegate: nil
+            delegate: nil,
+            cellTappedCallback: {
+                let screenFactory =  AuthenticationScreenFactory(
+                    userHasAccount: false,
+                    myProfileDelegate: myProfileDelegate
+                )
+                Routing.shared.route(
+                    navigationStyle: .push(
+                        screenFactory: screenFactory
+                    )
+                )
+            }
         )
+        
         self.cellsVM.append(signupButtonCellVM)
     }
 }

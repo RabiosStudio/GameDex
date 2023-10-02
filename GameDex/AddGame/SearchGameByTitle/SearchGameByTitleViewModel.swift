@@ -50,9 +50,16 @@ final class SearchGameByTitleViewModel: CollectionViewModel {
     }
     
     func didTapRightButtonItem() {
-        _ = Routing.shared.route(navigationStyle: .dismiss(completionBlock: nil))
+        self.close()
     }
     
+    private func close() {
+        Routing.shared.route(
+            navigationStyle: .dismiss(
+                completionBlock: nil
+            )
+        )
+    }
 }
 
 extension SearchGameByTitleViewModel: SearchViewModelDelegate {

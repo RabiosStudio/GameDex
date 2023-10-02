@@ -10,15 +10,8 @@ import Foundation
 final class BasicInfoCellViewModel: CollectionCellViewModel {
     var cellClass: AnyClass = BasicInfoCell.self
     var indexPath: IndexPath?
-    lazy var navigationStyle: NavigationStyle? = {
-        guard let screenFactory else { return nil }
-        return .push(
-            controller: screenFactory.viewController
-        )
-    }()
+    var cellTappedCallback: (() -> Void)?
     var height: CGFloat = DesignSystem.sizeRegular
-    
-    private let screenFactory: ScreenFactory?
     
     let title: String
     let subtitle1: String?
@@ -30,12 +23,12 @@ final class BasicInfoCellViewModel: CollectionCellViewModel {
         subtitle1: String?,
         subtitle2: String?,
         caption: String?,
-        screenFactory: ScreenFactory?
+        cellTappedCallback: (() -> Void)? = nil
     ) {
         self.title = title
         self.subtitle1 = subtitle1
         self.subtitle2 = subtitle2
         self.caption = caption
-        self.screenFactory = screenFactory
+        self.cellTappedCallback = cellTappedCallback
     }
 }
