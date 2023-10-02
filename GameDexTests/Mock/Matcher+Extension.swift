@@ -10,14 +10,6 @@ import SwiftyMocky
 @testable import GameDex
 
 extension Matcher {
-    enum GetPlatformsEndpoint {
-        static func matcher(lhs: GameDex.GetPlatformsEndpoint, rhs: GameDex.GetPlatformsEndpoint) -> Bool {
-            lhs.path == rhs.path &&
-            lhs.entryParameters?.count == rhs.entryParameters?.count &&
-            lhs.method == rhs.method
-        }
-    }
-    
     enum GetGamesEndpoint {
         static func matcher(lhs: GameDex.GetGamesEndpoint, rhs: GameDex.GetGamesEndpoint) -> Bool {
             lhs.path == rhs.path &&

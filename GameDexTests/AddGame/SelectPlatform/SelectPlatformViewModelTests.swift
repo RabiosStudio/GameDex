@@ -11,25 +11,13 @@ import SwiftyMocky
 
 final class SelectPlatformViewModelTests: XCTestCase {
     
-    // MARK: Setup
-    
-    override class func setUp() {
-        super.setUp()
-        Matcher.default.register(
-            GetPlatformsEndpoint.self,
-            match: Matcher.GetPlatformsEndpoint.matcher
-        )
-    }
-    
-    // MARK: Tests
-    
     func test_init_ThenShouldSetPropertiesCorrectly() {
         // Given
-        let networkingSession = APIMock()
+        let cloudDatabase = CloudDatabaseMock()
         
         // When
         let viewModel = SelectPlatformViewModel(
-            networkingSession: networkingSession,
+            cloudDatabase: cloudDatabase,
             gameDetailsDelegate: GameDetailsViewModelDelegateMock()
         )
         
@@ -41,20 +29,19 @@ final class SelectPlatformViewModelTests: XCTestCase {
         XCTAssertEqual(viewModel.searchViewModel?.activateOnTap, false)
     }
     
-    func test_loadData_GivenAPIErrorServer_ThenShouldReturnAddGameErrorServer() {
+    func test_loadData_GivenFirestoreReturnsNoData_ThenShouldReturnAddGameErrorServer() {
         // Given
         let expectation = XCTestExpectation(description: "perform loadData() asynchronously")
         
-        let endpoint = GetPlatformsEndpoint(offset: .zero)
-        let networkingSession = APIMock()
-        networkingSession.given(
-            .getData(
-                with: .value(endpoint),
-                willReturn:  Result<SearchPlatformsData, APIError>.failure(.server)
+        let cloudDatabase = CloudDatabaseMock()
+        cloudDatabase.given(
+            .getAvailablePlatforms(
+                willReturn: nil
             )
         )
+        
         let viewModel = SelectPlatformViewModel(
-            networkingSession: networkingSession,
+            cloudDatabase: cloudDatabase,
             gameDetailsDelegate: GameDetailsViewModelDelegateMock()
         )
         
@@ -66,7 +53,6 @@ final class SelectPlatformViewModelTests: XCTestCase {
                 return
             }
             XCTAssertEqual(error, AddGameError.server)
-            XCTAssertEqual(endpoint.url, URL(string: "platforms"))
             
             expectation.fulfill()
         }
@@ -74,128 +60,28 @@ final class SelectPlatformViewModelTests: XCTestCase {
         wait(for: [expectation], timeout: Constants.timeout)
     }
     
-    func test_loadData_GivenAPIErrorWrongURL_ThenShouldReturnAddGameErrorServer() {
+    func test_loadData_GivenNoError_ThenShouldReturnData() {
         // Given
         let expectation = XCTestExpectation(description: "perform loadData() asynchronously")
         
-        let endpoint = GetPlatformsEndpoint(offset: .zero)
-        let networkingSession = APIMock()
-        networkingSession.given(
-            .getData(
-                with: .value(endpoint),
-                willReturn:  Result<SearchPlatformsData, APIError>.failure(.wrongUrl)
-            )
-        )
-        let viewModel = SelectPlatformViewModel(
-            networkingSession: networkingSession,
-            gameDetailsDelegate: GameDetailsViewModelDelegateMock()
-        )
-        
-        // When
-        viewModel.loadData { error in
-            // Then
-            guard let error = error as? AddGameError else {
-                XCTFail("Error type is not correct")
-                return
-            }
-            XCTAssertEqual(error, AddGameError.server)
-            expectation.fulfill()
-        }
-        
-        wait(for: [expectation], timeout: Constants.timeout)
-    }
-    
-    func test_loadData_GivenAPIErrorNoData_ThenShouldReturnAddGameErrorServer() {
-        // Given
-        let expectation = XCTestExpectation(description: "perform loadData() asynchronously")
-        
-        let endpoint = GetPlatformsEndpoint(offset: .zero)
-        let networkingSession = APIMock()
-        networkingSession.given(
-            .getData(
-                with: .value(endpoint),
-                willReturn:  Result<SearchPlatformsData, APIError>.failure(.noData)
-            )
-        )
-        let viewModel = SelectPlatformViewModel(
-            networkingSession: networkingSession,
-            gameDetailsDelegate: GameDetailsViewModelDelegateMock()
-        )
-        
-        // When
-        viewModel.loadData { error in
-            // Then
-            guard let error = error as? AddGameError else {
-                XCTFail("Error type is not correct")
-                return
-            }
-            XCTAssertEqual(error, AddGameError.server)
-            expectation.fulfill()
-        }
-        
-        wait(for: [expectation], timeout: Constants.timeout)
-    }
-    
-    func test_loadData_GivenAPIErrorParsing_ThenShouldReturnAddGameErrorServer() {
-        // Given
-        let expectation = XCTestExpectation(description: "perform loadData() asynchronously")
-        
-        let endpoint = GetPlatformsEndpoint(offset: .zero)
-        let networkingSession = APIMock()
-        networkingSession.given(
-            .getData(
-                with: .value(endpoint),
-                willReturn:  Result<SearchPlatformsData, APIError>.failure(.parsingError)
-            )
-        )
-        let viewModel = SelectPlatformViewModel(
-            networkingSession: networkingSession,
-            gameDetailsDelegate: GameDetailsViewModelDelegateMock()
-        )
-        
-        // When
-        viewModel.loadData { error in
-            // Then
-            guard let error = error as? AddGameError else {
-                XCTFail("Error type is not correct")
-                return
-            }
-            XCTAssertEqual(error, AddGameError.server)
-            expectation.fulfill()
-        }
-        
-        wait(for: [expectation], timeout: Constants.timeout)
-    }
-    
-    func test_loadData_GivenNoAPIError_ThenShouldReturnData() {
-        // Given
-        let expectation = XCTestExpectation(description: "perform loadData() asynchronously")
-        
-        let endpoint = GetPlatformsEndpoint(offset: .zero)
-        let networkingSession = APIMock()
-        
-        networkingSession.given(
-            .getData(
-                with: .value(endpoint),
-                willReturn:  Result<SearchPlatformsData, APIError>.success(MockData.searchPlaformsData)
+        let cloudDatabase = CloudDatabaseMock()
+        cloudDatabase.given(
+            .getAvailablePlatforms(
+                willReturn: MockData.platforms
             )
         )
         
         let viewModel = SelectPlatformViewModel(
-            networkingSession: networkingSession,
+            cloudDatabase: cloudDatabase,
             gameDetailsDelegate: GameDetailsViewModelDelegateMock()
         )
-        
-        let platforms = RemoteDataConverter.convert(
-            remotePlatforms: MockData.searchPlaformsData.results
-        )
-        
+                
         // When
         viewModel.loadData { _ in
             
             // Then
             XCTAssertEqual(viewModel.numberOfSections(), 1)
-            XCTAssertEqual(viewModel.numberOfItems(in: 0), platforms.count)
+            XCTAssertEqual(viewModel.numberOfItems(in: 0), MockData.platforms.count)
             
             expectation.fulfill()
         }
@@ -206,18 +92,15 @@ final class SelectPlatformViewModelTests: XCTestCase {
         // Given
         let expectation = XCTestExpectation(description: "perform loadData() asynchronously")
         
-        let endpoint = GetPlatformsEndpoint(offset: .zero)
-        let networkingSession = APIMock()
-        
-        networkingSession.given(
-            .getData(
-                with: .value(endpoint),
-                willReturn:  Result<SearchPlatformsData, APIError>.success(MockData.searchPlaformsData)
+        let cloudDatabase = CloudDatabaseMock()
+        cloudDatabase.given(
+            .getAvailablePlatforms(
+                willReturn: MockData.platforms
             )
         )
         
         let viewModel = SelectPlatformViewModel(
-            networkingSession: networkingSession,
+            cloudDatabase: cloudDatabase,
             gameDetailsDelegate: GameDetailsViewModelDelegateMock()
         )
         
@@ -239,18 +122,15 @@ final class SelectPlatformViewModelTests: XCTestCase {
         // Given
         let expectation = XCTestExpectation(description: "perform loadData() asynchronously")
         
-        let endpoint = GetPlatformsEndpoint(offset: .zero)
-        let networkingSession = APIMock()
-        
-        networkingSession.given(
-            .getData(
-                with: .value(endpoint),
-                willReturn:  Result<SearchPlatformsData, APIError>.success(MockData.searchPlaformsData)
+        let cloudDatabase = CloudDatabaseMock()
+        cloudDatabase.given(
+            .getAvailablePlatforms(
+                willReturn: MockData.platforms
             )
         )
         
         let viewModel = SelectPlatformViewModel(
-            networkingSession: networkingSession,
+            cloudDatabase: cloudDatabase,
             gameDetailsDelegate: GameDetailsViewModelDelegateMock()
         )
         
@@ -273,23 +153,16 @@ final class SelectPlatformViewModelTests: XCTestCase {
         // Given
         let expectation = XCTestExpectation(description: "perform loadData() asynchronously")
         
-        let endpoint = GetPlatformsEndpoint(offset: .zero)
-        let networkingSession = APIMock()
-        
-        networkingSession.given(
-            .getData(
-                with: .value(endpoint),
-                willReturn:  Result<SearchPlatformsData, APIError>.success(MockData.searchPlaformsData)
+        let cloudDatabase = CloudDatabaseMock()
+        cloudDatabase.given(
+            .getAvailablePlatforms(
+                willReturn: MockData.platforms
             )
         )
         
         let viewModel = SelectPlatformViewModel(
-            networkingSession: networkingSession,
+            cloudDatabase: cloudDatabase,
             gameDetailsDelegate: GameDetailsViewModelDelegateMock()
-        )
-        
-        let platforms = RemoteDataConverter.convert(
-            remotePlatforms: MockData.searchPlaformsData.results
         )
         
         viewModel.loadData { _ in
@@ -297,7 +170,7 @@ final class SelectPlatformViewModelTests: XCTestCase {
             // When
             viewModel.updateSearchTextField(with: "") { _ in
                 XCTAssertEqual(viewModel.numberOfSections(), 1)
-                XCTAssertEqual(viewModel.numberOfItems(in: 0), platforms.count)
+                XCTAssertEqual(viewModel.numberOfItems(in: 0), MockData.platforms.count)
             }
             expectation.fulfill()
         }
@@ -306,9 +179,9 @@ final class SelectPlatformViewModelTests: XCTestCase {
     
     func test_startSearch_ThenShouldCallCallback() {
         // Given
-        let networkingSession = APIMock()
+        let cloudDatabase = CloudDatabaseMock()
         let viewModel = SelectPlatformViewModel(
-            networkingSession: networkingSession,
+            cloudDatabase: cloudDatabase,
             gameDetailsDelegate: GameDetailsViewModelDelegateMock()
         )
         
@@ -325,9 +198,9 @@ final class SelectPlatformViewModelTests: XCTestCase {
     
     func test_didTapRightButtonItem_ThenShouldSetNavigationStyleCorrectly() {
         // Given
-        let networkingSession = APIMock()
+        let cloudDatabase = CloudDatabaseMock()
         let viewModel = SelectPlatformViewModel(
-            networkingSession: networkingSession,
+            cloudDatabase: cloudDatabase,
             gameDetailsDelegate: GameDetailsViewModelDelegateMock()
         )
         
