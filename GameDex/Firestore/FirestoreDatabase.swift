@@ -12,16 +12,21 @@ class FirestoreDatabase: CloudDatabase {
     
     private enum Collections {
         case searchPlatform
+        case users
+        
         var path: String {
             switch self {
             case .searchPlatform:
                 return "platforms"
+            case .users:
+                return "users"
             }
         }
     }
     
     private enum Attributes: String {
         case id
+        case email
     }
     private let database = Firestore.firestore()
     
@@ -43,5 +48,17 @@ class FirestoreDatabase: CloudDatabase {
             platforms.append(platform)
         }
         return platforms
+    }
+    
+    func saveUser(userEmail: String, callback: @escaping (DatabaseError?) -> ()) {
+        self.database.collection(Collections.users.path).document(userEmail).setData([
+            Attributes.email.rawValue: userEmail.lowercased()
+        ]) { error in
+            if error != nil {
+                callback(DatabaseError.saveError)
+            } else {
+                callback(nil)
+            }
+        }
     }
 }

@@ -13,7 +13,11 @@ class TabBarController: UITabBarController {
         
         let vc2 = self.createViewController(
             viewModel: MyProfileViewModel(
-                authenticationService: AuthenticationServiceImpl(),
+                authenticationService: AuthenticationServiceImpl(
+                    cloudDatabase: FirestoreDatabase(
+                        localDatabase: LocalDatabaseImpl()
+                    )
+                ),
                 alertDisplayer: AlertDisplayerImpl()
             )
         )
