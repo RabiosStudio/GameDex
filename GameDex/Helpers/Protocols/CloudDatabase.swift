@@ -14,9 +14,5 @@ protocol CloudDatabase {
         userEmail: String,
         callback: @escaping (DatabaseError?) -> ()
     )
-    func saveCollection(
-        userEmail: String,
-        platforms: [Platform],
-        callback: @escaping (DatabaseError?) -> ()
-    )
+    func saveCollection(userEmail: String, localDatabase: LocalDatabase, callback: @escaping (DatabaseError?) -> ())
 }

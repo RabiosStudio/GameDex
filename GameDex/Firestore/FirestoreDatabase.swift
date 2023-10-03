@@ -46,12 +46,6 @@ class FirestoreDatabase: CloudDatabase {
         case notes
     }
     
-    private let localDatabase: LocalDatabase?
-    
-    init(localDatabase: LocalDatabase? = nil) {
-        self.localDatabase = localDatabase
-    }
-    
     private let database = Firestore.firestore()
     
     func getAvailablePlatforms() async throws -> [Platform]? {
@@ -82,66 +76,67 @@ class FirestoreDatabase: CloudDatabase {
                 callback(DatabaseError.saveError)
                 return
             }
-            guard let localDatabase = self?.localDatabase else { return }
-            let fetchPlatformsResult = localDatabase.fetchAllPlatforms()
-            switch fetchPlatformsResult {
-            case .success(let result):
-                guard !result.isEmpty else {
-                    callback(nil)
-                    return
-                }
-                let platforms = CoreDataConverter.convert(platformsCollected: result)
-                self?.saveCollection(userEmail: userEmail, platforms: platforms) { error in
-                    guard error == nil else {
-                        callback(DatabaseError.saveError)
-                        return
-                    }
-                    callback(nil)
-                }
-            case .failure(_):
-                callback(DatabaseError.saveError)
-            }
-        }
-    }
-    
-    func saveCollection(userEmail: String, platforms: [Platform], callback: @escaping (DatabaseError?) -> ()) {
-        for platform in platforms {
-            self.database.collection(Collections.userPlatforms(userEmail).path).document(platform.title).setData([
-                Attributes.id.rawValue: platform.id,
-                Attributes.title.rawValue: platform.title
-            ]) { error in
+            self?.saveCollection(userEmail: userEmail, localDatabase: LocalDatabaseImpl()) {
+                error in
                 guard error == nil else {
                     callback(DatabaseError.saveError)
                     return
                 }
-                guard let games = platform.games else {
-                    callback(nil)
-                    return
-                }
-                for item in games {
-                    let docData: [String: Any] = [
-                        Attributes.title.rawValue: item.game.title,
-                        Attributes.description.rawValue: item.game.description,
-                        Attributes.imageUrl.rawValue: item.game.imageURL,
-                        Attributes.releaseDate.rawValue: item.game.releaseDate as Any,
-                        Attributes.platform.rawValue: item.game.platformId,
-                        Attributes.gameCondition.rawValue: item.gameCondition as Any,
-                        Attributes.gameCompleteness.rawValue: item.gameCompleteness as Any,
-                        Attributes.gameRegion.rawValue: item.gameRegion as Any,
-                        Attributes.storageArea.rawValue: item.storageArea as Any,
-                        Attributes.rating.rawValue: item.rating as Any,
-                        Attributes.notes.rawValue: item.notes as Any
-                    ]
-                    self.database.collection(Collections.userGames(userEmail, platform.title).path).document(item.game.title).setData(docData) { error in
-                        guard error == nil else {
-                            callback(DatabaseError.saveError)
-                            return
-                        }
-                        callback(nil)
-                    }
-                }
+                callback(nil)
             }
         }
-        callback(nil)
+    }
+    
+    func saveCollection(userEmail: String, localDatabase: LocalDatabase, callback: @escaping (DatabaseError?) -> ()) {
+        let fetchPlatformsResult = localDatabase.fetchAllPlatforms()
+        switch fetchPlatformsResult {
+        case .success(let result):
+            guard !result.isEmpty else {
+                callback(nil)
+                return
+            }
+            let platforms = CoreDataConverter.convert(platformsCollected: result)
+            
+            for platform in platforms {
+                self.database.collection(Collections.userPlatforms(userEmail).path).document(platform.title).setData([
+                    Attributes.id.rawValue: platform.id,
+                    Attributes.title.rawValue: platform.title
+                ]) { error in
+                    guard error == nil else {
+                        callback(DatabaseError.saveError)
+                        return
+                    }
+                    guard let games = platform.games else {
+                        callback(nil)
+                        return
+                    }
+                    for item in games {
+                        let docData: [String: Any] = [
+                            Attributes.title.rawValue: item.game.title,
+                            Attributes.description.rawValue: item.game.description,
+                            Attributes.imageUrl.rawValue: item.game.imageURL,
+                            Attributes.releaseDate.rawValue: item.game.releaseDate as Any,
+                            Attributes.platform.rawValue: item.game.platformId,
+                            Attributes.gameCondition.rawValue: item.gameCondition as Any,
+                            Attributes.gameCompleteness.rawValue: item.gameCompleteness as Any,
+                            Attributes.gameRegion.rawValue: item.gameRegion as Any,
+                            Attributes.storageArea.rawValue: item.storageArea as Any,
+                            Attributes.rating.rawValue: item.rating as Any,
+                            Attributes.notes.rawValue: item.notes as Any
+                        ]
+                        self.database.collection(Collections.userGames(userEmail, platform.title).path).document(item.game.title).setData(docData) { error in
+                            guard error == nil else {
+                                callback(DatabaseError.saveError)
+                                return
+                            }
+                            callback(nil)
+                        }
+                    }
+                    callback(nil)
+                }
+            }
+        case .failure(_):
+            callback(DatabaseError.saveError)
+        }
     }
 }
