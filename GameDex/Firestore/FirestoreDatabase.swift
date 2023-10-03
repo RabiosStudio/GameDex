@@ -14,7 +14,7 @@ class FirestoreDatabase: CloudDatabase {
         case platforms
     }
     
-    private enum DocumentPaths: String {
+    private enum Attributes: String {
         case id
     }
     private let database = Firestore.firestore()
@@ -26,7 +26,7 @@ class FirestoreDatabase: CloudDatabase {
         for item in fetchedData.documents {
             let data = item.data()
             let title = item.documentID
-            guard let id = data[DocumentPaths.id.rawValue] as? Int else {
+            guard let id = data[Attributes.id.rawValue] as? Int else {
                 return nil
             }
             let platform = Platform(
