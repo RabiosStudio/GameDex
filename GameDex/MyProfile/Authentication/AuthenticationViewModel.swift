@@ -99,13 +99,13 @@ extension AuthenticationViewModel: PrimaryButtonDelegate {
                 email: email,
                 password: password
             ) { [weak self] error in
-                if let error {
+                guard error == nil else {
                     self?.displayAlert(success: false)
-                } else {
-                    self?.displayAlert(success: true)
-                    self?.myProfileDelegate?.reloadMyProfile()
-                    self?.containerDelegate?.goBackToRootViewController()
+                    return
                 }
+                self?.displayAlert(success: true)
+                self?.myProfileDelegate?.reloadMyProfile()
+                self?.containerDelegate?.goBackToRootViewController()
             }
         }
     }
