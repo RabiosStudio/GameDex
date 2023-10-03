@@ -19,13 +19,13 @@ final class AddGameDetailsViewModel: CollectionViewModel {
     
     private let game: Game
     private let platform: Platform
-    private let localDatabase: Database
+    private let localDatabase: LocalDatabase
     private let alertDisplayer: AlertDisplayer
     
     init(
         game: Game,
         platform: Platform,
-        localDatabase: Database,
+        localDatabase: LocalDatabase,
         gameDetailsDelegate: GameDetailsViewModelDelegate?,
         alertDisplayer: AlertDisplayer
     ) {

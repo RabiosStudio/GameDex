@@ -28,7 +28,7 @@ final class AddGameDetailsViewModelTests: XCTestCase {
         let viewModel = AddGameDetailsViewModel(
             game: MockData.game,
             platform: MockData.platform,
-            localDatabase: DatabaseMock(),
+            localDatabase: LocalDatabaseMock(),
             gameDetailsDelegate: GameDetailsViewModelDelegateMock(),
             alertDisplayer: AlertDisplayerMock()
         )
@@ -44,7 +44,7 @@ final class AddGameDetailsViewModelTests: XCTestCase {
         let viewModel  = AddGameDetailsViewModel(
             game: MockData.game,
             platform: MockData.platform,
-            localDatabase: DatabaseMock(),
+            localDatabase: LocalDatabaseMock(),
             gameDetailsDelegate: GameDetailsViewModelDelegateMock(),
             alertDisplayer: AlertDisplayerMock()
         )
@@ -60,7 +60,7 @@ final class AddGameDetailsViewModelTests: XCTestCase {
     func test_didTapPrimaryButton_GivenNoError_ThenNavigationStyleIsDismissAndAlertParametersAreCorrect() {
         // Given
         let expectation = XCTestExpectation()
-        let localDatabase = DatabaseMock()
+        let localDatabase = LocalDatabaseMock()
         let alertDisplayer = AlertDisplayerMock()
         let gameDetailsDelegate = GameDetailsViewModelDelegateMock()
         
@@ -112,7 +112,7 @@ final class AddGameDetailsViewModelTests: XCTestCase {
     func test_didTapPrimaryButton_GivenDatabaseSaveError_ThenAlertParametersAreSetCorrectly() {
         // Given
         let expectation = XCTestExpectation()
-        let localDatabase = DatabaseMock()
+        let localDatabase = LocalDatabaseMock()
         let alertDisplayer = AlertDisplayerMock()
         
         let viewModel  = AddGameDetailsViewModel(
@@ -155,7 +155,7 @@ final class AddGameDetailsViewModelTests: XCTestCase {
     func test_didTapPrimaryButton_GivenDatabaseItemAlreadySavedError_ThenAlertParametersAreSetCorrectly() {
         // Given
         let expectation = XCTestExpectation()
-        let localDatabase = DatabaseMock()
+        let localDatabase = LocalDatabaseMock()
         let alertDisplayer = AlertDisplayerMock()
         
         let viewModel  = AddGameDetailsViewModel(
@@ -197,7 +197,7 @@ final class AddGameDetailsViewModelTests: XCTestCase {
     
     func test_didTapRightButtonItem_ThenShouldSetNavigationStyleCorrectlyAndCallgameDetailsDelegate() {
         // Given
-        let localDatabase = DatabaseMock()
+        let localDatabase = LocalDatabaseMock()
         let alertDisplayer = AlertDisplayerMock()
         let gameDetailsDelegate = GameDetailsViewModelDelegateMock()
         

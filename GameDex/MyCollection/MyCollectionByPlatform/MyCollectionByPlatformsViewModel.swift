@@ -22,13 +22,13 @@ final class MyCollectionByPlatformsViewModel: CollectionViewModel {
     weak var containerDelegate: ContainerViewControllerDelegate?
     weak var gameDetailsDelegate: GameDetailsViewModelDelegate?
     
-    private let database: Database
+    private let database: LocalDatabase
     private let alertDisplayer: AlertDisplayer
     private var platform: Platform?
     
     init(
         platform: Platform?,
-        database: Database,
+        database: LocalDatabase,
         alertDisplayer: AlertDisplayer,
         gameDetailsDelegate: GameDetailsViewModelDelegate?
     ) {

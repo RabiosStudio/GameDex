@@ -23,9 +23,9 @@ final class MyCollectionViewModel: CollectionViewModel {
     weak var containerDelegate: ContainerViewControllerDelegate?
     weak var gameDetailsDelegate: GameDetailsViewModelDelegate?
     
-    private let localDatabase: Database
+    private let localDatabase: LocalDatabase
     
-    init(localDatabase: Database) {
+    init(localDatabase: LocalDatabase) {
         self.localDatabase = localDatabase
     }
     

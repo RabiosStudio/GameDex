@@ -32,7 +32,7 @@ final class EditGameDetailsViewModelTests: XCTestCase {
         let viewModel = EditGameDetailsViewModel(
             savedGame: MockData.savedGame,
             platformName: MockData.platform.title,
-            localDatabase: DatabaseMock(),
+            localDatabase: LocalDatabaseMock(),
             alertDisplayer: AlertDisplayerMock(),
             gameDetailsDelegate: GameDetailsViewModelDelegateMock()
         )
@@ -49,7 +49,7 @@ final class EditGameDetailsViewModelTests: XCTestCase {
         let viewModel = EditGameDetailsViewModel(
             savedGame: MockData.savedGame,
             platformName: MockData.platform.title,
-            localDatabase: DatabaseMock(),
+            localDatabase: LocalDatabaseMock(),
             alertDisplayer: AlertDisplayerMock(),
             gameDetailsDelegate: GameDetailsViewModelDelegateMock()
         )
@@ -70,7 +70,7 @@ final class EditGameDetailsViewModelTests: XCTestCase {
     func test_didTapPrimaryButton_GivenNoError_ThenAlertParametersAreCorrect() {
         // Given
         let expectation = XCTestExpectation()
-        let localDatabase = DatabaseMock()
+        let localDatabase = LocalDatabaseMock()
         let alertDisplayer = AlertDisplayerMock()
         let containerDelegate = ContainerViewControllerDelegateMock()
         
@@ -120,7 +120,7 @@ final class EditGameDetailsViewModelTests: XCTestCase {
     func test_didTapPrimaryButton_GivenErrorReplacingData_ThenAlertParametersAreCorrect() {
         // Given
         let expectation = XCTestExpectation()
-        let localDatabase = DatabaseMock()
+        let localDatabase = LocalDatabaseMock()
         let alertDisplayer = AlertDisplayerMock()
         let containerDelegate = ContainerViewControllerDelegateMock()
         
@@ -169,7 +169,7 @@ final class EditGameDetailsViewModelTests: XCTestCase {
     
     func test_enableSaveButton_GivenStringValueChanged_ThenShouldCallContainerDelegate() {
         // Given
-        let localDatabase = DatabaseMock()
+        let localDatabase = LocalDatabaseMock()
         let containerDelegate = ContainerViewControllerDelegateMock()
         
         let viewModel = EditGameDetailsViewModel(
@@ -224,7 +224,7 @@ final class EditGameDetailsViewModelTests: XCTestCase {
         let viewModel = EditGameDetailsViewModel(
             savedGame: MockData.savedGame,
             platformName: MockData.platform.title,
-            localDatabase: DatabaseMock(),
+            localDatabase: LocalDatabaseMock(),
             alertDisplayer: alertDisplayer,
             gameDetailsDelegate: GameDetailsViewModelDelegateMock()
         )
@@ -250,7 +250,7 @@ final class EditGameDetailsViewModelTests: XCTestCase {
     func test_didTapOkButton_GivenRemoveDataError_ThenShouldSetAlertParametersCorrectlyAndCallContainerDelegate() {
         // Given
         let expectation = XCTestExpectation()
-        let localDatabase = DatabaseMock()
+        let localDatabase = LocalDatabaseMock()
         let alertDisplayer = AlertDisplayerMock()
         let containerDelegate = ContainerViewControllerDelegateMock()
         let viewModel = EditGameDetailsViewModel(
@@ -298,7 +298,7 @@ final class EditGameDetailsViewModelTests: XCTestCase {
     func test_didTapOkButton_GivenNoError_ThenShouldSetAlertParametersCorrectlyAndCallContainerDelegate() {
         // Given
         let expectation = XCTestExpectation()
-        let localDatabase = DatabaseMock()
+        let localDatabase = LocalDatabaseMock()
         let alertDisplayer = AlertDisplayerMock()
         let containerDelegate = ContainerViewControllerDelegateMock()
         let viewModel = EditGameDetailsViewModel(

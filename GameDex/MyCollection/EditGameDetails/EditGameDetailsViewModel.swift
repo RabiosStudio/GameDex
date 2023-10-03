@@ -16,7 +16,7 @@ final class EditGameDetailsViewModel: CollectionViewModel {
     var sections = [Section]()
     
     private let savedGame: SavedGame
-    private let localDatabase: Database
+    private let localDatabase: LocalDatabase
     private var alertDisplayer: AlertDisplayer
     private let savedValues: [Any?]
     private let platformName: String
@@ -28,7 +28,7 @@ final class EditGameDetailsViewModel: CollectionViewModel {
     init(
         savedGame: SavedGame,
         platformName: String,
-        localDatabase: Database,
+        localDatabase: LocalDatabase,
         alertDisplayer: AlertDisplayer,
         gameDetailsDelegate: GameDetailsViewModelDelegate?
     ) {

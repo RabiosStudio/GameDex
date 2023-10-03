@@ -13,7 +13,7 @@ final class MyCollectionViewModelTests: XCTestCase {
     
     func test_init_ThenShouldSetPropertiesCorrectly() {
         // Given
-        let localDatabase = DatabaseMock()
+        let localDatabase = LocalDatabaseMock()
         let viewModel = MyCollectionViewModel(localDatabase: localDatabase)
         // When
         let numberOfSections = viewModel.numberOfSections()
@@ -28,7 +28,7 @@ final class MyCollectionViewModelTests: XCTestCase {
     
     func test_loadData_GivenDatabaseFetchError_ThenCallbackShouldReturnFetchError() {
         // Given
-        let localDatabase = DatabaseMock()
+        let localDatabase = LocalDatabaseMock()
         let viewModel = MyCollectionViewModel(localDatabase: localDatabase)
         var callbackIsCalled = false
         localDatabase.given(
@@ -54,7 +54,7 @@ final class MyCollectionViewModelTests: XCTestCase {
     func test_loadData_GivenEmptyCollectionFetched_ThenCallbackShouldReturnNoItems() {
         // Given
         let emptyCollection = [PlatformCollected]()
-        let localDatabase = DatabaseMock()
+        let localDatabase = LocalDatabaseMock()
         localDatabase.given(
             .fetchAllPlatforms(
                 willReturn: Result<[PlatformCollected], DatabaseError>.success(emptyCollection)
@@ -75,7 +75,7 @@ final class MyCollectionViewModelTests: XCTestCase {
     
     func test_startSearch_ThenShouldCallCallback() {
         // Given
-        let localDatabase = DatabaseMock()
+        let localDatabase = LocalDatabaseMock()
         let viewModel = MyCollectionViewModel(localDatabase: localDatabase)
         var callbackIsCalled = false
         
@@ -90,7 +90,7 @@ final class MyCollectionViewModelTests: XCTestCase {
     
     func test_updateSearch_GivenListOfCollections_ThenShouldSetupSectionsAndCellsVMAccordingly() {
         // Given
-        let localDatabase = DatabaseMock()
+        let localDatabase = LocalDatabaseMock()
         localDatabase.given(
             .fetchAllPlatforms(
                 willReturn: Result<[PlatformCollected], DatabaseError>.success(MockData.platformsCollected)
@@ -123,7 +123,7 @@ final class MyCollectionViewModelTests: XCTestCase {
     
     func test_updateSearch_GivenNoMatchingCollection_ThenShouldReturnErrorNoItems() {
         // Given
-        let localDatabase = DatabaseMock()
+        let localDatabase = LocalDatabaseMock()
         localDatabase.given(
             .fetchAllPlatforms(
                 willReturn: Result<[PlatformCollected], DatabaseError>.success(MockData.platformsCollected)
@@ -146,7 +146,7 @@ final class MyCollectionViewModelTests: XCTestCase {
     
     func test_updateSearch_GivenEmptySearchQuery_ThenShouldReturnFullListOfCollections() {
         // Given
-        let localDatabase = DatabaseMock()
+        let localDatabase = LocalDatabaseMock()
         localDatabase.given(
             .fetchAllPlatforms(
                 willReturn: Result<[PlatformCollected], DatabaseError>.success(MockData.platformsCollected)
@@ -169,7 +169,7 @@ final class MyCollectionViewModelTests: XCTestCase {
     
     func test_reloadCollection_ThenContainerDelegateIsCalled() {
         // Given
-        let localDatabase = DatabaseMock()
+        let localDatabase = LocalDatabaseMock()
         let viewModel = MyCollectionViewModel(localDatabase: localDatabase)
         
         let containerDelegate = ContainerViewControllerDelegateMock()
@@ -183,7 +183,7 @@ final class MyCollectionViewModelTests: XCTestCase {
     
     func test_didTapRightButtonItem_ThenShouldSetNavigationStyleCorrectly() {
         // Given
-        let localDatabase = DatabaseMock()
+        let localDatabase = LocalDatabaseMock()
         let viewModel = MyCollectionViewModel(localDatabase: localDatabase)
         
         // When

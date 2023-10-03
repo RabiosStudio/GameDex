@@ -18,7 +18,7 @@ struct EditGameDetailsScreenFactory: ScreenFactory {
         let viewModel = EditGameDetailsViewModel(
             savedGame: self.savedGame,
             platformName: self.platformName,
-            localDatabase: LocalDatabase(),
+            localDatabase: LocalDatabaseImpl(),
             alertDisplayer: AlertDisplayerImpl(),
             gameDetailsDelegate: gameDetailsDelegate
         )

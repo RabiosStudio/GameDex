@@ -12,10 +12,8 @@
 		251C86BA2A97A29D0020C794 /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251C86B02A97A29D0020C794 /* APIError.swift */; };
 		251C86BC2A97A29D0020C794 /* AlamofireAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251C86B22A97A29D0020C794 /* AlamofireAPI.swift */; };
 		251C86BE2A97A29D0020C794 /* APIMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251C86B42A97A29D0020C794 /* APIMethod.swift */; };
-		251C86BF2A97A29D0020C794 /* GetPlatformsEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251C86B52A97A29D0020C794 /* GetPlatformsEndpoint.swift */; };
 		251C86C02A97A29D0020C794 /* API.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251C86B62A97A29D0020C794 /* API.swift */; };
 		251C86C12A97A29D0020C794 /* APIEndpoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251C86B72A97A29D0020C794 /* APIEndpoint.swift */; };
-		251C86C22A97A29D0020C794 /* SearchPlatformsData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251C86B82A97A29D0020C794 /* SearchPlatformsData.swift */; };
 		251C86D42A9899A70020C794 /* RemoteDataConverter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251C86D32A9899A70020C794 /* RemoteDataConverter.swift */; };
 		251C86D62A9899F40020C794 /* Platform.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251C86D52A9899F40020C794 /* Platform.swift */; };
 		251C86DE2A98AD400020C794 /* SelectAddGameMethodViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251C86DD2A98AD400020C794 /* SelectAddGameMethodViewModel.swift */; };
@@ -41,6 +39,7 @@
 		251C873B2A9D099E0020C794 /* BasicInfoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251C873A2A9D099E0020C794 /* BasicInfoCell.swift */; };
 		251C873D2A9D09AA0020C794 /* BasicInfoCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251C873C2A9D09AA0020C794 /* BasicInfoCellViewModel.swift */; };
 		251C87412A9DE9F30020C794 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251C87402A9DE9F30020C794 /* Game.swift */; };
+		252516612ACAD10600B88813 /* CloudDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 252516602ACAD10600B88813 /* CloudDatabase.swift */; };
 		254354762A93AFF700E53351 /* LabelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254354752A93AFF700E53351 /* LabelCell.swift */; };
 		254354782A93B1BB00E53351 /* LabelCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254354772A93B1BB00E53351 /* LabelCellViewModel.swift */; };
 		2548E5CD2AB8709C004151EF /* GameDetailsViewModelDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2548E5CC2AB8709C004151EF /* GameDetailsViewModelDelegate.swift */; };
@@ -115,6 +114,7 @@
 		25AE1F302A92234000F2D06A /* UINavigationController+ProgressBar.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AE1F2F2A92234000F2D06A /* UINavigationController+ProgressBar.swift */; };
 		25AE1F3B2A938F6600F2D06A /* .swiftlint.yml in Resources */ = {isa = PBXBuildFile; fileRef = 25AE1F3A2A938F6600F2D06A /* .swiftlint.yml */; };
 		25AE1F3D2A939BE300F2D06A /* ButtonViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AE1F3C2A939BE300F2D06A /* ButtonViewModelTests.swift */; };
+		25BDEC8A2AC5781C0083E0B2 /* FirestoreDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25BDEC892AC5781C0083E0B2 /* FirestoreDatabase.swift */; };
 		25D5074D2AB61BB200A772F9 /* MyCollectionSectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D5074C2AB61BB200A772F9 /* MyCollectionSectionTests.swift */; };
 		25D507512AB6DCAD00A772F9 /* MyCollectionByPlatformSectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D507502AB6DCAD00A772F9 /* MyCollectionByPlatformSectionTests.swift */; };
 		25D507532AB6DCBE00A772F9 /* EditGameDetailsSectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D507522AB6DCBE00A772F9 /* EditGameDetailsSectionTests.swift */; };
@@ -125,7 +125,7 @@
 		25D6EAEE2A8A265D00C2BE57 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 25D6EAEC2A8A265D00C2BE57 /* LaunchScreen.storyboard */; };
 		25D6EAF92A8A265D00C2BE57 /* TextFieldCellViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D6EAF82A8A265D00C2BE57 /* TextFieldCellViewModelTests.swift */; };
 		25DA8CB82AADE7E300B40F84 /* SavedGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25DA8CB72AADE7E300B40F84 /* SavedGame.swift */; };
-		25DA8CBA2AADE88600B40F84 /* LocalDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25DA8CB92AADE88600B40F84 /* LocalDatabase.swift */; };
+		25DA8CBA2AADE88600B40F84 /* LocalDatabaseImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25DA8CB92AADE88600B40F84 /* LocalDatabaseImpl.swift */; };
 		25E8E49B2AC1926A0093E7F8 /* UserAccountFormType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E8E49A2AC1926A0093E7F8 /* UserAccountFormType.swift */; };
 		25E8E49F2AC1B0D80093E7F8 /* AuthenticationViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E8E49E2AC1B0D80093E7F8 /* AuthenticationViewModelTests.swift */; };
 		25E8E4A12AC1B1050093E7F8 /* AuthenticationSectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25E8E4A02AC1B1050093E7F8 /* AuthenticationSectionTests.swift */; };
@@ -171,7 +171,7 @@
 		25EDF7BE2AB43E0100648717 /* AlertViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EDF7BD2AB43E0100648717 /* AlertViewModel.swift */; };
 		25EDF7C02AB43E3100648717 /* AlertType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EDF7BF2AB43E3100648717 /* AlertType.swift */; };
 		25EDF7C22AB463B000648717 /* FormType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EDF7C12AB463B000648717 /* FormType.swift */; };
-		25EDF7C42AB46A4F00648717 /* Database.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EDF7C32AB46A4F00648717 /* Database.swift */; };
+		25EDF7C42AB46A4F00648717 /* LocalDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25EDF7C32AB46A4F00648717 /* LocalDatabase.swift */; };
 		25F6632B2A94CF13005F5412 /* ContinueContentViewFactoryTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F663282A94CF13005F5412 /* ContinueContentViewFactoryTests.swift */; };
 		25F6632C2A94CF13005F5412 /* MyCollectionViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25F663292A94CF13005F5412 /* MyCollectionViewModelTests.swift */; };
 		AA97798407A80D347D6A8608 /* Pods_GameDexTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4443ED930B6E67BE6E3AB6A0 /* Pods_GameDexTests.framework */; };
@@ -195,10 +195,8 @@
 		251C86B02A97A29D0020C794 /* APIError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
 		251C86B22A97A29D0020C794 /* AlamofireAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlamofireAPI.swift; sourceTree = "<group>"; };
 		251C86B42A97A29D0020C794 /* APIMethod.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIMethod.swift; sourceTree = "<group>"; };
-		251C86B52A97A29D0020C794 /* GetPlatformsEndpoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GetPlatformsEndpoint.swift; sourceTree = "<group>"; };
 		251C86B62A97A29D0020C794 /* API.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = API.swift; sourceTree = "<group>"; };
 		251C86B72A97A29D0020C794 /* APIEndpoint.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIEndpoint.swift; sourceTree = "<group>"; };
-		251C86B82A97A29D0020C794 /* SearchPlatformsData.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SearchPlatformsData.swift; sourceTree = "<group>"; };
 		251C86D32A9899A70020C794 /* RemoteDataConverter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteDataConverter.swift; sourceTree = "<group>"; };
 		251C86D52A9899F40020C794 /* Platform.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Platform.swift; sourceTree = "<group>"; };
 		251C86DD2A98AD400020C794 /* SelectAddGameMethodViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectAddGameMethodViewModel.swift; sourceTree = "<group>"; };
@@ -224,6 +222,7 @@
 		251C873A2A9D099E0020C794 /* BasicInfoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicInfoCell.swift; sourceTree = "<group>"; };
 		251C873C2A9D09AA0020C794 /* BasicInfoCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicInfoCellViewModel.swift; sourceTree = "<group>"; };
 		251C87402A9DE9F30020C794 /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
+		252516602ACAD10600B88813 /* CloudDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudDatabase.swift; sourceTree = "<group>"; };
 		254354752A93AFF700E53351 /* LabelCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelCell.swift; sourceTree = "<group>"; };
 		254354772A93B1BB00E53351 /* LabelCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelCellViewModel.swift; sourceTree = "<group>"; };
 		2548E5CC2AB8709C004151EF /* GameDetailsViewModelDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameDetailsViewModelDelegate.swift; sourceTree = "<group>"; };
@@ -299,6 +298,7 @@
 		25AE1F2F2A92234000F2D06A /* UINavigationController+ProgressBar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UINavigationController+ProgressBar.swift"; sourceTree = "<group>"; };
 		25AE1F3A2A938F6600F2D06A /* .swiftlint.yml */ = {isa = PBXFileReference; lastKnownFileType = text.yaml; path = .swiftlint.yml; sourceTree = "<group>"; };
 		25AE1F3C2A939BE300F2D06A /* ButtonViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonViewModelTests.swift; sourceTree = "<group>"; };
+		25BDEC892AC5781C0083E0B2 /* FirestoreDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreDatabase.swift; sourceTree = "<group>"; };
 		25D5074C2AB61BB200A772F9 /* MyCollectionSectionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCollectionSectionTests.swift; sourceTree = "<group>"; };
 		25D507502AB6DCAD00A772F9 /* MyCollectionByPlatformSectionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCollectionByPlatformSectionTests.swift; sourceTree = "<group>"; };
 		25D507522AB6DCBE00A772F9 /* EditGameDetailsSectionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditGameDetailsSectionTests.swift; sourceTree = "<group>"; };
@@ -312,7 +312,7 @@
 		25D6EAF42A8A265D00C2BE57 /* GameDexTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GameDexTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		25D6EAF82A8A265D00C2BE57 /* TextFieldCellViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TextFieldCellViewModelTests.swift; sourceTree = "<group>"; };
 		25DA8CB72AADE7E300B40F84 /* SavedGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SavedGame.swift; sourceTree = "<group>"; };
-		25DA8CB92AADE88600B40F84 /* LocalDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDatabase.swift; sourceTree = "<group>"; };
+		25DA8CB92AADE88600B40F84 /* LocalDatabaseImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDatabaseImpl.swift; sourceTree = "<group>"; };
 		25E8E49A2AC1926A0093E7F8 /* UserAccountFormType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAccountFormType.swift; sourceTree = "<group>"; };
 		25E8E49E2AC1B0D80093E7F8 /* AuthenticationViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationViewModelTests.swift; sourceTree = "<group>"; };
 		25E8E4A02AC1B1050093E7F8 /* AuthenticationSectionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AuthenticationSectionTests.swift; sourceTree = "<group>"; };
@@ -357,7 +357,7 @@
 		25EDF7BD2AB43E0100648717 /* AlertViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertViewModel.swift; sourceTree = "<group>"; };
 		25EDF7BF2AB43E3100648717 /* AlertType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertType.swift; sourceTree = "<group>"; };
 		25EDF7C12AB463B000648717 /* FormType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormType.swift; sourceTree = "<group>"; };
-		25EDF7C32AB46A4F00648717 /* Database.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Database.swift; sourceTree = "<group>"; };
+		25EDF7C32AB46A4F00648717 /* LocalDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalDatabase.swift; sourceTree = "<group>"; };
 		25F663282A94CF13005F5412 /* ContinueContentViewFactoryTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ContinueContentViewFactoryTests.swift; sourceTree = "<group>"; };
 		25F663292A94CF13005F5412 /* MyCollectionViewModelTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MyCollectionViewModelTests.swift; sourceTree = "<group>"; };
 		4443ED930B6E67BE6E3AB6A0 /* Pods_GameDexTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GameDexTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -423,7 +423,6 @@
 		251C86D72A989A600020C794 /* Endpoints */ = {
 			isa = PBXGroup;
 			children = (
-				251C86B52A97A29D0020C794 /* GetPlatformsEndpoint.swift */,
 				251C87342A9CF8C20020C794 /* GetGamesEndpoint.swift */,
 			);
 			path = Endpoints;
@@ -432,7 +431,6 @@
 		251C86D82A989A980020C794 /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				251C86B82A97A29D0020C794 /* SearchPlatformsData.swift */,
 				251C87362A9D04D70020C794 /* SearchGamesData.swift */,
 			);
 			path = Data;
@@ -586,9 +584,10 @@
 				25AE1F1C2A8F926400F2D06A /* ContentViewFactory.swift */,
 				25EDF7C12AB463B000648717 /* FormType.swift */,
 				25E8E4A72AC1E4290093E7F8 /* AuthenticationService.swift */,
-				25EDF7C32AB46A4F00648717 /* Database.swift */,
 				2548E5CC2AB8709C004151EF /* GameDetailsViewModelDelegate.swift */,
 				25979DBC2ABF3023002CEDE7 /* CardType.swift */,
+				25EDF7C32AB46A4F00648717 /* LocalDatabase.swift */,
+				252516602ACAD10600B88813 /* CloudDatabase.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -707,6 +706,14 @@
 			path = ContentViewFactory;
 			sourceTree = "<group>";
 		};
+		25BDEC882AC578090083E0B2 /* Firestore */ = {
+			isa = PBXGroup;
+			children = (
+				25BDEC892AC5781C0083E0B2 /* FirestoreDatabase.swift */,
+			);
+			path = Firestore;
+			sourceTree = "<group>";
+		};
 		25D5074B2AB619ED00A772F9 /* MyCollectionOverview */ = {
 			isa = PBXGroup;
 			children = (
@@ -759,6 +766,7 @@
 		25D6EAE02A8A265C00C2BE57 /* GameDex */ = {
 			isa = PBXGroup;
 			children = (
+				25BDEC882AC578090083E0B2 /* Firestore */,
 				25EDF7A02AB222E900648717 /* CoreData */,
 				251C86AF2A97A29D0020C794 /* APIService */,
 				25AE1EDD2A8E12FF00F2D06A /* MyCollection */,
@@ -892,7 +900,7 @@
 				25EDF7A12AB223C700648717 /* GameDex.xcdatamodeld */,
 				2548E5DD2ABAE688004151EF /* PlatformCollected.swift */,
 				2548E5DF2ABAE688004151EF /* GameCollected.swift */,
-				25DA8CB92AADE88600B40F84 /* LocalDatabase.swift */,
+				25DA8CB92AADE88600B40F84 /* LocalDatabaseImpl.swift */,
 				25EDF7A42AB2242400648717 /* CoreDataStack.swift */,
 				25939FF62AAF3C09000FC253 /* DatabaseError.swift */,
 				2548E5E82ABC4998004151EF /* CoreDataConverter.swift */,
@@ -1247,7 +1255,7 @@
 				25AE1ECE2A8D1D6F00F2D06A /* EmptyReason.swift in Sources */,
 				25EDF79D2AB1C2E200648717 /* MyCollectionByPlatformsSection.swift in Sources */,
 				251C86C12A97A29D0020C794 /* APIEndpoint.swift in Sources */,
-				25EDF7C42AB46A4F00648717 /* Database.swift in Sources */,
+				25EDF7C42AB46A4F00648717 /* LocalDatabase.swift in Sources */,
 				25EDF7BC2AB34E8B00648717 /* EditGameDetailsSection.swift in Sources */,
 				25EB244E2AA8AC210024F01C /* GameCondition.swift in Sources */,
 				25979DB22ABF17D1002CEDE7 /* PrimaryButtonCellViewModel.swift in Sources */,
@@ -1255,10 +1263,10 @@
 				25EB242E2AA621900024F01C /* ImageDescriptionCellViewModel.swift in Sources */,
 				251C86F82A9A307A0020C794 /* UISearchBar+Configure.swift in Sources */,
 				25EB241A2AA5F8940024F01C /* AddGameDetailsScreenFactory.swift in Sources */,
+				25BDEC8A2AC5781C0083E0B2 /* FirestoreDatabase.swift in Sources */,
 				25AE1ED02A8D1D9900F2D06A /* EmptyLoader.swift in Sources */,
 				25939FF72AAF3C09000FC253 /* DatabaseError.swift in Sources */,
 				25AE1F022A8F499800F2D06A /* Navigator+NavigationStyle.swift in Sources */,
-				251C86C22A97A29D0020C794 /* SearchPlatformsData.swift in Sources */,
 				25979DCC2AC17C22002CEDE7 /* ImageCell.swift in Sources */,
 				25AE1EAE2A8BB89400F2D06A /* Section.swift in Sources */,
 				25AE1ED42A8D1E4000F2D06A /* EmptyError.swift in Sources */,
@@ -1304,7 +1312,7 @@
 				2548E5F72ABEDF49004151EF /* MyProfileViewModel.swift in Sources */,
 				251C86DE2A98AD400020C794 /* SelectAddGameMethodViewModel.swift in Sources */,
 				25EB24342AA6317D0024F01C /* TextViewCellViewModel.swift in Sources */,
-				25DA8CBA2AADE88600B40F84 /* LocalDatabase.swift in Sources */,
+				25DA8CBA2AADE88600B40F84 /* LocalDatabaseImpl.swift in Sources */,
 				25EB241C2AA5F8C30024F01C /* AddGameDetailsViewModel.swift in Sources */,
 				251C873D2A9D09AA0020C794 /* BasicInfoCellViewModel.swift in Sources */,
 				254354782A93B1BB00E53351 /* LabelCellViewModel.swift in Sources */,
@@ -1335,7 +1343,6 @@
 				25939FFB2AAF5D01000FC253 /* AlertDisplayerImpl.swift in Sources */,
 				25979DBF2ABF310B002CEDE7 /* SelectAddGameMethodCardType.swift in Sources */,
 				25AE1EBE2A8CB85900F2D06A /* CellViewModel.swift in Sources */,
-				251C86BF2A97A29D0020C794 /* GetPlatformsEndpoint.swift in Sources */,
 				251C86D62A9899F40020C794 /* Platform.swift in Sources */,
 				25DA8CB82AADE7E300B40F84 /* SavedGame.swift in Sources */,
 				25D6EAE22A8A265C00C2BE57 /* AppDelegate.swift in Sources */,
@@ -1343,6 +1350,7 @@
 				25EB242C2AA621800024F01C /* ImageDescriptionCell.swift in Sources */,
 				251C86E02A98AD4D0020C794 /* SelectAddGameMethodSection.swift in Sources */,
 				25E8E4AC2AC1E4BC0093E7F8 /* AuthenticationError.swift in Sources */,
+				252516612ACAD10600B88813 /* CloudDatabase.swift in Sources */,
 				254E8B942A8B6BCA00C101C8 /* Strings.swift in Sources */,
 				25979DC62AC17295002CEDE7 /* AuthenticationViewModel.swift in Sources */,
 				2548E5F92ABEDF53004151EF /* MyProfileSection.swift in Sources */,

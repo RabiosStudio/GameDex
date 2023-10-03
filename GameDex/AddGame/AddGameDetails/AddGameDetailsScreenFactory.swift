@@ -18,7 +18,7 @@ struct AddGameDetailsScreenFactory: ScreenFactory {
         let viewModel = AddGameDetailsViewModel(
             game: self.game,
             platform: self.platform,
-            localDatabase: LocalDatabase(),
+            localDatabase: LocalDatabaseImpl(),
             gameDetailsDelegate: self.gameDetailsDelegate,
             alertDisplayer: AlertDisplayerImpl()
         )

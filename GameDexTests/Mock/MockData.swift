@@ -10,20 +10,6 @@ import Foundation
 import CoreData
 
 enum MockData {
-    
-    static let searchPlaformsData = SearchPlatformsData(
-        offset: .zero,
-        numberOfPageResults: 5,
-        numberOfTotalResults: 5,
-        statusCode: 1,
-        results: [
-            PlatformData(id: 28, name: "Atari 2600"),
-            PlatformData(id: 8, name: "Dreamcast"),
-            PlatformData(id: 11, name: "Game Boy Color"),
-            PlatformData(id: 17, name: "Jaguar"),
-            PlatformData(id: 15, name: "SNES")
-        ])
-    
     static let platforms: [Platform] = [
         Platform(title: "Atari 2600", id: 28, games: MockData.savedGames),
         Platform(title: "Dreamcast", id: 8, games: MockData.savedGames),
