@@ -1137,24 +1137,56 @@ open class CloudDatabaseMock: CloudDatabase, Mock {
 		return __value
     }
 
+    open func saveUser(userEmail: String, callback: @escaping (DatabaseError?) -> ()) {
+        addInvocation(.m_saveUser__userEmail_userEmailcallback_callback(Parameter<String>.value(`userEmail`), Parameter<(DatabaseError?) -> ()>.value(`callback`)))
+		let perform = methodPerformValue(.m_saveUser__userEmail_userEmailcallback_callback(Parameter<String>.value(`userEmail`), Parameter<(DatabaseError?) -> ()>.value(`callback`))) as? (String, @escaping (DatabaseError?) -> ()) -> Void
+		perform?(`userEmail`, `callback`)
+    }
+
+    open func saveCollection(userEmail: String, platforms: [Platform], callback: @escaping (DatabaseError?) -> ()) {
+        addInvocation(.m_saveCollection__userEmail_userEmailplatforms_platformscallback_callback(Parameter<String>.value(`userEmail`), Parameter<[Platform]>.value(`platforms`), Parameter<(DatabaseError?) -> ()>.value(`callback`)))
+		let perform = methodPerformValue(.m_saveCollection__userEmail_userEmailplatforms_platformscallback_callback(Parameter<String>.value(`userEmail`), Parameter<[Platform]>.value(`platforms`), Parameter<(DatabaseError?) -> ()>.value(`callback`))) as? (String, [Platform], @escaping (DatabaseError?) -> ()) -> Void
+		perform?(`userEmail`, `platforms`, `callback`)
+    }
+
 
     fileprivate enum MethodType {
         case m_getAvailablePlatforms
+        case m_saveUser__userEmail_userEmailcallback_callback(Parameter<String>, Parameter<(DatabaseError?) -> ()>)
+        case m_saveCollection__userEmail_userEmailplatforms_platformscallback_callback(Parameter<String>, Parameter<[Platform]>, Parameter<(DatabaseError?) -> ()>)
 
         static func compareParameters(lhs: MethodType, rhs: MethodType, matcher: Matcher) -> Matcher.ComparisonResult {
             switch (lhs, rhs) {
             case (.m_getAvailablePlatforms, .m_getAvailablePlatforms): return .match
+
+            case (.m_saveUser__userEmail_userEmailcallback_callback(let lhsUseremail, let lhsCallback), .m_saveUser__userEmail_userEmailcallback_callback(let rhsUseremail, let rhsCallback)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsUseremail, rhs: rhsUseremail, with: matcher), lhsUseremail, rhsUseremail, "userEmail"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsCallback, rhs: rhsCallback, with: matcher), lhsCallback, rhsCallback, "callback"))
+				return Matcher.ComparisonResult(results)
+
+            case (.m_saveCollection__userEmail_userEmailplatforms_platformscallback_callback(let lhsUseremail, let lhsPlatforms, let lhsCallback), .m_saveCollection__userEmail_userEmailplatforms_platformscallback_callback(let rhsUseremail, let rhsPlatforms, let rhsCallback)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsUseremail, rhs: rhsUseremail, with: matcher), lhsUseremail, rhsUseremail, "userEmail"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsPlatforms, rhs: rhsPlatforms, with: matcher), lhsPlatforms, rhsPlatforms, "platforms"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsCallback, rhs: rhsCallback, with: matcher), lhsCallback, rhsCallback, "callback"))
+				return Matcher.ComparisonResult(results)
+            default: return .none
             }
         }
 
         func intValue() -> Int {
             switch self {
             case .m_getAvailablePlatforms: return 0
+            case let .m_saveUser__userEmail_userEmailcallback_callback(p0, p1): return p0.intValue + p1.intValue
+            case let .m_saveCollection__userEmail_userEmailplatforms_platformscallback_callback(p0, p1, p2): return p0.intValue + p1.intValue + p2.intValue
             }
         }
         func assertionName() -> String {
             switch self {
             case .m_getAvailablePlatforms: return ".getAvailablePlatforms()"
+            case .m_saveUser__userEmail_userEmailcallback_callback: return ".saveUser(userEmail:callback:)"
+            case .m_saveCollection__userEmail_userEmailplatforms_platformscallback_callback: return ".saveCollection(userEmail:platforms:callback:)"
             }
         }
     }
@@ -1187,6 +1219,8 @@ open class CloudDatabaseMock: CloudDatabase, Mock {
         fileprivate var method: MethodType
 
         public static func getAvailablePlatforms() -> Verify { return Verify(method: .m_getAvailablePlatforms)}
+        public static func saveUser(userEmail: Parameter<String>, callback: Parameter<(DatabaseError?) -> ()>) -> Verify { return Verify(method: .m_saveUser__userEmail_userEmailcallback_callback(`userEmail`, `callback`))}
+        public static func saveCollection(userEmail: Parameter<String>, platforms: Parameter<[Platform]>, callback: Parameter<(DatabaseError?) -> ()>) -> Verify { return Verify(method: .m_saveCollection__userEmail_userEmailplatforms_platformscallback_callback(`userEmail`, `platforms`, `callback`))}
     }
 
     public struct Perform {
@@ -1195,6 +1229,12 @@ open class CloudDatabaseMock: CloudDatabase, Mock {
 
         public static func getAvailablePlatforms(perform: @escaping () -> Void) -> Perform {
             return Perform(method: .m_getAvailablePlatforms, performs: perform)
+        }
+        public static func saveUser(userEmail: Parameter<String>, callback: Parameter<(DatabaseError?) -> ()>, perform: @escaping (String, @escaping (DatabaseError?) -> ()) -> Void) -> Perform {
+            return Perform(method: .m_saveUser__userEmail_userEmailcallback_callback(`userEmail`, `callback`), performs: perform)
+        }
+        public static func saveCollection(userEmail: Parameter<String>, platforms: Parameter<[Platform]>, callback: Parameter<(DatabaseError?) -> ()>, perform: @escaping (String, [Platform], @escaping (DatabaseError?) -> ()) -> Void) -> Perform {
+            return Perform(method: .m_saveCollection__userEmail_userEmailplatforms_platformscallback_callback(`userEmail`, `platforms`, `callback`), performs: perform)
         }
     }
 
