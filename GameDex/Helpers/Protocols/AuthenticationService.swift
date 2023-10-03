@@ -10,7 +10,7 @@ import Foundation
 // sourcery: AutoMockable
 protocol AuthenticationService {
     func login(email: String, password: String, callback: @escaping (AuthenticationError?) -> ())
-    func createUser(email: String, password: String, callback: @escaping (AuthenticationError?) -> ())
+    func createUser(email: String, password: String, cloudDatabase: CloudDatabase) async -> AuthenticationError?
     func logout(callback: @escaping (AuthenticationError?) -> ())
     func isUserLoggedIn() -> Bool 
 }

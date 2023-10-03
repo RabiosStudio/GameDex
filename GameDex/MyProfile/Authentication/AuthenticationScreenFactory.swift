@@ -16,11 +16,7 @@ struct AuthenticationScreenFactory: ScreenFactory {
     var viewController: UIViewController {
         let viewModel = AuthenticationViewModel(
             userHasAccount: self.userHasAccount,
-            authenticationSerice: AuthenticationServiceImpl(
-                cloudDatabase: FirestoreDatabase(
-                    localDatabase: LocalDatabaseImpl()
-                )
-            ),
+            authenticationSerice: AuthenticationServiceImpl(),
             alertDisplayer: AlertDisplayerImpl(),
             myProfileDelegate: self.myProfileDelegate
         )

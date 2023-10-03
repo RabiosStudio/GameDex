@@ -10,12 +10,6 @@ import FirebaseAuth
 
 class AuthenticationServiceImpl: AuthenticationService {
     
-    private let cloudDatabase: CloudDatabase?
-    
-    init(cloudDatabase: CloudDatabase? = nil) {
-        self.cloudDatabase = cloudDatabase
-    }
-    
     func login(email: String, password: String, callback: @escaping (AuthenticationError?) -> ()) {
         Auth.auth().signIn(withEmail: email, password: password) { result, error in
             guard error == nil else {
@@ -26,21 +20,17 @@ class AuthenticationServiceImpl: AuthenticationService {
         }
     }
     
-    func createUser(email: String, password: String, callback: @escaping (AuthenticationError?) -> ()) {
-        Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
-            guard error == nil else {
-                callback(AuthenticationError.createAccountError)
-                return
+    func createUser(email: String, password: String, cloudDatabase: CloudDatabase) async -> AuthenticationError? {
+        do {
+            try await Auth.auth().createUser(withEmail: email, password: password)
+            if let error = await cloudDatabase.saveUser(
+                userEmail: email) {
+                return AuthenticationError.saveUserDataError
+            } else {
+                return nil
             }
-            guard let cloudDatabase = self.cloudDatabase else { return }
-            cloudDatabase.saveUser(
-                userEmail: email) { error in
-                    guard error == nil else {
-                        callback(AuthenticationError.saveUserDataError)
-                        return
-                    }
-                    callback(nil)
-                }
+        } catch {
+            return AuthenticationError.createAccountError
         }
     }
     

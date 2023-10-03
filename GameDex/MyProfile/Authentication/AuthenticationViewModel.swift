@@ -95,17 +95,18 @@ extension AuthenticationViewModel: PrimaryButtonDelegate {
                 }
             }
         } else {
-            self.authenticationSerice.createUser(
-                email: email,
-                password: password
-            ) { [weak self] error in
-                guard error == nil else {
-                    self?.displayAlert(success: false)
-                    return
+            Task {
+                if let _ = await self.authenticationSerice.createUser(
+                    email: email,
+                    password: password,
+                    cloudDatabase: FirestoreDatabase()
+                ) {
+                    self.displayAlert(success: false)
+                } else {
+                    self.displayAlert(success: true)
+                    self.myProfileDelegate?.reloadMyProfile()
+                    self.containerDelegate?.goBackToRootViewController()
                 }
-                self?.displayAlert(success: true)
-                self?.myProfileDelegate?.reloadMyProfile()
-                self?.containerDelegate?.goBackToRootViewController()
             }
         }
     }

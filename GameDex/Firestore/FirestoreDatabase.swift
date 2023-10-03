@@ -48,95 +48,102 @@ class FirestoreDatabase: CloudDatabase {
     
     private let database = Firestore.firestore()
     
-    func getAvailablePlatforms() async throws -> [Platform]? {
-        let fetchedData = try await self.database.collection(Collections.searchPlatform.path).getDocuments()
-        
-        var platforms = [Platform]()
-        for item in fetchedData.documents {
-            let data = item.data()
-            let title = item.documentID
-            guard let id = data[Attributes.id.rawValue] as? Int else {
+    func getAvailablePlatforms() async -> [Platform]? {
+        do {
+            let fetchedData = try await self.database.collection(Collections.searchPlatform.path).getDocuments()
+            
+            var platforms = [Platform]()
+            for item in fetchedData.documents {
+                let data = item.data()
+                let title = item.documentID
+                guard let id = data[Attributes.id.rawValue] as? Int else {
+                    return nil
+                }
+                let platform = Platform(
+                    title: title,
+                    id: id,
+                    games: nil
+                )
+                platforms.append(platform)
+            }
+            return platforms
+        } catch {
+            return nil
+        }
+    }
+    
+    func saveUser(userEmail: String) async -> DatabaseError? {
+        do {
+            try await
+            self.database.collection(Collections.users.path).document(userEmail).setData([
+                Attributes.email.rawValue: userEmail.lowercased()
+            ])
+            if let error = await self.saveCollection(userEmail: userEmail, localDatabase: LocalDatabaseImpl()) {
+                return error
+            } else {
                 return nil
             }
-            let platform = Platform(
-                title: title,
-                id: id,
-                games: nil
-            )
-            platforms.append(platform)
-        }
-        return platforms
-    }
-    
-    func saveUser(userEmail: String, callback: @escaping (DatabaseError?) -> ()) {
-        self.database.collection(Collections.users.path).document(userEmail).setData([
-            Attributes.email.rawValue: userEmail.lowercased()
-        ]) { [weak self] error in
-            guard error == nil else {
-                callback(DatabaseError.saveError)
-                return
-            }
-            self?.saveCollection(userEmail: userEmail, localDatabase: LocalDatabaseImpl()) {
-                error in
-                guard error == nil else {
-                    callback(DatabaseError.saveError)
-                    return
-                }
-                callback(nil)
-            }
+        } catch {
+            return DatabaseError.saveError
         }
     }
     
-    func saveCollection(userEmail: String, localDatabase: LocalDatabase, callback: @escaping (DatabaseError?) -> ()) {
+    func saveCollection(userEmail: String, localDatabase: LocalDatabase) async -> DatabaseError? {
         let fetchPlatformsResult = localDatabase.fetchAllPlatforms()
         switch fetchPlatformsResult {
         case .success(let result):
             guard !result.isEmpty else {
-                callback(nil)
-                return
+                return nil
             }
             let platforms = CoreDataConverter.convert(platformsCollected: result)
             
             for platform in platforms {
-                self.database.collection(Collections.userPlatforms(userEmail).path).document(platform.title).setData([
-                    Attributes.id.rawValue: platform.id,
-                    Attributes.title.rawValue: platform.title
-                ]) { error in
-                    guard error == nil else {
-                        callback(DatabaseError.saveError)
-                        return
+                do {
+                    try await self.database.collection(Collections.userPlatforms(userEmail).path).document(platform.title).setData([
+                        Attributes.id.rawValue: platform.id,
+                        Attributes.title.rawValue: platform.title
+                    ])
+                    if let error = await self.saveGame(
+                        userEmail: userEmail,
+                        platform: platform,
+                        localDatabase: localDatabase
+                    ) {
+                        return error
                     }
-                    guard let games = platform.games else {
-                        callback(nil)
-                        return
-                    }
-                    for item in games {
-                        let docData: [String: Any] = [
-                            Attributes.title.rawValue: item.game.title,
-                            Attributes.description.rawValue: item.game.description,
-                            Attributes.imageUrl.rawValue: item.game.imageURL,
-                            Attributes.releaseDate.rawValue: item.game.releaseDate as Any,
-                            Attributes.platform.rawValue: item.game.platformId,
-                            Attributes.gameCondition.rawValue: item.gameCondition as Any,
-                            Attributes.gameCompleteness.rawValue: item.gameCompleteness as Any,
-                            Attributes.gameRegion.rawValue: item.gameRegion as Any,
-                            Attributes.storageArea.rawValue: item.storageArea as Any,
-                            Attributes.rating.rawValue: item.rating as Any,
-                            Attributes.notes.rawValue: item.notes as Any
-                        ]
-                        self.database.collection(Collections.userGames(userEmail, platform.title).path).document(item.game.title).setData(docData) { error in
-                            guard error == nil else {
-                                callback(DatabaseError.saveError)
-                                return
-                            }
-                            callback(nil)
-                        }
-                    }
-                    callback(nil)
+                } catch {
+                    return DatabaseError.saveError
                 }
             }
         case .failure(_):
-            callback(DatabaseError.saveError)
+            return DatabaseError.saveError
         }
+        return nil
+    }
+    
+    func saveGame(userEmail: String, platform: Platform, localDatabase: LocalDatabase) async -> DatabaseError? {
+        guard let games = platform.games else {
+            return nil
+        }
+        for item in games {
+            let docData: [String: Any] = [
+                Attributes.title.rawValue: item.game.title,
+                Attributes.description.rawValue: item.game.description,
+                Attributes.imageUrl.rawValue: item.game.imageURL,
+                Attributes.releaseDate.rawValue: item.game.releaseDate as Any,
+                Attributes.platform.rawValue: item.game.platformId,
+                Attributes.gameCondition.rawValue: item.gameCondition as Any,
+                Attributes.gameCompleteness.rawValue: item.gameCompleteness as Any,
+                Attributes.gameRegion.rawValue: item.gameRegion as Any,
+                Attributes.storageArea.rawValue: item.storageArea as Any,
+                Attributes.rating.rawValue: item.rating as Any,
+                Attributes.notes.rawValue: item.notes as Any
+            ]
+            do {
+                try await self.database.collection(Collections.userGames(userEmail, platform.title).path).document(item.game.title).setData(docData)
+            } catch {
+                return DatabaseError.saveError
+            }
+        }
+        return nil
     }
 }
