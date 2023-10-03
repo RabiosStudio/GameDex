@@ -10,8 +10,14 @@ import FirebaseFirestore
 
 class FirestoreDatabase: CloudDatabase {
     
-    private enum CollectionPaths: String {
-        case platforms
+    private enum Collections {
+        case searchPlatform
+        var path: String {
+            switch self {
+            case .searchPlatform:
+                return "platforms"
+            }
+        }
     }
     
     private enum Attributes: String {
@@ -20,7 +26,7 @@ class FirestoreDatabase: CloudDatabase {
     private let database = Firestore.firestore()
     
     func getAvailablePlatforms() async throws -> [Platform]? {
-        let fetchedData = try await database.collection(CollectionPaths.platforms.rawValue).getDocuments()
+        let fetchedData = try await self.database.collection(Collections.searchPlatform.path).getDocuments()
         
         var platforms = [Platform]()
         for item in fetchedData.documents {
