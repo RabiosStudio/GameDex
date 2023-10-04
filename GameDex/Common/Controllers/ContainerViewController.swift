@@ -95,7 +95,7 @@ class ContainerViewController: UIViewController {
     
     // MARK: - Register
     
-    public func registerCells() {
+    private func registerCells() {
         let sections = self.viewModel.sections
         
         for i in 0..<sections.count {
