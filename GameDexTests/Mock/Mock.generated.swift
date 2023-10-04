@@ -1139,15 +1139,16 @@ open class CloudDatabaseMock: CloudDatabase, Mock {
 
 
 
-    open func getAvailablePlatforms() -> [Platform]? {
+    open func getAvailablePlatforms() -> Result<[Platform], DatabaseError> {
         addInvocation(.m_getAvailablePlatforms)
 		let perform = methodPerformValue(.m_getAvailablePlatforms) as? () -> Void
 		perform?()
-		var __value: [Platform]? = nil
+		var __value: Result<[Platform], DatabaseError>
 		do {
 		    __value = try methodReturnValue(.m_getAvailablePlatforms).casted()
 		} catch {
-			// do nothing
+			onFatalFailure("Stub return value not specified for getAvailablePlatforms(). Use given")
+			Failure("Stub return value not specified for getAvailablePlatforms(). Use given")
 		}
 		return __value
     }
@@ -1250,7 +1251,7 @@ open class CloudDatabaseMock: CloudDatabase, Mock {
         }
 
 
-        public static func getAvailablePlatforms(willReturn: [Platform]?...) -> MethodStub {
+        public static func getAvailablePlatforms(willReturn: Result<[Platform], DatabaseError>...) -> MethodStub {
             return Given(method: .m_getAvailablePlatforms, products: willReturn.map({ StubProduct.return($0 as Any) }))
         }
         public static func saveUser(userEmail: Parameter<String>, willReturn: DatabaseError?...) -> MethodStub {
@@ -1262,10 +1263,10 @@ open class CloudDatabaseMock: CloudDatabase, Mock {
         public static func saveCollection(userEmail: Parameter<String>, localDatabase: Parameter<LocalDatabase>, willReturn: DatabaseError?...) -> MethodStub {
             return Given(method: .m_saveCollection__userEmail_userEmaillocalDatabase_localDatabase(`userEmail`, `localDatabase`), products: willReturn.map({ StubProduct.return($0 as Any) }))
         }
-        public static func getAvailablePlatforms(willProduce: (Stubber<[Platform]?>) -> Void) -> MethodStub {
-            let willReturn: [[Platform]?] = []
+        public static func getAvailablePlatforms(willProduce: (Stubber<Result<[Platform], DatabaseError>>) -> Void) -> MethodStub {
+            let willReturn: [Result<[Platform], DatabaseError>] = []
 			let given: Given = { return Given(method: .m_getAvailablePlatforms, products: willReturn.map({ StubProduct.return($0 as Any) })) }()
-			let stubber = given.stub(for: ([Platform]?).self)
+			let stubber = given.stub(for: (Result<[Platform], DatabaseError>).self)
 			willProduce(stubber)
 			return given
         }

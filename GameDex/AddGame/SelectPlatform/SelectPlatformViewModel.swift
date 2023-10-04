@@ -63,14 +63,12 @@ final class SelectPlatformViewModel: CollectionViewModel {
     }
     
     private func requestData() async -> AddGameError? {
-        do {
-            let fetchedPlatforms = try await self.cloudDatabase.getAvailablePlatforms()
-            guard let platforms = fetchedPlatforms else {
-                return AddGameError.server
-            }
+        let fetchedPlatformsResult = await self.cloudDatabase.getAvailablePlatforms()
+        switch fetchedPlatformsResult {
+        case .success(let platforms):
             self.platforms = platforms
             return nil
-        } catch {
+        case .failure(_):
             return AddGameError.server
         }
     }

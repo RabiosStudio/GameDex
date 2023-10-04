@@ -48,7 +48,7 @@ class FirestoreDatabase: CloudDatabase {
     
     private let database = Firestore.firestore()
     
-    func getAvailablePlatforms() async -> [Platform]? {
+    func getAvailablePlatforms() async -> Result<[Platform], DatabaseError> {
         do {
             let fetchedData = try await self.database.collection(Collections.searchPlatform.path).getDocuments()
             
@@ -57,7 +57,7 @@ class FirestoreDatabase: CloudDatabase {
                 let data = item.data()
                 let title = item.documentID
                 guard let id = data[Attributes.id.rawValue] as? Int else {
-                    return nil
+                    return .failure(DatabaseError.fetchError)
                 }
                 let platform = Platform(
                     title: title,
@@ -66,9 +66,9 @@ class FirestoreDatabase: CloudDatabase {
                 )
                 platforms.append(platform)
             }
-            return platforms
+            return .success(platforms)
         } catch {
-            return nil
+            return .failure(DatabaseError.fetchError)
         }
     }
     

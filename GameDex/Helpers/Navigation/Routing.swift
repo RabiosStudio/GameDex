@@ -50,8 +50,10 @@ class Routing: NSObject, Navigator {
                                   animated: Bool = true) -> Navigator {
         var fromVC = fromController
         
-        if fromVC == nil {
-            fromVC = self.visibleViewController()
+        DispatchQueue.main.async {
+            if fromVC == nil {
+                fromVC = self.visibleViewController()
+            }
         }
         
         // Navigate on main thread to avoid crashes

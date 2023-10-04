@@ -56,7 +56,7 @@ final class AuthenticationViewModel: CollectionViewModel {
 }
 
 extension AuthenticationViewModel: PrimaryButtonDelegate {
-    func didTapPrimaryButton() {
+    func didTapPrimaryButton() async {
         guard let firstSection = self.sections.first,
               let formCellsVM = firstSection.cellsVM.filter({ cellVM in
                   return cellVM is (any CollectionFormCellViewModel)
@@ -86,28 +86,26 @@ extension AuthenticationViewModel: PrimaryButtonDelegate {
                 email: email,
                 password: password
             ) { [weak self] error in
-                if error != nil {
+                guard error == nil else {
                     self?.displayAlert(success: false)
-                } else {
-                    self?.displayAlert(success: true)
-                    self?.myProfileDelegate?.reloadMyProfile()
-                    self?.containerDelegate?.goBackToRootViewController()
+                    return
                 }
+                self?.displayAlert(success: true)
+                self?.myProfileDelegate?.reloadMyProfile()
+                self?.containerDelegate?.goBackToRootViewController()
             }
         } else {
-            Task {
-                if let _ = await self.authenticationSerice.createUser(
-                    email: email,
-                    password: password,
-                    cloudDatabase: FirestoreDatabase()
-                ) {
-                    self.displayAlert(success: false)
-                } else {
-                    self.displayAlert(success: true)
-                    self.myProfileDelegate?.reloadMyProfile()
-                    self.containerDelegate?.goBackToRootViewController()
-                }
+            guard await self.authenticationSerice.createUser(
+                email: email,
+                password: password,
+                cloudDatabase: FirestoreDatabase()
+            ) == nil else {
+                self.displayAlert(success: false)
+                return
             }
+            self.displayAlert(success: true)
+            self.myProfileDelegate?.reloadMyProfile()
+            self.containerDelegate?.goBackToRootViewController()
         }
     }
 }
