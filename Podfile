@@ -20,6 +20,7 @@ target 'GameDex' do
   pod 'SwiftEntryKit', '2.0.0'
   pod 'FirebaseAuth'
   pod 'FirebaseFirestore'
+  pod 'FirebaseCrashlytics'
   
 
   target 'GameDexTests' do
