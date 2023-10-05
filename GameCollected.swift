@@ -26,5 +26,6 @@ public class GameCollected: NSManagedObject {
     @NSManaged public var storageArea: String?
     @NSManaged public var summary: String
     @NSManaged public var title: String
+    @NSManaged public var lastUpdated: Date
     @NSManaged public var platform: PlatformCollected
 }
