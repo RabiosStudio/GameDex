@@ -15,6 +15,8 @@ class FirestoreDatabase: CloudDatabase {
         case userPlatforms(String)
         case userGames(String, String)
         case users
+        case apiKey
+        case searchGamesApi
         
         var path: String {
             switch self {
@@ -26,6 +28,10 @@ class FirestoreDatabase: CloudDatabase {
                 return "users/\(userEmail)/platforms/\(platformTitle)/games"
             case .users:
                 return "users"
+            case .apiKey:
+                return "api-key"
+            case .searchGamesApi:
+                return "Giant Bomb"
             }
         }
     }
@@ -44,6 +50,7 @@ class FirestoreDatabase: CloudDatabase {
         case storageArea
         case rating
         case notes
+        case key
     }
     
     private let database = Firestore.firestore()
@@ -145,5 +152,20 @@ class FirestoreDatabase: CloudDatabase {
             }
         }
         return nil
+    }
+    
+    func getApiKey() async -> Result<String, DatabaseError> {
+        do {
+            let doc = self.database.collection(Collections.apiKey.path).document(Collections.searchGamesApi.path)
+
+            let fetchedData = try await doc.getDocument()
+            let documentData = fetchedData.data()
+            guard let key = documentData?[Attributes.key.rawValue] as? String else {
+                return .failure(DatabaseError.fetchError)
+            }
+            return .success(key)
+        } catch {
+            return .failure(DatabaseError.fetchError)
+        }
     }
 }

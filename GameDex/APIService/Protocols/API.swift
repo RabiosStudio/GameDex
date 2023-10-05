@@ -16,4 +16,6 @@ protocol API {
     func getData<T: APIEndpoint, U: Decodable>(
         with endpoint: T
     ) async -> Result<U, APIError>
+    
+    func setCommonParameters(cloudDatabase: CloudDatabase) async
 }
