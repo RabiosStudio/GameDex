@@ -112,7 +112,8 @@ extension AddGameDetailsViewModel: PrimaryButtonDelegate {
             gameRegion: gameRegion,
             storageArea: storageArea,
             rating: rating,
-            notes: notes
+            notes: notes,
+            lastUpdated: Date()
         )
         
         self.localDatabase.add(newEntity: gameToSave, platform: self.platform) { [weak self] error in
