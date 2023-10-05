@@ -67,7 +67,9 @@ extension SearchGameByTitleViewModel: SearchViewModelDelegate {
         Task {
             let endpoint = GetGamesEndpoint(platformId: self.platform.id, title: searchQuery)
             
-            // get response
+            await self.networkingSession.setCommonParameters(
+                cloudDatabase: FirestoreDatabase()
+            )
             let result: Result<SearchGamesData, APIError> = await self.networkingSession.getData(with: endpoint)
             
             switch result {

@@ -20,11 +20,16 @@ class AlamofireAPI: API {
         return "https://www.giantbomb.com/api/"
     }
     
-    var commonParameters: [String: Any]? {
-        guard let apiKey = ProcessInfo.processInfo.environment["GIANT_BOMB_API_KEY"] else {
-            return nil
+    var commonParameters: [String: Any]?
+    
+    func setCommonParameters(cloudDatabase: CloudDatabase) async {
+        let result = await cloudDatabase.getApiKey()
+        switch result {
+        case .success(let key):
+            self.commonParameters = [Constants.apiKey: key]
+        case .failure(_):
+            self.commonParameters = [:]
         }
-        return [Constants.apiKey: apiKey]
     }
     
     func getData<T, U>(with endpoint: T) async -> Result<U, APIError> where T: APIEndpoint, U: Decodable {
