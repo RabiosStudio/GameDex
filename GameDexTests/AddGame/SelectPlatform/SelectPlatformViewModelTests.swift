@@ -29,14 +29,14 @@ final class SelectPlatformViewModelTests: XCTestCase {
         XCTAssertEqual(viewModel.searchViewModel?.activateOnTap, false)
     }
     
-    func test_loadData_GivenFirestoreReturnsNoData_ThenShouldReturnAddGameErrorServer() {
+    func test_loadData_GivenFirestoreReturnsError_ThenShouldReturnAddGameErrorServer() {
         // Given
         let expectation = XCTestExpectation(description: "perform loadData() asynchronously")
         
         let cloudDatabase = CloudDatabaseMock()
         cloudDatabase.given(
             .getAvailablePlatforms(
-                willReturn: nil
+                willReturn: .failure(DatabaseError.fetchError)
             )
         )
         
@@ -67,7 +67,7 @@ final class SelectPlatformViewModelTests: XCTestCase {
         let cloudDatabase = CloudDatabaseMock()
         cloudDatabase.given(
             .getAvailablePlatforms(
-                willReturn: MockData.platforms
+                willReturn: .success(MockData.platforms)
             )
         )
         
@@ -95,7 +95,7 @@ final class SelectPlatformViewModelTests: XCTestCase {
         let cloudDatabase = CloudDatabaseMock()
         cloudDatabase.given(
             .getAvailablePlatforms(
-                willReturn: MockData.platforms
+                willReturn: .success(MockData.platforms)
             )
         )
         
@@ -125,7 +125,7 @@ final class SelectPlatformViewModelTests: XCTestCase {
         let cloudDatabase = CloudDatabaseMock()
         cloudDatabase.given(
             .getAvailablePlatforms(
-                willReturn: MockData.platforms
+                willReturn: .success(MockData.platforms)
             )
         )
         
@@ -156,7 +156,7 @@ final class SelectPlatformViewModelTests: XCTestCase {
         let cloudDatabase = CloudDatabaseMock()
         cloudDatabase.given(
             .getAvailablePlatforms(
-                willReturn: MockData.platforms
+                willReturn: .success(MockData.platforms)
             )
         )
         

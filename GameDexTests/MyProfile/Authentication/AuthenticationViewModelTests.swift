@@ -41,7 +41,7 @@ final class AuthenticationViewModelTests: XCTestCase {
         XCTAssertEqual(viewModel.numberOfItems(in: .zero), 8)
     }
     
-    func test_didTapPrimaryButton_GivenUserHasAccountAndLoginError_ThenAlertParametersAreSetCorrectly() {
+    func test_didTapPrimaryButton_GivenUserHasAccountAndLoginError_ThenAlertParametersAreSetCorrectly() async {
         // Given
         let expectation = XCTestExpectation()
         let authenticationService = AuthenticationServiceMock()
@@ -96,12 +96,11 @@ final class AuthenticationViewModelTests: XCTestCase {
         )
         
         // When
-        viewModel.didTapPrimaryButton()
-        
-        wait(for: [expectation], timeout: Constants.timeout)
+        await viewModel.didTapPrimaryButton()
+        await fulfillment(of: [expectation], timeout: Constants.timeout)
     }
     
-    func test_didTapPrimaryButton_GivenUserHasAccountAndNoError_ThenAlertParametersAreSetCorrectly() {
+    func test_didTapPrimaryButton_GivenUserHasAccountAndNoError_ThenAlertParametersAreSetCorrectly() async {
         // Given
         let expectation = XCTestExpectation()
         let authenticationService = AuthenticationServiceMock()
@@ -155,17 +154,14 @@ final class AuthenticationViewModelTests: XCTestCase {
             )
         )
         
-        viewModel.didTapPrimaryButton()
-        
-        wait(for: [expectation], timeout: Constants.timeout)
+        await viewModel.didTapPrimaryButton()
+        await fulfillment(of: [expectation], timeout: Constants.timeout)
     }
     
-    func test_didTapPrimaryButton_GivenNoUserAccountAndCreateAccountError_ThenAlertParametersAreSetCorrectly() {
+    func test_didTapPrimaryButton_GivenNoUserAccountAndCreateAccountError_ThenAlertParametersAreSetCorrectly() async {
         // Given
-        let expectation = XCTestExpectation()
         let authenticationService = AuthenticationServiceMock()
         let alertDisplayer = AlertDisplayerMock()
-        
         let viewModel = AuthenticationViewModel(
             userHasAccount: false,
             authenticationSerice: authenticationService,
@@ -190,40 +186,43 @@ final class AuthenticationViewModelTests: XCTestCase {
             }
         }
         
-        authenticationService.perform(
+        authenticationService.given(
             .createUser(
                 email: .any,
                 password: .any,
-                callback: .any,
-                perform: { _, _, completion in
-                    completion(AuthenticationError.createAccountError)
-                    
-                    // Then
-                    alertDisplayer.verify(
-                        .presentTopFloatAlert(
-                            parameters: .value(
-                                AlertViewModel(
-                                    alertType: .error,
-                                    description: L10n.errorAuthDescription
-                                )
-                            )
-                        )
-                    )
-                    expectation.fulfill()
-                }
+                cloudDatabase: .any,
+                willReturn: AuthenticationError.createAccountError
             )
         )
         
-        viewModel.didTapPrimaryButton()
+        // When
+        await viewModel.didTapPrimaryButton()
         
-        wait(for: [expectation], timeout: Constants.timeout)
+        // Then
+        alertDisplayer.verify(
+            .presentTopFloatAlert(
+                parameters: .value(
+                    AlertViewModel(
+                        alertType: .error,
+                        description: L10n.errorAuthDescription
+                    )
+                )
+            )
+        )
     }
     
-    func test_didTapPrimaryButton_GivenNoUserAccountAndNoError_ThenAlertParametersAreSetCorrectly() {
+    func test_didTapPrimaryButton_GivenNoUserAccountAndNoError_ThenAlertParametersAreSetCorrectly() async {
         // Given
-        let expectation = XCTestExpectation()
         let authenticationService = AuthenticationServiceMock()
         let alertDisplayer = AlertDisplayerMock()
+        authenticationService.given(
+            .createUser(
+                email: .any,
+                password: .any,
+                cloudDatabase: .any,
+                willReturn: nil
+            )
+        )
         
         let viewModel = AuthenticationViewModel(
             userHasAccount: false,
@@ -248,33 +247,19 @@ final class AuthenticationViewModelTests: XCTestCase {
                 formCellVM.value = "password"
             }
         }
+
+        // When
+        await viewModel.didTapPrimaryButton()
         
-        authenticationService.perform(
-            .createUser(
-                email: .any,
-                password: .any,
-                callback: .any,
-                perform: { _, _, completion in
-                    completion(nil)
-                    
-                    // Then
-                    alertDisplayer.verify(
-                        .presentTopFloatAlert(
-                            parameters: .value(
-                                AlertViewModel(
-                                    alertType: .success,
-                                    description: L10n.successAuthDescription
-                                )
-                            )
-                        )
+        alertDisplayer.verify(
+            .presentTopFloatAlert(
+                parameters: .value(
+                    AlertViewModel(
+                        alertType: .success,
+                        description: L10n.successAuthDescription
                     )
-                    expectation.fulfill()
-                }
+                )
             )
         )
-        
-        viewModel.didTapPrimaryButton()
-        
-        wait(for: [expectation], timeout: Constants.timeout)
     }
 }

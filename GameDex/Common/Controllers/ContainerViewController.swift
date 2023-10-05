@@ -95,7 +95,7 @@ class ContainerViewController: UIViewController {
     
     // MARK: - Register
     
-    public func registerCells() {
+    private func registerCells() {
         let sections = self.viewModel.sections
         
         for i in 0..<sections.count {
@@ -440,7 +440,9 @@ extension ContainerViewController: UISearchBarDelegate {
 
 extension ContainerViewController: ContainerViewControllerDelegate {
     func goBackToRootViewController() {
-        self.navigationController?.popToRootViewController(animated: true)
+        DispatchQueue.main.async {
+            self.navigationController?.popToRootViewController(animated: true)
+        }
     }
     
     func configureBottomView(contentViewFactory: ContentViewFactory) {
@@ -452,7 +454,9 @@ extension ContainerViewController: ContainerViewControllerDelegate {
     }
     
     func reloadSections() {
-        self.loadData()
+        DispatchQueue.main.async {
+            self.loadData()
+        }
     }
 }
 

@@ -9,6 +9,7 @@ import Foundation
 import FirebaseAuth
 
 class AuthenticationServiceImpl: AuthenticationService {
+    
     func login(email: String, password: String, callback: @escaping (AuthenticationError?) -> ()) {
         Auth.auth().signIn(withEmail: email, password: password) { result, error in
             guard error == nil else {
@@ -19,13 +20,17 @@ class AuthenticationServiceImpl: AuthenticationService {
         }
     }
     
-    func createUser(email: String, password: String, callback: @escaping (AuthenticationError?) -> ()) {
-        Auth.auth().createUser(withEmail: email, password: password) { authResult, error in
-            guard error == nil else {
-                callback(AuthenticationError.createAccountError)
-                return
+    func createUser(email: String, password: String, cloudDatabase: CloudDatabase) async -> AuthenticationError? {
+        do {
+            try await Auth.auth().createUser(withEmail: email, password: password)
+            if let error = await cloudDatabase.saveUser(
+                userEmail: email) {
+                return AuthenticationError.saveUserDataError
+            } else {
+                return nil
             }
-            callback(nil)
+        } catch {
+            return AuthenticationError.createAccountError
         }
     }
     

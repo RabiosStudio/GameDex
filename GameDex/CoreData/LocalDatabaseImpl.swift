@@ -24,7 +24,7 @@ extension LocalDatabaseImpl {
         platform: Platform,
         callback: @escaping (DatabaseError?) -> ()
     ) {
-        let localPlatformResult = getPlatform(platformId: platform.id)
+        let localPlatformResult = self.getPlatform(platformId: platform.id)
         switch localPlatformResult {
         case let .success(platformResult):
             guard let platformResult else {

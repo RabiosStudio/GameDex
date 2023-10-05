@@ -11,7 +11,7 @@ import NVActivityIndicatorView
 
 // sourcery: AutoMockable
 protocol PrimaryButtonDelegate: AnyObject {
-    func didTapPrimaryButton()
+    func didTapPrimaryButton() async
 }
 
 final class PrimaryButton: UIButton {
@@ -84,7 +84,9 @@ final class PrimaryButton: UIButton {
     @objc private func didTapPrimaryButton(_ sender: PrimaryButton) {
         self.isEnabled = false
         self.updateButtonDesignForState(buttonTitle: nil)
-        self.delegate?.didTapPrimaryButton()
+        Task {
+            await self.delegate?.didTapPrimaryButton()
+        }
     }
     
     private func showLoader() {

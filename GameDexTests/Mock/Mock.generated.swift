@@ -880,10 +880,17 @@ open class AuthenticationServiceMock: AuthenticationService, Mock {
 		perform?(`email`, `password`, `callback`)
     }
 
-    open func createUser(email: String, password: String, callback: @escaping (AuthenticationError?) -> ()) {
-        addInvocation(.m_createUser__email_emailpassword_passwordcallback_callback(Parameter<String>.value(`email`), Parameter<String>.value(`password`), Parameter<(AuthenticationError?) -> ()>.value(`callback`)))
-		let perform = methodPerformValue(.m_createUser__email_emailpassword_passwordcallback_callback(Parameter<String>.value(`email`), Parameter<String>.value(`password`), Parameter<(AuthenticationError?) -> ()>.value(`callback`))) as? (String, String, @escaping (AuthenticationError?) -> ()) -> Void
-		perform?(`email`, `password`, `callback`)
+    open func createUser(email: String, password: String, cloudDatabase: CloudDatabase) -> AuthenticationError? {
+        addInvocation(.m_createUser__email_emailpassword_passwordcloudDatabase_cloudDatabase(Parameter<String>.value(`email`), Parameter<String>.value(`password`), Parameter<CloudDatabase>.value(`cloudDatabase`)))
+		let perform = methodPerformValue(.m_createUser__email_emailpassword_passwordcloudDatabase_cloudDatabase(Parameter<String>.value(`email`), Parameter<String>.value(`password`), Parameter<CloudDatabase>.value(`cloudDatabase`))) as? (String, String, CloudDatabase) -> Void
+		perform?(`email`, `password`, `cloudDatabase`)
+		var __value: AuthenticationError? = nil
+		do {
+		    __value = try methodReturnValue(.m_createUser__email_emailpassword_passwordcloudDatabase_cloudDatabase(Parameter<String>.value(`email`), Parameter<String>.value(`password`), Parameter<CloudDatabase>.value(`cloudDatabase`))).casted()
+		} catch {
+			// do nothing
+		}
+		return __value
     }
 
     open func logout(callback: @escaping (AuthenticationError?) -> ()) {
@@ -909,7 +916,7 @@ open class AuthenticationServiceMock: AuthenticationService, Mock {
 
     fileprivate enum MethodType {
         case m_login__email_emailpassword_passwordcallback_callback(Parameter<String>, Parameter<String>, Parameter<(AuthenticationError?) -> ()>)
-        case m_createUser__email_emailpassword_passwordcallback_callback(Parameter<String>, Parameter<String>, Parameter<(AuthenticationError?) -> ()>)
+        case m_createUser__email_emailpassword_passwordcloudDatabase_cloudDatabase(Parameter<String>, Parameter<String>, Parameter<CloudDatabase>)
         case m_logout__callback_callback(Parameter<(AuthenticationError?) -> ()>)
         case m_isUserLoggedIn
 
@@ -922,11 +929,11 @@ open class AuthenticationServiceMock: AuthenticationService, Mock {
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsCallback, rhs: rhsCallback, with: matcher), lhsCallback, rhsCallback, "callback"))
 				return Matcher.ComparisonResult(results)
 
-            case (.m_createUser__email_emailpassword_passwordcallback_callback(let lhsEmail, let lhsPassword, let lhsCallback), .m_createUser__email_emailpassword_passwordcallback_callback(let rhsEmail, let rhsPassword, let rhsCallback)):
+            case (.m_createUser__email_emailpassword_passwordcloudDatabase_cloudDatabase(let lhsEmail, let lhsPassword, let lhsClouddatabase), .m_createUser__email_emailpassword_passwordcloudDatabase_cloudDatabase(let rhsEmail, let rhsPassword, let rhsClouddatabase)):
 				var results: [Matcher.ParameterComparisonResult] = []
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsEmail, rhs: rhsEmail, with: matcher), lhsEmail, rhsEmail, "email"))
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsPassword, rhs: rhsPassword, with: matcher), lhsPassword, rhsPassword, "password"))
-				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsCallback, rhs: rhsCallback, with: matcher), lhsCallback, rhsCallback, "callback"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsClouddatabase, rhs: rhsClouddatabase, with: matcher), lhsClouddatabase, rhsClouddatabase, "cloudDatabase"))
 				return Matcher.ComparisonResult(results)
 
             case (.m_logout__callback_callback(let lhsCallback), .m_logout__callback_callback(let rhsCallback)):
@@ -942,7 +949,7 @@ open class AuthenticationServiceMock: AuthenticationService, Mock {
         func intValue() -> Int {
             switch self {
             case let .m_login__email_emailpassword_passwordcallback_callback(p0, p1, p2): return p0.intValue + p1.intValue + p2.intValue
-            case let .m_createUser__email_emailpassword_passwordcallback_callback(p0, p1, p2): return p0.intValue + p1.intValue + p2.intValue
+            case let .m_createUser__email_emailpassword_passwordcloudDatabase_cloudDatabase(p0, p1, p2): return p0.intValue + p1.intValue + p2.intValue
             case let .m_logout__callback_callback(p0): return p0.intValue
             case .m_isUserLoggedIn: return 0
             }
@@ -950,7 +957,7 @@ open class AuthenticationServiceMock: AuthenticationService, Mock {
         func assertionName() -> String {
             switch self {
             case .m_login__email_emailpassword_passwordcallback_callback: return ".login(email:password:callback:)"
-            case .m_createUser__email_emailpassword_passwordcallback_callback: return ".createUser(email:password:callback:)"
+            case .m_createUser__email_emailpassword_passwordcloudDatabase_cloudDatabase: return ".createUser(email:password:cloudDatabase:)"
             case .m_logout__callback_callback: return ".logout(callback:)"
             case .m_isUserLoggedIn: return ".isUserLoggedIn()"
             }
@@ -966,8 +973,18 @@ open class AuthenticationServiceMock: AuthenticationService, Mock {
         }
 
 
+        public static func createUser(email: Parameter<String>, password: Parameter<String>, cloudDatabase: Parameter<CloudDatabase>, willReturn: AuthenticationError?...) -> MethodStub {
+            return Given(method: .m_createUser__email_emailpassword_passwordcloudDatabase_cloudDatabase(`email`, `password`, `cloudDatabase`), products: willReturn.map({ StubProduct.return($0 as Any) }))
+        }
         public static func isUserLoggedIn(willReturn: Bool...) -> MethodStub {
             return Given(method: .m_isUserLoggedIn, products: willReturn.map({ StubProduct.return($0 as Any) }))
+        }
+        public static func createUser(email: Parameter<String>, password: Parameter<String>, cloudDatabase: Parameter<CloudDatabase>, willProduce: (Stubber<AuthenticationError?>) -> Void) -> MethodStub {
+            let willReturn: [AuthenticationError?] = []
+			let given: Given = { return Given(method: .m_createUser__email_emailpassword_passwordcloudDatabase_cloudDatabase(`email`, `password`, `cloudDatabase`), products: willReturn.map({ StubProduct.return($0 as Any) })) }()
+			let stubber = given.stub(for: (AuthenticationError?).self)
+			willProduce(stubber)
+			return given
         }
         public static func isUserLoggedIn(willProduce: (Stubber<Bool>) -> Void) -> MethodStub {
             let willReturn: [Bool] = []
@@ -982,7 +999,7 @@ open class AuthenticationServiceMock: AuthenticationService, Mock {
         fileprivate var method: MethodType
 
         public static func login(email: Parameter<String>, password: Parameter<String>, callback: Parameter<(AuthenticationError?) -> ()>) -> Verify { return Verify(method: .m_login__email_emailpassword_passwordcallback_callback(`email`, `password`, `callback`))}
-        public static func createUser(email: Parameter<String>, password: Parameter<String>, callback: Parameter<(AuthenticationError?) -> ()>) -> Verify { return Verify(method: .m_createUser__email_emailpassword_passwordcallback_callback(`email`, `password`, `callback`))}
+        public static func createUser(email: Parameter<String>, password: Parameter<String>, cloudDatabase: Parameter<CloudDatabase>) -> Verify { return Verify(method: .m_createUser__email_emailpassword_passwordcloudDatabase_cloudDatabase(`email`, `password`, `cloudDatabase`))}
         public static func logout(callback: Parameter<(AuthenticationError?) -> ()>) -> Verify { return Verify(method: .m_logout__callback_callback(`callback`))}
         public static func isUserLoggedIn() -> Verify { return Verify(method: .m_isUserLoggedIn)}
     }
@@ -994,8 +1011,8 @@ open class AuthenticationServiceMock: AuthenticationService, Mock {
         public static func login(email: Parameter<String>, password: Parameter<String>, callback: Parameter<(AuthenticationError?) -> ()>, perform: @escaping (String, String, @escaping (AuthenticationError?) -> ()) -> Void) -> Perform {
             return Perform(method: .m_login__email_emailpassword_passwordcallback_callback(`email`, `password`, `callback`), performs: perform)
         }
-        public static func createUser(email: Parameter<String>, password: Parameter<String>, callback: Parameter<(AuthenticationError?) -> ()>, perform: @escaping (String, String, @escaping (AuthenticationError?) -> ()) -> Void) -> Perform {
-            return Perform(method: .m_createUser__email_emailpassword_passwordcallback_callback(`email`, `password`, `callback`), performs: perform)
+        public static func createUser(email: Parameter<String>, password: Parameter<String>, cloudDatabase: Parameter<CloudDatabase>, perform: @escaping (String, String, CloudDatabase) -> Void) -> Perform {
+            return Perform(method: .m_createUser__email_emailpassword_passwordcloudDatabase_cloudDatabase(`email`, `password`, `cloudDatabase`), performs: perform)
         }
         public static func logout(callback: Parameter<(AuthenticationError?) -> ()>, perform: @escaping (@escaping (AuthenticationError?) -> ()) -> Void) -> Perform {
             return Perform(method: .m_logout__callback_callback(`callback`), performs: perform)
@@ -1122,17 +1139,55 @@ open class CloudDatabaseMock: CloudDatabase, Mock {
 
 
 
-    open func getAvailablePlatforms() throws -> [Platform]? {
+    open func getAvailablePlatforms() -> Result<[Platform], DatabaseError> {
         addInvocation(.m_getAvailablePlatforms)
 		let perform = methodPerformValue(.m_getAvailablePlatforms) as? () -> Void
 		perform?()
-		var __value: [Platform]? = nil
+		var __value: Result<[Platform], DatabaseError>
 		do {
 		    __value = try methodReturnValue(.m_getAvailablePlatforms).casted()
-		} catch MockError.notStubed {
-			// do nothing
 		} catch {
-		    throw error
+			onFatalFailure("Stub return value not specified for getAvailablePlatforms(). Use given")
+			Failure("Stub return value not specified for getAvailablePlatforms(). Use given")
+		}
+		return __value
+    }
+
+    open func saveUser(userEmail: String) -> DatabaseError? {
+        addInvocation(.m_saveUser__userEmail_userEmail(Parameter<String>.value(`userEmail`)))
+		let perform = methodPerformValue(.m_saveUser__userEmail_userEmail(Parameter<String>.value(`userEmail`))) as? (String) -> Void
+		perform?(`userEmail`)
+		var __value: DatabaseError? = nil
+		do {
+		    __value = try methodReturnValue(.m_saveUser__userEmail_userEmail(Parameter<String>.value(`userEmail`))).casted()
+		} catch {
+			// do nothing
+		}
+		return __value
+    }
+
+    open func saveGame(userEmail: String, platform: Platform, localDatabase: LocalDatabase) -> DatabaseError? {
+        addInvocation(.m_saveGame__userEmail_userEmailplatform_platformlocalDatabase_localDatabase(Parameter<String>.value(`userEmail`), Parameter<Platform>.value(`platform`), Parameter<LocalDatabase>.value(`localDatabase`)))
+		let perform = methodPerformValue(.m_saveGame__userEmail_userEmailplatform_platformlocalDatabase_localDatabase(Parameter<String>.value(`userEmail`), Parameter<Platform>.value(`platform`), Parameter<LocalDatabase>.value(`localDatabase`))) as? (String, Platform, LocalDatabase) -> Void
+		perform?(`userEmail`, `platform`, `localDatabase`)
+		var __value: DatabaseError? = nil
+		do {
+		    __value = try methodReturnValue(.m_saveGame__userEmail_userEmailplatform_platformlocalDatabase_localDatabase(Parameter<String>.value(`userEmail`), Parameter<Platform>.value(`platform`), Parameter<LocalDatabase>.value(`localDatabase`))).casted()
+		} catch {
+			// do nothing
+		}
+		return __value
+    }
+
+    open func saveCollection(userEmail: String, localDatabase: LocalDatabase) -> DatabaseError? {
+        addInvocation(.m_saveCollection__userEmail_userEmaillocalDatabase_localDatabase(Parameter<String>.value(`userEmail`), Parameter<LocalDatabase>.value(`localDatabase`)))
+		let perform = methodPerformValue(.m_saveCollection__userEmail_userEmaillocalDatabase_localDatabase(Parameter<String>.value(`userEmail`), Parameter<LocalDatabase>.value(`localDatabase`))) as? (String, LocalDatabase) -> Void
+		perform?(`userEmail`, `localDatabase`)
+		var __value: DatabaseError? = nil
+		do {
+		    __value = try methodReturnValue(.m_saveCollection__userEmail_userEmaillocalDatabase_localDatabase(Parameter<String>.value(`userEmail`), Parameter<LocalDatabase>.value(`localDatabase`))).casted()
+		} catch {
+			// do nothing
 		}
 		return __value
     }
@@ -1140,21 +1195,49 @@ open class CloudDatabaseMock: CloudDatabase, Mock {
 
     fileprivate enum MethodType {
         case m_getAvailablePlatforms
+        case m_saveUser__userEmail_userEmail(Parameter<String>)
+        case m_saveGame__userEmail_userEmailplatform_platformlocalDatabase_localDatabase(Parameter<String>, Parameter<Platform>, Parameter<LocalDatabase>)
+        case m_saveCollection__userEmail_userEmaillocalDatabase_localDatabase(Parameter<String>, Parameter<LocalDatabase>)
 
         static func compareParameters(lhs: MethodType, rhs: MethodType, matcher: Matcher) -> Matcher.ComparisonResult {
             switch (lhs, rhs) {
             case (.m_getAvailablePlatforms, .m_getAvailablePlatforms): return .match
+
+            case (.m_saveUser__userEmail_userEmail(let lhsUseremail), .m_saveUser__userEmail_userEmail(let rhsUseremail)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsUseremail, rhs: rhsUseremail, with: matcher), lhsUseremail, rhsUseremail, "userEmail"))
+				return Matcher.ComparisonResult(results)
+
+            case (.m_saveGame__userEmail_userEmailplatform_platformlocalDatabase_localDatabase(let lhsUseremail, let lhsPlatform, let lhsLocaldatabase), .m_saveGame__userEmail_userEmailplatform_platformlocalDatabase_localDatabase(let rhsUseremail, let rhsPlatform, let rhsLocaldatabase)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsUseremail, rhs: rhsUseremail, with: matcher), lhsUseremail, rhsUseremail, "userEmail"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsPlatform, rhs: rhsPlatform, with: matcher), lhsPlatform, rhsPlatform, "platform"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsLocaldatabase, rhs: rhsLocaldatabase, with: matcher), lhsLocaldatabase, rhsLocaldatabase, "localDatabase"))
+				return Matcher.ComparisonResult(results)
+
+            case (.m_saveCollection__userEmail_userEmaillocalDatabase_localDatabase(let lhsUseremail, let lhsLocaldatabase), .m_saveCollection__userEmail_userEmaillocalDatabase_localDatabase(let rhsUseremail, let rhsLocaldatabase)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsUseremail, rhs: rhsUseremail, with: matcher), lhsUseremail, rhsUseremail, "userEmail"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsLocaldatabase, rhs: rhsLocaldatabase, with: matcher), lhsLocaldatabase, rhsLocaldatabase, "localDatabase"))
+				return Matcher.ComparisonResult(results)
+            default: return .none
             }
         }
 
         func intValue() -> Int {
             switch self {
             case .m_getAvailablePlatforms: return 0
+            case let .m_saveUser__userEmail_userEmail(p0): return p0.intValue
+            case let .m_saveGame__userEmail_userEmailplatform_platformlocalDatabase_localDatabase(p0, p1, p2): return p0.intValue + p1.intValue + p2.intValue
+            case let .m_saveCollection__userEmail_userEmaillocalDatabase_localDatabase(p0, p1): return p0.intValue + p1.intValue
             }
         }
         func assertionName() -> String {
             switch self {
             case .m_getAvailablePlatforms: return ".getAvailablePlatforms()"
+            case .m_saveUser__userEmail_userEmail: return ".saveUser(userEmail:)"
+            case .m_saveGame__userEmail_userEmailplatform_platformlocalDatabase_localDatabase: return ".saveGame(userEmail:platform:localDatabase:)"
+            case .m_saveCollection__userEmail_userEmaillocalDatabase_localDatabase: return ".saveCollection(userEmail:localDatabase:)"
             }
         }
     }
@@ -1168,16 +1251,43 @@ open class CloudDatabaseMock: CloudDatabase, Mock {
         }
 
 
-        public static func getAvailablePlatforms(willReturn: [Platform]?...) -> MethodStub {
+        public static func getAvailablePlatforms(willReturn: Result<[Platform], DatabaseError>...) -> MethodStub {
             return Given(method: .m_getAvailablePlatforms, products: willReturn.map({ StubProduct.return($0 as Any) }))
         }
-        public static func getAvailablePlatforms(willThrow: Error...) -> MethodStub {
-            return Given(method: .m_getAvailablePlatforms, products: willThrow.map({ StubProduct.throw($0) }))
+        public static func saveUser(userEmail: Parameter<String>, willReturn: DatabaseError?...) -> MethodStub {
+            return Given(method: .m_saveUser__userEmail_userEmail(`userEmail`), products: willReturn.map({ StubProduct.return($0 as Any) }))
         }
-        public static func getAvailablePlatforms(willProduce: (StubberThrows<[Platform]?>) -> Void) -> MethodStub {
-            let willThrow: [Error] = []
-			let given: Given = { return Given(method: .m_getAvailablePlatforms, products: willThrow.map({ StubProduct.throw($0) })) }()
-			let stubber = given.stubThrows(for: ([Platform]?).self)
+        public static func saveGame(userEmail: Parameter<String>, platform: Parameter<Platform>, localDatabase: Parameter<LocalDatabase>, willReturn: DatabaseError?...) -> MethodStub {
+            return Given(method: .m_saveGame__userEmail_userEmailplatform_platformlocalDatabase_localDatabase(`userEmail`, `platform`, `localDatabase`), products: willReturn.map({ StubProduct.return($0 as Any) }))
+        }
+        public static func saveCollection(userEmail: Parameter<String>, localDatabase: Parameter<LocalDatabase>, willReturn: DatabaseError?...) -> MethodStub {
+            return Given(method: .m_saveCollection__userEmail_userEmaillocalDatabase_localDatabase(`userEmail`, `localDatabase`), products: willReturn.map({ StubProduct.return($0 as Any) }))
+        }
+        public static func getAvailablePlatforms(willProduce: (Stubber<Result<[Platform], DatabaseError>>) -> Void) -> MethodStub {
+            let willReturn: [Result<[Platform], DatabaseError>] = []
+			let given: Given = { return Given(method: .m_getAvailablePlatforms, products: willReturn.map({ StubProduct.return($0 as Any) })) }()
+			let stubber = given.stub(for: (Result<[Platform], DatabaseError>).self)
+			willProduce(stubber)
+			return given
+        }
+        public static func saveUser(userEmail: Parameter<String>, willProduce: (Stubber<DatabaseError?>) -> Void) -> MethodStub {
+            let willReturn: [DatabaseError?] = []
+			let given: Given = { return Given(method: .m_saveUser__userEmail_userEmail(`userEmail`), products: willReturn.map({ StubProduct.return($0 as Any) })) }()
+			let stubber = given.stub(for: (DatabaseError?).self)
+			willProduce(stubber)
+			return given
+        }
+        public static func saveGame(userEmail: Parameter<String>, platform: Parameter<Platform>, localDatabase: Parameter<LocalDatabase>, willProduce: (Stubber<DatabaseError?>) -> Void) -> MethodStub {
+            let willReturn: [DatabaseError?] = []
+			let given: Given = { return Given(method: .m_saveGame__userEmail_userEmailplatform_platformlocalDatabase_localDatabase(`userEmail`, `platform`, `localDatabase`), products: willReturn.map({ StubProduct.return($0 as Any) })) }()
+			let stubber = given.stub(for: (DatabaseError?).self)
+			willProduce(stubber)
+			return given
+        }
+        public static func saveCollection(userEmail: Parameter<String>, localDatabase: Parameter<LocalDatabase>, willProduce: (Stubber<DatabaseError?>) -> Void) -> MethodStub {
+            let willReturn: [DatabaseError?] = []
+			let given: Given = { return Given(method: .m_saveCollection__userEmail_userEmaillocalDatabase_localDatabase(`userEmail`, `localDatabase`), products: willReturn.map({ StubProduct.return($0 as Any) })) }()
+			let stubber = given.stub(for: (DatabaseError?).self)
 			willProduce(stubber)
 			return given
         }
@@ -1187,6 +1297,9 @@ open class CloudDatabaseMock: CloudDatabase, Mock {
         fileprivate var method: MethodType
 
         public static func getAvailablePlatforms() -> Verify { return Verify(method: .m_getAvailablePlatforms)}
+        public static func saveUser(userEmail: Parameter<String>) -> Verify { return Verify(method: .m_saveUser__userEmail_userEmail(`userEmail`))}
+        public static func saveGame(userEmail: Parameter<String>, platform: Parameter<Platform>, localDatabase: Parameter<LocalDatabase>) -> Verify { return Verify(method: .m_saveGame__userEmail_userEmailplatform_platformlocalDatabase_localDatabase(`userEmail`, `platform`, `localDatabase`))}
+        public static func saveCollection(userEmail: Parameter<String>, localDatabase: Parameter<LocalDatabase>) -> Verify { return Verify(method: .m_saveCollection__userEmail_userEmaillocalDatabase_localDatabase(`userEmail`, `localDatabase`))}
     }
 
     public struct Perform {
@@ -1195,6 +1308,15 @@ open class CloudDatabaseMock: CloudDatabase, Mock {
 
         public static func getAvailablePlatforms(perform: @escaping () -> Void) -> Perform {
             return Perform(method: .m_getAvailablePlatforms, performs: perform)
+        }
+        public static func saveUser(userEmail: Parameter<String>, perform: @escaping (String) -> Void) -> Perform {
+            return Perform(method: .m_saveUser__userEmail_userEmail(`userEmail`), performs: perform)
+        }
+        public static func saveGame(userEmail: Parameter<String>, platform: Parameter<Platform>, localDatabase: Parameter<LocalDatabase>, perform: @escaping (String, Platform, LocalDatabase) -> Void) -> Perform {
+            return Perform(method: .m_saveGame__userEmail_userEmailplatform_platformlocalDatabase_localDatabase(`userEmail`, `platform`, `localDatabase`), performs: perform)
+        }
+        public static func saveCollection(userEmail: Parameter<String>, localDatabase: Parameter<LocalDatabase>, perform: @escaping (String, LocalDatabase) -> Void) -> Perform {
+            return Perform(method: .m_saveCollection__userEmail_userEmaillocalDatabase_localDatabase(`userEmail`, `localDatabase`), performs: perform)
         }
     }
 

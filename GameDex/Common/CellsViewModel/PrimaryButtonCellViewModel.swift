@@ -28,6 +28,8 @@ final class PrimaryButtonCellViewModel: ButtonCollectionCellViewModel {
     }
     
     func didTapButton() {
-        self.delegate?.didTapPrimaryButton()
+        Task {
+            await self.delegate?.didTapPrimaryButton()
+        }
     }
 }
