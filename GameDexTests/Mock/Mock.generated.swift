@@ -87,9 +87,16 @@ open class APIMock: API, Mock {
 		return __value
     }
 
+    open func setCommonParameters(cloudDatabase: CloudDatabase) {
+        addInvocation(.m_setCommonParameters__cloudDatabase_cloudDatabase(Parameter<CloudDatabase>.value(`cloudDatabase`)))
+		let perform = methodPerformValue(.m_setCommonParameters__cloudDatabase_cloudDatabase(Parameter<CloudDatabase>.value(`cloudDatabase`))) as? (CloudDatabase) -> Void
+		perform?(`cloudDatabase`)
+    }
+
 
     fileprivate enum MethodType {
         case m_getData__with_endpoint(Parameter<GenericAttribute>)
+        case m_setCommonParameters__cloudDatabase_cloudDatabase(Parameter<CloudDatabase>)
         case p_lastTask_get
 		case p_lastTask_set(Parameter<URLSessionTask?>)
         case p_basePath_get
@@ -100,6 +107,11 @@ open class APIMock: API, Mock {
             case (.m_getData__with_endpoint(let lhsEndpoint), .m_getData__with_endpoint(let rhsEndpoint)):
 				var results: [Matcher.ParameterComparisonResult] = []
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsEndpoint, rhs: rhsEndpoint, with: matcher), lhsEndpoint, rhsEndpoint, "with endpoint"))
+				return Matcher.ComparisonResult(results)
+
+            case (.m_setCommonParameters__cloudDatabase_cloudDatabase(let lhsClouddatabase), .m_setCommonParameters__cloudDatabase_cloudDatabase(let rhsClouddatabase)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsClouddatabase, rhs: rhsClouddatabase, with: matcher), lhsClouddatabase, rhsClouddatabase, "cloudDatabase"))
 				return Matcher.ComparisonResult(results)
             case (.p_lastTask_get,.p_lastTask_get): return Matcher.ComparisonResult.match
 			case (.p_lastTask_set(let left),.p_lastTask_set(let right)): return Matcher.ComparisonResult([Matcher.ParameterComparisonResult(Parameter<URLSessionTask?>.compare(lhs: left, rhs: right, with: matcher), left, right, "newValue")])
@@ -112,6 +124,7 @@ open class APIMock: API, Mock {
         func intValue() -> Int {
             switch self {
             case let .m_getData__with_endpoint(p0): return p0.intValue
+            case let .m_setCommonParameters__cloudDatabase_cloudDatabase(p0): return p0.intValue
             case .p_lastTask_get: return 0
 			case .p_lastTask_set(let newValue): return newValue.intValue
             case .p_basePath_get: return 0
@@ -121,6 +134,7 @@ open class APIMock: API, Mock {
         func assertionName() -> String {
             switch self {
             case .m_getData__with_endpoint: return ".getData(with:)"
+            case .m_setCommonParameters__cloudDatabase_cloudDatabase: return ".setCommonParameters(cloudDatabase:)"
             case .p_lastTask_get: return "[get] .lastTask"
 			case .p_lastTask_set: return "[set] .lastTask"
             case .p_basePath_get: return "[get] .basePath"
@@ -163,6 +177,7 @@ open class APIMock: API, Mock {
         fileprivate var method: MethodType
 
         public static func getData<T>(with endpoint: Parameter<T>) -> Verify where T:APIEndpoint { return Verify(method: .m_getData__with_endpoint(`endpoint`.wrapAsGeneric()))}
+        public static func setCommonParameters(cloudDatabase: Parameter<CloudDatabase>) -> Verify { return Verify(method: .m_setCommonParameters__cloudDatabase_cloudDatabase(`cloudDatabase`))}
         public static var lastTask: Verify { return Verify(method: .p_lastTask_get) }
 		public static func lastTask(set newValue: Parameter<URLSessionTask?>) -> Verify { return Verify(method: .p_lastTask_set(newValue)) }
         public static var basePath: Verify { return Verify(method: .p_basePath_get) }
@@ -175,6 +190,9 @@ open class APIMock: API, Mock {
 
         public static func getData<T>(with endpoint: Parameter<T>, perform: @escaping (T) -> Void) -> Perform where T:APIEndpoint {
             return Perform(method: .m_getData__with_endpoint(`endpoint`.wrapAsGeneric()), performs: perform)
+        }
+        public static func setCommonParameters(cloudDatabase: Parameter<CloudDatabase>, perform: @escaping (CloudDatabase) -> Void) -> Perform {
+            return Perform(method: .m_setCommonParameters__cloudDatabase_cloudDatabase(`cloudDatabase`), performs: perform)
         }
     }
 
@@ -1192,12 +1210,27 @@ open class CloudDatabaseMock: CloudDatabase, Mock {
 		return __value
     }
 
+    open func getApiKey() -> Result<String, DatabaseError> {
+        addInvocation(.m_getApiKey)
+		let perform = methodPerformValue(.m_getApiKey) as? () -> Void
+		perform?()
+		var __value: Result<String, DatabaseError>
+		do {
+		    __value = try methodReturnValue(.m_getApiKey).casted()
+		} catch {
+			onFatalFailure("Stub return value not specified for getApiKey(). Use given")
+			Failure("Stub return value not specified for getApiKey(). Use given")
+		}
+		return __value
+    }
+
 
     fileprivate enum MethodType {
         case m_getAvailablePlatforms
         case m_saveUser__userEmail_userEmail(Parameter<String>)
         case m_saveGame__userEmail_userEmailplatform_platformlocalDatabase_localDatabase(Parameter<String>, Parameter<Platform>, Parameter<LocalDatabase>)
         case m_saveCollection__userEmail_userEmaillocalDatabase_localDatabase(Parameter<String>, Parameter<LocalDatabase>)
+        case m_getApiKey
 
         static func compareParameters(lhs: MethodType, rhs: MethodType, matcher: Matcher) -> Matcher.ComparisonResult {
             switch (lhs, rhs) {
@@ -1220,6 +1253,8 @@ open class CloudDatabaseMock: CloudDatabase, Mock {
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsUseremail, rhs: rhsUseremail, with: matcher), lhsUseremail, rhsUseremail, "userEmail"))
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsLocaldatabase, rhs: rhsLocaldatabase, with: matcher), lhsLocaldatabase, rhsLocaldatabase, "localDatabase"))
 				return Matcher.ComparisonResult(results)
+
+            case (.m_getApiKey, .m_getApiKey): return .match
             default: return .none
             }
         }
@@ -1230,6 +1265,7 @@ open class CloudDatabaseMock: CloudDatabase, Mock {
             case let .m_saveUser__userEmail_userEmail(p0): return p0.intValue
             case let .m_saveGame__userEmail_userEmailplatform_platformlocalDatabase_localDatabase(p0, p1, p2): return p0.intValue + p1.intValue + p2.intValue
             case let .m_saveCollection__userEmail_userEmaillocalDatabase_localDatabase(p0, p1): return p0.intValue + p1.intValue
+            case .m_getApiKey: return 0
             }
         }
         func assertionName() -> String {
@@ -1238,6 +1274,7 @@ open class CloudDatabaseMock: CloudDatabase, Mock {
             case .m_saveUser__userEmail_userEmail: return ".saveUser(userEmail:)"
             case .m_saveGame__userEmail_userEmailplatform_platformlocalDatabase_localDatabase: return ".saveGame(userEmail:platform:localDatabase:)"
             case .m_saveCollection__userEmail_userEmaillocalDatabase_localDatabase: return ".saveCollection(userEmail:localDatabase:)"
+            case .m_getApiKey: return ".getApiKey()"
             }
         }
     }
@@ -1262,6 +1299,9 @@ open class CloudDatabaseMock: CloudDatabase, Mock {
         }
         public static func saveCollection(userEmail: Parameter<String>, localDatabase: Parameter<LocalDatabase>, willReturn: DatabaseError?...) -> MethodStub {
             return Given(method: .m_saveCollection__userEmail_userEmaillocalDatabase_localDatabase(`userEmail`, `localDatabase`), products: willReturn.map({ StubProduct.return($0 as Any) }))
+        }
+        public static func getApiKey(willReturn: Result<String, DatabaseError>...) -> MethodStub {
+            return Given(method: .m_getApiKey, products: willReturn.map({ StubProduct.return($0 as Any) }))
         }
         public static func getAvailablePlatforms(willProduce: (Stubber<Result<[Platform], DatabaseError>>) -> Void) -> MethodStub {
             let willReturn: [Result<[Platform], DatabaseError>] = []
@@ -1291,6 +1331,13 @@ open class CloudDatabaseMock: CloudDatabase, Mock {
 			willProduce(stubber)
 			return given
         }
+        public static func getApiKey(willProduce: (Stubber<Result<String, DatabaseError>>) -> Void) -> MethodStub {
+            let willReturn: [Result<String, DatabaseError>] = []
+			let given: Given = { return Given(method: .m_getApiKey, products: willReturn.map({ StubProduct.return($0 as Any) })) }()
+			let stubber = given.stub(for: (Result<String, DatabaseError>).self)
+			willProduce(stubber)
+			return given
+        }
     }
 
     public struct Verify {
@@ -1300,6 +1347,7 @@ open class CloudDatabaseMock: CloudDatabase, Mock {
         public static func saveUser(userEmail: Parameter<String>) -> Verify { return Verify(method: .m_saveUser__userEmail_userEmail(`userEmail`))}
         public static func saveGame(userEmail: Parameter<String>, platform: Parameter<Platform>, localDatabase: Parameter<LocalDatabase>) -> Verify { return Verify(method: .m_saveGame__userEmail_userEmailplatform_platformlocalDatabase_localDatabase(`userEmail`, `platform`, `localDatabase`))}
         public static func saveCollection(userEmail: Parameter<String>, localDatabase: Parameter<LocalDatabase>) -> Verify { return Verify(method: .m_saveCollection__userEmail_userEmaillocalDatabase_localDatabase(`userEmail`, `localDatabase`))}
+        public static func getApiKey() -> Verify { return Verify(method: .m_getApiKey)}
     }
 
     public struct Perform {
@@ -1317,6 +1365,9 @@ open class CloudDatabaseMock: CloudDatabase, Mock {
         }
         public static func saveCollection(userEmail: Parameter<String>, localDatabase: Parameter<LocalDatabase>, perform: @escaping (String, LocalDatabase) -> Void) -> Perform {
             return Perform(method: .m_saveCollection__userEmail_userEmaillocalDatabase_localDatabase(`userEmail`, `localDatabase`), performs: perform)
+        }
+        public static func getApiKey(perform: @escaping () -> Void) -> Perform {
+            return Perform(method: .m_getApiKey, performs: perform)
         }
     }
 
