@@ -25,9 +25,9 @@ class AlamofireAPI: API {
     func setCommonParameters(cloudDatabase: CloudDatabase) async {
         let result = await cloudDatabase.getApiKey()
         switch result {
-        case .success(let key):
+        case let .success(key):
             self.commonParameters = [Constants.apiKey: key]
-        case .failure(_):
+        case .failure:
             self.commonParameters = [:]
         }
     }
