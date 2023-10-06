@@ -17,13 +17,23 @@ final class LoginViewModel: CollectionViewModel {
     
     weak var containerDelegate: ContainerViewControllerDelegate?
     weak var myProfileDelegate: MyProfileViewModelDelegate?
+    weak var myCollectionDelegate: GameDetailsViewModelDelegate?
     
-    init(myProfileDelegate: MyProfileViewModelDelegate?) {
+    init(
+        myProfileDelegate: MyProfileViewModelDelegate?,
+        myCollectionDelegate: GameDetailsViewModelDelegate?
+    ) {
         self.myProfileDelegate = myProfileDelegate
+        self.myCollectionDelegate = myCollectionDelegate
     }
     
     func loadData(callback: @escaping (EmptyError?) -> ()) {
-        self.sections = [LoginSection(myProfileDelegate: self.myProfileDelegate)]
+        self.sections = [
+            LoginSection(
+                myProfileDelegate: self.myProfileDelegate,
+                myCollectionDelegate: self.myCollectionDelegate
+            )
+        ]
         callback(nil)
     }
     

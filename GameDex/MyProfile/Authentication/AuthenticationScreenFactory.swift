@@ -12,13 +12,15 @@ struct AuthenticationScreenFactory: ScreenFactory {
     
     private let userHasAccount: Bool
     private let myProfileDelegate: MyProfileViewModelDelegate?
+    private let myCollectionDelegate: GameDetailsViewModelDelegate?
     
     var viewController: UIViewController {
         let viewModel = AuthenticationViewModel(
             userHasAccount: self.userHasAccount,
             authenticationSerice: AuthenticationServiceImpl(),
             alertDisplayer: AlertDisplayerImpl(),
-            myProfileDelegate: self.myProfileDelegate
+            myProfileDelegate: self.myProfileDelegate,
+            myCollectionDelegate: self.myCollectionDelegate
         )
         let layout = UICollectionViewFlowLayout()
         let containerController = ContainerViewController(
@@ -29,8 +31,12 @@ struct AuthenticationScreenFactory: ScreenFactory {
         return containerController
     }
     
-    init(userHasAccount: Bool, myProfileDelegate: MyProfileViewModelDelegate?) {
+    init(userHasAccount: Bool,
+         myProfileDelegate: MyProfileViewModelDelegate?,
+         myCollectionDelegate: GameDetailsViewModelDelegate?
+    ) {
         self.userHasAccount = userHasAccount
         self.myProfileDelegate = myProfileDelegate
+        self.myCollectionDelegate = myCollectionDelegate
     }
 }

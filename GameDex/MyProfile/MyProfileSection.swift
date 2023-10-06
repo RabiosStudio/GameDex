@@ -12,6 +12,7 @@ final class MyProfileSection: Section {
     init(
         userIsLoggedIn: Bool,
         myProfileDelegate: MyProfileViewModelDelegate?,
+        myCollectionDelegate: GameDetailsViewModelDelegate?,
         alertDisplayer: AlertDisplayer
     ) {
         super.init()
@@ -37,7 +38,8 @@ final class MyProfileSection: Section {
                 primaryText: L10n.login,
                 cellTappedCallback: {
                     let screenFactory = LoginScreenFactory(
-                        myProfileDelegate: myProfileDelegate
+                        myProfileDelegate: myProfileDelegate,
+                        myCollectionDelegate: myCollectionDelegate
                     )
                     Routing.shared.route(
                         navigationStyle: .push(

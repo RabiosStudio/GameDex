@@ -32,7 +32,7 @@ final class MyCollectionByPlatformsViewModel: CollectionViewModel {
         platform: Platform?,
         database: LocalDatabase,
         alertDisplayer: AlertDisplayer,
-        gameDetailsDelegate: GameDetailsViewModelDelegate?
+        gameDetailsDelegate: GameDetailsViewModelDelegate?,
         authenticationService: AuthenticationService
     ) {
         self.platform = platform

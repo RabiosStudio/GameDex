@@ -461,6 +461,7 @@ extension ContainerViewController: ContainerViewControllerDelegate {
     
     func reloadSections() {
         DispatchQueue.main.async {
+            self.supplementaryView.removeFromSuperview()
             self.loadData()
         }
     }

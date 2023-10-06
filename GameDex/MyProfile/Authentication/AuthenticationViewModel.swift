@@ -17,6 +17,7 @@ final class AuthenticationViewModel: CollectionViewModel {
     
     weak var containerDelegate: ContainerViewControllerDelegate?
     weak var myProfileDelegate: MyProfileViewModelDelegate?
+    weak var myCollectionDelegate: GameDetailsViewModelDelegate?
     
     private let userHasAccount: Bool
     private let authenticationSerice: AuthenticationService
@@ -26,12 +27,14 @@ final class AuthenticationViewModel: CollectionViewModel {
         userHasAccount: Bool,
         authenticationSerice: AuthenticationService,
         alertDisplayer: AlertDisplayer,
-        myProfileDelegate: MyProfileViewModelDelegate?
+        myProfileDelegate: MyProfileViewModelDelegate?,
+        myCollectionDelegate: GameDetailsViewModelDelegate?
     ) {
         self.userHasAccount = userHasAccount
         self.authenticationSerice = authenticationSerice
         self.alertDisplayer = alertDisplayer
         self.myProfileDelegate = myProfileDelegate
+        self.myCollectionDelegate = myCollectionDelegate
         self.screenTitle = userHasAccount ? L10n.login : L10n.signup
     }
     
@@ -92,6 +95,7 @@ extension AuthenticationViewModel: PrimaryButtonDelegate {
                 }
                 self?.displayAlert(success: true)
                 self?.myProfileDelegate?.reloadMyProfile()
+                self?.myCollectionDelegate?.reloadCollection()
                 self?.containerDelegate?.goBackToRootViewController()
             }
         } else {
@@ -105,6 +109,7 @@ extension AuthenticationViewModel: PrimaryButtonDelegate {
             }
             self.displayAlert(success: true)
             self.myProfileDelegate?.reloadMyProfile()
+            self.myCollectionDelegate?.reloadCollection()
             self.containerDelegate?.goBackToRootViewController()
         }
     }

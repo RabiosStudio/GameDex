@@ -21,14 +21,20 @@ final class MyProfileViewModel: CollectionViewModel {
     var sections: [Section] = []
     
     weak var containerDelegate: ContainerViewControllerDelegate?
+    weak var myCollectionDelegate: GameDetailsViewModelDelegate?
     
     private let authenticationService: AuthenticationService
     private var alertDisplayer: AlertDisplayer
     
-    init(authenticationService: AuthenticationService, alertDisplayer: AlertDisplayer) {
+    init(
+        authenticationService: AuthenticationService,
+        alertDisplayer: AlertDisplayer,
+        myCollectionDelegate: GameDetailsViewModelDelegate?
+    ) {
         self.authenticationService = authenticationService
         self.alertDisplayer = alertDisplayer
         self.alertDisplayer.alertDelegate = self
+        self.myCollectionDelegate = myCollectionDelegate
     }
     
     func loadData(callback: @escaping (EmptyError?) -> ()) {
@@ -37,6 +43,7 @@ final class MyProfileViewModel: CollectionViewModel {
             MyProfileSection(
                 userIsLoggedIn: userIsLoggedIn,
                 myProfileDelegate: self,
+                myCollectionDelegate: self.myCollectionDelegate,
                 alertDisplayer: self.alertDisplayer
             )
         ]
@@ -56,6 +63,7 @@ extension MyProfileViewModel: AlertDisplayerDelegate {
                 )
                 if error == nil {
                     self?.containerDelegate?.reloadSections()
+                    self?.myCollectionDelegate?.reloadCollection()
                 }
             }
         )
