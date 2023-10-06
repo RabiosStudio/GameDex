@@ -126,7 +126,8 @@ extension EditGameDetailsViewModel: PrimaryButtonDelegate {
             gameRegion: gameRegion,
             storageArea: storageArea,
             rating: rating,
-            notes: notes
+            notes: notes,
+            lastUpdated: Date()
         )
         
         self.localDatabase.replace(savedGame: gameToSave) { [weak self] error in

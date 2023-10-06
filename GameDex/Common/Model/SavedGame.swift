@@ -16,4 +16,5 @@ struct SavedGame {
     let storageArea: String?
     let rating: Int?
     let notes: String?
+    let lastUpdated: Date
 }

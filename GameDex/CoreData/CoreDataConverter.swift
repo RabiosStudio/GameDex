@@ -47,6 +47,7 @@ enum CoreDataConverter {
         gameCollected.acquisitionYear = gameDetails.acquisitionYear
         gameCollected.gameID = gameDetails.game.id
         gameCollected.releaseDate = gameDetails.game.releaseDate
+        gameCollected.lastUpdated = gameDetails.lastUpdated
     
         return gameCollected
     }
@@ -68,7 +69,8 @@ enum CoreDataConverter {
                 gameRegion: aGame.gameRegion,
                 storageArea: aGame.storageArea,
                 rating: Int(aGame.rating),
-                notes: aGame.notes
+                notes: aGame.notes,
+                lastUpdated: aGame.lastUpdated
             )
         }
         let platform = Platform(

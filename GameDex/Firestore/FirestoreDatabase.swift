@@ -50,6 +50,7 @@ class FirestoreDatabase: CloudDatabase {
         case storageArea
         case rating
         case notes
+        case lastUpdated
         case key
     }
     
@@ -143,7 +144,8 @@ class FirestoreDatabase: CloudDatabase {
                 Attributes.gameRegion.rawValue: item.gameRegion as Any,
                 Attributes.storageArea.rawValue: item.storageArea as Any,
                 Attributes.rating.rawValue: item.rating as Any,
-                Attributes.notes.rawValue: item.notes as Any
+                Attributes.notes.rawValue: item.notes as Any,
+                Attributes.lastUpdated.rawValue: item.lastUpdated
             ]
             do {
                 try await self.database.collection(Collections.userGames(userEmail, platform.title).path).document(item.game.title).setData(docData)
