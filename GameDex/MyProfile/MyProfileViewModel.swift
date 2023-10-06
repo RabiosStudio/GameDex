@@ -32,7 +32,7 @@ final class MyProfileViewModel: CollectionViewModel {
     }
     
     func loadData(callback: @escaping (EmptyError?) -> ()) {
-        let userIsLoggedIn = self.authenticationService.isUserLoggedIn()
+        let userIsLoggedIn = self.authenticationService.userIsLoggedIn()
         self.sections = [
             MyProfileSection(
                 userIsLoggedIn: userIsLoggedIn,
