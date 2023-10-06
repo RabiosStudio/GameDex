@@ -18,7 +18,8 @@ struct MyCollectionByPlatformsScreenFactory: ScreenFactory {
             platform: self.platform,
             database: LocalDatabaseImpl(),
             alertDisplayer: AlertDisplayerImpl(),
-            gameDetailsDelegate: gameDetailsDelegate
+            gameDetailsDelegate: gameDetailsDelegate,
+            authenticationService: AuthenticationServiceImpl()
         )
         let layout = UICollectionViewFlowLayout()
         let containerController = ContainerViewController(

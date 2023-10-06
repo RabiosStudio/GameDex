@@ -24,12 +24,18 @@ final class MyCollectionViewModel: CollectionViewModel {
     weak var gameDetailsDelegate: GameDetailsViewModelDelegate?
     
     private let localDatabase: LocalDatabase
+    private let authenticationService: AuthenticationService
     
-    init(localDatabase: LocalDatabase) {
+    init(
+        localDatabase: LocalDatabase,
+        authenticationService: AuthenticationService
+    ) {
         self.localDatabase = localDatabase
+        self.authenticationService = authenticationService
     }
     
     func loadData(callback: @escaping (EmptyError?) -> ()) {
+        self.displayInfoWarningIfNeeded()
         let fetchPlatformsResult = self.localDatabase.fetchAllPlatforms()
         switch fetchPlatformsResult {
         case .success(let result):
@@ -75,6 +81,23 @@ final class MyCollectionViewModel: CollectionViewModel {
                 gameDetailsDelegate: self
             )
         ]
+    }
+    
+    private func displayInfoWarningIfNeeded() {
+        if !self.authenticationService.userIsLoggedIn() && ConnectionManager.shared.hasConnectivity() {
+            self.setupInfoWarning(text: L10n.infoLogout)
+        } else if !ConnectionManager.shared.hasConnectivity() {
+            self.setupInfoWarning(text: L10n.infoNoInternet)
+        }
+    }
+    
+    private func setupInfoWarning(text: String) {
+        self.containerDelegate?.configureSupplementaryView(
+            contentViewFactory: InfoContentViewFactory(
+                infoText: text
+            ),
+            topView: true
+        )
     }
     
 }

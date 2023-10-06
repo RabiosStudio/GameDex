@@ -19,27 +19,32 @@ final class MyCollectionByPlatformsViewModel: CollectionViewModel {
     var rightButtonItems: [AnyBarButtonItem]? = [.add, .search]
     let screenTitle: String?
     var sections = [Section]()
+    
     weak var containerDelegate: ContainerViewControllerDelegate?
     weak var gameDetailsDelegate: GameDetailsViewModelDelegate?
     
     private let database: LocalDatabase
     private let alertDisplayer: AlertDisplayer
     private var platform: Platform?
+    private let authenticationService: AuthenticationService
     
     init(
         platform: Platform?,
         database: LocalDatabase,
         alertDisplayer: AlertDisplayer,
         gameDetailsDelegate: GameDetailsViewModelDelegate?
+        authenticationService: AuthenticationService
     ) {
         self.platform = platform
         self.database = database
         self.alertDisplayer = alertDisplayer
         self.gameDetailsDelegate = gameDetailsDelegate
+        self.authenticationService = authenticationService
         self.screenTitle = self.platform?.title
     }
     
     func loadData(callback: @escaping (EmptyError?) -> ()) {
+        self.displayInfoWarningIfNeeded()
         guard let platform = self.platform,
               let games = platform.games else {
             self.containerDelegate?.goBackToRootViewController()
@@ -93,6 +98,23 @@ final class MyCollectionByPlatformsViewModel: CollectionViewModel {
                 alertType: .error,
                 description: L10n.fetchGamesErrorDescription
             )
+        )
+    }
+    
+    private func displayInfoWarningIfNeeded() {
+        if !self.authenticationService.userIsLoggedIn() && ConnectionManager.shared.hasConnectivity() {
+            self.setupInfoWarning(text: L10n.infoLogout)
+        } else if !ConnectionManager.shared.hasConnectivity() {
+            self.setupInfoWarning(text: L10n.infoNoInternet)
+        }
+    }
+    
+    private func setupInfoWarning(text: String) {
+        self.containerDelegate?.configureSupplementaryView(
+            contentViewFactory: InfoContentViewFactory(
+                infoText: text
+            ),
+            topView: true
         )
     }
 }
