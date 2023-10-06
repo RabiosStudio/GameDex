@@ -80,8 +80,9 @@ final class EditGameDetailsViewModel: CollectionViewModel {
             buttonTitle: L10n.saveChanges,
             shouldEnable: shouldEnableButton
         )
-        self.containerDelegate?.configureBottomView(
-            contentViewFactory: buttonContentViewFactory
+        self.containerDelegate?.configureSupplementaryView(
+            contentViewFactory: buttonContentViewFactory,
+            topView: false
         )
     }
 }

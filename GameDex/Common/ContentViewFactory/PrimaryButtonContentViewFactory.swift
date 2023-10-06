@@ -9,7 +9,7 @@ import Foundation
 import UIKit
 
 final class PrimaryButtonContentViewFactory: ContentViewFactory {
-    lazy var bottomView: UIView = {
+    lazy var contentView: UIView = {
         let continueButton = PrimaryButton(
             delegate: self.delegate,
             shouldEnable: self.shouldEnable

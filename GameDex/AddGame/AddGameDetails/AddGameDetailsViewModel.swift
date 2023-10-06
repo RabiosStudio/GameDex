@@ -66,8 +66,9 @@ final class AddGameDetailsViewModel: CollectionViewModel {
             buttonTitle: L10n.addGameToCollection,
             shouldEnable: true
         )
-        self.containerDelegate?.configureBottomView(
-            contentViewFactory: buttonContentViewFactory
+        self.containerDelegate?.configureSupplementaryView(
+            contentViewFactory: buttonContentViewFactory,
+            topView: false
         )
     }
 }
