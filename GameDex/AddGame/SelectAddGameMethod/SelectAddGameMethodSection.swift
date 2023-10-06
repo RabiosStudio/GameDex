@@ -9,7 +9,7 @@ import Foundation
 
 final class SelectAddGameMethodSection: Section {
     
-    init(delegate: GameDetailsViewModelDelegate?) {
+    init(delegate: MyCollectionViewModelDelegate?) {
         super.init()
         self.position = 0
         

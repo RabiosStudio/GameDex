@@ -12,7 +12,7 @@ final class LoginSection: Section {
     
     init(
         myProfileDelegate: MyProfileViewModelDelegate?,
-        myCollectionDelegate: GameDetailsViewModelDelegate?
+        myCollectionDelegate: MyCollectionViewModelDelegate?
     ) {
         super.init()
         self.position = 0

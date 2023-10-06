@@ -9,7 +9,7 @@ import Foundation
 
 enum MyCollectionError: EmptyError {
     
-    case emptyCollection(gameDetailsDelegate: GameDetailsViewModelDelegate?)
+    case emptyCollection(myCollectionDelegate: MyCollectionViewModelDelegate?)
     case fetchError
     case noItems
     
@@ -59,7 +59,7 @@ enum MyCollectionError: EmptyError {
     
     var errorAction: ErrorAction? {
         switch self {
-        case .emptyCollection(gameDetailsDelegate: let delegate):
+        case .emptyCollection(myCollectionDelegate: let delegate):
             let startToAddGame: NavigationStyle = .present(
                 screenFactory: SelectAddGameMethodScreenFactory(
                     delegate: delegate

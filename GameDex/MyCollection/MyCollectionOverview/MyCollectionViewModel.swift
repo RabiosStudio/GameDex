@@ -7,6 +7,11 @@
 
 import Foundation
 
+// sourcery: AutoMockable
+protocol MyCollectionViewModelDelegate: AnyObject {
+    func reloadCollection()
+}
+
 final class MyCollectionViewModel: CollectionViewModel {
     lazy var searchViewModel: SearchViewModel? = SearchViewModel(
         placeholder: L10n.searchCollection,
@@ -21,7 +26,7 @@ final class MyCollectionViewModel: CollectionViewModel {
     var platforms: [Platform] = []
     
     weak var containerDelegate: ContainerViewControllerDelegate?
-    weak var gameDetailsDelegate: GameDetailsViewModelDelegate?
+    weak var myCollectionDelegate: MyCollectionViewModelDelegate?
     
     private let localDatabase: LocalDatabase
     private let authenticationService: AuthenticationService
@@ -42,7 +47,7 @@ final class MyCollectionViewModel: CollectionViewModel {
             guard !result.isEmpty else {
                 self.platforms = []
                 self.sections = []
-                let error: MyCollectionError = .emptyCollection(gameDetailsDelegate: self)
+                let error: MyCollectionError = .emptyCollection(myCollectionDelegate: self)
                 callback(error)
                 return
             }
@@ -50,7 +55,7 @@ final class MyCollectionViewModel: CollectionViewModel {
             self.sections = [
                 MyCollectionSection(
                     platforms: self.platforms,
-                    gameDetailsDelegate: self
+                    myCollectionDelegate: self
                 )
             ]
             callback(nil)
@@ -78,7 +83,7 @@ final class MyCollectionViewModel: CollectionViewModel {
         self.sections = [
             MyCollectionSection(
                 platforms: list,
-                gameDetailsDelegate: self
+                myCollectionDelegate: self
             )
         ]
     }
@@ -104,7 +109,7 @@ final class MyCollectionViewModel: CollectionViewModel {
 
 // MARK: - AddGameDetailsViewModelDelegate
 
-extension MyCollectionViewModel: GameDetailsViewModelDelegate {
+extension MyCollectionViewModel: MyCollectionViewModelDelegate {
     func reloadCollection() {
         self.containerDelegate?.reloadSections()
     }

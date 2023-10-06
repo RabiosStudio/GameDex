@@ -12,7 +12,7 @@ struct AuthenticationScreenFactory: ScreenFactory {
     
     private let userHasAccount: Bool
     private let myProfileDelegate: MyProfileViewModelDelegate?
-    private let myCollectionDelegate: GameDetailsViewModelDelegate?
+    private let myCollectionDelegate: MyCollectionViewModelDelegate?
     
     var viewController: UIViewController {
         let viewModel = AuthenticationViewModel(
@@ -33,7 +33,7 @@ struct AuthenticationScreenFactory: ScreenFactory {
     
     init(userHasAccount: Bool,
          myProfileDelegate: MyProfileViewModelDelegate?,
-         myCollectionDelegate: GameDetailsViewModelDelegate?
+         myCollectionDelegate: MyCollectionViewModelDelegate?
     ) {
         self.userHasAccount = userHasAccount
         self.myProfileDelegate = myProfileDelegate

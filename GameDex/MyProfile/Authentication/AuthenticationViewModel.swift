@@ -17,7 +17,7 @@ final class AuthenticationViewModel: CollectionViewModel {
     
     weak var containerDelegate: ContainerViewControllerDelegate?
     weak var myProfileDelegate: MyProfileViewModelDelegate?
-    weak var myCollectionDelegate: GameDetailsViewModelDelegate?
+    weak var myCollectionDelegate: MyCollectionViewModelDelegate?
     
     private let userHasAccount: Bool
     private let authenticationSerice: AuthenticationService
@@ -28,7 +28,7 @@ final class AuthenticationViewModel: CollectionViewModel {
         authenticationSerice: AuthenticationService,
         alertDisplayer: AlertDisplayer,
         myProfileDelegate: MyProfileViewModelDelegate?,
-        myCollectionDelegate: GameDetailsViewModelDelegate?
+        myCollectionDelegate: MyCollectionViewModelDelegate?
     ) {
         self.userHasAccount = userHasAccount
         self.authenticationSerice = authenticationSerice

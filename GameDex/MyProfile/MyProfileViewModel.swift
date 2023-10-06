@@ -21,7 +21,7 @@ final class MyProfileViewModel: CollectionViewModel {
     var sections: [Section] = []
     
     weak var containerDelegate: ContainerViewControllerDelegate?
-    weak var myCollectionDelegate: GameDetailsViewModelDelegate?
+    weak var myCollectionDelegate: MyCollectionViewModelDelegate?
     
     private let authenticationService: AuthenticationService
     private var alertDisplayer: AlertDisplayer
@@ -29,7 +29,7 @@ final class MyProfileViewModel: CollectionViewModel {
     init(
         authenticationService: AuthenticationService,
         alertDisplayer: AlertDisplayer,
-        myCollectionDelegate: GameDetailsViewModelDelegate?
+        myCollectionDelegate: MyCollectionViewModelDelegate?
     ) {
         self.authenticationService = authenticationService
         self.alertDisplayer = alertDisplayer

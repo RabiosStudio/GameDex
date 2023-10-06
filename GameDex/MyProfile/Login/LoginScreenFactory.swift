@@ -11,7 +11,7 @@ import UIKit
 struct LoginScreenFactory: ScreenFactory {
     
     private let myProfileDelegate: MyProfileViewModelDelegate?
-    private let myCollectionDelegate: GameDetailsViewModelDelegate?
+    private let myCollectionDelegate: MyCollectionViewModelDelegate?
     
     var viewController: UIViewController {
         let viewModel = LoginViewModel(
@@ -28,7 +28,7 @@ struct LoginScreenFactory: ScreenFactory {
     
     init(
         myProfileDelegate: MyProfileViewModelDelegate?,
-        myCollectionDelegate: GameDetailsViewModelDelegate?
+        myCollectionDelegate: MyCollectionViewModelDelegate?
     ) {
         self.myProfileDelegate = myProfileDelegate
         self.myCollectionDelegate = myCollectionDelegate

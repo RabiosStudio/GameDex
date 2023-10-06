@@ -17,11 +17,11 @@ final class LoginViewModel: CollectionViewModel {
     
     weak var containerDelegate: ContainerViewControllerDelegate?
     weak var myProfileDelegate: MyProfileViewModelDelegate?
-    weak var myCollectionDelegate: GameDetailsViewModelDelegate?
+    weak var myCollectionDelegate: MyCollectionViewModelDelegate?
     
     init(
         myProfileDelegate: MyProfileViewModelDelegate?,
-        myCollectionDelegate: GameDetailsViewModelDelegate?
+        myCollectionDelegate: MyCollectionViewModelDelegate?
     ) {
         self.myProfileDelegate = myProfileDelegate
         self.myCollectionDelegate = myCollectionDelegate

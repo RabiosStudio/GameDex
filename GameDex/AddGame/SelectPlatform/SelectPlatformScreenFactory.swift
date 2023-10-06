@@ -10,12 +10,12 @@ import UIKit
 
 struct SelectPlatformScreenFactory: ScreenFactory {
     
-    weak var delegate: GameDetailsViewModelDelegate?
+    weak var delegate: MyCollectionViewModelDelegate?
     
     var viewController: UIViewController {
         let viewModel = SelectPlatformViewModel(
             cloudDatabase: FirestoreDatabase(),
-            gameDetailsDelegate: self.delegate
+            myCollectionDelegate: self.delegate
         )
         let layout = UICollectionViewFlowLayout()
         let containerController = ContainerViewController(
@@ -25,7 +25,7 @@ struct SelectPlatformScreenFactory: ScreenFactory {
         return containerController
     }
     
-    init(delegate: GameDetailsViewModelDelegate?) {
+    init(delegate: MyCollectionViewModelDelegate?) {
         self.delegate = delegate
     }
     

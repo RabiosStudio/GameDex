@@ -12,7 +12,7 @@ struct EditGameDetailsScreenFactory: ScreenFactory {
     
     private let savedGame: SavedGame
     private let platformName: String
-    weak var gameDetailsDelegate: GameDetailsViewModelDelegate?
+    weak var myCollectionDelegate: MyCollectionViewModelDelegate?
     
     var viewController: UIViewController {
         let viewModel = EditGameDetailsViewModel(
@@ -20,7 +20,7 @@ struct EditGameDetailsScreenFactory: ScreenFactory {
             platformName: self.platformName,
             localDatabase: LocalDatabaseImpl(),
             alertDisplayer: AlertDisplayerImpl(),
-            gameDetailsDelegate: gameDetailsDelegate
+            myCollectionDelegate: myCollectionDelegate
         )
         let layout = UICollectionViewFlowLayout()
         let containerController = ContainerViewController(
@@ -31,9 +31,9 @@ struct EditGameDetailsScreenFactory: ScreenFactory {
         return containerController
     }
 
-    init(savedGame: SavedGame, platformName: String, gameDetailsDelegate: GameDetailsViewModelDelegate?) {
+    init(savedGame: SavedGame, platformName: String, myCollectionDelegate: MyCollectionViewModelDelegate?) {
         self.savedGame = savedGame
         self.platformName = platformName
-        self.gameDetailsDelegate = gameDetailsDelegate
+        self.myCollectionDelegate = myCollectionDelegate
     }
 }

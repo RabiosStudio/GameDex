@@ -21,7 +21,7 @@ final class MyCollectionByPlatformsViewModel: CollectionViewModel {
     var sections = [Section]()
     
     weak var containerDelegate: ContainerViewControllerDelegate?
-    weak var gameDetailsDelegate: GameDetailsViewModelDelegate?
+    weak var myCollectionDelegate: MyCollectionViewModelDelegate?
     
     private let database: LocalDatabase
     private let alertDisplayer: AlertDisplayer
@@ -32,13 +32,13 @@ final class MyCollectionByPlatformsViewModel: CollectionViewModel {
         platform: Platform?,
         database: LocalDatabase,
         alertDisplayer: AlertDisplayer,
-        gameDetailsDelegate: GameDetailsViewModelDelegate?,
+        myCollectionDelegate: MyCollectionViewModelDelegate?,
         authenticationService: AuthenticationService
     ) {
         self.platform = platform
         self.database = database
         self.alertDisplayer = alertDisplayer
-        self.gameDetailsDelegate = gameDetailsDelegate
+        self.myCollectionDelegate = myCollectionDelegate
         self.authenticationService = authenticationService
         self.screenTitle = self.platform?.title
     }
@@ -54,7 +54,7 @@ final class MyCollectionByPlatformsViewModel: CollectionViewModel {
             MyCollectionByPlatformsSection(
                 games: games,
                 platformName: platform.title,
-                gameDetailsDelegate: gameDetailsDelegate
+                myCollectionDelegate: myCollectionDelegate
             )
         ]
         callback(nil)
@@ -73,7 +73,7 @@ final class MyCollectionByPlatformsViewModel: CollectionViewModel {
             navigationStyle: .present(
                 screenFactory: SearchGameByTitleScreenFactory(
                     platform: collection,
-                    gameDetailsDelegate: self,
+                    myCollectionDelegate: self,
                     addToNavController: true
                 ),
                 completionBlock: nil
@@ -87,7 +87,7 @@ final class MyCollectionByPlatformsViewModel: CollectionViewModel {
             MyCollectionByPlatformsSection(
                 games: list,
                 platformName: platform.title,
-                gameDetailsDelegate: gameDetailsDelegate
+                myCollectionDelegate: myCollectionDelegate
             )
         ]
     }
@@ -119,7 +119,7 @@ final class MyCollectionByPlatformsViewModel: CollectionViewModel {
     }
 }
 
-extension MyCollectionByPlatformsViewModel: GameDetailsViewModelDelegate {
+extension MyCollectionByPlatformsViewModel: MyCollectionViewModelDelegate {
     func reloadCollection() {
         guard let platformID = self.platform?.id else { return }
         let fetchCollectionResult = self.database.getPlatform(platformId: platformID)
@@ -143,7 +143,7 @@ extension MyCollectionByPlatformsViewModel: GameDetailsViewModelDelegate {
                 MyCollectionByPlatformsSection(
                     games: games,
                     platformName: currentPlatform.title,
-                    gameDetailsDelegate: gameDetailsDelegate
+                    myCollectionDelegate: myCollectionDelegate
                 )
             ]
             self.containerDelegate?.reloadSections()

@@ -12,7 +12,7 @@ final class MyProfileSection: Section {
     init(
         userIsLoggedIn: Bool,
         myProfileDelegate: MyProfileViewModelDelegate?,
-        myCollectionDelegate: GameDetailsViewModelDelegate?,
+        myCollectionDelegate: MyCollectionViewModelDelegate?,
         alertDisplayer: AlertDisplayer
     ) {
         super.init()
