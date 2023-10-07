@@ -8,10 +8,7 @@
 import Foundation
 import Reachability
 
-class ConnectionManager {
-
-    static let shared = ConnectionManager()
-    private init () {}
+class ConnectionManagerImpl: ConnectionManager {
 
     func hasConnectivity() -> Bool {
         do {
@@ -26,8 +23,7 @@ class ConnectionManager {
             case .none:
                 return false
             }
-        }
-        catch {
+        } catch {
             return false
         }
     }

@@ -7,7 +7,8 @@ class TabBarController: UITabBarController {
         
         let vm1 = MyCollectionViewModel(
             localDatabase: LocalDatabaseImpl(),
-            authenticationService: AuthenticationServiceImpl()
+            authenticationService: AuthenticationServiceImpl(),
+            connectionManager: ConnectionManagerImpl()
         )
         let vc1 = self.createViewController(
             viewModel: vm1
