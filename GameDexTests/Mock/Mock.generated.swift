@@ -917,16 +917,16 @@ open class AuthenticationServiceMock: AuthenticationService, Mock {
 		perform?(`callback`)
     }
 
-    open func isUserLoggedIn() -> Bool {
-        addInvocation(.m_isUserLoggedIn)
-		let perform = methodPerformValue(.m_isUserLoggedIn) as? () -> Void
+    open func userIsLoggedIn() -> Bool {
+        addInvocation(.m_userIsLoggedIn)
+		let perform = methodPerformValue(.m_userIsLoggedIn) as? () -> Void
 		perform?()
 		var __value: Bool
 		do {
-		    __value = try methodReturnValue(.m_isUserLoggedIn).casted()
+		    __value = try methodReturnValue(.m_userIsLoggedIn).casted()
 		} catch {
-			onFatalFailure("Stub return value not specified for isUserLoggedIn(). Use given")
-			Failure("Stub return value not specified for isUserLoggedIn(). Use given")
+			onFatalFailure("Stub return value not specified for userIsLoggedIn(). Use given")
+			Failure("Stub return value not specified for userIsLoggedIn(). Use given")
 		}
 		return __value
     }
@@ -936,7 +936,7 @@ open class AuthenticationServiceMock: AuthenticationService, Mock {
         case m_login__email_emailpassword_passwordcallback_callback(Parameter<String>, Parameter<String>, Parameter<(AuthenticationError?) -> ()>)
         case m_createUser__email_emailpassword_passwordcloudDatabase_cloudDatabase(Parameter<String>, Parameter<String>, Parameter<CloudDatabase>)
         case m_logout__callback_callback(Parameter<(AuthenticationError?) -> ()>)
-        case m_isUserLoggedIn
+        case m_userIsLoggedIn
 
         static func compareParameters(lhs: MethodType, rhs: MethodType, matcher: Matcher) -> Matcher.ComparisonResult {
             switch (lhs, rhs) {
@@ -959,7 +959,7 @@ open class AuthenticationServiceMock: AuthenticationService, Mock {
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsCallback, rhs: rhsCallback, with: matcher), lhsCallback, rhsCallback, "callback"))
 				return Matcher.ComparisonResult(results)
 
-            case (.m_isUserLoggedIn, .m_isUserLoggedIn): return .match
+            case (.m_userIsLoggedIn, .m_userIsLoggedIn): return .match
             default: return .none
             }
         }
@@ -969,7 +969,7 @@ open class AuthenticationServiceMock: AuthenticationService, Mock {
             case let .m_login__email_emailpassword_passwordcallback_callback(p0, p1, p2): return p0.intValue + p1.intValue + p2.intValue
             case let .m_createUser__email_emailpassword_passwordcloudDatabase_cloudDatabase(p0, p1, p2): return p0.intValue + p1.intValue + p2.intValue
             case let .m_logout__callback_callback(p0): return p0.intValue
-            case .m_isUserLoggedIn: return 0
+            case .m_userIsLoggedIn: return 0
             }
         }
         func assertionName() -> String {
@@ -977,7 +977,7 @@ open class AuthenticationServiceMock: AuthenticationService, Mock {
             case .m_login__email_emailpassword_passwordcallback_callback: return ".login(email:password:callback:)"
             case .m_createUser__email_emailpassword_passwordcloudDatabase_cloudDatabase: return ".createUser(email:password:cloudDatabase:)"
             case .m_logout__callback_callback: return ".logout(callback:)"
-            case .m_isUserLoggedIn: return ".isUserLoggedIn()"
+            case .m_userIsLoggedIn: return ".userIsLoggedIn()"
             }
         }
     }
@@ -994,8 +994,8 @@ open class AuthenticationServiceMock: AuthenticationService, Mock {
         public static func createUser(email: Parameter<String>, password: Parameter<String>, cloudDatabase: Parameter<CloudDatabase>, willReturn: AuthenticationError?...) -> MethodStub {
             return Given(method: .m_createUser__email_emailpassword_passwordcloudDatabase_cloudDatabase(`email`, `password`, `cloudDatabase`), products: willReturn.map({ StubProduct.return($0 as Any) }))
         }
-        public static func isUserLoggedIn(willReturn: Bool...) -> MethodStub {
-            return Given(method: .m_isUserLoggedIn, products: willReturn.map({ StubProduct.return($0 as Any) }))
+        public static func userIsLoggedIn(willReturn: Bool...) -> MethodStub {
+            return Given(method: .m_userIsLoggedIn, products: willReturn.map({ StubProduct.return($0 as Any) }))
         }
         public static func createUser(email: Parameter<String>, password: Parameter<String>, cloudDatabase: Parameter<CloudDatabase>, willProduce: (Stubber<AuthenticationError?>) -> Void) -> MethodStub {
             let willReturn: [AuthenticationError?] = []
@@ -1004,9 +1004,9 @@ open class AuthenticationServiceMock: AuthenticationService, Mock {
 			willProduce(stubber)
 			return given
         }
-        public static func isUserLoggedIn(willProduce: (Stubber<Bool>) -> Void) -> MethodStub {
+        public static func userIsLoggedIn(willProduce: (Stubber<Bool>) -> Void) -> MethodStub {
             let willReturn: [Bool] = []
-			let given: Given = { return Given(method: .m_isUserLoggedIn, products: willReturn.map({ StubProduct.return($0 as Any) })) }()
+			let given: Given = { return Given(method: .m_userIsLoggedIn, products: willReturn.map({ StubProduct.return($0 as Any) })) }()
 			let stubber = given.stub(for: (Bool).self)
 			willProduce(stubber)
 			return given
@@ -1019,7 +1019,7 @@ open class AuthenticationServiceMock: AuthenticationService, Mock {
         public static func login(email: Parameter<String>, password: Parameter<String>, callback: Parameter<(AuthenticationError?) -> ()>) -> Verify { return Verify(method: .m_login__email_emailpassword_passwordcallback_callback(`email`, `password`, `callback`))}
         public static func createUser(email: Parameter<String>, password: Parameter<String>, cloudDatabase: Parameter<CloudDatabase>) -> Verify { return Verify(method: .m_createUser__email_emailpassword_passwordcloudDatabase_cloudDatabase(`email`, `password`, `cloudDatabase`))}
         public static func logout(callback: Parameter<(AuthenticationError?) -> ()>) -> Verify { return Verify(method: .m_logout__callback_callback(`callback`))}
-        public static func isUserLoggedIn() -> Verify { return Verify(method: .m_isUserLoggedIn)}
+        public static func userIsLoggedIn() -> Verify { return Verify(method: .m_userIsLoggedIn)}
     }
 
     public struct Perform {
@@ -1035,8 +1035,8 @@ open class AuthenticationServiceMock: AuthenticationService, Mock {
         public static func logout(callback: Parameter<(AuthenticationError?) -> ()>, perform: @escaping (@escaping (AuthenticationError?) -> ()) -> Void) -> Perform {
             return Perform(method: .m_logout__callback_callback(`callback`), performs: perform)
         }
-        public static func isUserLoggedIn(perform: @escaping () -> Void) -> Perform {
-            return Perform(method: .m_isUserLoggedIn, performs: perform)
+        public static func userIsLoggedIn(perform: @escaping () -> Void) -> Perform {
+            return Perform(method: .m_userIsLoggedIn, performs: perform)
         }
     }
 
@@ -1488,10 +1488,10 @@ open class ContainerViewControllerDelegateMock: ContainerViewControllerDelegate,
 
 
 
-    open func configureBottomView(contentViewFactory: ContentViewFactory) {
-        addInvocation(.m_configureBottomView__contentViewFactory_contentViewFactory(Parameter<ContentViewFactory>.value(`contentViewFactory`)))
-		let perform = methodPerformValue(.m_configureBottomView__contentViewFactory_contentViewFactory(Parameter<ContentViewFactory>.value(`contentViewFactory`))) as? (ContentViewFactory) -> Void
-		perform?(`contentViewFactory`)
+    open func configureSupplementaryView(contentViewFactory: ContentViewFactory, topView: Bool) {
+        addInvocation(.m_configureSupplementaryView__contentViewFactory_contentViewFactorytopView_topView(Parameter<ContentViewFactory>.value(`contentViewFactory`), Parameter<Bool>.value(`topView`)))
+		let perform = methodPerformValue(.m_configureSupplementaryView__contentViewFactory_contentViewFactorytopView_topView(Parameter<ContentViewFactory>.value(`contentViewFactory`), Parameter<Bool>.value(`topView`))) as? (ContentViewFactory, Bool) -> Void
+		perform?(`contentViewFactory`, `topView`)
     }
 
     open func reloadSections() {
@@ -1508,15 +1508,16 @@ open class ContainerViewControllerDelegateMock: ContainerViewControllerDelegate,
 
 
     fileprivate enum MethodType {
-        case m_configureBottomView__contentViewFactory_contentViewFactory(Parameter<ContentViewFactory>)
+        case m_configureSupplementaryView__contentViewFactory_contentViewFactorytopView_topView(Parameter<ContentViewFactory>, Parameter<Bool>)
         case m_reloadSections
         case m_goBackToRootViewController
 
         static func compareParameters(lhs: MethodType, rhs: MethodType, matcher: Matcher) -> Matcher.ComparisonResult {
             switch (lhs, rhs) {
-            case (.m_configureBottomView__contentViewFactory_contentViewFactory(let lhsContentviewfactory), .m_configureBottomView__contentViewFactory_contentViewFactory(let rhsContentviewfactory)):
+            case (.m_configureSupplementaryView__contentViewFactory_contentViewFactorytopView_topView(let lhsContentviewfactory, let lhsTopview), .m_configureSupplementaryView__contentViewFactory_contentViewFactorytopView_topView(let rhsContentviewfactory, let rhsTopview)):
 				var results: [Matcher.ParameterComparisonResult] = []
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsContentviewfactory, rhs: rhsContentviewfactory, with: matcher), lhsContentviewfactory, rhsContentviewfactory, "contentViewFactory"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsTopview, rhs: rhsTopview, with: matcher), lhsTopview, rhsTopview, "topView"))
 				return Matcher.ComparisonResult(results)
 
             case (.m_reloadSections, .m_reloadSections): return .match
@@ -1528,14 +1529,14 @@ open class ContainerViewControllerDelegateMock: ContainerViewControllerDelegate,
 
         func intValue() -> Int {
             switch self {
-            case let .m_configureBottomView__contentViewFactory_contentViewFactory(p0): return p0.intValue
+            case let .m_configureSupplementaryView__contentViewFactory_contentViewFactorytopView_topView(p0, p1): return p0.intValue + p1.intValue
             case .m_reloadSections: return 0
             case .m_goBackToRootViewController: return 0
             }
         }
         func assertionName() -> String {
             switch self {
-            case .m_configureBottomView__contentViewFactory_contentViewFactory: return ".configureBottomView(contentViewFactory:)"
+            case .m_configureSupplementaryView__contentViewFactory_contentViewFactorytopView_topView: return ".configureSupplementaryView(contentViewFactory:topView:)"
             case .m_reloadSections: return ".reloadSections()"
             case .m_goBackToRootViewController: return ".goBackToRootViewController()"
             }
@@ -1556,7 +1557,7 @@ open class ContainerViewControllerDelegateMock: ContainerViewControllerDelegate,
     public struct Verify {
         fileprivate var method: MethodType
 
-        public static func configureBottomView(contentViewFactory: Parameter<ContentViewFactory>) -> Verify { return Verify(method: .m_configureBottomView__contentViewFactory_contentViewFactory(`contentViewFactory`))}
+        public static func configureSupplementaryView(contentViewFactory: Parameter<ContentViewFactory>, topView: Parameter<Bool>) -> Verify { return Verify(method: .m_configureSupplementaryView__contentViewFactory_contentViewFactorytopView_topView(`contentViewFactory`, `topView`))}
         public static func reloadSections() -> Verify { return Verify(method: .m_reloadSections)}
         public static func goBackToRootViewController() -> Verify { return Verify(method: .m_goBackToRootViewController)}
     }
@@ -1565,8 +1566,8 @@ open class ContainerViewControllerDelegateMock: ContainerViewControllerDelegate,
         fileprivate var method: MethodType
         var performs: Any
 
-        public static func configureBottomView(contentViewFactory: Parameter<ContentViewFactory>, perform: @escaping (ContentViewFactory) -> Void) -> Perform {
-            return Perform(method: .m_configureBottomView__contentViewFactory_contentViewFactory(`contentViewFactory`), performs: perform)
+        public static func configureSupplementaryView(contentViewFactory: Parameter<ContentViewFactory>, topView: Parameter<Bool>, perform: @escaping (ContentViewFactory, Bool) -> Void) -> Perform {
+            return Perform(method: .m_configureSupplementaryView__contentViewFactory_contentViewFactorytopView_topView(`contentViewFactory`, `topView`), performs: perform)
         }
         public static func reloadSections(perform: @escaping () -> Void) -> Perform {
             return Perform(method: .m_reloadSections, performs: perform)
@@ -1744,177 +1745,6 @@ open class EditFormDelegateMock: EditFormDelegate, Mock {
 
         public static func enableSaveButtonIfNeeded(perform: @escaping () -> Void) -> Perform {
             return Perform(method: .m_enableSaveButtonIfNeeded, performs: perform)
-        }
-    }
-
-    public func given(_ method: Given) {
-        methodReturnValues.append(method)
-    }
-
-    public func perform(_ method: Perform) {
-        methodPerformValues.append(method)
-        methodPerformValues.sort { $0.method.intValue() < $1.method.intValue() }
-    }
-
-    public func verify(_ method: Verify, count: Count = Count.moreOrEqual(to: 1), file: StaticString = #file, line: UInt = #line) {
-        let fullMatches = matchingCalls(method, file: file, line: line)
-        let success = count.matches(fullMatches)
-        let assertionName = method.method.assertionName()
-        let feedback: String = {
-            guard !success else { return "" }
-            return Utils.closestCallsMessage(
-                for: self.invocations.map { invocation in
-                    matcher.set(file: file, line: line)
-                    defer { matcher.clearFileAndLine() }
-                    return MethodType.compareParameters(lhs: invocation, rhs: method.method, matcher: matcher)
-                },
-                name: assertionName
-            )
-        }()
-        MockyAssert(success, "Expected: \(count) invocations of `\(assertionName)`, but was: \(fullMatches).\(feedback)", file: file, line: line)
-    }
-
-    private func addInvocation(_ call: MethodType) {
-        self.queue.sync { invocations.append(call) }
-    }
-    private func methodReturnValue(_ method: MethodType) throws -> StubProduct {
-        matcher.set(file: self.file, line: self.line)
-        defer { matcher.clearFileAndLine() }
-        let candidates = sequencingPolicy.sorted(methodReturnValues, by: { $0.method.intValue() > $1.method.intValue() })
-        let matched = candidates.first(where: { $0.isValid && MethodType.compareParameters(lhs: $0.method, rhs: method, matcher: matcher).isFullMatch })
-        guard let product = matched?.getProduct(policy: self.stubbingPolicy) else { throw MockError.notStubed }
-        return product
-    }
-    private func methodPerformValue(_ method: MethodType) -> Any? {
-        matcher.set(file: self.file, line: self.line)
-        defer { matcher.clearFileAndLine() }
-        let matched = methodPerformValues.reversed().first { MethodType.compareParameters(lhs: $0.method, rhs: method, matcher: matcher).isFullMatch }
-        return matched?.performs
-    }
-    private func matchingCalls(_ method: MethodType, file: StaticString?, line: UInt?) -> [MethodType] {
-        matcher.set(file: file ?? self.file, line: line ?? self.line)
-        defer { matcher.clearFileAndLine() }
-        return invocations.filter { MethodType.compareParameters(lhs: $0, rhs: method, matcher: matcher).isFullMatch }
-    }
-    private func matchingCalls(_ method: Verify, file: StaticString?, line: UInt?) -> Int {
-        return matchingCalls(method.method, file: file, line: line).count
-    }
-    private func givenGetterValue<T>(_ method: MethodType, _ message: String) -> T {
-        do {
-            return try methodReturnValue(method).casted()
-        } catch {
-            onFatalFailure(message)
-            Failure(message)
-        }
-    }
-    private func optionalGivenGetterValue<T>(_ method: MethodType, _ message: String) -> T? {
-        do {
-            return try methodReturnValue(method).casted()
-        } catch {
-            return nil
-        }
-    }
-    private func onFatalFailure(_ message: String) {
-        guard let file = self.file, let line = self.line else { return } // Let if fail if cannot handle gratefully
-        SwiftyMockyTestObserver.handleFatalError(message: message, file: file, line: line)
-    }
-}
-
-// MARK: - GameDetailsViewModelDelegate
-
-open class GameDetailsViewModelDelegateMock: GameDetailsViewModelDelegate, Mock {
-    public init(sequencing sequencingPolicy: SequencingPolicy = .lastWrittenResolvedFirst, stubbing stubbingPolicy: StubbingPolicy = .wrap, file: StaticString = #file, line: UInt = #line) {
-        SwiftyMockyTestObserver.setup()
-        self.sequencingPolicy = sequencingPolicy
-        self.stubbingPolicy = stubbingPolicy
-        self.file = file
-        self.line = line
-    }
-
-    var matcher: Matcher = Matcher.default
-    var stubbingPolicy: StubbingPolicy = .wrap
-    var sequencingPolicy: SequencingPolicy = .lastWrittenResolvedFirst
-
-    private var queue = DispatchQueue(label: "com.swiftymocky.invocations", qos: .userInteractive)
-    private var invocations: [MethodType] = []
-    private var methodReturnValues: [Given] = []
-    private var methodPerformValues: [Perform] = []
-    private var file: StaticString?
-    private var line: UInt?
-
-    public typealias PropertyStub = Given
-    public typealias MethodStub = Given
-    public typealias SubscriptStub = Given
-
-    /// Convenience method - call setupMock() to extend debug information when failure occurs
-    public func setupMock(file: StaticString = #file, line: UInt = #line) {
-        self.file = file
-        self.line = line
-    }
-
-    /// Clear mock internals. You can specify what to reset (invocations aka verify, givens or performs) or leave it empty to clear all mock internals
-    public func resetMock(_ scopes: MockScope...) {
-        let scopes: [MockScope] = scopes.isEmpty ? [.invocation, .given, .perform] : scopes
-        if scopes.contains(.invocation) { invocations = [] }
-        if scopes.contains(.given) { methodReturnValues = [] }
-        if scopes.contains(.perform) { methodPerformValues = [] }
-    }
-
-
-
-
-
-    open func reloadCollection() {
-        addInvocation(.m_reloadCollection)
-		let perform = methodPerformValue(.m_reloadCollection) as? () -> Void
-		perform?()
-    }
-
-
-    fileprivate enum MethodType {
-        case m_reloadCollection
-
-        static func compareParameters(lhs: MethodType, rhs: MethodType, matcher: Matcher) -> Matcher.ComparisonResult {
-            switch (lhs, rhs) {
-            case (.m_reloadCollection, .m_reloadCollection): return .match
-            }
-        }
-
-        func intValue() -> Int {
-            switch self {
-            case .m_reloadCollection: return 0
-            }
-        }
-        func assertionName() -> String {
-            switch self {
-            case .m_reloadCollection: return ".reloadCollection()"
-            }
-        }
-    }
-
-    open class Given: StubbedMethod {
-        fileprivate var method: MethodType
-
-        private init(method: MethodType, products: [StubProduct]) {
-            self.method = method
-            super.init(products)
-        }
-
-
-    }
-
-    public struct Verify {
-        fileprivate var method: MethodType
-
-        public static func reloadCollection() -> Verify { return Verify(method: .m_reloadCollection)}
-    }
-
-    public struct Perform {
-        fileprivate var method: MethodType
-        var performs: Any
-
-        public static func reloadCollection(perform: @escaping () -> Void) -> Perform {
-            return Perform(method: .m_reloadCollection, performs: perform)
         }
     }
 
@@ -2199,6 +2029,177 @@ open class LocalDatabaseMock: LocalDatabase, Mock {
         }
         public static func remove(savedGame: Parameter<SavedGame>, callback: Parameter<(DatabaseError?) -> ()>, perform: @escaping (SavedGame, @escaping (DatabaseError?) -> ()) -> Void) -> Perform {
             return Perform(method: .m_remove__savedGame_savedGamecallback_callback(`savedGame`, `callback`), performs: perform)
+        }
+    }
+
+    public func given(_ method: Given) {
+        methodReturnValues.append(method)
+    }
+
+    public func perform(_ method: Perform) {
+        methodPerformValues.append(method)
+        methodPerformValues.sort { $0.method.intValue() < $1.method.intValue() }
+    }
+
+    public func verify(_ method: Verify, count: Count = Count.moreOrEqual(to: 1), file: StaticString = #file, line: UInt = #line) {
+        let fullMatches = matchingCalls(method, file: file, line: line)
+        let success = count.matches(fullMatches)
+        let assertionName = method.method.assertionName()
+        let feedback: String = {
+            guard !success else { return "" }
+            return Utils.closestCallsMessage(
+                for: self.invocations.map { invocation in
+                    matcher.set(file: file, line: line)
+                    defer { matcher.clearFileAndLine() }
+                    return MethodType.compareParameters(lhs: invocation, rhs: method.method, matcher: matcher)
+                },
+                name: assertionName
+            )
+        }()
+        MockyAssert(success, "Expected: \(count) invocations of `\(assertionName)`, but was: \(fullMatches).\(feedback)", file: file, line: line)
+    }
+
+    private func addInvocation(_ call: MethodType) {
+        self.queue.sync { invocations.append(call) }
+    }
+    private func methodReturnValue(_ method: MethodType) throws -> StubProduct {
+        matcher.set(file: self.file, line: self.line)
+        defer { matcher.clearFileAndLine() }
+        let candidates = sequencingPolicy.sorted(methodReturnValues, by: { $0.method.intValue() > $1.method.intValue() })
+        let matched = candidates.first(where: { $0.isValid && MethodType.compareParameters(lhs: $0.method, rhs: method, matcher: matcher).isFullMatch })
+        guard let product = matched?.getProduct(policy: self.stubbingPolicy) else { throw MockError.notStubed }
+        return product
+    }
+    private func methodPerformValue(_ method: MethodType) -> Any? {
+        matcher.set(file: self.file, line: self.line)
+        defer { matcher.clearFileAndLine() }
+        let matched = methodPerformValues.reversed().first { MethodType.compareParameters(lhs: $0.method, rhs: method, matcher: matcher).isFullMatch }
+        return matched?.performs
+    }
+    private func matchingCalls(_ method: MethodType, file: StaticString?, line: UInt?) -> [MethodType] {
+        matcher.set(file: file ?? self.file, line: line ?? self.line)
+        defer { matcher.clearFileAndLine() }
+        return invocations.filter { MethodType.compareParameters(lhs: $0, rhs: method, matcher: matcher).isFullMatch }
+    }
+    private func matchingCalls(_ method: Verify, file: StaticString?, line: UInt?) -> Int {
+        return matchingCalls(method.method, file: file, line: line).count
+    }
+    private func givenGetterValue<T>(_ method: MethodType, _ message: String) -> T {
+        do {
+            return try methodReturnValue(method).casted()
+        } catch {
+            onFatalFailure(message)
+            Failure(message)
+        }
+    }
+    private func optionalGivenGetterValue<T>(_ method: MethodType, _ message: String) -> T? {
+        do {
+            return try methodReturnValue(method).casted()
+        } catch {
+            return nil
+        }
+    }
+    private func onFatalFailure(_ message: String) {
+        guard let file = self.file, let line = self.line else { return } // Let if fail if cannot handle gratefully
+        SwiftyMockyTestObserver.handleFatalError(message: message, file: file, line: line)
+    }
+}
+
+// MARK: - MyCollectionViewModelDelegate
+
+open class MyCollectionViewModelDelegateMock: MyCollectionViewModelDelegate, Mock {
+    public init(sequencing sequencingPolicy: SequencingPolicy = .lastWrittenResolvedFirst, stubbing stubbingPolicy: StubbingPolicy = .wrap, file: StaticString = #file, line: UInt = #line) {
+        SwiftyMockyTestObserver.setup()
+        self.sequencingPolicy = sequencingPolicy
+        self.stubbingPolicy = stubbingPolicy
+        self.file = file
+        self.line = line
+    }
+
+    var matcher: Matcher = Matcher.default
+    var stubbingPolicy: StubbingPolicy = .wrap
+    var sequencingPolicy: SequencingPolicy = .lastWrittenResolvedFirst
+
+    private var queue = DispatchQueue(label: "com.swiftymocky.invocations", qos: .userInteractive)
+    private var invocations: [MethodType] = []
+    private var methodReturnValues: [Given] = []
+    private var methodPerformValues: [Perform] = []
+    private var file: StaticString?
+    private var line: UInt?
+
+    public typealias PropertyStub = Given
+    public typealias MethodStub = Given
+    public typealias SubscriptStub = Given
+
+    /// Convenience method - call setupMock() to extend debug information when failure occurs
+    public func setupMock(file: StaticString = #file, line: UInt = #line) {
+        self.file = file
+        self.line = line
+    }
+
+    /// Clear mock internals. You can specify what to reset (invocations aka verify, givens or performs) or leave it empty to clear all mock internals
+    public func resetMock(_ scopes: MockScope...) {
+        let scopes: [MockScope] = scopes.isEmpty ? [.invocation, .given, .perform] : scopes
+        if scopes.contains(.invocation) { invocations = [] }
+        if scopes.contains(.given) { methodReturnValues = [] }
+        if scopes.contains(.perform) { methodPerformValues = [] }
+    }
+
+
+
+
+
+    open func reloadCollection() {
+        addInvocation(.m_reloadCollection)
+		let perform = methodPerformValue(.m_reloadCollection) as? () -> Void
+		perform?()
+    }
+
+
+    fileprivate enum MethodType {
+        case m_reloadCollection
+
+        static func compareParameters(lhs: MethodType, rhs: MethodType, matcher: Matcher) -> Matcher.ComparisonResult {
+            switch (lhs, rhs) {
+            case (.m_reloadCollection, .m_reloadCollection): return .match
+            }
+        }
+
+        func intValue() -> Int {
+            switch self {
+            case .m_reloadCollection: return 0
+            }
+        }
+        func assertionName() -> String {
+            switch self {
+            case .m_reloadCollection: return ".reloadCollection()"
+            }
+        }
+    }
+
+    open class Given: StubbedMethod {
+        fileprivate var method: MethodType
+
+        private init(method: MethodType, products: [StubProduct]) {
+            self.method = method
+            super.init(products)
+        }
+
+
+    }
+
+    public struct Verify {
+        fileprivate var method: MethodType
+
+        public static func reloadCollection() -> Verify { return Verify(method: .m_reloadCollection)}
+    }
+
+    public struct Perform {
+        fileprivate var method: MethodType
+        var performs: Any
+
+        public static func reloadCollection(perform: @escaping () -> Void) -> Perform {
+            return Perform(method: .m_reloadCollection, performs: perform)
         }
     }
 

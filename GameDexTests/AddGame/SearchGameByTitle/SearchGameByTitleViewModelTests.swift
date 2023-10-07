@@ -31,7 +31,7 @@ final class SearchGameByTitleViewModelTests: XCTestCase {
         let viewModel = SearchGameByTitleViewModel(
             networkingSession: networkingSession,
             platform: MockData.platform,
-            gameDetailsDelegate: GameDetailsViewModelDelegateMock()
+            myCollectionDelegate: MyCollectionViewModelDelegateMock()
         )
         
         // Then
@@ -50,7 +50,7 @@ final class SearchGameByTitleViewModelTests: XCTestCase {
         let viewModel = SearchGameByTitleViewModel(
             networkingSession: networkingSession,
             platform: MockData.platform,
-            gameDetailsDelegate: GameDetailsViewModelDelegateMock()
+            myCollectionDelegate: MyCollectionViewModelDelegateMock()
         )
         
         // When
@@ -84,7 +84,7 @@ final class SearchGameByTitleViewModelTests: XCTestCase {
         let viewModel = SearchGameByTitleViewModel(
             networkingSession: networkingSession,
             platform: MockData.platform,
-            gameDetailsDelegate: GameDetailsViewModelDelegateMock()
+            myCollectionDelegate: MyCollectionViewModelDelegateMock()
         )
         
         // When
@@ -121,7 +121,7 @@ final class SearchGameByTitleViewModelTests: XCTestCase {
         let viewModel = SearchGameByTitleViewModel(
             networkingSession: networkingSession,
             platform: MockData.platform,
-            gameDetailsDelegate: GameDetailsViewModelDelegateMock()
+            myCollectionDelegate: MyCollectionViewModelDelegateMock()
         )
         
         // When
@@ -158,7 +158,7 @@ final class SearchGameByTitleViewModelTests: XCTestCase {
         let viewModel = SearchGameByTitleViewModel(
             networkingSession: networkingSession,
             platform: MockData.platform,
-            gameDetailsDelegate: GameDetailsViewModelDelegateMock()
+            myCollectionDelegate: MyCollectionViewModelDelegateMock()
         )
         
         // When
@@ -195,7 +195,7 @@ final class SearchGameByTitleViewModelTests: XCTestCase {
         let viewModel = SearchGameByTitleViewModel(
             networkingSession: networkingSession,
             platform: MockData.platform,
-            gameDetailsDelegate: GameDetailsViewModelDelegateMock()
+            myCollectionDelegate: MyCollectionViewModelDelegateMock()
         )
         
         // When
@@ -233,7 +233,7 @@ final class SearchGameByTitleViewModelTests: XCTestCase {
         let viewModel = SearchGameByTitleViewModel(
             networkingSession: networkingSession,
             platform: MockData.platform,
-            gameDetailsDelegate: GameDetailsViewModelDelegateMock()
+            myCollectionDelegate: MyCollectionViewModelDelegateMock()
         )
         
         let games = RemoteDataConverter.convert(
@@ -258,7 +258,7 @@ final class SearchGameByTitleViewModelTests: XCTestCase {
         let viewModel = SearchGameByTitleViewModel(
             networkingSession: networkingSession,
             platform: MockData.platform,
-            gameDetailsDelegate: GameDetailsViewModelDelegateMock()
+            myCollectionDelegate: MyCollectionViewModelDelegateMock()
         )
         
         var callbackIsCalled = false
@@ -293,7 +293,7 @@ final class SearchGameByTitleViewModelTests: XCTestCase {
         let viewModel = SearchGameByTitleViewModel(
             networkingSession: networkingSession,
             platform: MockData.platform,
-            gameDetailsDelegate: GameDetailsViewModelDelegateMock()
+            myCollectionDelegate: MyCollectionViewModelDelegateMock()
         )
         
         let games = RemoteDataConverter.convert(
@@ -321,7 +321,7 @@ final class SearchGameByTitleViewModelTests: XCTestCase {
         let viewModel = SearchGameByTitleViewModel(
             networkingSession: networkingSession,
             platform: MockData.platform,
-            gameDetailsDelegate: GameDetailsViewModelDelegateMock()
+            myCollectionDelegate: MyCollectionViewModelDelegateMock()
         )
         
         // When

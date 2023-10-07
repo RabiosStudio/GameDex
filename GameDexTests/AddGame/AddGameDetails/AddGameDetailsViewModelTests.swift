@@ -29,7 +29,7 @@ final class AddGameDetailsViewModelTests: XCTestCase {
             game: MockData.game,
             platform: MockData.platform,
             localDatabase: LocalDatabaseMock(),
-            gameDetailsDelegate: GameDetailsViewModelDelegateMock(),
+            myCollectionDelegate: MyCollectionViewModelDelegateMock(),
             alertDisplayer: AlertDisplayerMock()
         )
         
@@ -45,7 +45,7 @@ final class AddGameDetailsViewModelTests: XCTestCase {
             game: MockData.game,
             platform: MockData.platform,
             localDatabase: LocalDatabaseMock(),
-            gameDetailsDelegate: GameDetailsViewModelDelegateMock(),
+            myCollectionDelegate: MyCollectionViewModelDelegateMock(),
             alertDisplayer: AlertDisplayerMock()
         )
         
@@ -62,13 +62,13 @@ final class AddGameDetailsViewModelTests: XCTestCase {
         let expectation = XCTestExpectation()
         let localDatabase = LocalDatabaseMock()
         let alertDisplayer = AlertDisplayerMock()
-        let gameDetailsDelegate = GameDetailsViewModelDelegateMock()
+        let myCollectionDelegate = MyCollectionViewModelDelegateMock()
         
         let viewModel  = AddGameDetailsViewModel(
             game: MockData.game,
             platform: MockData.platform,
             localDatabase: localDatabase,
-            gameDetailsDelegate: gameDetailsDelegate,
+            myCollectionDelegate: myCollectionDelegate,
             alertDisplayer: alertDisplayer
         )
         
@@ -92,7 +92,7 @@ final class AddGameDetailsViewModelTests: XCTestCase {
                         )
                     )
                     
-                    gameDetailsDelegate.verify(.reloadCollection())
+                    myCollectionDelegate.verify(.reloadCollection())
                     
                     if case .dismiss = Routing.shared.lastNavigationStyle {
                         XCTAssertTrue(true)
@@ -119,7 +119,7 @@ final class AddGameDetailsViewModelTests: XCTestCase {
             game: MockData.game,
             platform: MockData.platform,
             localDatabase: localDatabase,
-            gameDetailsDelegate: GameDetailsViewModelDelegateMock(),
+            myCollectionDelegate: MyCollectionViewModelDelegateMock(),
             alertDisplayer: alertDisplayer
         )
         
@@ -162,7 +162,7 @@ final class AddGameDetailsViewModelTests: XCTestCase {
             game: MockData.game,
             platform: MockData.platform,
             localDatabase: localDatabase,
-            gameDetailsDelegate: GameDetailsViewModelDelegateMock(),
+            myCollectionDelegate: MyCollectionViewModelDelegateMock(),
             alertDisplayer: alertDisplayer
         )
         
@@ -195,17 +195,17 @@ final class AddGameDetailsViewModelTests: XCTestCase {
         wait(for: [expectation], timeout: Constants.timeout)
     }
     
-    func test_didTapRightButtonItem_ThenShouldSetNavigationStyleCorrectlyAndCallgameDetailsDelegate() {
+    func test_didTapRightButtonItem_ThenShouldSetNavigationStyleCorrectlyAndCallmyCollectionDelegate() {
         // Given
         let localDatabase = LocalDatabaseMock()
         let alertDisplayer = AlertDisplayerMock()
-        let gameDetailsDelegate = GameDetailsViewModelDelegateMock()
+        let myCollectionDelegate = MyCollectionViewModelDelegateMock()
         
         let viewModel  = AddGameDetailsViewModel(
             game: MockData.game,
             platform: MockData.platform,
             localDatabase: localDatabase,
-            gameDetailsDelegate: gameDetailsDelegate,
+            myCollectionDelegate: myCollectionDelegate,
             alertDisplayer: alertDisplayer
         )
         

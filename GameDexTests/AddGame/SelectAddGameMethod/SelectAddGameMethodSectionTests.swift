@@ -12,7 +12,7 @@ final class SelectAddGameMethodSectionTests: XCTestCase {
 
     func test_init_GivenSelectAddGameMethodSection_ThenShouldSetPropertiesCorrectly() {
         // Given
-        let section = SelectAddGameMethodSection(delegate: GameDetailsViewModelDelegateMock())
+        let section = SelectAddGameMethodSection(delegate: MyCollectionViewModelDelegateMock())
         
         // Then
         XCTAssertEqual(section.cellsVM.count, 2)
@@ -31,7 +31,7 @@ final class SelectAddGameMethodSectionTests: XCTestCase {
     
     func test_cellTappedCallback_ThenLastNavigationStyleIsCorrect() {
         // Given
-        let delegate = GameDetailsViewModelDelegateMock()
+        let delegate = MyCollectionViewModelDelegateMock()
         let section = SelectAddGameMethodSection(delegate: delegate)
         
         // When

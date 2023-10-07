@@ -14,7 +14,10 @@ final class MyCollectionViewModelTests: XCTestCase {
     func test_init_ThenShouldSetPropertiesCorrectly() {
         // Given
         let localDatabase = LocalDatabaseMock()
-        let viewModel = MyCollectionViewModel(localDatabase: localDatabase)
+        let viewModel = MyCollectionViewModel(
+            localDatabase: localDatabase,
+            authenticationService: AuthenticationServiceMock()
+        )
         // When
         let numberOfSections = viewModel.numberOfSections()
         let numberOfItems = viewModel.numberOfItems(in: .zero)
@@ -28,8 +31,17 @@ final class MyCollectionViewModelTests: XCTestCase {
     
     func test_loadData_GivenDatabaseFetchError_ThenCallbackShouldReturnFetchError() {
         // Given
+        let authenticationService = AuthenticationServiceMock()
+        authenticationService.given(
+            .userIsLoggedIn(
+                willReturn: true
+            )
+        )
         let localDatabase = LocalDatabaseMock()
-        let viewModel = MyCollectionViewModel(localDatabase: localDatabase)
+        let viewModel = MyCollectionViewModel(
+            localDatabase: localDatabase,
+            authenticationService: authenticationService
+        )
         var callbackIsCalled = false
         localDatabase.given(
             .fetchAllPlatforms(
@@ -53,6 +65,12 @@ final class MyCollectionViewModelTests: XCTestCase {
     
     func test_loadData_GivenEmptyCollectionFetched_ThenCallbackShouldReturnNoItems() {
         // Given
+        let authenticationService = AuthenticationServiceMock()
+        authenticationService.given(
+            .userIsLoggedIn(
+                willReturn: true
+            )
+        )
         let emptyCollection = [PlatformCollected]()
         let localDatabase = LocalDatabaseMock()
         localDatabase.given(
@@ -60,7 +78,10 @@ final class MyCollectionViewModelTests: XCTestCase {
                 willReturn: Result<[PlatformCollected], DatabaseError>.success(emptyCollection)
             )
         )
-        let viewModel = MyCollectionViewModel(localDatabase: localDatabase)
+        let viewModel = MyCollectionViewModel(
+            localDatabase: localDatabase,
+            authenticationService: authenticationService
+        )
         var callbackIsCalled = false
         
         // When
@@ -76,7 +97,10 @@ final class MyCollectionViewModelTests: XCTestCase {
     func test_startSearch_ThenShouldCallCallback() {
         // Given
         let localDatabase = LocalDatabaseMock()
-        let viewModel = MyCollectionViewModel(localDatabase: localDatabase)
+        let viewModel = MyCollectionViewModel(
+            localDatabase: localDatabase,
+            authenticationService: AuthenticationServiceMock()
+        )
         var callbackIsCalled = false
         
         // When
@@ -90,13 +114,22 @@ final class MyCollectionViewModelTests: XCTestCase {
     
     func test_updateSearch_GivenListOfCollections_ThenShouldSetupSectionsAndCellsVMAccordingly() {
         // Given
+        let authenticationService = AuthenticationServiceMock()
+        authenticationService.given(
+            .userIsLoggedIn(
+                willReturn: true
+            )
+        )
         let localDatabase = LocalDatabaseMock()
         localDatabase.given(
             .fetchAllPlatforms(
                 willReturn: Result<[PlatformCollected], DatabaseError>.success(MockData.platformsCollected)
             )
         )
-        let viewModel = MyCollectionViewModel(localDatabase: localDatabase)
+        let viewModel = MyCollectionViewModel(
+            localDatabase: localDatabase,
+            authenticationService: authenticationService
+        )
         
         let platform = CoreDataConverter.convert(platformCollected: MockData.platformsCollected[0])
         
@@ -123,13 +156,22 @@ final class MyCollectionViewModelTests: XCTestCase {
     
     func test_updateSearch_GivenNoMatchingCollection_ThenShouldReturnErrorNoItems() {
         // Given
+        let authenticationService = AuthenticationServiceMock()
+        authenticationService.given(
+            .userIsLoggedIn(
+                willReturn: true
+            )
+        )
         let localDatabase = LocalDatabaseMock()
         localDatabase.given(
             .fetchAllPlatforms(
                 willReturn: Result<[PlatformCollected], DatabaseError>.success(MockData.platformsCollected)
             )
         )
-        let viewModel = MyCollectionViewModel(localDatabase: localDatabase)
+        let viewModel = MyCollectionViewModel(
+            localDatabase: localDatabase,
+            authenticationService: authenticationService
+        )
         
         viewModel.loadData { _ in
             
@@ -146,13 +188,22 @@ final class MyCollectionViewModelTests: XCTestCase {
     
     func test_updateSearch_GivenEmptySearchQuery_ThenShouldReturnFullListOfCollections() {
         // Given
+        let authenticationService = AuthenticationServiceMock()
+        authenticationService.given(
+            .userIsLoggedIn(
+                willReturn: true
+            )
+        )
         let localDatabase = LocalDatabaseMock()
         localDatabase.given(
             .fetchAllPlatforms(
                 willReturn: Result<[PlatformCollected], DatabaseError>.success(MockData.platformsCollected)
             )
         )
-        let viewModel = MyCollectionViewModel(localDatabase: localDatabase)
+        let viewModel = MyCollectionViewModel(
+            localDatabase: localDatabase,
+            authenticationService: authenticationService
+        )
         
         let expectedItems = CoreDataConverter.convert(platformsCollected: MockData.platformsCollected)
         let expectedNumberOfitems = expectedItems.count
@@ -170,7 +221,10 @@ final class MyCollectionViewModelTests: XCTestCase {
     func test_reloadCollection_ThenContainerDelegateIsCalled() {
         // Given
         let localDatabase = LocalDatabaseMock()
-        let viewModel = MyCollectionViewModel(localDatabase: localDatabase)
+        let viewModel = MyCollectionViewModel(
+            localDatabase: localDatabase,
+            authenticationService: AuthenticationServiceMock()
+        )
         
         let containerDelegate = ContainerViewControllerDelegateMock()
         viewModel.containerDelegate = containerDelegate
@@ -184,7 +238,10 @@ final class MyCollectionViewModelTests: XCTestCase {
     func test_didTapRightButtonItem_ThenShouldSetNavigationStyleCorrectly() {
         // Given
         let localDatabase = LocalDatabaseMock()
-        let viewModel = MyCollectionViewModel(localDatabase: localDatabase)
+        let viewModel = MyCollectionViewModel(
+            localDatabase: localDatabase,
+            authenticationService: AuthenticationServiceMock()
+        )
         
         // When
         viewModel.didTapRightButtonItem()

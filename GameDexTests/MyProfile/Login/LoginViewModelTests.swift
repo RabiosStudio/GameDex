@@ -11,7 +11,10 @@ import XCTest
 final class LoginViewModelTests: XCTestCase {
     func test_init_ThenShouldSetupPropertiesCorrectly() {
         // Given
-        let viewModel = LoginViewModel(myProfileDelegate: nil)
+        let viewModel = LoginViewModel(
+            myProfileDelegate: MyProfileViewModelDelegateMock(),
+            myCollectionDelegate: MyCollectionViewModelDelegateMock()
+        )
         
         // Then
         XCTAssertEqual(viewModel.numberOfSections(), .zero)
@@ -20,7 +23,10 @@ final class LoginViewModelTests: XCTestCase {
     
     func test_loadData_ThenCallBackIsCalledAndSectionsUpdated() {
         // Given
-        let viewModel = LoginViewModel(myProfileDelegate: nil)
+        let viewModel = LoginViewModel(
+            myProfileDelegate: MyProfileViewModelDelegateMock(),
+            myCollectionDelegate: MyCollectionViewModelDelegateMock()
+        )
         var callbackIsCalled = false
         // When
         viewModel.loadData { _ in

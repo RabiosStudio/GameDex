@@ -103,7 +103,8 @@ enum MockData {
             gameRegion: GameRegion.pal.rawValue,
             storageArea: "Living room",
             rating: 5,
-            notes: nil
+            notes: nil,
+            lastUpdated: Date()
         )
     
     static let savedGames = [
@@ -115,7 +116,8 @@ enum MockData {
             gameRegion: GameRegion.pal.rawValue,
             storageArea: "Living room",
             rating: 5,
-            notes: nil
+            notes: nil,
+            lastUpdated: Date()
         ),
         SavedGame(
             game: MockData.games[1],
@@ -125,7 +127,8 @@ enum MockData {
             gameRegion: GameRegion.pal.rawValue,
             storageArea: "Living room",
             rating: 4,
-            notes: nil
+            notes: nil,
+            lastUpdated: Date()
         )
     ]
     

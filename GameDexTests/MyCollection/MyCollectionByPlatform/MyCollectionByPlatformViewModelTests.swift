@@ -16,7 +16,8 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
             platform: MockData.platform,
             database: LocalDatabaseMock(),
             alertDisplayer: AlertDisplayerMock(),
-            gameDetailsDelegate: GameDetailsViewModelDelegateMock()
+            myCollectionDelegate: MyCollectionViewModelDelegateMock(),
+            authenticationService: AuthenticationServiceMock()
         )
         
         // Then
@@ -29,11 +30,19 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
     
     func test_loadData_GivenDataInCollection_ThenCallbackIsCalledAndSectionsAreSetCorrectly() {
         // Given
+        let authenticationService = AuthenticationServiceMock()
+        authenticationService.given(
+            .userIsLoggedIn(
+                willReturn: true
+            )
+        )
+        
         let viewModel = MyCollectionByPlatformsViewModel(
             platform: MockData.platform,
             database: LocalDatabaseMock(),
             alertDisplayer: AlertDisplayerMock(),
-            gameDetailsDelegate: GameDetailsViewModelDelegateMock()
+            myCollectionDelegate: MyCollectionViewModelDelegateMock(),
+            authenticationService: authenticationService
         )
         var callbackIsCalled = false
         
@@ -51,12 +60,19 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
     
     func test_loadData_GivenEmptyCollection_ThenContainerDelegateIsCalled() {
         // Given
+        let authenticationService = AuthenticationServiceMock()
+        authenticationService.given(
+            .userIsLoggedIn(
+                willReturn: true
+            )
+        )
         let platform = MockData.platformWithNoGames
         let viewModel = MyCollectionByPlatformsViewModel(
             platform: platform,
             database: LocalDatabaseMock(),
             alertDisplayer: AlertDisplayerMock(),
-            gameDetailsDelegate: GameDetailsViewModelDelegateMock()
+            myCollectionDelegate: MyCollectionViewModelDelegateMock(),
+            authenticationService: authenticationService
         )
         
         let containerDelegate = ContainerViewControllerDelegateMock()
@@ -78,7 +94,8 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
             platform: platform,
             database: LocalDatabaseMock(),
             alertDisplayer: AlertDisplayerMock(),
-            gameDetailsDelegate: GameDetailsViewModelDelegateMock()
+            myCollectionDelegate: MyCollectionViewModelDelegateMock(),
+            authenticationService: AuthenticationServiceMock()
         )
         
         // When
@@ -89,7 +106,7 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
             return .present(
                 screenFactory: SearchGameByTitleScreenFactory(
                         platform: platform,
-                        gameDetailsDelegate: viewModel,
+                        myCollectionDelegate: viewModel,
                         addToNavController: true
                 ),
                 completionBlock: nil
@@ -103,12 +120,19 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
     
     func test_updateSearch_GivenListOfPlatforms_ThenShouldSetupSectionsAndCellsVMAccordingly() {
         // Given
+        let authenticationService = AuthenticationServiceMock()
+        authenticationService.given(
+            .userIsLoggedIn(
+                willReturn: true
+            )
+        )
         let platform = MockData.platform
         let viewModel = MyCollectionByPlatformsViewModel(
             platform: platform,
             database: LocalDatabaseMock(),
             alertDisplayer: AlertDisplayerMock(),
-            gameDetailsDelegate: GameDetailsViewModelDelegateMock()
+            myCollectionDelegate: MyCollectionViewModelDelegateMock(),
+            authenticationService: authenticationService
         )
         
         viewModel.loadData { _ in
@@ -125,12 +149,19 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
     
     func test_updateSearch_GivenNoMatchingPlatforms_ThenShouldReturnErrorNoItems() {
         // Given
+        let authenticationService = AuthenticationServiceMock()
+        authenticationService.given(
+            .userIsLoggedIn(
+                willReturn: true
+            )
+        )
         let platform = MockData.platform
         let viewModel = MyCollectionByPlatformsViewModel(
             platform: platform,
             database: LocalDatabaseMock(),
             alertDisplayer: AlertDisplayerMock(),
-            gameDetailsDelegate: GameDetailsViewModelDelegateMock()
+            myCollectionDelegate: MyCollectionViewModelDelegateMock(),
+            authenticationService: authenticationService
         )
         
         viewModel.loadData { _ in
@@ -148,12 +179,19 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
     
     func test_updateSearch_GivenEmptySearchQuery_ThenShouldReturnFullListOfPlatforms() {
         // Given
+        let authenticationService = AuthenticationServiceMock()
+        authenticationService.given(
+            .userIsLoggedIn(
+                willReturn: true
+            )
+        )
         let platform = MockData.platform
         let viewModel = MyCollectionByPlatformsViewModel(
             platform: platform,
             database: LocalDatabaseMock(),
             alertDisplayer: AlertDisplayerMock(),
-            gameDetailsDelegate: GameDetailsViewModelDelegateMock()
+            myCollectionDelegate: MyCollectionViewModelDelegateMock(),
+            authenticationService: authenticationService
         )
         
         viewModel.loadData { _ in
@@ -173,7 +211,8 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
             platform: platform,
             database: LocalDatabaseMock(),
             alertDisplayer: AlertDisplayerMock(),
-            gameDetailsDelegate: GameDetailsViewModelDelegateMock()
+            myCollectionDelegate: MyCollectionViewModelDelegateMock(),
+            authenticationService: AuthenticationServiceMock()
         )
         
         var callbackIsCalled = false
@@ -189,6 +228,12 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
     
     func test_reloadCollection_GivenFetchDataError_ThenResultsInErrorAlert() {
         // Given
+        let authenticationService = AuthenticationServiceMock()
+        authenticationService.given(
+            .userIsLoggedIn(
+                willReturn: true
+            )
+        )
         let localDatabase = LocalDatabaseMock()
         localDatabase.given(
             .fetchAllPlatforms(
@@ -207,7 +252,8 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
             platform: platform,
             database: localDatabase,
             alertDisplayer: alertDisplayer,
-            gameDetailsDelegate: GameDetailsViewModelDelegateMock()
+            myCollectionDelegate: MyCollectionViewModelDelegateMock(),
+            authenticationService: authenticationService
         )
         
         viewModel.loadData { _ in
@@ -250,7 +296,8 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
             platform: platform,
             database: localDatabase,
             alertDisplayer: alertDisplayer,
-            gameDetailsDelegate: GameDetailsViewModelDelegateMock()
+            myCollectionDelegate: MyCollectionViewModelDelegateMock(),
+            authenticationService: AuthenticationServiceMock()
         )
         // When
         viewModel.reloadCollection()
@@ -270,6 +317,12 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
     
     func test_reloadCollection_GivenDataFetchedCorrectly_ThenSectionsAreSetAndContainerDelegateCalled() {
         // Given
+        let authenticationService = AuthenticationServiceMock()
+        authenticationService.given(
+            .userIsLoggedIn(
+                willReturn: true
+            )
+        )
         let localDatabase = LocalDatabaseMock()
         localDatabase.given(
             .fetchAllPlatforms(
@@ -287,7 +340,8 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
             platform: MockData.platform,
             database: localDatabase,
             alertDisplayer: alertDisplayer,
-            gameDetailsDelegate: GameDetailsViewModelDelegateMock()
+            myCollectionDelegate: MyCollectionViewModelDelegateMock(),
+            authenticationService: authenticationService
         )
         let containerDelegate = ContainerViewControllerDelegateMock()
         viewModel.containerDelegate = containerDelegate
