@@ -6,6 +6,8 @@
 //
 
 import Foundation
+
+// sourcery: AutoMockable
 protocol ConnectionManager {
     func hasConnectivity() -> Bool
 }

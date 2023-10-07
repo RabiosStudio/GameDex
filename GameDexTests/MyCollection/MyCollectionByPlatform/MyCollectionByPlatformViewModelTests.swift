@@ -17,7 +17,8 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
             database: LocalDatabaseMock(),
             alertDisplayer: AlertDisplayerMock(),
             myCollectionDelegate: MyCollectionViewModelDelegateMock(),
-            authenticationService: AuthenticationServiceMock()
+            authenticationService: AuthenticationServiceMock(),
+            connectionManager: ConnectionManagerMock()
         )
         
         // Then
@@ -36,13 +37,19 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
                 willReturn: true
             )
         )
-        
+        let connectionManager = ConnectionManagerMock()
+        connectionManager.given(
+            .hasConnectivity(
+                willReturn: true
+            )
+        )
         let viewModel = MyCollectionByPlatformsViewModel(
             platform: MockData.platform,
             database: LocalDatabaseMock(),
             alertDisplayer: AlertDisplayerMock(),
             myCollectionDelegate: MyCollectionViewModelDelegateMock(),
-            authenticationService: authenticationService
+            authenticationService: authenticationService,
+            connectionManager: connectionManager
         )
         var callbackIsCalled = false
         
@@ -67,24 +74,107 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
             )
         )
         let platform = MockData.platformWithNoGames
+        let connectionManager = ConnectionManagerMock()
+        connectionManager.given(
+            .hasConnectivity(
+                willReturn: true
+            )
+        )
         let viewModel = MyCollectionByPlatformsViewModel(
             platform: platform,
             database: LocalDatabaseMock(),
             alertDisplayer: AlertDisplayerMock(),
             myCollectionDelegate: MyCollectionViewModelDelegateMock(),
-            authenticationService: authenticationService
+            authenticationService: authenticationService,
+            connectionManager: connectionManager
         )
         
         let containerDelegate = ContainerViewControllerDelegateMock()
         viewModel.containerDelegate = containerDelegate
         
         // When
-        viewModel.loadData { _ in
-            
-        }
+        viewModel.loadData { _ in }
         
         // Then
         containerDelegate.verify(.goBackToRootViewController())
+    }
+    
+    func test_loadData_GivenUserIsNotLoggedIn_ThenShouldSetupSupplementaryView() {
+        // Given
+        let authenticationService = AuthenticationServiceMock()
+        authenticationService.given(
+            .userIsLoggedIn(
+                willReturn: false
+            )
+        )
+        let connectionManager = ConnectionManagerMock()
+        connectionManager.given(
+            .hasConnectivity(
+                willReturn: true
+            )
+        )
+        let platform = MockData.platformWithNoGames
+        let viewModel = MyCollectionByPlatformsViewModel(
+            platform: platform,
+            database: LocalDatabaseMock(),
+            alertDisplayer: AlertDisplayerMock(),
+            myCollectionDelegate: MyCollectionViewModelDelegateMock(),
+            authenticationService: authenticationService,
+            connectionManager: connectionManager
+        )
+        let containerDelegate = ContainerViewControllerDelegateMock()
+        viewModel.containerDelegate = containerDelegate
+        
+        // When
+        viewModel.loadData { _ in
+            
+            // Then
+            containerDelegate.verify(
+                .configureSupplementaryView(
+                    contentViewFactory: .any,
+                    topView: .value(true)
+                )
+            )
+        }
+    }
+    
+    func test_loadData_GivenUserIsNotConnectedToInternet_ThenShouldSetupSupplementaryView() {
+        // Given
+        let authenticationService = AuthenticationServiceMock()
+        authenticationService.given(
+            .userIsLoggedIn(
+                willReturn: true
+            )
+        )
+        let connectionManager = ConnectionManagerMock()
+        connectionManager.given(
+            .hasConnectivity(
+                willReturn: false
+            )
+        )
+        let platform = MockData.platformWithNoGames
+        let viewModel = MyCollectionByPlatformsViewModel(
+            platform: platform,
+            database: LocalDatabaseMock(),
+            alertDisplayer: AlertDisplayerMock(),
+            myCollectionDelegate: MyCollectionViewModelDelegateMock(),
+            authenticationService: authenticationService,
+            connectionManager: connectionManager
+        )
+        let containerDelegate = ContainerViewControllerDelegateMock()
+        viewModel.containerDelegate = containerDelegate
+        
+        // When
+        viewModel.loadData { _ in
+            
+            // Then
+            containerDelegate.verify(
+                .configureSupplementaryView(
+                    contentViewFactory: .any,
+                    topView: .value(true)
+                )
+            )
+        }
     }
     
     func test_didTapRightButtonItem_ThenShouldSetNavigationStyleCorrectly() {
@@ -95,7 +185,8 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
             database: LocalDatabaseMock(),
             alertDisplayer: AlertDisplayerMock(),
             myCollectionDelegate: MyCollectionViewModelDelegateMock(),
-            authenticationService: AuthenticationServiceMock()
+            authenticationService: AuthenticationServiceMock(),
+            connectionManager: ConnectionManagerMock()
         )
         
         // When
@@ -127,12 +218,19 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
             )
         )
         let platform = MockData.platform
+        let connectionManager = ConnectionManagerMock()
+        connectionManager.given(
+            .hasConnectivity(
+                willReturn: true
+            )
+        )
         let viewModel = MyCollectionByPlatformsViewModel(
             platform: platform,
             database: LocalDatabaseMock(),
             alertDisplayer: AlertDisplayerMock(),
             myCollectionDelegate: MyCollectionViewModelDelegateMock(),
-            authenticationService: authenticationService
+            authenticationService: authenticationService,
+            connectionManager: connectionManager
         )
         
         viewModel.loadData { _ in
@@ -156,12 +254,19 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
             )
         )
         let platform = MockData.platform
+        let connectionManager = ConnectionManagerMock()
+        connectionManager.given(
+            .hasConnectivity(
+                willReturn: true
+            )
+        )
         let viewModel = MyCollectionByPlatformsViewModel(
             platform: platform,
             database: LocalDatabaseMock(),
             alertDisplayer: AlertDisplayerMock(),
             myCollectionDelegate: MyCollectionViewModelDelegateMock(),
-            authenticationService: authenticationService
+            authenticationService: authenticationService,
+            connectionManager: connectionManager
         )
         
         viewModel.loadData { _ in
@@ -186,12 +291,19 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
             )
         )
         let platform = MockData.platform
+        let connectionManager = ConnectionManagerMock()
+        connectionManager.given(
+            .hasConnectivity(
+                willReturn: true
+            )
+        )
         let viewModel = MyCollectionByPlatformsViewModel(
             platform: platform,
             database: LocalDatabaseMock(),
             alertDisplayer: AlertDisplayerMock(),
             myCollectionDelegate: MyCollectionViewModelDelegateMock(),
-            authenticationService: authenticationService
+            authenticationService: authenticationService,
+            connectionManager: connectionManager
         )
         
         viewModel.loadData { _ in
@@ -212,7 +324,8 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
             database: LocalDatabaseMock(),
             alertDisplayer: AlertDisplayerMock(),
             myCollectionDelegate: MyCollectionViewModelDelegateMock(),
-            authenticationService: AuthenticationServiceMock()
+            authenticationService: AuthenticationServiceMock(),
+            connectionManager: ConnectionManagerMock()
         )
         
         var callbackIsCalled = false
@@ -248,12 +361,19 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
         )
         let alertDisplayer = AlertDisplayerMock()
         let platform = MockData.platform
+        let connectionManager = ConnectionManagerMock()
+        connectionManager.given(
+            .hasConnectivity(
+                willReturn: true
+            )
+        )
         let viewModel = MyCollectionByPlatformsViewModel(
             platform: platform,
             database: localDatabase,
             alertDisplayer: alertDisplayer,
             myCollectionDelegate: MyCollectionViewModelDelegateMock(),
-            authenticationService: authenticationService
+            authenticationService: authenticationService,
+            connectionManager: connectionManager
         )
         
         viewModel.loadData { _ in
@@ -297,7 +417,8 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
             database: localDatabase,
             alertDisplayer: alertDisplayer,
             myCollectionDelegate: MyCollectionViewModelDelegateMock(),
-            authenticationService: AuthenticationServiceMock()
+            authenticationService: AuthenticationServiceMock(),
+            connectionManager: ConnectionManagerMock()
         )
         // When
         viewModel.reloadCollection()
@@ -335,13 +456,20 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
                 willReturn: Result<PlatformCollected?, DatabaseError>.success(MockData.platformCollected)
             )
         )
+        let connectionManager = ConnectionManagerMock()
+        connectionManager.given(
+            .hasConnectivity(
+                willReturn: true
+            )
+        )
         let alertDisplayer = AlertDisplayerMock()
         let viewModel = MyCollectionByPlatformsViewModel(
             platform: MockData.platform,
             database: localDatabase,
             alertDisplayer: alertDisplayer,
             myCollectionDelegate: MyCollectionViewModelDelegateMock(),
-            authenticationService: authenticationService
+            authenticationService: authenticationService,
+            connectionManager: connectionManager
         )
         let containerDelegate = ContainerViewControllerDelegateMock()
         viewModel.containerDelegate = containerDelegate
