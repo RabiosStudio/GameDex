@@ -105,7 +105,7 @@ final class MyCollectionByPlatformsViewModel: CollectionViewModel {
     }
     
     private func displayInfoWarningIfNeeded() {
-        if !self.authenticationService.userIsLoggedIn() && self.connectionManager.hasConnectivity() {
+        if !self.authenticationService.isUserLoggedIn() && self.connectionManager.hasConnectivity() {
             self.setupInfoWarning(text: L10n.infoLogout)
         } else if !self.connectionManager.hasConnectivity() {
             self.setupInfoWarning(text: L10n.infoNoInternet)

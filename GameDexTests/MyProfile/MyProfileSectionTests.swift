@@ -14,7 +14,7 @@ final class MyProfileSectionTests: XCTestCase {
         // Given
         let alertDisplayer = AlertDisplayerMock()
         let section = MyProfileSection(
-            userIsLoggedIn: false,
+            isUserLoggedIn: false,
             myProfileDelegate: MyProfileViewModelDelegateMock(),
             myCollectionDelegate: MyCollectionViewModelDelegateMock(),
             alertDisplayer: alertDisplayer
@@ -52,7 +52,7 @@ final class MyProfileSectionTests: XCTestCase {
         // Given
         let alertDisplayer = AlertDisplayerMock()
         let section = MyProfileSection(
-            userIsLoggedIn: true,
+            isUserLoggedIn: true,
             myProfileDelegate: MyProfileViewModelDelegateMock(),
             myCollectionDelegate: MyCollectionViewModelDelegateMock(),
             alertDisplayer: alertDisplayer

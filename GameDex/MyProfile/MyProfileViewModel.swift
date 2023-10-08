@@ -38,10 +38,10 @@ final class MyProfileViewModel: CollectionViewModel {
     }
     
     func loadData(callback: @escaping (EmptyError?) -> ()) {
-        let userIsLoggedIn = self.authenticationService.userIsLoggedIn()
+        let isUserLoggedIn = self.authenticationService.isUserLoggedIn()
         self.sections = [
             MyProfileSection(
-                userIsLoggedIn: userIsLoggedIn,
+                isUserLoggedIn: isUserLoggedIn,
                 myProfileDelegate: self,
                 myCollectionDelegate: self.myCollectionDelegate,
                 alertDisplayer: self.alertDisplayer

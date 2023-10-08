@@ -33,7 +33,7 @@ final class MyProfileViewModelTests: XCTestCase {
         )
         
         authenticationService.given(
-            .userIsLoggedIn(
+            .isUserLoggedIn(
                 willReturn: true
             )
         )
@@ -55,7 +55,7 @@ final class MyProfileViewModelTests: XCTestCase {
             myCollectionDelegate: MyCollectionViewModelDelegateMock()
         )
         authenticationService.given(
-            .userIsLoggedIn(
+            .isUserLoggedIn(
                 willReturn: false
             )
         )

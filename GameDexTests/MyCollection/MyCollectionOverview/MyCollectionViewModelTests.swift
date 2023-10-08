@@ -46,7 +46,7 @@ final class MyCollectionViewModelTests: XCTestCase {
         // Given
         let authenticationService = AuthenticationServiceMock()
         authenticationService.given(
-            .userIsLoggedIn(
+            .isUserLoggedIn(
                 willReturn: true
             )
         )
@@ -87,7 +87,7 @@ final class MyCollectionViewModelTests: XCTestCase {
         // Given
         let authenticationService = AuthenticationServiceMock()
         authenticationService.given(
-            .userIsLoggedIn(
+            .isUserLoggedIn(
                 willReturn: true
             )
         )
@@ -125,7 +125,7 @@ final class MyCollectionViewModelTests: XCTestCase {
         // Given
         let authenticationService = AuthenticationServiceMock()
         authenticationService.given(
-            .userIsLoggedIn(
+            .isUserLoggedIn(
                 willReturn: false
             )
         )
@@ -166,7 +166,7 @@ final class MyCollectionViewModelTests: XCTestCase {
         // Given
         let authenticationService = AuthenticationServiceMock()
         authenticationService.given(
-            .userIsLoggedIn(
+            .isUserLoggedIn(
                 willReturn: true
             )
         )
@@ -226,7 +226,7 @@ final class MyCollectionViewModelTests: XCTestCase {
         // Given
         let authenticationService = AuthenticationServiceMock()
         authenticationService.given(
-            .userIsLoggedIn(
+            .isUserLoggedIn(
                 willReturn: true
             )
         )
@@ -275,7 +275,7 @@ final class MyCollectionViewModelTests: XCTestCase {
         // Given
         let authenticationService = AuthenticationServiceMock()
         authenticationService.given(
-            .userIsLoggedIn(
+            .isUserLoggedIn(
                 willReturn: true
             )
         )
@@ -314,7 +314,7 @@ final class MyCollectionViewModelTests: XCTestCase {
         // Given
         let authenticationService = AuthenticationServiceMock()
         authenticationService.given(
-            .userIsLoggedIn(
+            .isUserLoggedIn(
                 willReturn: true
             )
         )

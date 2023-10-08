@@ -917,16 +917,16 @@ open class AuthenticationServiceMock: AuthenticationService, Mock {
 		perform?(`callback`)
     }
 
-    open func userIsLoggedIn() -> Bool {
-        addInvocation(.m_userIsLoggedIn)
-		let perform = methodPerformValue(.m_userIsLoggedIn) as? () -> Void
+    open func isUserLoggedIn() -> Bool {
+        addInvocation(.m_isUserLoggedIn)
+		let perform = methodPerformValue(.m_isUserLoggedIn) as? () -> Void
 		perform?()
 		var __value: Bool
 		do {
-		    __value = try methodReturnValue(.m_userIsLoggedIn).casted()
+		    __value = try methodReturnValue(.m_isUserLoggedIn).casted()
 		} catch {
-			onFatalFailure("Stub return value not specified for userIsLoggedIn(). Use given")
-			Failure("Stub return value not specified for userIsLoggedIn(). Use given")
+			onFatalFailure("Stub return value not specified for isUserLoggedIn(). Use given")
+			Failure("Stub return value not specified for isUserLoggedIn(). Use given")
 		}
 		return __value
     }
@@ -936,7 +936,7 @@ open class AuthenticationServiceMock: AuthenticationService, Mock {
         case m_login__email_emailpassword_passwordcallback_callback(Parameter<String>, Parameter<String>, Parameter<(AuthenticationError?) -> ()>)
         case m_createUser__email_emailpassword_passwordcloudDatabase_cloudDatabase(Parameter<String>, Parameter<String>, Parameter<CloudDatabase>)
         case m_logout__callback_callback(Parameter<(AuthenticationError?) -> ()>)
-        case m_userIsLoggedIn
+        case m_isUserLoggedIn
 
         static func compareParameters(lhs: MethodType, rhs: MethodType, matcher: Matcher) -> Matcher.ComparisonResult {
             switch (lhs, rhs) {
@@ -959,7 +959,7 @@ open class AuthenticationServiceMock: AuthenticationService, Mock {
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsCallback, rhs: rhsCallback, with: matcher), lhsCallback, rhsCallback, "callback"))
 				return Matcher.ComparisonResult(results)
 
-            case (.m_userIsLoggedIn, .m_userIsLoggedIn): return .match
+            case (.m_isUserLoggedIn, .m_isUserLoggedIn): return .match
             default: return .none
             }
         }
@@ -969,7 +969,7 @@ open class AuthenticationServiceMock: AuthenticationService, Mock {
             case let .m_login__email_emailpassword_passwordcallback_callback(p0, p1, p2): return p0.intValue + p1.intValue + p2.intValue
             case let .m_createUser__email_emailpassword_passwordcloudDatabase_cloudDatabase(p0, p1, p2): return p0.intValue + p1.intValue + p2.intValue
             case let .m_logout__callback_callback(p0): return p0.intValue
-            case .m_userIsLoggedIn: return 0
+            case .m_isUserLoggedIn: return 0
             }
         }
         func assertionName() -> String {
@@ -977,7 +977,7 @@ open class AuthenticationServiceMock: AuthenticationService, Mock {
             case .m_login__email_emailpassword_passwordcallback_callback: return ".login(email:password:callback:)"
             case .m_createUser__email_emailpassword_passwordcloudDatabase_cloudDatabase: return ".createUser(email:password:cloudDatabase:)"
             case .m_logout__callback_callback: return ".logout(callback:)"
-            case .m_userIsLoggedIn: return ".userIsLoggedIn()"
+            case .m_isUserLoggedIn: return ".isUserLoggedIn()"
             }
         }
     }
@@ -994,8 +994,8 @@ open class AuthenticationServiceMock: AuthenticationService, Mock {
         public static func createUser(email: Parameter<String>, password: Parameter<String>, cloudDatabase: Parameter<CloudDatabase>, willReturn: AuthenticationError?...) -> MethodStub {
             return Given(method: .m_createUser__email_emailpassword_passwordcloudDatabase_cloudDatabase(`email`, `password`, `cloudDatabase`), products: willReturn.map({ StubProduct.return($0 as Any) }))
         }
-        public static func userIsLoggedIn(willReturn: Bool...) -> MethodStub {
-            return Given(method: .m_userIsLoggedIn, products: willReturn.map({ StubProduct.return($0 as Any) }))
+        public static func isUserLoggedIn(willReturn: Bool...) -> MethodStub {
+            return Given(method: .m_isUserLoggedIn, products: willReturn.map({ StubProduct.return($0 as Any) }))
         }
         public static func createUser(email: Parameter<String>, password: Parameter<String>, cloudDatabase: Parameter<CloudDatabase>, willProduce: (Stubber<AuthenticationError?>) -> Void) -> MethodStub {
             let willReturn: [AuthenticationError?] = []
@@ -1004,9 +1004,9 @@ open class AuthenticationServiceMock: AuthenticationService, Mock {
 			willProduce(stubber)
 			return given
         }
-        public static func userIsLoggedIn(willProduce: (Stubber<Bool>) -> Void) -> MethodStub {
+        public static func isUserLoggedIn(willProduce: (Stubber<Bool>) -> Void) -> MethodStub {
             let willReturn: [Bool] = []
-			let given: Given = { return Given(method: .m_userIsLoggedIn, products: willReturn.map({ StubProduct.return($0 as Any) })) }()
+			let given: Given = { return Given(method: .m_isUserLoggedIn, products: willReturn.map({ StubProduct.return($0 as Any) })) }()
 			let stubber = given.stub(for: (Bool).self)
 			willProduce(stubber)
 			return given
@@ -1019,7 +1019,7 @@ open class AuthenticationServiceMock: AuthenticationService, Mock {
         public static func login(email: Parameter<String>, password: Parameter<String>, callback: Parameter<(AuthenticationError?) -> ()>) -> Verify { return Verify(method: .m_login__email_emailpassword_passwordcallback_callback(`email`, `password`, `callback`))}
         public static func createUser(email: Parameter<String>, password: Parameter<String>, cloudDatabase: Parameter<CloudDatabase>) -> Verify { return Verify(method: .m_createUser__email_emailpassword_passwordcloudDatabase_cloudDatabase(`email`, `password`, `cloudDatabase`))}
         public static func logout(callback: Parameter<(AuthenticationError?) -> ()>) -> Verify { return Verify(method: .m_logout__callback_callback(`callback`))}
-        public static func userIsLoggedIn() -> Verify { return Verify(method: .m_userIsLoggedIn)}
+        public static func isUserLoggedIn() -> Verify { return Verify(method: .m_isUserLoggedIn)}
     }
 
     public struct Perform {
@@ -1035,8 +1035,8 @@ open class AuthenticationServiceMock: AuthenticationService, Mock {
         public static func logout(callback: Parameter<(AuthenticationError?) -> ()>, perform: @escaping (@escaping (AuthenticationError?) -> ()) -> Void) -> Perform {
             return Perform(method: .m_logout__callback_callback(`callback`), performs: perform)
         }
-        public static func userIsLoggedIn(perform: @escaping () -> Void) -> Perform {
-            return Perform(method: .m_userIsLoggedIn, performs: perform)
+        public static func isUserLoggedIn(perform: @escaping () -> Void) -> Perform {
+            return Perform(method: .m_isUserLoggedIn, performs: perform)
         }
     }
 

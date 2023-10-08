@@ -43,7 +43,7 @@ class AuthenticationServiceImpl: AuthenticationService {
         }
     }
     
-    func userIsLoggedIn() -> Bool {
+    func isUserLoggedIn() -> Bool {
         return Auth.auth().currentUser?.uid != nil
     }
 }

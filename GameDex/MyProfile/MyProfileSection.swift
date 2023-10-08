@@ -10,7 +10,7 @@ import Foundation
 final class MyProfileSection: Section {
     
     init(
-        userIsLoggedIn: Bool,
+        isUserLoggedIn: Bool,
         myProfileDelegate: MyProfileViewModelDelegate?,
         myCollectionDelegate: MyCollectionViewModelDelegate?,
         alertDisplayer: AlertDisplayer
@@ -18,7 +18,7 @@ final class MyProfileSection: Section {
         super.init()
         self.position = 0
         
-        if userIsLoggedIn {
+        if isUserLoggedIn {
             let logoutCellVM = LabelCellViewModel(
                 primaryText: L10n.logout,
                 cellTappedCallback: {

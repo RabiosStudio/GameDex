@@ -33,7 +33,7 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
         // Given
         let authenticationService = AuthenticationServiceMock()
         authenticationService.given(
-            .userIsLoggedIn(
+            .isUserLoggedIn(
                 willReturn: true
             )
         )
@@ -69,7 +69,7 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
         // Given
         let authenticationService = AuthenticationServiceMock()
         authenticationService.given(
-            .userIsLoggedIn(
+            .isUserLoggedIn(
                 willReturn: true
             )
         )
@@ -103,7 +103,7 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
         // Given
         let authenticationService = AuthenticationServiceMock()
         authenticationService.given(
-            .userIsLoggedIn(
+            .isUserLoggedIn(
                 willReturn: false
             )
         )
@@ -142,7 +142,7 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
         // Given
         let authenticationService = AuthenticationServiceMock()
         authenticationService.given(
-            .userIsLoggedIn(
+            .isUserLoggedIn(
                 willReturn: true
             )
         )
@@ -213,7 +213,7 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
         // Given
         let authenticationService = AuthenticationServiceMock()
         authenticationService.given(
-            .userIsLoggedIn(
+            .isUserLoggedIn(
                 willReturn: true
             )
         )
@@ -249,7 +249,7 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
         // Given
         let authenticationService = AuthenticationServiceMock()
         authenticationService.given(
-            .userIsLoggedIn(
+            .isUserLoggedIn(
                 willReturn: true
             )
         )
@@ -286,7 +286,7 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
         // Given
         let authenticationService = AuthenticationServiceMock()
         authenticationService.given(
-            .userIsLoggedIn(
+            .isUserLoggedIn(
                 willReturn: true
             )
         )
@@ -343,7 +343,7 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
         // Given
         let authenticationService = AuthenticationServiceMock()
         authenticationService.given(
-            .userIsLoggedIn(
+            .isUserLoggedIn(
                 willReturn: true
             )
         )
@@ -440,7 +440,7 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
         // Given
         let authenticationService = AuthenticationServiceMock()
         authenticationService.given(
-            .userIsLoggedIn(
+            .isUserLoggedIn(
                 willReturn: true
             )
         )
