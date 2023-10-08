@@ -155,8 +155,7 @@ final class MyCollectionViewModelTests: XCTestCase {
             // Then
             containerDelegate.verify(
                 .configureSupplementaryView(
-                    contentViewFactory: .any,
-                    topView: .value(true)
+                    contentViewFactory: .any
                 )
             )
         }
@@ -196,8 +195,7 @@ final class MyCollectionViewModelTests: XCTestCase {
             // Then
             containerDelegate.verify(
                 .configureSupplementaryView(
-                    contentViewFactory: .any,
-                    topView: .value(true)
+                    contentViewFactory: .any
                 )
             )
         }

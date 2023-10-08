@@ -105,8 +105,7 @@ final class EditGameDetailsViewModelTests: XCTestCase {
                         )
                         containerDelegate.verify(
                             .configureSupplementaryView(
-                                contentViewFactory: .any,
-                                topView: .any
+                                contentViewFactory: .any
                             )
                         )
                         expectation.fulfill()
@@ -156,8 +155,7 @@ final class EditGameDetailsViewModelTests: XCTestCase {
                         )
                         containerDelegate.verify(
                             .configureSupplementaryView(
-                                contentViewFactory: .any,
-                                topView: .any
+                                contentViewFactory: .any
                             )
                         )
                         expectation.fulfill()
@@ -215,8 +213,7 @@ final class EditGameDetailsViewModelTests: XCTestCase {
         // Then
         containerDelegate.verify(
             .configureSupplementaryView(
-                contentViewFactory: .any,
-                topView: .any
+                contentViewFactory: .any
             )
         )
     }
@@ -286,8 +283,7 @@ final class EditGameDetailsViewModelTests: XCTestCase {
                     )
                     containerDelegate.verify(
                         .configureSupplementaryView(
-                            contentViewFactory: .any,
-                            topView: .any
+                            contentViewFactory: .any
                         )
                     )
                     expectation.fulfill()

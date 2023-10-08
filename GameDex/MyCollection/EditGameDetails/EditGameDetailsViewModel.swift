@@ -78,12 +78,10 @@ final class EditGameDetailsViewModel: CollectionViewModel {
         let buttonContentViewFactory = PrimaryButtonContentViewFactory(
             delegate: self,
             buttonTitle: L10n.saveChanges,
-            shouldEnable: shouldEnableButton
+            shouldEnable: shouldEnableButton,
+            position: .bottom
         )
-        self.containerDelegate?.configureSupplementaryView(
-            contentViewFactory: buttonContentViewFactory,
-            topView: false
-        )
+        self.containerDelegate?.configureSupplementaryView(contentViewFactory: buttonContentViewFactory)
     }
 }
 

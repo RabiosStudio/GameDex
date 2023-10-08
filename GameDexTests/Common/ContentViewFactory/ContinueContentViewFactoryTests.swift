@@ -18,7 +18,8 @@ final class PrimaryButtonContentViewFactoryTests: XCTestCase {
         let viewFactory = PrimaryButtonContentViewFactory(
             delegate: delegateMock,
             buttonTitle: "Button title",
-            shouldEnable: true
+            shouldEnable: true,
+            position: .bottom
         )
         
         // Then

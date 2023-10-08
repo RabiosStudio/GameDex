@@ -102,9 +102,9 @@ final class MyCollectionViewModel: CollectionViewModel {
     private func setupInfoWarning(text: String) {
         self.containerDelegate?.configureSupplementaryView(
             contentViewFactory: InfoContentViewFactory(
-                infoText: text
-            ),
-            topView: true
+                infoText: text,
+                position: .top
+            )
         )
     }
     

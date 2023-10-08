@@ -61,6 +61,7 @@
 		2560B01B2ACFF38800EBAADB /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2560B01A2ACFF38800EBAADB /* InfoView.swift */; };
 		2560B01D2ACFF40600EBAADB /* InfoViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2560B01C2ACFF40600EBAADB /* InfoViewModel.swift */; };
 		2560B01F2AD18BE100EBAADB /* ConnectionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2560B01E2AD18BE100EBAADB /* ConnectionManager.swift */; };
+		256D9C422AD2BD9700D4AA23 /* Position.swift in Sources */ = {isa = PBXBuildFile; fileRef = 256D9C412AD2BD9700D4AA23 /* Position.swift */; };
 		25939FF72AAF3C09000FC253 /* DatabaseError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25939FF62AAF3C09000FC253 /* DatabaseError.swift */; };
 		25939FFB2AAF5D01000FC253 /* AlertDisplayerImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25939FFA2AAF5D01000FC253 /* AlertDisplayerImpl.swift */; };
 		25939FFD2AAF6FBF000FC253 /* GameFormType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25939FFC2AAF6FBF000FC253 /* GameFormType.swift */; };
@@ -249,6 +250,7 @@
 		2560B01A2ACFF38800EBAADB /* InfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoView.swift; sourceTree = "<group>"; };
 		2560B01C2ACFF40600EBAADB /* InfoViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoViewModel.swift; sourceTree = "<group>"; };
 		2560B01E2AD18BE100EBAADB /* ConnectionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectionManager.swift; sourceTree = "<group>"; };
+		256D9C412AD2BD9700D4AA23 /* Position.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Position.swift; sourceTree = "<group>"; };
 		25939FF62AAF3C09000FC253 /* DatabaseError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DatabaseError.swift; sourceTree = "<group>"; };
 		25939FFA2AAF5D01000FC253 /* AlertDisplayerImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AlertDisplayerImpl.swift; sourceTree = "<group>"; };
 		25939FFC2AAF6FBF000FC253 /* GameFormType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameFormType.swift; sourceTree = "<group>"; };
@@ -454,6 +456,7 @@
 				25939FFC2AAF6FBF000FC253 /* GameFormType.swift */,
 				251C86D32A9899A70020C794 /* RemoteDataConverter.swift */,
 				25E8E4A22AC1B7AF0093E7F8 /* CellSize.swift */,
+				256D9C412AD2BD9700D4AA23 /* Position.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1395,6 +1398,7 @@
 				25D6EAE22A8A265C00C2BE57 /* AppDelegate.swift in Sources */,
 				25AE1F1D2A8F926400F2D06A /* ContentViewFactory.swift in Sources */,
 				25EB242C2AA621800024F01C /* ImageDescriptionCell.swift in Sources */,
+				256D9C422AD2BD9700D4AA23 /* Position.swift in Sources */,
 				251C86E02A98AD4D0020C794 /* SelectAddGameMethodSection.swift in Sources */,
 				25E8E4AC2AC1E4BC0093E7F8 /* AuthenticationError.swift in Sources */,
 				252516612ACAD10600B88813 /* CloudDatabase.swift in Sources */,

@@ -9,6 +9,8 @@ import Foundation
 import UIKit
 
 final class InfoContentViewFactory: ContentViewFactory {
+    let position: Position
+    
     lazy var contentView: UIView = {
         let view = InfoView()
         view.configure(
@@ -21,7 +23,8 @@ final class InfoContentViewFactory: ContentViewFactory {
     
     private let infoText: String
     
-    init(infoText: String) {
+    init(infoText: String, position: Position) {
         self.infoText = infoText
+        self.position = position
     }
 }

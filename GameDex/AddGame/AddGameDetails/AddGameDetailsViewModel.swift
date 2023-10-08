@@ -64,12 +64,10 @@ final class AddGameDetailsViewModel: CollectionViewModel {
         let buttonContentViewFactory = PrimaryButtonContentViewFactory(
             delegate: self,
             buttonTitle: L10n.addGameToCollection,
-            shouldEnable: true
+            shouldEnable: true,
+            position: .bottom
         )
-        self.containerDelegate?.configureSupplementaryView(
-            contentViewFactory: buttonContentViewFactory,
-            topView: false
-        )
+        self.containerDelegate?.configureSupplementaryView(contentViewFactory: buttonContentViewFactory)
     }
 }
 

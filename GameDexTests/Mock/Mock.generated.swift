@@ -1677,10 +1677,10 @@ open class ContainerViewControllerDelegateMock: ContainerViewControllerDelegate,
 
 
 
-    open func configureSupplementaryView(contentViewFactory: ContentViewFactory, topView: Bool) {
-        addInvocation(.m_configureSupplementaryView__contentViewFactory_contentViewFactorytopView_topView(Parameter<ContentViewFactory>.value(`contentViewFactory`), Parameter<Bool>.value(`topView`)))
-		let perform = methodPerformValue(.m_configureSupplementaryView__contentViewFactory_contentViewFactorytopView_topView(Parameter<ContentViewFactory>.value(`contentViewFactory`), Parameter<Bool>.value(`topView`))) as? (ContentViewFactory, Bool) -> Void
-		perform?(`contentViewFactory`, `topView`)
+    open func configureSupplementaryView(contentViewFactory: ContentViewFactory) {
+        addInvocation(.m_configureSupplementaryView__contentViewFactory_contentViewFactory(Parameter<ContentViewFactory>.value(`contentViewFactory`)))
+		let perform = methodPerformValue(.m_configureSupplementaryView__contentViewFactory_contentViewFactory(Parameter<ContentViewFactory>.value(`contentViewFactory`))) as? (ContentViewFactory) -> Void
+		perform?(`contentViewFactory`)
     }
 
     open func reloadSections() {
@@ -1697,16 +1697,15 @@ open class ContainerViewControllerDelegateMock: ContainerViewControllerDelegate,
 
 
     fileprivate enum MethodType {
-        case m_configureSupplementaryView__contentViewFactory_contentViewFactorytopView_topView(Parameter<ContentViewFactory>, Parameter<Bool>)
+        case m_configureSupplementaryView__contentViewFactory_contentViewFactory(Parameter<ContentViewFactory>)
         case m_reloadSections
         case m_goBackToRootViewController
 
         static func compareParameters(lhs: MethodType, rhs: MethodType, matcher: Matcher) -> Matcher.ComparisonResult {
             switch (lhs, rhs) {
-            case (.m_configureSupplementaryView__contentViewFactory_contentViewFactorytopView_topView(let lhsContentviewfactory, let lhsTopview), .m_configureSupplementaryView__contentViewFactory_contentViewFactorytopView_topView(let rhsContentviewfactory, let rhsTopview)):
+            case (.m_configureSupplementaryView__contentViewFactory_contentViewFactory(let lhsContentviewfactory), .m_configureSupplementaryView__contentViewFactory_contentViewFactory(let rhsContentviewfactory)):
 				var results: [Matcher.ParameterComparisonResult] = []
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsContentviewfactory, rhs: rhsContentviewfactory, with: matcher), lhsContentviewfactory, rhsContentviewfactory, "contentViewFactory"))
-				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsTopview, rhs: rhsTopview, with: matcher), lhsTopview, rhsTopview, "topView"))
 				return Matcher.ComparisonResult(results)
 
             case (.m_reloadSections, .m_reloadSections): return .match
@@ -1718,14 +1717,14 @@ open class ContainerViewControllerDelegateMock: ContainerViewControllerDelegate,
 
         func intValue() -> Int {
             switch self {
-            case let .m_configureSupplementaryView__contentViewFactory_contentViewFactorytopView_topView(p0, p1): return p0.intValue + p1.intValue
+            case let .m_configureSupplementaryView__contentViewFactory_contentViewFactory(p0): return p0.intValue
             case .m_reloadSections: return 0
             case .m_goBackToRootViewController: return 0
             }
         }
         func assertionName() -> String {
             switch self {
-            case .m_configureSupplementaryView__contentViewFactory_contentViewFactorytopView_topView: return ".configureSupplementaryView(contentViewFactory:topView:)"
+            case .m_configureSupplementaryView__contentViewFactory_contentViewFactory: return ".configureSupplementaryView(contentViewFactory:)"
             case .m_reloadSections: return ".reloadSections()"
             case .m_goBackToRootViewController: return ".goBackToRootViewController()"
             }
@@ -1746,7 +1745,7 @@ open class ContainerViewControllerDelegateMock: ContainerViewControllerDelegate,
     public struct Verify {
         fileprivate var method: MethodType
 
-        public static func configureSupplementaryView(contentViewFactory: Parameter<ContentViewFactory>, topView: Parameter<Bool>) -> Verify { return Verify(method: .m_configureSupplementaryView__contentViewFactory_contentViewFactorytopView_topView(`contentViewFactory`, `topView`))}
+        public static func configureSupplementaryView(contentViewFactory: Parameter<ContentViewFactory>) -> Verify { return Verify(method: .m_configureSupplementaryView__contentViewFactory_contentViewFactory(`contentViewFactory`))}
         public static func reloadSections() -> Verify { return Verify(method: .m_reloadSections)}
         public static func goBackToRootViewController() -> Verify { return Verify(method: .m_goBackToRootViewController)}
     }
@@ -1755,8 +1754,8 @@ open class ContainerViewControllerDelegateMock: ContainerViewControllerDelegate,
         fileprivate var method: MethodType
         var performs: Any
 
-        public static func configureSupplementaryView(contentViewFactory: Parameter<ContentViewFactory>, topView: Parameter<Bool>, perform: @escaping (ContentViewFactory, Bool) -> Void) -> Perform {
-            return Perform(method: .m_configureSupplementaryView__contentViewFactory_contentViewFactorytopView_topView(`contentViewFactory`, `topView`), performs: perform)
+        public static func configureSupplementaryView(contentViewFactory: Parameter<ContentViewFactory>, perform: @escaping (ContentViewFactory) -> Void) -> Perform {
+            return Perform(method: .m_configureSupplementaryView__contentViewFactory_contentViewFactory(`contentViewFactory`), performs: perform)
         }
         public static func reloadSections(perform: @escaping () -> Void) -> Perform {
             return Perform(method: .m_reloadSections, performs: perform)

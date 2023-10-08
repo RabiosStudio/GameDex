@@ -10,4 +10,5 @@ import UIKit
 
 protocol ContentViewFactory {
     var contentView: UIView { get }
+    var position: Position { get }
 }

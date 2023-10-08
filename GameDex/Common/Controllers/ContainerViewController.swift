@@ -10,7 +10,7 @@ import UIKit
 
 // sourcery: AutoMockable
 protocol ContainerViewControllerDelegate: AnyObject {
-    func configureSupplementaryView(contentViewFactory: ContentViewFactory, topView: Bool)
+    func configureSupplementaryView(contentViewFactory: ContentViewFactory)
     func reloadSections()
     func goBackToRootViewController()
 }
@@ -445,12 +445,12 @@ extension ContainerViewController: ContainerViewControllerDelegate {
         }
     }
     
-    func configureSupplementaryView(contentViewFactory: ContentViewFactory, topView: Bool) {
+    func configureSupplementaryView(contentViewFactory: ContentViewFactory) {
         self.separatorView.removeFromSuperview()
         self.supplementaryView.removeFromSuperview()
         self.supplementaryView = contentViewFactory.contentView
         self.stackView.addArrangedSubview(self.separatorView)
-        if topView {
+        if contentViewFactory.position == .top {
             self.stackView.insertArrangedSubview(self.supplementaryView, at: 0)
         } else {
             self.stackView.addArrangedSubview(self.supplementaryView)
