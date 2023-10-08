@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-final class MyCollectionByPlatformsViewModel: CollectionViewModel {
+final class MyCollectionByPlatformsViewModel: ConnectivityDisplayerViewModel {
     lazy var searchViewModel: SearchViewModel? = SearchViewModel(
         placeholder: L10n.searchGame,
         activateOnTap: true,
@@ -26,8 +26,8 @@ final class MyCollectionByPlatformsViewModel: CollectionViewModel {
     private let database: LocalDatabase
     private let alertDisplayer: AlertDisplayer
     private var platform: Platform?
-    private let authenticationService: AuthenticationService
-    private let connectivityChecker: ConnectivityChecker
+    let authenticationService: AuthenticationService
+    let connectivityChecker: ConnectivityChecker
     
     init(
         platform: Platform?,
@@ -100,23 +100,6 @@ final class MyCollectionByPlatformsViewModel: CollectionViewModel {
             parameters: AlertViewModel(
                 alertType: .error,
                 description: L10n.fetchGamesErrorDescription
-            )
-        )
-    }
-    
-    private func displayInfoWarningIfNeeded() {
-        if !self.authenticationService.isUserLoggedIn() && self.connectivityChecker.hasConnectivity() {
-            self.setupInfoWarning(text: L10n.infoLogout)
-        } else if !self.connectivityChecker.hasConnectivity() {
-            self.setupInfoWarning(text: L10n.infoNoInternet)
-        }
-    }
-    
-    private func setupInfoWarning(text: String) {
-        self.containerDelegate?.configureSupplementaryView(
-            contentViewFactory: InfoContentViewFactory(
-                infoText: text,
-                position: .top
             )
         )
     }

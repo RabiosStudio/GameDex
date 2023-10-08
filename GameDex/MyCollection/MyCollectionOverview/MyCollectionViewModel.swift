@@ -12,7 +12,7 @@ protocol MyCollectionViewModelDelegate: AnyObject {
     func reloadCollection()
 }
 
-final class MyCollectionViewModel: CollectionViewModel {
+final class MyCollectionViewModel: ConnectivityDisplayerViewModel {
     lazy var searchViewModel: SearchViewModel? = SearchViewModel(
         placeholder: L10n.searchCollection,
         activateOnTap: true,
@@ -29,8 +29,8 @@ final class MyCollectionViewModel: CollectionViewModel {
     weak var myCollectionDelegate: MyCollectionViewModelDelegate?
     
     private let localDatabase: LocalDatabase
-    private let authenticationService: AuthenticationService
-    private let connectivityChecker: ConnectivityChecker
+    let authenticationService: AuthenticationService
+    let connectivityChecker: ConnectivityChecker
     
     init(
         localDatabase: LocalDatabase,
@@ -90,24 +90,6 @@ final class MyCollectionViewModel: CollectionViewModel {
             )
         ]
     }
-    
-    private func displayInfoWarningIfNeeded() {
-        if !self.authenticationService.isUserLoggedIn() && self.connectivityChecker.hasConnectivity() {
-            self.setupInfoWarning(text: L10n.infoLogout)
-        } else if !self.connectivityChecker.hasConnectivity() {
-            self.setupInfoWarning(text: L10n.infoNoInternet)
-        }
-    }
-    
-    private func setupInfoWarning(text: String) {
-        self.containerDelegate?.configureSupplementaryView(
-            contentViewFactory: InfoContentViewFactory(
-                infoText: text,
-                position: .top
-            )
-        )
-    }
-    
 }
 
 // MARK: - AddGameDetailsViewModelDelegate
