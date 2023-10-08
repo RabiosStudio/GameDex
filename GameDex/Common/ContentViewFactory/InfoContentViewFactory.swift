@@ -9,18 +9,27 @@ import Foundation
 import UIKit
 
 final class InfoContentViewFactory: ContentViewFactory {
+    
     let position: Position
     
     lazy var contentView: UIView = {
         let view = InfoView()
         view.configure(
             viewModel: InfoViewModel(
-                text: self.infoText
+                text: self.infoText,
+                textAlignment: .left,
+                numberOfLines: .zero,
+                textColor: .white,
+                backgroundColor: .systemYellow,
+                alpha: DesignSystem.opacityLight,
+                font: Typography.title3bold.font,
+                image: UIImage(systemName: "info.circle.fill")?.withTintColor(.white, renderingMode: .alwaysOriginal),
+                cornerRadius: DesignSystem.cornerRadiusBig
             )
         )
         return view
     }()
-    
+        
     private let infoText: String
     
     init(infoText: String, position: Position) {

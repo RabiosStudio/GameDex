@@ -35,15 +35,15 @@ final class InfoView: UIView {
     }
     
     func configure(viewModel: InfoViewModel) {
-        self.layer.cornerRadius = DesignSystem.cornerRadiusBig
-        self.backgroundColor = .systemYellow
-        self.alpha = 0.7
-        self.label.font = Typography.title3bold.font
+        self.layer.cornerRadius = viewModel.cornerRadius
+        self.backgroundColor = viewModel.backgroundColor
+        self.alpha = viewModel.alpha
+        self.label.font = viewModel.font
         self.label.text = viewModel.text
-        self.label.textColor = .white
-        self.label.textAlignment = .left
-        self.label.numberOfLines = .zero
-        let image = UIImage(systemName: "info.circle.fill")?.withTintColor(.white, renderingMode: .alwaysOriginal)
+        self.label.textColor = viewModel.textColor
+        self.label.textAlignment = viewModel.textAlignment
+        self.label.numberOfLines = viewModel.numberOfLines
+        let image = viewModel.image
         self.imageView.image = image
         self.setupConstraints()
     }
