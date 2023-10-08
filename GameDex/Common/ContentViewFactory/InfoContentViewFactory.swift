@@ -16,12 +16,6 @@ final class InfoContentViewFactory: ContentViewFactory {
                 text: self.infoText
             )
         )
-        view.layoutMargins = UIEdgeInsets(
-            top: DesignSystem.paddingLarge,
-            left: DesignSystem.paddingLarge,
-            bottom: DesignSystem.paddingLarge,
-            right: DesignSystem.paddingLarge
-        )
         return view
     }()
     
