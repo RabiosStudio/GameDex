@@ -29,7 +29,7 @@ final class MyCollectionViewModelTests: XCTestCase {
         let viewModel = MyCollectionViewModel(
             localDatabase: localDatabase,
             authenticationService: AuthenticationServiceMock(),
-            connectionManager: ConnectionManagerMock()
+            connectivityChecker: ConnectivityCheckerMock()
         )
         // When
         let numberOfSections = viewModel.numberOfSections()
@@ -51,8 +51,8 @@ final class MyCollectionViewModelTests: XCTestCase {
             )
         )
         let localDatabase = LocalDatabaseMock()
-        let connectionManager = ConnectionManagerMock()
-        connectionManager.given(
+        let connectivityChecker = ConnectivityCheckerMock()
+        connectivityChecker.given(
             .hasConnectivity(
                 willReturn: true
             )
@@ -60,7 +60,7 @@ final class MyCollectionViewModelTests: XCTestCase {
         let viewModel = MyCollectionViewModel(
             localDatabase: localDatabase,
             authenticationService: authenticationService,
-            connectionManager: connectionManager
+            connectivityChecker: connectivityChecker
         )
         var callbackIsCalled = false
         localDatabase.given(
@@ -98,8 +98,8 @@ final class MyCollectionViewModelTests: XCTestCase {
                 willReturn: Result<[PlatformCollected], DatabaseError>.success(emptyCollection)
             )
         )
-        let connectionManager = ConnectionManagerMock()
-        connectionManager.given(
+        let connectivityChecker = ConnectivityCheckerMock()
+        connectivityChecker.given(
             .hasConnectivity(
                 willReturn: true
             )
@@ -107,7 +107,7 @@ final class MyCollectionViewModelTests: XCTestCase {
         let viewModel = MyCollectionViewModel(
             localDatabase: localDatabase,
             authenticationService: authenticationService,
-            connectionManager: connectionManager
+            connectivityChecker: connectivityChecker
         )
         var callbackIsCalled = false
         
@@ -129,8 +129,8 @@ final class MyCollectionViewModelTests: XCTestCase {
                 willReturn: false
             )
         )
-        let connectionManager = ConnectionManagerMock()
-        connectionManager.given(
+        let connectivityChecker = ConnectivityCheckerMock()
+        connectivityChecker.given(
             .hasConnectivity(
                 willReturn: true
             )
@@ -144,7 +144,7 @@ final class MyCollectionViewModelTests: XCTestCase {
         let viewModel = MyCollectionViewModel(
             localDatabase: localDatabase,
             authenticationService: authenticationService,
-            connectionManager: connectionManager
+            connectivityChecker: connectivityChecker
         )
         let containerDelegate = ContainerViewControllerDelegateMock()
         viewModel.containerDelegate = containerDelegate
@@ -169,8 +169,8 @@ final class MyCollectionViewModelTests: XCTestCase {
                 willReturn: true
             )
         )
-        let connectionManager = ConnectionManagerMock()
-        connectionManager.given(
+        let connectivityChecker = ConnectivityCheckerMock()
+        connectivityChecker.given(
             .hasConnectivity(
                 willReturn: false
             )
@@ -184,7 +184,7 @@ final class MyCollectionViewModelTests: XCTestCase {
         let viewModel = MyCollectionViewModel(
             localDatabase: localDatabase,
             authenticationService: authenticationService,
-            connectionManager: connectionManager
+            connectivityChecker: connectivityChecker
         )
         let containerDelegate = ContainerViewControllerDelegateMock()
         viewModel.containerDelegate = containerDelegate
@@ -207,7 +207,7 @@ final class MyCollectionViewModelTests: XCTestCase {
         let viewModel = MyCollectionViewModel(
             localDatabase: localDatabase,
             authenticationService: AuthenticationServiceMock(),
-            connectionManager: ConnectionManagerMock()
+            connectivityChecker: ConnectivityCheckerMock()
         )
         var callbackIsCalled = false
         
@@ -234,8 +234,8 @@ final class MyCollectionViewModelTests: XCTestCase {
                 willReturn: Result<[PlatformCollected], DatabaseError>.success(MockData.platformsCollected)
             )
         )
-        let connectionManager = ConnectionManagerMock()
-        connectionManager.given(
+        let connectivityChecker = ConnectivityCheckerMock()
+        connectivityChecker.given(
             .hasConnectivity(
                 willReturn: true
             )
@@ -243,7 +243,7 @@ final class MyCollectionViewModelTests: XCTestCase {
         let viewModel = MyCollectionViewModel(
             localDatabase: localDatabase,
             authenticationService: authenticationService,
-            connectionManager: connectionManager
+            connectivityChecker: connectivityChecker
         )
         
         let platform = CoreDataConverter.convert(platformCollected: MockData.platformsCollected[0])
@@ -283,8 +283,8 @@ final class MyCollectionViewModelTests: XCTestCase {
                 willReturn: Result<[PlatformCollected], DatabaseError>.success(MockData.platformsCollected)
             )
         )
-        let connectionManager = ConnectionManagerMock()
-        connectionManager.given(
+        let connectivityChecker = ConnectivityCheckerMock()
+        connectivityChecker.given(
             .hasConnectivity(
                 willReturn: true
             )
@@ -292,7 +292,7 @@ final class MyCollectionViewModelTests: XCTestCase {
         let viewModel = MyCollectionViewModel(
             localDatabase: localDatabase,
             authenticationService: authenticationService,
-            connectionManager: connectionManager
+            connectivityChecker: connectivityChecker
         )
         
         viewModel.loadData { _ in
@@ -322,8 +322,8 @@ final class MyCollectionViewModelTests: XCTestCase {
                 willReturn: Result<[PlatformCollected], DatabaseError>.success(MockData.platformsCollected)
             )
         )
-        let connectionManager = ConnectionManagerMock()
-        connectionManager.given(
+        let connectivityChecker = ConnectivityCheckerMock()
+        connectivityChecker.given(
             .hasConnectivity(
                 willReturn: true
             )
@@ -331,7 +331,7 @@ final class MyCollectionViewModelTests: XCTestCase {
         let viewModel = MyCollectionViewModel(
             localDatabase: localDatabase,
             authenticationService: authenticationService,
-            connectionManager: connectionManager
+            connectivityChecker: connectivityChecker
         )
         
         let expectedItems = CoreDataConverter.convert(platformsCollected: MockData.platformsCollected)
@@ -353,7 +353,7 @@ final class MyCollectionViewModelTests: XCTestCase {
         let viewModel = MyCollectionViewModel(
             localDatabase: localDatabase,
             authenticationService: AuthenticationServiceMock(),
-            connectionManager: ConnectionManagerMock()
+            connectivityChecker: ConnectivityCheckerMock()
         )
         
         let containerDelegate = ContainerViewControllerDelegateMock()
@@ -371,7 +371,7 @@ final class MyCollectionViewModelTests: XCTestCase {
         let viewModel = MyCollectionViewModel(
             localDatabase: localDatabase,
             authenticationService: AuthenticationServiceMock(),
-            connectionManager: ConnectionManagerMock()
+            connectivityChecker: ConnectivityCheckerMock()
         )
         
         // When

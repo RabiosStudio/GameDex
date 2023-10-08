@@ -18,7 +18,7 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
             alertDisplayer: AlertDisplayerMock(),
             myCollectionDelegate: MyCollectionViewModelDelegateMock(),
             authenticationService: AuthenticationServiceMock(),
-            connectionManager: ConnectionManagerMock()
+            connectivityChecker: ConnectivityCheckerMock()
         )
         
         // Then
@@ -37,8 +37,8 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
                 willReturn: true
             )
         )
-        let connectionManager = ConnectionManagerMock()
-        connectionManager.given(
+        let connectivityChecker = ConnectivityCheckerMock()
+        connectivityChecker.given(
             .hasConnectivity(
                 willReturn: true
             )
@@ -49,7 +49,7 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
             alertDisplayer: AlertDisplayerMock(),
             myCollectionDelegate: MyCollectionViewModelDelegateMock(),
             authenticationService: authenticationService,
-            connectionManager: connectionManager
+            connectivityChecker: connectivityChecker
         )
         var callbackIsCalled = false
         
@@ -74,8 +74,8 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
             )
         )
         let platform = MockData.platformWithNoGames
-        let connectionManager = ConnectionManagerMock()
-        connectionManager.given(
+        let connectivityChecker = ConnectivityCheckerMock()
+        connectivityChecker.given(
             .hasConnectivity(
                 willReturn: true
             )
@@ -86,7 +86,7 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
             alertDisplayer: AlertDisplayerMock(),
             myCollectionDelegate: MyCollectionViewModelDelegateMock(),
             authenticationService: authenticationService,
-            connectionManager: connectionManager
+            connectivityChecker: connectivityChecker
         )
         
         let containerDelegate = ContainerViewControllerDelegateMock()
@@ -107,8 +107,8 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
                 willReturn: false
             )
         )
-        let connectionManager = ConnectionManagerMock()
-        connectionManager.given(
+        let connectivityChecker = ConnectivityCheckerMock()
+        connectivityChecker.given(
             .hasConnectivity(
                 willReturn: true
             )
@@ -120,7 +120,7 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
             alertDisplayer: AlertDisplayerMock(),
             myCollectionDelegate: MyCollectionViewModelDelegateMock(),
             authenticationService: authenticationService,
-            connectionManager: connectionManager
+            connectivityChecker: connectivityChecker
         )
         let containerDelegate = ContainerViewControllerDelegateMock()
         viewModel.containerDelegate = containerDelegate
@@ -145,8 +145,8 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
                 willReturn: true
             )
         )
-        let connectionManager = ConnectionManagerMock()
-        connectionManager.given(
+        let connectivityChecker = ConnectivityCheckerMock()
+        connectivityChecker.given(
             .hasConnectivity(
                 willReturn: false
             )
@@ -158,7 +158,7 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
             alertDisplayer: AlertDisplayerMock(),
             myCollectionDelegate: MyCollectionViewModelDelegateMock(),
             authenticationService: authenticationService,
-            connectionManager: connectionManager
+            connectivityChecker: connectivityChecker
         )
         let containerDelegate = ContainerViewControllerDelegateMock()
         viewModel.containerDelegate = containerDelegate
@@ -184,7 +184,7 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
             alertDisplayer: AlertDisplayerMock(),
             myCollectionDelegate: MyCollectionViewModelDelegateMock(),
             authenticationService: AuthenticationServiceMock(),
-            connectionManager: ConnectionManagerMock()
+            connectivityChecker: ConnectivityCheckerMock()
         )
         
         // When
@@ -216,8 +216,8 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
             )
         )
         let platform = MockData.platform
-        let connectionManager = ConnectionManagerMock()
-        connectionManager.given(
+        let connectivityChecker = ConnectivityCheckerMock()
+        connectivityChecker.given(
             .hasConnectivity(
                 willReturn: true
             )
@@ -228,7 +228,7 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
             alertDisplayer: AlertDisplayerMock(),
             myCollectionDelegate: MyCollectionViewModelDelegateMock(),
             authenticationService: authenticationService,
-            connectionManager: connectionManager
+            connectivityChecker: connectivityChecker
         )
         
         viewModel.loadData { _ in
@@ -252,8 +252,8 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
             )
         )
         let platform = MockData.platform
-        let connectionManager = ConnectionManagerMock()
-        connectionManager.given(
+        let connectivityChecker = ConnectivityCheckerMock()
+        connectivityChecker.given(
             .hasConnectivity(
                 willReturn: true
             )
@@ -264,7 +264,7 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
             alertDisplayer: AlertDisplayerMock(),
             myCollectionDelegate: MyCollectionViewModelDelegateMock(),
             authenticationService: authenticationService,
-            connectionManager: connectionManager
+            connectivityChecker: connectivityChecker
         )
         
         viewModel.loadData { _ in
@@ -289,8 +289,8 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
             )
         )
         let platform = MockData.platform
-        let connectionManager = ConnectionManagerMock()
-        connectionManager.given(
+        let connectivityChecker = ConnectivityCheckerMock()
+        connectivityChecker.given(
             .hasConnectivity(
                 willReturn: true
             )
@@ -301,7 +301,7 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
             alertDisplayer: AlertDisplayerMock(),
             myCollectionDelegate: MyCollectionViewModelDelegateMock(),
             authenticationService: authenticationService,
-            connectionManager: connectionManager
+            connectivityChecker: connectivityChecker
         )
         
         viewModel.loadData { _ in
@@ -323,7 +323,7 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
             alertDisplayer: AlertDisplayerMock(),
             myCollectionDelegate: MyCollectionViewModelDelegateMock(),
             authenticationService: AuthenticationServiceMock(),
-            connectionManager: ConnectionManagerMock()
+            connectivityChecker: ConnectivityCheckerMock()
         )
         
         var callbackIsCalled = false
@@ -359,8 +359,8 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
         )
         let alertDisplayer = AlertDisplayerMock()
         let platform = MockData.platform
-        let connectionManager = ConnectionManagerMock()
-        connectionManager.given(
+        let connectivityChecker = ConnectivityCheckerMock()
+        connectivityChecker.given(
             .hasConnectivity(
                 willReturn: true
             )
@@ -371,7 +371,7 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
             alertDisplayer: alertDisplayer,
             myCollectionDelegate: MyCollectionViewModelDelegateMock(),
             authenticationService: authenticationService,
-            connectionManager: connectionManager
+            connectivityChecker: connectivityChecker
         )
         
         viewModel.loadData { _ in
@@ -416,7 +416,7 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
             alertDisplayer: alertDisplayer,
             myCollectionDelegate: MyCollectionViewModelDelegateMock(),
             authenticationService: AuthenticationServiceMock(),
-            connectionManager: ConnectionManagerMock()
+            connectivityChecker: ConnectivityCheckerMock()
         )
         // When
         viewModel.reloadCollection()
@@ -454,8 +454,8 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
                 willReturn: Result<PlatformCollected?, DatabaseError>.success(MockData.platformCollected)
             )
         )
-        let connectionManager = ConnectionManagerMock()
-        connectionManager.given(
+        let connectivityChecker = ConnectivityCheckerMock()
+        connectivityChecker.given(
             .hasConnectivity(
                 willReturn: true
             )
@@ -467,7 +467,7 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
             alertDisplayer: alertDisplayer,
             myCollectionDelegate: MyCollectionViewModelDelegateMock(),
             authenticationService: authenticationService,
-            connectionManager: connectionManager
+            connectivityChecker: connectivityChecker
         )
         let containerDelegate = ContainerViewControllerDelegateMock()
         viewModel.containerDelegate = containerDelegate

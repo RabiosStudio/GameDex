@@ -1444,9 +1444,9 @@ open class CloudDatabaseMock: CloudDatabase, Mock {
     }
 }
 
-// MARK: - ConnectionManager
+// MARK: - ConnectivityChecker
 
-open class ConnectionManagerMock: ConnectionManager, Mock {
+open class ConnectivityCheckerMock: ConnectivityChecker, Mock {
     public init(sequencing sequencingPolicy: SequencingPolicy = .lastWrittenResolvedFirst, stubbing stubbingPolicy: StubbingPolicy = .wrap, file: StaticString = #file, line: UInt = #line) {
         SwiftyMockyTestObserver.setup()
         self.sequencingPolicy = sequencingPolicy

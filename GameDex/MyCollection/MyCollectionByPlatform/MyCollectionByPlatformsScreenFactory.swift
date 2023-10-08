@@ -20,7 +20,7 @@ struct MyCollectionByPlatformsScreenFactory: ScreenFactory {
             alertDisplayer: AlertDisplayerImpl(),
             myCollectionDelegate: myCollectionDelegate,
             authenticationService: AuthenticationServiceImpl(),
-            connectionManager: ConnectionManagerImpl()
+            connectivityChecker: ConnectivityCheckerImpl()
         )
         let layout = UICollectionViewFlowLayout()
         let containerController = ContainerViewController(

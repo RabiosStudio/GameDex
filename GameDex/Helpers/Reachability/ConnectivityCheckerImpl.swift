@@ -1,5 +1,5 @@
 //
-//  ConnectionManager.swift
+//  connectivityChecker.swift
 //  GameDex
 //
 //  Created by Gabrielle Dalbera on 06/10/2023.
@@ -8,7 +8,7 @@
 import Foundation
 import Reachability
 
-class ConnectionManagerImpl: ConnectionManager {
+class ConnectivityCheckerImpl: ConnectivityChecker {
 
     func hasConnectivity() -> Bool {
         do {

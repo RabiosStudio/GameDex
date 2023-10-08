@@ -30,16 +30,16 @@ final class MyCollectionViewModel: CollectionViewModel {
     
     private let localDatabase: LocalDatabase
     private let authenticationService: AuthenticationService
-    private let connectionManager: ConnectionManager
+    private let connectivityChecker: ConnectivityChecker
     
     init(
         localDatabase: LocalDatabase,
         authenticationService: AuthenticationService,
-        connectionManager: ConnectionManager
+        connectivityChecker: ConnectivityChecker
     ) {
         self.localDatabase = localDatabase
         self.authenticationService = authenticationService
-        self.connectionManager = connectionManager
+        self.connectivityChecker = connectivityChecker
     }
     
     func loadData(callback: @escaping (EmptyError?) -> ()) {
@@ -92,9 +92,9 @@ final class MyCollectionViewModel: CollectionViewModel {
     }
     
     private func displayInfoWarningIfNeeded() {
-        if !self.authenticationService.isUserLoggedIn() && self.connectionManager.hasConnectivity() {
+        if !self.authenticationService.isUserLoggedIn() && self.connectivityChecker.hasConnectivity() {
             self.setupInfoWarning(text: L10n.infoLogout)
-        } else if !self.connectionManager.hasConnectivity() {
+        } else if !self.connectivityChecker.hasConnectivity() {
             self.setupInfoWarning(text: L10n.infoNoInternet)
         }
     }

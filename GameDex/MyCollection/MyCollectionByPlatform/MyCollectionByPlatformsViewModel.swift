@@ -27,7 +27,7 @@ final class MyCollectionByPlatformsViewModel: CollectionViewModel {
     private let alertDisplayer: AlertDisplayer
     private var platform: Platform?
     private let authenticationService: AuthenticationService
-    private let connectionManager: ConnectionManager
+    private let connectivityChecker: ConnectivityChecker
     
     init(
         platform: Platform?,
@@ -35,14 +35,14 @@ final class MyCollectionByPlatformsViewModel: CollectionViewModel {
         alertDisplayer: AlertDisplayer,
         myCollectionDelegate: MyCollectionViewModelDelegate?,
         authenticationService: AuthenticationService,
-        connectionManager: ConnectionManager
+        connectivityChecker: ConnectivityChecker
     ) {
         self.platform = platform
         self.database = database
         self.alertDisplayer = alertDisplayer
         self.myCollectionDelegate = myCollectionDelegate
         self.authenticationService = authenticationService
-        self.connectionManager = connectionManager
+        self.connectivityChecker = connectivityChecker
         self.screenTitle = self.platform?.title
     }
     
@@ -105,9 +105,9 @@ final class MyCollectionByPlatformsViewModel: CollectionViewModel {
     }
     
     private func displayInfoWarningIfNeeded() {
-        if !self.authenticationService.isUserLoggedIn() && self.connectionManager.hasConnectivity() {
+        if !self.authenticationService.isUserLoggedIn() && self.connectivityChecker.hasConnectivity() {
             self.setupInfoWarning(text: L10n.infoLogout)
-        } else if !self.connectionManager.hasConnectivity() {
+        } else if !self.connectivityChecker.hasConnectivity() {
             self.setupInfoWarning(text: L10n.infoNoInternet)
         }
     }
