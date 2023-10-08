@@ -36,8 +36,8 @@
 "warningLogOut" = "Are you sure you want to log out?";
 
 // Info
-"infoNoInternet" = "Your are not connected to the internet, your collection might not be up to date";
-"infoLogout" = "You are not logged in, your collection might not be up to date";
+"infoNoInternet" = "You're not connected to the internet, your collection might not be up to date";
+"infoLogout" = "You're not logged in, your collection might not be up to date";
 
 // Button
 "addAGame" = "Add a game";

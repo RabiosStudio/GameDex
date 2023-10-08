@@ -74,10 +74,10 @@ internal enum L10n {
   internal static let good = L10n.tr("Localizable", "good", fallback: "Good")
   /// Import
   internal static let `import` = L10n.tr("Localizable", "import", fallback: "Import")
-  /// You are not logged in, your collection might not be up to date
-  internal static let infoLogout = L10n.tr("Localizable", "infoLogout", fallback: "You are not logged in, your collection might not be up to date")
-  /// Your are not connected to the internet, your collection might not be up to date
-  internal static let infoNoInternet = L10n.tr("Localizable", "infoNoInternet", fallback: "Your are not connected to the internet, your collection might not be up to date")
+  /// You're not logged in, your collection might not be up to date
+  internal static let infoLogout = L10n.tr("Localizable", "infoLogout", fallback: "You're not logged in, your collection might not be up to date")
+  /// You're not connected to the internet, your collection might not be up to date
+  internal static let infoNoInternet = L10n.tr("Localizable", "infoNoInternet", fallback: "You're not connected to the internet, your collection might not be up to date")
   /// is Required
   internal static let isRequired = L10n.tr("Localizable", "isRequired", fallback: "is Required")
   /// Login
