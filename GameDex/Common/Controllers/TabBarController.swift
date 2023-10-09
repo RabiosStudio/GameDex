@@ -7,6 +7,7 @@ class TabBarController: UITabBarController {
         
         let vm1 = MyCollectionViewModel(
             localDatabase: LocalDatabaseImpl(),
+            cloudDatabase: FirestoreDatabase(),
             authenticationService: AuthenticationServiceImpl(),
             connectivityChecker: ConnectivityCheckerImpl()
         )

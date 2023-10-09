@@ -11,7 +11,7 @@ import SwiftEntryKit
 
 // sourcery: AutoMockable
 protocol AlertDisplayerDelegate: AnyObject {
-    func didTapOkButton()
+    func didTapOkButton() async
 }
 
 // sourcery: AutoMockable
@@ -160,7 +160,9 @@ class AlertDisplayerImpl: AlertDisplayer {
                 highlightedBackgroundColor: EKColor(.secondaryBackgroundColor),
                 displayMode: displayMode
             ) {
-                self.alertDelegate?.didTapOkButton()
+                Task {
+                    await self.alertDelegate?.didTapOkButton()
+                }
             }
             
             // Generate the content

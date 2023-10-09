@@ -72,7 +72,7 @@ final class AddGameDetailsViewModel: CollectionViewModel {
 }
 
 extension AddGameDetailsViewModel: PrimaryButtonDelegate {
-    func didTapPrimaryButton() {
+    func didTapPrimaryButton() async {
         guard let firstSection = self.sections.first,
               let formCellsVM = firstSection.cellsVM.filter({ cellVM in
                   return cellVM is (any CollectionFormCellViewModel)
@@ -127,8 +127,8 @@ extension AddGameDetailsViewModel: PrimaryButtonDelegate {
                 self?.configureBottomView()
                 return
             }
-            self?.myCollectionDelegate?.reloadCollection()
-            self?.close()
         }
+        await self.myCollectionDelegate?.reloadCollection()
+        self.close()
     }
 }

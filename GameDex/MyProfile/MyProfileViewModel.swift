@@ -52,7 +52,7 @@ final class MyProfileViewModel: CollectionViewModel {
 }
 
 extension MyProfileViewModel: AlertDisplayerDelegate {
-    func didTapOkButton() {
+    func didTapOkButton() async {
         self.authenticationService.logout(
             callback: { [weak self] error in
                 self?.alertDisplayer.presentTopFloatAlert(
@@ -63,10 +63,10 @@ extension MyProfileViewModel: AlertDisplayerDelegate {
                 )
                 if error == nil {
                     self?.containerDelegate?.reloadSections()
-                    self?.myCollectionDelegate?.reloadCollection()
                 }
             }
         )
+        await self.myCollectionDelegate?.reloadCollection()
     }
 }
 

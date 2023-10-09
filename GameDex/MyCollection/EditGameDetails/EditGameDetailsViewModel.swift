@@ -178,7 +178,7 @@ extension EditGameDetailsViewModel: EditFormDelegate {
 }
 
 extension EditGameDetailsViewModel: AlertDisplayerDelegate {
-    func didTapOkButton() {
+    func didTapOkButton() async {
         self.localDatabase.remove(savedGame: self.savedGame) { [weak self] error in
             self?.alertDisplayer.presentTopFloatAlert(
                 parameters: AlertViewModel(
@@ -190,8 +190,8 @@ extension EditGameDetailsViewModel: AlertDisplayerDelegate {
                 self?.configureBottomView(shouldEnableButton: true)
                 return
             }
-            self?.containerDelegate?.goBackToRootViewController()
-            self?.myCollectionDelegate?.reloadCollection()            
         }
+        await self.myCollectionDelegate?.reloadCollection()
+        self.containerDelegate?.goBackToRootViewController()
     }
 }

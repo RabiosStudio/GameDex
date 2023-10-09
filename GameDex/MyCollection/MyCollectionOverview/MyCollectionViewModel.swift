@@ -9,7 +9,7 @@ import Foundation
 
 // sourcery: AutoMockable
 protocol MyCollectionViewModelDelegate: AnyObject {
-    func reloadCollection()
+    func reloadCollection() async
 }
 
 final class MyCollectionViewModel: ConnectivityDisplayerViewModel {
@@ -31,20 +31,49 @@ final class MyCollectionViewModel: ConnectivityDisplayerViewModel {
     private let localDatabase: LocalDatabase
     let authenticationService: AuthenticationService
     let connectivityChecker: ConnectivityChecker
+    private let cloudDatabase: CloudDatabase
     
     init(
         localDatabase: LocalDatabase,
+        cloudDatabase: CloudDatabase,
         authenticationService: AuthenticationService,
         connectivityChecker: ConnectivityChecker
     ) {
         self.localDatabase = localDatabase
+        self.cloudDatabase = cloudDatabase
         self.authenticationService = authenticationService
         self.connectivityChecker = connectivityChecker
     }
     
-    func loadData(callback: @escaping (EmptyError?) -> ()) {
+    func loadData(callback: @escaping (EmptyError?) -> ()) async {
         self.displayInfoWarningIfNeeded()
-        let fetchPlatformsResult = self.localDatabase.fetchAllPlatforms()
+        guard let userId = self.authenticationService.getUserId(),
+              self.connectivityChecker.hasConnectivity() else {
+            let fetchPlatformsResult = self.localDatabase.fetchAllPlatforms()
+            switch fetchPlatformsResult {
+            case .success(let result):
+                guard !result.isEmpty else {
+                    self.platforms = []
+                    self.sections = []
+                    let error: MyCollectionError = .emptyCollection(myCollectionDelegate: self)
+                    callback(error)
+                    return
+                }
+                self.platforms = CoreDataConverter.convert(platformsCollected: result)
+                self.sections = [
+                    MyCollectionSection(
+                        platforms: self.platforms,
+                        myCollectionDelegate: self
+                    )
+                ]
+                callback(nil)
+            case .failure(_):
+                let error: MyCollectionError = .fetchError
+                callback(error)
+            }
+            return
+        }
+        let fetchPlatformsResult = await self.cloudDatabase.getUserCollection(userId: userId)
         switch fetchPlatformsResult {
         case .success(let result):
             guard !result.isEmpty else {
@@ -54,7 +83,7 @@ final class MyCollectionViewModel: ConnectivityDisplayerViewModel {
                 callback(error)
                 return
             }
-            self.platforms = CoreDataConverter.convert(platformsCollected: result)
+            self.platforms = result
             self.sections = [
                 MyCollectionSection(
                     platforms: self.platforms,

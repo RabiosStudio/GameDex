@@ -49,4 +49,8 @@ class AuthenticationServiceImpl: AuthenticationService {
     func isUserLoggedIn() -> Bool {
         return Auth.auth().currentUser?.uid != nil
     }
+    
+    func getUserId() -> String? {
+        return Auth.auth().currentUser?.uid
+    }
 }

@@ -13,4 +13,5 @@ protocol AuthenticationService {
     func createUser(email: String, password: String, cloudDatabase: CloudDatabase) async -> AuthenticationError?
     func logout(callback: @escaping (AuthenticationError?) -> ())
     func isUserLoggedIn() -> Bool 
+    func getUserId() -> String?
 }
