@@ -21,10 +21,13 @@ class AuthenticationServiceImpl: AuthenticationService {
     }
     
     func createUser(email: String, password: String, cloudDatabase: CloudDatabase) async -> AuthenticationError? {
+        let email = email.lowercased()
         do {
             try await Auth.auth().createUser(withEmail: email, password: password)
-            if let error = await cloudDatabase.saveUser(
-                userEmail: email) {
+            guard let userId = self.getUserId() else {
+                return AuthenticationError.saveUserDataError
+            }
+            if await cloudDatabase.saveUser(userId: userId, userEmail: email) != nil {
                 return AuthenticationError.saveUserDataError
             } else {
                 return nil

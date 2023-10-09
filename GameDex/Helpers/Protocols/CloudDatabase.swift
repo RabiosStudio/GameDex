@@ -10,8 +10,8 @@ import Foundation
 // sourcery: AutoMockable
 protocol CloudDatabase {
     func getAvailablePlatforms() async -> Result<[Platform], DatabaseError>
-    func saveUser(userEmail: String) async -> DatabaseError?
-    func saveGame(userEmail: String, platform: Platform, localDatabase: LocalDatabase) async -> DatabaseError?
-    func saveCollection(userEmail: String, localDatabase: LocalDatabase) async -> DatabaseError?
+    func saveUser(userId: String, userEmail: String) async -> DatabaseError?
+    func saveGame(userId: String, platform: Platform) async -> DatabaseError?
+    func saveCollection(userId: String, localDatabase: LocalDatabase) async -> DatabaseError? 
     func getApiKey() async -> Result<String, DatabaseError>
 }

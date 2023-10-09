@@ -22,10 +22,10 @@ class FirestoreDatabase: CloudDatabase {
             switch self {
             case .searchPlatform:
                 return "platforms"
-            case .userPlatforms(let userEmail):
-                return "users/\(userEmail)/platforms"
-            case .userGames(let userEmail, let platformTitle):
-                return "users/\(userEmail)/platforms/\(platformTitle)/games"
+            case .userPlatforms(let userId):
+                return "users/\(userId)/platforms"
+            case .userGames(let userId, let platformId):
+                return "users/\(userId)/platforms/\(platformId)/games"
             case .users:
                 return "users"
             case .apiKey:
@@ -40,6 +40,7 @@ class FirestoreDatabase: CloudDatabase {
         case id
         case email
         case title
+        case acquisitionYear
         case description
         case imageUrl
         case releaseDate
@@ -80,13 +81,13 @@ class FirestoreDatabase: CloudDatabase {
         }
     }
     
-    func saveUser(userEmail: String) async -> DatabaseError? {
+    func saveUser(userId: String, userEmail: String) async -> DatabaseError? {
         do {
             try await
-            self.database.collection(Collections.users.path).document(userEmail).setData([
+            self.database.collection(Collections.users.path).document(userId).setData([
                 Attributes.email.rawValue: userEmail.lowercased()
             ])
-            if let error = await self.saveCollection(userEmail: userEmail, localDatabase: LocalDatabaseImpl()) {
+            if let error = await self.saveCollection(userId: userId, localDatabase: LocalDatabaseImpl()) {
                 return error
             } else {
                 return nil
@@ -96,7 +97,7 @@ class FirestoreDatabase: CloudDatabase {
         }
     }
     
-    func saveCollection(userEmail: String, localDatabase: LocalDatabase) async -> DatabaseError? {
+    func saveCollection(userId: String, localDatabase: LocalDatabase) async -> DatabaseError? {
         let fetchPlatformsResult = localDatabase.fetchAllPlatforms()
         switch fetchPlatformsResult {
         case .success(let result):
@@ -106,20 +107,11 @@ class FirestoreDatabase: CloudDatabase {
             let platforms = CoreDataConverter.convert(platformsCollected: result)
             
             for platform in platforms {
-                do {
-                    try await self.database.collection(Collections.userPlatforms(userEmail).path).document(platform.title).setData([
-                        Attributes.id.rawValue: platform.id,
-                        Attributes.title.rawValue: platform.title
-                    ])
-                    if let error = await self.saveGame(
-                        userEmail: userEmail,
-                        platform: platform,
-                        localDatabase: localDatabase
-                    ) {
-                        return error
-                    }
-                } catch {
-                    return DatabaseError.saveError
+                if let error = await self.saveGame(
+                    userId: userId,
+                    platform: platform
+                ) {
+                    return error
                 }
             }
         case .failure(_):
@@ -128,30 +120,35 @@ class FirestoreDatabase: CloudDatabase {
         return nil
     }
     
-    func saveGame(userEmail: String, platform: Platform, localDatabase: LocalDatabase) async -> DatabaseError? {
-        guard let games = platform.games else {
-            return nil
-        }
-        for item in games {
-            let docData: [String: Any] = [
-                Attributes.title.rawValue: item.game.title,
-                Attributes.description.rawValue: item.game.description,
-                Attributes.imageUrl.rawValue: item.game.imageURL,
-                Attributes.releaseDate.rawValue: item.game.releaseDate as Any,
-                Attributes.platform.rawValue: item.game.platformId,
-                Attributes.gameCondition.rawValue: item.gameCondition as Any,
-                Attributes.gameCompleteness.rawValue: item.gameCompleteness as Any,
-                Attributes.gameRegion.rawValue: item.gameRegion as Any,
-                Attributes.storageArea.rawValue: item.storageArea as Any,
-                Attributes.rating.rawValue: item.rating as Any,
-                Attributes.notes.rawValue: item.notes as Any,
-                Attributes.lastUpdated.rawValue: item.lastUpdated
-            ]
-            do {
-                try await self.database.collection(Collections.userGames(userEmail, platform.title).path).document(item.game.title).setData(docData)
-            } catch {
-                return DatabaseError.saveError
+    func saveGame(userId: String, platform: Platform) async -> DatabaseError? {
+        do {
+            try await self.database.collection(Collections.userPlatforms(userId).path).document("\(platform.id)").setData([
+                Attributes.title.rawValue: platform.title
+            ])
+            
+            guard let games = platform.games else {
+                return nil
             }
+            for item in games {
+                let docData: [String: Any] = [
+                    Attributes.title.rawValue: item.game.title,
+                    Attributes.description.rawValue: item.game.description,
+                    Attributes.imageUrl.rawValue: item.game.imageURL,
+                    Attributes.releaseDate.rawValue: item.game.releaseDate as Any,
+                    Attributes.platform.rawValue: item.game.platformId,
+                    Attributes.gameCondition.rawValue: item.gameCondition as Any,
+                    Attributes.gameCompleteness.rawValue: item.gameCompleteness as Any,
+                    Attributes.gameRegion.rawValue: item.gameRegion as Any,
+                    Attributes.storageArea.rawValue: item.storageArea as Any,
+                    Attributes.rating.rawValue: item.rating as Any,
+                    Attributes.notes.rawValue: item.notes as Any,
+                    Attributes.lastUpdated.rawValue: item.lastUpdated,
+                    Attributes.acquisitionYear.rawValue: item.acquisitionYear as Any
+                ]
+                try await self.database.collection(Collections.userGames(userId, "\(platform.id)").path).document(item.game.id).setData(docData)
+            }
+        } catch {
+            return DatabaseError.saveError
         }
         return nil
     }
