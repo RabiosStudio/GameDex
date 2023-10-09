@@ -81,6 +81,93 @@ class FirestoreDatabase: CloudDatabase {
         }
     }
     
+    func getSinglePlatformCollection(userId: String, platform: Platform) async -> Result<Platform, DatabaseError> {
+        do {
+            let gamesPath = Collections.userGames(userId, "\(platform.id)").path
+            let fetchedGames = try await self.database.collection(gamesPath).getDocuments()
+            var savedGames = [SavedGame]()
+            for item in fetchedGames.documents {
+                let data = item.data()
+                let id = item.documentID
+                
+                guard let title = data[Attributes.title.rawValue] as? String,
+                      let description = data[Attributes.description.rawValue],
+                      let platformId = data[Attributes.platform.rawValue] as? Int,
+                      let imageUrl = data[Attributes.imageUrl.rawValue],
+                      let lastUpdatedTimeStamp = data[Attributes.lastUpdated.rawValue] as? Timestamp,
+                      let releaseTimeStamp = data[Attributes.releaseDate.rawValue] as? Timestamp,
+                      let notes = data[Attributes.notes.rawValue] as? String,
+                      let gameCondition = data[Attributes.gameCondition.rawValue],
+                      let gameCompleteness = data[Attributes.gameCompleteness.rawValue],
+                      let gameRegion = data[Attributes.gameRegion.rawValue],
+                      let storageArea = data[Attributes.storageArea.rawValue],
+                      let acquisitionYear = data[Attributes.acquisitionYear.rawValue],
+                      let rating = data[Attributes.rating.rawValue] as? Int else {
+                    return .failure(DatabaseError.fetchError)
+                }
+                
+                let lastUpdatedDate = lastUpdatedTimeStamp.dateValue()
+                let releasedDate = releaseTimeStamp.dateValue()
+                let savedGame = SavedGame(
+                    game: Game(
+                        title: title,
+                        description: String(describing: description),
+                        id: id,
+                        platformId: platformId,
+                        imageURL: String(describing: imageUrl),
+                        releaseDate: releasedDate
+                    ),
+                    acquisitionYear: acquisitionYear as? String,
+                    gameCondition: gameCondition as? String,
+                    gameCompleteness: gameCompleteness as? String,
+                    gameRegion: gameRegion as? String,
+                    storageArea: storageArea as? String,
+                    rating: rating,
+                    notes: notes,
+                    lastUpdated: lastUpdatedDate
+                )
+                savedGames.append(savedGame)
+            }
+            
+            let platform = Platform(
+                title: platform.title,
+                id: platform.id,
+                games: savedGames
+            )
+            return .success(platform)
+        } catch {
+            return .failure(DatabaseError.fetchError)
+        }
+    }
+    
+    func getUserCollection(userId: String) async -> Result<[Platform], DatabaseError> {
+        do {
+            let platformsPath = Collections.userPlatforms(userId).path
+            let fetchedPlatforms = try await self.database.collection(platformsPath).getDocuments()
+            var platforms = [Platform]()
+            for item in fetchedPlatforms.documents {
+                let data = item.data()
+                let platformStringId = item.documentID
+                guard let title = data[Attributes.title.rawValue] as? String,
+                      let platformId = Int(platformStringId) else {
+                    return .failure(DatabaseError.fetchError)
+                }
+                var platform = Platform(title: title, id: platformId, games: nil)
+                
+                let fetchSinglePlatformResult = await self.getSinglePlatformCollection(userId: userId, platform: platform)
+                switch fetchSinglePlatformResult {
+                case .success(let platformResult):
+                    platforms.append(platformResult)
+                case .failure:
+                    return .failure(DatabaseError.fetchError)
+                }
+            }
+            return .success(platforms)
+        } catch {
+            return .failure(DatabaseError.fetchError)
+        }
+    }
+    
     func saveUser(userId: String, userEmail: String) async -> DatabaseError? {
         do {
             try await
