@@ -84,9 +84,8 @@ final class MyProfileViewModelTests: XCTestCase {
         containerDelegate.verify(.reloadSections())
     }
     
-    func test_didTapOkButton_GivenNoError_ThenAlertParametersAreCorrectsAndContainerDelegateIsCalled() {
+    func test_didTapOkButton_GivenNoError_ThenAlertParametersAreCorrectsAndContainerDelegateIsCalled() async {
         // Given
-        let expectation = XCTestExpectation()
         let alertDisplayer = AlertDisplayerMock()
         let authenticationService = AuthenticationServiceMock()
         let viewModel = MyProfileViewModel(
@@ -114,17 +113,14 @@ final class MyProfileViewModelTests: XCTestCase {
                         )
                     )
                     containerDelegate.verify(.reloadSections())
-                    expectation.fulfill()
                 }
             )
         )
-        viewModel.didTapOkButton()
-        wait(for: [expectation], timeout: Constants.timeout)
+        await viewModel.didTapOkButton()
     }
     
-    func test_didTapOkButton_GivenErrorLogOut_ThenAlertParametersAreCorrects() {
+    func test_didTapOkButton_GivenErrorLogOut_ThenAlertParametersAreCorrects() async {
         // Given
-        let expectation = XCTestExpectation()
         let alertDisplayer = AlertDisplayerMock()
         let authenticationService = AuthenticationServiceMock()
         let viewModel = MyProfileViewModel(
@@ -151,11 +147,9 @@ final class MyProfileViewModelTests: XCTestCase {
                             )
                         )
                     )
-                    expectation.fulfill()
                 }
             )
         )
-        viewModel.didTapOkButton()
-        wait(for: [expectation], timeout: Constants.timeout)
+        await viewModel.didTapOkButton()
     }
 }

@@ -57,9 +57,8 @@ final class AddGameDetailsViewModelTests: XCTestCase {
         XCTAssertTrue(callbackIsCalled)
     }
     
-    func test_didTapPrimaryButton_GivenNoError_ThenNavigationStyleIsDismissAndAlertParametersAreCorrect() {
+    func test_didTapPrimaryButton_GivenNoError_ThenNavigationStyleIsDismissAndAlertParametersAreCorrect() async {
         // Given
-        let expectation = XCTestExpectation()
         let localDatabase = LocalDatabaseMock()
         let alertDisplayer = AlertDisplayerMock()
         let myCollectionDelegate = MyCollectionViewModelDelegateMock()
@@ -91,27 +90,24 @@ final class AddGameDetailsViewModelTests: XCTestCase {
                             )
                         )
                     )
-                    
-                    myCollectionDelegate.verify(.reloadCollection())
-                    
-                    if case .dismiss = Routing.shared.lastNavigationStyle {
-                        XCTAssertTrue(true)
-                    } else {
-                        XCTFail("Wrong navigation style")
-                    }
-                    expectation.fulfill()
                 }
             )
         )
         
-        viewModel.didTapPrimaryButton()
+        // When
+        await viewModel.didTapPrimaryButton()
         
-        wait(for: [expectation], timeout: Constants.timeout)
+        // Then
+        myCollectionDelegate.verify(.reloadCollection())
+        if case .dismiss = Routing.shared.lastNavigationStyle {
+            XCTAssertTrue(true)
+        } else {
+            XCTFail("Wrong navigation style")
+        }
     }
     
-    func test_didTapPrimaryButton_GivenDatabaseSaveError_ThenAlertParametersAreSetCorrectly() {
+    func test_didTapPrimaryButton_GivenDatabaseSaveError_ThenAlertParametersAreSetCorrectly() async {
         // Given
-        let expectation = XCTestExpectation()
         let localDatabase = LocalDatabaseMock()
         let alertDisplayer = AlertDisplayerMock()
         
@@ -142,19 +138,15 @@ final class AddGameDetailsViewModelTests: XCTestCase {
                             )
                         )
                     )
-                    expectation.fulfill()
                 }
             )
         )
         
-        viewModel.didTapPrimaryButton()
-        
-        wait(for: [expectation], timeout: Constants.timeout)
+        await viewModel.didTapPrimaryButton()
     }
     
-    func test_didTapPrimaryButton_GivenDatabaseItemAlreadySavedError_ThenAlertParametersAreSetCorrectly() {
+    func test_didTapPrimaryButton_GivenDatabaseItemAlreadySavedError_ThenAlertParametersAreSetCorrectly() async {
         // Given
-        let expectation = XCTestExpectation()
         let localDatabase = LocalDatabaseMock()
         let alertDisplayer = AlertDisplayerMock()
         
@@ -185,14 +177,11 @@ final class AddGameDetailsViewModelTests: XCTestCase {
                             )
                         )
                     )
-                    expectation.fulfill()
                 }
             )
         )
         
-        viewModel.didTapPrimaryButton()
-        
-        wait(for: [expectation], timeout: Constants.timeout)
+        await viewModel.didTapPrimaryButton()
     }
     
     func test_didTapRightButtonItem_ThenShouldSetNavigationStyleCorrectlyAndCallmyCollectionDelegate() {

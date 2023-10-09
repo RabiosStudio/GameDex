@@ -14,7 +14,7 @@ final class BasicCardCellViewModelTests: XCTestCase {
         // Given
         let text = "Title"
         let description = "Description"
-        let screenFactory = SelectPlatformScreenFactory(delegate: MyCollectionViewModelDelegateMock())
+        
         // When
         let cellVM = BasicCardCellViewModel(
             cardType: SelectAddGameMethodCardType.manually,

@@ -247,9 +247,8 @@ final class EditGameDetailsViewModelTests: XCTestCase {
         )
     }
     
-    func test_didTapOkButton_GivenRemoveDataError_ThenShouldSetAlertParametersCorrectlyAndCallContainerDelegate() {
+    func test_didTapOkButton_GivenRemoveDataError_ThenShouldSetAlertParametersCorrectlyAndCallContainerDelegate() async {
         // Given
-        let expectation = XCTestExpectation()
         let localDatabase = LocalDatabaseMock()
         let alertDisplayer = AlertDisplayerMock()
         let containerDelegate = ContainerViewControllerDelegateMock()
@@ -286,18 +285,15 @@ final class EditGameDetailsViewModelTests: XCTestCase {
                             contentViewFactory: .any
                         )
                     )
-                    expectation.fulfill()
                 }
             )
         )
         // When
-        viewModel.didTapOkButton()
-        wait(for: [expectation], timeout: Constants.timeout)
+        await viewModel.didTapOkButton()
     }
     
-    func test_didTapOkButton_GivenNoError_ThenShouldSetAlertParametersCorrectlyAndCallContainerDelegate() {
+    func test_didTapOkButton_GivenNoError_ThenShouldSetAlertParametersCorrectlyAndCallContainerDelegate() async {
         // Given
-        let expectation = XCTestExpectation()
         let localDatabase = LocalDatabaseMock()
         let alertDisplayer = AlertDisplayerMock()
         let containerDelegate = ContainerViewControllerDelegateMock()
@@ -329,15 +325,13 @@ final class EditGameDetailsViewModelTests: XCTestCase {
                             )
                         )
                     )
-                    containerDelegate.verify(
-                        .goBackToRootViewController()
-                    )
-                    expectation.fulfill()
                 }
             )
         )
         // When
-        viewModel.didTapOkButton()
-        wait(for: [expectation], timeout: Constants.timeout)
+        await viewModel.didTapOkButton()
+        
+        // Then
+        containerDelegate.verify(.goBackToRootViewController())
     }
 }
