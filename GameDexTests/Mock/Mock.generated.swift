@@ -2158,10 +2158,17 @@ open class LocalDatabaseMock: LocalDatabase, Mock {
 
 
 
-    open func add(newEntity: SavedGame, platform: Platform, callback: @escaping (DatabaseError?) -> ()) {
-        addInvocation(.m_add__newEntity_newEntityplatform_platformcallback_callback(Parameter<SavedGame>.value(`newEntity`), Parameter<Platform>.value(`platform`), Parameter<(DatabaseError?) -> ()>.value(`callback`)))
-		let perform = methodPerformValue(.m_add__newEntity_newEntityplatform_platformcallback_callback(Parameter<SavedGame>.value(`newEntity`), Parameter<Platform>.value(`platform`), Parameter<(DatabaseError?) -> ()>.value(`callback`))) as? (SavedGame, Platform, @escaping (DatabaseError?) -> ()) -> Void
-		perform?(`newEntity`, `platform`, `callback`)
+    open func add(newEntity: SavedGame, platform: Platform) -> DatabaseError? {
+        addInvocation(.m_add__newEntity_newEntityplatform_platform(Parameter<SavedGame>.value(`newEntity`), Parameter<Platform>.value(`platform`)))
+		let perform = methodPerformValue(.m_add__newEntity_newEntityplatform_platform(Parameter<SavedGame>.value(`newEntity`), Parameter<Platform>.value(`platform`))) as? (SavedGame, Platform) -> Void
+		perform?(`newEntity`, `platform`)
+		var __value: DatabaseError? = nil
+		do {
+		    __value = try methodReturnValue(.m_add__newEntity_newEntityplatform_platform(Parameter<SavedGame>.value(`newEntity`), Parameter<Platform>.value(`platform`))).casted()
+		} catch {
+			// do nothing
+		}
+		return __value
     }
 
     open func getPlatform(platformId: Int) -> Result<PlatformCollected?, DatabaseError> {
@@ -2192,33 +2199,46 @@ open class LocalDatabaseMock: LocalDatabase, Mock {
 		return __value
     }
 
-    open func replace(savedGame: SavedGame, callback: @escaping (DatabaseError?) -> ()) {
-        addInvocation(.m_replace__savedGame_savedGamecallback_callback(Parameter<SavedGame>.value(`savedGame`), Parameter<(DatabaseError?) -> ()>.value(`callback`)))
-		let perform = methodPerformValue(.m_replace__savedGame_savedGamecallback_callback(Parameter<SavedGame>.value(`savedGame`), Parameter<(DatabaseError?) -> ()>.value(`callback`))) as? (SavedGame, @escaping (DatabaseError?) -> ()) -> Void
-		perform?(`savedGame`, `callback`)
+    open func replace(savedGame: SavedGame) -> DatabaseError? {
+        addInvocation(.m_replace__savedGame_savedGame(Parameter<SavedGame>.value(`savedGame`)))
+		let perform = methodPerformValue(.m_replace__savedGame_savedGame(Parameter<SavedGame>.value(`savedGame`))) as? (SavedGame) -> Void
+		perform?(`savedGame`)
+		var __value: DatabaseError? = nil
+		do {
+		    __value = try methodReturnValue(.m_replace__savedGame_savedGame(Parameter<SavedGame>.value(`savedGame`))).casted()
+		} catch {
+			// do nothing
+		}
+		return __value
     }
 
-    open func remove(savedGame: SavedGame, callback: @escaping (DatabaseError?) -> ()) {
-        addInvocation(.m_remove__savedGame_savedGamecallback_callback(Parameter<SavedGame>.value(`savedGame`), Parameter<(DatabaseError?) -> ()>.value(`callback`)))
-		let perform = methodPerformValue(.m_remove__savedGame_savedGamecallback_callback(Parameter<SavedGame>.value(`savedGame`), Parameter<(DatabaseError?) -> ()>.value(`callback`))) as? (SavedGame, @escaping (DatabaseError?) -> ()) -> Void
-		perform?(`savedGame`, `callback`)
+    open func remove(savedGame: SavedGame) -> DatabaseError? {
+        addInvocation(.m_remove__savedGame_savedGame(Parameter<SavedGame>.value(`savedGame`)))
+		let perform = methodPerformValue(.m_remove__savedGame_savedGame(Parameter<SavedGame>.value(`savedGame`))) as? (SavedGame) -> Void
+		perform?(`savedGame`)
+		var __value: DatabaseError? = nil
+		do {
+		    __value = try methodReturnValue(.m_remove__savedGame_savedGame(Parameter<SavedGame>.value(`savedGame`))).casted()
+		} catch {
+			// do nothing
+		}
+		return __value
     }
 
 
     fileprivate enum MethodType {
-        case m_add__newEntity_newEntityplatform_platformcallback_callback(Parameter<SavedGame>, Parameter<Platform>, Parameter<(DatabaseError?) -> ()>)
+        case m_add__newEntity_newEntityplatform_platform(Parameter<SavedGame>, Parameter<Platform>)
         case m_getPlatform__platformId_platformId(Parameter<Int>)
         case m_fetchAllPlatforms
-        case m_replace__savedGame_savedGamecallback_callback(Parameter<SavedGame>, Parameter<(DatabaseError?) -> ()>)
-        case m_remove__savedGame_savedGamecallback_callback(Parameter<SavedGame>, Parameter<(DatabaseError?) -> ()>)
+        case m_replace__savedGame_savedGame(Parameter<SavedGame>)
+        case m_remove__savedGame_savedGame(Parameter<SavedGame>)
 
         static func compareParameters(lhs: MethodType, rhs: MethodType, matcher: Matcher) -> Matcher.ComparisonResult {
             switch (lhs, rhs) {
-            case (.m_add__newEntity_newEntityplatform_platformcallback_callback(let lhsNewentity, let lhsPlatform, let lhsCallback), .m_add__newEntity_newEntityplatform_platformcallback_callback(let rhsNewentity, let rhsPlatform, let rhsCallback)):
+            case (.m_add__newEntity_newEntityplatform_platform(let lhsNewentity, let lhsPlatform), .m_add__newEntity_newEntityplatform_platform(let rhsNewentity, let rhsPlatform)):
 				var results: [Matcher.ParameterComparisonResult] = []
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsNewentity, rhs: rhsNewentity, with: matcher), lhsNewentity, rhsNewentity, "newEntity"))
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsPlatform, rhs: rhsPlatform, with: matcher), lhsPlatform, rhsPlatform, "platform"))
-				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsCallback, rhs: rhsCallback, with: matcher), lhsCallback, rhsCallback, "callback"))
 				return Matcher.ComparisonResult(results)
 
             case (.m_getPlatform__platformId_platformId(let lhsPlatformid), .m_getPlatform__platformId_platformId(let rhsPlatformid)):
@@ -2228,16 +2248,14 @@ open class LocalDatabaseMock: LocalDatabase, Mock {
 
             case (.m_fetchAllPlatforms, .m_fetchAllPlatforms): return .match
 
-            case (.m_replace__savedGame_savedGamecallback_callback(let lhsSavedgame, let lhsCallback), .m_replace__savedGame_savedGamecallback_callback(let rhsSavedgame, let rhsCallback)):
+            case (.m_replace__savedGame_savedGame(let lhsSavedgame), .m_replace__savedGame_savedGame(let rhsSavedgame)):
 				var results: [Matcher.ParameterComparisonResult] = []
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsSavedgame, rhs: rhsSavedgame, with: matcher), lhsSavedgame, rhsSavedgame, "savedGame"))
-				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsCallback, rhs: rhsCallback, with: matcher), lhsCallback, rhsCallback, "callback"))
 				return Matcher.ComparisonResult(results)
 
-            case (.m_remove__savedGame_savedGamecallback_callback(let lhsSavedgame, let lhsCallback), .m_remove__savedGame_savedGamecallback_callback(let rhsSavedgame, let rhsCallback)):
+            case (.m_remove__savedGame_savedGame(let lhsSavedgame), .m_remove__savedGame_savedGame(let rhsSavedgame)):
 				var results: [Matcher.ParameterComparisonResult] = []
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsSavedgame, rhs: rhsSavedgame, with: matcher), lhsSavedgame, rhsSavedgame, "savedGame"))
-				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsCallback, rhs: rhsCallback, with: matcher), lhsCallback, rhsCallback, "callback"))
 				return Matcher.ComparisonResult(results)
             default: return .none
             }
@@ -2245,20 +2263,20 @@ open class LocalDatabaseMock: LocalDatabase, Mock {
 
         func intValue() -> Int {
             switch self {
-            case let .m_add__newEntity_newEntityplatform_platformcallback_callback(p0, p1, p2): return p0.intValue + p1.intValue + p2.intValue
+            case let .m_add__newEntity_newEntityplatform_platform(p0, p1): return p0.intValue + p1.intValue
             case let .m_getPlatform__platformId_platformId(p0): return p0.intValue
             case .m_fetchAllPlatforms: return 0
-            case let .m_replace__savedGame_savedGamecallback_callback(p0, p1): return p0.intValue + p1.intValue
-            case let .m_remove__savedGame_savedGamecallback_callback(p0, p1): return p0.intValue + p1.intValue
+            case let .m_replace__savedGame_savedGame(p0): return p0.intValue
+            case let .m_remove__savedGame_savedGame(p0): return p0.intValue
             }
         }
         func assertionName() -> String {
             switch self {
-            case .m_add__newEntity_newEntityplatform_platformcallback_callback: return ".add(newEntity:platform:callback:)"
+            case .m_add__newEntity_newEntityplatform_platform: return ".add(newEntity:platform:)"
             case .m_getPlatform__platformId_platformId: return ".getPlatform(platformId:)"
             case .m_fetchAllPlatforms: return ".fetchAllPlatforms()"
-            case .m_replace__savedGame_savedGamecallback_callback: return ".replace(savedGame:callback:)"
-            case .m_remove__savedGame_savedGamecallback_callback: return ".remove(savedGame:callback:)"
+            case .m_replace__savedGame_savedGame: return ".replace(savedGame:)"
+            case .m_remove__savedGame_savedGame: return ".remove(savedGame:)"
             }
         }
     }
@@ -2272,11 +2290,27 @@ open class LocalDatabaseMock: LocalDatabase, Mock {
         }
 
 
+        public static func add(newEntity: Parameter<SavedGame>, platform: Parameter<Platform>, willReturn: DatabaseError?...) -> MethodStub {
+            return Given(method: .m_add__newEntity_newEntityplatform_platform(`newEntity`, `platform`), products: willReturn.map({ StubProduct.return($0 as Any) }))
+        }
         public static func getPlatform(platformId: Parameter<Int>, willReturn: Result<PlatformCollected?, DatabaseError>...) -> MethodStub {
             return Given(method: .m_getPlatform__platformId_platformId(`platformId`), products: willReturn.map({ StubProduct.return($0 as Any) }))
         }
         public static func fetchAllPlatforms(willReturn: Result<[PlatformCollected], DatabaseError>...) -> MethodStub {
             return Given(method: .m_fetchAllPlatforms, products: willReturn.map({ StubProduct.return($0 as Any) }))
+        }
+        public static func replace(savedGame: Parameter<SavedGame>, willReturn: DatabaseError?...) -> MethodStub {
+            return Given(method: .m_replace__savedGame_savedGame(`savedGame`), products: willReturn.map({ StubProduct.return($0 as Any) }))
+        }
+        public static func remove(savedGame: Parameter<SavedGame>, willReturn: DatabaseError?...) -> MethodStub {
+            return Given(method: .m_remove__savedGame_savedGame(`savedGame`), products: willReturn.map({ StubProduct.return($0 as Any) }))
+        }
+        public static func add(newEntity: Parameter<SavedGame>, platform: Parameter<Platform>, willProduce: (Stubber<DatabaseError?>) -> Void) -> MethodStub {
+            let willReturn: [DatabaseError?] = []
+			let given: Given = { return Given(method: .m_add__newEntity_newEntityplatform_platform(`newEntity`, `platform`), products: willReturn.map({ StubProduct.return($0 as Any) })) }()
+			let stubber = given.stub(for: (DatabaseError?).self)
+			willProduce(stubber)
+			return given
         }
         public static func getPlatform(platformId: Parameter<Int>, willProduce: (Stubber<Result<PlatformCollected?, DatabaseError>>) -> Void) -> MethodStub {
             let willReturn: [Result<PlatformCollected?, DatabaseError>] = []
@@ -2292,24 +2326,38 @@ open class LocalDatabaseMock: LocalDatabase, Mock {
 			willProduce(stubber)
 			return given
         }
+        public static func replace(savedGame: Parameter<SavedGame>, willProduce: (Stubber<DatabaseError?>) -> Void) -> MethodStub {
+            let willReturn: [DatabaseError?] = []
+			let given: Given = { return Given(method: .m_replace__savedGame_savedGame(`savedGame`), products: willReturn.map({ StubProduct.return($0 as Any) })) }()
+			let stubber = given.stub(for: (DatabaseError?).self)
+			willProduce(stubber)
+			return given
+        }
+        public static func remove(savedGame: Parameter<SavedGame>, willProduce: (Stubber<DatabaseError?>) -> Void) -> MethodStub {
+            let willReturn: [DatabaseError?] = []
+			let given: Given = { return Given(method: .m_remove__savedGame_savedGame(`savedGame`), products: willReturn.map({ StubProduct.return($0 as Any) })) }()
+			let stubber = given.stub(for: (DatabaseError?).self)
+			willProduce(stubber)
+			return given
+        }
     }
 
     public struct Verify {
         fileprivate var method: MethodType
 
-        public static func add(newEntity: Parameter<SavedGame>, platform: Parameter<Platform>, callback: Parameter<(DatabaseError?) -> ()>) -> Verify { return Verify(method: .m_add__newEntity_newEntityplatform_platformcallback_callback(`newEntity`, `platform`, `callback`))}
+        public static func add(newEntity: Parameter<SavedGame>, platform: Parameter<Platform>) -> Verify { return Verify(method: .m_add__newEntity_newEntityplatform_platform(`newEntity`, `platform`))}
         public static func getPlatform(platformId: Parameter<Int>) -> Verify { return Verify(method: .m_getPlatform__platformId_platformId(`platformId`))}
         public static func fetchAllPlatforms() -> Verify { return Verify(method: .m_fetchAllPlatforms)}
-        public static func replace(savedGame: Parameter<SavedGame>, callback: Parameter<(DatabaseError?) -> ()>) -> Verify { return Verify(method: .m_replace__savedGame_savedGamecallback_callback(`savedGame`, `callback`))}
-        public static func remove(savedGame: Parameter<SavedGame>, callback: Parameter<(DatabaseError?) -> ()>) -> Verify { return Verify(method: .m_remove__savedGame_savedGamecallback_callback(`savedGame`, `callback`))}
+        public static func replace(savedGame: Parameter<SavedGame>) -> Verify { return Verify(method: .m_replace__savedGame_savedGame(`savedGame`))}
+        public static func remove(savedGame: Parameter<SavedGame>) -> Verify { return Verify(method: .m_remove__savedGame_savedGame(`savedGame`))}
     }
 
     public struct Perform {
         fileprivate var method: MethodType
         var performs: Any
 
-        public static func add(newEntity: Parameter<SavedGame>, platform: Parameter<Platform>, callback: Parameter<(DatabaseError?) -> ()>, perform: @escaping (SavedGame, Platform, @escaping (DatabaseError?) -> ()) -> Void) -> Perform {
-            return Perform(method: .m_add__newEntity_newEntityplatform_platformcallback_callback(`newEntity`, `platform`, `callback`), performs: perform)
+        public static func add(newEntity: Parameter<SavedGame>, platform: Parameter<Platform>, perform: @escaping (SavedGame, Platform) -> Void) -> Perform {
+            return Perform(method: .m_add__newEntity_newEntityplatform_platform(`newEntity`, `platform`), performs: perform)
         }
         public static func getPlatform(platformId: Parameter<Int>, perform: @escaping (Int) -> Void) -> Perform {
             return Perform(method: .m_getPlatform__platformId_platformId(`platformId`), performs: perform)
@@ -2317,11 +2365,11 @@ open class LocalDatabaseMock: LocalDatabase, Mock {
         public static func fetchAllPlatforms(perform: @escaping () -> Void) -> Perform {
             return Perform(method: .m_fetchAllPlatforms, performs: perform)
         }
-        public static func replace(savedGame: Parameter<SavedGame>, callback: Parameter<(DatabaseError?) -> ()>, perform: @escaping (SavedGame, @escaping (DatabaseError?) -> ()) -> Void) -> Perform {
-            return Perform(method: .m_replace__savedGame_savedGamecallback_callback(`savedGame`, `callback`), performs: perform)
+        public static func replace(savedGame: Parameter<SavedGame>, perform: @escaping (SavedGame) -> Void) -> Perform {
+            return Perform(method: .m_replace__savedGame_savedGame(`savedGame`), performs: perform)
         }
-        public static func remove(savedGame: Parameter<SavedGame>, callback: Parameter<(DatabaseError?) -> ()>, perform: @escaping (SavedGame, @escaping (DatabaseError?) -> ()) -> Void) -> Perform {
-            return Perform(method: .m_remove__savedGame_savedGamecallback_callback(`savedGame`, `callback`), performs: perform)
+        public static func remove(savedGame: Parameter<SavedGame>, perform: @escaping (SavedGame) -> Void) -> Perform {
+            return Perform(method: .m_remove__savedGame_savedGame(`savedGame`), performs: perform)
         }
     }
 

@@ -71,26 +71,11 @@ final class AddGameDetailsViewModelTests: XCTestCase {
             alertDisplayer: alertDisplayer
         )
         
-        localDatabase.perform(
+        localDatabase.given(
             .add(
                 newEntity: .any,
                 platform: .any,
-                callback: .any,
-                perform: { _, _, completion  in
-                    completion(nil)
-                    
-                    // Then
-                    alertDisplayer.verify(
-                        .presentTopFloatAlert(
-                            parameters: .value(
-                                AlertViewModel(
-                                    alertType: .success,
-                                    description: L10n.saveGameSuccessDescription
-                                )
-                            )
-                        )
-                    )
-                }
+                willReturn: nil
             )
         )
         
@@ -98,6 +83,17 @@ final class AddGameDetailsViewModelTests: XCTestCase {
         await viewModel.didTapPrimaryButton()
         
         // Then
+        alertDisplayer.verify(
+            .presentTopFloatAlert(
+                parameters: .value(
+                    AlertViewModel(
+                        alertType: .success,
+                        description: L10n.saveGameSuccessDescription
+                    )
+                )
+            )
+        )
+        
         myCollectionDelegate.verify(.reloadCollection())
         if case .dismiss = Routing.shared.lastNavigationStyle {
             XCTAssertTrue(true)
@@ -119,30 +115,29 @@ final class AddGameDetailsViewModelTests: XCTestCase {
             alertDisplayer: alertDisplayer
         )
         
-        localDatabase.perform(
+        localDatabase.given(
             .add(
                 newEntity: .any,
                 platform: .any,
-                callback: .any,
-                perform: { _, _, completion in
-                    completion(DatabaseError.saveError)
-                    
-                    // Then
-                    alertDisplayer.verify(
-                        .presentTopFloatAlert(
-                            parameters: .value(
-                                AlertViewModel(
-                                    alertType: .error,
-                                    description: L10n.saveGameErrorDescription
-                                )
-                            )
-                        )
-                    )
-                }
+                willReturn: DatabaseError.saveError
             )
         )
         
+        // When
         await viewModel.didTapPrimaryButton()
+        
+        // Then
+        alertDisplayer.verify(
+            .presentTopFloatAlert(
+                parameters: .value(
+                    AlertViewModel(
+                        alertType: .error,
+                        description: L10n.saveGameErrorDescription
+                    )
+                )
+            )
+        )
+        
     }
     
     func test_didTapPrimaryButton_GivenDatabaseItemAlreadySavedError_ThenAlertParametersAreSetCorrectly() async {
@@ -158,30 +153,28 @@ final class AddGameDetailsViewModelTests: XCTestCase {
             alertDisplayer: alertDisplayer
         )
         
-        localDatabase.perform(
+        localDatabase.given(
             .add(
                 newEntity: .any,
                 platform: .any,
-                callback: .any,
-                perform: { _, _, completion in
-                    completion(DatabaseError.itemAlreadySaved)
-                    
-                    // Then
-                    alertDisplayer.verify(
-                        .presentTopFloatAlert(
-                            parameters: .value(
-                                AlertViewModel(
-                                    alertType: .warning,
-                                    description: L10n.warningGameAlreadyInDatabase
-                                )
-                            )
-                        )
-                    )
-                }
+                willReturn: DatabaseError.itemAlreadySaved
             )
         )
         
+        // When
         await viewModel.didTapPrimaryButton()
+        
+        // Then
+        alertDisplayer.verify(
+            .presentTopFloatAlert(
+                parameters: .value(
+                    AlertViewModel(
+                        alertType: .warning,
+                        description: L10n.warningGameAlreadyInDatabase
+                    )
+                )
+            )
+        )
     }
     
     func test_didTapRightButtonItem_ThenShouldSetNavigationStyleCorrectlyAndCallmyCollectionDelegate() {
