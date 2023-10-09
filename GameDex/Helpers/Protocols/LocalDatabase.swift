@@ -9,9 +9,9 @@ import Foundation
 
 // sourcery: AutoMockable
 protocol LocalDatabase {
-    func add(newEntity: SavedGame, platform: Platform, callback: @escaping (DatabaseError?) -> ())
+    func add(newEntity: SavedGame, platform: Platform) async -> DatabaseError?
     func getPlatform(platformId: Int) -> Result<PlatformCollected?, DatabaseError>
     func fetchAllPlatforms() -> Result<[PlatformCollected], DatabaseError>
-    func replace(savedGame: SavedGame, callback: @escaping (DatabaseError?) -> ())
-    func remove(savedGame: SavedGame, callback: @escaping (DatabaseError?) -> ())
+    func replace(savedGame: SavedGame) async -> DatabaseError?
+    func remove(savedGame: SavedGame) async -> DatabaseError?
 }

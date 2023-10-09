@@ -86,7 +86,7 @@ final class EditGameDetailsViewModel: CollectionViewModel {
 }
 
 extension EditGameDetailsViewModel: PrimaryButtonDelegate {
-    func didTapPrimaryButton() {
+    func didTapPrimaryButton() async {
         guard let firstSection = self.sections.first,
               let formCellsVM = firstSection.cellsVM.filter({ cellVM in
                   return cellVM is (any CollectionFormCellViewModel)
@@ -129,15 +129,23 @@ extension EditGameDetailsViewModel: PrimaryButtonDelegate {
             lastUpdated: Date()
         )
         
-        self.localDatabase.replace(savedGame: gameToSave) { [weak self] error in
-            self?.alertDisplayer.presentTopFloatAlert(
+        guard await self.localDatabase.replace(savedGame: gameToSave) == nil else {
+            self.alertDisplayer.presentTopFloatAlert(
                 parameters: AlertViewModel(
-                    alertType: error == nil ? .success : .error,
-                    description: error == nil ? L10n.updateGameSuccessDescription : L10n.updateGameErrorDescription
+                    alertType: .error,
+                    description: L10n.updateGameErrorDescription
                 )
             )
-            self?.configureBottomView(shouldEnableButton: true)
+            self.configureBottomView(shouldEnableButton: true)
+            return
         }
+        self.alertDisplayer.presentTopFloatAlert(
+            parameters: AlertViewModel(
+                alertType: .success,
+                description: L10n.updateGameSuccessDescription
+            )
+        )
+        self.configureBottomView(shouldEnableButton: true)
     }
 }
 
@@ -179,18 +187,22 @@ extension EditGameDetailsViewModel: EditFormDelegate {
 
 extension EditGameDetailsViewModel: AlertDisplayerDelegate {
     func didTapOkButton() async {
-        self.localDatabase.remove(savedGame: self.savedGame) { [weak self] error in
-            self?.alertDisplayer.presentTopFloatAlert(
+        guard await self.localDatabase.remove(savedGame: self.savedGame) == nil else {
+            self.alertDisplayer.presentTopFloatAlert(
                 parameters: AlertViewModel(
-                    alertType: error == nil ? .success : .error,
-                    description: error == nil ? L10n.removeGameSuccessDescription : L10n.removeGameErrorDescription
+                    alertType: .error,
+                    description: L10n.removeGameErrorDescription
                 )
             )
-            guard error == nil else {
-                self?.configureBottomView(shouldEnableButton: true)
-                return
-            }
+            self.configureBottomView(shouldEnableButton: true)
+            return
         }
+        self.alertDisplayer.presentTopFloatAlert(
+            parameters: AlertViewModel(
+                alertType: .success,
+                description: L10n.removeGameSuccessDescription
+            )
+        )
         await self.myCollectionDelegate?.reloadCollection()
         self.containerDelegate?.goBackToRootViewController()
     }

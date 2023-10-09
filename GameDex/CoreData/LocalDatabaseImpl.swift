@@ -21,9 +21,8 @@ class LocalDatabaseImpl: LocalDatabase {
 extension LocalDatabaseImpl {
     func add(
         newEntity: SavedGame,
-        platform: Platform,
-        callback: @escaping (DatabaseError?) -> ()
-    ) {
+        platform: Platform
+    ) async -> DatabaseError? {
         let localPlatformResult = self.getPlatform(platformId: platform.id)
         switch localPlatformResult {
         case let .success(platformResult):
@@ -35,41 +34,35 @@ extension LocalDatabaseImpl {
                 newLocalPlatform.addToGames(
                     CoreDataConverter.convert(
                         gameDetails: newEntity,
-                        context: managedObjectContext
+                        context: self.managedObjectContext
                     )
                 )
-                coreDataStack.saveContext(managedObjectContext) { error in
-                    if error != nil {
-                        callback(DatabaseError.saveError)
-                    }
-                    callback(nil)
+                guard await self.coreDataStack.saveContext(self.managedObjectContext) == nil else {
+                    return DatabaseError.saveError
                 }
-                return
+                return nil
             }
             if platformResult.gamesArray.contains(
                 where: { aGame in
                     aGame.title == newEntity.game.title
                 }
             ) {
-                callback(DatabaseError.itemAlreadySaved)
-                return
+                return DatabaseError.itemAlreadySaved
             } else {
                 platformResult.addToGames(
                     CoreDataConverter.convert(
                         gameDetails: newEntity,
-                        context: managedObjectContext
+                        context: self.managedObjectContext
                     )
                 )
                 // Save the context
-                coreDataStack.saveContext(managedObjectContext) { error in
-                    if error != nil {
-                        callback(DatabaseError.saveError)
-                    }
-                    callback(nil)
+                guard await self.coreDataStack.saveContext(self.managedObjectContext) == nil else {
+                    return DatabaseError.saveError
                 }
+                return nil
             }
-        case .failure(_):
-            callback(.fetchError)
+        case .failure:
+            return DatabaseError.fetchError
         }
     }
     
@@ -120,44 +113,38 @@ extension LocalDatabaseImpl {
         }
     }
     
-    func replace(savedGame: SavedGame, callback: @escaping (DatabaseError?) -> ()) {
+    func replace(savedGame: SavedGame) async -> DatabaseError? {
         // Remove the object in the following context
         let gameResult = getGame(gameId: savedGame.game.id)
         
         switch gameResult {
         case .success(let gameToReplace):
             guard let gameToReplace else {
-                callback(DatabaseError.removeError)
-                return
+                return DatabaseError.removeError
             }
             // Delete object
-            managedObjectContext.delete(gameToReplace)
+            self.managedObjectContext.delete(gameToReplace)
             
             let platform = CoreDataConverter.convert(platformCollected: gameToReplace.platform)
             
             // Add updated object
-            self.add(newEntity: savedGame, platform: platform) { error in
-                if error != nil {
-                    callback(DatabaseError.fetchError)
-                } else {
-                    callback(nil)
-                }
+            guard await self.add(newEntity: savedGame, platform: platform) == nil else {
+                return DatabaseError.saveError
             }
+            return nil
         case .failure(_):
-            callback(DatabaseError.replaceError)
-            return
+            return DatabaseError.replaceError
         }
     }
     
-    func remove(savedGame: SavedGame, callback: @escaping (DatabaseError?) -> ()) {
+    func remove(savedGame: SavedGame) async -> DatabaseError? {
         // Remove the object in the following context
         let gameResult = getGame(gameId: savedGame.game.id)
         
         switch gameResult {
         case .success(let gameToRemove):
             guard let gameToRemove else {
-                callback(DatabaseError.removeError)
-                return
+                return DatabaseError.removeError
             }
             // We also need to make sure that there are still other games in associated to the platform, otherwise we also need to delete the platform from database.
             let fetchedPlatform = self.getPlatform(platformId: Int(gameToRemove.platform.id))
@@ -165,33 +152,29 @@ extension LocalDatabaseImpl {
             switch fetchedPlatform {
             case .success(let platformResult):
                 guard let platformResult else {
-                    callback(.removeError)
-                    return
+                    return DatabaseError.removeError
                 }
                 // Delete game and save context
                 platformResult.removeFromGames(gameToRemove)
-                managedObjectContext.delete(gameToRemove)
+                self.managedObjectContext.delete(gameToRemove)
                 do {
                     try managedObjectContext.save()
                     
                     // if there are no more games associated to the platform, we delete it and we save the context.
                     if platformResult.gamesArray.isEmpty {
-                        managedObjectContext.delete(platformResult)
+                        self.managedObjectContext.delete(platformResult)
                         try managedObjectContext.save()
                     }
-                    callback(nil)
+                    return nil
                 } catch {
-                    callback(DatabaseError.removeError)
-                    return
+                    return DatabaseError.removeError
                 }
             case .failure(_):
-                callback(DatabaseError.removeError)
-                return
+                return DatabaseError.removeError
             }
             
         case .failure(_):
-            callback(DatabaseError.removeError)
-            return
+            return DatabaseError.removeError
         }
     }
 }

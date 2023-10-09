@@ -106,7 +106,7 @@ final class MyCollectionByPlatformsViewModel: ConnectivityDisplayerViewModel {
 }
 
 extension MyCollectionByPlatformsViewModel: MyCollectionViewModelDelegate {
-    func reloadCollection() {
+    func reloadCollection() async {
         guard let platformID = self.platform?.id else { return }
         let fetchCollectionResult = self.database.getPlatform(platformId: platformID)
         
@@ -132,6 +132,7 @@ extension MyCollectionByPlatformsViewModel: MyCollectionViewModelDelegate {
                     myCollectionDelegate: myCollectionDelegate
                 )
             ]
+            await self.myCollectionDelegate?.reloadCollection()
             self.containerDelegate?.reloadSections()
         case .failure(_):
             self.displayAlert()
