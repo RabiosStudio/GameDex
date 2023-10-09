@@ -12,7 +12,7 @@ final class SearchGameByTitleSection: Section {
     init(
         gamesQuery: [Game],
         platform: Platform,
-        gameDetailsDelegate: GameDetailsViewModelDelegate?
+        myCollectionDelegate: MyCollectionViewModelDelegate?
     ) {
         super.init()
         self.position = 0
@@ -27,7 +27,7 @@ final class SearchGameByTitleSection: Section {
                     let screenFactory = AddGameDetailsScreenFactory(
                         game: game,
                         platform: platform,
-                        gameDetailsDelegate: gameDetailsDelegate
+                        myCollectionDelegate: myCollectionDelegate
                     )
                     Routing.shared.route(
                         navigationStyle: .push(

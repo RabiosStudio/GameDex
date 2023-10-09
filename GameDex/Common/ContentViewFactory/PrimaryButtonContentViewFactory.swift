@@ -9,7 +9,9 @@ import Foundation
 import UIKit
 
 final class PrimaryButtonContentViewFactory: ContentViewFactory {
-    lazy var bottomView: UIView = {
+    let position: Position
+    
+    lazy var contentView: UIView = {
         let continueButton = PrimaryButton(
             delegate: self.delegate,
             shouldEnable: self.shouldEnable
@@ -32,9 +34,15 @@ final class PrimaryButtonContentViewFactory: ContentViewFactory {
     private let buttonTitle: String
     private let shouldEnable: Bool
     
-    init(delegate: PrimaryButtonDelegate?, buttonTitle: String, shouldEnable: Bool) {
+    init(
+        delegate: PrimaryButtonDelegate?,
+        buttonTitle: String,
+        shouldEnable: Bool,
+        position: Position
+    ) {
         self.delegate = delegate
         self.buttonTitle = buttonTitle
         self.shouldEnable = shouldEnable
+        self.position = position
     }        
 }

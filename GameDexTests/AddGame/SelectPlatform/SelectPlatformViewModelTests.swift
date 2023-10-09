@@ -18,7 +18,7 @@ final class SelectPlatformViewModelTests: XCTestCase {
         // When
         let viewModel = SelectPlatformViewModel(
             cloudDatabase: cloudDatabase,
-            gameDetailsDelegate: GameDetailsViewModelDelegateMock()
+            myCollectionDelegate: MyCollectionViewModelDelegateMock()
         )
         
         // Then
@@ -42,7 +42,7 @@ final class SelectPlatformViewModelTests: XCTestCase {
         
         let viewModel = SelectPlatformViewModel(
             cloudDatabase: cloudDatabase,
-            gameDetailsDelegate: GameDetailsViewModelDelegateMock()
+            myCollectionDelegate: MyCollectionViewModelDelegateMock()
         )
         
         // When
@@ -73,7 +73,7 @@ final class SelectPlatformViewModelTests: XCTestCase {
         
         let viewModel = SelectPlatformViewModel(
             cloudDatabase: cloudDatabase,
-            gameDetailsDelegate: GameDetailsViewModelDelegateMock()
+            myCollectionDelegate: MyCollectionViewModelDelegateMock()
         )
                 
         // When
@@ -101,7 +101,7 @@ final class SelectPlatformViewModelTests: XCTestCase {
         
         let viewModel = SelectPlatformViewModel(
             cloudDatabase: cloudDatabase,
-            gameDetailsDelegate: GameDetailsViewModelDelegateMock()
+            myCollectionDelegate: MyCollectionViewModelDelegateMock()
         )
         
         viewModel.loadData { _ in
@@ -131,7 +131,7 @@ final class SelectPlatformViewModelTests: XCTestCase {
         
         let viewModel = SelectPlatformViewModel(
             cloudDatabase: cloudDatabase,
-            gameDetailsDelegate: GameDetailsViewModelDelegateMock()
+            myCollectionDelegate: MyCollectionViewModelDelegateMock()
         )
         
         viewModel.loadData { _ in
@@ -162,7 +162,7 @@ final class SelectPlatformViewModelTests: XCTestCase {
         
         let viewModel = SelectPlatformViewModel(
             cloudDatabase: cloudDatabase,
-            gameDetailsDelegate: GameDetailsViewModelDelegateMock()
+            myCollectionDelegate: MyCollectionViewModelDelegateMock()
         )
         
         viewModel.loadData { _ in
@@ -182,7 +182,7 @@ final class SelectPlatformViewModelTests: XCTestCase {
         let cloudDatabase = CloudDatabaseMock()
         let viewModel = SelectPlatformViewModel(
             cloudDatabase: cloudDatabase,
-            gameDetailsDelegate: GameDetailsViewModelDelegateMock()
+            myCollectionDelegate: MyCollectionViewModelDelegateMock()
         )
         
         var callbackIsCalled = false
@@ -201,7 +201,7 @@ final class SelectPlatformViewModelTests: XCTestCase {
         let cloudDatabase = CloudDatabaseMock()
         let viewModel = SelectPlatformViewModel(
             cloudDatabase: cloudDatabase,
-            gameDetailsDelegate: GameDetailsViewModelDelegateMock()
+            myCollectionDelegate: MyCollectionViewModelDelegateMock()
         )
         
         // When

@@ -15,7 +15,7 @@ final class AddGameDetailsViewModel: CollectionViewModel {
     let screenTitle: String? = L10n.fillGameDetails
     var sections = [Section]()
     weak var containerDelegate: ContainerViewControllerDelegate?
-    weak var gameDetailsDelegate: GameDetailsViewModelDelegate?
+    weak var myCollectionDelegate: MyCollectionViewModelDelegate?
     
     private let game: Game
     private let platform: Platform
@@ -26,7 +26,7 @@ final class AddGameDetailsViewModel: CollectionViewModel {
         game: Game,
         platform: Platform,
         localDatabase: LocalDatabase,
-        gameDetailsDelegate: GameDetailsViewModelDelegate?,
+        myCollectionDelegate: MyCollectionViewModelDelegate?,
         alertDisplayer: AlertDisplayer
     ) {
         self.progress = 3/3
@@ -39,7 +39,7 @@ final class AddGameDetailsViewModel: CollectionViewModel {
                 platform: self.platform
             )
         ]
-        self.gameDetailsDelegate = gameDetailsDelegate
+        self.myCollectionDelegate = myCollectionDelegate
         self.alertDisplayer = alertDisplayer
     }
     
@@ -64,11 +64,10 @@ final class AddGameDetailsViewModel: CollectionViewModel {
         let buttonContentViewFactory = PrimaryButtonContentViewFactory(
             delegate: self,
             buttonTitle: L10n.addGameToCollection,
-            shouldEnable: true
+            shouldEnable: true,
+            position: .bottom
         )
-        self.containerDelegate?.configureBottomView(
-            contentViewFactory: buttonContentViewFactory
-        )
+        self.containerDelegate?.configureSupplementaryView(contentViewFactory: buttonContentViewFactory)
     }
 }
 
@@ -128,7 +127,7 @@ extension AddGameDetailsViewModel: PrimaryButtonDelegate {
                 self?.configureBottomView()
                 return
             }
-            self?.gameDetailsDelegate?.reloadCollection()
+            self?.myCollectionDelegate?.reloadCollection()
             self?.close()
         }
     }

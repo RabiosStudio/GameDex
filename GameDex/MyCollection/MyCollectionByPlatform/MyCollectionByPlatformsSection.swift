@@ -9,7 +9,7 @@ import Foundation
 
 final class MyCollectionByPlatformsSection: Section {
     
-    init(games: [SavedGame], platformName: String, gameDetailsDelegate: GameDetailsViewModelDelegate?) {
+    init(games: [SavedGame], platformName: String, myCollectionDelegate: MyCollectionViewModelDelegate?) {
         super.init()
         self.position = 0
         
@@ -25,7 +25,7 @@ final class MyCollectionByPlatformsSection: Section {
                     let screenFactory = EditGameDetailsScreenFactory(
                         savedGame: item,
                         platformName: platformName,
-                        gameDetailsDelegate: gameDetailsDelegate
+                        myCollectionDelegate: myCollectionDelegate
                     )
                     Routing.shared.route(
                         navigationStyle: .push(

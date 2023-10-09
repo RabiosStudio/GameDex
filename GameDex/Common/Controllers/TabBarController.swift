@@ -5,16 +5,20 @@ class TabBarController: UITabBarController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        let vm1 = MyCollectionViewModel(
+            localDatabase: LocalDatabaseImpl(),
+            authenticationService: AuthenticationServiceImpl(),
+            connectivityChecker: ConnectivityCheckerImpl()
+        )
         let vc1 = self.createViewController(
-            viewModel: MyCollectionViewModel(
-                localDatabase: LocalDatabaseImpl()
-            )
+            viewModel: vm1
         )
         
         let vc2 = self.createViewController(
             viewModel: MyProfileViewModel(
                 authenticationService: AuthenticationServiceImpl(),
-                alertDisplayer: AlertDisplayerImpl()
+                alertDisplayer: AlertDisplayerImpl(),
+                myCollectionDelegate: vm1
             )
         )
         

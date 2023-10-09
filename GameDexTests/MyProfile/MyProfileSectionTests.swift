@@ -14,8 +14,9 @@ final class MyProfileSectionTests: XCTestCase {
         // Given
         let alertDisplayer = AlertDisplayerMock()
         let section = MyProfileSection(
-            userIsLoggedIn: false,
-            myProfileDelegate: nil,
+            isUserLoggedIn: false,
+            myProfileDelegate: MyProfileViewModelDelegateMock(),
+            myCollectionDelegate: MyCollectionViewModelDelegateMock(),
             alertDisplayer: alertDisplayer
         )
         
@@ -39,7 +40,8 @@ final class MyProfileSectionTests: XCTestCase {
         loginCellVM.cellTappedCallback?()
         let expectedNavigationStyle: NavigationStyle = .push(
             screenFactory: LoginScreenFactory(
-                myProfileDelegate: nil
+                myProfileDelegate: MyProfileViewModelDelegateMock(),
+                myCollectionDelegate: MyCollectionViewModelDelegateMock()
             )
         )
         
@@ -50,8 +52,9 @@ final class MyProfileSectionTests: XCTestCase {
         // Given
         let alertDisplayer = AlertDisplayerMock()
         let section = MyProfileSection(
-            userIsLoggedIn: true,
-            myProfileDelegate: nil,
+            isUserLoggedIn: true,
+            myProfileDelegate: MyProfileViewModelDelegateMock(),
+            myCollectionDelegate: MyCollectionViewModelDelegateMock(),
             alertDisplayer: alertDisplayer
         )
         

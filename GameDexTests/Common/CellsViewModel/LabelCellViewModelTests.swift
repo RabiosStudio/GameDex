@@ -15,7 +15,7 @@ final class LabelCellViewModelTests: XCTestCase {
         let primaryLabel = "Primary label"
         let secondaryLabel = "Secondary Label"
         let screenFactory: ScreenFactory = SelectPlatformScreenFactory(
-            delegate: GameDetailsViewModelDelegateMock()
+            delegate: MyCollectionViewModelDelegateMock()
         )
         
         // When

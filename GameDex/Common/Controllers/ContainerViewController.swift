@@ -10,7 +10,7 @@ import UIKit
 
 // sourcery: AutoMockable
 protocol ContainerViewControllerDelegate: AnyObject {
-    func configureBottomView(contentViewFactory: ContentViewFactory)
+    func configureSupplementaryView(contentViewFactory: ContentViewFactory)
     func reloadSections()
     func goBackToRootViewController()
 }
@@ -58,7 +58,7 @@ class ContainerViewController: UIViewController {
         return view
     }()
     
-    private lazy var bottomView = UIView()
+    private lazy var supplementaryView = UIView()
     
     private lazy var stackViewBottomConstraint: NSLayoutConstraint = self.stackView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
     
@@ -445,16 +445,23 @@ extension ContainerViewController: ContainerViewControllerDelegate {
         }
     }
     
-    func configureBottomView(contentViewFactory: ContentViewFactory) {
+    func configureSupplementaryView(contentViewFactory: ContentViewFactory) {
         self.separatorView.removeFromSuperview()
-        self.bottomView.removeFromSuperview()
-        self.bottomView = contentViewFactory.bottomView
+        self.supplementaryView.removeFromSuperview()
+        self.supplementaryView = contentViewFactory.contentView
         self.stackView.addArrangedSubview(self.separatorView)
-        self.stackView.addArrangedSubview(self.bottomView)
+        if contentViewFactory.position == .top {
+            self.stackView.insertArrangedSubview(self.supplementaryView, at: 0)
+        } else {
+            self.stackView.addArrangedSubview(self.supplementaryView)
+        }
+        self.stackView.setNeedsLayout()
+        self.stackView.layoutIfNeeded()
     }
     
     func reloadSections() {
         DispatchQueue.main.async {
+            self.supplementaryView.removeFromSuperview()
             self.loadData()
         }
     }

@@ -9,7 +9,7 @@ import Foundation
 
 final class SelectPlatformSection: Section {
     
-    init(platforms: [Platform], gameDetailsDelegate: GameDetailsViewModelDelegate?) {
+    init(platforms: [Platform], myCollectionDelegate: MyCollectionViewModelDelegate?) {
         super.init()
         self.position = 0
         
@@ -20,7 +20,7 @@ final class SelectPlatformSection: Section {
                 cellTappedCallback: {
                     let screenFactory = SearchGameByTitleScreenFactory(
                         platform: platform,
-                        gameDetailsDelegate: gameDetailsDelegate
+                        myCollectionDelegate: myCollectionDelegate
                     )
                     Routing.shared.route(
                         navigationStyle: .push(

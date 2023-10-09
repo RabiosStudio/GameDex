@@ -15,7 +15,7 @@ final class SearchGameByTitleSectionTests: XCTestCase {
         let section = SearchGameByTitleSection(
             gamesQuery: MockData.games,
             platform: MockData.platform,
-            gameDetailsDelegate: GameDetailsViewModelDelegateMock()
+            myCollectionDelegate: MyCollectionViewModelDelegateMock()
         )
         
         // Then
@@ -40,11 +40,11 @@ final class SearchGameByTitleSectionTests: XCTestCase {
     
     func test_cellTappedCallback_ThenLastNavigationStyleIsCorrect() {
         // Given
-        let gameDetailsDelegate = GameDetailsViewModelDelegateMock()
+        let myCollectionDelegate = MyCollectionViewModelDelegateMock()
         let section = SearchGameByTitleSection(
             gamesQuery: MockData.games,
             platform: MockData.platform,
-            gameDetailsDelegate: gameDetailsDelegate
+            myCollectionDelegate: myCollectionDelegate
         )
         
         for (index, cellVM) in section.cellsVM.enumerated() {
@@ -57,7 +57,7 @@ final class SearchGameByTitleSectionTests: XCTestCase {
                 screenFactory: AddGameDetailsScreenFactory(
                     game: MockData.games[index],
                     platform: MockData.platform,
-                    gameDetailsDelegate: gameDetailsDelegate
+                    myCollectionDelegate: myCollectionDelegate
                 )
             )
             

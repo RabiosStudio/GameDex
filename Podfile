@@ -21,6 +21,7 @@ target 'GameDex' do
   pod 'FirebaseAuth'
   pod 'FirebaseFirestore'
   pod 'FirebaseCrashlytics'
+  pod 'ReachabilitySwift'
   
 
   target 'GameDexTests' do

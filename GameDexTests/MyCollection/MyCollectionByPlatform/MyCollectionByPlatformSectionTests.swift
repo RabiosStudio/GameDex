@@ -15,7 +15,7 @@ final class MyCollectionByPlatformSectionTests: XCTestCase {
         let section = MyCollectionByPlatformsSection(
             games: MockData.savedGames,
             platformName: MockData.platform.title,
-            gameDetailsDelegate: GameDetailsViewModelDelegateMock()
+            myCollectionDelegate: MyCollectionViewModelDelegateMock()
         )
         
         // Then
@@ -40,12 +40,12 @@ final class MyCollectionByPlatformSectionTests: XCTestCase {
     
     func test_cellTappedCallback_ThenLastNavigationStyleIsCorrect() {
         // Given
-        let gameDetailsDelegate = GameDetailsViewModelDelegateMock()
+        let myCollectionDelegate = MyCollectionViewModelDelegateMock()
         
         let section = MyCollectionByPlatformsSection(
             games: MockData.savedGames,
             platformName: MockData.platform.title,
-            gameDetailsDelegate: gameDetailsDelegate
+            myCollectionDelegate: myCollectionDelegate
         )
         
         for (index, cellVM) in section.cellsVM.enumerated() {
@@ -58,7 +58,7 @@ final class MyCollectionByPlatformSectionTests: XCTestCase {
                 screenFactory: EditGameDetailsScreenFactory(
                     savedGame: MockData.savedGames[index],
                     platformName: MockData.platform.title,
-                    gameDetailsDelegate: gameDetailsDelegate
+                    myCollectionDelegate: myCollectionDelegate
                 )
             )
             

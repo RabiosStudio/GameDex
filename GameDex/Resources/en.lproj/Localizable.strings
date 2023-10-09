@@ -35,6 +35,10 @@
 "warningGameAlreadyInDatabase" = "This game is already in your collection!";
 "warningLogOut" = "Are you sure you want to log out?";
 
+// Info
+"infoNoInternet" = "You're not connected to the internet, your collection might not be up to date";
+"infoLogout" = "You're not logged in, your collection might not be up to date";
+
 // Button
 "addAGame" = "Add a game";
 "addGameToCollection" = "Add to collection";

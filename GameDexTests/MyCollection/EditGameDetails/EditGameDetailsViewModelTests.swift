@@ -34,7 +34,7 @@ final class EditGameDetailsViewModelTests: XCTestCase {
             platformName: MockData.platform.title,
             localDatabase: LocalDatabaseMock(),
             alertDisplayer: AlertDisplayerMock(),
-            gameDetailsDelegate: GameDetailsViewModelDelegateMock()
+            myCollectionDelegate: MyCollectionViewModelDelegateMock()
         )
         // When
         let numberOfSections = viewModel.numberOfSections()
@@ -51,7 +51,7 @@ final class EditGameDetailsViewModelTests: XCTestCase {
             platformName: MockData.platform.title,
             localDatabase: LocalDatabaseMock(),
             alertDisplayer: AlertDisplayerMock(),
-            gameDetailsDelegate: GameDetailsViewModelDelegateMock()
+            myCollectionDelegate: MyCollectionViewModelDelegateMock()
         )
         
         var callbackIsCalled = false
@@ -79,7 +79,7 @@ final class EditGameDetailsViewModelTests: XCTestCase {
             platformName: MockData.platform.title,
             localDatabase: localDatabase,
             alertDisplayer: alertDisplayer,
-            gameDetailsDelegate: GameDetailsViewModelDelegateMock()
+            myCollectionDelegate: MyCollectionViewModelDelegateMock()
         )
         
         viewModel.containerDelegate = containerDelegate
@@ -104,7 +104,7 @@ final class EditGameDetailsViewModelTests: XCTestCase {
                             )
                         )
                         containerDelegate.verify(
-                            .configureBottomView(
+                            .configureSupplementaryView(
                                 contentViewFactory: .any
                             )
                         )
@@ -129,7 +129,7 @@ final class EditGameDetailsViewModelTests: XCTestCase {
             platformName: MockData.platform.title,
             localDatabase: localDatabase,
             alertDisplayer: alertDisplayer,
-            gameDetailsDelegate: GameDetailsViewModelDelegateMock()
+            myCollectionDelegate: MyCollectionViewModelDelegateMock()
         )
         
         viewModel.containerDelegate = containerDelegate
@@ -154,7 +154,7 @@ final class EditGameDetailsViewModelTests: XCTestCase {
                             )
                         )
                         containerDelegate.verify(
-                            .configureBottomView(
+                            .configureSupplementaryView(
                                 contentViewFactory: .any
                             )
                         )
@@ -177,7 +177,7 @@ final class EditGameDetailsViewModelTests: XCTestCase {
             platformName: MockData.platform.title,
             localDatabase: localDatabase,
             alertDisplayer: AlertDisplayerMock(),
-            gameDetailsDelegate: GameDetailsViewModelDelegateMock()
+            myCollectionDelegate: MyCollectionViewModelDelegateMock()
         )
         
         viewModel.containerDelegate = containerDelegate
@@ -212,7 +212,7 @@ final class EditGameDetailsViewModelTests: XCTestCase {
         
         // Then
         containerDelegate.verify(
-            .configureBottomView(
+            .configureSupplementaryView(
                 contentViewFactory: .any
             )
         )
@@ -226,7 +226,7 @@ final class EditGameDetailsViewModelTests: XCTestCase {
             platformName: MockData.platform.title,
             localDatabase: LocalDatabaseMock(),
             alertDisplayer: alertDisplayer,
-            gameDetailsDelegate: GameDetailsViewModelDelegateMock()
+            myCollectionDelegate: MyCollectionViewModelDelegateMock()
         )
         
         // When
@@ -258,7 +258,7 @@ final class EditGameDetailsViewModelTests: XCTestCase {
             platformName: MockData.platform.title,
             localDatabase: localDatabase,
             alertDisplayer: alertDisplayer,
-            gameDetailsDelegate: GameDetailsViewModelDelegateMock()
+            myCollectionDelegate: MyCollectionViewModelDelegateMock()
         )
         viewModel.containerDelegate = containerDelegate
         viewModel.alertDelegate = viewModel
@@ -282,7 +282,7 @@ final class EditGameDetailsViewModelTests: XCTestCase {
                         )
                     )
                     containerDelegate.verify(
-                        .configureBottomView(
+                        .configureSupplementaryView(
                             contentViewFactory: .any
                         )
                     )
@@ -306,7 +306,7 @@ final class EditGameDetailsViewModelTests: XCTestCase {
             platformName: MockData.platform.title,
             localDatabase: localDatabase,
             alertDisplayer: alertDisplayer,
-            gameDetailsDelegate: GameDetailsViewModelDelegateMock()
+            myCollectionDelegate: MyCollectionViewModelDelegateMock()
         )
         viewModel.containerDelegate = containerDelegate
         viewModel.alertDelegate = viewModel

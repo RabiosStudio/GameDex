@@ -9,5 +9,6 @@ import Foundation
 import UIKit
 
 protocol ContentViewFactory {
-    var bottomView: UIView { get }
+    var contentView: UIView { get }
+    var position: Position { get }
 }

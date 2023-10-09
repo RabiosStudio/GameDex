@@ -15,7 +15,8 @@ final class AuthenticationViewModelTests: XCTestCase {
             userHasAccount: true,
             authenticationSerice: AuthenticationServiceMock(),
             alertDisplayer: AlertDisplayerMock(),
-            myProfileDelegate: nil
+            myProfileDelegate: MyProfileViewModelDelegateMock(),
+            myCollectionDelegate: MyCollectionViewModelDelegateMock()
         )
         
         // Then
@@ -29,7 +30,8 @@ final class AuthenticationViewModelTests: XCTestCase {
             userHasAccount: true,
             authenticationSerice: AuthenticationServiceMock(),
             alertDisplayer: AlertDisplayerMock(),
-            myProfileDelegate: nil
+            myProfileDelegate: MyProfileViewModelDelegateMock(),
+            myCollectionDelegate: MyCollectionViewModelDelegateMock()
         )
         var callbackIsCalled = false
         // When
@@ -51,7 +53,8 @@ final class AuthenticationViewModelTests: XCTestCase {
             userHasAccount: true,
             authenticationSerice: authenticationService,
             alertDisplayer: alertDisplayer,
-            myProfileDelegate: nil
+            myProfileDelegate: MyProfileViewModelDelegateMock(),
+            myCollectionDelegate: MyCollectionViewModelDelegateMock()
         )
         
         viewModel.loadData { _ in }
@@ -110,7 +113,8 @@ final class AuthenticationViewModelTests: XCTestCase {
             userHasAccount: true,
             authenticationSerice: authenticationService,
             alertDisplayer: alertDisplayer,
-            myProfileDelegate: nil
+            myProfileDelegate: MyProfileViewModelDelegateMock(),
+            myCollectionDelegate: MyCollectionViewModelDelegateMock()
         )
         
         viewModel.loadData { _ in }
@@ -166,7 +170,8 @@ final class AuthenticationViewModelTests: XCTestCase {
             userHasAccount: false,
             authenticationSerice: authenticationService,
             alertDisplayer: alertDisplayer,
-            myProfileDelegate: nil
+            myProfileDelegate: MyProfileViewModelDelegateMock(),
+            myCollectionDelegate: MyCollectionViewModelDelegateMock()
         )
         
         viewModel.loadData { _ in }
@@ -228,7 +233,8 @@ final class AuthenticationViewModelTests: XCTestCase {
             userHasAccount: false,
             authenticationSerice: authenticationService,
             alertDisplayer: alertDisplayer,
-            myProfileDelegate: nil
+            myProfileDelegate: MyProfileViewModelDelegateMock(),
+            myCollectionDelegate: MyCollectionViewModelDelegateMock()
         )
         
         viewModel.loadData { _ in }

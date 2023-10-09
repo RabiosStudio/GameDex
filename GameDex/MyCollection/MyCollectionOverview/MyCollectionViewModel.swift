@@ -7,7 +7,12 @@
 
 import Foundation
 
-final class MyCollectionViewModel: CollectionViewModel {
+// sourcery: AutoMockable
+protocol MyCollectionViewModelDelegate: AnyObject {
+    func reloadCollection()
+}
+
+final class MyCollectionViewModel: ConnectivityDisplayerViewModel {
     lazy var searchViewModel: SearchViewModel? = SearchViewModel(
         placeholder: L10n.searchCollection,
         activateOnTap: true,
@@ -21,22 +26,31 @@ final class MyCollectionViewModel: CollectionViewModel {
     var platforms: [Platform] = []
     
     weak var containerDelegate: ContainerViewControllerDelegate?
-    weak var gameDetailsDelegate: GameDetailsViewModelDelegate?
+    weak var myCollectionDelegate: MyCollectionViewModelDelegate?
     
     private let localDatabase: LocalDatabase
+    let authenticationService: AuthenticationService
+    let connectivityChecker: ConnectivityChecker
     
-    init(localDatabase: LocalDatabase) {
+    init(
+        localDatabase: LocalDatabase,
+        authenticationService: AuthenticationService,
+        connectivityChecker: ConnectivityChecker
+    ) {
         self.localDatabase = localDatabase
+        self.authenticationService = authenticationService
+        self.connectivityChecker = connectivityChecker
     }
     
     func loadData(callback: @escaping (EmptyError?) -> ()) {
+        self.displayInfoWarningIfNeeded()
         let fetchPlatformsResult = self.localDatabase.fetchAllPlatforms()
         switch fetchPlatformsResult {
         case .success(let result):
             guard !result.isEmpty else {
                 self.platforms = []
                 self.sections = []
-                let error: MyCollectionError = .emptyCollection(gameDetailsDelegate: self)
+                let error: MyCollectionError = .emptyCollection(myCollectionDelegate: self)
                 callback(error)
                 return
             }
@@ -44,7 +58,7 @@ final class MyCollectionViewModel: CollectionViewModel {
             self.sections = [
                 MyCollectionSection(
                     platforms: self.platforms,
-                    gameDetailsDelegate: self
+                    myCollectionDelegate: self
                 )
             ]
             callback(nil)
@@ -72,16 +86,15 @@ final class MyCollectionViewModel: CollectionViewModel {
         self.sections = [
             MyCollectionSection(
                 platforms: list,
-                gameDetailsDelegate: self
+                myCollectionDelegate: self
             )
         ]
     }
-    
 }
 
 // MARK: - AddGameDetailsViewModelDelegate
 
-extension MyCollectionViewModel: GameDetailsViewModelDelegate {
+extension MyCollectionViewModel: MyCollectionViewModelDelegate {
     func reloadCollection() {
         self.containerDelegate?.reloadSections()
     }

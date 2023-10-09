@@ -19,7 +19,7 @@ final class SearchGameByTitleViewModel: CollectionViewModel {
     let screenTitle: String? = L10n.searchGame
     var sections = [Section]()
     weak var containerDelegate: ContainerViewControllerDelegate?
-    weak var gameDetailsDelegate: GameDetailsViewModelDelegate?
+    weak var myCollectionDelegate: MyCollectionViewModelDelegate?
     
     private let platform: Platform
     private var gamesQuery: [Game] = []
@@ -29,17 +29,17 @@ final class SearchGameByTitleViewModel: CollectionViewModel {
     init(
         networkingSession: API,
         platform: Platform,
-        gameDetailsDelegate: GameDetailsViewModelDelegate?
+        myCollectionDelegate: MyCollectionViewModelDelegate?
     ) {
         self.progress = 2/3
         self.networkingSession = networkingSession
         self.platform = platform
-        self.gameDetailsDelegate = gameDetailsDelegate
+        self.myCollectionDelegate = myCollectionDelegate
         self.sections = [
             SearchGameByTitleSection(
                 gamesQuery: gamesQuery,
                 platform: self.platform,
-                gameDetailsDelegate: gameDetailsDelegate
+                myCollectionDelegate: myCollectionDelegate
             )
         ]
     }
@@ -79,7 +79,7 @@ extension SearchGameByTitleViewModel: SearchViewModelDelegate {
                 self.sections = [SearchGameByTitleSection(
                     gamesQuery: self.gamesQuery,
                     platform: self.platform,
-                    gameDetailsDelegate: self.gameDetailsDelegate
+                    myCollectionDelegate: self.myCollectionDelegate
                 )]
                 callback(nil)
             case .failure(_):

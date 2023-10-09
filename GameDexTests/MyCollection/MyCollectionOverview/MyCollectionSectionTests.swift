@@ -14,7 +14,7 @@ final class MyCollectionSectionTests: XCTestCase {
         // Given
         let section = MyCollectionSection(
             platforms: MockData.platforms,
-            gameDetailsDelegate: GameDetailsViewModelDelegateMock()
+            myCollectionDelegate: MyCollectionViewModelDelegateMock()
         )
         
         // Then
@@ -32,10 +32,10 @@ final class MyCollectionSectionTests: XCTestCase {
     func test_cellTappedCallback_ThenLastNavigationStyleIsCorrect() {
         // Given
         let platforms = MockData.platforms
-        let gameDetailsDelegate = GameDetailsViewModelDelegateMock()
+        let myCollectionDelegate = MyCollectionViewModelDelegateMock()
         let section = MyCollectionSection(
             platforms: platforms,
-            gameDetailsDelegate: gameDetailsDelegate
+            myCollectionDelegate: myCollectionDelegate
         )
         
         for (index, cellVM) in section.cellsVM.enumerated() {
@@ -47,7 +47,7 @@ final class MyCollectionSectionTests: XCTestCase {
             let expectedNavigationStyle: NavigationStyle = .push(
                 screenFactory: MyCollectionByPlatformsScreenFactory(
                     platform: platforms[index],
-                    gameDetailsDelegate: gameDetailsDelegate
+                    myCollectionDelegate: myCollectionDelegate
                 )
             )
             XCTAssertEqual(Routing.shared.lastNavigationStyle, expectedNavigationStyle)

@@ -10,7 +10,7 @@ import Foundation
 final class MyCollectionSection: Section {
     
     init(platforms: [Platform],
-         gameDetailsDelegate: GameDetailsViewModelDelegate?
+         myCollectionDelegate: MyCollectionViewModelDelegate?
     ) {
         super.init()
         self.position = 0
@@ -32,7 +32,7 @@ final class MyCollectionSection: Section {
                 cellTappedCallback: {
                     let screenFactory = MyCollectionByPlatformsScreenFactory(
                         platform: platform,
-                        gameDetailsDelegate: gameDetailsDelegate
+                        myCollectionDelegate: myCollectionDelegate
                     )
                     Routing.shared.route(
                         navigationStyle: .push(

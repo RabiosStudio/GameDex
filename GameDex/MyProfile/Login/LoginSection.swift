@@ -10,7 +10,10 @@ import UIKit
 
 final class LoginSection: Section {
     
-    init(myProfileDelegate: MyProfileViewModelDelegate?) {
+    init(
+        myProfileDelegate: MyProfileViewModelDelegate?,
+        myCollectionDelegate: MyCollectionViewModelDelegate?
+    ) {
         super.init()
         self.position = 0
         
@@ -29,7 +32,8 @@ final class LoginSection: Section {
             cellTappedCallback: {
                 let screenFactory =  AuthenticationScreenFactory(
                     userHasAccount: true,
-                    myProfileDelegate: myProfileDelegate
+                    myProfileDelegate: myProfileDelegate,
+                    myCollectionDelegate: myCollectionDelegate
                 )
                 Routing.shared.route(
                     navigationStyle: .push(
@@ -46,7 +50,8 @@ final class LoginSection: Section {
             cellTappedCallback: {
                 let screenFactory =  AuthenticationScreenFactory(
                     userHasAccount: false,
-                    myProfileDelegate: myProfileDelegate
+                    myProfileDelegate: myProfileDelegate,
+                    myCollectionDelegate: myCollectionDelegate
                 )
                 Routing.shared.route(
                     navigationStyle: .push(

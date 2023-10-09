@@ -8,7 +8,7 @@
 import Foundation
 import UIKit
 
-final class MyCollectionByPlatformsViewModel: CollectionViewModel {
+final class MyCollectionByPlatformsViewModel: ConnectivityDisplayerViewModel {
     lazy var searchViewModel: SearchViewModel? = SearchViewModel(
         placeholder: L10n.searchGame,
         activateOnTap: true,
@@ -19,27 +19,35 @@ final class MyCollectionByPlatformsViewModel: CollectionViewModel {
     var rightButtonItems: [AnyBarButtonItem]? = [.add, .search]
     let screenTitle: String?
     var sections = [Section]()
+    
     weak var containerDelegate: ContainerViewControllerDelegate?
-    weak var gameDetailsDelegate: GameDetailsViewModelDelegate?
+    weak var myCollectionDelegate: MyCollectionViewModelDelegate?
     
     private let database: LocalDatabase
     private let alertDisplayer: AlertDisplayer
     private var platform: Platform?
+    let authenticationService: AuthenticationService
+    let connectivityChecker: ConnectivityChecker
     
     init(
         platform: Platform?,
         database: LocalDatabase,
         alertDisplayer: AlertDisplayer,
-        gameDetailsDelegate: GameDetailsViewModelDelegate?
+        myCollectionDelegate: MyCollectionViewModelDelegate?,
+        authenticationService: AuthenticationService,
+        connectivityChecker: ConnectivityChecker
     ) {
         self.platform = platform
         self.database = database
         self.alertDisplayer = alertDisplayer
-        self.gameDetailsDelegate = gameDetailsDelegate
+        self.myCollectionDelegate = myCollectionDelegate
+        self.authenticationService = authenticationService
+        self.connectivityChecker = connectivityChecker
         self.screenTitle = self.platform?.title
     }
     
     func loadData(callback: @escaping (EmptyError?) -> ()) {
+        self.displayInfoWarningIfNeeded()
         guard let platform = self.platform,
               let games = platform.games else {
             self.containerDelegate?.goBackToRootViewController()
@@ -49,7 +57,7 @@ final class MyCollectionByPlatformsViewModel: CollectionViewModel {
             MyCollectionByPlatformsSection(
                 games: games,
                 platformName: platform.title,
-                gameDetailsDelegate: gameDetailsDelegate
+                myCollectionDelegate: myCollectionDelegate
             )
         ]
         callback(nil)
@@ -68,7 +76,7 @@ final class MyCollectionByPlatformsViewModel: CollectionViewModel {
             navigationStyle: .present(
                 screenFactory: SearchGameByTitleScreenFactory(
                     platform: collection,
-                    gameDetailsDelegate: self,
+                    myCollectionDelegate: self,
                     addToNavController: true
                 ),
                 completionBlock: nil
@@ -82,7 +90,7 @@ final class MyCollectionByPlatformsViewModel: CollectionViewModel {
             MyCollectionByPlatformsSection(
                 games: list,
                 platformName: platform.title,
-                gameDetailsDelegate: gameDetailsDelegate
+                myCollectionDelegate: myCollectionDelegate
             )
         ]
     }
@@ -97,7 +105,7 @@ final class MyCollectionByPlatformsViewModel: CollectionViewModel {
     }
 }
 
-extension MyCollectionByPlatformsViewModel: GameDetailsViewModelDelegate {
+extension MyCollectionByPlatformsViewModel: MyCollectionViewModelDelegate {
     func reloadCollection() {
         guard let platformID = self.platform?.id else { return }
         let fetchCollectionResult = self.database.getPlatform(platformId: platformID)
@@ -121,7 +129,7 @@ extension MyCollectionByPlatformsViewModel: GameDetailsViewModelDelegate {
                 MyCollectionByPlatformsSection(
                     games: games,
                     platformName: currentPlatform.title,
-                    gameDetailsDelegate: gameDetailsDelegate
+                    myCollectionDelegate: myCollectionDelegate
                 )
             ]
             self.containerDelegate?.reloadSections()

@@ -14,7 +14,8 @@ final class MyProfileViewModelTests: XCTestCase {
         // Given
         let viewModel = MyProfileViewModel(
             authenticationService: AuthenticationServiceMock(),
-            alertDisplayer: AlertDisplayerMock()
+            alertDisplayer: AlertDisplayerMock(),
+            myCollectionDelegate: MyCollectionViewModelDelegateMock()
         )
         
         // Then
@@ -27,7 +28,8 @@ final class MyProfileViewModelTests: XCTestCase {
         let authenticationService = AuthenticationServiceMock()
         let viewModel = MyProfileViewModel(
             authenticationService: authenticationService,
-            alertDisplayer: AlertDisplayerMock()
+            alertDisplayer: AlertDisplayerMock(),
+            myCollectionDelegate: MyCollectionViewModelDelegateMock()
         )
         
         authenticationService.given(
@@ -49,7 +51,8 @@ final class MyProfileViewModelTests: XCTestCase {
         let alertDisplayer = AlertDisplayerMock()
         let viewModel = MyProfileViewModel(
             authenticationService: authenticationService,
-            alertDisplayer: alertDisplayer
+            alertDisplayer: alertDisplayer,
+            myCollectionDelegate: MyCollectionViewModelDelegateMock()
         )
         authenticationService.given(
             .isUserLoggedIn(
@@ -68,7 +71,8 @@ final class MyProfileViewModelTests: XCTestCase {
         // Given
         let viewModel = MyProfileViewModel(
             authenticationService: AuthenticationServiceMock(),
-            alertDisplayer: AlertDisplayerMock()
+            alertDisplayer: AlertDisplayerMock(),
+            myCollectionDelegate: MyCollectionViewModelDelegateMock()
         )
         
         let containerDelegate = ContainerViewControllerDelegateMock()
@@ -87,7 +91,8 @@ final class MyProfileViewModelTests: XCTestCase {
         let authenticationService = AuthenticationServiceMock()
         let viewModel = MyProfileViewModel(
             authenticationService: authenticationService,
-            alertDisplayer: alertDisplayer
+            alertDisplayer: alertDisplayer,
+            myCollectionDelegate: MyCollectionViewModelDelegateMock()
         )
         let containerDelegate = ContainerViewControllerDelegateMock()
         viewModel.containerDelegate = containerDelegate
@@ -124,7 +129,8 @@ final class MyProfileViewModelTests: XCTestCase {
         let authenticationService = AuthenticationServiceMock()
         let viewModel = MyProfileViewModel(
             authenticationService: authenticationService,
-            alertDisplayer: alertDisplayer
+            alertDisplayer: alertDisplayer,
+            myCollectionDelegate: MyCollectionViewModelDelegateMock()
         )
         let containerDelegate = ContainerViewControllerDelegateMock()
         viewModel.containerDelegate = containerDelegate

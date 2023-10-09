@@ -11,9 +11,13 @@ import UIKit
 struct LoginScreenFactory: ScreenFactory {
     
     private let myProfileDelegate: MyProfileViewModelDelegate?
+    private let myCollectionDelegate: MyCollectionViewModelDelegate?
     
     var viewController: UIViewController {
-        let viewModel = LoginViewModel(myProfileDelegate: self.myProfileDelegate)
+        let viewModel = LoginViewModel(
+            myProfileDelegate: self.myProfileDelegate,
+            myCollectionDelegate: self.myCollectionDelegate
+        )
         let layout = UICollectionViewFlowLayout()
         let containerController = ContainerViewController(
             viewModel: viewModel,
@@ -22,7 +26,11 @@ struct LoginScreenFactory: ScreenFactory {
         return containerController
     }
     
-    init(myProfileDelegate: MyProfileViewModelDelegate?) {
+    init(
+        myProfileDelegate: MyProfileViewModelDelegate?,
+        myCollectionDelegate: MyCollectionViewModelDelegate?
+    ) {
         self.myProfileDelegate = myProfileDelegate
+        self.myCollectionDelegate = myCollectionDelegate
     }
 }

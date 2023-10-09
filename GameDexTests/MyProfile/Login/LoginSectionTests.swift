@@ -11,7 +11,10 @@ import XCTest
 final class LoginSectionTests: XCTestCase {
     func test_init_ThenShouldSetPropertiesCorrectly() {
         // Given
-        let section = LoginSection(myProfileDelegate: nil)
+        let section = LoginSection(
+            myProfileDelegate: MyProfileViewModelDelegateMock(),
+            myCollectionDelegate: MyCollectionViewModelDelegateMock()
+        )
         
         // Then
         XCTAssertEqual(section.cellsVM.count, 4)
@@ -33,7 +36,10 @@ final class LoginSectionTests: XCTestCase {
     func test_cellTappedCallback_ThenLastNavigationStyleIsCorrect() {
         // Given
         let myProfileDelegate = MyProfileViewModelDelegateMock()
-        let section = LoginSection(myProfileDelegate: myProfileDelegate)
+        let section = LoginSection(
+            myProfileDelegate: myProfileDelegate,
+            myCollectionDelegate: MyCollectionViewModelDelegateMock()
+        )
         
         guard let buttonCellsVM = section.cellsVM.filter({ cellVM in
             return cellVM is PrimaryButtonCellViewModel
@@ -57,7 +63,8 @@ final class LoginSectionTests: XCTestCase {
         let expectedNavigationStyle1: NavigationStyle = .push(
             screenFactory: AuthenticationScreenFactory(
                 userHasAccount: true,
-                myProfileDelegate: myProfileDelegate
+                myProfileDelegate: myProfileDelegate,
+                myCollectionDelegate: MyCollectionViewModelDelegateMock()
             )
         )
         XCTAssertEqual(Routing.shared.lastNavigationStyle, expectedNavigationStyle1)
@@ -65,7 +72,8 @@ final class LoginSectionTests: XCTestCase {
         let expectedNavigationStyle2: NavigationStyle = .push(
             screenFactory: AuthenticationScreenFactory(
                 userHasAccount: false,
-                myProfileDelegate: myProfileDelegate
+                myProfileDelegate: myProfileDelegate,
+                myCollectionDelegate: MyCollectionViewModelDelegateMock()
             )
         )
         XCTAssertEqual(Routing.shared.lastNavigationStyle, expectedNavigationStyle2)

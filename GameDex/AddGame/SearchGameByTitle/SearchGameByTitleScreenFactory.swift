@@ -14,7 +14,7 @@ struct SearchGameByTitleScreenFactory: ScreenFactory {
         let viewModel = SearchGameByTitleViewModel(
             networkingSession: AlamofireAPI(),
             platform: self.platform,
-            gameDetailsDelegate: self.gameDetailsDelegate
+            myCollectionDelegate: self.myCollectionDelegate
         )
         let layout = UICollectionViewFlowLayout()
         let containerController = ContainerViewController(
@@ -33,11 +33,11 @@ struct SearchGameByTitleScreenFactory: ScreenFactory {
     
     private let platform: Platform
     private let addToNavController: Bool
-    weak var gameDetailsDelegate: GameDetailsViewModelDelegate?
+    weak var myCollectionDelegate: MyCollectionViewModelDelegate?
     
-    init(platform: Platform, gameDetailsDelegate: GameDetailsViewModelDelegate?, addToNavController: Bool = false) {
+    init(platform: Platform, myCollectionDelegate: MyCollectionViewModelDelegate?, addToNavController: Bool = false) {
         self.platform = platform
         self.addToNavController = addToNavController
-        self.gameDetailsDelegate = gameDetailsDelegate
+        self.myCollectionDelegate = myCollectionDelegate
     }
 }

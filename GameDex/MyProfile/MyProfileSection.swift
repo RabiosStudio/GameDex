@@ -10,14 +10,15 @@ import Foundation
 final class MyProfileSection: Section {
     
     init(
-        userIsLoggedIn: Bool,
+        isUserLoggedIn: Bool,
         myProfileDelegate: MyProfileViewModelDelegate?,
+        myCollectionDelegate: MyCollectionViewModelDelegate?,
         alertDisplayer: AlertDisplayer
     ) {
         super.init()
         self.position = 0
         
-        if userIsLoggedIn {
+        if isUserLoggedIn {
             let logoutCellVM = LabelCellViewModel(
                 primaryText: L10n.logout,
                 cellTappedCallback: {
@@ -37,7 +38,8 @@ final class MyProfileSection: Section {
                 primaryText: L10n.login,
                 cellTappedCallback: {
                     let screenFactory = LoginScreenFactory(
-                        myProfileDelegate: myProfileDelegate
+                        myProfileDelegate: myProfileDelegate,
+                        myCollectionDelegate: myCollectionDelegate
                     )
                     Routing.shared.route(
                         navigationStyle: .push(
