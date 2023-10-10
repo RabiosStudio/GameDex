@@ -29,9 +29,9 @@ final class MyCollectionViewModel: ConnectivityDisplayerViewModel {
     weak var myCollectionDelegate: MyCollectionViewModelDelegate?
     
     private let localDatabase: LocalDatabase
+    private let cloudDatabase: CloudDatabase
     let authenticationService: AuthenticationService
     let connectivityChecker: ConnectivityChecker
-    private let cloudDatabase: CloudDatabase
     
     init(
         localDatabase: LocalDatabase,

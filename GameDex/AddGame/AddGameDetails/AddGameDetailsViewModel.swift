@@ -20,27 +20,33 @@ final class AddGameDetailsViewModel: CollectionViewModel {
     private let game: Game
     private let platform: Platform
     private let localDatabase: LocalDatabase
+    private let cloudDatabase: CloudDatabase
     private let alertDisplayer: AlertDisplayer
+    private let authenticationService: AuthenticationService
     
     init(
         game: Game,
         platform: Platform,
         localDatabase: LocalDatabase,
+        cloudDatabase: CloudDatabase,
         myCollectionDelegate: MyCollectionViewModelDelegate?,
-        alertDisplayer: AlertDisplayer
+        alertDisplayer: AlertDisplayer,
+        authenticationService: AuthenticationService
     ) {
         self.progress = 3/3
         self.game = game
         self.platform = platform
-        self.localDatabase = localDatabase
         self.sections = [
             AddGameDetailsSection(
                 game: self.game,
                 platform: self.platform
             )
         ]
+        self.localDatabase = localDatabase
+        self.cloudDatabase = cloudDatabase
         self.myCollectionDelegate = myCollectionDelegate
         self.alertDisplayer = alertDisplayer
+        self.authenticationService = authenticationService
     }
     
     func loadData(callback: @escaping (EmptyError?) -> ()) {
@@ -51,8 +57,25 @@ final class AddGameDetailsViewModel: CollectionViewModel {
     func didTapRightButtonItem() {
         self.close()
     }
-    
-    private func close() {
+}
+
+// MARK: - PrimaryButtonDelegate
+
+extension AddGameDetailsViewModel: PrimaryButtonDelegate {
+    func didTapPrimaryButton() async {
+        guard let gameToSave = getGameToSave() else { return }
+        
+        guard let userId = self.authenticationService.getUserId() else {
+            await self.saveInLocal(gameToSave: gameToSave)
+            return
+        }
+        
+        await self.saveInCloud(userId: userId, gameToSave: gameToSave)
+    }
+}
+
+private extension AddGameDetailsViewModel {
+    func close() {
         Routing.shared.route(
             navigationStyle: .dismiss(
                 completionBlock: nil
@@ -60,7 +83,7 @@ final class AddGameDetailsViewModel: CollectionViewModel {
         )
     }
     
-    private func configureBottomView() {
+    func configureBottomView() {
         let buttonContentViewFactory = PrimaryButtonContentViewFactory(
             delegate: self,
             buttonTitle: L10n.addGameToCollection,
@@ -69,22 +92,19 @@ final class AddGameDetailsViewModel: CollectionViewModel {
         )
         self.containerDelegate?.configureSupplementaryView(contentViewFactory: buttonContentViewFactory)
     }
-}
-
-extension AddGameDetailsViewModel: PrimaryButtonDelegate {
-    func didTapPrimaryButton() async {
+    func getGameToSave() -> SavedGame? {
         guard let firstSection = self.sections.first,
               let formCellsVM = firstSection.cellsVM.filter({ cellVM in
                   return cellVM is (any CollectionFormCellViewModel)
               }) as? [any CollectionFormCellViewModel] else {
-            return
+            return nil
         }
         
         var acquisitionYear, gameCondition, gameCompleteness, gameRegion, storageArea, notes: String?
         var rating: Int?
         
         for formCellVM in formCellsVM {
-            guard let formType = formCellVM.formType as? GameFormType else { return }
+            guard let formType = formCellVM.formType as? GameFormType else { return nil }
             switch formType {
             case .yearOfAcquisition:
                 acquisitionYear = formCellVM.value as? String
@@ -103,7 +123,11 @@ extension AddGameDetailsViewModel: PrimaryButtonDelegate {
             }
         }
         
-        let gameToSave = SavedGame(
+        if rating == nil {
+            rating = .zero
+        }
+        
+        return SavedGame(
             game: self.game,
             acquisitionYear: acquisitionYear,
             gameCondition: gameCondition,
@@ -114,18 +138,41 @@ extension AddGameDetailsViewModel: PrimaryButtonDelegate {
             notes: notes,
             lastUpdated: Date()
         )
-        
+    }
+    
+    func saveInLocal(gameToSave: SavedGame) async {
         guard let error = await self.localDatabase.add(newEntity: gameToSave, platform: self.platform) else {
-            self.alertDisplayer.presentTopFloatAlert(
-                parameters: AlertViewModel(
-                    alertType: .success,
-                    description: L10n.saveGameSuccessDescription
-                )
-            )
-            await self.myCollectionDelegate?.reloadCollection()
-            self.close()
+            await self.handleSuccess()
             return
         }
+        await self.handleFailure(error: error)
+    }
+    
+    func saveInCloud(userId: String, gameToSave: SavedGame) async {
+        guard let error = await self.cloudDatabase.saveGame(
+            userId: userId,
+            game: gameToSave,
+            platformName: self.platform.title,
+            editingEntry: false
+        ) else {
+            await self.handleSuccess()
+            return
+        }
+        await self.handleFailure(error: error)
+    }
+    
+    func handleSuccess() async {
+        self.alertDisplayer.presentTopFloatAlert(
+            parameters: AlertViewModel(
+                alertType: .success,
+                description: L10n.saveGameSuccessDescription
+            )
+        )
+        await self.myCollectionDelegate?.reloadCollection()
+        self.close()
+    }
+    
+    func handleFailure(error: DatabaseError) async {
         self.alertDisplayer.presentTopFloatAlert(
             parameters: AlertViewModel(
                 alertType: error == .itemAlreadySaved ? .warning : .error,

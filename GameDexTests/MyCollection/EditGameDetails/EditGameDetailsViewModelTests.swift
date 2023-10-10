@@ -31,10 +31,12 @@ final class EditGameDetailsViewModelTests: XCTestCase {
         // Given
         let viewModel = EditGameDetailsViewModel(
             savedGame: MockData.savedGame,
-            platformName: MockData.platform.title,
+            platform: MockData.platform,
             localDatabase: LocalDatabaseMock(),
+            cloudDatabase: CloudDatabaseMock(),
             alertDisplayer: AlertDisplayerMock(),
-            myCollectionDelegate: MyCollectionViewModelDelegateMock()
+            myCollectionDelegate: MyCollectionViewModelDelegateMock(),
+            authenticationService: AuthenticationServiceMock()
         )
         // When
         let numberOfSections = viewModel.numberOfSections()
@@ -48,10 +50,12 @@ final class EditGameDetailsViewModelTests: XCTestCase {
         // Given
         let viewModel = EditGameDetailsViewModel(
             savedGame: MockData.savedGame,
-            platformName: MockData.platform.title,
+            platform: MockData.platform,
             localDatabase: LocalDatabaseMock(),
+            cloudDatabase: CloudDatabaseMock(),
             alertDisplayer: AlertDisplayerMock(),
-            myCollectionDelegate: MyCollectionViewModelDelegateMock()
+            myCollectionDelegate: MyCollectionViewModelDelegateMock(),
+            authenticationService: AuthenticationServiceMock()
         )
         
         var callbackIsCalled = false
@@ -67,19 +71,27 @@ final class EditGameDetailsViewModelTests: XCTestCase {
         XCTAssertEqual(viewModel.numberOfItems(in: .zero), 8)
     }
     
-    func test_didTapPrimaryButton_GivenNoError_ThenAlertParametersAreCorrect() async {
+    func test_didTapPrimaryButton_GivenLocalDatabaseNoError_ThenAlertParametersAreCorrect() async {
         // Given
-        
         let localDatabase = LocalDatabaseMock()
+        let authenticationService = AuthenticationServiceMock()
         let alertDisplayer = AlertDisplayerMock()
         let containerDelegate = ContainerViewControllerDelegateMock()
         
         let viewModel = EditGameDetailsViewModel(
             savedGame: MockData.savedGame,
-            platformName: MockData.platform.title,
+            platform: MockData.platform,
             localDatabase: localDatabase,
+            cloudDatabase: CloudDatabaseMock(),
             alertDisplayer: alertDisplayer,
-            myCollectionDelegate: MyCollectionViewModelDelegateMock()
+            myCollectionDelegate: MyCollectionViewModelDelegateMock(),
+            authenticationService: authenticationService
+        )
+        
+        authenticationService.given(
+            .getUserId(
+                willReturn: nil
+            )
         )
         
         viewModel.containerDelegate = containerDelegate
@@ -114,19 +126,27 @@ final class EditGameDetailsViewModelTests: XCTestCase {
         )
     }
     
-    func test_didTapPrimaryButton_GivenErrorReplacingData_ThenAlertParametersAreCorrect() async {
+    func test_didTapPrimaryButton_GivenLocalDatabaseErrorReplacingData_ThenAlertParametersAreCorrect() async {
         // Given
-        let expectation = XCTestExpectation()
         let localDatabase = LocalDatabaseMock()
+        let authenticationService = AuthenticationServiceMock()
         let alertDisplayer = AlertDisplayerMock()
         let containerDelegate = ContainerViewControllerDelegateMock()
         
         let viewModel = EditGameDetailsViewModel(
             savedGame: MockData.savedGame,
-            platformName: MockData.platform.title,
+            platform: MockData.platform,
             localDatabase: localDatabase,
+            cloudDatabase: CloudDatabaseMock(),
             alertDisplayer: alertDisplayer,
-            myCollectionDelegate: MyCollectionViewModelDelegateMock()
+            myCollectionDelegate: MyCollectionViewModelDelegateMock(),
+            authenticationService: authenticationService
+        )
+        
+        authenticationService.given(
+            .getUserId(
+                willReturn: nil
+            )
         )
         
         viewModel.containerDelegate = containerDelegate
@@ -161,6 +181,122 @@ final class EditGameDetailsViewModelTests: XCTestCase {
         )
     }
     
+    func test_didTapPrimaryButton_GivenCloudDatabaseNoError_ThenAlertParametersAreCorrect() async {
+        // Given
+        let cloudDatabase = CloudDatabaseMock()
+        let authenticationService = AuthenticationServiceMock()
+        let alertDisplayer = AlertDisplayerMock()
+        let containerDelegate = ContainerViewControllerDelegateMock()
+        
+        let viewModel = EditGameDetailsViewModel(
+            savedGame: MockData.savedGame,
+            platform: MockData.platform,
+            localDatabase: LocalDatabaseMock(),
+            cloudDatabase: cloudDatabase,
+            alertDisplayer: alertDisplayer,
+            myCollectionDelegate: MyCollectionViewModelDelegateMock(),
+            authenticationService: authenticationService
+        )
+        
+        authenticationService.given(
+            .getUserId(
+                willReturn: "userId"
+            )
+        )
+        
+        viewModel.containerDelegate = containerDelegate
+        
+        viewModel.loadData { _ in }
+        
+        cloudDatabase.given(
+            .saveGame(
+                userId: .any,
+                game: .any,
+                platformName: .any,
+                editingEntry: .value(true),
+                willReturn: nil
+            )
+        )
+        
+        // When
+        await viewModel.didTapPrimaryButton()
+        
+        // Then
+        alertDisplayer.verify(
+            .presentTopFloatAlert(
+                parameters: .value(
+                    AlertViewModel(
+                        alertType: .success,
+                        description: L10n.updateGameSuccessDescription
+                    )
+                )
+            )
+        )
+        containerDelegate.verify(
+            .configureSupplementaryView(
+                contentViewFactory: .any
+            )
+        )
+    }
+    
+    func test_didTapPrimaryButton_GivenCloudDatabaseErrorReplacingData_ThenAlertParametersAreCorrect() async {
+        // Given
+        let cloudDatabase = CloudDatabaseMock()
+        let authenticationService = AuthenticationServiceMock()
+        let alertDisplayer = AlertDisplayerMock()
+        let containerDelegate = ContainerViewControllerDelegateMock()
+        
+        let viewModel = EditGameDetailsViewModel(
+            savedGame: MockData.savedGame,
+            platform: MockData.platform,
+            localDatabase: LocalDatabaseMock(),
+            cloudDatabase: cloudDatabase,
+            alertDisplayer: alertDisplayer,
+            myCollectionDelegate: MyCollectionViewModelDelegateMock(),
+            authenticationService: authenticationService
+        )
+        
+        authenticationService.given(
+            .getUserId(
+                willReturn: "userId"
+            )
+        )
+        
+        viewModel.containerDelegate = containerDelegate
+        
+        viewModel.loadData { _ in }
+        
+        cloudDatabase.given(
+            .saveGame(
+                userId: .any,
+                game: .any,
+                platformName: .any,
+                editingEntry: .value(true),
+                willReturn: DatabaseError.saveError
+            )
+        )
+        
+        // When
+        await viewModel.didTapPrimaryButton()
+        
+        // Then
+        alertDisplayer.verify(
+            .presentTopFloatAlert(
+                parameters: .value(
+                    AlertViewModel(
+                        alertType: .error,
+                        description: L10n.updateGameErrorDescription
+                    )
+                )
+            )
+        )
+        containerDelegate.verify(
+            .configureSupplementaryView(
+                contentViewFactory: .any
+            )
+        )
+    }
+    
     func test_enableSaveButton_GivenStringValueChanged_ThenShouldCallContainerDelegate() {
         // Given
         let localDatabase = LocalDatabaseMock()
@@ -168,10 +304,12 @@ final class EditGameDetailsViewModelTests: XCTestCase {
         
         let viewModel = EditGameDetailsViewModel(
             savedGame: MockData.savedGame,
-            platformName: MockData.platform.title,
+            platform: MockData.platform,
             localDatabase: localDatabase,
+            cloudDatabase: CloudDatabaseMock(),
             alertDisplayer: AlertDisplayerMock(),
-            myCollectionDelegate: MyCollectionViewModelDelegateMock()
+            myCollectionDelegate: MyCollectionViewModelDelegateMock(),
+            authenticationService: AuthenticationServiceMock()
         )
         
         viewModel.containerDelegate = containerDelegate
@@ -217,10 +355,12 @@ final class EditGameDetailsViewModelTests: XCTestCase {
         let alertDisplayer = AlertDisplayerMock()
         let viewModel = EditGameDetailsViewModel(
             savedGame: MockData.savedGame,
-            platformName: MockData.platform.title,
+            platform: MockData.platform,
             localDatabase: LocalDatabaseMock(),
+            cloudDatabase: CloudDatabaseMock(),
             alertDisplayer: alertDisplayer,
-            myCollectionDelegate: MyCollectionViewModelDelegateMock()
+            myCollectionDelegate: MyCollectionViewModelDelegateMock(),
+            authenticationService: AuthenticationServiceMock()
         )
         
         // When
@@ -248,10 +388,12 @@ final class EditGameDetailsViewModelTests: XCTestCase {
         let containerDelegate = ContainerViewControllerDelegateMock()
         let viewModel = EditGameDetailsViewModel(
             savedGame: MockData.savedGame,
-            platformName: MockData.platform.title,
+            platform: MockData.platform,
             localDatabase: localDatabase,
+            cloudDatabase: CloudDatabaseMock(),
             alertDisplayer: alertDisplayer,
-            myCollectionDelegate: MyCollectionViewModelDelegateMock()
+            myCollectionDelegate: MyCollectionViewModelDelegateMock(),
+            authenticationService: AuthenticationServiceMock()
         )
         viewModel.containerDelegate = containerDelegate
         viewModel.alertDelegate = viewModel
@@ -291,10 +433,12 @@ final class EditGameDetailsViewModelTests: XCTestCase {
         let containerDelegate = ContainerViewControllerDelegateMock()
         let viewModel = EditGameDetailsViewModel(
             savedGame: MockData.savedGame,
-            platformName: MockData.platform.title,
+            platform: MockData.platform,
             localDatabase: localDatabase,
+            cloudDatabase: CloudDatabaseMock(),
             alertDisplayer: alertDisplayer,
-            myCollectionDelegate: MyCollectionViewModelDelegateMock()
+            myCollectionDelegate: MyCollectionViewModelDelegateMock(),
+            authenticationService: AuthenticationServiceMock()
         )
         viewModel.containerDelegate = containerDelegate
         viewModel.alertDelegate = viewModel

@@ -9,7 +9,7 @@ import Foundation
 
 final class MyCollectionByPlatformsSection: Section {
     
-    init(games: [SavedGame], platformName: String, myCollectionDelegate: MyCollectionViewModelDelegate?) {
+    init(games: [SavedGame], platform: Platform, myCollectionDelegate: MyCollectionViewModelDelegate?) {
         super.init()
         self.position = 0
         
@@ -18,13 +18,13 @@ final class MyCollectionByPlatformsSection: Section {
         for item in sortedCollection {
             let gameCellVM = BasicInfoCellViewModel(
                 title: item.game.title,
-                subtitle1: platformName,
+                subtitle1: platform.title,
                 subtitle2: item.game.releaseDate?.convertToString(),
                 caption: item.game.imageURL,
                 cellTappedCallback: {
                     let screenFactory = EditGameDetailsScreenFactory(
                         savedGame: item,
-                        platformName: platformName,
+                        platform: platform,
                         myCollectionDelegate: myCollectionDelegate
                     )
                     Routing.shared.route(
