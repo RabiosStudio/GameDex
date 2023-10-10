@@ -19,8 +19,10 @@ struct AddGameDetailsScreenFactory: ScreenFactory {
             game: self.game,
             platform: self.platform,
             localDatabase: LocalDatabaseImpl(),
+            cloudDatabase: FirestoreDatabase(),
             myCollectionDelegate: self.myCollectionDelegate,
-            alertDisplayer: AlertDisplayerImpl()
+            alertDisplayer: AlertDisplayerImpl(),
+            authenticationService: AuthenticationServiceImpl()
         )
         let layout = UICollectionViewFlowLayout()
         let containerController = ContainerViewController(
