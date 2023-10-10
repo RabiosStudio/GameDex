@@ -23,7 +23,8 @@ final class MyCollectionByPlatformsViewModel: ConnectivityDisplayerViewModel {
     weak var containerDelegate: ContainerViewControllerDelegate?
     weak var myCollectionDelegate: MyCollectionViewModelDelegate?
     
-    private let database: LocalDatabase
+    private let localDatabase: LocalDatabase
+    private let cloudDatabase: CloudDatabase
     private let alertDisplayer: AlertDisplayer
     private var platform: Platform?
     let authenticationService: AuthenticationService
@@ -31,14 +32,16 @@ final class MyCollectionByPlatformsViewModel: ConnectivityDisplayerViewModel {
     
     init(
         platform: Platform?,
-        database: LocalDatabase,
+        localDatabase: LocalDatabase,
+        cloudDatabase: CloudDatabase,
         alertDisplayer: AlertDisplayer,
         myCollectionDelegate: MyCollectionViewModelDelegate?,
         authenticationService: AuthenticationService,
         connectivityChecker: ConnectivityChecker
     ) {
         self.platform = platform
-        self.database = database
+        self.localDatabase = localDatabase
+        self.cloudDatabase = cloudDatabase
         self.alertDisplayer = alertDisplayer
         self.myCollectionDelegate = myCollectionDelegate
         self.authenticationService = authenticationService
@@ -107,24 +110,53 @@ final class MyCollectionByPlatformsViewModel: ConnectivityDisplayerViewModel {
 
 extension MyCollectionByPlatformsViewModel: MyCollectionViewModelDelegate {
     func reloadCollection() async {
-        guard let platformID = self.platform?.id else { return }
-        let fetchCollectionResult = self.database.getPlatform(platformId: platformID)
-        
-        switch fetchCollectionResult {
-        case .success(let result):
-            guard let result else {
+        guard let platform = self.platform else { return }
+        guard let userId = self.authenticationService.getUserId(),
+              self.connectivityChecker.hasConnectivity() else {
+            
+            let fetchCollectionResult = self.localDatabase.getPlatform(platformId: platform.id)
+            switch fetchCollectionResult {
+            case .success(let result):
+                guard let result else {
+                    self.displayAlert()
+                    return
+                }
+                
+                let currentPlatform = CoreDataConverter.convert(platformCollected: result)
+                
+                guard let games = currentPlatform.games else {
+                    self.containerDelegate?.goBackToRootViewController()
+                    return
+                }
+                
+                self.platform = currentPlatform
+                self.sections = [
+                    MyCollectionByPlatformsSection(
+                        games: games,
+                        platform: platform,
+                        myCollectionDelegate: self
+                    )
+                ]
+                await self.myCollectionDelegate?.reloadCollection()
+                self.containerDelegate?.reloadSections()
+            case .failure:
                 self.displayAlert()
+            }
+            self.displayInfoWarningIfNeeded()
+            return
+        }
+        
+        let fetchPlatformsResult = await self.cloudDatabase.getSinglePlatformCollection(
+            userId: userId,
+            platform: platform
+        )
+        switch fetchPlatformsResult {
+        case .success(let result):
+            guard let games = result.games else {
+                self.containerDelegate?.reloadSections()
                 return
             }
-            
-            let currentPlatform = CoreDataConverter.convert(platformCollected: result)
-            
-            guard let games = currentPlatform.games else {
-                self.containerDelegate?.goBackToRootViewController()
-                return
-            }
-            
-            self.platform = currentPlatform
+            self.platform = result
             self.sections = [
                 MyCollectionByPlatformsSection(
                     games: games,
@@ -137,6 +169,7 @@ extension MyCollectionByPlatformsViewModel: MyCollectionViewModelDelegate {
         case .failure(_):
             self.displayAlert()
         }
+        self.displayInfoWarningIfNeeded()
     }
 }
 

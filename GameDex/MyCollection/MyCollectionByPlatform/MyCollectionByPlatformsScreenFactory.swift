@@ -16,7 +16,8 @@ struct MyCollectionByPlatformsScreenFactory: ScreenFactory {
     var viewController: UIViewController {
         let viewModel = MyCollectionByPlatformsViewModel(
             platform: self.platform,
-            database: LocalDatabaseImpl(),
+            localDatabase: LocalDatabaseImpl(),
+            cloudDatabase: FirestoreDatabase(),
             alertDisplayer: AlertDisplayerImpl(),
             myCollectionDelegate: myCollectionDelegate,
             authenticationService: AuthenticationServiceImpl(),
