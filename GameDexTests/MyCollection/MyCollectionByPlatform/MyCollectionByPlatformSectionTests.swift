@@ -14,7 +14,7 @@ final class MyCollectionByPlatformSectionTests: XCTestCase {
         // Given
         let section = MyCollectionByPlatformsSection(
             games: MockData.savedGames,
-            platformName: MockData.platform.title,
+            platform: MockData.platform,
             myCollectionDelegate: MyCollectionViewModelDelegateMock()
         )
         
@@ -44,7 +44,7 @@ final class MyCollectionByPlatformSectionTests: XCTestCase {
         
         let section = MyCollectionByPlatformsSection(
             games: MockData.savedGames,
-            platformName: MockData.platform.title,
+            platform: MockData.platform,
             myCollectionDelegate: myCollectionDelegate
         )
         
@@ -57,7 +57,7 @@ final class MyCollectionByPlatformSectionTests: XCTestCase {
             let expectedNavigationStyle: NavigationStyle = .push(
                 screenFactory: EditGameDetailsScreenFactory(
                     savedGame: MockData.savedGames[index],
-                    platformName: MockData.platform.title,
+                    platform: MockData.platform,
                     myCollectionDelegate: myCollectionDelegate
                 )
             )
