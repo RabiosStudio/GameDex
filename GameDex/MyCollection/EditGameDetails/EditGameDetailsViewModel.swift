@@ -68,118 +68,18 @@ final class EditGameDetailsViewModel: CollectionViewModel {
     func didTapRightButtonItem() {
         self.presentAlertBeforeDeletingGame()
     }
-    
-    private func presentAlertBeforeDeletingGame() {
-        self.alertDisplayer.presentBasicAlert(
-            parameters: AlertViewModel(
-                alertType: .warning,
-                description: L10n.warningRemoveGameDescription,
-                cancelButtonTitle: L10n.cancel,
-                okButtonTitle: L10n.confirm
-            )
-        )
-    }
-        
-    private func configureBottomView(shouldEnableButton: Bool) {
-        let buttonContentViewFactory = PrimaryButtonContentViewFactory(
-            delegate: self,
-            buttonTitle: L10n.saveChanges,
-            shouldEnable: shouldEnableButton,
-            position: .bottom
-        )
-        self.containerDelegate?.configureSupplementaryView(contentViewFactory: buttonContentViewFactory)
-    }
 }
 
 extension EditGameDetailsViewModel: PrimaryButtonDelegate {
     func didTapPrimaryButton() async {
-        guard let firstSection = self.sections.first,
-              let formCellsVM = firstSection.cellsVM.filter({ cellVM in
-                  return cellVM is (any CollectionFormCellViewModel)
-              }) as? [any CollectionFormCellViewModel] else {
-            return
-        }
-        
-        var acquisitionYear, gameCondition, gameCompleteness, gameRegion, storageArea, notes: String?
-        var rating: Int?
-        
-        for formCellVM in formCellsVM {
-            guard let formType = formCellVM.formType as? GameFormType else { return }
-            switch formType {
-            case .yearOfAcquisition:
-                acquisitionYear = formCellVM.value as? String
-            case .gameCondition(_):
-                gameCondition = formCellVM.value as? String
-            case .gameCompleteness(_):
-                gameCompleteness = formCellVM.value as? String
-            case .gameRegion(_):
-                gameRegion = formCellVM.value as? String
-            case .storageArea:
-                storageArea = formCellVM.value as? String
-            case .rating:
-                rating = formCellVM.value as? Int
-            case .notes:
-                notes = formCellVM.value as? String
-            }
-        }
-        
-        let gameToSave = SavedGame(
-            game: self.savedGame.game,
-            acquisitionYear: acquisitionYear,
-            gameCondition: gameCondition,
-            gameCompleteness: gameCompleteness,
-            gameRegion: gameRegion,
-            storageArea: storageArea,
-            rating: rating,
-            notes: notes,
-            lastUpdated: Date()
-        )
+        guard let gameToSave = getGameToSave() else { return }
         
         guard let userId = self.authenticationService.getUserId() else {
-            guard await self.localDatabase.replace(savedGame: gameToSave) == nil else {
-                self.alertDisplayer.presentTopFloatAlert(
-                    parameters: AlertViewModel(
-                        alertType: .error,
-                        description: L10n.updateGameErrorDescription
-                    )
-                )
-                self.configureBottomView(shouldEnableButton: true)
-                return
-            }
-            self.alertDisplayer.presentTopFloatAlert(
-                parameters: AlertViewModel(
-                    alertType: .success,
-                    description: L10n.updateGameSuccessDescription
-                )
-            )
-            self.configureBottomView(shouldEnableButton: true)
+            await self.saveInLocal(gameToSave: gameToSave)
             return
         }
         
-        let platform = Platform(
-            title: self.platform.title,
-            id: self.platform.id,
-            games: [gameToSave]
-        )
-        
-        guard await self.cloudDatabase.saveGame(userId: userId, game: gameToSave, platformName: self.platform.title, editingEntry: true) == nil else {
-            self.alertDisplayer.presentTopFloatAlert(
-                parameters: AlertViewModel(
-                    alertType: .error,
-                    description: L10n.updateGameErrorDescription
-                )
-            )
-            self.configureBottomView(shouldEnableButton: true)
-            return
-        }
-        self.alertDisplayer.presentTopFloatAlert(
-            parameters: AlertViewModel(
-                alertType: .success,
-                description: L10n.updateGameSuccessDescription
-            )
-        )
-        self.configureBottomView(shouldEnableButton: false)
-        await self.myCollectionDelegate?.reloadCollection()
+        await self.saveInCloud(userId: userId, gameToSave: gameToSave)
     }
 }
 
@@ -221,23 +121,125 @@ extension EditGameDetailsViewModel: EditFormDelegate {
 
 extension EditGameDetailsViewModel: AlertDisplayerDelegate {
     func didTapOkButton() async {
-        guard await self.localDatabase.remove(savedGame: self.savedGame) == nil else {
-            self.alertDisplayer.presentTopFloatAlert(
-                parameters: AlertViewModel(
-                    alertType: .error,
-                    description: L10n.removeGameErrorDescription
-                )
+        let error = await self.localDatabase.remove(savedGame: self.savedGame)
+        
+        self.alertDisplayer.presentTopFloatAlert(
+            parameters: AlertViewModel(
+                alertType: error == nil ? .success : .error,
+                description: error == nil ? L10n.removeGameSuccessDescription : L10n.removeGameErrorDescription
             )
+        )
+        
+        guard error == nil else {
             self.configureBottomView(shouldEnableButton: true)
             return
         }
+        await self.myCollectionDelegate?.reloadCollection()
+        self.containerDelegate?.goBackToRootViewController()
+    }
+}
+
+private extension EditGameDetailsViewModel {
+    func presentAlertBeforeDeletingGame() {
+        self.alertDisplayer.presentBasicAlert(
+            parameters: AlertViewModel(
+                alertType: .warning,
+                description: L10n.warningRemoveGameDescription,
+                cancelButtonTitle: L10n.cancel,
+                okButtonTitle: L10n.confirm
+            )
+        )
+    }
+    
+    func configureBottomView(shouldEnableButton: Bool) {
+        let buttonContentViewFactory = PrimaryButtonContentViewFactory(
+            delegate: self,
+            buttonTitle: L10n.saveChanges,
+            shouldEnable: shouldEnableButton,
+            position: .bottom
+        )
+        self.containerDelegate?.configureSupplementaryView(contentViewFactory: buttonContentViewFactory)
+    }
+    
+    func getGameToSave() -> SavedGame? {
+        guard let firstSection = self.sections.first,
+              let formCellsVM = firstSection.cellsVM.filter({ cellVM in
+                  return cellVM is (any CollectionFormCellViewModel)
+              }) as? [any CollectionFormCellViewModel] else {
+            return nil
+        }
+        
+        var acquisitionYear, gameCondition, gameCompleteness, gameRegion, storageArea, notes: String?
+        var rating: Int?
+        
+        for formCellVM in formCellsVM {
+            guard let formType = formCellVM.formType as? GameFormType else { return nil }
+            switch formType {
+            case .yearOfAcquisition:
+                acquisitionYear = formCellVM.value as? String
+            case .gameCondition(_):
+                gameCondition = formCellVM.value as? String
+            case .gameCompleteness(_):
+                gameCompleteness = formCellVM.value as? String
+            case .gameRegion(_):
+                gameRegion = formCellVM.value as? String
+            case .storageArea:
+                storageArea = formCellVM.value as? String
+            case .rating:
+                rating = formCellVM.value as? Int
+            case .notes:
+                notes = formCellVM.value as? String
+            }
+        }
+        
+        return SavedGame(
+            game: self.savedGame.game,
+            acquisitionYear: acquisitionYear,
+            gameCondition: gameCondition,
+            gameCompleteness: gameCompleteness,
+            gameRegion: gameRegion,
+            storageArea: storageArea,
+            rating: rating,
+            notes: notes,
+            lastUpdated: Date()
+        )
+    }
+    
+    func saveInLocal(gameToSave: SavedGame) async {
+        guard let error = await self.localDatabase.replace(savedGame: gameToSave) else {
+            await self.handleSuccess()
+            return
+        }
+        await self.handleFailure(error: error)
+    }
+    
+    func saveInCloud(userId: String, gameToSave: SavedGame) async {
+        guard let error = await self.cloudDatabase.saveGame(userId: userId, game: gameToSave, platformName: self.platform.title, editingEntry: true) else {
+            await self.handleSuccess()
+            return
+        }
+        await self.handleFailure(error: error)
+    }
+    
+    func handleSuccess() async {
         self.alertDisplayer.presentTopFloatAlert(
             parameters: AlertViewModel(
                 alertType: .success,
-                description: L10n.removeGameSuccessDescription
+                description: L10n.updateGameSuccessDescription
             )
         )
+        self.configureBottomView(shouldEnableButton: false)
         await self.myCollectionDelegate?.reloadCollection()
-        self.containerDelegate?.goBackToRootViewController()
+    }
+    
+    func handleFailure(error: DatabaseError) async {
+        self.alertDisplayer.presentTopFloatAlert(
+            parameters: AlertViewModel(
+                alertType: .error,
+                description: L10n.updateGameErrorDescription
+            )
+        )
+        self.configureBottomView(shouldEnableButton: true)
+        return
     }
 }
