@@ -162,11 +162,11 @@ extension EditGameDetailsViewModel: PrimaryButtonDelegate {
             games: [gameToSave]
         )
         
-        guard await self.cloudDatabase.saveGame(userId: userId, platform: platform) == nil else {
+        guard await self.cloudDatabase.saveGame(userId: userId, game: gameToSave, platformName: self.platform.title, editingEntry: true) == nil else {
             self.alertDisplayer.presentTopFloatAlert(
                 parameters: AlertViewModel(
                     alertType: .error,
-                    description: L10n.saveGameErrorDescription
+                    description: L10n.updateGameErrorDescription
                 )
             )
             self.configureBottomView(shouldEnableButton: true)

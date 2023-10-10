@@ -118,7 +118,7 @@ extension MyCollectionByPlatformsViewModel: MyCollectionViewModelDelegate {
             switch fetchCollectionResult {
             case .success(let result):
                 guard let result else {
-                    self.displayAlert()
+                    self.containerDelegate?.reloadSections()
                     return
                 }
                 

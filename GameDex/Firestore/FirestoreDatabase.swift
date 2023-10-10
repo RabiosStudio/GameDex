@@ -14,6 +14,7 @@ class FirestoreDatabase: CloudDatabase {
         case searchPlatform
         case userPlatforms(String)
         case userGames(String, String)
+        case userGame(String, String, String)
         case users
         case apiKey
         case searchGamesApi
@@ -22,10 +23,12 @@ class FirestoreDatabase: CloudDatabase {
             switch self {
             case .searchPlatform:
                 return "platforms"
-            case .userPlatforms(let userId):
+            case let .userPlatforms(userId):
                 return "users/\(userId)/platforms"
-            case .userGames(let userId, let platformId):
+            case let .userGames(userId, platformId):
                 return "users/\(userId)/platforms/\(platformId)/games"
+            case let .userGame(userId, platformId, gameId):
+                return "users/\(userId)/platforms/\(platformId)/games/\(gameId)"
             case .users:
                 return "users"
             case .apiKey:
@@ -194,7 +197,7 @@ class FirestoreDatabase: CloudDatabase {
             let platforms = CoreDataConverter.convert(platformsCollected: result)
             
             for platform in platforms {
-                if let error = await self.saveGame(
+                if let error = await self.saveGames(
                     userId: userId,
                     platform: platform
                 ) {
@@ -207,7 +210,64 @@ class FirestoreDatabase: CloudDatabase {
         return nil
     }
     
-    func saveGame(userId: String, platform: Platform) async -> DatabaseError? {
+    func gameIsInDatabase(userId: String, savedGame: SavedGame) async -> Result<Bool, DatabaseError> {
+        do {
+            let gamesPath = Collections.userGames(userId, "\(savedGame.game.platformId)").path
+            let fetchedGames = try await self.database.collection(gamesPath).getDocuments()
+            for item in fetchedGames.documents {
+                let data = item.data()
+                let id = item.documentID
+                if id == savedGame.game.id {
+                    return .success(true)
+                }
+            }
+            return .success(false)
+        } catch {
+            return .failure(DatabaseError.fetchError)
+        }
+    }
+    
+    func saveGame(userId: String, game: SavedGame, platformName: String, editingEntry: Bool) async -> DatabaseError? {
+        do {
+            if !editingEntry {
+                let fetchResult = await self.gameIsInDatabase(userId: userId, savedGame: game)
+                switch fetchResult {
+                case .success(let result):
+                    guard result == false else {
+                        return DatabaseError.itemAlreadySaved
+                    }
+                case .failure:
+                    break
+                }
+            }
+            
+            try await self.database.collection(Collections.userPlatforms(userId).path).document("\(game.game.platformId)").setData([
+                Attributes.title.rawValue: platformName
+            ])
+            
+            let docData: [String: Any] = [
+                Attributes.title.rawValue: game.game.title,
+                Attributes.description.rawValue: game.game.description,
+                Attributes.imageUrl.rawValue: game.game.imageURL,
+                Attributes.releaseDate.rawValue: game.game.releaseDate as Any,
+                Attributes.platform.rawValue: game.game.platformId,
+                Attributes.gameCondition.rawValue: game.gameCondition as Any,
+                Attributes.gameCompleteness.rawValue: game.gameCompleteness as Any,
+                Attributes.gameRegion.rawValue: game.gameRegion as Any,
+                Attributes.storageArea.rawValue: game.storageArea as Any,
+                Attributes.rating.rawValue: game.rating as Any,
+                Attributes.notes.rawValue: game.notes as Any,
+                Attributes.lastUpdated.rawValue: game.lastUpdated,
+                Attributes.acquisitionYear.rawValue: game.acquisitionYear as Any
+            ]
+            try await self.database.collection(Collections.userGames(userId, "\(game.game.platformId)").path).document(game.game.id).setData(docData)
+            return nil
+        } catch {
+            return DatabaseError.saveError
+        }
+    }
+    
+    func saveGames(userId: String, platform: Platform) async -> DatabaseError? {
         do {
             try await self.database.collection(Collections.userPlatforms(userId).path).document("\(platform.id)").setData([
                 Attributes.title.rawValue: platform.title
@@ -234,16 +294,16 @@ class FirestoreDatabase: CloudDatabase {
                 ]
                 try await self.database.collection(Collections.userGames(userId, "\(platform.id)").path).document(item.game.id).setData(docData)
             }
+            return nil
         } catch {
             return DatabaseError.saveError
         }
-        return nil
     }
     
     func getApiKey() async -> Result<String, DatabaseError> {
         do {
             let doc = self.database.collection(Collections.apiKey.path).document(Collections.searchGamesApi.path)
-
+            
             let fetchedData = try await doc.getDocument()
             let documentData = fetchedData.data()
             guard let key = documentData?[Attributes.key.rawValue] as? String else {

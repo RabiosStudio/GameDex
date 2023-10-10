@@ -146,30 +146,30 @@ extension AddGameDetailsViewModel: PrimaryButtonDelegate {
             self.configureBottomView()
             return
         }
-        let platform = Platform(
-            title: self.platform.title,
-            id: self.platform.id,
-            games: [gameToSave]
-        )
         
-        guard await self.cloudDatabase.saveGame(userId: userId, platform: platform) == nil else {
+        guard let error = await self.cloudDatabase.saveGame(
+            userId: userId,
+            game: gameToSave,
+            platformName: self.platform.title,
+            editingEntry: false
+        ) else {
             self.alertDisplayer.presentTopFloatAlert(
                 parameters: AlertViewModel(
-                    alertType: .error,
-                    description: L10n.saveGameErrorDescription
+                    alertType: .success,
+                    description: L10n.saveGameSuccessDescription
                 )
             )
             self.configureBottomView()
+            await self.myCollectionDelegate?.reloadCollection()
+            self.close()
             return
         }
         self.alertDisplayer.presentTopFloatAlert(
             parameters: AlertViewModel(
-                alertType: .success,
-                description: L10n.saveGameSuccessDescription
+                alertType: error == .itemAlreadySaved ? .warning : .error,
+                description: error == .itemAlreadySaved ? L10n.warningGameAlreadyInDatabase : L10n.saveGameErrorDescription
             )
         )
         self.configureBottomView()
-        await self.myCollectionDelegate?.reloadCollection()
-        self.close()
     }
 }
