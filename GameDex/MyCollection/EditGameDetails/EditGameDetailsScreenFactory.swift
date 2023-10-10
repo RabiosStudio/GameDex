@@ -19,8 +19,10 @@ struct EditGameDetailsScreenFactory: ScreenFactory {
             savedGame: self.savedGame,
             platform: self.platform,
             localDatabase: LocalDatabaseImpl(),
+            cloudDatabase: FirestoreDatabase(),
             alertDisplayer: AlertDisplayerImpl(),
-            myCollectionDelegate: myCollectionDelegate
+            myCollectionDelegate: myCollectionDelegate,
+            authenticationService: AuthenticationServiceImpl()
         )
         let layout = UICollectionViewFlowLayout()
         let containerController = ContainerViewController(

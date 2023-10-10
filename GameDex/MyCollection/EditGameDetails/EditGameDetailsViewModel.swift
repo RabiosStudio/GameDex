@@ -17,9 +17,11 @@ final class EditGameDetailsViewModel: CollectionViewModel {
     
     private let savedGame: SavedGame
     private let localDatabase: LocalDatabase
+    private let cloudDatabase: CloudDatabase
     private var alertDisplayer: AlertDisplayer
     private let savedValues: [Any?]
     private let platform: Platform
+    private let authenticationService: AuthenticationService
     
     weak var containerDelegate: ContainerViewControllerDelegate?
     weak var alertDelegate: AlertDisplayerDelegate?
@@ -29,8 +31,10 @@ final class EditGameDetailsViewModel: CollectionViewModel {
         savedGame: SavedGame,
         platform: Platform,
         localDatabase: LocalDatabase,
+        cloudDatabase: CloudDatabase,
         alertDisplayer: AlertDisplayer,
-        myCollectionDelegate: MyCollectionViewModelDelegate?
+        myCollectionDelegate: MyCollectionViewModelDelegate?,
+        authenticationService: AuthenticationService
     ) {
         self.savedGame = savedGame
         self.savedValues = [
@@ -44,6 +48,8 @@ final class EditGameDetailsViewModel: CollectionViewModel {
         ]
         self.platform = platform
         self.localDatabase = localDatabase
+        self.cloudDatabase = cloudDatabase
+        self.authenticationService = authenticationService
         self.alertDisplayer = alertDisplayer
         self.alertDisplayer.alertDelegate = self
         self.myCollectionDelegate = myCollectionDelegate
@@ -129,11 +135,38 @@ extension EditGameDetailsViewModel: PrimaryButtonDelegate {
             lastUpdated: Date()
         )
         
-        guard await self.localDatabase.replace(savedGame: gameToSave) == nil else {
+        guard let userId = self.authenticationService.getUserId() else {
+            guard await self.localDatabase.replace(savedGame: gameToSave) == nil else {
+                self.alertDisplayer.presentTopFloatAlert(
+                    parameters: AlertViewModel(
+                        alertType: .error,
+                        description: L10n.updateGameErrorDescription
+                    )
+                )
+                self.configureBottomView(shouldEnableButton: true)
+                return
+            }
+            self.alertDisplayer.presentTopFloatAlert(
+                parameters: AlertViewModel(
+                    alertType: .success,
+                    description: L10n.updateGameSuccessDescription
+                )
+            )
+            self.configureBottomView(shouldEnableButton: true)
+            return
+        }
+        
+        let platform = Platform(
+            title: self.platform.title,
+            id: self.platform.id,
+            games: [gameToSave]
+        )
+        
+        guard await self.cloudDatabase.saveGame(userId: userId, platform: platform) == nil else {
             self.alertDisplayer.presentTopFloatAlert(
                 parameters: AlertViewModel(
                     alertType: .error,
-                    description: L10n.updateGameErrorDescription
+                    description: L10n.saveGameErrorDescription
                 )
             )
             self.configureBottomView(shouldEnableButton: true)
@@ -145,7 +178,8 @@ extension EditGameDetailsViewModel: PrimaryButtonDelegate {
                 description: L10n.updateGameSuccessDescription
             )
         )
-        self.configureBottomView(shouldEnableButton: true)
+        self.configureBottomView(shouldEnableButton: false)
+        await self.myCollectionDelegate?.reloadCollection()
     }
 }
 
@@ -171,17 +205,17 @@ extension EditGameDetailsViewModel: EditFormDelegate {
             if currentValue == nil && savedValue != nil || currentValue != nil && savedValue == nil {
                 shouldEnableButton = true
             } else if let savedStringValue = savedValue as? String,
-               let currentStringValue = currentValue as? String {
+                      let currentStringValue = currentValue as? String {
                 shouldEnableButton = savedStringValue != currentStringValue
             } else if let saveIntValue = savedValue as? Int,
-               let currentIntValue = currentValue as? Int {
+                      let currentIntValue = currentValue as? Int {
                 shouldEnableButton = saveIntValue != currentIntValue
             }
             if shouldEnableButton {
                 break
             }
         }
-        configureBottomView(shouldEnableButton: shouldEnableButton)
+        self.configureBottomView(shouldEnableButton: shouldEnableButton)
     }
 }
 
