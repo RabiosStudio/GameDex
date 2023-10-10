@@ -67,9 +67,9 @@ final class EditGameDetailsViewModelTests: XCTestCase {
         XCTAssertEqual(viewModel.numberOfItems(in: .zero), 8)
     }
     
-    func test_didTapPrimaryButton_GivenNoError_ThenAlertParametersAreCorrect() {
+    func test_didTapPrimaryButton_GivenNoError_ThenAlertParametersAreCorrect() async {
         // Given
-        let expectation = XCTestExpectation()
+        
         let localDatabase = LocalDatabaseMock()
         let alertDisplayer = AlertDisplayerMock()
         let containerDelegate = ContainerViewControllerDelegateMock()
@@ -84,40 +84,37 @@ final class EditGameDetailsViewModelTests: XCTestCase {
         
         viewModel.containerDelegate = containerDelegate
         
-        viewModel.loadData { _ in
-            localDatabase.perform(
-                .replace(
-                    savedGame: .any,
-                    callback: .any,
-                    perform: { replaceGame, completion in
-                        completion(nil)
-                        
-                        // Then
-                        alertDisplayer.verify(
-                            .presentTopFloatAlert(
-                                parameters: .value(
-                                    AlertViewModel(
-                                        alertType: .success,
-                                        description: L10n.updateGameSuccessDescription
-                                    )
-                                )
-                            )
-                        )
-                        containerDelegate.verify(
-                            .configureSupplementaryView(
-                                contentViewFactory: .any
-                            )
-                        )
-                        expectation.fulfill()
-                    }
+        viewModel.loadData { _ in }
+        
+        localDatabase.given(
+            .replace(
+                savedGame: .any,
+                willReturn: nil
+            )
+        )
+        
+        // When
+        await viewModel.didTapPrimaryButton()
+        
+        // Then
+        alertDisplayer.verify(
+            .presentTopFloatAlert(
+                parameters: .value(
+                    AlertViewModel(
+                        alertType: .success,
+                        description: L10n.updateGameSuccessDescription
+                    )
                 )
             )
-        }
-        viewModel.didTapPrimaryButton()
-        wait(for: [expectation], timeout: Constants.timeout)
+        )
+        containerDelegate.verify(
+            .configureSupplementaryView(
+                contentViewFactory: .any
+            )
+        )
     }
     
-    func test_didTapPrimaryButton_GivenErrorReplacingData_ThenAlertParametersAreCorrect() {
+    func test_didTapPrimaryButton_GivenErrorReplacingData_ThenAlertParametersAreCorrect() async {
         // Given
         let expectation = XCTestExpectation()
         let localDatabase = LocalDatabaseMock()
@@ -134,37 +131,34 @@ final class EditGameDetailsViewModelTests: XCTestCase {
         
         viewModel.containerDelegate = containerDelegate
         
-        viewModel.loadData { _ in
-            localDatabase.perform(
-                .replace(
-                    savedGame: .any,
-                    callback: .any,
-                    perform: { replaceGame, completion in
-                        completion(DatabaseError.replaceError)
-                        
-                        // Then
-                        alertDisplayer.verify(
-                            .presentTopFloatAlert(
-                                parameters: .value(
-                                    AlertViewModel(
-                                        alertType: .error,
-                                        description: L10n.updateGameErrorDescription
-                                    )
-                                )
-                            )
-                        )
-                        containerDelegate.verify(
-                            .configureSupplementaryView(
-                                contentViewFactory: .any
-                            )
-                        )
-                        expectation.fulfill()
-                    }
+        viewModel.loadData { _ in }
+        
+        localDatabase.given(
+            .replace(
+                savedGame: .any,
+                willReturn: DatabaseError.replaceError
+            )
+        )
+        
+        // When
+        await viewModel.didTapPrimaryButton()
+        
+        // Then
+        alertDisplayer.verify(
+            .presentTopFloatAlert(
+                parameters: .value(
+                    AlertViewModel(
+                        alertType: .error,
+                        description: L10n.updateGameErrorDescription
+                    )
                 )
             )
-        }
-        viewModel.didTapPrimaryButton()
-        wait(for: [expectation], timeout: Constants.timeout)
+        )
+        containerDelegate.verify(
+            .configureSupplementaryView(
+                contentViewFactory: .any
+            )
+        )
     }
     
     func test_enableSaveButton_GivenStringValueChanged_ThenShouldCallContainerDelegate() {
@@ -247,9 +241,8 @@ final class EditGameDetailsViewModelTests: XCTestCase {
         )
     }
     
-    func test_didTapOkButton_GivenRemoveDataError_ThenShouldSetAlertParametersCorrectlyAndCallContainerDelegate() {
+    func test_didTapOkButton_GivenRemoveDataError_ThenShouldSetAlertParametersCorrectlyAndCallContainerDelegate() async {
         // Given
-        let expectation = XCTestExpectation()
         let localDatabase = LocalDatabaseMock()
         let alertDisplayer = AlertDisplayerMock()
         let containerDelegate = ContainerViewControllerDelegateMock()
@@ -263,41 +256,36 @@ final class EditGameDetailsViewModelTests: XCTestCase {
         viewModel.containerDelegate = containerDelegate
         viewModel.alertDelegate = viewModel
         
-        localDatabase.perform(
+        localDatabase.given(
             .remove(
                 savedGame: .any,
-                callback: .any,
-                perform: { aSavedGame, completion in
-                    completion(DatabaseError.removeError)
-                    
-                    // Then
-                    alertDisplayer.verify(
-                        .presentTopFloatAlert(
-                            parameters: .value(
-                                AlertViewModel(
-                                    alertType: .error,
-                                    description: L10n.removeGameErrorDescription
-                                )
-                            )
-                        )
-                    )
-                    containerDelegate.verify(
-                        .configureSupplementaryView(
-                            contentViewFactory: .any
-                        )
-                    )
-                    expectation.fulfill()
-                }
+                willReturn: DatabaseError.removeError
             )
         )
+        
         // When
-        viewModel.didTapOkButton()
-        wait(for: [expectation], timeout: Constants.timeout)
+        await viewModel.didTapOkButton()
+        
+        // Then
+        alertDisplayer.verify(
+            .presentTopFloatAlert(
+                parameters: .value(
+                    AlertViewModel(
+                        alertType: .error,
+                        description: L10n.removeGameErrorDescription
+                    )
+                )
+            )
+        )
+        containerDelegate.verify(
+            .configureSupplementaryView(
+                contentViewFactory: .any
+            )
+        )
     }
     
-    func test_didTapOkButton_GivenNoError_ThenShouldSetAlertParametersCorrectlyAndCallContainerDelegate() {
+    func test_didTapOkButton_GivenNoError_ThenShouldSetAlertParametersCorrectlyAndCallContainerDelegate() async {
         // Given
-        let expectation = XCTestExpectation()
         let localDatabase = LocalDatabaseMock()
         let alertDisplayer = AlertDisplayerMock()
         let containerDelegate = ContainerViewControllerDelegateMock()
@@ -311,33 +299,29 @@ final class EditGameDetailsViewModelTests: XCTestCase {
         viewModel.containerDelegate = containerDelegate
         viewModel.alertDelegate = viewModel
         
-        localDatabase.perform(
+        
+        localDatabase.given(
             .remove(
                 savedGame: .any,
-                callback: .any,
-                perform: { aSavedGame, completion in
-                    completion(nil)
-                    
-                    // Then
-                    alertDisplayer.verify(
-                        .presentTopFloatAlert(
-                            parameters: .value(
-                                AlertViewModel(
-                                    alertType: .success,
-                                    description: L10n.removeGameSuccessDescription
-                                )
-                            )
-                        )
-                    )
-                    containerDelegate.verify(
-                        .goBackToRootViewController()
-                    )
-                    expectation.fulfill()
-                }
+                willReturn: nil
             )
         )
+        
         // When
-        viewModel.didTapOkButton()
-        wait(for: [expectation], timeout: Constants.timeout)
+        await viewModel.didTapOkButton()
+        
+        // Then
+        alertDisplayer.verify(
+            .presentTopFloatAlert(
+                parameters: .value(
+                    AlertViewModel(
+                        alertType: .success,
+                        description: L10n.removeGameSuccessDescription
+                    )
+                )
+            )
+        )
+        
+        containerDelegate.verify(.goBackToRootViewController())
     }
 }

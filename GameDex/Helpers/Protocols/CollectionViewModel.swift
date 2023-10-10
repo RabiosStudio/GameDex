@@ -16,7 +16,7 @@ protocol CollectionViewModel {
     var progress: Float? { get }
     var containerDelegate: ContainerViewControllerDelegate? { get set }
     
-    func loadData(callback: @escaping (EmptyError?) -> ())
+    func loadData(callback: @escaping (EmptyError?) -> ()) async
     func didTapRightButtonItem()
 }
 

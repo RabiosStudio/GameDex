@@ -95,9 +95,9 @@ extension AuthenticationViewModel: PrimaryButtonDelegate {
                 }
                 self?.displayAlert(success: true)
                 self?.myProfileDelegate?.reloadMyProfile()
-                self?.myCollectionDelegate?.reloadCollection()
-                self?.containerDelegate?.goBackToRootViewController()
             }
+            await self.myCollectionDelegate?.reloadCollection()
+            self.containerDelegate?.goBackToRootViewController()
         } else {
             guard await self.authenticationSerice.createUser(
                 email: email,
@@ -109,7 +109,7 @@ extension AuthenticationViewModel: PrimaryButtonDelegate {
             }
             self.displayAlert(success: true)
             self.myProfileDelegate?.reloadMyProfile()
-            self.myCollectionDelegate?.reloadCollection()
+            await self.myCollectionDelegate?.reloadCollection()
             self.containerDelegate?.goBackToRootViewController()
         }
     }

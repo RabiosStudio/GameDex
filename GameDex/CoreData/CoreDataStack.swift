@@ -25,30 +25,28 @@ class CoreDataStack {
         container.loadPersistentStores { storeDescription, error in
             if let error = error as NSError? {
                 fatalError("Unresolved error \(error), \(error.userInfo) for: \(storeDescription.description)")
-            } // Load the PersistentStores. In the closure, we catch the error and description of the store.
+            }
         }
         return container
-    }() // Using "lazy" tells the app to allocate memory for this property only when it's used. Smooth out memory usage over time.
+    }()
     
-    func saveContext(callback: @escaping (Error?) -> ()) {
-        self.saveContext(viewContext, callback: { error in
-            if let error {
-                callback(error)
-            } else {
-                callback(nil)
-            }
-        })
-    }
-
-    func saveContext(_ context: NSManagedObjectContext, callback: @escaping (Error?) -> ()) {
-        context.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
-        context.perform {
-            do {
-                try context.save()
-                callback(nil)
-            } catch let error as NSError {
-                callback(error)
-            }
+    func saveContext() async -> DatabaseError? {
+        if let error = await self.saveContext(self.viewContext) {
+            return DatabaseError.saveError
+        } else {
+            return nil
         }
+    }
+    
+    func saveContext(_ context: NSManagedObjectContext) async -> DatabaseError? {
+        context.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
+        do {
+            try context.performAndWait {
+                try context.save()
+            }
+        } catch {
+            return DatabaseError.saveError
+        }
+        return nil
     }
 }

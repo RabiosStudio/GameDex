@@ -72,7 +72,7 @@ final class AddGameDetailsViewModel: CollectionViewModel {
 }
 
 extension AddGameDetailsViewModel: PrimaryButtonDelegate {
-    func didTapPrimaryButton() {
+    func didTapPrimaryButton() async {
         guard let firstSection = self.sections.first,
               let formCellsVM = firstSection.cellsVM.filter({ cellVM in
                   return cellVM is (any CollectionFormCellViewModel)
@@ -115,20 +115,23 @@ extension AddGameDetailsViewModel: PrimaryButtonDelegate {
             lastUpdated: Date()
         )
         
-        self.localDatabase.add(newEntity: gameToSave, platform: self.platform) { [weak self] error in
-            self?.alertDisplayer.presentTopFloatAlert(
+        guard let error = await self.localDatabase.add(newEntity: gameToSave, platform: self.platform) else {
+            self.alertDisplayer.presentTopFloatAlert(
                 parameters: AlertViewModel(
-                    alertType: error == nil ? .success : (error == .itemAlreadySaved ? .warning : .error),
-                    description: error == nil ? L10n.saveGameSuccessDescription : (error == .itemAlreadySaved ? L10n.warningGameAlreadyInDatabase : L10n.saveGameErrorDescription)
+                    alertType: .success,
+                    description: L10n.saveGameSuccessDescription
                 )
             )
-            
-            guard error == nil else {
-                self?.configureBottomView()
-                return
-            }
-            self?.myCollectionDelegate?.reloadCollection()
-            self?.close()
+            await self.myCollectionDelegate?.reloadCollection()
+            self.close()
+            return
         }
+        self.alertDisplayer.presentTopFloatAlert(
+            parameters: AlertViewModel(
+                alertType: error == .itemAlreadySaved ? .warning : .error,
+                description: error == .itemAlreadySaved ? L10n.warningGameAlreadyInDatabase : L10n.saveGameErrorDescription
+            )
+        )
+        self.configureBottomView()
     }
 }

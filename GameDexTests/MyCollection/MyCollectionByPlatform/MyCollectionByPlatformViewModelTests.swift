@@ -194,9 +194,9 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
         let expectedNavigationStyle: NavigationStyle = {
             return .present(
                 screenFactory: SearchGameByTitleScreenFactory(
-                        platform: platform,
-                        myCollectionDelegate: viewModel,
-                        addToNavController: true
+                    platform: platform,
+                    myCollectionDelegate: viewModel,
+                    addToNavController: true
                 ),
                 completionBlock: nil
             )
@@ -337,7 +337,7 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
         XCTAssertTrue(callbackIsCalled)
     }
     
-    func test_reloadCollection_GivenFetchDataError_ThenResultsInErrorAlert() {
+    func test_reloadCollection_GivenFetchDataError_ThenResultsInErrorAlert() async {
         // Given
         let authenticationService = AuthenticationServiceMock()
         authenticationService.given(
@@ -374,26 +374,25 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
             connectivityChecker: connectivityChecker
         )
         
-        viewModel.loadData { _ in
-            
-            // When
-            viewModel.reloadCollection()
-            
-            // Then
-            alertDisplayer.verify(
-                .presentTopFloatAlert(
-                    parameters: .value(
-                        AlertViewModel(
-                            alertType: .error,
-                            description: L10n.fetchGamesErrorDescription
-                        )
+        viewModel.loadData { _ in }
+        
+        // When
+        await viewModel.reloadCollection()
+        
+        // Then
+        alertDisplayer.verify(
+            .presentTopFloatAlert(
+                parameters: .value(
+                    AlertViewModel(
+                        alertType: .error,
+                        description: L10n.fetchGamesErrorDescription
                     )
                 )
             )
-        }
+        )
     }
     
-    func test_reloadCollection_GivenEmptyCollectionFetched_ThenResultsInErrorAlert() {
+    func test_reloadCollection_GivenEmptyCollectionFetched_ThenResultsInErrorAlert() async {
         // Given
         let emptyCollection = [PlatformCollected]()
         let localDatabase = LocalDatabaseMock()
@@ -418,8 +417,9 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
             authenticationService: AuthenticationServiceMock(),
             connectivityChecker: ConnectivityCheckerMock()
         )
+        
         // When
-        viewModel.reloadCollection()
+        await viewModel.reloadCollection()
         
         // Then
         alertDisplayer.verify(
@@ -434,7 +434,7 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
         )
     }
     
-    func test_reloadCollection_GivenDataFetchedCorrectly_ThenSectionsAreSetAndContainerDelegateCalled() {
+    func test_reloadCollection_GivenDataFetchedCorrectly_ThenSectionsAreSetAndContainerDelegateCalled() async {
         // Given
         let authenticationService = AuthenticationServiceMock()
         authenticationService.given(
@@ -442,12 +442,8 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
                 willReturn: true
             )
         )
+        
         let localDatabase = LocalDatabaseMock()
-        localDatabase.given(
-            .fetchAllPlatforms(
-                willReturn: Result<[PlatformCollected], DatabaseError>.success(MockData.platformsCollected)
-            )
-        )
         localDatabase.given(
             .getPlatform(
                 platformId: .any,
@@ -472,22 +468,18 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
         let containerDelegate = ContainerViewControllerDelegateMock()
         viewModel.containerDelegate = containerDelegate
         
-        let platforms = CoreDataConverter.convert(platformCollected: MockData.platformCollected)
+        let platform = CoreDataConverter.convert(platformCollected: MockData.platformCollected)
         
-        viewModel.loadData { _ in
-            
-            // When
-            viewModel.reloadCollection()
-            
-            // Then
-            let expectedItems = platforms.games?.filter({
-                $0.game.platformId == 4
-            })
-            let expectedNumberOfitems = expectedItems?.count
-            
-            XCTAssertEqual(viewModel.numberOfSections(), 1)
-            XCTAssertEqual(viewModel.sections[0].cellsVM.count, expectedNumberOfitems)
-            containerDelegate.verify(.reloadSections())
-        }
+        viewModel.loadData { _ in }
+        
+        // When
+        await viewModel.reloadCollection()
+        
+        // Then
+        let expectedNumberOfitems = platform.games?.count
+        
+        XCTAssertEqual(viewModel.numberOfSections(), 1)
+        XCTAssertEqual(viewModel.sections[0].cellsVM.count, expectedNumberOfitems)
+        containerDelegate.verify(.reloadSections())
     }
 }

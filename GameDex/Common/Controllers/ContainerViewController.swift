@@ -126,18 +126,19 @@ class ContainerViewController: UIViewController {
     private func loadData() {
         self.configureNavBar()
         self.configureLoader()
-        self.viewModel.loadData { [weak self] error in
-            DispatchQueue.main.async {
-                guard let strongSelf = self else { return }
-                if let error = error {
-                    let tabBarOffset = -(self?.tabBarController?.tabBar.frame.size.height ?? 0)
-                    strongSelf.updateEmptyState(error: error,
-                                                tabBarOffset: tabBarOffset)
-                } else {
-                    strongSelf.refresh()
+        Task {
+            await self.viewModel.loadData { [weak self] error in
+                DispatchQueue.main.async {
+                    guard let strongSelf = self else { return }
+                    if let error = error {
+                        let tabBarOffset = -(self?.tabBarController?.tabBar.frame.size.height ?? 0)
+                        strongSelf.updateEmptyState(error: error,
+                                                    tabBarOffset: tabBarOffset)
+                    } else {
+                        strongSelf.refresh()
+                    }
                 }
             }
-            
         }
     }
     
@@ -446,17 +447,17 @@ extension ContainerViewController: ContainerViewControllerDelegate {
     }
     
     func configureSupplementaryView(contentViewFactory: ContentViewFactory) {
-        self.separatorView.removeFromSuperview()
-        self.supplementaryView.removeFromSuperview()
-        self.supplementaryView = contentViewFactory.contentView
-        self.stackView.addArrangedSubview(self.separatorView)
-        if contentViewFactory.position == .top {
-            self.stackView.insertArrangedSubview(self.supplementaryView, at: 0)
-        } else {
-            self.stackView.addArrangedSubview(self.supplementaryView)
+        DispatchQueue.main.async {
+            self.separatorView.removeFromSuperview()
+            self.supplementaryView.removeFromSuperview()
+            self.supplementaryView = contentViewFactory.contentView
+            self.stackView.addArrangedSubview(self.separatorView)
+            if contentViewFactory.position == .top {
+                self.stackView.insertArrangedSubview(self.supplementaryView, at: 0)
+            } else {
+                self.stackView.addArrangedSubview(self.supplementaryView)
+            }
         }
-        self.stackView.setNeedsLayout()
-        self.stackView.layoutIfNeeded()
     }
     
     func reloadSections() {
