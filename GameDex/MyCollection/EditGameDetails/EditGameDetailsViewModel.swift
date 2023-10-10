@@ -19,7 +19,7 @@ final class EditGameDetailsViewModel: CollectionViewModel {
     private let localDatabase: LocalDatabase
     private var alertDisplayer: AlertDisplayer
     private let savedValues: [Any?]
-    private let platformName: String
+    private let platform: Platform
     
     weak var containerDelegate: ContainerViewControllerDelegate?
     weak var alertDelegate: AlertDisplayerDelegate?
@@ -27,7 +27,7 @@ final class EditGameDetailsViewModel: CollectionViewModel {
     
     init(
         savedGame: SavedGame,
-        platformName: String,
+        platform: Platform,
         localDatabase: LocalDatabase,
         alertDisplayer: AlertDisplayer,
         myCollectionDelegate: MyCollectionViewModelDelegate?
@@ -42,7 +42,7 @@ final class EditGameDetailsViewModel: CollectionViewModel {
             self.savedGame.rating,
             self.savedGame.notes
         ]
-        self.platformName = platformName
+        self.platform = platform
         self.localDatabase = localDatabase
         self.alertDisplayer = alertDisplayer
         self.alertDisplayer.alertDelegate = self
@@ -52,7 +52,7 @@ final class EditGameDetailsViewModel: CollectionViewModel {
     func loadData(callback: @escaping (EmptyError?) -> ()) {
         self.sections = [EditGameDetailsSection(
             savedGame: self.savedGame,
-            platformName: self.platformName,
+            platformName: self.platform.title,
             editDelegate: self
         )]
         self.configureBottomView(shouldEnableButton: false)

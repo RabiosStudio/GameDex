@@ -11,13 +11,13 @@ import UIKit
 struct EditGameDetailsScreenFactory: ScreenFactory {
     
     private let savedGame: SavedGame
-    private let platformName: String
+    private let platform: Platform
     weak var myCollectionDelegate: MyCollectionViewModelDelegate?
     
     var viewController: UIViewController {
         let viewModel = EditGameDetailsViewModel(
             savedGame: self.savedGame,
-            platformName: self.platformName,
+            platform: self.platform,
             localDatabase: LocalDatabaseImpl(),
             alertDisplayer: AlertDisplayerImpl(),
             myCollectionDelegate: myCollectionDelegate
@@ -31,9 +31,9 @@ struct EditGameDetailsScreenFactory: ScreenFactory {
         return containerController
     }
 
-    init(savedGame: SavedGame, platformName: String, myCollectionDelegate: MyCollectionViewModelDelegate?) {
+    init(savedGame: SavedGame, platform: Platform, myCollectionDelegate: MyCollectionViewModelDelegate?) {
         self.savedGame = savedGame
-        self.platformName = platformName
+        self.platform = platform
         self.myCollectionDelegate = myCollectionDelegate
     }
 }

@@ -56,8 +56,8 @@ final class MyCollectionByPlatformsViewModel: ConnectivityDisplayerViewModel {
         self.sections = [
             MyCollectionByPlatformsSection(
                 games: games,
-                platformName: platform.title,
-                myCollectionDelegate: myCollectionDelegate
+                platform: platform,
+                myCollectionDelegate: self
             )
         ]
         callback(nil)
@@ -89,8 +89,8 @@ final class MyCollectionByPlatformsViewModel: ConnectivityDisplayerViewModel {
         self.sections = [
             MyCollectionByPlatformsSection(
                 games: list,
-                platformName: platform.title,
-                myCollectionDelegate: myCollectionDelegate
+                platform: platform,
+                myCollectionDelegate: self
             )
         ]
     }
@@ -128,8 +128,8 @@ extension MyCollectionByPlatformsViewModel: MyCollectionViewModelDelegate {
             self.sections = [
                 MyCollectionByPlatformsSection(
                     games: games,
-                    platformName: currentPlatform.title,
-                    myCollectionDelegate: myCollectionDelegate
+                    platform: platform,
+                    myCollectionDelegate: self
                 )
             ]
             await self.myCollectionDelegate?.reloadCollection()
