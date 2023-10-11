@@ -218,6 +218,7 @@ final class AuthenticationViewModelTests: XCTestCase {
     func test_didTapPrimaryButton_GivenNoUserAccountAndNoError_ThenAlertParametersAreSetCorrectly() async {
         // Given
         let authenticationService = AuthenticationServiceMock()
+        authenticationService.given(.getUserId(willReturn: nil))
         authenticationService.given(
             .createUser(
                 email: .any,

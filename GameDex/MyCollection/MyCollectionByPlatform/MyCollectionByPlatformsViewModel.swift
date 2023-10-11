@@ -135,7 +135,7 @@ extension MyCollectionByPlatformsViewModel: MyCollectionViewModelDelegate {
                 self.sections = [
                     MyCollectionByPlatformsSection(
                         games: games,
-                        platform: platform,
+                        platform: currentPlatform,
                         myCollectionDelegate: self
                     )
                 ]

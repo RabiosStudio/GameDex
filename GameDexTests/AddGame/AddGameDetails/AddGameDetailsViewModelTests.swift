@@ -65,6 +65,11 @@ final class AddGameDetailsViewModelTests: XCTestCase {
         // Given
         let localDatabase = LocalDatabaseMock()
         let authenticationService = AuthenticationServiceMock()
+        authenticationService.given(
+            .getUserId(
+                willReturn: nil
+            )
+        )
         let alertDisplayer = AlertDisplayerMock()
         let myCollectionDelegate = MyCollectionViewModelDelegateMock()
         
