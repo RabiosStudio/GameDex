@@ -190,11 +190,11 @@ class FirestoreDatabase: CloudDatabase {
     func saveCollection(userId: String, localDatabase: LocalDatabase) async -> DatabaseError? {
         let fetchPlatformsResult = localDatabase.fetchAllPlatforms()
         switch fetchPlatformsResult {
-        case .success(let result):
-            guard !result.isEmpty else {
+        case .success(let platform):
+            guard !platform.isEmpty else {
                 return nil
             }
-            let platforms = CoreDataConverter.convert(platformsCollected: result)
+            let platforms = CoreDataConverter.convert(platformsCollected: platform)
             
             for platform in platforms {
                 if let error = await self.saveGames(
@@ -232,8 +232,8 @@ class FirestoreDatabase: CloudDatabase {
             if !editingEntry {
                 let fetchResult = await self.gameIsInDatabase(userId: userId, savedGame: game)
                 switch fetchResult {
-                case .success(let result):
-                    guard result == false else {
+                case .success(let platform):
+                    guard platform == false else {
                         return DatabaseError.itemAlreadySaved
                     }
                 case .failure:
@@ -326,8 +326,8 @@ class FirestoreDatabase: CloudDatabase {
             
             let fetchPlatformResult = await self.getSinglePlatformCollection(userId: userId, platform: platform)
             switch fetchPlatformResult {
-            case let .success(result):
-                guard result.games?.count != .zero else {
+            case let .success(platformResult):
+                guard platformResult.games?.count != .zero else {
                     let platformsPath = Collections.userPlatforms(userId).path
                     let platformDoc = platform.id
                     try await database.collection(platformsPath).document("\(platformDoc)").delete()

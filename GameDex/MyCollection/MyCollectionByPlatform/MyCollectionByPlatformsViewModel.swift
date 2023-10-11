@@ -116,14 +116,14 @@ extension MyCollectionByPlatformsViewModel: MyCollectionViewModelDelegate {
             
             let fetchCollectionResult = self.localDatabase.getPlatform(platformId: platform.id)
             switch fetchCollectionResult {
-            case .success(let result):
-                guard let result else {
+            case .success(let platform):
+                guard let platform else {
                     await self.myCollectionDelegate?.reloadCollection()
                     self.containerDelegate?.reloadSections()
                     return
                 }
                 
-                let currentPlatform = CoreDataConverter.convert(platformCollected: result)
+                let currentPlatform = CoreDataConverter.convert(platformCollected: platform)
                 
                 guard let games = currentPlatform.games else {
                     await self.myCollectionDelegate?.reloadCollection()
@@ -153,13 +153,13 @@ extension MyCollectionByPlatformsViewModel: MyCollectionViewModelDelegate {
             platform: platform
         )
         switch fetchPlatformsResult {
-        case .success(let result):
-            guard let games = result.games else {
+        case .success(let platform):
+            guard let games = platform.games else {
                 await self.myCollectionDelegate?.reloadCollection()
                 self.containerDelegate?.reloadSections()
                 return
             }
-            self.platform = result
+            self.platform = platform
             self.sections = [
                 MyCollectionByPlatformsSection(
                     games: games,
