@@ -85,17 +85,17 @@ extension AuthenticationViewModel: PrimaryButtonDelegate {
         }
         
         if self.userHasAccount {
-            self.authenticationSerice.login(
+            guard await self.authenticationSerice.login(
                 email: email,
-                password: password
-            ) { [weak self] error in
-                guard error == nil else {
-                    self?.displayAlert(success: false)
-                    return
-                }
-                self?.displayAlert(success: true)
-                self?.myProfileDelegate?.reloadMyProfile()
+                password: password,
+                cloudDatabase: FirestoreDatabase(),
+                localDatabase: LocalDatabaseImpl()
+            ) == nil else {
+                self.displayAlert(success: false)
+                return
             }
+            self.displayAlert(success: true)
+            self.myProfileDelegate?.reloadMyProfile()
             await self.myCollectionDelegate?.reloadCollection()
             self.containerDelegate?.goBackToRootViewController()
         } else {
