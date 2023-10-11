@@ -314,4 +314,31 @@ class FirestoreDatabase: CloudDatabase {
             return .failure(DatabaseError.fetchError)
         }
     }
+    
+    func removeGame(userId: String, platform: Platform, savedGame: SavedGame) async -> DatabaseError? {
+        do {
+            let gamesPath = Collections.userGames(userId, "\(savedGame.game.platformId)").path
+            let gameDoc = savedGame.game.id
+            
+            try await database.collection(gamesPath).document(gameDoc).delete()
+            
+            // once game is deleted, we have to check is the platform collection is empty. If yes, then we delete the plaform from database.
+            
+            let fetchPlatformResult = await self.getSinglePlatformCollection(userId: userId, platform: platform)
+            switch fetchPlatformResult {
+            case let .success(result):
+                guard result.games?.count != .zero else {
+                    let platformsPath = Collections.userPlatforms(userId).path
+                    let platformDoc = platform.id
+                    try await database.collection(platformsPath).document("\(platformDoc)").delete()
+                    return nil
+                }
+                return nil
+            case .failure:
+                return DatabaseError.removeError
+            }
+        } catch {
+            return DatabaseError.removeError
+        }
+    }
 }
