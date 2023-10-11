@@ -49,7 +49,7 @@ final class MyCollectionByPlatformsViewModel: ConnectivityDisplayerViewModel {
         self.screenTitle = self.platform?.title
     }
     
-    func loadData(callback: @escaping (EmptyError?) -> ()) {
+    func loadData(callback: @escaping (EmptyError?) -> ()) async {
         self.displayInfoWarningIfNeeded()
         guard let platform = self.platform,
               let games = platform.games else {
@@ -118,6 +118,7 @@ extension MyCollectionByPlatformsViewModel: MyCollectionViewModelDelegate {
             switch fetchCollectionResult {
             case .success(let result):
                 guard let result else {
+                    await self.myCollectionDelegate?.reloadCollection()
                     self.containerDelegate?.reloadSections()
                     return
                 }
@@ -125,6 +126,7 @@ extension MyCollectionByPlatformsViewModel: MyCollectionViewModelDelegate {
                 let currentPlatform = CoreDataConverter.convert(platformCollected: result)
                 
                 guard let games = currentPlatform.games else {
+                    await self.myCollectionDelegate?.reloadCollection()
                     self.containerDelegate?.goBackToRootViewController()
                     return
                 }
@@ -153,6 +155,7 @@ extension MyCollectionByPlatformsViewModel: MyCollectionViewModelDelegate {
         switch fetchPlatformsResult {
         case .success(let result):
             guard let games = result.games else {
+                await self.myCollectionDelegate?.reloadCollection()
                 self.containerDelegate?.reloadSections()
                 return
             }
