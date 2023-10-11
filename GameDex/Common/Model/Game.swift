@@ -15,3 +15,21 @@ struct Game: Codable {
     let imageURL: String
     let releaseDate: Date?
 }
+
+extension Game: Equatable {
+    public static func == (lhs: Game, rhs: Game) -> Bool {
+        var isSameSecond = lhs.releaseDate == rhs.releaseDate
+        
+        if let lhsDate = lhs.releaseDate,
+           let rhsDate = rhs.releaseDate {
+            isSameSecond = lhsDate.isSameSecond(date: rhsDate)
+        }
+        
+        return lhs.description == rhs.description &&
+        lhs.id == rhs.id &&
+        lhs.title == rhs.title &&
+        lhs.imageURL == rhs.imageURL &&
+        lhs.platformId == rhs.platformId &&
+        isSameSecond
+    }
+}

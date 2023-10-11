@@ -341,4 +341,36 @@ class FirestoreDatabase: CloudDatabase {
             return DatabaseError.removeError
         }
     }
+    
+    func syncLocalAndCloudDatabases(userId: String, localDatabase: LocalDatabase) async -> DatabaseError? {
+        
+        // We ALWAYS fetch Firestore data and synced it to Coredata and not the other way around. Firestore is the truth !!
+        
+        let fetchCloudPlatformsResult = await self.getUserCollection(userId: userId)
+        switch fetchCloudPlatformsResult {
+        case .success(let platformsResult):
+            guard await localDatabase.removeAll() == nil else {
+                return DatabaseError.removeError
+            }
+            
+            for platformResult in platformsResult {
+                let platform = Platform(
+                    title: platformResult.title,
+                    id: platformResult.id,
+                    games: nil
+                )
+                guard let games = platformResult.games else {
+                    return DatabaseError.removeError
+                }
+                for gameResult in games {
+                    guard await localDatabase.add(newEntity: gameResult, platform: platform) == nil else {
+                        return DatabaseError.saveError
+                    }
+                }
+            }
+            return nil
+        case .failure(_):
+            return DatabaseError.fetchError
+        }
+    }
 }
