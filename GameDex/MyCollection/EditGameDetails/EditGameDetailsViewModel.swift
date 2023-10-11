@@ -121,21 +121,11 @@ extension EditGameDetailsViewModel: EditFormDelegate {
 
 extension EditGameDetailsViewModel: AlertDisplayerDelegate {
     func didTapOkButton() async {
-        let error = await self.localDatabase.remove(savedGame: self.savedGame)
-        
-        self.alertDisplayer.presentTopFloatAlert(
-            parameters: AlertViewModel(
-                alertType: error == nil ? .success : .error,
-                description: error == nil ? L10n.removeGameSuccessDescription : L10n.removeGameErrorDescription
-            )
-        )
-        
-        guard error == nil else {
-            self.configureBottomView(shouldEnableButton: true)
+        guard let userId = self.authenticationService.getUserId() else {
+            await self.removeInLocal()
             return
         }
-        await self.myCollectionDelegate?.reloadCollection()
-        self.containerDelegate?.goBackToRootViewController()
+        await self.removeInCloud(userId: userId)
     }
 }
 
@@ -147,6 +137,25 @@ private extension EditGameDetailsViewModel {
                 description: L10n.warningRemoveGameDescription,
                 cancelButtonTitle: L10n.cancel,
                 okButtonTitle: L10n.confirm
+            )
+        )
+    }
+    
+    func handleRemoveGameSuccess() async {
+        self.alertDisplayer.presentTopFloatAlert(
+            parameters: AlertViewModel(
+                alertType: .success,
+                description: L10n.removeGameSuccessDescription
+            )
+        )
+        await self.myCollectionDelegate?.reloadCollection()
+        self.containerDelegate?.goBackToRootViewController()
+    }
+    func handleRemoveGameError() {
+        self.alertDisplayer.presentTopFloatAlert(
+            parameters: AlertViewModel(
+                alertType: .error,
+                description: L10n.removeGameErrorDescription
             )
         )
     }
@@ -207,21 +216,21 @@ private extension EditGameDetailsViewModel {
     
     func saveInLocal(gameToSave: SavedGame) async {
         guard let error = await self.localDatabase.replace(savedGame: gameToSave) else {
-            await self.handleSuccess()
+            await self.handleEditGameSuccess()
             return
         }
-        await self.handleFailure(error: error)
+        await self.handleEditGameFailure(error: error)
     }
     
     func saveInCloud(userId: String, gameToSave: SavedGame) async {
         guard let error = await self.cloudDatabase.saveGame(userId: userId, game: gameToSave, platformName: self.platform.title, editingEntry: true) else {
-            await self.handleSuccess()
+            await self.handleEditGameSuccess()
             return
         }
-        await self.handleFailure(error: error)
+        await self.handleEditGameFailure(error: error)
     }
     
-    func handleSuccess() async {
+    func handleEditGameSuccess() async {
         self.alertDisplayer.presentTopFloatAlert(
             parameters: AlertViewModel(
                 alertType: .success,
@@ -232,7 +241,7 @@ private extension EditGameDetailsViewModel {
         await self.myCollectionDelegate?.reloadCollection()
     }
     
-    func handleFailure(error: DatabaseError) async {
+    func handleEditGameFailure(error: DatabaseError) async {
         self.alertDisplayer.presentTopFloatAlert(
             parameters: AlertViewModel(
                 alertType: .error,
@@ -241,5 +250,21 @@ private extension EditGameDetailsViewModel {
         )
         self.configureBottomView(shouldEnableButton: true)
         return
+    }
+    
+    func removeInLocal() async {
+        guard await self.localDatabase.remove(savedGame: self.savedGame) == nil else {
+            self.handleRemoveGameError()
+            return
+        }
+        await self.handleRemoveGameSuccess()
+    }
+    
+    func removeInCloud(userId: String) async {
+        guard await self.cloudDatabase.removeGame(userId: userId, platform: self.platform, savedGame: self.savedGame) == nil else {
+            self.handleRemoveGameError()
+            return
+        }
+        await self.handleRemoveGameSuccess()
     }
 }
