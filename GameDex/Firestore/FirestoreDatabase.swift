@@ -190,11 +190,11 @@ class FirestoreDatabase: CloudDatabase {
     func saveCollection(userId: String, localDatabase: LocalDatabase) async -> DatabaseError? {
         let fetchPlatformsResult = localDatabase.fetchAllPlatforms()
         switch fetchPlatformsResult {
-        case .success(let result):
-            guard !result.isEmpty else {
+        case .success(let platform):
+            guard !platform.isEmpty else {
                 return nil
             }
-            let platforms = CoreDataConverter.convert(platformsCollected: result)
+            let platforms = CoreDataConverter.convert(platformsCollected: platform)
             
             for platform in platforms {
                 if let error = await self.saveGames(
@@ -232,8 +232,8 @@ class FirestoreDatabase: CloudDatabase {
             if !editingEntry {
                 let fetchResult = await self.gameIsInDatabase(userId: userId, savedGame: game)
                 switch fetchResult {
-                case .success(let result):
-                    guard result == false else {
+                case .success(let platform):
+                    guard platform == false else {
                         return DatabaseError.itemAlreadySaved
                     }
                 case .failure:
@@ -312,6 +312,33 @@ class FirestoreDatabase: CloudDatabase {
             return .success(key)
         } catch {
             return .failure(DatabaseError.fetchError)
+        }
+    }
+    
+    func removeGame(userId: String, platform: Platform, savedGame: SavedGame) async -> DatabaseError? {
+        do {
+            let gamesPath = Collections.userGames(userId, "\(savedGame.game.platformId)").path
+            let gameDoc = savedGame.game.id
+            
+            try await database.collection(gamesPath).document(gameDoc).delete()
+            
+            // once game is deleted, we have to check is the platform collection is empty. If yes, then we delete the plaform from database.
+            
+            let fetchPlatformResult = await self.getSinglePlatformCollection(userId: userId, platform: platform)
+            switch fetchPlatformResult {
+            case let .success(platformResult):
+                guard platformResult.games?.count != .zero else {
+                    let platformsPath = Collections.userPlatforms(userId).path
+                    let platformDoc = platform.id
+                    try await database.collection(platformsPath).document("\(platformDoc)").delete()
+                    return nil
+                }
+                return nil
+            case .failure:
+                return DatabaseError.removeError
+            }
+        } catch {
+            return DatabaseError.removeError
         }
     }
 }

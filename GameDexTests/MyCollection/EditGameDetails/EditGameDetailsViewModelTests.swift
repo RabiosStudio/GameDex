@@ -381,9 +381,10 @@ final class EditGameDetailsViewModelTests: XCTestCase {
         )
     }
     
-    func test_didTapOkButton_GivenRemoveDataError_ThenShouldSetAlertParametersCorrectlyAndCallContainerDelegate() async {
+    func test_didTapOkButton_GivenLocalRemoveDataError_ThenShouldSetAlertParametersCorrectlyAndCallContainerDelegate() async {
         // Given
         let localDatabase = LocalDatabaseMock()
+        let authenticationService = AuthenticationServiceMock()
         let alertDisplayer = AlertDisplayerMock()
         let containerDelegate = ContainerViewControllerDelegateMock()
         let viewModel = EditGameDetailsViewModel(
@@ -393,10 +394,16 @@ final class EditGameDetailsViewModelTests: XCTestCase {
             cloudDatabase: CloudDatabaseMock(),
             alertDisplayer: alertDisplayer,
             myCollectionDelegate: MyCollectionViewModelDelegateMock(),
-            authenticationService: AuthenticationServiceMock()
+            authenticationService: authenticationService
         )
         viewModel.containerDelegate = containerDelegate
         viewModel.alertDelegate = viewModel
+        
+        authenticationService.given(
+            .getUserId(
+                willReturn: nil
+            )
+        )
         
         localDatabase.given(
             .remove(
@@ -419,16 +426,12 @@ final class EditGameDetailsViewModelTests: XCTestCase {
                 )
             )
         )
-        containerDelegate.verify(
-            .configureSupplementaryView(
-                contentViewFactory: .any
-            )
-        )
     }
     
-    func test_didTapOkButton_GivenNoError_ThenShouldSetAlertParametersCorrectlyAndCallContainerDelegate() async {
+    func test_didTapOkButton_GivenLocalNoError_ThenShouldSetAlertParametersCorrectlyAndCallContainerDelegate() async {
         // Given
         let localDatabase = LocalDatabaseMock()
+        let authenticationService = AuthenticationServiceMock()
         let alertDisplayer = AlertDisplayerMock()
         let containerDelegate = ContainerViewControllerDelegateMock()
         let viewModel = EditGameDetailsViewModel(
@@ -438,11 +441,16 @@ final class EditGameDetailsViewModelTests: XCTestCase {
             cloudDatabase: CloudDatabaseMock(),
             alertDisplayer: alertDisplayer,
             myCollectionDelegate: MyCollectionViewModelDelegateMock(),
-            authenticationService: AuthenticationServiceMock()
+            authenticationService: authenticationService
         )
         viewModel.containerDelegate = containerDelegate
         viewModel.alertDelegate = viewModel
         
+        authenticationService.given(
+            .getUserId(
+                willReturn: nil
+            )
+        )
         
         localDatabase.given(
             .remove(
@@ -468,4 +476,108 @@ final class EditGameDetailsViewModelTests: XCTestCase {
         
         containerDelegate.verify(.goBackToRootViewController())
     }
+    
+    func test_didTapOkButton_GivenCloudRemoveDataError_ThenShouldSetAlertParametersCorrectlyAndCallContainerDelegate() async {
+        // Given
+        let savedGame = MockData.savedGame
+        let platform = MockData.platform
+        let cloudDatabase = CloudDatabaseMock()
+        let authenticationService = AuthenticationServiceMock()
+        let alertDisplayer = AlertDisplayerMock()
+        let containerDelegate = ContainerViewControllerDelegateMock()
+        let viewModel = EditGameDetailsViewModel(
+            savedGame: savedGame,
+            platform: platform,
+            localDatabase: LocalDatabaseMock(),
+            cloudDatabase: cloudDatabase,
+            alertDisplayer: alertDisplayer,
+            myCollectionDelegate: MyCollectionViewModelDelegateMock(),
+            authenticationService: authenticationService
+        )
+        viewModel.containerDelegate = containerDelegate
+        viewModel.alertDelegate = viewModel
+        
+        authenticationService.given(
+            .getUserId(
+                willReturn: "userId"
+            )
+        )
+        
+        cloudDatabase.given(
+            .removeGame(
+                userId: .any,
+                platform: .value(platform),
+                savedGame: .value(savedGame),
+                willReturn: DatabaseError.removeError
+            )
+        )
+        
+        // When
+        await viewModel.didTapOkButton()
+        
+        // Then
+        alertDisplayer.verify(
+            .presentTopFloatAlert(
+                parameters: .value(
+                    AlertViewModel(
+                        alertType: .error,
+                        description: L10n.removeGameErrorDescription
+                    )
+                )
+            )
+        )
+    }
+    
+    func test_didTapOkButton_GivenCloudNoError_ThenShouldSetAlertParametersCorrectlyAndCallContainerDelegate() async {
+        // Given
+        let savedGame = MockData.savedGame
+        let platform = MockData.platform
+        let cloudDatabase = CloudDatabaseMock()
+        let authenticationService = AuthenticationServiceMock()
+        let alertDisplayer = AlertDisplayerMock()
+        let containerDelegate = ContainerViewControllerDelegateMock()
+        let viewModel = EditGameDetailsViewModel(
+            savedGame: savedGame,
+            platform: platform,
+            localDatabase: LocalDatabaseMock(),
+            cloudDatabase: cloudDatabase,
+            alertDisplayer: alertDisplayer,
+            myCollectionDelegate: MyCollectionViewModelDelegateMock(),
+            authenticationService: authenticationService
+        )
+        viewModel.containerDelegate = containerDelegate
+        viewModel.alertDelegate = viewModel
+        
+        authenticationService.given(
+            .getUserId(
+                willReturn: "userId"
+            )
+        )
+        
+        cloudDatabase.given(
+            .removeGame(
+                userId: .any,
+                platform: .value(platform),
+                savedGame: .value(savedGame),
+                willReturn: nil
+            )
+        )
+        
+        // When
+        await viewModel.didTapOkButton()
+        
+        // Then
+        alertDisplayer.verify(
+            .presentTopFloatAlert(
+                parameters: .value(
+                    AlertViewModel(
+                        alertType: .success,
+                        description: L10n.removeGameSuccessDescription
+                    )
+                )
+            )
+        )
+        containerDelegate.verify(.goBackToRootViewController())
+    }
 }
+
