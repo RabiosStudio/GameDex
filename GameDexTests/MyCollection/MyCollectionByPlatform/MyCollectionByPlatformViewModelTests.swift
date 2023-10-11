@@ -30,7 +30,7 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
         
     }
     
-    func test_loadData_GivenDataInCollection_ThenCallbackIsCalledAndSectionsAreSetCorrectly() {
+    func test_loadData_GivenDataInCollection_ThenCallbackIsCalledAndSectionsAreSetCorrectly() async {
         // Given
         let authenticationService = AuthenticationServiceMock()
         authenticationService.given(
@@ -56,7 +56,7 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
         var callbackIsCalled = false
         
         // When
-        viewModel.loadData { _ in
+        await viewModel.loadData { _ in
             callbackIsCalled = true
             
             // Then
@@ -67,7 +67,7 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
         XCTAssertEqual(viewModel.numberOfItems(in: .zero), MockData.games.count)
     }
     
-    func test_loadData_GivenEmptyCollection_ThenContainerDelegateIsCalled() {
+    func test_loadData_GivenEmptyCollection_ThenContainerDelegateIsCalled() async {
         // Given
         let authenticationService = AuthenticationServiceMock()
         authenticationService.given(
@@ -96,13 +96,13 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
         viewModel.containerDelegate = containerDelegate
         
         // When
-        viewModel.loadData { _ in }
+        await viewModel.loadData { _ in }
         
         // Then
         containerDelegate.verify(.goBackToRootViewController())
     }
     
-    func test_loadData_GivenUserIsNotLoggedIn_ThenShouldSetupSupplementaryView() {
+    func test_loadData_GivenUserIsNotLoggedIn_ThenShouldSetupSupplementaryView() async {
         // Given
         let authenticationService = AuthenticationServiceMock()
         authenticationService.given(
@@ -130,7 +130,7 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
         viewModel.containerDelegate = containerDelegate
         
         // When
-        viewModel.loadData { _ in
+        await viewModel.loadData { _ in
             
             // Then
             containerDelegate.verify(
@@ -141,7 +141,7 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
         }
     }
     
-    func test_loadData_GivenUserIsNotConnectedToInternet_ThenShouldSetupSupplementaryView() {
+    func test_loadData_GivenUserIsNotConnectedToInternet_ThenShouldSetupSupplementaryView() async {
         // Given
         let authenticationService = AuthenticationServiceMock()
         authenticationService.given(
@@ -169,7 +169,7 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
         viewModel.containerDelegate = containerDelegate
         
         // When
-        viewModel.loadData { _ in
+        await viewModel.loadData { _ in
             
             // Then
             containerDelegate.verify(
@@ -213,7 +213,7 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
         XCTAssertEqual(lastNavigationStyle, expectedNavigationStyle)
     }
     
-    func test_updateSearch_GivenListOfPlatforms_ThenShouldSetupSectionsAndCellsVMAccordingly() {
+    func test_updateSearch_GivenListOfPlatforms_ThenShouldSetupSectionsAndCellsVMAccordingly() async {
         // Given
         let authenticationService = AuthenticationServiceMock()
         authenticationService.given(
@@ -238,7 +238,7 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
             connectivityChecker: connectivityChecker
         )
         
-        viewModel.loadData { _ in
+        await viewModel.loadData { _ in
             
             // When
             viewModel.updateSearchTextField(with: MockData.searchGameQuery) { _ in
@@ -250,7 +250,7 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
         }
     }
     
-    func test_updateSearch_GivenNoMatchingPlatforms_ThenShouldReturnErrorNoItems() {
+    func test_updateSearch_GivenNoMatchingPlatforms_ThenShouldReturnErrorNoItems() async {
         // Given
         let authenticationService = AuthenticationServiceMock()
         authenticationService.given(
@@ -275,7 +275,7 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
             connectivityChecker: connectivityChecker
         )
         
-        viewModel.loadData { _ in
+        await viewModel.loadData { _ in
             
             // When
             viewModel.updateSearchTextField(with: "Playstation01") { error in
@@ -288,7 +288,7 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
         }
     }
     
-    func test_updateSearch_GivenEmptySearchQuery_ThenShouldReturnFullListOfPlatforms() {
+    func test_updateSearch_GivenEmptySearchQuery_ThenShouldReturnFullListOfPlatforms() async {
         // Given
         let authenticationService = AuthenticationServiceMock()
         authenticationService.given(
@@ -313,7 +313,7 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
             connectivityChecker: connectivityChecker
         )
         
-        viewModel.loadData { _ in
+        await viewModel.loadData { _ in
             
             // When
             viewModel.updateSearchTextField(with: "") { _ in
@@ -385,7 +385,7 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
             connectivityChecker: connectivityChecker
         )
         
-        viewModel.loadData { _ in }
+        await viewModel.loadData { _ in }
         
         // When
         await viewModel.reloadCollection()
@@ -477,7 +477,7 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
         
         let platform = CoreDataConverter.convert(platformCollected: MockData.platformCollected)
         
-        viewModel.loadData { _ in }
+        await viewModel.loadData { _ in }
         
         // When
         await viewModel.reloadCollection()
@@ -523,7 +523,7 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
             connectivityChecker: connectivityChecker
         )
         
-        viewModel.loadData { _ in }
+        await viewModel.loadData { _ in }
         
         // When
         await viewModel.reloadCollection()
@@ -616,7 +616,7 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
         let containerDelegate = ContainerViewControllerDelegateMock()
         viewModel.containerDelegate = containerDelegate
         
-        viewModel.loadData { _ in }
+        await viewModel.loadData { _ in }
         
         // When
         await viewModel.reloadCollection()
