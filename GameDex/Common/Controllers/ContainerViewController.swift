@@ -21,7 +21,11 @@ class ContainerViewController: UIViewController {
     
     private let viewModel: CollectionViewModel
     private let layout: UICollectionViewLayout
-    private let refreshControl = UIRefreshControl()
+    private lazy var refreshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(loadData), for: .valueChanged)
+        return refreshControl
+    }()
     
     private lazy var collectionView: UICollectionView = UICollectionView(
         frame: .zero,
@@ -300,7 +304,6 @@ class ContainerViewController: UIViewController {
         self.collectionView.delegate = self
         self.collectionView.dataSource = self
         self.collectionView.alwaysBounceVertical = self.viewModel.isBounceable
-        self.refreshControl.addTarget(self, action: #selector(loadData), for: .valueChanged)
         self.collectionView.addSubview(self.refreshControl)
         self.stackView.addArrangedSubview(self.collectionView)
         self.view.addSubview(stackView)
