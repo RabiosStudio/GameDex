@@ -99,7 +99,7 @@ class FirestoreDatabase: CloudDatabase {
                       let imageUrl = data[Attributes.imageUrl.rawValue],
                       let lastUpdatedTimeStamp = data[Attributes.lastUpdated.rawValue] as? Timestamp,
                       let releaseTimeStamp = data[Attributes.releaseDate.rawValue] as? Timestamp,
-                      let notes = data[Attributes.notes.rawValue] as? String,
+                      let notes = data[Attributes.notes.rawValue],
                       let gameCondition = data[Attributes.gameCondition.rawValue],
                       let gameCompleteness = data[Attributes.gameCompleteness.rawValue],
                       let gameRegion = data[Attributes.gameRegion.rawValue],
@@ -126,7 +126,7 @@ class FirestoreDatabase: CloudDatabase {
                     gameRegion: gameRegion as? String,
                     storageArea: storageArea as? String,
                     rating: rating,
-                    notes: notes,
+                    notes: notes as? String,
                     lastUpdated: lastUpdatedDate
                 )
                 savedGames.append(savedGame)
