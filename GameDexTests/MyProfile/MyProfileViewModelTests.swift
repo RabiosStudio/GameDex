@@ -96,27 +96,23 @@ final class MyProfileViewModelTests: XCTestCase {
         let containerDelegate = ContainerViewControllerDelegateMock()
         viewModel.containerDelegate = containerDelegate
         
-        authenticationService.perform(
-            .logout(
-                callback: .any,
-                perform: { completion in
-                    completion(nil)
-                    
-                    alertDisplayer.verify(
-                        .presentTopFloatAlert(
-                            parameters: .value(
-                                AlertViewModel(
-                                    alertType: .success,
-                                    description: L10n.successLogOutDescription
-                                )
-                            )
-                        )
+        authenticationService.given(.logout(willReturn: nil))
+        
+        // When
+        await viewModel.didTapOkButton()
+        
+        // Then
+        alertDisplayer.verify(
+            .presentTopFloatAlert(
+                parameters: .value(
+                    AlertViewModel(
+                        alertType: .success,
+                        description: L10n.successLogOutDescription
                     )
-                    containerDelegate.verify(.reloadSections())
-                }
+                )
             )
         )
-        await viewModel.didTapOkButton()
+        containerDelegate.verify(.reloadSections())
     }
     
     func test_didTapOkButton_GivenErrorLogOut_ThenAlertParametersAreCorrects() async {
@@ -131,25 +127,21 @@ final class MyProfileViewModelTests: XCTestCase {
         let containerDelegate = ContainerViewControllerDelegateMock()
         viewModel.containerDelegate = containerDelegate
         
-        authenticationService.perform(
-            .logout(
-                callback: .any,
-                perform: { completion in
-                    completion(AuthenticationError.logoutError)
-                    
-                    alertDisplayer.verify(
-                        .presentTopFloatAlert(
-                            parameters: .value(
-                                AlertViewModel(
-                                    alertType: .error,
-                                    description: L10n.errorLogOutDescription
-                                )
-                            )
-                        )
+        authenticationService.given(.logout(willReturn: AuthenticationError.logoutError))
+        
+        // When
+        await viewModel.didTapOkButton()
+        
+        // Then
+        alertDisplayer.verify(
+            .presentTopFloatAlert(
+                parameters: .value(
+                    AlertViewModel(
+                        alertType: .error,
+                        description: L10n.errorLogOutDescription
                     )
-                }
+                )
             )
         )
-        await viewModel.didTapOkButton()
     }
 }

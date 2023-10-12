@@ -8,6 +8,7 @@
 import Foundation
 import FirebaseAuth
 
+// sourcery: AutoMockable
 protocol AuthSession {
     func logIn(email: String, password: String) async -> AuthenticationError?
     func createUser(email: String, password: String) async -> AuthenticationError?

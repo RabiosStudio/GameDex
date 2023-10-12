@@ -848,6 +848,299 @@ open class AlertDisplayerDelegateMock: AlertDisplayerDelegate, Mock {
     }
 }
 
+// MARK: - AuthSession
+
+open class AuthSessionMock: AuthSession, Mock {
+    public init(sequencing sequencingPolicy: SequencingPolicy = .lastWrittenResolvedFirst, stubbing stubbingPolicy: StubbingPolicy = .wrap, file: StaticString = #file, line: UInt = #line) {
+        SwiftyMockyTestObserver.setup()
+        self.sequencingPolicy = sequencingPolicy
+        self.stubbingPolicy = stubbingPolicy
+        self.file = file
+        self.line = line
+    }
+
+    var matcher: Matcher = Matcher.default
+    var stubbingPolicy: StubbingPolicy = .wrap
+    var sequencingPolicy: SequencingPolicy = .lastWrittenResolvedFirst
+
+    private var queue = DispatchQueue(label: "com.swiftymocky.invocations", qos: .userInteractive)
+    private var invocations: [MethodType] = []
+    private var methodReturnValues: [Given] = []
+    private var methodPerformValues: [Perform] = []
+    private var file: StaticString?
+    private var line: UInt?
+
+    public typealias PropertyStub = Given
+    public typealias MethodStub = Given
+    public typealias SubscriptStub = Given
+
+    /// Convenience method - call setupMock() to extend debug information when failure occurs
+    public func setupMock(file: StaticString = #file, line: UInt = #line) {
+        self.file = file
+        self.line = line
+    }
+
+    /// Clear mock internals. You can specify what to reset (invocations aka verify, givens or performs) or leave it empty to clear all mock internals
+    public func resetMock(_ scopes: MockScope...) {
+        let scopes: [MockScope] = scopes.isEmpty ? [.invocation, .given, .perform] : scopes
+        if scopes.contains(.invocation) { invocations = [] }
+        if scopes.contains(.given) { methodReturnValues = [] }
+        if scopes.contains(.perform) { methodPerformValues = [] }
+    }
+
+
+
+
+
+    open func logIn(email: String, password: String) -> AuthenticationError? {
+        addInvocation(.m_logIn__email_emailpassword_password(Parameter<String>.value(`email`), Parameter<String>.value(`password`)))
+		let perform = methodPerformValue(.m_logIn__email_emailpassword_password(Parameter<String>.value(`email`), Parameter<String>.value(`password`))) as? (String, String) -> Void
+		perform?(`email`, `password`)
+		var __value: AuthenticationError? = nil
+		do {
+		    __value = try methodReturnValue(.m_logIn__email_emailpassword_password(Parameter<String>.value(`email`), Parameter<String>.value(`password`))).casted()
+		} catch {
+			// do nothing
+		}
+		return __value
+    }
+
+    open func createUser(email: String, password: String) -> AuthenticationError? {
+        addInvocation(.m_createUser__email_emailpassword_password(Parameter<String>.value(`email`), Parameter<String>.value(`password`)))
+		let perform = methodPerformValue(.m_createUser__email_emailpassword_password(Parameter<String>.value(`email`), Parameter<String>.value(`password`))) as? (String, String) -> Void
+		perform?(`email`, `password`)
+		var __value: AuthenticationError? = nil
+		do {
+		    __value = try methodReturnValue(.m_createUser__email_emailpassword_password(Parameter<String>.value(`email`), Parameter<String>.value(`password`))).casted()
+		} catch {
+			// do nothing
+		}
+		return __value
+    }
+
+    open func logOut() -> AuthenticationError? {
+        addInvocation(.m_logOut)
+		let perform = methodPerformValue(.m_logOut) as? () -> Void
+		perform?()
+		var __value: AuthenticationError? = nil
+		do {
+		    __value = try methodReturnValue(.m_logOut).casted()
+		} catch {
+			// do nothing
+		}
+		return __value
+    }
+
+    open func getUserUid() -> String? {
+        addInvocation(.m_getUserUid)
+		let perform = methodPerformValue(.m_getUserUid) as? () -> Void
+		perform?()
+		var __value: String? = nil
+		do {
+		    __value = try methodReturnValue(.m_getUserUid).casted()
+		} catch {
+			// do nothing
+		}
+		return __value
+    }
+
+
+    fileprivate enum MethodType {
+        case m_logIn__email_emailpassword_password(Parameter<String>, Parameter<String>)
+        case m_createUser__email_emailpassword_password(Parameter<String>, Parameter<String>)
+        case m_logOut
+        case m_getUserUid
+
+        static func compareParameters(lhs: MethodType, rhs: MethodType, matcher: Matcher) -> Matcher.ComparisonResult {
+            switch (lhs, rhs) {
+            case (.m_logIn__email_emailpassword_password(let lhsEmail, let lhsPassword), .m_logIn__email_emailpassword_password(let rhsEmail, let rhsPassword)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsEmail, rhs: rhsEmail, with: matcher), lhsEmail, rhsEmail, "email"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsPassword, rhs: rhsPassword, with: matcher), lhsPassword, rhsPassword, "password"))
+				return Matcher.ComparisonResult(results)
+
+            case (.m_createUser__email_emailpassword_password(let lhsEmail, let lhsPassword), .m_createUser__email_emailpassword_password(let rhsEmail, let rhsPassword)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsEmail, rhs: rhsEmail, with: matcher), lhsEmail, rhsEmail, "email"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsPassword, rhs: rhsPassword, with: matcher), lhsPassword, rhsPassword, "password"))
+				return Matcher.ComparisonResult(results)
+
+            case (.m_logOut, .m_logOut): return .match
+
+            case (.m_getUserUid, .m_getUserUid): return .match
+            default: return .none
+            }
+        }
+
+        func intValue() -> Int {
+            switch self {
+            case let .m_logIn__email_emailpassword_password(p0, p1): return p0.intValue + p1.intValue
+            case let .m_createUser__email_emailpassword_password(p0, p1): return p0.intValue + p1.intValue
+            case .m_logOut: return 0
+            case .m_getUserUid: return 0
+            }
+        }
+        func assertionName() -> String {
+            switch self {
+            case .m_logIn__email_emailpassword_password: return ".logIn(email:password:)"
+            case .m_createUser__email_emailpassword_password: return ".createUser(email:password:)"
+            case .m_logOut: return ".logOut()"
+            case .m_getUserUid: return ".getUserUid()"
+            }
+        }
+    }
+
+    open class Given: StubbedMethod {
+        fileprivate var method: MethodType
+
+        private init(method: MethodType, products: [StubProduct]) {
+            self.method = method
+            super.init(products)
+        }
+
+
+        public static func logIn(email: Parameter<String>, password: Parameter<String>, willReturn: AuthenticationError?...) -> MethodStub {
+            return Given(method: .m_logIn__email_emailpassword_password(`email`, `password`), products: willReturn.map({ StubProduct.return($0 as Any) }))
+        }
+        public static func createUser(email: Parameter<String>, password: Parameter<String>, willReturn: AuthenticationError?...) -> MethodStub {
+            return Given(method: .m_createUser__email_emailpassword_password(`email`, `password`), products: willReturn.map({ StubProduct.return($0 as Any) }))
+        }
+        public static func logOut(willReturn: AuthenticationError?...) -> MethodStub {
+            return Given(method: .m_logOut, products: willReturn.map({ StubProduct.return($0 as Any) }))
+        }
+        public static func getUserUid(willReturn: String?...) -> MethodStub {
+            return Given(method: .m_getUserUid, products: willReturn.map({ StubProduct.return($0 as Any) }))
+        }
+        public static func logIn(email: Parameter<String>, password: Parameter<String>, willProduce: (Stubber<AuthenticationError?>) -> Void) -> MethodStub {
+            let willReturn: [AuthenticationError?] = []
+			let given: Given = { return Given(method: .m_logIn__email_emailpassword_password(`email`, `password`), products: willReturn.map({ StubProduct.return($0 as Any) })) }()
+			let stubber = given.stub(for: (AuthenticationError?).self)
+			willProduce(stubber)
+			return given
+        }
+        public static func createUser(email: Parameter<String>, password: Parameter<String>, willProduce: (Stubber<AuthenticationError?>) -> Void) -> MethodStub {
+            let willReturn: [AuthenticationError?] = []
+			let given: Given = { return Given(method: .m_createUser__email_emailpassword_password(`email`, `password`), products: willReturn.map({ StubProduct.return($0 as Any) })) }()
+			let stubber = given.stub(for: (AuthenticationError?).self)
+			willProduce(stubber)
+			return given
+        }
+        public static func logOut(willProduce: (Stubber<AuthenticationError?>) -> Void) -> MethodStub {
+            let willReturn: [AuthenticationError?] = []
+			let given: Given = { return Given(method: .m_logOut, products: willReturn.map({ StubProduct.return($0 as Any) })) }()
+			let stubber = given.stub(for: (AuthenticationError?).self)
+			willProduce(stubber)
+			return given
+        }
+        public static func getUserUid(willProduce: (Stubber<String?>) -> Void) -> MethodStub {
+            let willReturn: [String?] = []
+			let given: Given = { return Given(method: .m_getUserUid, products: willReturn.map({ StubProduct.return($0 as Any) })) }()
+			let stubber = given.stub(for: (String?).self)
+			willProduce(stubber)
+			return given
+        }
+    }
+
+    public struct Verify {
+        fileprivate var method: MethodType
+
+        public static func logIn(email: Parameter<String>, password: Parameter<String>) -> Verify { return Verify(method: .m_logIn__email_emailpassword_password(`email`, `password`))}
+        public static func createUser(email: Parameter<String>, password: Parameter<String>) -> Verify { return Verify(method: .m_createUser__email_emailpassword_password(`email`, `password`))}
+        public static func logOut() -> Verify { return Verify(method: .m_logOut)}
+        public static func getUserUid() -> Verify { return Verify(method: .m_getUserUid)}
+    }
+
+    public struct Perform {
+        fileprivate var method: MethodType
+        var performs: Any
+
+        public static func logIn(email: Parameter<String>, password: Parameter<String>, perform: @escaping (String, String) -> Void) -> Perform {
+            return Perform(method: .m_logIn__email_emailpassword_password(`email`, `password`), performs: perform)
+        }
+        public static func createUser(email: Parameter<String>, password: Parameter<String>, perform: @escaping (String, String) -> Void) -> Perform {
+            return Perform(method: .m_createUser__email_emailpassword_password(`email`, `password`), performs: perform)
+        }
+        public static func logOut(perform: @escaping () -> Void) -> Perform {
+            return Perform(method: .m_logOut, performs: perform)
+        }
+        public static func getUserUid(perform: @escaping () -> Void) -> Perform {
+            return Perform(method: .m_getUserUid, performs: perform)
+        }
+    }
+
+    public func given(_ method: Given) {
+        methodReturnValues.append(method)
+    }
+
+    public func perform(_ method: Perform) {
+        methodPerformValues.append(method)
+        methodPerformValues.sort { $0.method.intValue() < $1.method.intValue() }
+    }
+
+    public func verify(_ method: Verify, count: Count = Count.moreOrEqual(to: 1), file: StaticString = #file, line: UInt = #line) {
+        let fullMatches = matchingCalls(method, file: file, line: line)
+        let success = count.matches(fullMatches)
+        let assertionName = method.method.assertionName()
+        let feedback: String = {
+            guard !success else { return "" }
+            return Utils.closestCallsMessage(
+                for: self.invocations.map { invocation in
+                    matcher.set(file: file, line: line)
+                    defer { matcher.clearFileAndLine() }
+                    return MethodType.compareParameters(lhs: invocation, rhs: method.method, matcher: matcher)
+                },
+                name: assertionName
+            )
+        }()
+        MockyAssert(success, "Expected: \(count) invocations of `\(assertionName)`, but was: \(fullMatches).\(feedback)", file: file, line: line)
+    }
+
+    private func addInvocation(_ call: MethodType) {
+        self.queue.sync { invocations.append(call) }
+    }
+    private func methodReturnValue(_ method: MethodType) throws -> StubProduct {
+        matcher.set(file: self.file, line: self.line)
+        defer { matcher.clearFileAndLine() }
+        let candidates = sequencingPolicy.sorted(methodReturnValues, by: { $0.method.intValue() > $1.method.intValue() })
+        let matched = candidates.first(where: { $0.isValid && MethodType.compareParameters(lhs: $0.method, rhs: method, matcher: matcher).isFullMatch })
+        guard let product = matched?.getProduct(policy: self.stubbingPolicy) else { throw MockError.notStubed }
+        return product
+    }
+    private func methodPerformValue(_ method: MethodType) -> Any? {
+        matcher.set(file: self.file, line: self.line)
+        defer { matcher.clearFileAndLine() }
+        let matched = methodPerformValues.reversed().first { MethodType.compareParameters(lhs: $0.method, rhs: method, matcher: matcher).isFullMatch }
+        return matched?.performs
+    }
+    private func matchingCalls(_ method: MethodType, file: StaticString?, line: UInt?) -> [MethodType] {
+        matcher.set(file: file ?? self.file, line: line ?? self.line)
+        defer { matcher.clearFileAndLine() }
+        return invocations.filter { MethodType.compareParameters(lhs: $0, rhs: method, matcher: matcher).isFullMatch }
+    }
+    private func matchingCalls(_ method: Verify, file: StaticString?, line: UInt?) -> Int {
+        return matchingCalls(method.method, file: file, line: line).count
+    }
+    private func givenGetterValue<T>(_ method: MethodType, _ message: String) -> T {
+        do {
+            return try methodReturnValue(method).casted()
+        } catch {
+            onFatalFailure(message)
+            Failure(message)
+        }
+    }
+    private func optionalGivenGetterValue<T>(_ method: MethodType, _ message: String) -> T? {
+        do {
+            return try methodReturnValue(method).casted()
+        } catch {
+            return nil
+        }
+    }
+    private func onFatalFailure(_ message: String) {
+        guard let file = self.file, let line = self.line else { return } // Let if fail if cannot handle gratefully
+        SwiftyMockyTestObserver.handleFatalError(message: message, file: file, line: line)
+    }
+}
+
 // MARK: - AuthenticationService
 
 open class AuthenticationServiceMock: AuthenticationService, Mock {
@@ -918,10 +1211,17 @@ open class AuthenticationServiceMock: AuthenticationService, Mock {
 		return __value
     }
 
-    open func logout(callback: @escaping (AuthenticationError?) -> ()) {
-        addInvocation(.m_logout__callback_callback(Parameter<(AuthenticationError?) -> ()>.value(`callback`)))
-		let perform = methodPerformValue(.m_logout__callback_callback(Parameter<(AuthenticationError?) -> ()>.value(`callback`))) as? (@escaping (AuthenticationError?) -> ()) -> Void
-		perform?(`callback`)
+    open func logout() -> AuthenticationError? {
+        addInvocation(.m_logout)
+		let perform = methodPerformValue(.m_logout) as? () -> Void
+		perform?()
+		var __value: AuthenticationError? = nil
+		do {
+		    __value = try methodReturnValue(.m_logout).casted()
+		} catch {
+			// do nothing
+		}
+		return __value
     }
 
     open func isUserLoggedIn() -> Bool {
@@ -955,7 +1255,7 @@ open class AuthenticationServiceMock: AuthenticationService, Mock {
     fileprivate enum MethodType {
         case m_login__email_emailpassword_passwordcloudDatabase_cloudDatabaselocalDatabase_localDatabase(Parameter<String>, Parameter<String>, Parameter<CloudDatabase>, Parameter<LocalDatabase>)
         case m_createUser__email_emailpassword_passwordcloudDatabase_cloudDatabase(Parameter<String>, Parameter<String>, Parameter<CloudDatabase>)
-        case m_logout__callback_callback(Parameter<(AuthenticationError?) -> ()>)
+        case m_logout
         case m_isUserLoggedIn
         case m_getUserId
 
@@ -976,10 +1276,7 @@ open class AuthenticationServiceMock: AuthenticationService, Mock {
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsClouddatabase, rhs: rhsClouddatabase, with: matcher), lhsClouddatabase, rhsClouddatabase, "cloudDatabase"))
 				return Matcher.ComparisonResult(results)
 
-            case (.m_logout__callback_callback(let lhsCallback), .m_logout__callback_callback(let rhsCallback)):
-				var results: [Matcher.ParameterComparisonResult] = []
-				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsCallback, rhs: rhsCallback, with: matcher), lhsCallback, rhsCallback, "callback"))
-				return Matcher.ComparisonResult(results)
+            case (.m_logout, .m_logout): return .match
 
             case (.m_isUserLoggedIn, .m_isUserLoggedIn): return .match
 
@@ -992,7 +1289,7 @@ open class AuthenticationServiceMock: AuthenticationService, Mock {
             switch self {
             case let .m_login__email_emailpassword_passwordcloudDatabase_cloudDatabaselocalDatabase_localDatabase(p0, p1, p2, p3): return p0.intValue + p1.intValue + p2.intValue + p3.intValue
             case let .m_createUser__email_emailpassword_passwordcloudDatabase_cloudDatabase(p0, p1, p2): return p0.intValue + p1.intValue + p2.intValue
-            case let .m_logout__callback_callback(p0): return p0.intValue
+            case .m_logout: return 0
             case .m_isUserLoggedIn: return 0
             case .m_getUserId: return 0
             }
@@ -1001,7 +1298,7 @@ open class AuthenticationServiceMock: AuthenticationService, Mock {
             switch self {
             case .m_login__email_emailpassword_passwordcloudDatabase_cloudDatabaselocalDatabase_localDatabase: return ".login(email:password:cloudDatabase:localDatabase:)"
             case .m_createUser__email_emailpassword_passwordcloudDatabase_cloudDatabase: return ".createUser(email:password:cloudDatabase:)"
-            case .m_logout__callback_callback: return ".logout(callback:)"
+            case .m_logout: return ".logout()"
             case .m_isUserLoggedIn: return ".isUserLoggedIn()"
             case .m_getUserId: return ".getUserId()"
             }
@@ -1023,6 +1320,9 @@ open class AuthenticationServiceMock: AuthenticationService, Mock {
         public static func createUser(email: Parameter<String>, password: Parameter<String>, cloudDatabase: Parameter<CloudDatabase>, willReturn: AuthenticationError?...) -> MethodStub {
             return Given(method: .m_createUser__email_emailpassword_passwordcloudDatabase_cloudDatabase(`email`, `password`, `cloudDatabase`), products: willReturn.map({ StubProduct.return($0 as Any) }))
         }
+        public static func logout(willReturn: AuthenticationError?...) -> MethodStub {
+            return Given(method: .m_logout, products: willReturn.map({ StubProduct.return($0 as Any) }))
+        }
         public static func isUserLoggedIn(willReturn: Bool...) -> MethodStub {
             return Given(method: .m_isUserLoggedIn, products: willReturn.map({ StubProduct.return($0 as Any) }))
         }
@@ -1039,6 +1339,13 @@ open class AuthenticationServiceMock: AuthenticationService, Mock {
         public static func createUser(email: Parameter<String>, password: Parameter<String>, cloudDatabase: Parameter<CloudDatabase>, willProduce: (Stubber<AuthenticationError?>) -> Void) -> MethodStub {
             let willReturn: [AuthenticationError?] = []
 			let given: Given = { return Given(method: .m_createUser__email_emailpassword_passwordcloudDatabase_cloudDatabase(`email`, `password`, `cloudDatabase`), products: willReturn.map({ StubProduct.return($0 as Any) })) }()
+			let stubber = given.stub(for: (AuthenticationError?).self)
+			willProduce(stubber)
+			return given
+        }
+        public static func logout(willProduce: (Stubber<AuthenticationError?>) -> Void) -> MethodStub {
+            let willReturn: [AuthenticationError?] = []
+			let given: Given = { return Given(method: .m_logout, products: willReturn.map({ StubProduct.return($0 as Any) })) }()
 			let stubber = given.stub(for: (AuthenticationError?).self)
 			willProduce(stubber)
 			return given
@@ -1064,7 +1371,7 @@ open class AuthenticationServiceMock: AuthenticationService, Mock {
 
         public static func login(email: Parameter<String>, password: Parameter<String>, cloudDatabase: Parameter<CloudDatabase>, localDatabase: Parameter<LocalDatabase>) -> Verify { return Verify(method: .m_login__email_emailpassword_passwordcloudDatabase_cloudDatabaselocalDatabase_localDatabase(`email`, `password`, `cloudDatabase`, `localDatabase`))}
         public static func createUser(email: Parameter<String>, password: Parameter<String>, cloudDatabase: Parameter<CloudDatabase>) -> Verify { return Verify(method: .m_createUser__email_emailpassword_passwordcloudDatabase_cloudDatabase(`email`, `password`, `cloudDatabase`))}
-        public static func logout(callback: Parameter<(AuthenticationError?) -> ()>) -> Verify { return Verify(method: .m_logout__callback_callback(`callback`))}
+        public static func logout() -> Verify { return Verify(method: .m_logout)}
         public static func isUserLoggedIn() -> Verify { return Verify(method: .m_isUserLoggedIn)}
         public static func getUserId() -> Verify { return Verify(method: .m_getUserId)}
     }
@@ -1079,8 +1386,8 @@ open class AuthenticationServiceMock: AuthenticationService, Mock {
         public static func createUser(email: Parameter<String>, password: Parameter<String>, cloudDatabase: Parameter<CloudDatabase>, perform: @escaping (String, String, CloudDatabase) -> Void) -> Perform {
             return Perform(method: .m_createUser__email_emailpassword_passwordcloudDatabase_cloudDatabase(`email`, `password`, `cloudDatabase`), performs: perform)
         }
-        public static func logout(callback: Parameter<(AuthenticationError?) -> ()>, perform: @escaping (@escaping (AuthenticationError?) -> ()) -> Void) -> Perform {
-            return Perform(method: .m_logout__callback_callback(`callback`), performs: perform)
+        public static func logout(perform: @escaping () -> Void) -> Perform {
+            return Perform(method: .m_logout, performs: perform)
         }
         public static func isUserLoggedIn(perform: @escaping () -> Void) -> Perform {
             return Perform(method: .m_isUserLoggedIn, performs: perform)
