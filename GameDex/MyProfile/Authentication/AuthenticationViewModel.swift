@@ -9,7 +9,7 @@ import Foundation
 
 final class AuthenticationViewModel: CollectionViewModel {
     var searchViewModel: SearchViewModel?
-    var isBounceable: Bool = true
+    var isBounceable: Bool = false
     var progress: Float?
     var rightButtonItems: [AnyBarButtonItem]?
     let screenTitle: String?

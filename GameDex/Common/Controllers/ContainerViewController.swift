@@ -21,6 +21,11 @@ class ContainerViewController: UIViewController {
     
     private let viewModel: CollectionViewModel
     private let layout: UICollectionViewLayout
+    private lazy var refreshControl: UIRefreshControl = {
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(loadData), for: .valueChanged)
+        return refreshControl
+    }()
     
     private lazy var collectionView: UICollectionView = UICollectionView(
         frame: .zero,
@@ -123,7 +128,7 @@ class ContainerViewController: UIViewController {
     
     // MARK: - Methods
     
-    private func loadData() {
+    @objc private func loadData() {
         self.configureNavBar()
         self.configureLoader()
         Task {
@@ -132,11 +137,14 @@ class ContainerViewController: UIViewController {
                     guard let strongSelf = self else { return }
                     if let error = error {
                         let tabBarOffset = -(self?.tabBarController?.tabBar.frame.size.height ?? 0)
-                        strongSelf.updateEmptyState(error: error,
-                                                    tabBarOffset: tabBarOffset)
+                        strongSelf.updateEmptyState(
+                            error: error,
+                            tabBarOffset: tabBarOffset
+                        )
                     } else {
                         strongSelf.refresh()
                     }
+                    strongSelf.refreshControl.endRefreshing()
                 }
             }
         }
@@ -295,7 +303,8 @@ class ContainerViewController: UIViewController {
         self.registerCells()
         self.collectionView.delegate = self
         self.collectionView.dataSource = self
-        self.collectionView.bounces = self.viewModel.isBounceable
+        self.collectionView.alwaysBounceVertical = self.viewModel.isBounceable
+        self.collectionView.addSubview(self.refreshControl)
         self.stackView.addArrangedSubview(self.collectionView)
         self.view.addSubview(stackView)
         self.setupStackViewConstraints()
