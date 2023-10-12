@@ -49,24 +49,26 @@ final class MyProfileViewModel: CollectionViewModel {
         ]
         callback(nil)
     }
+    
+    private func displayAlert(success: Bool) {
+        self.alertDisplayer.presentTopFloatAlert(
+            parameters: AlertViewModel(
+                alertType: success ? .success : .error,
+                description: success ? L10n.successLogOutDescription : L10n.errorLogOutDescription
+            )
+        )
+    }
 }
 
 extension MyProfileViewModel: AlertDisplayerDelegate {
     func didTapOkButton() async {
-        self.authenticationService.logout(
-            callback: { [weak self] error in
-                self?.alertDisplayer.presentTopFloatAlert(
-                    parameters: AlertViewModel(
-                        alertType: error == nil ? .success : .error,
-                        description: error == nil ? L10n.successLogOutDescription : L10n.errorLogOutDescription
-                    )
-                )
-                if error == nil {
-                    self?.containerDelegate?.reloadSections()
-                }
-            }
-        )
+        guard await self.authenticationService.logout() == nil else {
+            self.displayAlert(success: false)
+            return
+        }
+        self.displayAlert(success: true)
         await self.myCollectionDelegate?.reloadCollection()
+        self.containerDelegate?.reloadSections()
     }
 }
 
