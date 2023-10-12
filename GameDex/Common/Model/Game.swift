@@ -15,3 +15,14 @@ struct Game: Codable {
     let imageURL: String
     let releaseDate: Date?
 }
+
+extension Game: Equatable {
+    public static func == (lhs: Game, rhs: Game) -> Bool {
+        lhs.description == rhs.description &&
+        lhs.releaseDate == rhs.releaseDate &&
+        lhs.id == rhs.id &&
+        lhs.title == rhs.title &&
+        lhs.imageURL == rhs.imageURL &&
+        lhs.platformId == rhs.platformId
+    }
+}

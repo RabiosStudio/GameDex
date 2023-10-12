@@ -40,6 +40,7 @@
 		251C873D2A9D09AA0020C794 /* BasicInfoCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251C873C2A9D09AA0020C794 /* BasicInfoCellViewModel.swift */; };
 		251C87412A9DE9F30020C794 /* Game.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251C87402A9DE9F30020C794 /* Game.swift */; };
 		252516612ACAD10600B88813 /* CloudDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 252516602ACAD10600B88813 /* CloudDatabase.swift */; };
+		252E377D2AD6A0EC00987DD5 /* TestCoreDataStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = 252E377C2AD6A0EC00987DD5 /* TestCoreDataStack.swift */; };
 		254354762A93AFF700E53351 /* LabelCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254354752A93AFF700E53351 /* LabelCell.swift */; };
 		254354782A93B1BB00E53351 /* LabelCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254354772A93B1BB00E53351 /* LabelCellViewModel.swift */; };
 		2548E5CF2AB9C1A6004151EF /* DateFormatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2548E5CE2AB9C1A6004151EF /* DateFormatter.swift */; };
@@ -229,6 +230,7 @@
 		251C873C2A9D09AA0020C794 /* BasicInfoCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BasicInfoCellViewModel.swift; sourceTree = "<group>"; };
 		251C87402A9DE9F30020C794 /* Game.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Game.swift; sourceTree = "<group>"; };
 		252516602ACAD10600B88813 /* CloudDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CloudDatabase.swift; sourceTree = "<group>"; };
+		252E377C2AD6A0EC00987DD5 /* TestCoreDataStack.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestCoreDataStack.swift; sourceTree = "<group>"; };
 		254354752A93AFF700E53351 /* LabelCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelCell.swift; sourceTree = "<group>"; };
 		254354772A93B1BB00E53351 /* LabelCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LabelCellViewModel.swift; sourceTree = "<group>"; };
 		2548E5CE2AB9C1A6004151EF /* DateFormatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DateFormatter.swift; sourceTree = "<group>"; };
@@ -821,6 +823,7 @@
 				2528185D2A93DF39003FDC87 /* Mock */,
 				251C872A2A9CE93B0020C794 /* Equatables.swift */,
 				25EDF7B02AB3053A00648717 /* Constants.swift */,
+				252E377C2AD6A0EC00987DD5 /* TestCoreDataStack.swift */,
 			);
 			path = GameDexTests;
 			sourceTree = "<group>";
@@ -1432,6 +1435,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				25EDF7B12AB3053A00648717 /* Constants.swift in Sources */,
+				252E377D2AD6A0EC00987DD5 /* TestCoreDataStack.swift in Sources */,
 				251C871C2A9C888B0020C794 /* SelectPlatformSectionTests.swift in Sources */,
 				251C87132A9BBD3F0020C794 /* SelectAddGameMethodSectionTests.swift in Sources */,
 				25979D9F2ABEF5F2002CEDE7 /* MyProfileSectionTests.swift in Sources */,

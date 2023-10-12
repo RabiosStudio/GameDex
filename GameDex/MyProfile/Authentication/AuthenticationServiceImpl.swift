@@ -10,13 +10,19 @@ import FirebaseAuth
 
 class AuthenticationServiceImpl: AuthenticationService {
     
-    func login(email: String, password: String, callback: @escaping (AuthenticationError?) -> ()) {
-        Auth.auth().signIn(withEmail: email, password: password) { result, error in
-            guard error == nil else {
-                callback(AuthenticationError.loginError)
-                return
+    func login(email: String, password: String, cloudDatabase: CloudDatabase, localDatabase: LocalDatabase) async -> AuthenticationError? {
+        let email = email.lowercased()
+        do {
+            try await Auth.auth().signIn(withEmail: email, password: password)
+            guard let userId = self.getUserId() else {
+                return AuthenticationError.saveUserDataError
             }
-            callback(nil)
+            guard await cloudDatabase.syncLocalAndCloudDatabases(userId: userId, localDatabase: localDatabase) == nil else {
+                return AuthenticationError.saveUserDataError
+            }
+            return nil
+        } catch {
+            return AuthenticationError.loginError
         }
     }
     

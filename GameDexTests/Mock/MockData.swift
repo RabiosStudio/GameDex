@@ -134,12 +134,24 @@ enum MockData {
     
     static let platformsCollected: [PlatformCollected] = [
         CoreDataConverter.convert(
-            platform: MockData.platform,
-            context: CoreDataStack().viewContext
+            platform: MockData.platforms[0],
+            context: TestCoreDataStack().viewContext
         ),
         CoreDataConverter.convert(
-            platform: MockData.platform,
-            context: CoreDataStack().viewContext
+            platform: MockData.platforms[1],
+            context: TestCoreDataStack().viewContext
+        ),
+        CoreDataConverter.convert(
+            platform: MockData.platforms[2],
+            context: TestCoreDataStack().viewContext
+        ),
+        CoreDataConverter.convert(
+            platform: MockData.platforms[3],
+            context: TestCoreDataStack().viewContext
+        ),
+        CoreDataConverter.convert(
+            platform: MockData.platforms[4],
+            context: TestCoreDataStack().viewContext
         )
     ]
     

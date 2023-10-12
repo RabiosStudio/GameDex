@@ -40,22 +40,7 @@ class FirestoreDatabase: CloudDatabase {
     }
     
     private enum Attributes: String {
-        case id
-        case email
-        case title
-        case acquisitionYear
-        case description
-        case imageUrl
-        case releaseDate
-        case platform
-        case gameCondition
-        case gameCompleteness
-        case gameRegion
-        case storageArea
-        case rating
-        case notes
-        case lastUpdated
-        case key
+        case acquisitionYear, description, email, gameCompleteness, gameCondition, gameRegion, id, imageUrl, key, lastUpdated, notes, platform, rating, releaseDate, storageArea, title
     }
     
     private let database = Firestore.firestore()
@@ -99,7 +84,7 @@ class FirestoreDatabase: CloudDatabase {
                       let imageUrl = data[Attributes.imageUrl.rawValue],
                       let lastUpdatedTimeStamp = data[Attributes.lastUpdated.rawValue] as? Timestamp,
                       let releaseTimeStamp = data[Attributes.releaseDate.rawValue] as? Timestamp,
-                      let notes = data[Attributes.notes.rawValue] as? String,
+                      let notes = data[Attributes.notes.rawValue],
                       let gameCondition = data[Attributes.gameCondition.rawValue],
                       let gameCompleteness = data[Attributes.gameCompleteness.rawValue],
                       let gameRegion = data[Attributes.gameRegion.rawValue],
@@ -126,7 +111,7 @@ class FirestoreDatabase: CloudDatabase {
                     gameRegion: gameRegion as? String,
                     storageArea: storageArea as? String,
                     rating: rating,
-                    notes: notes,
+                    notes: notes as? String,
                     lastUpdated: lastUpdatedDate
                 )
                 savedGames.append(savedGame)
@@ -155,7 +140,7 @@ class FirestoreDatabase: CloudDatabase {
                       let platformId = Int(platformStringId) else {
                     return .failure(DatabaseError.fetchError)
                 }
-                var platform = Platform(title: title, id: platformId, games: nil)
+                let platform = Platform(title: title, id: platformId, games: nil)
                 
                 let fetchSinglePlatformResult = await self.getSinglePlatformCollection(userId: userId, platform: platform)
                 switch fetchSinglePlatformResult {
@@ -215,7 +200,6 @@ class FirestoreDatabase: CloudDatabase {
             let gamesPath = Collections.userGames(userId, "\(savedGame.game.platformId)").path
             let fetchedGames = try await self.database.collection(gamesPath).getDocuments()
             for item in fetchedGames.documents {
-                let data = item.data()
                 let id = item.documentID
                 if id == savedGame.game.id {
                     return .success(true)
@@ -339,6 +323,38 @@ class FirestoreDatabase: CloudDatabase {
             }
         } catch {
             return DatabaseError.removeError
+        }
+    }
+    
+    func syncLocalAndCloudDatabases(userId: String, localDatabase: LocalDatabase) async -> DatabaseError? {
+        
+        // We ALWAYS fetch Firestore data and synced it to Coredata and not the other way around. Firestore is the truth !!
+        
+        let fetchCloudPlatformsResult = await self.getUserCollection(userId: userId)
+        switch fetchCloudPlatformsResult {
+        case .success(let platformsResult):
+            guard await localDatabase.removeAll() == nil else {
+                return DatabaseError.removeError
+            }
+            
+            for platformResult in platformsResult {
+                let platform = Platform(
+                    title: platformResult.title,
+                    id: platformResult.id,
+                    games: nil
+                )
+                guard let games = platformResult.games else {
+                    return DatabaseError.removeError
+                }
+                for gameResult in games {
+                    guard await localDatabase.add(newEntity: gameResult, platform: platform) == nil else {
+                        return DatabaseError.saveError
+                    }
+                }
+            }
+            return nil
+        case .failure(_):
+            return DatabaseError.fetchError
         }
     }
 }

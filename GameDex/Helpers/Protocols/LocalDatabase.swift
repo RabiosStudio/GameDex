@@ -14,4 +14,5 @@ protocol LocalDatabase {
     func fetchAllPlatforms() -> Result<[PlatformCollected], DatabaseError>
     func replace(savedGame: SavedGame) async -> DatabaseError?
     func remove(savedGame: SavedGame) async -> DatabaseError?
+    func removeAll() async -> DatabaseError?
 }

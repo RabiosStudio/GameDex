@@ -892,10 +892,17 @@ open class AuthenticationServiceMock: AuthenticationService, Mock {
 
 
 
-    open func login(email: String, password: String, callback: @escaping (AuthenticationError?) -> ()) {
-        addInvocation(.m_login__email_emailpassword_passwordcallback_callback(Parameter<String>.value(`email`), Parameter<String>.value(`password`), Parameter<(AuthenticationError?) -> ()>.value(`callback`)))
-		let perform = methodPerformValue(.m_login__email_emailpassword_passwordcallback_callback(Parameter<String>.value(`email`), Parameter<String>.value(`password`), Parameter<(AuthenticationError?) -> ()>.value(`callback`))) as? (String, String, @escaping (AuthenticationError?) -> ()) -> Void
-		perform?(`email`, `password`, `callback`)
+    open func login(email: String, password: String, cloudDatabase: CloudDatabase, localDatabase: LocalDatabase) -> AuthenticationError? {
+        addInvocation(.m_login__email_emailpassword_passwordcloudDatabase_cloudDatabaselocalDatabase_localDatabase(Parameter<String>.value(`email`), Parameter<String>.value(`password`), Parameter<CloudDatabase>.value(`cloudDatabase`), Parameter<LocalDatabase>.value(`localDatabase`)))
+		let perform = methodPerformValue(.m_login__email_emailpassword_passwordcloudDatabase_cloudDatabaselocalDatabase_localDatabase(Parameter<String>.value(`email`), Parameter<String>.value(`password`), Parameter<CloudDatabase>.value(`cloudDatabase`), Parameter<LocalDatabase>.value(`localDatabase`))) as? (String, String, CloudDatabase, LocalDatabase) -> Void
+		perform?(`email`, `password`, `cloudDatabase`, `localDatabase`)
+		var __value: AuthenticationError? = nil
+		do {
+		    __value = try methodReturnValue(.m_login__email_emailpassword_passwordcloudDatabase_cloudDatabaselocalDatabase_localDatabase(Parameter<String>.value(`email`), Parameter<String>.value(`password`), Parameter<CloudDatabase>.value(`cloudDatabase`), Parameter<LocalDatabase>.value(`localDatabase`))).casted()
+		} catch {
+			// do nothing
+		}
+		return __value
     }
 
     open func createUser(email: String, password: String, cloudDatabase: CloudDatabase) -> AuthenticationError? {
@@ -946,7 +953,7 @@ open class AuthenticationServiceMock: AuthenticationService, Mock {
 
 
     fileprivate enum MethodType {
-        case m_login__email_emailpassword_passwordcallback_callback(Parameter<String>, Parameter<String>, Parameter<(AuthenticationError?) -> ()>)
+        case m_login__email_emailpassword_passwordcloudDatabase_cloudDatabaselocalDatabase_localDatabase(Parameter<String>, Parameter<String>, Parameter<CloudDatabase>, Parameter<LocalDatabase>)
         case m_createUser__email_emailpassword_passwordcloudDatabase_cloudDatabase(Parameter<String>, Parameter<String>, Parameter<CloudDatabase>)
         case m_logout__callback_callback(Parameter<(AuthenticationError?) -> ()>)
         case m_isUserLoggedIn
@@ -954,11 +961,12 @@ open class AuthenticationServiceMock: AuthenticationService, Mock {
 
         static func compareParameters(lhs: MethodType, rhs: MethodType, matcher: Matcher) -> Matcher.ComparisonResult {
             switch (lhs, rhs) {
-            case (.m_login__email_emailpassword_passwordcallback_callback(let lhsEmail, let lhsPassword, let lhsCallback), .m_login__email_emailpassword_passwordcallback_callback(let rhsEmail, let rhsPassword, let rhsCallback)):
+            case (.m_login__email_emailpassword_passwordcloudDatabase_cloudDatabaselocalDatabase_localDatabase(let lhsEmail, let lhsPassword, let lhsClouddatabase, let lhsLocaldatabase), .m_login__email_emailpassword_passwordcloudDatabase_cloudDatabaselocalDatabase_localDatabase(let rhsEmail, let rhsPassword, let rhsClouddatabase, let rhsLocaldatabase)):
 				var results: [Matcher.ParameterComparisonResult] = []
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsEmail, rhs: rhsEmail, with: matcher), lhsEmail, rhsEmail, "email"))
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsPassword, rhs: rhsPassword, with: matcher), lhsPassword, rhsPassword, "password"))
-				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsCallback, rhs: rhsCallback, with: matcher), lhsCallback, rhsCallback, "callback"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsClouddatabase, rhs: rhsClouddatabase, with: matcher), lhsClouddatabase, rhsClouddatabase, "cloudDatabase"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsLocaldatabase, rhs: rhsLocaldatabase, with: matcher), lhsLocaldatabase, rhsLocaldatabase, "localDatabase"))
 				return Matcher.ComparisonResult(results)
 
             case (.m_createUser__email_emailpassword_passwordcloudDatabase_cloudDatabase(let lhsEmail, let lhsPassword, let lhsClouddatabase), .m_createUser__email_emailpassword_passwordcloudDatabase_cloudDatabase(let rhsEmail, let rhsPassword, let rhsClouddatabase)):
@@ -982,7 +990,7 @@ open class AuthenticationServiceMock: AuthenticationService, Mock {
 
         func intValue() -> Int {
             switch self {
-            case let .m_login__email_emailpassword_passwordcallback_callback(p0, p1, p2): return p0.intValue + p1.intValue + p2.intValue
+            case let .m_login__email_emailpassword_passwordcloudDatabase_cloudDatabaselocalDatabase_localDatabase(p0, p1, p2, p3): return p0.intValue + p1.intValue + p2.intValue + p3.intValue
             case let .m_createUser__email_emailpassword_passwordcloudDatabase_cloudDatabase(p0, p1, p2): return p0.intValue + p1.intValue + p2.intValue
             case let .m_logout__callback_callback(p0): return p0.intValue
             case .m_isUserLoggedIn: return 0
@@ -991,7 +999,7 @@ open class AuthenticationServiceMock: AuthenticationService, Mock {
         }
         func assertionName() -> String {
             switch self {
-            case .m_login__email_emailpassword_passwordcallback_callback: return ".login(email:password:callback:)"
+            case .m_login__email_emailpassword_passwordcloudDatabase_cloudDatabaselocalDatabase_localDatabase: return ".login(email:password:cloudDatabase:localDatabase:)"
             case .m_createUser__email_emailpassword_passwordcloudDatabase_cloudDatabase: return ".createUser(email:password:cloudDatabase:)"
             case .m_logout__callback_callback: return ".logout(callback:)"
             case .m_isUserLoggedIn: return ".isUserLoggedIn()"
@@ -1009,6 +1017,9 @@ open class AuthenticationServiceMock: AuthenticationService, Mock {
         }
 
 
+        public static func login(email: Parameter<String>, password: Parameter<String>, cloudDatabase: Parameter<CloudDatabase>, localDatabase: Parameter<LocalDatabase>, willReturn: AuthenticationError?...) -> MethodStub {
+            return Given(method: .m_login__email_emailpassword_passwordcloudDatabase_cloudDatabaselocalDatabase_localDatabase(`email`, `password`, `cloudDatabase`, `localDatabase`), products: willReturn.map({ StubProduct.return($0 as Any) }))
+        }
         public static func createUser(email: Parameter<String>, password: Parameter<String>, cloudDatabase: Parameter<CloudDatabase>, willReturn: AuthenticationError?...) -> MethodStub {
             return Given(method: .m_createUser__email_emailpassword_passwordcloudDatabase_cloudDatabase(`email`, `password`, `cloudDatabase`), products: willReturn.map({ StubProduct.return($0 as Any) }))
         }
@@ -1017,6 +1028,13 @@ open class AuthenticationServiceMock: AuthenticationService, Mock {
         }
         public static func getUserId(willReturn: String?...) -> MethodStub {
             return Given(method: .m_getUserId, products: willReturn.map({ StubProduct.return($0 as Any) }))
+        }
+        public static func login(email: Parameter<String>, password: Parameter<String>, cloudDatabase: Parameter<CloudDatabase>, localDatabase: Parameter<LocalDatabase>, willProduce: (Stubber<AuthenticationError?>) -> Void) -> MethodStub {
+            let willReturn: [AuthenticationError?] = []
+			let given: Given = { return Given(method: .m_login__email_emailpassword_passwordcloudDatabase_cloudDatabaselocalDatabase_localDatabase(`email`, `password`, `cloudDatabase`, `localDatabase`), products: willReturn.map({ StubProduct.return($0 as Any) })) }()
+			let stubber = given.stub(for: (AuthenticationError?).self)
+			willProduce(stubber)
+			return given
         }
         public static func createUser(email: Parameter<String>, password: Parameter<String>, cloudDatabase: Parameter<CloudDatabase>, willProduce: (Stubber<AuthenticationError?>) -> Void) -> MethodStub {
             let willReturn: [AuthenticationError?] = []
@@ -1044,7 +1062,7 @@ open class AuthenticationServiceMock: AuthenticationService, Mock {
     public struct Verify {
         fileprivate var method: MethodType
 
-        public static func login(email: Parameter<String>, password: Parameter<String>, callback: Parameter<(AuthenticationError?) -> ()>) -> Verify { return Verify(method: .m_login__email_emailpassword_passwordcallback_callback(`email`, `password`, `callback`))}
+        public static func login(email: Parameter<String>, password: Parameter<String>, cloudDatabase: Parameter<CloudDatabase>, localDatabase: Parameter<LocalDatabase>) -> Verify { return Verify(method: .m_login__email_emailpassword_passwordcloudDatabase_cloudDatabaselocalDatabase_localDatabase(`email`, `password`, `cloudDatabase`, `localDatabase`))}
         public static func createUser(email: Parameter<String>, password: Parameter<String>, cloudDatabase: Parameter<CloudDatabase>) -> Verify { return Verify(method: .m_createUser__email_emailpassword_passwordcloudDatabase_cloudDatabase(`email`, `password`, `cloudDatabase`))}
         public static func logout(callback: Parameter<(AuthenticationError?) -> ()>) -> Verify { return Verify(method: .m_logout__callback_callback(`callback`))}
         public static func isUserLoggedIn() -> Verify { return Verify(method: .m_isUserLoggedIn)}
@@ -1055,8 +1073,8 @@ open class AuthenticationServiceMock: AuthenticationService, Mock {
         fileprivate var method: MethodType
         var performs: Any
 
-        public static func login(email: Parameter<String>, password: Parameter<String>, callback: Parameter<(AuthenticationError?) -> ()>, perform: @escaping (String, String, @escaping (AuthenticationError?) -> ()) -> Void) -> Perform {
-            return Perform(method: .m_login__email_emailpassword_passwordcallback_callback(`email`, `password`, `callback`), performs: perform)
+        public static func login(email: Parameter<String>, password: Parameter<String>, cloudDatabase: Parameter<CloudDatabase>, localDatabase: Parameter<LocalDatabase>, perform: @escaping (String, String, CloudDatabase, LocalDatabase) -> Void) -> Perform {
+            return Perform(method: .m_login__email_emailpassword_passwordcloudDatabase_cloudDatabaselocalDatabase_localDatabase(`email`, `password`, `cloudDatabase`, `localDatabase`), performs: perform)
         }
         public static func createUser(email: Parameter<String>, password: Parameter<String>, cloudDatabase: Parameter<CloudDatabase>, perform: @escaping (String, String, CloudDatabase) -> Void) -> Perform {
             return Perform(method: .m_createUser__email_emailpassword_passwordcloudDatabase_cloudDatabase(`email`, `password`, `cloudDatabase`), performs: perform)
@@ -1324,6 +1342,19 @@ open class CloudDatabaseMock: CloudDatabase, Mock {
 		return __value
     }
 
+    open func syncLocalAndCloudDatabases(userId: String, localDatabase: LocalDatabase) -> DatabaseError? {
+        addInvocation(.m_syncLocalAndCloudDatabases__userId_userIdlocalDatabase_localDatabase(Parameter<String>.value(`userId`), Parameter<LocalDatabase>.value(`localDatabase`)))
+		let perform = methodPerformValue(.m_syncLocalAndCloudDatabases__userId_userIdlocalDatabase_localDatabase(Parameter<String>.value(`userId`), Parameter<LocalDatabase>.value(`localDatabase`))) as? (String, LocalDatabase) -> Void
+		perform?(`userId`, `localDatabase`)
+		var __value: DatabaseError? = nil
+		do {
+		    __value = try methodReturnValue(.m_syncLocalAndCloudDatabases__userId_userIdlocalDatabase_localDatabase(Parameter<String>.value(`userId`), Parameter<LocalDatabase>.value(`localDatabase`))).casted()
+		} catch {
+			// do nothing
+		}
+		return __value
+    }
+
 
     fileprivate enum MethodType {
         case m_getApiKey
@@ -1336,6 +1367,7 @@ open class CloudDatabaseMock: CloudDatabase, Mock {
         case m_saveCollection__userId_userIdlocalDatabase_localDatabase(Parameter<String>, Parameter<LocalDatabase>)
         case m_gameIsInDatabase__userId_userIdsavedGame_savedGame(Parameter<String>, Parameter<SavedGame>)
         case m_removeGame__userId_userIdplatform_platformsavedGame_savedGame(Parameter<String>, Parameter<Platform>, Parameter<SavedGame>)
+        case m_syncLocalAndCloudDatabases__userId_userIdlocalDatabase_localDatabase(Parameter<String>, Parameter<LocalDatabase>)
 
         static func compareParameters(lhs: MethodType, rhs: MethodType, matcher: Matcher) -> Matcher.ComparisonResult {
             switch (lhs, rhs) {
@@ -1392,6 +1424,12 @@ open class CloudDatabaseMock: CloudDatabase, Mock {
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsPlatform, rhs: rhsPlatform, with: matcher), lhsPlatform, rhsPlatform, "platform"))
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsSavedgame, rhs: rhsSavedgame, with: matcher), lhsSavedgame, rhsSavedgame, "savedGame"))
 				return Matcher.ComparisonResult(results)
+
+            case (.m_syncLocalAndCloudDatabases__userId_userIdlocalDatabase_localDatabase(let lhsUserid, let lhsLocaldatabase), .m_syncLocalAndCloudDatabases__userId_userIdlocalDatabase_localDatabase(let rhsUserid, let rhsLocaldatabase)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsUserid, rhs: rhsUserid, with: matcher), lhsUserid, rhsUserid, "userId"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsLocaldatabase, rhs: rhsLocaldatabase, with: matcher), lhsLocaldatabase, rhsLocaldatabase, "localDatabase"))
+				return Matcher.ComparisonResult(results)
             default: return .none
             }
         }
@@ -1408,6 +1446,7 @@ open class CloudDatabaseMock: CloudDatabase, Mock {
             case let .m_saveCollection__userId_userIdlocalDatabase_localDatabase(p0, p1): return p0.intValue + p1.intValue
             case let .m_gameIsInDatabase__userId_userIdsavedGame_savedGame(p0, p1): return p0.intValue + p1.intValue
             case let .m_removeGame__userId_userIdplatform_platformsavedGame_savedGame(p0, p1, p2): return p0.intValue + p1.intValue + p2.intValue
+            case let .m_syncLocalAndCloudDatabases__userId_userIdlocalDatabase_localDatabase(p0, p1): return p0.intValue + p1.intValue
             }
         }
         func assertionName() -> String {
@@ -1422,6 +1461,7 @@ open class CloudDatabaseMock: CloudDatabase, Mock {
             case .m_saveCollection__userId_userIdlocalDatabase_localDatabase: return ".saveCollection(userId:localDatabase:)"
             case .m_gameIsInDatabase__userId_userIdsavedGame_savedGame: return ".gameIsInDatabase(userId:savedGame:)"
             case .m_removeGame__userId_userIdplatform_platformsavedGame_savedGame: return ".removeGame(userId:platform:savedGame:)"
+            case .m_syncLocalAndCloudDatabases__userId_userIdlocalDatabase_localDatabase: return ".syncLocalAndCloudDatabases(userId:localDatabase:)"
             }
         }
     }
@@ -1464,6 +1504,9 @@ open class CloudDatabaseMock: CloudDatabase, Mock {
         }
         public static func removeGame(userId: Parameter<String>, platform: Parameter<Platform>, savedGame: Parameter<SavedGame>, willReturn: DatabaseError?...) -> MethodStub {
             return Given(method: .m_removeGame__userId_userIdplatform_platformsavedGame_savedGame(`userId`, `platform`, `savedGame`), products: willReturn.map({ StubProduct.return($0 as Any) }))
+        }
+        public static func syncLocalAndCloudDatabases(userId: Parameter<String>, localDatabase: Parameter<LocalDatabase>, willReturn: DatabaseError?...) -> MethodStub {
+            return Given(method: .m_syncLocalAndCloudDatabases__userId_userIdlocalDatabase_localDatabase(`userId`, `localDatabase`), products: willReturn.map({ StubProduct.return($0 as Any) }))
         }
         public static func getApiKey(willProduce: (Stubber<Result<String, DatabaseError>>) -> Void) -> MethodStub {
             let willReturn: [Result<String, DatabaseError>] = []
@@ -1535,6 +1578,13 @@ open class CloudDatabaseMock: CloudDatabase, Mock {
 			willProduce(stubber)
 			return given
         }
+        public static func syncLocalAndCloudDatabases(userId: Parameter<String>, localDatabase: Parameter<LocalDatabase>, willProduce: (Stubber<DatabaseError?>) -> Void) -> MethodStub {
+            let willReturn: [DatabaseError?] = []
+			let given: Given = { return Given(method: .m_syncLocalAndCloudDatabases__userId_userIdlocalDatabase_localDatabase(`userId`, `localDatabase`), products: willReturn.map({ StubProduct.return($0 as Any) })) }()
+			let stubber = given.stub(for: (DatabaseError?).self)
+			willProduce(stubber)
+			return given
+        }
     }
 
     public struct Verify {
@@ -1550,6 +1600,7 @@ open class CloudDatabaseMock: CloudDatabase, Mock {
         public static func saveCollection(userId: Parameter<String>, localDatabase: Parameter<LocalDatabase>) -> Verify { return Verify(method: .m_saveCollection__userId_userIdlocalDatabase_localDatabase(`userId`, `localDatabase`))}
         public static func gameIsInDatabase(userId: Parameter<String>, savedGame: Parameter<SavedGame>) -> Verify { return Verify(method: .m_gameIsInDatabase__userId_userIdsavedGame_savedGame(`userId`, `savedGame`))}
         public static func removeGame(userId: Parameter<String>, platform: Parameter<Platform>, savedGame: Parameter<SavedGame>) -> Verify { return Verify(method: .m_removeGame__userId_userIdplatform_platformsavedGame_savedGame(`userId`, `platform`, `savedGame`))}
+        public static func syncLocalAndCloudDatabases(userId: Parameter<String>, localDatabase: Parameter<LocalDatabase>) -> Verify { return Verify(method: .m_syncLocalAndCloudDatabases__userId_userIdlocalDatabase_localDatabase(`userId`, `localDatabase`))}
     }
 
     public struct Perform {
@@ -1585,6 +1636,9 @@ open class CloudDatabaseMock: CloudDatabase, Mock {
         }
         public static func removeGame(userId: Parameter<String>, platform: Parameter<Platform>, savedGame: Parameter<SavedGame>, perform: @escaping (String, Platform, SavedGame) -> Void) -> Perform {
             return Perform(method: .m_removeGame__userId_userIdplatform_platformsavedGame_savedGame(`userId`, `platform`, `savedGame`), performs: perform)
+        }
+        public static func syncLocalAndCloudDatabases(userId: Parameter<String>, localDatabase: Parameter<LocalDatabase>, perform: @escaping (String, LocalDatabase) -> Void) -> Perform {
+            return Perform(method: .m_syncLocalAndCloudDatabases__userId_userIdlocalDatabase_localDatabase(`userId`, `localDatabase`), performs: perform)
         }
     }
 
@@ -2337,6 +2391,19 @@ open class LocalDatabaseMock: LocalDatabase, Mock {
 		return __value
     }
 
+    open func removeAll() -> DatabaseError? {
+        addInvocation(.m_removeAll)
+		let perform = methodPerformValue(.m_removeAll) as? () -> Void
+		perform?()
+		var __value: DatabaseError? = nil
+		do {
+		    __value = try methodReturnValue(.m_removeAll).casted()
+		} catch {
+			// do nothing
+		}
+		return __value
+    }
+
 
     fileprivate enum MethodType {
         case m_add__newEntity_newEntityplatform_platform(Parameter<SavedGame>, Parameter<Platform>)
@@ -2344,6 +2411,7 @@ open class LocalDatabaseMock: LocalDatabase, Mock {
         case m_fetchAllPlatforms
         case m_replace__savedGame_savedGame(Parameter<SavedGame>)
         case m_remove__savedGame_savedGame(Parameter<SavedGame>)
+        case m_removeAll
 
         static func compareParameters(lhs: MethodType, rhs: MethodType, matcher: Matcher) -> Matcher.ComparisonResult {
             switch (lhs, rhs) {
@@ -2369,6 +2437,8 @@ open class LocalDatabaseMock: LocalDatabase, Mock {
 				var results: [Matcher.ParameterComparisonResult] = []
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsSavedgame, rhs: rhsSavedgame, with: matcher), lhsSavedgame, rhsSavedgame, "savedGame"))
 				return Matcher.ComparisonResult(results)
+
+            case (.m_removeAll, .m_removeAll): return .match
             default: return .none
             }
         }
@@ -2380,6 +2450,7 @@ open class LocalDatabaseMock: LocalDatabase, Mock {
             case .m_fetchAllPlatforms: return 0
             case let .m_replace__savedGame_savedGame(p0): return p0.intValue
             case let .m_remove__savedGame_savedGame(p0): return p0.intValue
+            case .m_removeAll: return 0
             }
         }
         func assertionName() -> String {
@@ -2389,6 +2460,7 @@ open class LocalDatabaseMock: LocalDatabase, Mock {
             case .m_fetchAllPlatforms: return ".fetchAllPlatforms()"
             case .m_replace__savedGame_savedGame: return ".replace(savedGame:)"
             case .m_remove__savedGame_savedGame: return ".remove(savedGame:)"
+            case .m_removeAll: return ".removeAll()"
             }
         }
     }
@@ -2416,6 +2488,9 @@ open class LocalDatabaseMock: LocalDatabase, Mock {
         }
         public static func remove(savedGame: Parameter<SavedGame>, willReturn: DatabaseError?...) -> MethodStub {
             return Given(method: .m_remove__savedGame_savedGame(`savedGame`), products: willReturn.map({ StubProduct.return($0 as Any) }))
+        }
+        public static func removeAll(willReturn: DatabaseError?...) -> MethodStub {
+            return Given(method: .m_removeAll, products: willReturn.map({ StubProduct.return($0 as Any) }))
         }
         public static func add(newEntity: Parameter<SavedGame>, platform: Parameter<Platform>, willProduce: (Stubber<DatabaseError?>) -> Void) -> MethodStub {
             let willReturn: [DatabaseError?] = []
@@ -2452,6 +2527,13 @@ open class LocalDatabaseMock: LocalDatabase, Mock {
 			willProduce(stubber)
 			return given
         }
+        public static func removeAll(willProduce: (Stubber<DatabaseError?>) -> Void) -> MethodStub {
+            let willReturn: [DatabaseError?] = []
+			let given: Given = { return Given(method: .m_removeAll, products: willReturn.map({ StubProduct.return($0 as Any) })) }()
+			let stubber = given.stub(for: (DatabaseError?).self)
+			willProduce(stubber)
+			return given
+        }
     }
 
     public struct Verify {
@@ -2462,6 +2544,7 @@ open class LocalDatabaseMock: LocalDatabase, Mock {
         public static func fetchAllPlatforms() -> Verify { return Verify(method: .m_fetchAllPlatforms)}
         public static func replace(savedGame: Parameter<SavedGame>) -> Verify { return Verify(method: .m_replace__savedGame_savedGame(`savedGame`))}
         public static func remove(savedGame: Parameter<SavedGame>) -> Verify { return Verify(method: .m_remove__savedGame_savedGame(`savedGame`))}
+        public static func removeAll() -> Verify { return Verify(method: .m_removeAll)}
     }
 
     public struct Perform {
@@ -2482,6 +2565,9 @@ open class LocalDatabaseMock: LocalDatabase, Mock {
         }
         public static func remove(savedGame: Parameter<SavedGame>, perform: @escaping (SavedGame) -> Void) -> Perform {
             return Perform(method: .m_remove__savedGame_savedGame(`savedGame`), performs: perform)
+        }
+        public static func removeAll(perform: @escaping () -> Void) -> Perform {
+            return Perform(method: .m_removeAll, performs: perform)
         }
     }
 

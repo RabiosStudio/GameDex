@@ -177,4 +177,22 @@ extension LocalDatabaseImpl {
             return DatabaseError.removeError
         }
     }
+    
+    func removeAll() async -> DatabaseError? {
+        let fetchPlatformsResult = self.fetchAllPlatforms()
+        switch fetchPlatformsResult {
+        case .success(let result):
+            for item in result {
+                managedObjectContext.delete(item)
+            }
+            do {
+                try managedObjectContext.save()
+                return nil
+            } catch {
+                return DatabaseError.removeError
+            }
+        case .failure:
+            return DatabaseError.removeError
+        }
+    }
 }

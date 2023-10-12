@@ -68,36 +68,3 @@ extension AlertViewModel: Equatable {
         lhs.okButtonTitle == rhs.okButtonTitle
     }
 }
-
-extension Platform: Equatable {
-    public static func == (lhs: Platform, rhs: Platform) -> Bool {
-        lhs.id == rhs.id &&
-        lhs.title == rhs.title &&
-        lhs.games == rhs.games
-    }
-}
-
-extension SavedGame: Equatable {
-    public static func == (lhs: SavedGame, rhs: SavedGame) -> Bool {
-        lhs.acquisitionYear == rhs.acquisitionYear &&
-        lhs.gameCompleteness == rhs.gameCompleteness &&
-        lhs.gameCondition == rhs.gameCondition &&
-        lhs.gameRegion == rhs.gameRegion &&
-        lhs.lastUpdated == rhs.lastUpdated &&
-        lhs.notes == rhs.notes &&
-        lhs.rating == rhs.rating &&
-        lhs.storageArea == rhs.storageArea &&
-        lhs.game == rhs.game
-    }
-}
-
-extension Game: Equatable {
-    public static func == (lhs: Game, rhs: Game) -> Bool {
-        lhs.title == rhs.title &&
-        lhs.id == rhs.id &&
-        lhs.description == rhs.description &&
-        lhs.imageURL == rhs.imageURL &&
-        lhs.platformId == rhs.platformId &&
-        lhs.releaseDate == rhs.releaseDate
-    }
-}

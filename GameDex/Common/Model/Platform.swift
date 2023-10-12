@@ -12,3 +12,11 @@ struct Platform {
     let id: Int
     let games: [SavedGame]?
 }
+
+extension Platform: Equatable {
+    public static func == (lhs: Platform, rhs: Platform) -> Bool {
+        lhs.id == rhs.id &&
+        lhs.title == rhs.title &&
+        lhs.games == rhs.games
+    }
+}
