@@ -40,22 +40,7 @@ class FirestoreDatabase: CloudDatabase {
     }
     
     private enum Attributes: String {
-        case id
-        case email
-        case title
-        case acquisitionYear
-        case description
-        case imageUrl
-        case releaseDate
-        case platform
-        case gameCondition
-        case gameCompleteness
-        case gameRegion
-        case storageArea
-        case rating
-        case notes
-        case lastUpdated
-        case key
+        case acquisitionYear, description, email, gameCompleteness, gameCondition, gameRegion, id, imageUrl, key, lastUpdated, notes, platform, rating, releaseDate, storageArea, title
     }
     
     private let database = Firestore.firestore()
@@ -155,7 +140,7 @@ class FirestoreDatabase: CloudDatabase {
                       let platformId = Int(platformStringId) else {
                     return .failure(DatabaseError.fetchError)
                 }
-                var platform = Platform(title: title, id: platformId, games: nil)
+                let platform = Platform(title: title, id: platformId, games: nil)
                 
                 let fetchSinglePlatformResult = await self.getSinglePlatformCollection(userId: userId, platform: platform)
                 switch fetchSinglePlatformResult {
@@ -215,7 +200,6 @@ class FirestoreDatabase: CloudDatabase {
             let gamesPath = Collections.userGames(userId, "\(savedGame.game.platformId)").path
             let fetchedGames = try await self.database.collection(gamesPath).getDocuments()
             for item in fetchedGames.documents {
-                let data = item.data()
                 let id = item.documentID
                 if id == savedGame.game.id {
                     return .success(true)

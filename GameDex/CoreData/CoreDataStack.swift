@@ -31,11 +31,10 @@ class CoreDataStack {
     }()
     
     func saveContext() async -> DatabaseError? {
-        if let error = await self.saveContext(self.viewContext) {
+        guard await self.saveContext(self.viewContext) == nil else {
             return DatabaseError.saveError
-        } else {
-            return nil
         }
+        return nil
     }
     
     func saveContext(_ context: NSManagedObjectContext) async -> DatabaseError? {

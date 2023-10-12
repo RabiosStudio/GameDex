@@ -50,7 +50,7 @@ final class BasicCardCell: UICollectionViewCell, CellConfigurable {
         self.contentView.backgroundColor = cellVM.cardType.backgroundColor
         self.contentView.addSubview(self.imageView)
         self.contentView.addSubview(self.titleLabel)
-        if let description = cellVM.cardDescription {
+        if cellVM.cardDescription != nil {
             self.descriptionLabel.text = cellVM.cardDescription
             self.contentView.addSubview(self.descriptionLabel)
         }
