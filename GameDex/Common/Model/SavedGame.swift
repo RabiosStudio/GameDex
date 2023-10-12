@@ -26,15 +26,9 @@ extension SavedGame: Equatable {
         lhs.gameCompleteness == rhs.gameCompleteness &&
         lhs.gameCondition == rhs.gameCondition &&
         lhs.gameRegion == rhs.gameRegion &&
-        lhs.lastUpdated.isSameSecond(date: rhs.lastUpdated) &&
+        lhs.lastUpdated == rhs.lastUpdated &&
         lhs.notes == rhs.notes &&
         lhs.rating == rhs.rating &&
         lhs.storageArea == rhs.storageArea
-    }
-}
-
-extension Date {
-    func isSameSecond(date: Date) -> Bool {
-        Calendar.current.isDate(self, equalTo: date, toGranularity: .second)
     }
 }
