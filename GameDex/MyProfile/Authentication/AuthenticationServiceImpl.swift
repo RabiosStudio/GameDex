@@ -9,54 +9,48 @@ import Foundation
 import FirebaseAuth
 
 class AuthenticationServiceImpl: AuthenticationService {
+    let authSession: AuthSession
+    
+    init(authSession: AuthSession = Auth.auth()) {
+        self.authSession = authSession
+    }
     
     func login(email: String, password: String, cloudDatabase: CloudDatabase, localDatabase: LocalDatabase) async -> AuthenticationError? {
         let email = email.lowercased()
-        do {
-            try await Auth.auth().signIn(withEmail: email, password: password)
-            guard let userId = self.getUserId() else {
-                return AuthenticationError.saveUserDataError
-            }
-            guard await cloudDatabase.syncLocalAndCloudDatabases(userId: userId, localDatabase: localDatabase) == nil else {
-                return AuthenticationError.saveUserDataError
-            }
-            return nil
-        } catch {
+        guard await authSession.logIn(email: email, password: password) == nil,
+              let userId = self.getUserId() else {
             return AuthenticationError.loginError
         }
+        guard await cloudDatabase.syncLocalAndCloudDatabases(userId: userId, localDatabase: localDatabase) == nil else {
+            return AuthenticationError.saveUserDataError
+        }
+        return nil
     }
     
     func createUser(email: String, password: String, cloudDatabase: CloudDatabase) async -> AuthenticationError? {
         let email = email.lowercased()
-        do {
-            try await Auth.auth().createUser(withEmail: email, password: password)
-            guard let userId = self.getUserId() else {
-                return AuthenticationError.saveUserDataError
-            }
-            if await cloudDatabase.saveUser(userId: userId, userEmail: email) != nil {
-                return AuthenticationError.saveUserDataError
-            } else {
-                return nil
-            }
-        } catch {
+        guard await authSession.createUser(email: email, password: password) == nil,
+              let userId = self.getUserId() else {
             return AuthenticationError.createAccountError
         }
+        guard await cloudDatabase.saveUser(userId: userId, userEmail: email) == nil else {
+            return AuthenticationError.saveUserDataError
+        }
+        return nil
     }
     
-    func logout(callback: @escaping (AuthenticationError?) -> ()) {
-        do {
-            try Auth.auth().signOut()
-            callback(nil)
-        } catch {
-            callback(AuthenticationError.logoutError)
+    func logout() async -> AuthenticationError? {
+        guard let error = authSession.logOut() else {
+            return nil
         }
+        return error
     }
     
     func isUserLoggedIn() -> Bool {
-        return Auth.auth().currentUser?.uid != nil
+        return authSession.getUserUid() != nil
     }
     
     func getUserId() -> String? {
-        return Auth.auth().currentUser?.uid
+        return authSession.getUserUid()
     }
 }

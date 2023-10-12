@@ -158,4 +158,10 @@ enum MockData {
     static let platformCollected = CoreDataConverter.convert(platform: MockData.platform, context: CoreDataStack().viewContext)
     
     static let searchGameQuery = "Title"
+    
+    static let userId = "userId"
+    
+    static let email = "email"
+    
+    static let password = "password"
 }
