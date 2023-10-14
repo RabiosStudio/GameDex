@@ -1,6 +1,5 @@
 # Uncomment the next line to define a global platform for your project
  platform :ios, '15.0'
-GameDex 'project1folder/GameDex.xcodeproj'
 
 target GameDex do
   # Comment the next line if you don't want to use dynamic frameworks
