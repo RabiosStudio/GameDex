@@ -20,20 +20,9 @@ final class LabelCell: UICollectionViewCell, CellConfigurable {
         return label
     }()
     
-    private lazy var secondaryLabel: UILabel = {
-        let label = UILabel()
-        label.textColor = .secondaryColor
-        label.font = Typography.body.font
-        label.textAlignment = .right
-        label.numberOfLines = .zero
-        label.translatesAutoresizingMaskIntoConstraints = false
-        return label
-    }()
-    
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.contentView.addSubview(self.primaryLabel)
-        self.contentView.addSubview(self.secondaryLabel)
     }
     
     required init?(coder: NSCoder) {
@@ -49,7 +38,6 @@ final class LabelCell: UICollectionViewCell, CellConfigurable {
     override func prepareForReuse() {
         super.prepareForReuse()
         self.primaryLabel.text = nil
-        self.secondaryLabel.text = nil
     }
     
     func configure(cellViewModel: CellViewModel) {
@@ -57,7 +45,6 @@ final class LabelCell: UICollectionViewCell, CellConfigurable {
             return
         }
         self.primaryLabel.text = cellVM.primaryText
-        self.secondaryLabel.text = cellVM.secondaryText
         self.setupConstraints()
     }
     
@@ -65,12 +52,8 @@ final class LabelCell: UICollectionViewCell, CellConfigurable {
         NSLayoutConstraint.activate([
             self.primaryLabel.topAnchor.constraint(equalTo: self.topAnchor),
             self.primaryLabel.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: DesignSystem.paddingRegular),
-            self.primaryLabel.trailingAnchor.constraint(equalTo: self.secondaryLabel.leadingAnchor),
-            self.primaryLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor),
-            
-            self.secondaryLabel.topAnchor.constraint(equalTo: self.topAnchor),
-            self.secondaryLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: -DesignSystem.paddingRegular),
-            self.secondaryLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor)
+            self.primaryLabel.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: DesignSystem.paddingRegular),
+            self.primaryLabel.bottomAnchor.constraint(equalTo: self.bottomAnchor)
         ])
     }
     

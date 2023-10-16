@@ -14,15 +14,12 @@ final class LabelCellViewModel: CollectionCellViewModel {
     var height: CGFloat = DesignSystem.sizeTiny
     
     var primaryText: String
-    var secondaryText: String?
     
     init(
         primaryText: String,
-        secondaryText: String? = nil,
         cellTappedCallback: (() -> Void)? = nil
     ) {
         self.primaryText = primaryText
-        self.secondaryText = secondaryText
         self.cellTappedCallback = cellTappedCallback
     }
     

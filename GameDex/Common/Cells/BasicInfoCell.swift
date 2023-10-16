@@ -13,11 +13,12 @@ final class BasicInfoCell: UICollectionViewCell, CellConfigurable {
     private let imageView: UIImageView = {
         let view = UIImageView()
         view.contentMode = .scaleAspectFit
+        view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
-    private lazy var titleLabel: UILabel = {
-        let label = UILabel()
+    private lazy var titleLabel: VerticallyAlignedUILabel = {
+        let label = VerticallyAlignedUILabel()
         label.font = Typography.title3bold.font
         label.textColor = .secondaryColor
         label.textAlignment = .left
@@ -25,30 +26,27 @@ final class BasicInfoCell: UICollectionViewCell, CellConfigurable {
         return label
     }()
     
-    private lazy var primarySubtitle: UILabel = {
-        let label = UILabel()
+    private lazy var primarySubtitle: VerticallyAlignedUILabel = {
+        let label = VerticallyAlignedUILabel()
         label.font = Typography.body.font
         label.textColor = .secondaryColor
-        label.textAlignment = .left
         return label
     }()
     
-    private lazy var secondarySubtitle: UILabel = {
-        let label = UILabel()
+    private lazy var secondarySubtitle: VerticallyAlignedUILabel = {
+        let label = VerticallyAlignedUILabel()
         label.font = Typography.body.font
         label.textColor = .secondaryColor
-        label.text = ""
-        label.textAlignment = .left
         label.numberOfLines = .zero
         return label
     }()
     
     private lazy var stackView: UIStackView = {
-        let view = UIStackView()
-        view.axis = .vertical
-        view.alignment = .leading
-        view.distribution = .fillProportionally
-        return view
+        let stackView = UIStackView()
+        stackView.axis = .vertical
+        stackView.distribution = .fillProportionally
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        return stackView
     }()
     
     override init(frame: CGRect) {
@@ -66,41 +64,45 @@ final class BasicInfoCell: UICollectionViewCell, CellConfigurable {
     }
     
     func configure(cellViewModel: CellViewModel) {
-        self.setupViews(cellViewModel: cellViewModel)
         guard let cellVM = cellViewModel as? BasicInfoCellViewModel else {
             return
         }
-        self.titleLabel.text = cellVM.title
-        self.primarySubtitle.text = cellVM.subtitle1
-        if let secondarySubtitle = cellVM.subtitle2 {
-            self.secondarySubtitle.text = secondarySubtitle
-        }
+        
         if let imageName = cellVM.caption,
            let imageURL = URL(string: imageName) {
             self.imageView.setImageWith(url: imageURL)
         }
+        
+        self.titleLabel.text = cellVM.title
+        
+        self.setupSubviews(
+            subtitle1: cellVM.subtitle1,
+            subtitle2: cellVM.subtitle2
+        )
+        self.contentView.addSubview(self.stackView)
+        
         self.setupConstraints()
     }
     
-    private func setupViews(cellViewModel: CellViewModel) {
+    private func setupSubviews(subtitle1: String?, subtitle2: String?) {
         self.contentView.addSubview(self.imageView)
         self.stackView.addArrangedSubview(self.titleLabel)
-        guard let cellVM = cellViewModel as? BasicInfoCellViewModel else {
+        guard subtitle1 != nil else {
             return
         }
-        if cellVM.subtitle1 != nil {
-            self.stackView.addArrangedSubview(self.primarySubtitle)
+        self.primarySubtitle.text = subtitle1
+        self.stackView.addArrangedSubview(primarySubtitle)
+        guard subtitle2 != nil else {
+            self.titleLabel.alignment = .bottom
+            self.primarySubtitle.alignment = .top
+            self.stackView.spacing = DesignSystem.paddingRegular
+            return
         }
-        self.stackView.addArrangedSubview(self.secondarySubtitle)
-        self.contentView.addSubview(self.stackView)
+        self.secondarySubtitle.text = subtitle2
+        self.stackView.addArrangedSubview(secondarySubtitle)
     }
     
     private func setupConstraints() {
-        [self.imageView, self.titleLabel, self.primarySubtitle, self.secondarySubtitle].forEach {
-            $0.translatesAutoresizingMaskIntoConstraints = false
-        }
-        self.stackView.translatesAutoresizingMaskIntoConstraints = false
-        
         NSLayoutConstraint.activate([
             self.imageView.topAnchor.constraint(
                 equalTo: self.topAnchor,
