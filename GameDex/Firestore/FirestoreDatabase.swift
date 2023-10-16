@@ -40,7 +40,7 @@ class FirestoreDatabase: CloudDatabase {
     }
     
     private enum Attributes: String {
-        case acquisitionYear, description, email, gameCompleteness, gameCondition, gameRegion, id, imageUrl, key, lastUpdated, notes, platform, rating, releaseDate, storageArea, title
+        case acquisitionYear, description, email, gameCompleteness, gameCondition, gameRegion, id, image, imageUrl, key, lastUpdated, notes, platform, rating, releaseDate, storageArea, title, physical
     }
     
     private let database = Firestore.firestore()
@@ -53,15 +53,20 @@ class FirestoreDatabase: CloudDatabase {
             for item in fetchedData.documents {
                 let data = item.data()
                 let title = item.documentID
-                guard let id = data[Attributes.id.rawValue] as? Int else {
+                guard let id = data[Attributes.id.rawValue] as? Int,
+                      let imageUrl = data[Attributes.image.rawValue] as? String,
+                      let physicalPlatform = data[Attributes.physical.rawValue] as? Bool else {
                     return .failure(DatabaseError.fetchError)
                 }
-                let platform = Platform(
-                    title: title,
-                    id: id,
-                    games: nil
-                )
-                platforms.append(platform)
+                if physicalPlatform == true {
+                    let platform = Platform(
+                        title: title,
+                        id: id,
+                        imageUrl: imageUrl,
+                        games: nil
+                    )
+                    platforms.append(platform)
+                }
             }
             return .success(platforms)
         } catch {
@@ -102,7 +107,7 @@ class FirestoreDatabase: CloudDatabase {
                         description: String(describing: description),
                         id: id,
                         platformId: platformId,
-                        imageURL: String(describing: imageUrl),
+                        imageUrl: String(describing: imageUrl),
                         releaseDate: releasedDate
                     ),
                     acquisitionYear: acquisitionYear as? String,
@@ -119,7 +124,8 @@ class FirestoreDatabase: CloudDatabase {
             
             let platform = Platform(
                 title: platform.title,
-                id: platform.id,
+                id: platform.id, 
+                imageUrl: platform.imageUrl,
                 games: savedGames
             )
             return .success(platform)
@@ -137,10 +143,12 @@ class FirestoreDatabase: CloudDatabase {
                 let data = item.data()
                 let platformStringId = item.documentID
                 guard let title = data[Attributes.title.rawValue] as? String,
+                      let imageUrl = data[Attributes.image.rawValue] as? String,
                       let platformId = Int(platformStringId) else {
                     return .failure(DatabaseError.fetchError)
                 }
-                let platform = Platform(title: title, id: platformId, games: nil)
+                // TODO
+                let platform = Platform(title: title, id: platformId, imageUrl: imageUrl, games: nil)
                 
                 let fetchSinglePlatformResult = await self.getSinglePlatformCollection(userId: userId, platform: platform)
                 switch fetchSinglePlatformResult {
@@ -232,7 +240,7 @@ class FirestoreDatabase: CloudDatabase {
             let docData: [String: Any] = [
                 Attributes.title.rawValue: game.game.title,
                 Attributes.description.rawValue: game.game.description,
-                Attributes.imageUrl.rawValue: game.game.imageURL,
+                Attributes.imageUrl.rawValue: game.game.imageUrl,
                 Attributes.releaseDate.rawValue: game.game.releaseDate as Any,
                 Attributes.platform.rawValue: game.game.platformId,
                 Attributes.gameCondition.rawValue: game.gameCondition as Any,
@@ -264,7 +272,7 @@ class FirestoreDatabase: CloudDatabase {
                 let docData: [String: Any] = [
                     Attributes.title.rawValue: item.game.title,
                     Attributes.description.rawValue: item.game.description,
-                    Attributes.imageUrl.rawValue: item.game.imageURL,
+                    Attributes.imageUrl.rawValue: item.game.imageUrl,
                     Attributes.releaseDate.rawValue: item.game.releaseDate as Any,
                     Attributes.platform.rawValue: item.game.platformId,
                     Attributes.gameCondition.rawValue: item.gameCondition as Any,
@@ -340,7 +348,8 @@ class FirestoreDatabase: CloudDatabase {
             for platformResult in platformsResult {
                 let platform = Platform(
                     title: platformResult.title,
-                    id: platformResult.id,
+                    id: platformResult.id, 
+                    imageUrl: platformResult.imageUrl,
                     games: nil
                 )
                 guard let games = platformResult.games else {
