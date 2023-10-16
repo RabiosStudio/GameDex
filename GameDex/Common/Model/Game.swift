@@ -12,7 +12,7 @@ struct Game: Codable {
     let description: String
     let id: String
     let platformId: Int
-    let imageURL: String
+    let imageUrl: String
     let releaseDate: Date?
 }
 
@@ -22,7 +22,7 @@ extension Game: Equatable {
         lhs.releaseDate == rhs.releaseDate &&
         lhs.id == rhs.id &&
         lhs.title == rhs.title &&
-        lhs.imageURL == rhs.imageURL &&
+        lhs.imageUrl == rhs.imageUrl &&
         lhs.platformId == rhs.platformId
     }
 }

@@ -20,7 +20,7 @@ final class MyCollectionByPlatformsSection: Section {
                 title: item.game.title,
                 subtitle1: platform.title,
                 subtitle2: item.game.releaseDate?.convertToString(),
-                caption: item.game.imageURL,
+                caption: item.game.imageUrl,
                 cellTappedCallback: {
                     let screenFactory = EditGameDetailsScreenFactory(
                         savedGame: item,

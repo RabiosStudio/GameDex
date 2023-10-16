@@ -10,6 +10,7 @@ import Foundation
 struct Platform {
     let title: String
     let id: Int
+    let imageUrl: String
     let games: [SavedGame]?
 }
 
@@ -17,6 +18,7 @@ extension Platform: Equatable {
     public static func == (lhs: Platform, rhs: Platform) -> Bool {
         lhs.id == rhs.id &&
         lhs.title == rhs.title &&
+        lhs.imageUrl == rhs.imageUrl &&
         lhs.games == rhs.games
     }
 }

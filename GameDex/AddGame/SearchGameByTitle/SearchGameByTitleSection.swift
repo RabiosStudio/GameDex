@@ -22,7 +22,7 @@ final class SearchGameByTitleSection: Section {
                 title: game.title,
                 subtitle1: platform.title,
                 subtitle2: game.releaseDate?.convertToString(),
-                caption: game.imageURL,
+                caption: game.imageUrl,
                 cellTappedCallback: {
                     let screenFactory = AddGameDetailsScreenFactory(
                         game: game,
