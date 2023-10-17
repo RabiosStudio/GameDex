@@ -40,7 +40,7 @@ class FirestoreDatabase: CloudDatabase {
     }
     
     private enum Attributes: String {
-        case acquisitionYear, description, email, gameCompleteness, gameCondition, gameRegion, id, image, imageUrl, key, lastUpdated, notes, platform, rating, releaseDate, storageArea, title, physical
+        case acquisitionYear, description, email, gameCompleteness, gameCondition, gameRegion, id, image, imageUrl, key, lastUpdated, notes, physical, platform, rating, releaseDate, storageArea, title
     }
     
     private let database = Firestore.firestore()
@@ -54,11 +54,12 @@ class FirestoreDatabase: CloudDatabase {
                 let data = item.data()
                 let title = item.documentID
                 guard let id = data[Attributes.id.rawValue] as? Int,
-                      let imageUrl = data[Attributes.image.rawValue] as? String,
-                      let physicalPlatform = data[Attributes.physical.rawValue] as? Bool else {
+                      let imageUrl = data[Attributes.imageUrl.rawValue] as? String,
+                      let physicalGames = data[Attributes.physical.rawValue] as? Bool else {
                     return .failure(DatabaseError.fetchError)
                 }
-                if physicalPlatform == true {
+                
+                if physicalGames == true {
                     let platform = Platform(
                         title: title,
                         id: id,
@@ -148,7 +149,13 @@ class FirestoreDatabase: CloudDatabase {
                     return .failure(DatabaseError.fetchError)
                 }
                 // TODO
-                let platform = Platform(title: title, id: platformId, imageUrl: imageUrl, games: nil)
+                
+                let platform = Platform(
+                    title: title,
+                    id: platformId,
+                    imageUrl: imageUrl,
+                    games: nil
+                )
                 
                 let fetchSinglePlatformResult = await self.getSinglePlatformCollection(userId: userId, platform: platform)
                 switch fetchSinglePlatformResult {
