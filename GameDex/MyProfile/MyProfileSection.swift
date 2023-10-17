@@ -13,7 +13,8 @@ final class MyProfileSection: Section {
         isUserLoggedIn: Bool,
         myProfileDelegate: MyProfileViewModelDelegate?,
         myCollectionDelegate: MyCollectionViewModelDelegate?,
-        alertDisplayer: AlertDisplayer
+        alertDisplayer: AlertDisplayer,
+        appLauncher: AppLauncher
     ) {
         super.init()
         self.position = 0
@@ -57,7 +58,30 @@ final class MyProfileSection: Section {
         self.cellsVM.append(collectionManagementCellVM)
         
         let contactUsCellVM = LabelCellViewModel(
-            text: L10n.contactUs
+            text: L10n.contactUs,
+            cellTappedCallback: {
+                let email = L10n.contactUsEmail
+                let alertVM = AlertViewModel(
+                    alertType: .error,
+                    description: L10n.errorEmailAppDescription
+                )
+                
+                guard let url = appLauncher.createEmailUrl(to: email) else {
+                    alertDisplayer.presentTopFloatAlert(parameters: alertVM)
+                    return
+                }
+                let urlEntry: NavigationStyle = .url(
+                    appURL: url,
+                    appLauncher: appLauncher,
+                    alertDisplayer: alertDisplayer,
+                    alertViewModel: alertVM
+                )
+                Routing.shared.route(
+                    navigationStyle: urlEntry,
+                    fromController: nil,
+                    animated: false
+                )
+            }
         )
         self.cellsVM.append(contactUsCellVM)
     }
