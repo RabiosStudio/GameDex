@@ -19,7 +19,7 @@
 "fetchGamesErrorDescription" = "Une erreur est survenue lors de la récupération des données.";
 "errorAuthDescription" = "Veuillez vérifier votre adresse mail et votre mot de passe";
 "errorLogOutDescription" = "Une erreur est survenue lors de la déconnexion.";
-"errorEmailAppDescription" = "Votre application mail n'a pas été détectée. Vous pouvez nous contacter à l'adresse suivante : gabrielledalbera@icloud.com";
+"errorEmailAppDescription" = "Votre application mail n'a pas été détectée. Vous pouvez nous contacter à l'adresse suivante : ";
 
 // Success
 "successTitle" = "Succès";
@@ -81,7 +81,6 @@
 "createAccount" = "Créer un compte";
 "authThroughOtherMethods" = "via d'autres méthodes d'authentification";
 "or" = "OU";
-"contactUsEmail" = "gabrielledalbera@icloud.com";
 
 // Forms
 "title" = "Titre";

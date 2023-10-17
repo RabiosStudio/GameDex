@@ -19,7 +19,7 @@
 "fetchGamesErrorDescription" = "An error occured while fetching data.";
 "errorAuthDescription" = "Please check your email address and password";
 "errorLogOutDescription" = "An error occured while logging out.";
-"errorEmailAppDescription" = "Your email app couldn't be reached. You can contact us at gabrielledalbera@icloud.com";
+"errorEmailAppDescription" = "Your email app couldn't be reached. You can contact us at ";
 
 // Success
 "successTitle" = "Success";
@@ -85,7 +85,6 @@
 "createAccount" = "Create account";
 "authThroughOtherMethods" = "through other methods below";
 "or" = "OR";
-"contactUsEmail" = "gabrielledalbera@icloud.com";
 
 // Forms
 "title" = "Title";

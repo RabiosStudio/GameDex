@@ -60,10 +60,10 @@ final class MyProfileSection: Section {
         let contactUsCellVM = LabelCellViewModel(
             text: L10n.contactUs,
             cellTappedCallback: {
-                let email = L10n.contactUsEmail
+                let email = "gabrielledalbera@icloud.com"
                 let alertVM = AlertViewModel(
                     alertType: .error,
-                    description: L10n.errorEmailAppDescription
+                    description: L10n.errorEmailAppDescription + email
                 )
                 
                 guard let url = appLauncher.createEmailUrl(to: email) else {
