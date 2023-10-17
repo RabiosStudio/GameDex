@@ -55,11 +55,11 @@ class FirestoreDatabase: CloudDatabase {
                 let title = item.documentID
                 guard let id = data[Attributes.id.rawValue] as? Int,
                       let imageUrl = data[Attributes.imageUrl.rawValue] as? String,
-                      let physicalGames = data[Attributes.physical.rawValue] as? Bool else {
+                      let hasPhysicalGames = data[Attributes.physical.rawValue] as? Bool else {
                     return .failure(DatabaseError.fetchError)
                 }
                 
-                if physicalGames == true {
+                if hasPhysicalGames {
                     let platform = Platform(
                         title: title,
                         id: id,
@@ -148,7 +148,6 @@ class FirestoreDatabase: CloudDatabase {
                       let platformId = Int(platformStringId) else {
                     return .failure(DatabaseError.fetchError)
                 }
-                // TODO
                 
                 let platform = Platform(
                     title: title,
