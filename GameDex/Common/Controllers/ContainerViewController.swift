@@ -151,6 +151,7 @@ class ContainerViewController: UIViewController {
     }
     
     private func refresh() {
+        self.configureNavBar()
         self.registerCells()
         self.collectionView.reloadData()
     }
