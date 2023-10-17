@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 
+// sourcery: AutoMockable
 protocol AppLauncher {
     func canOpenURL(_ url: URL) -> Bool
     func open(_ url: URL)

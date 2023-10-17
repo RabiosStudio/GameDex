@@ -10,14 +10,15 @@ import XCTest
 
 final class MyProfileSectionTests: XCTestCase {
     
-    func test_init_GivenUserIsNotLoggedIn_ThenShouldSetPropertiesCorrectly() {
+    func test_init_GivenUserIsLoggedOut_ThenShouldSetPropertiesCorrectly() {
         // Given
         let alertDisplayer = AlertDisplayerMock()
         let section = MyProfileSection(
             isUserLoggedIn: false,
             myProfileDelegate: MyProfileViewModelDelegateMock(),
             myCollectionDelegate: MyCollectionViewModelDelegateMock(),
-            alertDisplayer: alertDisplayer
+            alertDisplayer: alertDisplayer, 
+            appLauncher: AppLauncherMock()
         )
         
         // Then
@@ -33,16 +34,6 @@ final class MyProfileSectionTests: XCTestCase {
         XCTAssertEqual(loginCellVM.text, L10n.login)
         XCTAssertEqual(collectionManagementCellVM.text, L10n.collectionManagement)
         XCTAssertEqual(contactUsCellVM.text, L10n.contactUs)
-        
-        loginCellVM.cellTappedCallback?()
-        let expectedNavigationStyle: NavigationStyle = .push(
-            screenFactory: LoginScreenFactory(
-                myProfileDelegate: MyProfileViewModelDelegateMock(),
-                myCollectionDelegate: MyCollectionViewModelDelegateMock()
-            )
-        )
-        
-        XCTAssertEqual(Routing.shared.lastNavigationStyle,  expectedNavigationStyle)
     }
     
     func test_init_GivenUserIsLoggedIn_ThenShouldSetPropertiesCorrectly() {
@@ -52,7 +43,8 @@ final class MyProfileSectionTests: XCTestCase {
             isUserLoggedIn: true,
             myProfileDelegate: MyProfileViewModelDelegateMock(),
             myCollectionDelegate: MyCollectionViewModelDelegateMock(),
-            alertDisplayer: alertDisplayer
+            alertDisplayer: alertDisplayer,
+            appLauncher: AppLauncherMock()
         )
         
         // Then
@@ -68,9 +60,57 @@ final class MyProfileSectionTests: XCTestCase {
         XCTAssertEqual(loginCellVM.text, L10n.logout)
         XCTAssertEqual(collectionManagementCellVM.text, L10n.collectionManagement)
         XCTAssertEqual(contactUsCellVM.text, L10n.contactUs)
+    }
+    
+    func test_LoginCellTapped_GivenUserIsLoggedOut_ThenShouldSetCellTappedCallbackCorrectly() {
+        // Given
+        let alertDisplayer = AlertDisplayerMock()
+        let section = MyProfileSection(
+            isUserLoggedIn: false,
+            myProfileDelegate: MyProfileViewModelDelegateMock(),
+            myCollectionDelegate: MyCollectionViewModelDelegateMock(),
+            alertDisplayer: alertDisplayer,
+            appLauncher: AppLauncherMock()
+        )
         
+        guard let loginCellVM = section.cellsVM.first as? LabelCellViewModel else {
+            XCTFail("Cell View Models are not correct")
+            return
+        }
+        
+        // When
         loginCellVM.cellTappedCallback?()
         
+        // Then
+        let expectedNavigationStyle: NavigationStyle = .push(
+            screenFactory: LoginScreenFactory(
+                myProfileDelegate: MyProfileViewModelDelegateMock(),
+                myCollectionDelegate: MyCollectionViewModelDelegateMock()
+            )
+        )
+        XCTAssertEqual(Routing.shared.lastNavigationStyle, expectedNavigationStyle)
+    }
+    
+    func test_LoginCellTapped_GivenUserIsLoggedIn_ThenShouldSetCellTappedCallbackCorrectly() {
+        // Given
+        let alertDisplayer = AlertDisplayerMock()
+        let section = MyProfileSection(
+            isUserLoggedIn: true,
+            myProfileDelegate: MyProfileViewModelDelegateMock(),
+            myCollectionDelegate: MyCollectionViewModelDelegateMock(),
+            alertDisplayer: alertDisplayer,
+            appLauncher: AppLauncherMock()
+        )
+        
+        guard let loginCellVM = section.cellsVM.first as? LabelCellViewModel else {
+            XCTFail("Cell View Models are not correct")
+            return
+        }
+        
+        // When
+        loginCellVM.cellTappedCallback?()
+        
+        // Then
         alertDisplayer.verify(
             .presentBasicAlert(
                 parameters: .value(
@@ -83,5 +123,88 @@ final class MyProfileSectionTests: XCTestCase {
                 )
             )
         )
+    }
+    
+    func test_ContactUsCellTapped_GivenCorrectContactEmail_ThenShouldSetCellTappedCallbackCorrectly() {
+        // Given
+        let alertDisplayer = AlertDisplayerMock()
+        let appLauncher = AppLauncherMock()
+        let section = MyProfileSection(
+            isUserLoggedIn: true,
+            myProfileDelegate: MyProfileViewModelDelegateMock(),
+            myCollectionDelegate: MyCollectionViewModelDelegateMock(),
+            alertDisplayer: alertDisplayer,
+            appLauncher: appLauncher
+        )
+        
+        guard let contactUsCellVM = section.cellsVM[2] as? LabelCellViewModel,
+              let contactUrl = URL(string: "mailto:\(L10n.contactUsEmail)") else {
+            XCTFail("Cell View Model or property is not correct")
+            return
+        }
+        
+        appLauncher.given(
+            .createEmailUrl(
+                to: .any,
+                willReturn: contactUrl
+            )
+        )
+        
+        appLauncher.given(
+            .canOpenURL(
+                .value(contactUrl),
+                willReturn: true
+            )
+        )
+        
+        // When
+        contactUsCellVM.cellTappedCallback?()
+        
+        let alertVM = AlertViewModel(
+            alertType: .error,
+            description: L10n.errorEmailAppDescription
+        )
+        
+        let expectedNavigationStyle: NavigationStyle = .url(
+            appURL: contactUrl,
+            appLauncher: appLauncher, 
+            alertDisplayer: alertDisplayer,
+            alertViewModel: alertVM
+        )
+        XCTAssertEqual(Routing.shared.lastNavigationStyle,  expectedNavigationStyle)
+    }
+    
+    func test_ContactUsCellTapped_GivenErrorContactEmail_ThenShouldSetCellTappedCallbackCorrectly() {
+        // Given
+        let alertDisplayer = AlertDisplayerMock()
+        let appLauncher = AppLauncherMock()
+        let section = MyProfileSection(
+            isUserLoggedIn: true,
+            myProfileDelegate: MyProfileViewModelDelegateMock(),
+            myCollectionDelegate: MyCollectionViewModelDelegateMock(),
+            alertDisplayer: alertDisplayer,
+            appLauncher: appLauncher
+        )
+        
+        guard let contactUsCellVM = section.cellsVM[2] as? LabelCellViewModel else {
+            XCTFail("Cell View Model or property is not correct")
+            return
+        }
+        
+        appLauncher.given(
+            .createEmailUrl(
+                to: .any,
+                willReturn: nil
+            )
+        )
+        
+        // When
+        contactUsCellVM.cellTappedCallback?()
+        
+        let alertVM = AlertViewModel(
+            alertType: .error,
+            description: L10n.errorEmailAppDescription
+        )
+        alertDisplayer.verify(.presentTopFloatAlert(parameters: .value(alertVM)))
     }
 }
