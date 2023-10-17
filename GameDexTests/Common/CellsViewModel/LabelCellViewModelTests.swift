@@ -16,12 +16,8 @@ final class LabelCellViewModelTests: XCTestCase {
         let secondaryLabel = "Secondary Label"
         
         // When
-        let cellVM = LabelCellViewModel(
-            primaryText: primaryLabel,
-            secondaryText: secondaryLabel
-        )
+        let cellVM = LabelCellViewModel(text: primaryLabel)
         // Then
-        XCTAssertEqual(cellVM.primaryText, "Primary label")
-        XCTAssertEqual(cellVM.secondaryText, "Secondary Label")
+        XCTAssertEqual(cellVM.text, "Primary label")
     }
 }

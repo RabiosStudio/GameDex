@@ -20,13 +20,27 @@ final class MyCollectionSectionTests: XCTestCase {
         // Then
         XCTAssertEqual(section.cellsVM.count, MockData.platforms.count)
         
-        guard let collectionCellVM = section.cellsVM.first as? LabelCellViewModel else {
-            XCTFail("Cell View Models are not correct")
-            return
+        let sortedPlatforms = MockData.platforms.sorted {
+            $0.title > $1.title
         }
         
-        XCTAssertEqual(collectionCellVM.primaryText, "SNES")
-        XCTAssertEqual(collectionCellVM.secondaryText, "2 \(L10n.games)")
+        for (index, platform) in sortedPlatforms.enumerated() {
+            guard let collectionCellVM = section.cellsVM[index] as? BasicInfoCellViewModel else {
+                XCTFail("Cell View Models are not correct")
+                return
+            }
+            
+            let gameArrayByPlatform = platform.games
+            guard let gameArray = gameArrayByPlatform else { return }
+            let text = gameArray.count > 1 ? L10n.games : L10n.game
+            
+            let expectedSubtitle = "\(String(describing: gameArray.count)) \(text)"
+            
+            XCTAssertEqual(collectionCellVM.title, platform.title)
+            XCTAssertEqual(collectionCellVM.subtitle1, expectedSubtitle)
+            XCTAssertEqual(collectionCellVM.subtitle2, nil)
+            XCTAssertEqual(collectionCellVM.caption, platform.imageUrl)
+        }
     }
     
     func test_cellTappedCallback_ThenLastNavigationStyleIsCorrect() {

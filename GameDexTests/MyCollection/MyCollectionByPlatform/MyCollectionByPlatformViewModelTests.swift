@@ -543,7 +543,7 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
     
     func test_reloadCollection_GivenCloudDatabaseEmptyCollectionFetched_ThenResultsInErrorAlert() async {
         // Given
-        let emptyCollection = Platform(title: "title", id: 1, games: [])
+        let emptyCollection = Platform(title: "title", id: 1, imageUrl: "imageUrl", games: [])
         let authenticationService = AuthenticationServiceMock()
         authenticationService.given(.isUserLoggedIn(willReturn: true))
         authenticationService.given(.getUserId(willReturn: "userId"))
