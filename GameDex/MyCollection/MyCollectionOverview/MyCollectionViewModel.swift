@@ -20,7 +20,7 @@ final class MyCollectionViewModel: ConnectivityDisplayerViewModel {
     )
     var isBounceable: Bool = true
     var progress: Float?
-    var rightButtonItems: [AnyBarButtonItem]? = [.add, .search]
+    var rightButtonItems: [AnyBarButtonItem]? = [.add]
     let screenTitle: String? = L10n.myCollection
     var sections: [Section] = []
     var platforms: [Platform] = []
@@ -49,58 +49,38 @@ final class MyCollectionViewModel: ConnectivityDisplayerViewModel {
         self.displayInfoWarningIfNeeded()
         guard let userId = self.authenticationService.getUserId(),
               self.connectivityChecker.hasConnectivity() else {
-            let fetchPlatformsResult = self.localDatabase.fetchAllPlatforms()
-            switch fetchPlatformsResult {
-            case .success(let result):
-                guard !result.isEmpty else {
-                    self.platforms = []
-                    self.sections = []
-                    let error: MyCollectionError = .emptyCollection(myCollectionDelegate: self)
-                    callback(error)
+            let platformsFetched = self.localDatabase.fetchAllPlatforms()
+            switch platformsFetched {
+            case .success(let platforms):
+                guard let emptyError = self.handleFetchLocalDataSuccess(platforms: platforms) else {
+                    callback(nil)
                     return
                 }
-                self.platforms = CoreDataConverter.convert(platformsCollected: result)
-                self.sections = [
-                    MyCollectionSection(
-                        platforms: self.platforms,
-                        myCollectionDelegate: self
-                    )
-                ]
-                callback(nil)
-            case .failure(_):
-                let error: MyCollectionError = .fetchError
-                callback(error)
+                callback(emptyError)
+            case .failure:
+                callback(MyCollectionError.fetchError)
             }
             return
         }
-        let fetchPlatformsResult = await self.cloudDatabase.getUserCollection(userId: userId)
-        switch fetchPlatformsResult {
-        case .success(let result):
-            guard !result.isEmpty else {
-                self.platforms = []
-                self.sections = []
-                let error: MyCollectionError = .emptyCollection(myCollectionDelegate: self)
-                callback(error)
+        let platformsFetched = await self.cloudDatabase.getUserCollection(userId: userId)
+        switch platformsFetched {
+        case .success(let platforms):
+            guard let emptyError = self.handleFetchCloudDataSuccess(platforms: platforms) else {
+                callback(nil)
                 return
             }
-            self.platforms = result
-            self.sections = [
-                MyCollectionSection(
-                    platforms: self.platforms,
-                    myCollectionDelegate: self
-                )
-            ]
-            callback(nil)
-        case .failure(_):
-            let error: MyCollectionError = .fetchError
-            callback(error)
+            callback(emptyError)
+        case .failure:
+            callback(MyCollectionError.fetchError)
         }
     }
     
     func didTapRightButtonItem() {
         self.presentAddGameMethods()
     }
-    
+}
+
+extension MyCollectionViewModel {
     private func presentAddGameMethods() {
         Routing.shared.route(
             navigationStyle: .present(
@@ -119,16 +99,68 @@ final class MyCollectionViewModel: ConnectivityDisplayerViewModel {
             )
         ]
     }
+    
+    private func handleSectionCreation() {
+        guard !self.platforms.isEmpty else {
+            self.sections = []
+            return
+        }
+        self.sections = [
+            MyCollectionSection(
+                platforms: self.platforms,
+                myCollectionDelegate: self
+            )
+        ]
+    }
+    
+    private func handleSearchIconDisplay() {
+        guard !self.platforms.isEmpty else {
+            if let rightButtonItems = self.rightButtonItems,
+               rightButtonItems.contains(.search) {
+                self.rightButtonItems?.removeLast()
+            }
+            return
+        }
+        self.rightButtonItems?.append(.search)
+    }
+    
+    private func handleFetchLocalDataSuccess(platforms: [PlatformCollected]) -> EmptyError? {
+        guard !platforms.isEmpty else {
+            self.handleFetchEmptyCollection()
+            return MyCollectionError.emptyCollection(myCollectionDelegate: self)
+        }
+        self.platforms = CoreDataConverter.convert(platformsCollected: platforms)
+        self.handleSearchIconDisplay()
+        self.handleSectionCreation()
+        return nil
+    }
+    
+    private func handleFetchCloudDataSuccess(platforms: [Platform]) -> EmptyError? {
+        guard !platforms.isEmpty else {
+            self.handleFetchEmptyCollection()
+            return MyCollectionError.emptyCollection(myCollectionDelegate: self)
+        }
+        self.platforms = platforms
+        self.handleSearchIconDisplay()
+        self.handleSectionCreation()
+        return nil
+    }
+    
+    private func handleFetchEmptyCollection() {
+        self.platforms = []
+        self.handleSearchIconDisplay()
+        self.handleSectionCreation()
+    }
 }
 
-// MARK: - AddGameDetailsViewModelDelegate
-
+// MARK: - MyCollectionViewModelDelegate
 extension MyCollectionViewModel: MyCollectionViewModelDelegate {
     func reloadCollection() {
         self.containerDelegate?.reloadSections()
     }
 }
 
+// MARK: - SearchViewModelDelegate
 extension MyCollectionViewModel: SearchViewModelDelegate {
     func updateSearchTextField(with text: String, callback: @escaping (EmptyError?) -> ()) {
         guard text != "" else {
