@@ -16,6 +16,7 @@ enum CoreDataConverter {
         let platformCollected = PlatformCollected(context: context)
         platformCollected.id = Int16(platform.id)
         platformCollected.title = platform.title
+        platformCollected.imageUrl = platform.imageUrl
                 
         guard let platformGames = platform.games else {
             return platformCollected
@@ -39,7 +40,7 @@ enum CoreDataConverter {
         gameCollected.summary = gameDetails.game.description
         gameCollected.storageArea = gameDetails.storageArea
         gameCollected.notes = gameDetails.notes
-        gameCollected.imageURL = gameDetails.game.imageURL
+        gameCollected.imageUrl = gameDetails.game.imageUrl
         gameCollected.rating = Int16(gameDetails.rating ?? .zero)
         gameCollected.gameRegion = gameDetails.gameRegion
         gameCollected.gameCondition = gameDetails.gameCondition
@@ -60,7 +61,7 @@ enum CoreDataConverter {
                     description: aGame.summary,
                     id: aGame.gameID,
                     platformId: Int(aGame.platform.id),
-                    imageURL: aGame.imageURL,
+                    imageUrl: aGame.imageUrl,
                     releaseDate: aGame.releaseDate
                 ),
                 acquisitionYear: aGame.acquisitionYear,
@@ -75,7 +76,8 @@ enum CoreDataConverter {
         }
         let platform = Platform(
             title: platformCollected.title,
-            id: Int(platformCollected.id),
+            id: Int(platformCollected.id), 
+            imageUrl: platformCollected.imageUrl,
             games: savedGames
         )
         return platform

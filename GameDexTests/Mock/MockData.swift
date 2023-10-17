@@ -11,16 +11,16 @@ import CoreData
 
 enum MockData {
     static let platforms: [Platform] = [
-        Platform(title: "Atari 2600", id: 28, games: MockData.savedGames),
-        Platform(title: "Dreamcast", id: 8, games: MockData.savedGames),
-        Platform(title: "Game Boy Color", id: 11, games: MockData.savedGames),
-        Platform(title: "Jaguar", id: 17, games: MockData.savedGames),
-        Platform(title: "SNES", id: 15, games: MockData.savedGames)
+        Platform(title: "Atari 2600", id: 28, imageUrl: "imageUrl", games: MockData.savedGames),
+        Platform(title: "Dreamcast", id: 8, imageUrl: "imageUrl", games: MockData.savedGames),
+        Platform(title: "Game Boy Color", id: 11, imageUrl: "imageUrl", games: MockData.savedGames),
+        Platform(title: "Jaguar", id: 17, imageUrl: "imageUrl", games: MockData.savedGames),
+        Platform(title: "SNES", id: 15, imageUrl: "imageUrl", games: MockData.savedGames)
     ]
     
-    static let platform = Platform(title: "Game Boy Advance", id: 4, games: MockData.savedGames)
+    static let platform = Platform(title: "Game Boy Advance", id: 4, imageUrl: "imageUrl", games: MockData.savedGames)
     
-    static let platformWithNoGames = Platform(title: "Game Boy Advance", id: 4, games: nil)
+    static let platformWithNoGames = Platform(title: "Game Boy Advance", id: 4, imageUrl: "imageUrl", games: nil)
     
     static let searchGamesData = SearchGamesData(
         offset: .zero,
@@ -80,7 +80,7 @@ enum MockData {
         description: "description",
         id: "id",
         platformId: 4,
-        imageURL: "imageURL",
+        imageUrl: "imageURL",
         releaseDate: Date.now
     )
     
@@ -90,7 +90,7 @@ enum MockData {
              description: "description",
              id: "id",
              platformId: 8,
-             imageURL: "imageURL",
+             imageUrl: "imageURL",
              releaseDate: Date.now
             )
     ]

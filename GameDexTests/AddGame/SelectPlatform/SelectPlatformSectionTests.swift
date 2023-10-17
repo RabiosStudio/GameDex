@@ -18,22 +18,22 @@ final class SelectPlatformSectionTests: XCTestCase {
         )
         
         // Then
-        XCTAssertEqual(section.cellsVM.count, 5)
+        XCTAssertEqual(section.cellsVM.count, MockData.platforms.count)
         
-        guard let platform1CellVM = section.cellsVM.first as? LabelCellViewModel,
-              let platform2CellVM = section.cellsVM[1] as? LabelCellViewModel,
-              let platform3CellVM = section.cellsVM[2] as? LabelCellViewModel,
-              let platform4CellVM = section.cellsVM[3] as? LabelCellViewModel,
-              let platform5CellVM = section.cellsVM.last as? LabelCellViewModel else {
-            XCTFail("Cell View Models are not correct")
-            return
+        for (index, platform) in MockData.platforms.enumerated() {
+            guard let collectionCellVM = section.cellsVM[index] as? BasicInfoCellViewModel else {
+                XCTFail("Cell View Models are not correct")
+                return
+            }
+            
+            let gameArrayByPlatform = platform.games
+            guard let gameArray = gameArrayByPlatform else { return }
+                        
+            XCTAssertEqual(collectionCellVM.title, platform.title)
+            XCTAssertEqual(collectionCellVM.subtitle1, nil)
+            XCTAssertEqual(collectionCellVM.subtitle2, nil)
+            XCTAssertEqual(collectionCellVM.caption, platform.imageUrl)
         }
-        
-        XCTAssertEqual(platform1CellVM.primaryText, "Atari 2600")
-        XCTAssertEqual(platform2CellVM.primaryText, "Dreamcast")
-        XCTAssertEqual(platform3CellVM.primaryText, "Game Boy Color")
-        XCTAssertEqual(platform4CellVM.primaryText, "Jaguar")
-        XCTAssertEqual(platform5CellVM.primaryText, "SNES")
     }
     
     func test_cellTappedCallback_ThenLastNavigationStyleIsCorrect() {

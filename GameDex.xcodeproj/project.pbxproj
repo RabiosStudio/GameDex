@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		076B99D18338973C548C5EFB /* Pods_GameDex.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 071408E05EBD04F01F341425 /* Pods_GameDex.framework */; };
+		2506D8782ADD39B3006D3F52 /* VerticallyAlignedLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2506D8772ADD39B3006D3F52 /* VerticallyAlignedLabel.swift */; };
 		251C86742A94D5E80020C794 /* Mock.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251C86732A94D5E80020C794 /* Mock.generated.swift */; };
 		251C86BA2A97A29D0020C794 /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251C86B02A97A29D0020C794 /* APIError.swift */; };
 		251C86BC2A97A29D0020C794 /* AlamofireAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251C86B22A97A29D0020C794 /* AlamofireAPI.swift */; };
@@ -200,6 +201,7 @@
 		04004D0858B3D2820F814154 /* Pods_GameDex_GameDexUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GameDex_GameDexUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		071408E05EBD04F01F341425 /* Pods_GameDex.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GameDex.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		199276E84FCF7ECF7ECE6434 /* Pods-GameDexTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GameDexTests.release.xcconfig"; path = "Target Support Files/Pods-GameDexTests/Pods-GameDexTests.release.xcconfig"; sourceTree = "<group>"; };
+		2506D8772ADD39B3006D3F52 /* VerticallyAlignedLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticallyAlignedLabel.swift; sourceTree = "<group>"; };
 		251C86732A94D5E80020C794 /* Mock.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mock.generated.swift; sourceTree = "<group>"; };
 		251C86B02A97A29D0020C794 /* APIError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
 		251C86B22A97A29D0020C794 /* AlamofireAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlamofireAPI.swift; sourceTree = "<group>"; };
@@ -682,6 +684,7 @@
 				25EDF7BF2AB43E3100648717 /* AlertType.swift */,
 				2560B01A2ACFF38800EBAADB /* InfoView.swift */,
 				2560B01C2ACFF40600EBAADB /* InfoViewModel.swift */,
+				2506D8772ADD39B3006D3F52 /* VerticallyAlignedLabel.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -1337,6 +1340,7 @@
 				25EB244A2AA8ABCB0024F01C /* GameRegion.swift in Sources */,
 				2548E5D12AB9D1DE004151EF /* Date+Extension.swift in Sources */,
 				25AE1F202A8F94A900F2D06A /* PrimaryButtonContentViewFactory.swift in Sources */,
+				2506D8782ADD39B3006D3F52 /* VerticallyAlignedLabel.swift in Sources */,
 				251C87372A9D04D70020C794 /* SearchGamesData.swift in Sources */,
 				2548E5CF2AB9C1A6004151EF /* DateFormatter.swift in Sources */,
 				25939FFD2AAF6FBF000FC253 /* GameFormType.swift in Sources */,

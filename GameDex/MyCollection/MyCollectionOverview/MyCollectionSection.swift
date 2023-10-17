@@ -26,9 +26,11 @@ final class MyCollectionSection: Section {
             
             let text = gameArray.count > 1 ? L10n.games : L10n.game
             
-            let labelCellVM = LabelCellViewModel(
-                primaryText: platform.title,
-                secondaryText: "\(gameArray.count) \(text)",
+            let platformCellVM = BasicInfoCellViewModel(
+                title: platform.title,
+                subtitle1: "\(gameArray.count) \(text)",
+                subtitle2: nil,
+                caption: platform.imageUrl,
                 cellTappedCallback: {
                     let screenFactory = MyCollectionByPlatformsScreenFactory(
                         platform: platform,
@@ -41,7 +43,7 @@ final class MyCollectionSection: Section {
                     )
                 }
             )
-            self.cellsVM.append(labelCellVM)
+            self.cellsVM.append(platformCellVM)
         }
     }
 }

@@ -19,7 +19,7 @@ public class GameCollected: NSManagedObject {
     @NSManaged public var gameCondition: String?
     @NSManaged public var gameID: String
     @NSManaged public var gameRegion: String?
-    @NSManaged public var imageURL: String
+    @NSManaged public var imageUrl: String
     @NSManaged public var notes: String?
     @NSManaged public var rating: Int16
     @NSManaged public var releaseDate: Date?

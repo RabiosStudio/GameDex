@@ -16,6 +16,7 @@ public class PlatformCollected: NSManagedObject {
 
     @NSManaged public var id: Int16
     @NSManaged public var title: String
+    @NSManaged public var imageUrl: String
     @NSManaged public var games: NSSet?
 
     public var gamesArray: [GameCollected] {

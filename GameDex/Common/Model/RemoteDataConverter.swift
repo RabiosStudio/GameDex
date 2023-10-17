@@ -16,7 +16,7 @@ enum RemoteDataConverter {
                 description: remoteGame.deck,
                 id: remoteGame.guid,
                 platformId: platform.id,
-                imageURL: remoteGame.image.mediumUrl,
+                imageUrl: remoteGame.image.mediumUrl,
                 releaseDate: remoteGame.originalReleaseDate
             )
         }

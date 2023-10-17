@@ -30,12 +30,9 @@ final class MyProfileSectionTests: XCTestCase {
             return
         }
         
-        XCTAssertEqual(loginCellVM.primaryText, L10n.login)
-        XCTAssertEqual(loginCellVM.secondaryText, nil)
-        XCTAssertEqual(collectionManagementCellVM.primaryText, L10n.collectionManagement)
-        XCTAssertEqual(collectionManagementCellVM.secondaryText, nil)
-        XCTAssertEqual(contactUsCellVM.primaryText, L10n.contactUs)
-        XCTAssertEqual(contactUsCellVM.secondaryText, nil)
+        XCTAssertEqual(loginCellVM.text, L10n.login)
+        XCTAssertEqual(collectionManagementCellVM.text, L10n.collectionManagement)
+        XCTAssertEqual(contactUsCellVM.text, L10n.contactUs)
         
         loginCellVM.cellTappedCallback?()
         let expectedNavigationStyle: NavigationStyle = .push(
@@ -68,12 +65,9 @@ final class MyProfileSectionTests: XCTestCase {
             return
         }
         
-        XCTAssertEqual(loginCellVM.primaryText, L10n.logout)
-        XCTAssertEqual(loginCellVM.secondaryText, nil)
-        XCTAssertEqual(collectionManagementCellVM.primaryText, L10n.collectionManagement)
-        XCTAssertEqual(collectionManagementCellVM.secondaryText, nil)
-        XCTAssertEqual(contactUsCellVM.primaryText, L10n.contactUs)
-        XCTAssertEqual(contactUsCellVM.secondaryText, nil)
+        XCTAssertEqual(loginCellVM.text, L10n.logout)
+        XCTAssertEqual(collectionManagementCellVM.text, L10n.collectionManagement)
+        XCTAssertEqual(contactUsCellVM.text, L10n.contactUs)
         
         loginCellVM.cellTappedCallback?()
         
