@@ -130,10 +130,6 @@ extension MyCollectionViewModel: MyCollectionViewModelDelegate {
 }
 
 extension MyCollectionViewModel: SearchViewModelDelegate {
-    func startSearch(from searchQuery: String, callback: @escaping (EmptyError?) -> ()) {
-        callback(nil)
-    }
-    
     func updateSearchTextField(with text: String, callback: @escaping (EmptyError?) -> ()) {
         guard text != "" else {
             self.updateListOfCollections(with: self.platforms)

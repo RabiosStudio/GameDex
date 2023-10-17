@@ -177,10 +177,6 @@ extension MyCollectionByPlatformsViewModel: MyCollectionViewModelDelegate {
 }
 
 extension MyCollectionByPlatformsViewModel: SearchViewModelDelegate {
-    func startSearch(from searchQuery: String, callback: @escaping (EmptyError?) -> ()) {
-        callback(nil)
-    }
-    
     func updateSearchTextField(with text: String, callback: @escaping (EmptyError?) -> ()) {
         guard let collection = self.platform,
               let games = collection.games else {
