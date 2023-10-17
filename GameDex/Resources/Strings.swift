@@ -40,6 +40,8 @@ internal enum L10n {
   internal static let confirm = L10n.tr("Localizable", "confirm", fallback: "Confirm")
   /// Contact Us
   internal static let contactUs = L10n.tr("Localizable", "contactUs", fallback: "Contact Us")
+  /// gabrielledalbera@icloud.com
+  internal static let contactUsEmail = L10n.tr("Localizable", "contactUsEmail", fallback: "gabrielledalbera@icloud.com")
   /// Continue
   internal static let `continue` = L10n.tr("Localizable", "continue", fallback: "Continue")
   /// Create account
@@ -58,6 +60,8 @@ internal enum L10n {
   internal static let emptyMyCollectionTitle = L10n.tr("Localizable", "emptyMyCollectionTitle", fallback: "Your collection is empty")
   /// Please check your email address and password
   internal static let errorAuthDescription = L10n.tr("Localizable", "errorAuthDescription", fallback: "Please check your email address and password")
+  /// Your email app couldn't be reached. You can contact us at gabrielledalbera@icloud.com
+  internal static let errorEmailAppDescription = L10n.tr("Localizable", "errorEmailAppDescription", fallback: "Your email app couldn't be reached. You can contact us at gabrielledalbera@icloud.com")
   /// An error occured while logging out.
   internal static let errorLogOutDescription = L10n.tr("Localizable", "errorLogOutDescription", fallback: "An error occured while logging out.")
   /// Error
