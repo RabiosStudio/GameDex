@@ -91,6 +91,12 @@ class Routing: NSObject, Navigator {
                                           completion: {() -> Void in
                     completionBlock?()
                 })
+            case let .url(appURL, appLauncher, alertDisplayer, alertViewModel):
+                if appLauncher.canOpenURL(appURL) {
+                    appLauncher.open(appURL)
+                } else {
+                    alertDisplayer.presentTopFloatAlert(parameters: alertViewModel)
+                }
             }
         })
         
