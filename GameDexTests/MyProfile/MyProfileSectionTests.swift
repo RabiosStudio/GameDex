@@ -138,7 +138,7 @@ final class MyProfileSectionTests: XCTestCase {
         )
         
         guard let contactUsCellVM = section.cellsVM[2] as? LabelCellViewModel,
-              let contactUrl = URL(string: "mailto:\(L10n.contactUsEmail)") else {
+              let contactUrl = URL(string: "mailto:gabrielledalbera@icloud.com") else {
             XCTFail("Cell View Model or property is not correct")
             return
         }
@@ -160,9 +160,11 @@ final class MyProfileSectionTests: XCTestCase {
         // When
         contactUsCellVM.cellTappedCallback?()
         
+        let email = "gabrielledalbera@icloud.com"
+        
         let alertVM = AlertViewModel(
             alertType: .error,
-            description: L10n.errorEmailAppDescription
+            description: L10n.errorEmailAppDescription + email
         )
         
         let expectedNavigationStyle: NavigationStyle = .url(
@@ -201,9 +203,11 @@ final class MyProfileSectionTests: XCTestCase {
         // When
         contactUsCellVM.cellTappedCallback?()
         
+        let email = "gabrielledalbera@icloud.com"
+        
         let alertVM = AlertViewModel(
             alertType: .error,
-            description: L10n.errorEmailAppDescription
+            description: L10n.errorEmailAppDescription + email
         )
         alertDisplayer.verify(.presentTopFloatAlert(parameters: .value(alertVM)))
     }
