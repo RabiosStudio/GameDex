@@ -23,4 +23,5 @@ enum NavigationStyle {
     case present(screenFactory: ScreenFactory, screenSize: ScreenSize = .full, completionBlock: (() -> Void)?)
     case dismiss(completionBlock: (() -> Void)?)
     case selectTab(index: Int, completionBlock: (() -> Void)?)
+    case url(appURL: URL, appLauncher: AppLauncher, alertDisplayer: AlertDisplayer, alertViewModel: AlertViewModel)
 }

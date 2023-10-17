@@ -54,6 +54,8 @@ extension NavigationStyle: Equatable {
             return true
         case (.selectTab, .selectTab):
             return true
+        case (.url, .url):
+            return true
         default:
             return false
         }

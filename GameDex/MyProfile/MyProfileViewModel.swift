@@ -44,7 +44,8 @@ final class MyProfileViewModel: CollectionViewModel {
                 isUserLoggedIn: isUserLoggedIn,
                 myProfileDelegate: self,
                 myCollectionDelegate: self.myCollectionDelegate,
-                alertDisplayer: self.alertDisplayer
+                alertDisplayer: self.alertDisplayer,
+                appLauncher: AppLauncherImpl()
             )
         ]
         callback(nil)

@@ -347,7 +347,7 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
         XCTAssertTrue(callbackIsCalled)
     }
     
-    func test_reloadCollection_GivenFetchDataError_ThenResultsInErrorAlert() async {
+    func test_reloadCollection_GivenLocalDatabaseFetchDataError_ThenResultsInErrorAlert() async {
         // Given
         let authenticationService = AuthenticationServiceMock()
         authenticationService.given(
@@ -403,7 +403,7 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
         )
     }
     
-    func test_reloadCollection_GivenEmptyCollectionFetched_ThenResultsInErrorAlert() async {
+    func test_reloadCollection_GivenLocalDatabaseEmptyCollectionFetched_ThenResultsInErrorAlert() async {
         // Given
         let emptyCollection = [PlatformCollected]()
         let localDatabase = LocalDatabaseMock()
