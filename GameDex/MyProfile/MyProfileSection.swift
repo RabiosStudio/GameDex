@@ -20,7 +20,7 @@ final class MyProfileSection: Section {
         
         if isUserLoggedIn {
             let logoutCellVM = LabelCellViewModel(
-                primaryText: L10n.logout,
+                text: L10n.logout,
                 cellTappedCallback: {
                     alertDisplayer.presentBasicAlert(
                         parameters: AlertViewModel(
@@ -35,7 +35,7 @@ final class MyProfileSection: Section {
             self.cellsVM.append(logoutCellVM)
         } else {
             let loginCellVM = LabelCellViewModel(
-                primaryText: L10n.login,
+                text: L10n.login,
                 cellTappedCallback: {
                     let screenFactory = LoginScreenFactory(
                         myProfileDelegate: myProfileDelegate,
@@ -52,12 +52,12 @@ final class MyProfileSection: Section {
         }
         
         let collectionManagementCellVM = LabelCellViewModel(
-            primaryText: L10n.collectionManagement
+            text: L10n.collectionManagement
         )
         self.cellsVM.append(collectionManagementCellVM)
         
         let contactUsCellVM = LabelCellViewModel(
-            primaryText: L10n.contactUs
+            text: L10n.contactUs
         )
         self.cellsVM.append(contactUsCellVM)
     }
