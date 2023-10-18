@@ -25,22 +25,22 @@ final class EditProfileSection: Section {
         )
         self.cellsVM.append(titleCellVM)
         
-        let emailTextField = TextFieldCellViewModel(
+        let emailTextFieldCellVM = TextFieldCellViewModel(
             placeholder: credentialsConfirmed ? L10n.newEmail : L10n.currentEmail,
             formType: UserAccountFormType.email
         )
-        self.cellsVM.append(emailTextField)
+        self.cellsVM.append(emailTextFieldCellVM)
         
-        let passwordTextField = TextFieldCellViewModel(
+        let passwordTextFieldCellVM = TextFieldCellViewModel(
             placeholder: credentialsConfirmed ? L10n.newPassword : L10n.currentPassword,
             formType: UserAccountFormType.password
         )
-        self.cellsVM.append(passwordTextField)
+        self.cellsVM.append(passwordTextFieldCellVM)
         
-        let updateProfileCellVM = PrimaryButtonCellViewModel(
+        let updateProfileButtonCellVM = PrimaryButtonCellViewModel(
             title: credentialsConfirmed ? L10n.saveChanges : L10n.confirm,
             delegate: primaryButtonDelegate
         )
-        self.cellsVM.append(updateProfileCellVM)
+        self.cellsVM.append(updateProfileButtonCellVM)
     }
 }

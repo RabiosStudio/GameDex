@@ -54,6 +54,7 @@ final class EditProfileViewModel: CollectionViewModel {
     }
 }
 
+// MARK: - PrimaryButtonDelegate
 extension EditProfileViewModel: PrimaryButtonDelegate {
     func didTapPrimaryButton() async {
         guard let firstSection = self.sections.first,
@@ -89,6 +90,7 @@ extension EditProfileViewModel: PrimaryButtonDelegate {
     }
 }
 
+// MARK: - Private
 private extension EditProfileViewModel {
     func displayAlert(alertType: AlertType) {
         let successText = credentialsConfirmed ? L10n.updateSuccessDescription : L10n.successAuthDescription
