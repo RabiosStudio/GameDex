@@ -216,6 +216,7 @@
 		2506D8882ADFBEDE006D3F52 /* EditProfileScreenFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileScreenFactory.swift; sourceTree = "<group>"; };
 		2506D88B2ADFEEE7006D3F52 /* EditProfileViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewModelTests.swift; sourceTree = "<group>"; };
 		2506D88D2ADFEEF4006D3F52 /* EditProfileSectionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileSectionTests.swift; sourceTree = "<group>"; };
+		2506D8962AE026B2006D3F52 /* ButtonType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonType.swift; sourceTree = "<group>"; };
 		251C86732A94D5E80020C794 /* Mock.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mock.generated.swift; sourceTree = "<group>"; };
 		251C86B02A97A29D0020C794 /* APIError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
 		251C86B22A97A29D0020C794 /* AlamofireAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlamofireAPI.swift; sourceTree = "<group>"; };
@@ -500,6 +501,7 @@
 				251C86D32A9899A70020C794 /* RemoteDataConverter.swift */,
 				25E8E4A22AC1B7AF0093E7F8 /* CellSize.swift */,
 				256D9C412AD2BD9700D4AA23 /* Position.swift */,
+				2506D8962AE026B2006D3F52 /* ButtonType.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1362,6 +1364,7 @@
 				25979DB22ABF17D1002CEDE7 /* PrimaryButtonCellViewModel.swift in Sources */,
 				25EDF7B72AB34E5800648717 /* EditGameDetailsScreenFactory.swift in Sources */,
 				25EB242E2AA621900024F01C /* ImageDescriptionCellViewModel.swift in Sources */,
+				2506D8972AE026B2006D3F52 /* ButtonType.swift in Sources */,
 				251C86F82A9A307A0020C794 /* UISearchBar+Configure.swift in Sources */,
 				25EB241A2AA5F8940024F01C /* AddGameDetailsScreenFactory.swift in Sources */,
 				2560B0192ACFF1DF00EBAADB /* InfoContentViewFactory.swift in Sources */,
