@@ -37,6 +37,7 @@
 "warningGameAlreadyInDatabase" = "Ce jeu est déjà dans votre collection !";
 "warningLogOut" = "Êtes-vous sûr(e) de vouloir vous déconnecter ?";
 "warningUpdatePassword" = "Votre adresse email a bien été mise à jour mais une erreur est survenue lors de la mise à jour du mot de passe.";
+"warningAccountDeletion" = "La suppression du compte est définitive. Cela n'affecte pas les données enregistrées en local sur votre appareil.";
 
 // Button
 "addAGame" = "Ajouter un jeu";
@@ -86,6 +87,7 @@
 "editProfile" = "Modifier mon compte";
 "updateCredentials" = "Modifiez votre adresse email et votre mot de passe.";
 "confirmCredentials" = "Confirmer votre adresse email et mot de passe actuels pour mettre à jour vos informations.";
+"deleteAccount" = "Supprimer mon compte";
 
 // Forms
 "title" = "Titre";
