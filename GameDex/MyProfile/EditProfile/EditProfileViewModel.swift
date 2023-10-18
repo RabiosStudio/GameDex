@@ -29,14 +29,15 @@ final class EditProfileViewModel: CollectionViewModel {
         myCollectionDelegate: MyCollectionViewModelDelegate?,
         alertDisplayer: AlertDisplayer,
         authenticationService: AuthenticationService,
-        cloudDatabase: CloudDatabase
+        cloudDatabase: CloudDatabase,
+        credentialsConfirmed: Bool
     ) {
         self.myProfileDelegate = myProfileDelegate
         self.myCollectionDelegate = myCollectionDelegate
         self.authenticationService = authenticationService
         self.cloudDatabase = cloudDatabase
         self.alertDisplayer = alertDisplayer
-        self.credentialsConfirmed = false
+        self.credentialsConfirmed = credentialsConfirmed
     }
     
     func loadData(callback: @escaping (EmptyError?) -> ()) {

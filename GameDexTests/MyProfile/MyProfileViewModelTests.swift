@@ -39,10 +39,9 @@ final class MyProfileViewModelTests: XCTestCase {
         )
         
         // When
-        viewModel.loadData { _ in
-        }
+        viewModel.loadData { _ in }
         XCTAssertEqual(viewModel.numberOfSections(), 1)
-        XCTAssertEqual(viewModel.numberOfItems(in: .zero), 3)
+        XCTAssertEqual(viewModel.numberOfItems(in: .zero), 4)
     }
     
     func test_loadData_GivenUserIsNotLoggedIn_ThenSectionsUpdated() {

@@ -1190,12 +1190,54 @@ open class AuthSessionMock: AuthSession, Mock {
 		return __value
     }
 
+    open func updateUserEmailAddress(to newEmail: String) -> AuthenticationError? {
+        addInvocation(.m_updateUserEmailAddress__to_newEmail(Parameter<String>.value(`newEmail`)))
+		let perform = methodPerformValue(.m_updateUserEmailAddress__to_newEmail(Parameter<String>.value(`newEmail`))) as? (String) -> Void
+		perform?(`newEmail`)
+		var __value: AuthenticationError? = nil
+		do {
+		    __value = try methodReturnValue(.m_updateUserEmailAddress__to_newEmail(Parameter<String>.value(`newEmail`))).casted()
+		} catch {
+			// do nothing
+		}
+		return __value
+    }
+
+    open func updateUserPassword(to newPassword: String) -> AuthenticationError? {
+        addInvocation(.m_updateUserPassword__to_newPassword(Parameter<String>.value(`newPassword`)))
+		let perform = methodPerformValue(.m_updateUserPassword__to_newPassword(Parameter<String>.value(`newPassword`))) as? (String) -> Void
+		perform?(`newPassword`)
+		var __value: AuthenticationError? = nil
+		do {
+		    __value = try methodReturnValue(.m_updateUserPassword__to_newPassword(Parameter<String>.value(`newPassword`))).casted()
+		} catch {
+			// do nothing
+		}
+		return __value
+    }
+
+    open func reauthenticate(email: String, password: String) -> AuthenticationError? {
+        addInvocation(.m_reauthenticate__email_emailpassword_password(Parameter<String>.value(`email`), Parameter<String>.value(`password`)))
+		let perform = methodPerformValue(.m_reauthenticate__email_emailpassword_password(Parameter<String>.value(`email`), Parameter<String>.value(`password`))) as? (String, String) -> Void
+		perform?(`email`, `password`)
+		var __value: AuthenticationError? = nil
+		do {
+		    __value = try methodReturnValue(.m_reauthenticate__email_emailpassword_password(Parameter<String>.value(`email`), Parameter<String>.value(`password`))).casted()
+		} catch {
+			// do nothing
+		}
+		return __value
+    }
+
 
     fileprivate enum MethodType {
         case m_logIn__email_emailpassword_password(Parameter<String>, Parameter<String>)
         case m_createUser__email_emailpassword_password(Parameter<String>, Parameter<String>)
         case m_logOut
         case m_getUserUid
+        case m_updateUserEmailAddress__to_newEmail(Parameter<String>)
+        case m_updateUserPassword__to_newPassword(Parameter<String>)
+        case m_reauthenticate__email_emailpassword_password(Parameter<String>, Parameter<String>)
 
         static func compareParameters(lhs: MethodType, rhs: MethodType, matcher: Matcher) -> Matcher.ComparisonResult {
             switch (lhs, rhs) {
@@ -1214,6 +1256,22 @@ open class AuthSessionMock: AuthSession, Mock {
             case (.m_logOut, .m_logOut): return .match
 
             case (.m_getUserUid, .m_getUserUid): return .match
+
+            case (.m_updateUserEmailAddress__to_newEmail(let lhsNewemail), .m_updateUserEmailAddress__to_newEmail(let rhsNewemail)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsNewemail, rhs: rhsNewemail, with: matcher), lhsNewemail, rhsNewemail, "to newEmail"))
+				return Matcher.ComparisonResult(results)
+
+            case (.m_updateUserPassword__to_newPassword(let lhsNewpassword), .m_updateUserPassword__to_newPassword(let rhsNewpassword)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsNewpassword, rhs: rhsNewpassword, with: matcher), lhsNewpassword, rhsNewpassword, "to newPassword"))
+				return Matcher.ComparisonResult(results)
+
+            case (.m_reauthenticate__email_emailpassword_password(let lhsEmail, let lhsPassword), .m_reauthenticate__email_emailpassword_password(let rhsEmail, let rhsPassword)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsEmail, rhs: rhsEmail, with: matcher), lhsEmail, rhsEmail, "email"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsPassword, rhs: rhsPassword, with: matcher), lhsPassword, rhsPassword, "password"))
+				return Matcher.ComparisonResult(results)
             default: return .none
             }
         }
@@ -1224,6 +1282,9 @@ open class AuthSessionMock: AuthSession, Mock {
             case let .m_createUser__email_emailpassword_password(p0, p1): return p0.intValue + p1.intValue
             case .m_logOut: return 0
             case .m_getUserUid: return 0
+            case let .m_updateUserEmailAddress__to_newEmail(p0): return p0.intValue
+            case let .m_updateUserPassword__to_newPassword(p0): return p0.intValue
+            case let .m_reauthenticate__email_emailpassword_password(p0, p1): return p0.intValue + p1.intValue
             }
         }
         func assertionName() -> String {
@@ -1232,6 +1293,9 @@ open class AuthSessionMock: AuthSession, Mock {
             case .m_createUser__email_emailpassword_password: return ".createUser(email:password:)"
             case .m_logOut: return ".logOut()"
             case .m_getUserUid: return ".getUserUid()"
+            case .m_updateUserEmailAddress__to_newEmail: return ".updateUserEmailAddress(to:)"
+            case .m_updateUserPassword__to_newPassword: return ".updateUserPassword(to:)"
+            case .m_reauthenticate__email_emailpassword_password: return ".reauthenticate(email:password:)"
             }
         }
     }
@@ -1256,6 +1320,15 @@ open class AuthSessionMock: AuthSession, Mock {
         }
         public static func getUserUid(willReturn: String?...) -> MethodStub {
             return Given(method: .m_getUserUid, products: willReturn.map({ StubProduct.return($0 as Any) }))
+        }
+        public static func updateUserEmailAddress(to newEmail: Parameter<String>, willReturn: AuthenticationError?...) -> MethodStub {
+            return Given(method: .m_updateUserEmailAddress__to_newEmail(`newEmail`), products: willReturn.map({ StubProduct.return($0 as Any) }))
+        }
+        public static func updateUserPassword(to newPassword: Parameter<String>, willReturn: AuthenticationError?...) -> MethodStub {
+            return Given(method: .m_updateUserPassword__to_newPassword(`newPassword`), products: willReturn.map({ StubProduct.return($0 as Any) }))
+        }
+        public static func reauthenticate(email: Parameter<String>, password: Parameter<String>, willReturn: AuthenticationError?...) -> MethodStub {
+            return Given(method: .m_reauthenticate__email_emailpassword_password(`email`, `password`), products: willReturn.map({ StubProduct.return($0 as Any) }))
         }
         public static func logIn(email: Parameter<String>, password: Parameter<String>, willProduce: (Stubber<AuthenticationError?>) -> Void) -> MethodStub {
             let willReturn: [AuthenticationError?] = []
@@ -1285,6 +1358,27 @@ open class AuthSessionMock: AuthSession, Mock {
 			willProduce(stubber)
 			return given
         }
+        public static func updateUserEmailAddress(to newEmail: Parameter<String>, willProduce: (Stubber<AuthenticationError?>) -> Void) -> MethodStub {
+            let willReturn: [AuthenticationError?] = []
+			let given: Given = { return Given(method: .m_updateUserEmailAddress__to_newEmail(`newEmail`), products: willReturn.map({ StubProduct.return($0 as Any) })) }()
+			let stubber = given.stub(for: (AuthenticationError?).self)
+			willProduce(stubber)
+			return given
+        }
+        public static func updateUserPassword(to newPassword: Parameter<String>, willProduce: (Stubber<AuthenticationError?>) -> Void) -> MethodStub {
+            let willReturn: [AuthenticationError?] = []
+			let given: Given = { return Given(method: .m_updateUserPassword__to_newPassword(`newPassword`), products: willReturn.map({ StubProduct.return($0 as Any) })) }()
+			let stubber = given.stub(for: (AuthenticationError?).self)
+			willProduce(stubber)
+			return given
+        }
+        public static func reauthenticate(email: Parameter<String>, password: Parameter<String>, willProduce: (Stubber<AuthenticationError?>) -> Void) -> MethodStub {
+            let willReturn: [AuthenticationError?] = []
+			let given: Given = { return Given(method: .m_reauthenticate__email_emailpassword_password(`email`, `password`), products: willReturn.map({ StubProduct.return($0 as Any) })) }()
+			let stubber = given.stub(for: (AuthenticationError?).self)
+			willProduce(stubber)
+			return given
+        }
     }
 
     public struct Verify {
@@ -1294,6 +1388,9 @@ open class AuthSessionMock: AuthSession, Mock {
         public static func createUser(email: Parameter<String>, password: Parameter<String>) -> Verify { return Verify(method: .m_createUser__email_emailpassword_password(`email`, `password`))}
         public static func logOut() -> Verify { return Verify(method: .m_logOut)}
         public static func getUserUid() -> Verify { return Verify(method: .m_getUserUid)}
+        public static func updateUserEmailAddress(to newEmail: Parameter<String>) -> Verify { return Verify(method: .m_updateUserEmailAddress__to_newEmail(`newEmail`))}
+        public static func updateUserPassword(to newPassword: Parameter<String>) -> Verify { return Verify(method: .m_updateUserPassword__to_newPassword(`newPassword`))}
+        public static func reauthenticate(email: Parameter<String>, password: Parameter<String>) -> Verify { return Verify(method: .m_reauthenticate__email_emailpassword_password(`email`, `password`))}
     }
 
     public struct Perform {
@@ -1311,6 +1408,15 @@ open class AuthSessionMock: AuthSession, Mock {
         }
         public static func getUserUid(perform: @escaping () -> Void) -> Perform {
             return Perform(method: .m_getUserUid, performs: perform)
+        }
+        public static func updateUserEmailAddress(to newEmail: Parameter<String>, perform: @escaping (String) -> Void) -> Perform {
+            return Perform(method: .m_updateUserEmailAddress__to_newEmail(`newEmail`), performs: perform)
+        }
+        public static func updateUserPassword(to newPassword: Parameter<String>, perform: @escaping (String) -> Void) -> Perform {
+            return Perform(method: .m_updateUserPassword__to_newPassword(`newPassword`), performs: perform)
+        }
+        public static func reauthenticate(email: Parameter<String>, password: Parameter<String>, perform: @escaping (String, String) -> Void) -> Perform {
+            return Perform(method: .m_reauthenticate__email_emailpassword_password(`email`, `password`), performs: perform)
         }
     }
 
@@ -1497,6 +1603,45 @@ open class AuthenticationServiceMock: AuthenticationService, Mock {
 		return __value
     }
 
+    open func updateUserEmailAddress(to newEmail: String, cloudDatabase: CloudDatabase) -> AuthenticationError? {
+        addInvocation(.m_updateUserEmailAddress__to_newEmailcloudDatabase_cloudDatabase(Parameter<String>.value(`newEmail`), Parameter<CloudDatabase>.value(`cloudDatabase`)))
+		let perform = methodPerformValue(.m_updateUserEmailAddress__to_newEmailcloudDatabase_cloudDatabase(Parameter<String>.value(`newEmail`), Parameter<CloudDatabase>.value(`cloudDatabase`))) as? (String, CloudDatabase) -> Void
+		perform?(`newEmail`, `cloudDatabase`)
+		var __value: AuthenticationError? = nil
+		do {
+		    __value = try methodReturnValue(.m_updateUserEmailAddress__to_newEmailcloudDatabase_cloudDatabase(Parameter<String>.value(`newEmail`), Parameter<CloudDatabase>.value(`cloudDatabase`))).casted()
+		} catch {
+			// do nothing
+		}
+		return __value
+    }
+
+    open func updateUserPassword(to newPassword: String) -> AuthenticationError? {
+        addInvocation(.m_updateUserPassword__to_newPassword(Parameter<String>.value(`newPassword`)))
+		let perform = methodPerformValue(.m_updateUserPassword__to_newPassword(Parameter<String>.value(`newPassword`))) as? (String) -> Void
+		perform?(`newPassword`)
+		var __value: AuthenticationError? = nil
+		do {
+		    __value = try methodReturnValue(.m_updateUserPassword__to_newPassword(Parameter<String>.value(`newPassword`))).casted()
+		} catch {
+			// do nothing
+		}
+		return __value
+    }
+
+    open func reauthenticateUser(email: String, password: String) -> AuthenticationError? {
+        addInvocation(.m_reauthenticateUser__email_emailpassword_password(Parameter<String>.value(`email`), Parameter<String>.value(`password`)))
+		let perform = methodPerformValue(.m_reauthenticateUser__email_emailpassword_password(Parameter<String>.value(`email`), Parameter<String>.value(`password`))) as? (String, String) -> Void
+		perform?(`email`, `password`)
+		var __value: AuthenticationError? = nil
+		do {
+		    __value = try methodReturnValue(.m_reauthenticateUser__email_emailpassword_password(Parameter<String>.value(`email`), Parameter<String>.value(`password`))).casted()
+		} catch {
+			// do nothing
+		}
+		return __value
+    }
+
 
     fileprivate enum MethodType {
         case m_login__email_emailpassword_passwordcloudDatabase_cloudDatabaselocalDatabase_localDatabase(Parameter<String>, Parameter<String>, Parameter<CloudDatabase>, Parameter<LocalDatabase>)
@@ -1504,6 +1649,9 @@ open class AuthenticationServiceMock: AuthenticationService, Mock {
         case m_logout
         case m_isUserLoggedIn
         case m_getUserId
+        case m_updateUserEmailAddress__to_newEmailcloudDatabase_cloudDatabase(Parameter<String>, Parameter<CloudDatabase>)
+        case m_updateUserPassword__to_newPassword(Parameter<String>)
+        case m_reauthenticateUser__email_emailpassword_password(Parameter<String>, Parameter<String>)
 
         static func compareParameters(lhs: MethodType, rhs: MethodType, matcher: Matcher) -> Matcher.ComparisonResult {
             switch (lhs, rhs) {
@@ -1527,6 +1675,23 @@ open class AuthenticationServiceMock: AuthenticationService, Mock {
             case (.m_isUserLoggedIn, .m_isUserLoggedIn): return .match
 
             case (.m_getUserId, .m_getUserId): return .match
+
+            case (.m_updateUserEmailAddress__to_newEmailcloudDatabase_cloudDatabase(let lhsNewemail, let lhsClouddatabase), .m_updateUserEmailAddress__to_newEmailcloudDatabase_cloudDatabase(let rhsNewemail, let rhsClouddatabase)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsNewemail, rhs: rhsNewemail, with: matcher), lhsNewemail, rhsNewemail, "to newEmail"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsClouddatabase, rhs: rhsClouddatabase, with: matcher), lhsClouddatabase, rhsClouddatabase, "cloudDatabase"))
+				return Matcher.ComparisonResult(results)
+
+            case (.m_updateUserPassword__to_newPassword(let lhsNewpassword), .m_updateUserPassword__to_newPassword(let rhsNewpassword)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsNewpassword, rhs: rhsNewpassword, with: matcher), lhsNewpassword, rhsNewpassword, "to newPassword"))
+				return Matcher.ComparisonResult(results)
+
+            case (.m_reauthenticateUser__email_emailpassword_password(let lhsEmail, let lhsPassword), .m_reauthenticateUser__email_emailpassword_password(let rhsEmail, let rhsPassword)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsEmail, rhs: rhsEmail, with: matcher), lhsEmail, rhsEmail, "email"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsPassword, rhs: rhsPassword, with: matcher), lhsPassword, rhsPassword, "password"))
+				return Matcher.ComparisonResult(results)
             default: return .none
             }
         }
@@ -1538,6 +1703,9 @@ open class AuthenticationServiceMock: AuthenticationService, Mock {
             case .m_logout: return 0
             case .m_isUserLoggedIn: return 0
             case .m_getUserId: return 0
+            case let .m_updateUserEmailAddress__to_newEmailcloudDatabase_cloudDatabase(p0, p1): return p0.intValue + p1.intValue
+            case let .m_updateUserPassword__to_newPassword(p0): return p0.intValue
+            case let .m_reauthenticateUser__email_emailpassword_password(p0, p1): return p0.intValue + p1.intValue
             }
         }
         func assertionName() -> String {
@@ -1547,6 +1715,9 @@ open class AuthenticationServiceMock: AuthenticationService, Mock {
             case .m_logout: return ".logout()"
             case .m_isUserLoggedIn: return ".isUserLoggedIn()"
             case .m_getUserId: return ".getUserId()"
+            case .m_updateUserEmailAddress__to_newEmailcloudDatabase_cloudDatabase: return ".updateUserEmailAddress(to:cloudDatabase:)"
+            case .m_updateUserPassword__to_newPassword: return ".updateUserPassword(to:)"
+            case .m_reauthenticateUser__email_emailpassword_password: return ".reauthenticateUser(email:password:)"
             }
         }
     }
@@ -1574,6 +1745,15 @@ open class AuthenticationServiceMock: AuthenticationService, Mock {
         }
         public static func getUserId(willReturn: String?...) -> MethodStub {
             return Given(method: .m_getUserId, products: willReturn.map({ StubProduct.return($0 as Any) }))
+        }
+        public static func updateUserEmailAddress(to newEmail: Parameter<String>, cloudDatabase: Parameter<CloudDatabase>, willReturn: AuthenticationError?...) -> MethodStub {
+            return Given(method: .m_updateUserEmailAddress__to_newEmailcloudDatabase_cloudDatabase(`newEmail`, `cloudDatabase`), products: willReturn.map({ StubProduct.return($0 as Any) }))
+        }
+        public static func updateUserPassword(to newPassword: Parameter<String>, willReturn: AuthenticationError?...) -> MethodStub {
+            return Given(method: .m_updateUserPassword__to_newPassword(`newPassword`), products: willReturn.map({ StubProduct.return($0 as Any) }))
+        }
+        public static func reauthenticateUser(email: Parameter<String>, password: Parameter<String>, willReturn: AuthenticationError?...) -> MethodStub {
+            return Given(method: .m_reauthenticateUser__email_emailpassword_password(`email`, `password`), products: willReturn.map({ StubProduct.return($0 as Any) }))
         }
         public static func login(email: Parameter<String>, password: Parameter<String>, cloudDatabase: Parameter<CloudDatabase>, localDatabase: Parameter<LocalDatabase>, willProduce: (Stubber<AuthenticationError?>) -> Void) -> MethodStub {
             let willReturn: [AuthenticationError?] = []
@@ -1610,6 +1790,27 @@ open class AuthenticationServiceMock: AuthenticationService, Mock {
 			willProduce(stubber)
 			return given
         }
+        public static func updateUserEmailAddress(to newEmail: Parameter<String>, cloudDatabase: Parameter<CloudDatabase>, willProduce: (Stubber<AuthenticationError?>) -> Void) -> MethodStub {
+            let willReturn: [AuthenticationError?] = []
+			let given: Given = { return Given(method: .m_updateUserEmailAddress__to_newEmailcloudDatabase_cloudDatabase(`newEmail`, `cloudDatabase`), products: willReturn.map({ StubProduct.return($0 as Any) })) }()
+			let stubber = given.stub(for: (AuthenticationError?).self)
+			willProduce(stubber)
+			return given
+        }
+        public static func updateUserPassword(to newPassword: Parameter<String>, willProduce: (Stubber<AuthenticationError?>) -> Void) -> MethodStub {
+            let willReturn: [AuthenticationError?] = []
+			let given: Given = { return Given(method: .m_updateUserPassword__to_newPassword(`newPassword`), products: willReturn.map({ StubProduct.return($0 as Any) })) }()
+			let stubber = given.stub(for: (AuthenticationError?).self)
+			willProduce(stubber)
+			return given
+        }
+        public static func reauthenticateUser(email: Parameter<String>, password: Parameter<String>, willProduce: (Stubber<AuthenticationError?>) -> Void) -> MethodStub {
+            let willReturn: [AuthenticationError?] = []
+			let given: Given = { return Given(method: .m_reauthenticateUser__email_emailpassword_password(`email`, `password`), products: willReturn.map({ StubProduct.return($0 as Any) })) }()
+			let stubber = given.stub(for: (AuthenticationError?).self)
+			willProduce(stubber)
+			return given
+        }
     }
 
     public struct Verify {
@@ -1620,6 +1821,9 @@ open class AuthenticationServiceMock: AuthenticationService, Mock {
         public static func logout() -> Verify { return Verify(method: .m_logout)}
         public static func isUserLoggedIn() -> Verify { return Verify(method: .m_isUserLoggedIn)}
         public static func getUserId() -> Verify { return Verify(method: .m_getUserId)}
+        public static func updateUserEmailAddress(to newEmail: Parameter<String>, cloudDatabase: Parameter<CloudDatabase>) -> Verify { return Verify(method: .m_updateUserEmailAddress__to_newEmailcloudDatabase_cloudDatabase(`newEmail`, `cloudDatabase`))}
+        public static func updateUserPassword(to newPassword: Parameter<String>) -> Verify { return Verify(method: .m_updateUserPassword__to_newPassword(`newPassword`))}
+        public static func reauthenticateUser(email: Parameter<String>, password: Parameter<String>) -> Verify { return Verify(method: .m_reauthenticateUser__email_emailpassword_password(`email`, `password`))}
     }
 
     public struct Perform {
@@ -1640,6 +1844,15 @@ open class AuthenticationServiceMock: AuthenticationService, Mock {
         }
         public static func getUserId(perform: @escaping () -> Void) -> Perform {
             return Perform(method: .m_getUserId, performs: perform)
+        }
+        public static func updateUserEmailAddress(to newEmail: Parameter<String>, cloudDatabase: Parameter<CloudDatabase>, perform: @escaping (String, CloudDatabase) -> Void) -> Perform {
+            return Perform(method: .m_updateUserEmailAddress__to_newEmailcloudDatabase_cloudDatabase(`newEmail`, `cloudDatabase`), performs: perform)
+        }
+        public static func updateUserPassword(to newPassword: Parameter<String>, perform: @escaping (String) -> Void) -> Perform {
+            return Perform(method: .m_updateUserPassword__to_newPassword(`newPassword`), performs: perform)
+        }
+        public static func reauthenticateUser(email: Parameter<String>, password: Parameter<String>, perform: @escaping (String, String) -> Void) -> Perform {
+            return Perform(method: .m_reauthenticateUser__email_emailpassword_password(`email`, `password`), performs: perform)
         }
     }
 
@@ -1829,6 +2042,19 @@ open class CloudDatabaseMock: CloudDatabase, Mock {
 		return __value
     }
 
+    open func saveUserEmail(userId: String, userEmail: String) -> DatabaseError? {
+        addInvocation(.m_saveUserEmail__userId_userIduserEmail_userEmail(Parameter<String>.value(`userId`), Parameter<String>.value(`userEmail`)))
+		let perform = methodPerformValue(.m_saveUserEmail__userId_userIduserEmail_userEmail(Parameter<String>.value(`userId`), Parameter<String>.value(`userEmail`))) as? (String, String) -> Void
+		perform?(`userId`, `userEmail`)
+		var __value: DatabaseError? = nil
+		do {
+		    __value = try methodReturnValue(.m_saveUserEmail__userId_userIduserEmail_userEmail(Parameter<String>.value(`userId`), Parameter<String>.value(`userEmail`))).casted()
+		} catch {
+			// do nothing
+		}
+		return __value
+    }
+
     open func saveGames(userId: String, platform: Platform) -> DatabaseError? {
         addInvocation(.m_saveGames__userId_userIdplatform_platform(Parameter<String>.value(`userId`), Parameter<Platform>.value(`platform`)))
 		let perform = methodPerformValue(.m_saveGames__userId_userIdplatform_platform(Parameter<String>.value(`userId`), Parameter<Platform>.value(`platform`))) as? (String, Platform) -> Void
@@ -1915,6 +2141,7 @@ open class CloudDatabaseMock: CloudDatabase, Mock {
         case m_getUserCollection__userId_userId(Parameter<String>)
         case m_getAvailablePlatforms
         case m_saveUser__userId_userIduserEmail_userEmail(Parameter<String>, Parameter<String>)
+        case m_saveUserEmail__userId_userIduserEmail_userEmail(Parameter<String>, Parameter<String>)
         case m_saveGames__userId_userIdplatform_platform(Parameter<String>, Parameter<Platform>)
         case m_saveGame__userId_userIdgame_gameplatform_platformeditingEntry_editingEntry(Parameter<String>, Parameter<SavedGame>, Parameter<Platform>, Parameter<Bool>)
         case m_saveCollection__userId_userIdlocalDatabase_localDatabase(Parameter<String>, Parameter<LocalDatabase>)
@@ -1940,6 +2167,12 @@ open class CloudDatabaseMock: CloudDatabase, Mock {
             case (.m_getAvailablePlatforms, .m_getAvailablePlatforms): return .match
 
             case (.m_saveUser__userId_userIduserEmail_userEmail(let lhsUserid, let lhsUseremail), .m_saveUser__userId_userIduserEmail_userEmail(let rhsUserid, let rhsUseremail)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsUserid, rhs: rhsUserid, with: matcher), lhsUserid, rhsUserid, "userId"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsUseremail, rhs: rhsUseremail, with: matcher), lhsUseremail, rhsUseremail, "userEmail"))
+				return Matcher.ComparisonResult(results)
+
+            case (.m_saveUserEmail__userId_userIduserEmail_userEmail(let lhsUserid, let lhsUseremail), .m_saveUserEmail__userId_userIduserEmail_userEmail(let rhsUserid, let rhsUseremail)):
 				var results: [Matcher.ParameterComparisonResult] = []
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsUserid, rhs: rhsUserid, with: matcher), lhsUserid, rhsUserid, "userId"))
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsUseremail, rhs: rhsUseremail, with: matcher), lhsUseremail, rhsUseremail, "userEmail"))
@@ -1994,6 +2227,7 @@ open class CloudDatabaseMock: CloudDatabase, Mock {
             case let .m_getUserCollection__userId_userId(p0): return p0.intValue
             case .m_getAvailablePlatforms: return 0
             case let .m_saveUser__userId_userIduserEmail_userEmail(p0, p1): return p0.intValue + p1.intValue
+            case let .m_saveUserEmail__userId_userIduserEmail_userEmail(p0, p1): return p0.intValue + p1.intValue
             case let .m_saveGames__userId_userIdplatform_platform(p0, p1): return p0.intValue + p1.intValue
             case let .m_saveGame__userId_userIdgame_gameplatform_platformeditingEntry_editingEntry(p0, p1, p2, p3): return p0.intValue + p1.intValue + p2.intValue + p3.intValue
             case let .m_saveCollection__userId_userIdlocalDatabase_localDatabase(p0, p1): return p0.intValue + p1.intValue
@@ -2009,6 +2243,7 @@ open class CloudDatabaseMock: CloudDatabase, Mock {
             case .m_getUserCollection__userId_userId: return ".getUserCollection(userId:)"
             case .m_getAvailablePlatforms: return ".getAvailablePlatforms()"
             case .m_saveUser__userId_userIduserEmail_userEmail: return ".saveUser(userId:userEmail:)"
+            case .m_saveUserEmail__userId_userIduserEmail_userEmail: return ".saveUserEmail(userId:userEmail:)"
             case .m_saveGames__userId_userIdplatform_platform: return ".saveGames(userId:platform:)"
             case .m_saveGame__userId_userIdgame_gameplatform_platformeditingEntry_editingEntry: return ".saveGame(userId:game:platform:editingEntry:)"
             case .m_saveCollection__userId_userIdlocalDatabase_localDatabase: return ".saveCollection(userId:localDatabase:)"
@@ -2042,6 +2277,9 @@ open class CloudDatabaseMock: CloudDatabase, Mock {
         }
         public static func saveUser(userId: Parameter<String>, userEmail: Parameter<String>, willReturn: DatabaseError?...) -> MethodStub {
             return Given(method: .m_saveUser__userId_userIduserEmail_userEmail(`userId`, `userEmail`), products: willReturn.map({ StubProduct.return($0 as Any) }))
+        }
+        public static func saveUserEmail(userId: Parameter<String>, userEmail: Parameter<String>, willReturn: DatabaseError?...) -> MethodStub {
+            return Given(method: .m_saveUserEmail__userId_userIduserEmail_userEmail(`userId`, `userEmail`), products: willReturn.map({ StubProduct.return($0 as Any) }))
         }
         public static func saveGames(userId: Parameter<String>, platform: Parameter<Platform>, willReturn: DatabaseError?...) -> MethodStub {
             return Given(method: .m_saveGames__userId_userIdplatform_platform(`userId`, `platform`), products: willReturn.map({ StubProduct.return($0 as Any) }))
@@ -2092,6 +2330,13 @@ open class CloudDatabaseMock: CloudDatabase, Mock {
         public static func saveUser(userId: Parameter<String>, userEmail: Parameter<String>, willProduce: (Stubber<DatabaseError?>) -> Void) -> MethodStub {
             let willReturn: [DatabaseError?] = []
 			let given: Given = { return Given(method: .m_saveUser__userId_userIduserEmail_userEmail(`userId`, `userEmail`), products: willReturn.map({ StubProduct.return($0 as Any) })) }()
+			let stubber = given.stub(for: (DatabaseError?).self)
+			willProduce(stubber)
+			return given
+        }
+        public static func saveUserEmail(userId: Parameter<String>, userEmail: Parameter<String>, willProduce: (Stubber<DatabaseError?>) -> Void) -> MethodStub {
+            let willReturn: [DatabaseError?] = []
+			let given: Given = { return Given(method: .m_saveUserEmail__userId_userIduserEmail_userEmail(`userId`, `userEmail`), products: willReturn.map({ StubProduct.return($0 as Any) })) }()
 			let stubber = given.stub(for: (DatabaseError?).self)
 			willProduce(stubber)
 			return given
@@ -2148,6 +2393,7 @@ open class CloudDatabaseMock: CloudDatabase, Mock {
         public static func getUserCollection(userId: Parameter<String>) -> Verify { return Verify(method: .m_getUserCollection__userId_userId(`userId`))}
         public static func getAvailablePlatforms() -> Verify { return Verify(method: .m_getAvailablePlatforms)}
         public static func saveUser(userId: Parameter<String>, userEmail: Parameter<String>) -> Verify { return Verify(method: .m_saveUser__userId_userIduserEmail_userEmail(`userId`, `userEmail`))}
+        public static func saveUserEmail(userId: Parameter<String>, userEmail: Parameter<String>) -> Verify { return Verify(method: .m_saveUserEmail__userId_userIduserEmail_userEmail(`userId`, `userEmail`))}
         public static func saveGames(userId: Parameter<String>, platform: Parameter<Platform>) -> Verify { return Verify(method: .m_saveGames__userId_userIdplatform_platform(`userId`, `platform`))}
         public static func saveGame(userId: Parameter<String>, game: Parameter<SavedGame>, platform: Parameter<Platform>, editingEntry: Parameter<Bool>) -> Verify { return Verify(method: .m_saveGame__userId_userIdgame_gameplatform_platformeditingEntry_editingEntry(`userId`, `game`, `platform`, `editingEntry`))}
         public static func saveCollection(userId: Parameter<String>, localDatabase: Parameter<LocalDatabase>) -> Verify { return Verify(method: .m_saveCollection__userId_userIdlocalDatabase_localDatabase(`userId`, `localDatabase`))}
@@ -2174,6 +2420,9 @@ open class CloudDatabaseMock: CloudDatabase, Mock {
         }
         public static func saveUser(userId: Parameter<String>, userEmail: Parameter<String>, perform: @escaping (String, String) -> Void) -> Perform {
             return Perform(method: .m_saveUser__userId_userIduserEmail_userEmail(`userId`, `userEmail`), performs: perform)
+        }
+        public static func saveUserEmail(userId: Parameter<String>, userEmail: Parameter<String>, perform: @escaping (String, String) -> Void) -> Perform {
+            return Perform(method: .m_saveUserEmail__userId_userIduserEmail_userEmail(`userId`, `userEmail`), performs: perform)
         }
         public static func saveGames(userId: Parameter<String>, platform: Parameter<Platform>, perform: @escaping (String, Platform) -> Void) -> Perform {
             return Perform(method: .m_saveGames__userId_userIdplatform_platform(`userId`, `platform`), performs: perform)

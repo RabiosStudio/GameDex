@@ -1,0 +1,298 @@
+//
+//  EditProfileViewModelTests.swift
+//  GameDexTests
+//
+//  Created by Gabrielle Dalbera on 18/10/2023.
+//
+
+import XCTest
+@testable import GameDex
+
+final class EditProfileViewModelTests: XCTestCase {
+    func test_init_ThenShouldSetupPropertiesCorrectly() {
+        // Given
+        let viewModel = EditProfileViewModel(
+            myProfileDelegate: MyProfileViewModelDelegateMock(),
+            myCollectionDelegate: MyCollectionViewModelDelegateMock(),
+            alertDisplayer: AlertDisplayerMock(),
+            authenticationService: AuthenticationServiceMock(),
+            cloudDatabase: CloudDatabaseMock(),
+            credentialsConfirmed: false
+        )
+        
+        // Then
+        XCTAssertEqual(viewModel.numberOfSections(), .zero)
+        XCTAssertEqual(viewModel.numberOfItems(in: .zero), .zero)
+    }
+    
+    func test_loadData_ThenSectionIsUpdated() {
+        // Given
+        let viewModel = EditProfileViewModel(
+            myProfileDelegate: MyProfileViewModelDelegateMock(),
+            myCollectionDelegate: MyCollectionViewModelDelegateMock(),
+            alertDisplayer: AlertDisplayerMock(),
+            authenticationService: AuthenticationServiceMock(),
+            cloudDatabase: CloudDatabaseMock(),
+            credentialsConfirmed: false
+        )
+        
+        // When
+        viewModel.loadData { _ in }
+        XCTAssertEqual(viewModel.numberOfSections(), 1)
+        XCTAssertEqual(viewModel.numberOfItems(in: .zero), 4)
+    }
+    
+    func test_didTapPrimaryButton_GivenCredentialsConfirmedAndNoError_ThenAlertParametersAreCorrectAndDelegatesCalled() async {
+        // Given
+        let alertDisplayer = AlertDisplayerMock()
+        let myCollectionDelegate = MyCollectionViewModelDelegateMock()
+        let myProfileDelegate = MyProfileViewModelDelegateMock()
+        let authenticationService = AuthenticationServiceMock()
+        authenticationService.given(.updateUserEmailAddress(to: .any, cloudDatabase: .any, willReturn: nil))
+        authenticationService.given(.updateUserPassword(to: .any, willReturn: nil))
+        
+        let viewModel = EditProfileViewModel(
+            myProfileDelegate: myProfileDelegate,
+            myCollectionDelegate: myCollectionDelegate,
+            alertDisplayer: alertDisplayer,
+            authenticationService: authenticationService,
+            cloudDatabase: CloudDatabaseMock(),
+            credentialsConfirmed: true
+        )
+        let containerDelegate = ContainerViewControllerDelegateMock()
+        viewModel.containerDelegate = containerDelegate
+        viewModel.loadData { _ in }
+        
+        let firstSection = viewModel.sections.first!
+        let formCellsVM = firstSection.cellsVM.filter({ cellVM in
+            return cellVM is TextFieldCellViewModel
+        }) as! [TextFieldCellViewModel]
+        
+        for formCellVM in formCellsVM {
+            guard let formType = formCellVM.formType as? UserAccountFormType else { return }
+            switch formType {
+            case .email:
+                formCellVM.value = "email"
+            case .password:
+                formCellVM.value = "password"
+            }
+        }
+        
+        // When
+        await viewModel.didTapPrimaryButton()
+        
+        // Then
+        alertDisplayer.verify(
+            .presentTopFloatAlert(
+                parameters: .value(
+                    AlertViewModel(
+                        alertType: .success,
+                        description: L10n.updateSuccessDescription
+                    )
+                )
+            )
+        )
+        
+        myCollectionDelegate.verify(.reloadCollection())
+        myProfileDelegate.verify(.reloadMyProfile())
+        containerDelegate.verify(.goBackToRootViewController())
+    }
+    
+    func test_didTapPrimaryButton_GivenCredentialsConfirmedAndErrorUpdatingUserEmailAddress_ThenAlertParametersAreCorrect() async {
+        // Given
+        let alertDisplayer = AlertDisplayerMock()
+        let authenticationService = AuthenticationServiceMock()
+        authenticationService.given(.updateUserEmailAddress(to: .any, cloudDatabase: .any, willReturn: AuthenticationError.saveUserDataError))
+        authenticationService.given(.updateUserPassword(to: .any, willReturn: nil))
+        
+        let viewModel = EditProfileViewModel(
+            myProfileDelegate: MyProfileViewModelDelegateMock(),
+            myCollectionDelegate: MyCollectionViewModelDelegateMock(),
+            alertDisplayer: alertDisplayer,
+            authenticationService: authenticationService,
+            cloudDatabase: CloudDatabaseMock(),
+            credentialsConfirmed: true
+        )
+        viewModel.loadData { _ in }
+        
+        let firstSection = viewModel.sections.first!
+        let formCellsVM = firstSection.cellsVM.filter({ cellVM in
+            return cellVM is TextFieldCellViewModel
+        }) as! [TextFieldCellViewModel]
+        
+        for formCellVM in formCellsVM {
+            guard let formType = formCellVM.formType as? UserAccountFormType else { return }
+            switch formType {
+            case .email:
+                formCellVM.value = "email"
+            case .password:
+                formCellVM.value = "password"
+            }
+        }
+        
+        // When
+        await viewModel.didTapPrimaryButton()
+        
+        // Then
+        alertDisplayer.verify(
+            .presentTopFloatAlert(
+                parameters: .value(
+                    AlertViewModel(
+                        alertType: .error,
+                        description: L10n.updateErrorDescription
+                    )
+                )
+            )
+        )
+    }
+    
+    func test_didTapPrimaryButton_GivenCredentialsConfirmedAndErrorUpdatingPassword_ThenAlertParametersAreCorrect() async {
+        // Given
+        let alertDisplayer = AlertDisplayerMock()
+        let authenticationService = AuthenticationServiceMock()
+        authenticationService.given(.updateUserEmailAddress(to: .any, cloudDatabase: .any, willReturn: nil))
+        authenticationService.given(.updateUserPassword(to: .any, willReturn: AuthenticationError.saveUserDataError))
+        
+        let viewModel = EditProfileViewModel(
+            myProfileDelegate: MyProfileViewModelDelegateMock(),
+            myCollectionDelegate: MyCollectionViewModelDelegateMock(),
+            alertDisplayer: alertDisplayer,
+            authenticationService: authenticationService,
+            cloudDatabase: CloudDatabaseMock(),
+            credentialsConfirmed: true
+        )
+        viewModel.loadData { _ in }
+        
+        let firstSection = viewModel.sections.first!
+        let formCellsVM = firstSection.cellsVM.filter({ cellVM in
+            return cellVM is TextFieldCellViewModel
+        }) as! [TextFieldCellViewModel]
+        
+        for formCellVM in formCellsVM {
+            guard let formType = formCellVM.formType as? UserAccountFormType else { return }
+            switch formType {
+            case .email:
+                formCellVM.value = "email"
+            case .password:
+                formCellVM.value = "password"
+            }
+        }
+        
+        // When
+        await viewModel.didTapPrimaryButton()
+        
+        // Then
+        alertDisplayer.verify(
+            .presentTopFloatAlert(
+                parameters: .value(
+                    AlertViewModel(
+                        alertType: .warning,
+                        description: L10n.warningUpdatePassword
+                    )
+                )
+            )
+        )
+    }
+    
+    func test_didTapPrimaryButton_GivenCredentialsUnconfirmedAndNoError_ThenReauthenticateUser() async {
+        // Given
+        let alertDisplayer = AlertDisplayerMock()
+        let myCollectionDelegate = MyCollectionViewModelDelegateMock()
+        let myProfileDelegate = MyProfileViewModelDelegateMock()
+        let authenticationService = AuthenticationServiceMock()
+        authenticationService.given(.reauthenticateUser(email: .any, password: .any, willReturn: nil))
+        
+        let viewModel = EditProfileViewModel(
+            myProfileDelegate: myProfileDelegate,
+            myCollectionDelegate: myCollectionDelegate,
+            alertDisplayer: alertDisplayer,
+            authenticationService: authenticationService,
+            cloudDatabase: CloudDatabaseMock(),
+            credentialsConfirmed: false
+        )
+        let containerDelegate = ContainerViewControllerDelegateMock()
+        viewModel.containerDelegate = containerDelegate
+        viewModel.loadData { _ in }
+        
+        let firstSection = viewModel.sections.first!
+        let formCellsVM = firstSection.cellsVM.filter({ cellVM in
+            return cellVM is TextFieldCellViewModel
+        }) as! [TextFieldCellViewModel]
+        
+        for formCellVM in formCellsVM {
+            guard let formType = formCellVM.formType as? UserAccountFormType else { return }
+            switch formType {
+            case .email:
+                formCellVM.value = "email"
+            case .password:
+                formCellVM.value = "password"
+            }
+        }
+        
+        // When
+        await viewModel.didTapPrimaryButton()
+        
+        // Then
+        alertDisplayer.verify(
+            .presentTopFloatAlert(
+                parameters: .value(
+                    AlertViewModel(
+                        alertType: .success,
+                        description: L10n.successAuthDescription
+                    )
+                )
+            )
+        )
+        containerDelegate.verify(.reloadSections())
+    }
+    
+    func test_didTapPrimaryButton_GivenCredentialsUnconfirmedAndErrorReauthenticatingUser_ThenAlertParametersAreCorrectAndContainerDelegateCalled() async {
+        // Given
+        let alertDisplayer = AlertDisplayerMock()
+        let authenticationService = AuthenticationServiceMock()
+        authenticationService.given(.reauthenticateUser(email: .any, password: .any, willReturn: AuthenticationError.loginError))
+        
+        let viewModel = EditProfileViewModel(
+            myProfileDelegate: MyProfileViewModelDelegateMock(),
+            myCollectionDelegate: MyCollectionViewModelDelegateMock(),
+            alertDisplayer: alertDisplayer,
+            authenticationService: authenticationService,
+            cloudDatabase: CloudDatabaseMock(),
+            credentialsConfirmed: false
+        )
+        let containerDelegate = ContainerViewControllerDelegateMock()
+        viewModel.containerDelegate = containerDelegate
+        viewModel.loadData { _ in }
+        
+        let firstSection = viewModel.sections.first!
+        let formCellsVM = firstSection.cellsVM.filter({ cellVM in
+            return cellVM is TextFieldCellViewModel
+        }) as! [TextFieldCellViewModel]
+        
+        for formCellVM in formCellsVM {
+            guard let formType = formCellVM.formType as? UserAccountFormType else { return }
+            switch formType {
+            case .email:
+                formCellVM.value = "email"
+            case .password:
+                formCellVM.value = "password"
+            }
+        }
+        
+        // When
+        await viewModel.didTapPrimaryButton()
+        
+        // Then
+        alertDisplayer.verify(
+            .presentTopFloatAlert(
+                parameters: .value(
+                    AlertViewModel(
+                        alertType: .error,
+                        description: L10n.errorCredentialsDescription
+                    )
+                )
+            )
+        )
+        containerDelegate.verify(.reloadSections())
+    }
+}

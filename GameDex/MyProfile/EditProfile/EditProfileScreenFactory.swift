@@ -19,7 +19,8 @@ struct EditProfileScreenFactory: ScreenFactory {
             myCollectionDelegate: self.myCollectionDelegate,
             alertDisplayer: AlertDisplayerImpl(),
             authenticationService: AuthenticationServiceImpl(),
-            cloudDatabase: FirestoreDatabase()
+            cloudDatabase: FirestoreDatabase(), 
+            credentialsConfirmed: false
         )
         let layout = UICollectionViewFlowLayout()
         let containerController = ContainerViewController(

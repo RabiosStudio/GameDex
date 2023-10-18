@@ -114,7 +114,7 @@ final class EditGameDetailsViewModelTests: XCTestCase {
                 parameters: .value(
                     AlertViewModel(
                         alertType: .success,
-                        description: L10n.updateGameSuccessDescription
+                        description: L10n.updateSuccessDescription
                     )
                 )
             )
@@ -169,7 +169,7 @@ final class EditGameDetailsViewModelTests: XCTestCase {
                 parameters: .value(
                     AlertViewModel(
                         alertType: .error,
-                        description: L10n.updateGameErrorDescription
+                        description: L10n.updateErrorDescription
                     )
                 )
             )
@@ -212,7 +212,7 @@ final class EditGameDetailsViewModelTests: XCTestCase {
             .saveGame(
                 userId: .any,
                 game: .any,
-                platformName: .any,
+                platform: .any,
                 editingEntry: .value(true),
                 willReturn: nil
             )
@@ -227,7 +227,7 @@ final class EditGameDetailsViewModelTests: XCTestCase {
                 parameters: .value(
                     AlertViewModel(
                         alertType: .success,
-                        description: L10n.updateGameSuccessDescription
+                        description: L10n.updateSuccessDescription
                     )
                 )
             )
@@ -270,7 +270,7 @@ final class EditGameDetailsViewModelTests: XCTestCase {
             .saveGame(
                 userId: .any,
                 game: .any,
-                platformName: .any,
+                platform: .any,
                 editingEntry: .value(true),
                 willReturn: DatabaseError.saveError
             )
@@ -285,7 +285,7 @@ final class EditGameDetailsViewModelTests: XCTestCase {
                 parameters: .value(
                     AlertViewModel(
                         alertType: .error,
-                        description: L10n.updateGameErrorDescription
+                        description: L10n.updateErrorDescription
                     )
                 )
             )

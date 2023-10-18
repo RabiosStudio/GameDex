@@ -48,16 +48,18 @@ final class MyProfileSectionTests: XCTestCase {
         )
         
         // Then
-        XCTAssertEqual(section.cellsVM.count, 3)
+        XCTAssertEqual(section.cellsVM.count, 4)
         
         guard let loginCellVM = section.cellsVM.first as? LabelCellViewModel,
-              let collectionManagementCellVM = section.cellsVM[1] as? LabelCellViewModel,
+              let editProfileCellVM = section.cellsVM[1] as? LabelCellViewModel,
+              let collectionManagementCellVM = section.cellsVM[2] as? LabelCellViewModel,
               let contactUsCellVM = section.cellsVM.last as? LabelCellViewModel else {
             XCTFail("Cell View Models are not correct")
             return
         }
         
         XCTAssertEqual(loginCellVM.text, L10n.logout)
+        XCTAssertEqual(editProfileCellVM.text, L10n.editProfile)
         XCTAssertEqual(collectionManagementCellVM.text, L10n.collectionManagement)
         XCTAssertEqual(contactUsCellVM.text, L10n.contactUs)
     }
@@ -137,7 +139,7 @@ final class MyProfileSectionTests: XCTestCase {
             appLauncher: appLauncher
         )
         
-        guard let contactUsCellVM = section.cellsVM[2] as? LabelCellViewModel,
+        guard let contactUsCellVM = section.cellsVM[3] as? LabelCellViewModel,
               let contactUrl = URL(string: "mailto:gabrielledalbera@icloud.com") else {
             XCTFail("Cell View Model or property is not correct")
             return
@@ -188,7 +190,7 @@ final class MyProfileSectionTests: XCTestCase {
             appLauncher: appLauncher
         )
         
-        guard let contactUsCellVM = section.cellsVM[2] as? LabelCellViewModel else {
+        guard let contactUsCellVM = section.cellsVM[3] as? LabelCellViewModel else {
             XCTFail("Cell View Model or property is not correct")
             return
         }
