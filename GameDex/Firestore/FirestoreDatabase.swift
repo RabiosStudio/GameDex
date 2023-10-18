@@ -144,7 +144,7 @@ class FirestoreDatabase: CloudDatabase {
                 let data = item.data()
                 let platformStringId = item.documentID
                 guard let title = data[Attributes.title.rawValue] as? String,
-                      let imageUrl = data[Attributes.image.rawValue] as? String,
+                      let imageUrl = data[Attributes.imageUrl.rawValue] as? String,
                       let platformId = Int(platformStringId) else {
                     return .failure(DatabaseError.fetchError)
                 }
@@ -225,7 +225,7 @@ class FirestoreDatabase: CloudDatabase {
         }
     }
     
-    func saveGame(userId: String, game: SavedGame, platformName: String, editingEntry: Bool) async -> DatabaseError? {
+    func saveGame(userId: String, game: SavedGame, platform: Platform, editingEntry: Bool) async -> DatabaseError? {
         do {
             if !editingEntry {
                 let fetchResult = await self.gameIsInDatabase(userId: userId, savedGame: game)
@@ -240,7 +240,8 @@ class FirestoreDatabase: CloudDatabase {
             }
             
             try await self.database.collection(Collections.userPlatforms(userId).path).document("\(game.game.platformId)").setData([
-                Attributes.title.rawValue: platformName
+                Attributes.title.rawValue: platform.title,
+                Attributes.imageUrl.rawValue: platform.imageUrl
             ])
             
             let docData: [String: Any] = [
@@ -268,7 +269,8 @@ class FirestoreDatabase: CloudDatabase {
     func saveGames(userId: String, platform: Platform) async -> DatabaseError? {
         do {
             try await self.database.collection(Collections.userPlatforms(userId).path).document("\(platform.id)").setData([
-                Attributes.title.rawValue: platform.title
+                Attributes.title.rawValue: platform.title,
+                Attributes.imageUrl.rawValue: platform.imageUrl
             ])
             
             guard let games = platform.games else {

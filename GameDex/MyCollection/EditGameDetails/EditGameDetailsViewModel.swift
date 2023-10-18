@@ -223,7 +223,7 @@ private extension EditGameDetailsViewModel {
     }
     
     func saveInCloud(userId: String, gameToSave: SavedGame) async {
-        guard let error = await self.cloudDatabase.saveGame(userId: userId, game: gameToSave, platformName: self.platform.title, editingEntry: true) else {
+        guard let error = await self.cloudDatabase.saveGame(userId: userId, game: gameToSave, platform: self.platform, editingEntry: true) else {
             await self.handleEditGameSuccess()
             return
         }

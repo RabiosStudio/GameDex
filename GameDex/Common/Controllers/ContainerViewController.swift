@@ -129,7 +129,6 @@ class ContainerViewController: UIViewController {
     // MARK: - Methods
     
     @objc private func loadData() {
-        self.configureNavBar()
         self.configureLoader()
         Task {
             await self.viewModel.loadData { [weak self] error in
@@ -151,11 +150,13 @@ class ContainerViewController: UIViewController {
     }
     
     private func refresh() {
+        self.configureNavBar()
         self.registerCells()
         self.collectionView.reloadData()
     }
     
     private func updateEmptyState(error: EmptyError?, tabBarOffset: CGFloat) {
+        self.configureNavBar()
         if let error = error {
             guard let imageName = error.imageName,
                   let image = UIImage(named: imageName) else {

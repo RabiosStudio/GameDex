@@ -43,7 +43,7 @@ final class MyCollectionViewModelTests: XCTestCase {
 
     }
     
-    func test_loadData_GivenUserIsLoggedInAndDatabaseFetchError_ThenCallbackShouldReturnFetchError() async {
+    func test_loadData_GivenUserIsLoggedInAndDatabaseFetchError_ThenShouldSetupRightButtonItemsCorrectlyAndCallbackShouldReturnFetchError() async {
         // Given
         let authenticationService = AuthenticationServiceMock()
         authenticationService.given(
@@ -82,10 +82,11 @@ final class MyCollectionViewModelTests: XCTestCase {
                 return
             }
             XCTAssertEqual(error, MyCollectionError.fetchError)
+            XCTAssertEqual(viewModel.rightButtonItems, [.add])
         }
     }
     
-    func test_loadData_GivenUserIsLoggedInAndEmptyCollectionFetched_ThenCallbackShouldReturnNoItems() async {
+    func test_loadData_GivenUserIsLoggedInAndEmptyCollectionFetched_ThenShouldSetupRightButtonItemsCorrectlyAndCallbackShouldReturnNoItems() async {
         // Given
         let authenticationService = AuthenticationServiceMock()
         authenticationService.given(
@@ -125,10 +126,11 @@ final class MyCollectionViewModelTests: XCTestCase {
             callbackIsCalled = true
             XCTAssertEqual(emptyCollection, [])
             XCTAssertTrue(callbackIsCalled)
+            XCTAssertEqual(viewModel.rightButtonItems, [.add])
         }
     }
     
-    func test_loadData_GivenUserIsLoggedInAndNoError_ThenShouldSetupSectionsCorrectly() async {
+    func test_loadData_GivenUserIsLoggedInAndNoError_ThenShouldSetupSectionsAndRightButtonItemsCorrectly() async {
         // Given
         let authenticationService = AuthenticationServiceMock()
         authenticationService.given(
@@ -164,10 +166,11 @@ final class MyCollectionViewModelTests: XCTestCase {
             
             // Then
             XCTAssertEqual(viewModel.numberOfItems(in: .zero), MockData.platforms.count)
+            XCTAssertEqual(viewModel.rightButtonItems, [.add, .search])
         }
     }
     
-    func test_loadData_GivenUserIsLoggedOutAndDatabaseFetchError_ThenCallbackShouldReturnFetchError() async {
+    func test_loadData_GivenUserIsLoggedOutAndDatabaseFetchError_ThenShouldSetupRightButtonItemsCorrectlyAndCallbackShouldReturnFetchError() async {
         // Given
         let authenticationService = AuthenticationServiceMock()
         authenticationService.given(
@@ -206,10 +209,11 @@ final class MyCollectionViewModelTests: XCTestCase {
             }
             XCTAssertEqual(error, MyCollectionError.fetchError)
             XCTAssertTrue(callbackIsCalled)
+            XCTAssertEqual(viewModel.rightButtonItems, [.add])
         }
     }
     
-    func test_loadData_GivenUserIsLoggedOutAndEmptyCollectionFetched_ThenCallbackShouldReturnNoItems() async {
+    func test_loadData_GivenUserIsLoggedOutAndEmptyCollectionFetched_ThenShouldSetupRightButtonItemsCorrectlyAndCallbackShouldReturnNoItems() async {
         // Given
         let authenticationService = AuthenticationServiceMock()
         authenticationService.given(
@@ -245,6 +249,7 @@ final class MyCollectionViewModelTests: XCTestCase {
             callbackIsCalled = true
             XCTAssertEqual(emptyCollection, [])
             XCTAssertTrue(callbackIsCalled)
+            XCTAssertEqual(viewModel.rightButtonItems, [.add])
         }
     }
     
