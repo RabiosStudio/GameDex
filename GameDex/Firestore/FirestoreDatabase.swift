@@ -357,9 +357,9 @@ class FirestoreDatabase: CloudDatabase {
                 for platform in platforms {
                     guard let games = platform.games else { break }
                     for game in games {
-                        let gamePath = Collections.userGames(userId, "\(platform.id)").path
+                        let gamesPath = Collections.userGames(userId, "\(platform.id)").path
                         let gameDoc = game.game.id
-                        try await database.collection(gamePath).document(gameDoc).delete()
+                        try await database.collection(gamesPath).document(gameDoc).delete()
                     }
                     let platformsPath = Collections.userPlatforms(userId).path
                     let platformDoc = platform.id
