@@ -10,8 +10,8 @@ import UIKit
 
 struct EditProfileScreenFactory: ScreenFactory {
     
-    private let myProfileDelegate: MyProfileViewModelDelegate?
-    private let myCollectionDelegate: MyCollectionViewModelDelegate?
+    weak var myProfileDelegate: MyProfileViewModelDelegate?
+    weak var myCollectionDelegate: MyCollectionViewModelDelegate?
     
     var viewController: UIViewController {
         let viewModel = EditProfileViewModel(
