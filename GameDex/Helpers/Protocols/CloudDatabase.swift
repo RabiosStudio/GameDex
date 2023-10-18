@@ -15,6 +15,7 @@ protocol CloudDatabase {
     func getAvailablePlatforms() async -> Result<[Platform], DatabaseError>
     
     func saveUser(userId: String, userEmail: String) async -> DatabaseError?
+    func saveUserEmail(userId: String, userEmail: String) async -> DatabaseError?
     func saveGames(userId: String, platform: Platform) async -> DatabaseError?
     func saveGame(userId: String, game: SavedGame, platform: Platform, editingEntry: Bool) async -> DatabaseError?
     func saveCollection(userId: String, localDatabase: LocalDatabase) async -> DatabaseError?

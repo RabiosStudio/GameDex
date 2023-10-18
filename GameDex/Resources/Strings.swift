@@ -38,12 +38,20 @@ internal enum L10n {
   internal static let condition = L10n.tr("Localizable", "condition", fallback: "Condition")
   /// Confirm
   internal static let confirm = L10n.tr("Localizable", "confirm", fallback: "Confirm")
+  /// Confirm your email address and password to update your information
+  internal static let confirmCredentials = L10n.tr("Localizable", "confirmCredentials", fallback: "Confirm your email address and password to update your information")
   /// Contact Us
   internal static let contactUs = L10n.tr("Localizable", "contactUs", fallback: "Contact Us")
   /// Continue
   internal static let `continue` = L10n.tr("Localizable", "continue", fallback: "Continue")
   /// Create account
   internal static let createAccount = L10n.tr("Localizable", "createAccount", fallback: "Create account")
+  /// Current email address
+  internal static let currentEmail = L10n.tr("Localizable", "currentEmail", fallback: "Current email address")
+  /// Current password
+  internal static let currentPassword = L10n.tr("Localizable", "currentPassword", fallback: "Current password")
+  /// Edit profile
+  internal static let editProfile = L10n.tr("Localizable", "editProfile", fallback: "Edit profile")
   /// Email
   internal static let email = L10n.tr("Localizable", "email", fallback: "Email")
   /// Start researching a game on
@@ -58,6 +66,8 @@ internal enum L10n {
   internal static let emptyMyCollectionTitle = L10n.tr("Localizable", "emptyMyCollectionTitle", fallback: "Your collection is empty")
   /// Please check your email address and password
   internal static let errorAuthDescription = L10n.tr("Localizable", "errorAuthDescription", fallback: "Please check your email address and password")
+  /// Error verifying credentials
+  internal static let errorCredentialsDescription = L10n.tr("Localizable", "errorCredentialsDescription", fallback: "Error verifying credentials")
   /// Your email app couldn't be reached. You can contact us at 
   internal static let errorEmailAppDescription = L10n.tr("Localizable", "errorEmailAppDescription", fallback: "Your email app couldn't be reached. You can contact us at ")
   /// An error occured while logging out.
@@ -108,6 +118,10 @@ internal enum L10n {
   internal static let myCollection = L10n.tr("Localizable", "myCollection", fallback: "My Collection")
   /// My Profile
   internal static let myProfile = L10n.tr("Localizable", "myProfile", fallback: "My Profile")
+  /// New email address
+  internal static let newEmail = L10n.tr("Localizable", "newEmail", fallback: "New email address")
+  /// New password
+  internal static let newPassword = L10n.tr("Localizable", "newPassword", fallback: "New password")
   /// No account yet?
   internal static let noAccountYet = L10n.tr("Localizable", "noAccountYet", fallback: "No account yet?")
   /// Box without notice
@@ -174,10 +188,12 @@ internal enum L10n {
   internal static let successTitle = L10n.tr("Localizable", "successTitle", fallback: "Success")
   /// Title
   internal static let title = L10n.tr("Localizable", "title", fallback: "Title")
+  /// Update your email address and password
+  internal static let updateCredentials = L10n.tr("Localizable", "updateCredentials", fallback: "Update your email address and password")
   /// An error occured while updating data.
-  internal static let updateGameErrorDescription = L10n.tr("Localizable", "updateGameErrorDescription", fallback: "An error occured while updating data.")
-  /// The game information were updated.
-  internal static let updateGameSuccessDescription = L10n.tr("Localizable", "updateGameSuccessDescription", fallback: "The game information were updated.")
+  internal static let updateErrorDescription = L10n.tr("Localizable", "updateErrorDescription", fallback: "An error occured while updating data.")
+  /// Success updating data.
+  internal static let updateSuccessDescription = L10n.tr("Localizable", "updateSuccessDescription", fallback: "Success updating data.")
   /// This game is already in your collection!
   internal static let warningGameAlreadyInDatabase = L10n.tr("Localizable", "warningGameAlreadyInDatabase", fallback: "This game is already in your collection!")
   /// Are you sure you want to log out?
@@ -188,6 +204,8 @@ internal enum L10n {
   internal static let warningTitle = L10n.tr("Localizable", "warningTitle", fallback: "One moment!")
   /// Please try again later
   internal static let warningTryAgain = L10n.tr("Localizable", "warningTryAgain", fallback: "Please try again later")
+  /// Your email adress was successfully updated but an error occured while updating password
+  internal static let warningUpdatePassword = L10n.tr("Localizable", "warningUpdatePassword", fallback: "Your email adress was successfully updated but an error occured while updating password")
   /// Year of acquisition
   internal static let yearOfAcquisition = L10n.tr("Localizable", "yearOfAcquisition", fallback: "Year of acquisition")
 }

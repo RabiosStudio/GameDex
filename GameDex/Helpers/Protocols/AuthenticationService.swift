@@ -14,4 +14,7 @@ protocol AuthenticationService {
     func logout() async -> AuthenticationError?
     func isUserLoggedIn() -> Bool 
     func getUserId() -> String?
+    func updateUserEmailAddress(to newEmail: String, cloudDatabase: CloudDatabase) async -> AuthenticationError?
+    func updateUserPassword(to newPassword: String) async -> AuthenticationError?
+    func reauthenticateUser(email: String, password: String) async -> AuthenticationError?
 }

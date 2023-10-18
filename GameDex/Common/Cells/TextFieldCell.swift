@@ -55,6 +55,8 @@ final class TextFieldCell: UICollectionViewCell, CellConfigurable {
     override func prepareForReuse() {
         super.prepareForReuse()
         self.textField.inputView = nil
+        self.textField.isSecureTextEntry = false
+        self.textField.rightView = nil
         self.textField.text = nil
         self.pickerData = nil
     }

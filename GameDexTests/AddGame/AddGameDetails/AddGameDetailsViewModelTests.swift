@@ -242,7 +242,7 @@ final class AddGameDetailsViewModelTests: XCTestCase {
             .saveGame(
                 userId: .any,
                 game: .any,
-                platformName: .any,
+                platform: .any,
                 editingEntry: .value(false),
                 willReturn: nil
             )
@@ -306,7 +306,7 @@ final class AddGameDetailsViewModelTests: XCTestCase {
             .saveGame(
                 userId: .any,
                 game: .any,
-                platformName: .any,
+                platform: .any,
                 editingEntry: .value(false),
                 willReturn: DatabaseError.saveError
             )
@@ -363,7 +363,7 @@ final class AddGameDetailsViewModelTests: XCTestCase {
             .saveGame(
                 userId: .any,
                 game: .any,
-                platformName: .any,
+                platform: .any,
                 editingEntry: .value(false),
                 willReturn: DatabaseError.itemAlreadySaved
             )

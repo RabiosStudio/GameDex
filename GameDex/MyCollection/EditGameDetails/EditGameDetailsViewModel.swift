@@ -234,7 +234,7 @@ private extension EditGameDetailsViewModel {
         self.alertDisplayer.presentTopFloatAlert(
             parameters: AlertViewModel(
                 alertType: .success,
-                description: L10n.updateGameSuccessDescription
+                description: L10n.updateSuccessDescription
             )
         )
         self.configureBottomView(shouldEnableButton: false)
@@ -245,7 +245,7 @@ private extension EditGameDetailsViewModel {
         self.alertDisplayer.presentTopFloatAlert(
             parameters: AlertViewModel(
                 alertType: .error,
-                description: L10n.updateGameErrorDescription
+                description: L10n.updateErrorDescription
             )
         )
         self.configureBottomView(shouldEnableButton: true)

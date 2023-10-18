@@ -14,17 +14,18 @@
 "apiErrorTitle" = "Oups!";
 "apiErrorDescription" = "Une erreur est survenue lors de la récupération des données";
 "saveGameErrorDescription" = "Une erreur est survenue lors de la sauvegarde des données.";
-"updateGameErrorDescription" = "Une erreur est survenue lors de la mise à jour des données.";
+"updateErrorDescription" = "Une erreur est survenue lors de la mise à jour des données.";
 "removeGameErrorDescription" = "Une erreur est survenue lors de la suppression des données.";
 "fetchGamesErrorDescription" = "Une erreur est survenue lors de la récupération des données.";
 "errorAuthDescription" = "Veuillez vérifier votre adresse mail et votre mot de passe";
 "errorLogOutDescription" = "Une erreur est survenue lors de la déconnexion.";
 "errorEmailAppDescription" = "Votre application mail n'a pas été détectée. Vous pouvez nous contacter à l'adresse suivante : ";
+"errorCredentialsDescription" = "La vérification des informations d'identification a échouée.";
 
 // Success
 "successTitle" = "Succès";
 "saveGameSuccessDescription" = "Le jeu a bien été enregistré dans votre collection.";
-"updateGameSuccessDescription" = "Les informations ont bien été mises à jour.";
+"updateSuccessDescription" = "Les informations ont bien été mises à jour.";
 "removeGameSuccessDescription" = "Le jeu a bien été supprimé de votre collection.";
 "successAuthDescription" = "Vous êtes connectés.";
 "successLogOutDescription" = "Vous êtes déconnectés.";
@@ -35,6 +36,7 @@
 "warningTryAgain" = "Veuillez réessayer ultérieurement.";
 "warningGameAlreadyInDatabase" = "Ce jeu est déjà dans votre collection !";
 "warningLogOut" = "Êtes-vous sûr(e) de vouloir vous déconnecter ?";
+"warningUpdatePassword" = "Votre adresse email a bien été mise à jour mais une erreur est survenue lors de la mise à jour du mot de passe.";
 
 // Button
 "addAGame" = "Ajouter un jeu";
@@ -81,6 +83,9 @@
 "createAccount" = "Créer un compte";
 "authThroughOtherMethods" = "via d'autres méthodes d'authentification";
 "or" = "OU";
+"editProfile" = "Modifier mon compte";
+"updateCredentials" = "Modifiez votre adresse email et votre mot de passe.";
+"confirmCredentials" = "Confirmer votre adresse email et mot de passe actuels pour mettre à jour vos informations.";
 
 // Forms
 "title" = "Titre";
@@ -105,6 +110,10 @@
 "region" = "Région";
 "email" = "Email";
 "password" = "Mot de passe";
+"newEmail" = "Nouvelle adresse mail";
+"currentEmail" = "Adresse mail actuelle";
+"newPassword" = "Nouveau mot de passe";
+"currentPassword" = "Mot de passe actuel";
 
 // Other
 "game" = "jeu";

@@ -53,4 +53,29 @@ class AuthenticationServiceImpl: AuthenticationService {
     func getUserId() -> String? {
         return authSession.getUserUid()
     }
+    
+    func updateUserEmailAddress(to newEmail: String, cloudDatabase: CloudDatabase) async -> AuthenticationError? {
+        guard await self.authSession.updateUserEmailAddress(to: newEmail) == nil else {
+            return AuthenticationError.saveUserDataError
+        }
+        guard let userId = getUserId(),
+              await cloudDatabase.saveUserEmail(userId: userId, userEmail: newEmail) == nil else {
+            return nil
+        }
+        return nil
+    }
+    
+    func updateUserPassword(to newPassword: String) async -> AuthenticationError? {
+        guard await self.authSession.updateUserPassword(to: newPassword) == nil else {
+            return AuthenticationError.saveUserDataError
+        }
+        return nil
+    }
+    
+    func reauthenticateUser(email: String, password: String) async -> AuthenticationError? {
+        guard await self.authSession.reauthenticate(email: email, password: password) == nil else {
+            return AuthenticationError.loginError
+        }
+        return nil
+    }
 }

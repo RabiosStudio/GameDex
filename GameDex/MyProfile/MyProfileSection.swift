@@ -34,6 +34,22 @@ final class MyProfileSection: Section {
                 }
             )
             self.cellsVM.append(logoutCellVM)
+            
+            let editMyProfileCellVM = LabelCellViewModel(
+                text: L10n.editProfile,
+                cellTappedCallback: {
+                    let screenFactory = EditProfileScreenFactory(
+                        myProfileDelegate: myProfileDelegate,
+                        myCollectionDelegate: myCollectionDelegate
+                    )
+                    Routing.shared.route(
+                        navigationStyle: .push(
+                            screenFactory: screenFactory
+                        )
+                    )
+                }
+            )
+            self.cellsVM.append(editMyProfileCellVM)
         } else {
             let loginCellVM = LabelCellViewModel(
                 text: L10n.login,

@@ -171,16 +171,23 @@ class FirestoreDatabase: CloudDatabase {
     }
     
     func saveUser(userId: String, userEmail: String) async -> DatabaseError? {
+        guard await self.saveUserEmail(userId: userId, userEmail: userEmail) == nil else {
+            return DatabaseError.saveError
+        }
+        if let error = await self.saveCollection(userId: userId, localDatabase: LocalDatabaseImpl()) {
+            return error
+        } else {
+            return nil
+        }
+    }
+    
+    func saveUserEmail(userId: String, userEmail: String) async -> DatabaseError? {
         do {
             try await
             self.database.collection(Collections.users.path).document(userId).setData([
                 Attributes.email.rawValue: userEmail.lowercased()
             ])
-            if let error = await self.saveCollection(userId: userId, localDatabase: LocalDatabaseImpl()) {
-                return error
-            } else {
-                return nil
-            }
+            return nil
         } catch {
             return DatabaseError.saveError
         }

@@ -14,6 +14,9 @@ protocol AuthSession {
     func createUser(email: String, password: String) async -> AuthenticationError?
     func logOut() -> AuthenticationError?
     func getUserUid() -> String?
+    func updateUserEmailAddress(to newEmail: String) async -> AuthenticationError?
+    func updateUserPassword(to newPassword: String) async -> AuthenticationError?
+    func reauthenticate(email: String, password: String) async -> AuthenticationError?
 }
 
 extension Auth: AuthSession {
@@ -46,5 +49,37 @@ extension Auth: AuthSession {
     
     func getUserUid() -> String? {
         return Auth.auth().currentUser?.uid
+    }
+    
+    func updateUserEmailAddress(to newEmail: String) async -> AuthenticationError? {
+        do {
+            try await Auth.auth().currentUser?.updateEmail(to: newEmail)
+            return nil
+        } catch {
+            return AuthenticationError.saveUserDataError
+        }
+    }
+    
+    func updateUserPassword(to newPassword: String) async -> AuthenticationError? {
+        do {
+            try await Auth.auth().currentUser?.updatePassword(to: newPassword)
+            return nil
+        } catch {
+            return AuthenticationError.saveUserDataError
+        }
+    }
+    
+    func reauthenticate(email: String, password: String) async -> AuthenticationError? {
+        let user = Auth.auth().currentUser
+        let credential = EmailAuthProvider.credential(
+            withEmail: email,
+            password: password
+        )
+        do {
+            try await user?.reauthenticate(with: credential)
+            return nil
+        } catch {
+            return AuthenticationError.loginError
+        }
     }
 }
