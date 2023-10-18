@@ -152,7 +152,7 @@ private extension AddGameDetailsViewModel {
         guard let error = await self.cloudDatabase.saveGame(
             userId: userId,
             game: gameToSave,
-            platformName: self.platform.title,
+            platform: self.platform,
             editingEntry: false
         ) else {
             await self.handleSuccess()
