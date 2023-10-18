@@ -14,17 +14,18 @@
 "apiErrorTitle" = "Oops!";
 "apiErrorDescription" = "There has been an issue while fetching data.";
 "saveGameErrorDescription" = "An error occured while saving game details.";
-"updateGameErrorDescription" = "An error occured while updating data.";
+"updateErrorDescription" = "An error occured while updating data.";
 "removeGameErrorDescription" = "An error occured while removing data.";
 "fetchGamesErrorDescription" = "An error occured while fetching data.";
 "errorAuthDescription" = "Please check your email address and password";
 "errorLogOutDescription" = "An error occured while logging out.";
 "errorEmailAppDescription" = "Your email app couldn't be reached. You can contact us at ";
+"errorCredentialsDescription" = "Error verifying credentials";
 
 // Success
 "successTitle" = "Success";
 "saveGameSuccessDescription" = "The game was saved to your collection.";
-"updateGameSuccessDescription" = "The game information were updated.";
+"updateSuccessDescription" = "Success updating data.";
 "removeGameSuccessDescription" = "The game was removed from your collection.";
 "successAuthDescription" = "Login successful.";
 "successLogOutDescription" = "You are logged out.";
@@ -35,6 +36,7 @@
 "warningTryAgain" = "Please try again later";
 "warningGameAlreadyInDatabase" = "This game is already in your collection!";
 "warningLogOut" = "Are you sure you want to log out?";
+"warningUpdatePassword" = "Your email adress was successfully updated but an error occured while updating password";
 
 // Info
 "infoNoInternet" = "You're not connected to the internet, your collection might not be up to date";
@@ -85,6 +87,9 @@
 "createAccount" = "Create account";
 "authThroughOtherMethods" = "through other methods below";
 "or" = "OR";
+"editProfile" = "Edit profile";
+"updateCredentials" = "Update your email address and password";
+"confirmCredentials" = "Confirm your email address and password to update your information";
 
 // Forms
 "title" = "Title";
@@ -109,6 +114,10 @@
 "region" = "Region";
 "email" = "Email";
 "password" = "Password";
+"newEmail" = "New email address";
+"currentEmail" = "Current email address";
+"newPassword" = "New password";
+"currentPassword" = "Current password";
 
 // Other
 "game" = "game";
