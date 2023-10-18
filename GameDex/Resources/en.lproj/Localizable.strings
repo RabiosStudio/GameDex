@@ -21,6 +21,7 @@
 "errorLogOutDescription" = "An error occured while logging out.";
 "errorEmailAppDescription" = "Your email app couldn't be reached. You can contact us at ";
 "errorCredentialsDescription" = "Error verifying credentials";
+"errorDeleteAccountDescription" = "Error deleting account";
 
 // Success
 "successTitle" = "Success";
@@ -29,6 +30,7 @@
 "removeGameSuccessDescription" = "The game was removed from your collection.";
 "successAuthDescription" = "Login successful.";
 "successLogOutDescription" = "You are logged out.";
+"successDeleteAccountDescription" = "Account deleted successfully";
 
 // Warnings
 "warningTitle" = "One moment!";

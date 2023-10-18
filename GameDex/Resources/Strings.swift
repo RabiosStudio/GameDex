@@ -70,6 +70,8 @@ internal enum L10n {
   internal static let errorAuthDescription = L10n.tr("Localizable", "errorAuthDescription", fallback: "Please check your email address and password")
   /// Error verifying credentials
   internal static let errorCredentialsDescription = L10n.tr("Localizable", "errorCredentialsDescription", fallback: "Error verifying credentials")
+  /// Error deleting account
+  internal static let errorDeleteAccountDescription = L10n.tr("Localizable", "errorDeleteAccountDescription", fallback: "Error deleting account")
   /// Your email app couldn't be reached. You can contact us at 
   internal static let errorEmailAppDescription = L10n.tr("Localizable", "errorEmailAppDescription", fallback: "Your email app couldn't be reached. You can contact us at ")
   /// An error occured while logging out.
@@ -184,6 +186,8 @@ internal enum L10n {
   internal static let storageArea = L10n.tr("Localizable", "storageArea", fallback: "Storage area")
   /// Login successful.
   internal static let successAuthDescription = L10n.tr("Localizable", "successAuthDescription", fallback: "Login successful.")
+  /// Account deleted successfully
+  internal static let successDeleteAccountDescription = L10n.tr("Localizable", "successDeleteAccountDescription", fallback: "Account deleted successfully")
   /// You are logged out.
   internal static let successLogOutDescription = L10n.tr("Localizable", "successLogOutDescription", fallback: "You are logged out.")
   /// Success

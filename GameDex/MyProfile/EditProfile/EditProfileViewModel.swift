@@ -113,7 +113,7 @@ private extension EditProfileViewModel {
         self.alertDisplayer.presentTopFloatAlert(
             parameters: AlertViewModel(
                 alertType: success ? .success : .error,
-                description: success ? "Account deleted successfully" : "Error deleting account"
+                description: success ? L10n.successDeleteAccountDescription : L10n.errorDeleteAccountDescription
             )
         )
     }

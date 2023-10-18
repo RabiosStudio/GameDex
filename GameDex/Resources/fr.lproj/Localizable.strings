@@ -29,6 +29,7 @@
 "removeGameSuccessDescription" = "Le jeu a bien été supprimé de votre collection.";
 "successAuthDescription" = "Vous êtes connectés.";
 "successLogOutDescription" = "Vous êtes déconnectés.";
+"successDeleteAccount" = "Account deleted successfully";
 
 // Warnings
 "warningTitle" = "Un instant !";
