@@ -94,10 +94,31 @@ extension EditProfileViewModel: PrimaryButtonDelegate {
 // MARK: - AlertDisplayerDelegate
 extension EditProfileViewModel: AlertDisplayerDelegate {
     func didTapOkButton() async {
+        guard self.authenticationService.isUserLoggedIn(),
+              await self.authenticationService.deleteUser(cloudDatabase: self.cloudDatabase) == nil else {
+            self.displayDeleteAccountAlert(success: false)
+            return
+        }
+        self.displayDeleteAccountAlert(success: true)
+        self.credentialsConfirmed = false
+        await self.myCollectionDelegate?.reloadCollection()
+        self.myProfileDelegate?.reloadMyProfile()
+        self.containerDelegate?.goBackToRootViewController()
+    }
 }
+
 // MARK: - Private
 private extension EditProfileViewModel {
-    func displayAlert(alertType: AlertType) {
+    func displayDeleteAccountAlert(success: Bool) {
+        self.alertDisplayer.presentTopFloatAlert(
+            parameters: AlertViewModel(
+                alertType: success ? .success : .error,
+                description: success ? "Account deleted successfully" : "Error deleting account"
+            )
+        )
+    }
+    
+    func displayEditProfileAlert(alertType: AlertType) {
         let successText = credentialsConfirmed ? L10n.updateSuccessDescription : L10n.successAuthDescription
         let errorText = credentialsConfirmed ? L10n.updateErrorDescription : L10n.errorCredentialsDescription
         let warningText = L10n.warningUpdatePassword
@@ -111,23 +132,23 @@ private extension EditProfileViewModel {
     
     func handleReauthentication(email: String, password: String) async {
         guard await self.authenticationService.reauthenticateUser(email: email, password: password) == nil else {
-            self.displayAlert(alertType: .error)
+            self.displayEditProfileAlert(alertType: .error)
             return
         }
-        self.displayAlert(alertType: .success)
+        self.displayEditProfileAlert(alertType: .success)
         self.credentialsConfirmed = true
     }
     
     func handleUserDetailsUpdate(newEmail: String, newPassword: String) async {
         guard await self.authenticationService.updateUserEmailAddress(to: newEmail, cloudDatabase: self.cloudDatabase) == nil else {
-            self.displayAlert(alertType: .error)
+            self.displayEditProfileAlert(alertType: .error)
             return
         }
         guard await self.authenticationService.updateUserPassword(to: newPassword) == nil else {
-            self.displayAlert(alertType: .warning)
+            self.displayEditProfileAlert(alertType: .warning)
             return
         }
-        self.displayAlert(alertType: .success)
+        self.displayEditProfileAlert(alertType: .success)
         await self.myCollectionDelegate?.reloadCollection()
         self.myProfileDelegate?.reloadMyProfile()
         self.containerDelegate?.goBackToRootViewController()
