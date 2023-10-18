@@ -38,6 +38,7 @@ final class EditProfileViewModel: CollectionViewModel {
         self.cloudDatabase = cloudDatabase
         self.alertDisplayer = alertDisplayer
         self.credentialsConfirmed = credentialsConfirmed
+        self.alertDisplayer.alertDelegate = self
     }
     
     func loadData(callback: @escaping (EmptyError?) -> ()) {
@@ -90,6 +91,10 @@ extension EditProfileViewModel: PrimaryButtonDelegate {
     }
 }
 
+// MARK: - AlertDisplayerDelegate
+extension EditProfileViewModel: AlertDisplayerDelegate {
+    func didTapOkButton() async {
+}
 // MARK: - Private
 private extension EditProfileViewModel {
     func displayAlert(alertType: AlertType) {
