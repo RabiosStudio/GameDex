@@ -52,7 +52,7 @@ final class MyCollectionViewModel: ConnectivityDisplayerViewModel {
             let platformsFetched = self.localDatabase.fetchAllPlatforms()
             switch platformsFetched {
             case .success(let platforms):
-                guard let emptyError = self.handleFetchLocalDataSuccess(platforms: platforms) else {
+                guard let emptyError = self.handleDataSuccess(platforms: CoreDataConverter.convert(platformsCollected: platforms)) else {
                     callback(nil)
                     return
                 }
@@ -65,7 +65,7 @@ final class MyCollectionViewModel: ConnectivityDisplayerViewModel {
         let platformsFetched = await self.cloudDatabase.getUserCollection(userId: userId)
         switch platformsFetched {
         case .success(let platforms):
-            guard let emptyError = self.handleFetchCloudDataSuccess(platforms: platforms) else {
+            guard let emptyError = self.handleDataSuccess(platforms: platforms) else {
                 callback(nil)
                 return
             }
@@ -117,26 +117,16 @@ extension MyCollectionViewModel {
         guard !self.platforms.isEmpty else {
             if let rightButtonItems = self.rightButtonItems,
                rightButtonItems.contains(.search) {
-                self.rightButtonItems?.removeLast()
+                self.rightButtonItems = [.add]
             }
             return
         }
         self.rightButtonItems?.append(.search)
     }
     
-    private func handleFetchLocalDataSuccess(platforms: [PlatformCollected]) -> EmptyError? {
+    private func handleDataSuccess(platforms: [Platform]) -> EmptyError? {
         guard !platforms.isEmpty else {
-            self.handleFetchEmptyCollection()
-            return MyCollectionError.emptyCollection(myCollectionDelegate: self)
-        }
-        self.platforms = CoreDataConverter.convert(platformsCollected: platforms)
-        self.handleSearchIconDisplay()
-        self.handleSectionCreation()
-        return nil
-    }
-    
-    private func handleFetchCloudDataSuccess(platforms: [Platform]) -> EmptyError? {
-        guard !platforms.isEmpty else {
+            self.platforms = []
             self.handleFetchEmptyCollection()
             return MyCollectionError.emptyCollection(myCollectionDelegate: self)
         }
@@ -147,7 +137,6 @@ extension MyCollectionViewModel {
     }
     
     private func handleFetchEmptyCollection() {
-        self.platforms = []
         self.handleSearchIconDisplay()
         self.handleSectionCreation()
     }
