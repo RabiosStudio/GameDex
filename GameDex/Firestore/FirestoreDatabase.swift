@@ -349,6 +349,34 @@ class FirestoreDatabase: CloudDatabase {
         }
     }
     
+    func removeUser(userId: String) async -> DatabaseError? {
+        do {
+            let fetchedUserPlatforms = await self.getUserCollection(userId: userId)
+            switch fetchedUserPlatforms {
+            case .success(let platforms):
+                for platform in platforms {
+                    guard let games = platform.games else { break }
+                    for game in games {
+                        let gamePath = Collections.userGames(userId, "\(platform.id)").path
+                        let gameDoc = game.game.id
+                        try await database.collection(gamePath).document(gameDoc).delete()
+                    }
+                    let platformsPath = Collections.userPlatforms(userId).path
+                    let platformDoc = platform.id
+                    try await database.collection(platformsPath).document("\(platformDoc)").delete()
+                }
+                let userPath = Collections.users.path
+                let userDoc = userId
+                try await database.collection(userPath).document("\(userDoc)").delete()
+                return nil
+            case .failure(let error):
+                return error
+            }
+        } catch {
+            return DatabaseError.removeError
+        }
+    }
+    
     func syncLocalAndCloudDatabases(userId: String, localDatabase: LocalDatabase) async -> DatabaseError? {
         
         // We ALWAYS fetch Firestore data and synced it to Coredata and not the other way around. Firestore is the truth !!

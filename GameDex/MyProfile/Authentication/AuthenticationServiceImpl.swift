@@ -78,4 +78,15 @@ class AuthenticationServiceImpl: AuthenticationService {
         }
         return nil
     }
+    
+    func deleteUser(cloudDatabase: CloudDatabase) async -> AuthenticationError? {
+        guard let userId = self.getUserId(),
+              await self.authSession.deleteUser() == nil else {
+            return AuthenticationError.deleteUserError
+        }
+        guard await cloudDatabase.removeUser(userId: userId) == nil else {
+            return nil
+        }
+        return nil
+    }
 }
