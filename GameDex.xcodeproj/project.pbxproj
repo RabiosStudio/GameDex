@@ -11,6 +11,9 @@
 		2506D8782ADD39B3006D3F52 /* VerticallyAlignedLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2506D8772ADD39B3006D3F52 /* VerticallyAlignedLabel.swift */; };
 		2506D87C2ADE97CB006D3F52 /* AppLauncher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2506D87B2ADE97CB006D3F52 /* AppLauncher.swift */; };
 		2506D8822ADE992F006D3F52 /* AppLauncherImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2506D8812ADE992F006D3F52 /* AppLauncherImpl.swift */; };
+		2506D8852ADFBEC3006D3F52 /* EditProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2506D8842ADFBEC3006D3F52 /* EditProfileViewModel.swift */; };
+		2506D8872ADFBED4006D3F52 /* EditProfileSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2506D8862ADFBED4006D3F52 /* EditProfileSection.swift */; };
+		2506D8892ADFBEDE006D3F52 /* EditProfileScreenFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2506D8882ADFBEDE006D3F52 /* EditProfileScreenFactory.swift */; };
 		251C86742A94D5E80020C794 /* Mock.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251C86732A94D5E80020C794 /* Mock.generated.swift */; };
 		251C86BA2A97A29D0020C794 /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251C86B02A97A29D0020C794 /* APIError.swift */; };
 		251C86BC2A97A29D0020C794 /* AlamofireAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251C86B22A97A29D0020C794 /* AlamofireAPI.swift */; };
@@ -206,6 +209,9 @@
 		2506D8772ADD39B3006D3F52 /* VerticallyAlignedLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticallyAlignedLabel.swift; sourceTree = "<group>"; };
 		2506D87B2ADE97CB006D3F52 /* AppLauncher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLauncher.swift; sourceTree = "<group>"; };
 		2506D8812ADE992F006D3F52 /* AppLauncherImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLauncherImpl.swift; sourceTree = "<group>"; };
+		2506D8842ADFBEC3006D3F52 /* EditProfileViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileViewModel.swift; sourceTree = "<group>"; };
+		2506D8862ADFBED4006D3F52 /* EditProfileSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileSection.swift; sourceTree = "<group>"; };
+		2506D8882ADFBEDE006D3F52 /* EditProfileScreenFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileScreenFactory.swift; sourceTree = "<group>"; };
 		251C86732A94D5E80020C794 /* Mock.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mock.generated.swift; sourceTree = "<group>"; };
 		251C86B02A97A29D0020C794 /* APIError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
 		251C86B22A97A29D0020C794 /* AlamofireAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlamofireAPI.swift; sourceTree = "<group>"; };
@@ -412,6 +418,16 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		2506D8832ADFBEB4006D3F52 /* EditProfile */ = {
+			isa = PBXGroup;
+			children = (
+				2506D8842ADFBEC3006D3F52 /* EditProfileViewModel.swift */,
+				2506D8862ADFBED4006D3F52 /* EditProfileSection.swift */,
+				2506D8882ADFBEDE006D3F52 /* EditProfileScreenFactory.swift */,
+			);
+			path = EditProfile;
+			sourceTree = "<group>";
+		};
 		251C86762A94DB4D0020C794 /* MyCollection */ = {
 			isa = PBXGroup;
 			children = (
@@ -499,6 +515,7 @@
 			children = (
 				25979DB72ABF2AB5002CEDE7 /* Login */,
 				25979DC42AC17279002CEDE7 /* Authentication */,
+				2506D8832ADFBEB4006D3F52 /* EditProfile */,
 				2548E5F62ABEDF49004151EF /* MyProfileViewModel.swift */,
 				2548E5F82ABEDF53004151EF /* MyProfileSection.swift */,
 				25E8E49A2AC1926A0093E7F8 /* UserAccountFormType.swift */,
@@ -1383,6 +1400,7 @@
 				25AE1EDC2A8D271D00F2D06A /* UIScrollView+Empty.swift in Sources */,
 				25979DAA2ABF0E62002CEDE7 /* LoginSection.swift in Sources */,
 				2548E5F72ABEDF49004151EF /* MyProfileViewModel.swift in Sources */,
+				2506D8852ADFBEC3006D3F52 /* EditProfileViewModel.swift in Sources */,
 				251C86DE2A98AD400020C794 /* SelectAddGameMethodViewModel.swift in Sources */,
 				25EB24342AA6317D0024F01C /* TextViewCellViewModel.swift in Sources */,
 				25DA8CBA2AADE88600B40F84 /* LocalDatabaseImpl.swift in Sources */,
@@ -1406,6 +1424,7 @@
 				25EDF7C02AB43E3100648717 /* AlertType.swift in Sources */,
 				25EDF7BE2AB43E0100648717 /* AlertViewModel.swift in Sources */,
 				25EB245B2AA9F0360024F01C /* DTTextField+Extension.swift in Sources */,
+				2506D8872ADFBED4006D3F52 /* EditProfileSection.swift in Sources */,
 				251C86BC2A97A29D0020C794 /* AlamofireAPI.swift in Sources */,
 				251C86BE2A97A29D0020C794 /* APIMethod.swift in Sources */,
 				25979DAC2ABF10FC002CEDE7 /* BasicCardCellViewModel.swift in Sources */,
@@ -1429,6 +1448,7 @@
 				25E8E4AC2AC1E4BC0093E7F8 /* AuthenticationError.swift in Sources */,
 				252516612ACAD10600B88813 /* CloudDatabase.swift in Sources */,
 				254E8B942A8B6BCA00C101C8 /* Strings.swift in Sources */,
+				2506D8892ADFBEDE006D3F52 /* EditProfileScreenFactory.swift in Sources */,
 				25979DC62AC17295002CEDE7 /* AuthenticationViewModel.swift in Sources */,
 				2548E5F92ABEDF53004151EF /* MyProfileSection.swift in Sources */,
 				2548E5E32ABAE688004151EF /* GameCollected.swift in Sources */,
