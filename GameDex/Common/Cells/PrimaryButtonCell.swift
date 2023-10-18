@@ -49,7 +49,7 @@ final class PrimaryButtonCell: UICollectionViewCell, CellConfigurable {
             )
         )
         if cellVM.buttonType == .warning {
-            self.primaryButton.backgroundColor = .primaryColor
+            self.primaryButton.backgroundColor = .warningColor
         }
         self.setupConstraints()
     }
