@@ -17,6 +17,7 @@ protocol AuthSession {
     func updateUserEmailAddress(to newEmail: String) async -> AuthenticationError?
     func updateUserPassword(to newPassword: String) async -> AuthenticationError?
     func reauthenticate(email: String, password: String) async -> AuthenticationError?
+    func deleteUser() async -> AuthenticationError?
 }
 
 extension Auth: AuthSession {
@@ -80,6 +81,16 @@ extension Auth: AuthSession {
             return nil
         } catch {
             return AuthenticationError.loginError
+        }
+    }
+    
+    func deleteUser() async -> AuthenticationError? {
+        let user = Auth.auth().currentUser
+        do {
+            try await user?.delete()
+            return nil
+        } catch {
+            return AuthenticationError.deleteUserError
         }
     }
 }

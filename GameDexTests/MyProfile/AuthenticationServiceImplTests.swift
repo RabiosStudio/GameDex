@@ -185,8 +185,8 @@ final class AuthenticationServiceImplTests: XCTestCase {
         let authenticationService = AuthenticationServiceImpl(authSession: authSession)
         
         // When
-        let result = authenticationService.isUserLoggedIn()
-        XCTAssertTrue(result)
+        let isLoggedIn = authenticationService.isUserLoggedIn()
+        XCTAssertTrue(isLoggedIn)
     }
     
     func test_isUserLoggedIn_GivenAuthSessionReturnsNil_ThenReturnFalse() {
@@ -196,8 +196,8 @@ final class AuthenticationServiceImplTests: XCTestCase {
         let authenticationService = AuthenticationServiceImpl(authSession: authSession)
         
         // When
-        let result = authenticationService.isUserLoggedIn()
-        XCTAssertFalse(result)
+        let isLoggedIn = authenticationService.isUserLoggedIn()
+        XCTAssertFalse(isLoggedIn)
     }
     
     func test_getUserId_GivenAuthSessionReturnsId_ThenShouldReturnId() {
@@ -220,5 +220,149 @@ final class AuthenticationServiceImplTests: XCTestCase {
         // When
         let userId = authenticationService.getUserId()
         XCTAssertNil(userId)
+    }
+    
+    func test_updateUserEmailAddress_GivenNoError_ThenShouldReturnNil() async {
+        // Given
+        let authSession = AuthSessionMock()
+        authSession.given(.updateUserEmailAddress(to: .any, willReturn: nil))
+        authSession.given(.getUserUid(willReturn: "userId"))
+        let cloudDatabase = CloudDatabaseMock()
+        cloudDatabase.given(.saveUserEmail(userId: .any, userEmail: .any, willReturn: nil))
+        let authenticationService = AuthenticationServiceImpl(authSession: authSession)
+        
+        // When
+        let error = await authenticationService.updateUserEmailAddress(to: "email", cloudDatabase: cloudDatabase)
+        
+        // Then
+        XCTAssertNil(error)
+    }
+        
+    func test_updateUserEmailAddress_GivenAuthSessionError_ThenShouldReturnSaveUserDataError() async {
+        // Given
+        let authSession = AuthSessionMock()
+        authSession.given(.updateUserEmailAddress(to: .any, willReturn: AuthenticationError.saveUserDataError))
+        let cloudDatabase = CloudDatabaseMock()
+        let authenticationService = AuthenticationServiceImpl(authSession: authSession)
+        
+        // When
+        let error = await authenticationService.updateUserEmailAddress(to: "email", cloudDatabase: cloudDatabase)
+        
+        // Then
+        XCTAssertEqual(error, AuthenticationError.saveUserDataError)
+    }
+    
+    func test_updateUserEmailAddress_GivenCloudDatabaseError_ThenShouldReturnNil() async {
+        // Given
+        let authSession = AuthSessionMock()
+        authSession.given(.updateUserEmailAddress(to: .any, willReturn: nil))
+        authSession.given(.getUserUid(willReturn: "userId"))
+        let cloudDatabase = CloudDatabaseMock()
+        cloudDatabase.given(.saveUserEmail(userId: .any, userEmail: .any, willReturn: DatabaseError.saveError))
+        let authenticationService = AuthenticationServiceImpl(authSession: authSession)
+        
+        // When
+        let error = await authenticationService.updateUserEmailAddress(to: "email", cloudDatabase: cloudDatabase)
+        
+        // Then
+        XCTAssertNil(error)
+    }
+    
+    func test_updateUserPassword_GivenNoError_ThenShouldReturnNil() async {
+        // Given
+        let authSession = AuthSessionMock()
+        authSession.given(.updateUserPassword(to: .any, willReturn: nil))
+        let authenticationService = AuthenticationServiceImpl(authSession: authSession)
+        
+        // When
+        let error = await authenticationService.updateUserPassword(to: "password")
+        
+        // Then
+        XCTAssertNil(error)
+    }
+    
+    func test_updateUserPassword_GivenAuthSessionError_ThenShouldReturnSaveUserDataError() async {
+        // Given
+        let authSession = AuthSessionMock()
+        authSession.given(.updateUserPassword(to: .any, willReturn: AuthenticationError.saveUserDataError))
+        let authenticationService = AuthenticationServiceImpl(authSession: authSession)
+        
+        // When
+        let error = await authenticationService.updateUserPassword(to: "password")
+        
+        // Then
+        XCTAssertEqual(error, AuthenticationError.saveUserDataError)
+    }
+    
+    func test_reauthenticateUser_GivenNoError_ThenShouldReturnNil() async {
+        // Given
+        let authSession = AuthSessionMock()
+        authSession.given(.reauthenticate(email: .any, password: .any, willReturn: nil))
+        let authenticationService = AuthenticationServiceImpl(authSession: authSession)
+        
+        // When
+        let error = await authenticationService.reauthenticateUser(email: "email", password: "password")
+        
+        // Then
+        XCTAssertNil(error)
+    }
+    
+    func test_reauthenticateUser_GivenAuthSessionError_ThenShouldReturnLoginError() async {
+        // Given
+        let authSession = AuthSessionMock()
+        authSession.given(.reauthenticate(email: .any, password: .any, willReturn: AuthenticationError.loginError))
+        let authenticationService = AuthenticationServiceImpl(authSession: authSession)
+        
+        // When
+        let error = await authenticationService.reauthenticateUser(email: "email", password: "password")
+        
+        // Then
+        XCTAssertEqual(error, AuthenticationError.loginError)
+    }
+    
+    func test_deleteUser_GivenNoError_ThenShouldReturnNil() async {
+        // Given
+        let authSession = AuthSessionMock()
+        authSession.given(.deleteUser(willReturn: nil))
+        authSession.given(.getUserUid(willReturn: "userId"))
+        let cloudDatabase = CloudDatabaseMock()
+        cloudDatabase.given(.saveUserEmail(userId: .any, userEmail: .any, willReturn: nil))
+        let authenticationService = AuthenticationServiceImpl(authSession: authSession)
+        
+        // When
+        let error = await authenticationService.deleteUser(cloudDatabase: cloudDatabase)
+        
+        // Then
+        XCTAssertNil(error)
+    }
+    
+    func test_deleteUser_GivenAuthSessionError_ThenShouldReturnDeleteUserError() async {
+        // Given
+        let authSession = AuthSessionMock()
+        authSession.given(.deleteUser(willReturn: AuthenticationError.deleteUserError))
+        let cloudDatabase = CloudDatabaseMock()
+        let authenticationService = AuthenticationServiceImpl(authSession: authSession)
+        
+        // When
+        let error = await authenticationService.deleteUser(cloudDatabase: cloudDatabase)
+        
+        // Then
+        XCTAssertEqual(error, AuthenticationError.deleteUserError)
+    }
+    
+    func test_deleteUser_GivenCloudDatabaseError_ThenShouldReturnNil() async {
+        // Given
+        let authSession = AuthSessionMock()
+        authSession.given(.deleteUser(willReturn: nil))
+        authSession.given(.getUserUid(willReturn: "userId"))
+        let cloudDatabase = CloudDatabaseMock()
+        cloudDatabase.given(.removeUser(userId: .any, willReturn: DatabaseError.removeError))
+        let authenticationService = AuthenticationServiceImpl(authSession: authSession)
+        
+        // When
+        let error = await authenticationService.deleteUser(cloudDatabase: cloudDatabase)
+        
+        // Then
+        XCTAssertNil(error)
     }
 }

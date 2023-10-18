@@ -12,4 +12,5 @@ public enum AuthenticationError: Error {
     case createAccountError
     case logoutError
     case saveUserDataError
+    case deleteUserError
 }

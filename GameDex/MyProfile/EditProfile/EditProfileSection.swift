@@ -42,5 +42,24 @@ final class EditProfileSection: Section {
             delegate: primaryButtonDelegate
         )
         self.cellsVM.append(updateProfileButtonCellVM)
+        
+        if credentialsConfirmed {
+            let deleteProfileButtonCellVM = PrimaryButtonCellViewModel(
+                title: L10n.deleteAccount,
+                delegate: nil,
+                buttonType: .warning,
+                cellTappedCallback: {
+                    alertDisplayer.presentBasicAlert(
+                        parameters: AlertViewModel(
+                            alertType: .warning,
+                            description: L10n.warningAccountDeletion,
+                            cancelButtonTitle: L10n.cancel,
+                            okButtonTitle: L10n.confirm
+                        )
+                    )
+                }
+            )
+            self.cellsVM.append(deleteProfileButtonCellVM)
+        }
     }
 }

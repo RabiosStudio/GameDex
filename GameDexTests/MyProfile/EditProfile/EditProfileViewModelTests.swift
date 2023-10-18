@@ -295,4 +295,82 @@ final class EditProfileViewModelTests: XCTestCase {
         )
         containerDelegate.verify(.reloadSections())
     }
+    
+    func test_didTapOkButton_GivenAccountDeletedSuccessfully_ThenAlertParametersAreCorrectsAndDelegatedAreCalled() async {
+        // Given
+        let alertDisplayer = AlertDisplayerMock()
+        let myCollectionDelegate = MyCollectionViewModelDelegateMock()
+        let myProfileDelegate = MyProfileViewModelDelegateMock()
+        let cloudDatabase = CloudDatabaseMock()
+        cloudDatabase.given(.removeUser(userId: .any, willReturn: nil))
+        let authenticationService = AuthenticationServiceMock()
+        authenticationService.given(.isUserLoggedIn(willReturn: true))
+        authenticationService.given(.deleteUser(cloudDatabase: .any, willReturn: nil))
+        
+        let viewModel = EditProfileViewModel(
+            myProfileDelegate: myProfileDelegate,
+            myCollectionDelegate: myCollectionDelegate,
+            alertDisplayer: alertDisplayer,
+            authenticationService: authenticationService,
+            cloudDatabase: cloudDatabase,
+            credentialsConfirmed: true
+        )
+        let containerDelegate = ContainerViewControllerDelegateMock()
+        viewModel.containerDelegate = containerDelegate
+        
+        // When
+        await viewModel.didTapOkButton()
+        
+        // Then
+        alertDisplayer.verify(
+            .presentTopFloatAlert(
+                parameters: .value(
+                    AlertViewModel(
+                        alertType: .success,
+                        description: L10n.successDeleteAccountDescription
+                    )
+                )
+            )
+        )
+        
+        myCollectionDelegate.verify(.reloadCollection())
+        myProfileDelegate.verify(.reloadMyProfile())
+        containerDelegate.verify(.goBackToRootViewController())
+    }
+    
+    func test_didTapOkButton_GivenErrorDeletingAccount_ThenAlertParametersAreCorrects() async {
+        // Given
+        let alertDisplayer = AlertDisplayerMock()
+        let myCollectionDelegate = MyCollectionViewModelDelegateMock()
+        let myProfileDelegate = MyProfileViewModelDelegateMock()
+        let cloudDatabase = CloudDatabaseMock()
+        cloudDatabase.given(.removeUser(userId: .any, willReturn: nil))
+        let authenticationService = AuthenticationServiceMock()
+        authenticationService.given(.isUserLoggedIn(willReturn: true))
+        authenticationService.given(.deleteUser(cloudDatabase: .any, willReturn: AuthenticationError.deleteUserError))
+        
+        let viewModel = EditProfileViewModel(
+            myProfileDelegate: myProfileDelegate,
+            myCollectionDelegate: myCollectionDelegate,
+            alertDisplayer: alertDisplayer,
+            authenticationService: authenticationService,
+            cloudDatabase: cloudDatabase,
+            credentialsConfirmed: true
+        )
+        
+        // When
+        await viewModel.didTapOkButton()
+        
+        // Then
+        alertDisplayer.verify(
+            .presentTopFloatAlert(
+                parameters: .value(
+                    AlertViewModel(
+                        alertType: .error,
+                        description: L10n.errorDeleteAccountDescription
+                    )
+                )
+            )
+        )
+    }
 }

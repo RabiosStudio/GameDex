@@ -21,6 +21,7 @@
 "errorLogOutDescription" = "An error occured while logging out.";
 "errorEmailAppDescription" = "Your email app couldn't be reached. You can contact us at ";
 "errorCredentialsDescription" = "Error verifying credentials";
+"errorDeleteAccountDescription" = "Error deleting account";
 
 // Success
 "successTitle" = "Success";
@@ -29,6 +30,7 @@
 "removeGameSuccessDescription" = "The game was removed from your collection.";
 "successAuthDescription" = "Login successful.";
 "successLogOutDescription" = "You are logged out.";
+"successDeleteAccountDescription" = "Account deleted successfully";
 
 // Warnings
 "warningTitle" = "One moment!";
@@ -37,6 +39,7 @@
 "warningGameAlreadyInDatabase" = "This game is already in your collection!";
 "warningLogOut" = "Are you sure you want to log out?";
 "warningUpdatePassword" = "Your email adress was successfully updated but an error occured while updating password";
+"warningAccountDeletion" = "Account deletion is definitive. This will not delete data saved directly on your device";
 
 // Info
 "infoNoInternet" = "You're not connected to the internet, your collection might not be up to date";
@@ -90,6 +93,7 @@
 "editProfile" = "Edit profile";
 "updateCredentials" = "Update your email address and password";
 "confirmCredentials" = "Confirm your email address and password to update your information";
+"deleteAccount" = "Delete Account";
 
 // Forms
 "title" = "Title";

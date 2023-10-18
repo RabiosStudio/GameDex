@@ -50,6 +50,8 @@ internal enum L10n {
   internal static let currentEmail = L10n.tr("Localizable", "currentEmail", fallback: "Current email address")
   /// Current password
   internal static let currentPassword = L10n.tr("Localizable", "currentPassword", fallback: "Current password")
+  /// Delete Account
+  internal static let deleteAccount = L10n.tr("Localizable", "deleteAccount", fallback: "Delete Account")
   /// Edit profile
   internal static let editProfile = L10n.tr("Localizable", "editProfile", fallback: "Edit profile")
   /// Email
@@ -68,6 +70,8 @@ internal enum L10n {
   internal static let errorAuthDescription = L10n.tr("Localizable", "errorAuthDescription", fallback: "Please check your email address and password")
   /// Error verifying credentials
   internal static let errorCredentialsDescription = L10n.tr("Localizable", "errorCredentialsDescription", fallback: "Error verifying credentials")
+  /// Error deleting account
+  internal static let errorDeleteAccountDescription = L10n.tr("Localizable", "errorDeleteAccountDescription", fallback: "Error deleting account")
   /// Your email app couldn't be reached. You can contact us at 
   internal static let errorEmailAppDescription = L10n.tr("Localizable", "errorEmailAppDescription", fallback: "Your email app couldn't be reached. You can contact us at ")
   /// An error occured while logging out.
@@ -182,6 +186,8 @@ internal enum L10n {
   internal static let storageArea = L10n.tr("Localizable", "storageArea", fallback: "Storage area")
   /// Login successful.
   internal static let successAuthDescription = L10n.tr("Localizable", "successAuthDescription", fallback: "Login successful.")
+  /// Account deleted successfully
+  internal static let successDeleteAccountDescription = L10n.tr("Localizable", "successDeleteAccountDescription", fallback: "Account deleted successfully")
   /// You are logged out.
   internal static let successLogOutDescription = L10n.tr("Localizable", "successLogOutDescription", fallback: "You are logged out.")
   /// Success
@@ -194,6 +200,8 @@ internal enum L10n {
   internal static let updateErrorDescription = L10n.tr("Localizable", "updateErrorDescription", fallback: "An error occured while updating data.")
   /// Success updating data.
   internal static let updateSuccessDescription = L10n.tr("Localizable", "updateSuccessDescription", fallback: "Success updating data.")
+  /// Account deletion is definitive. This will not delete data saved directly on your device
+  internal static let warningAccountDeletion = L10n.tr("Localizable", "warningAccountDeletion", fallback: "Account deletion is definitive. This will not delete data saved directly on your device")
   /// This game is already in your collection!
   internal static let warningGameAlreadyInDatabase = L10n.tr("Localizable", "warningGameAlreadyInDatabase", fallback: "This game is already in your collection!")
   /// Are you sure you want to log out?

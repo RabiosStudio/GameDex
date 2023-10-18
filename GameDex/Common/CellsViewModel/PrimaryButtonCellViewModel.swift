@@ -16,14 +16,17 @@ final class PrimaryButtonCellViewModel: ButtonCollectionCellViewModel {
     private let delegate: PrimaryButtonDelegate?
     
     let title: String
+    let buttonType: ButtonType
     
     init(
         title: String,
         delegate: PrimaryButtonDelegate?,
+        buttonType: ButtonType = .classic,
         cellTappedCallback: (() -> Void)? = nil
     ) {
         self.title = title
         self.delegate = delegate
+        self.buttonType = buttonType
         self.cellTappedCallback = cellTappedCallback
     }
     
