@@ -17,6 +17,9 @@
 		2506D8942AE02668006D3F52 /* EditProfileSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2506D8912AE02668006D3F52 /* EditProfileSection.swift */; };
 		2506D8952AE02668006D3F52 /* EditProfileViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2506D8922AE02668006D3F52 /* EditProfileViewModel.swift */; };
 		2506D8972AE026B2006D3F52 /* ButtonType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2506D8962AE026B2006D3F52 /* ButtonType.swift */; };
+		2506D8992AE11291006D3F52 /* FirestoreSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2506D8982AE11291006D3F52 /* FirestoreSession.swift */; };
+		2506D89B2AE16B08006D3F52 /* FirestoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2506D89A2AE16B08006D3F52 /* FirestoreData.swift */; };
+		2506D89D2AE16B1E006D3F52 /* FirestoreSessionImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2506D89C2AE16B1E006D3F52 /* FirestoreSessionImpl.swift */; };
 		251C86742A94D5E80020C794 /* Mock.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251C86732A94D5E80020C794 /* Mock.generated.swift */; };
 		251C86BA2A97A29D0020C794 /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251C86B02A97A29D0020C794 /* APIError.swift */; };
 		251C86BC2A97A29D0020C794 /* AlamofireAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251C86B22A97A29D0020C794 /* AlamofireAPI.swift */; };
@@ -218,6 +221,9 @@
 		2506D8912AE02668006D3F52 /* EditProfileSection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditProfileSection.swift; sourceTree = "<group>"; };
 		2506D8922AE02668006D3F52 /* EditProfileViewModel.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditProfileViewModel.swift; sourceTree = "<group>"; };
 		2506D8962AE026B2006D3F52 /* ButtonType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ButtonType.swift; sourceTree = "<group>"; };
+		2506D8982AE11291006D3F52 /* FirestoreSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreSession.swift; sourceTree = "<group>"; };
+		2506D89A2AE16B08006D3F52 /* FirestoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreData.swift; sourceTree = "<group>"; };
+		2506D89C2AE16B1E006D3F52 /* FirestoreSessionImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreSessionImpl.swift; sourceTree = "<group>"; };
 		251C86732A94D5E80020C794 /* Mock.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mock.generated.swift; sourceTree = "<group>"; };
 		251C86B02A97A29D0020C794 /* APIError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
 		251C86B22A97A29D0020C794 /* AlamofireAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlamofireAPI.swift; sourceTree = "<group>"; };
@@ -787,6 +793,9 @@
 			isa = PBXGroup;
 			children = (
 				25BDEC892AC5781C0083E0B2 /* FirestoreDatabase.swift */,
+				2506D8982AE11291006D3F52 /* FirestoreSession.swift */,
+				2506D89C2AE16B1E006D3F52 /* FirestoreSessionImpl.swift */,
+				2506D89A2AE16B08006D3F52 /* FirestoreData.swift */,
 			);
 			path = Firestore;
 			sourceTree = "<group>";
@@ -1375,6 +1384,7 @@
 				2560B01B2ACFF38800EBAADB /* InfoView.swift in Sources */,
 				25AE1F022A8F499800F2D06A /* Navigator+NavigationStyle.swift in Sources */,
 				25979DCC2AC17C22002CEDE7 /* ImageCell.swift in Sources */,
+				2506D8992AE11291006D3F52 /* FirestoreSession.swift in Sources */,
 				25AE1EAE2A8BB89400F2D06A /* Section.swift in Sources */,
 				25AE1ED42A8D1E4000F2D06A /* EmptyError.swift in Sources */,
 				25EB24572AA8B39C0024F01C /* PickerViewModel.swift in Sources */,
@@ -1392,6 +1402,7 @@
 				25E8E4A82AC1E4290093E7F8 /* AuthenticationService.swift in Sources */,
 				25EDF7C22AB463B000648717 /* FormType.swift in Sources */,
 				2593A0092AB19373000FC253 /* MyCollectionSection.swift in Sources */,
+				2506D89B2AE16B08006D3F52 /* FirestoreData.swift in Sources */,
 				25979DA82ABF0E52002CEDE7 /* LoginViewModel.swift in Sources */,
 				25AE1F1B2A8F923B00F2D06A /* ContainerViewController.swift in Sources */,
 				25AE1EBA2A8CB7E300F2D06A /* CollectionViewModel.swift in Sources */,
@@ -1470,6 +1481,7 @@
 				2548E5F92ABEDF53004151EF /* MyProfileSection.swift in Sources */,
 				2548E5E32ABAE688004151EF /* GameCollected.swift in Sources */,
 				251C86E62A98BD020020C794 /* SelectAddGameMethodScreenFactory.swift in Sources */,
+				2506D89D2AE16B1E006D3F52 /* FirestoreSessionImpl.swift in Sources */,
 				25979DCE2AC17C2C002CEDE7 /* ImageCellViewModel.swift in Sources */,
 				254354762A93AFF700E53351 /* LabelCell.swift in Sources */,
 				25E8E49B2AC1926A0093E7F8 /* UserAccountFormType.swift in Sources */,
