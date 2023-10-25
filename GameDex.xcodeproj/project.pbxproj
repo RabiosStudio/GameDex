@@ -20,6 +20,7 @@
 		2506D8992AE11291006D3F52 /* FirestoreSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2506D8982AE11291006D3F52 /* FirestoreSession.swift */; };
 		2506D89B2AE16B08006D3F52 /* FirestoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2506D89A2AE16B08006D3F52 /* FirestoreData.swift */; };
 		2506D89D2AE16B1E006D3F52 /* FirestoreSessionImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2506D89C2AE16B1E006D3F52 /* FirestoreSessionImpl.swift */; };
+		2506D8A52AE3B60F006D3F52 /* FirestoreDatabaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2506D8A42AE3B60F006D3F52 /* FirestoreDatabaseTests.swift */; };
 		251C86742A94D5E80020C794 /* Mock.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251C86732A94D5E80020C794 /* Mock.generated.swift */; };
 		251C86BA2A97A29D0020C794 /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251C86B02A97A29D0020C794 /* APIError.swift */; };
 		251C86BC2A97A29D0020C794 /* AlamofireAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251C86B22A97A29D0020C794 /* AlamofireAPI.swift */; };
@@ -224,6 +225,7 @@
 		2506D8982AE11291006D3F52 /* FirestoreSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreSession.swift; sourceTree = "<group>"; };
 		2506D89A2AE16B08006D3F52 /* FirestoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreData.swift; sourceTree = "<group>"; };
 		2506D89C2AE16B1E006D3F52 /* FirestoreSessionImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreSessionImpl.swift; sourceTree = "<group>"; };
+		2506D8A42AE3B60F006D3F52 /* FirestoreDatabaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreDatabaseTests.swift; sourceTree = "<group>"; };
 		251C86732A94D5E80020C794 /* Mock.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mock.generated.swift; sourceTree = "<group>"; };
 		251C86B02A97A29D0020C794 /* APIError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
 		251C86B22A97A29D0020C794 /* AlamofireAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlamofireAPI.swift; sourceTree = "<group>"; };
@@ -447,6 +449,14 @@
 				2506D8922AE02668006D3F52 /* EditProfileViewModel.swift */,
 			);
 			path = EditProfile;
+			sourceTree = "<group>";
+		};
+		2506D8A02AE3B468006D3F52 /* Firestore */ = {
+			isa = PBXGroup;
+			children = (
+				2506D8A42AE3B60F006D3F52 /* FirestoreDatabaseTests.swift */,
+			);
+			path = Firestore;
 			sourceTree = "<group>";
 		};
 		251C86762A94DB4D0020C794 /* MyCollection */ = {
@@ -873,6 +883,7 @@
 		25D6EAF72A8A265D00C2BE57 /* GameDexTests */ = {
 			isa = PBXGroup;
 			children = (
+				2506D8A02AE3B468006D3F52 /* Firestore */,
 				251C86762A94DB4D0020C794 /* MyCollection */,
 				25F663252A94C95D005F5412 /* AddGame */,
 				25979D9B2ABEF5C6002CEDE7 /* MyProfile */,
@@ -1521,6 +1532,7 @@
 				25EB240E2AA5BC550024F01C /* SearchGameByTitleSectionTests.swift in Sources */,
 				25E8E49F2AC1B0D80093E7F8 /* AuthenticationViewModelTests.swift in Sources */,
 				25D5074D2AB61BB200A772F9 /* MyCollectionSectionTests.swift in Sources */,
+				2506D8A52AE3B60F006D3F52 /* FirestoreDatabaseTests.swift in Sources */,
 				251C87282A9CE82B0020C794 /* Matcher+Extension.swift in Sources */,
 				25E8E4A12AC1B1050093E7F8 /* AuthenticationSectionTests.swift in Sources */,
 				25EB24402AA786100024F01C /* AddGameDetailsSectionTests.swift in Sources */,
