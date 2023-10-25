@@ -126,12 +126,8 @@ internal enum L10n {
   internal static let newEmail = L10n.tr("Localizable", "newEmail", fallback: "New email address")
   /// New password
   internal static let newPassword = L10n.tr("Localizable", "newPassword", fallback: "New password")
-  /// No account yet?
-  internal static let noAccountYet = L10n.tr("Localizable", "noAccountYet", fallback: "No account yet?")
   /// Box without notice
   internal static let noNotice = L10n.tr("Localizable", "noNotice", fallback: "Box without notice")
-  /// OR
-  internal static let or = L10n.tr("Localizable", "or", fallback: "OR")
   /// Other details
   internal static let otherDetails = L10n.tr("Localizable", "otherDetails", fallback: "Other details")
   /// Password
@@ -172,14 +168,8 @@ internal enum L10n {
   internal static let searchPlatform = L10n.tr("Localizable", "searchPlatform", fallback: "Search a platform")
   /// Sign up
   internal static let signup = L10n.tr("Localizable", "signup", fallback: "Sign up")
-  /// Sign up with Apple
-  internal static let signupApple = L10n.tr("Localizable", "signupApple", fallback: "Sign up with Apple")
   /// Sign up with email
   internal static let signupEmail = L10n.tr("Localizable", "signupEmail", fallback: "Sign up with email")
-  /// Sign up with Facebook
-  internal static let signupFacebook = L10n.tr("Localizable", "signupFacebook", fallback: "Sign up with Facebook")
-  /// Sign up with Google
-  internal static let signupGoogle = L10n.tr("Localizable", "signupGoogle", fallback: "Sign up with Google")
   /// Step 1/3
   internal static let stepOneOutOfThree = L10n.tr("Localizable", "stepOneOutOfThree", fallback: "Step 1/3")
   /// Storage area

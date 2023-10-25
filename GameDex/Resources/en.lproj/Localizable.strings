@@ -83,13 +83,8 @@
 "loginFacebook" = "Login with Facebook";
 "loginGoogle" = "Login with Google";
 "signupEmail" = "Sign up with email";
-"signupApple" = "Sign up with Apple";
-"signupFacebook" = "Sign up with Facebook";
-"signupGoogle" = "Sign up with Google";
-"noAccountYet" = "No account yet?";
 "createAccount" = "Create account";
 "authThroughOtherMethods" = "through other methods below";
-"or" = "OR";
 "editProfile" = "Edit profile";
 "updateCredentials" = "Update your email address and password";
 "confirmCredentials" = "Confirm your email address and password to update your information";
