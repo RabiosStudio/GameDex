@@ -8,6 +8,7 @@
 import Foundation
 @testable import GameDex
 import CoreData
+import FirebaseFirestore
 
 enum MockData {
     static let platforms: [Platform] = [
@@ -164,4 +165,98 @@ enum MockData {
     static let email = "email"
     
     static let password = "password"
+    
+    static let firestoreEmptyData = [FirestoreData]()
+    
+    static let firestoreAPIPlatformsCorrectData = [
+        FirestoreData(
+            id: "Game Boy Advance",
+            data: ["id": 4, "imageUrl": "imageUrl", "physical": true]
+        ),
+        FirestoreData(
+            id: "Google Stadia",
+            data: ["id": 175, "imageUrl": "imageUrl", "physical": false]
+        ),
+        FirestoreData(
+            id: "Game Cube",
+            data: ["id": 23, "imageUrl": "imageUrl", "physical": true]
+        )
+    ]
+    static let firestoreAPIPlatformsIncorrectData = [
+        FirestoreData(
+            id: "Game Boy Advance",
+            data: ["id": 4]
+        ),
+        FirestoreData(
+            id: "Google Stadia",
+            data: ["id": 175]
+        ),
+        FirestoreData(
+            id: "Game Cube",
+            data: ["id": 23]
+        )
+    ]
+    static let firestoreAPIPlatformsResultConverted = [
+        Platform(title: "Game Boy Advance", id: 4, imageUrl: "imageUrl", games: nil),
+        Platform(title: "Game Cube", id: 23, imageUrl: "imageUrl", games: nil)
+    ]
+    
+    static let timeStamp = Timestamp(seconds: 1255392000, nanoseconds: 0)
+    static let dateValue = MockData.timeStamp.dateValue()
+    
+    static let firestorePlatformsCorrectData = [
+        FirestoreData(
+            id: "4",
+            data: ["title": "title",
+                  "imageUrl": "imageUrl"]
+        )
+    ]
+    
+    static let firestoreGamesCorrectData = [
+        FirestoreData(
+            id: "gameId",
+            data: ["title": "gameTitle", "description": "gameDescription", "platform": 4, "imageUrl": "gameImageUrl", "lastUpdated": MockData.timeStamp, "releaseDate": MockData.timeStamp, "notes": "gameNotes", "gameCondition": "gameCondition", "gameCompleteness": "gameCompleteness", "gameRegion": "gameRegion", "storageArea": "gameStorageArea", "acquisitionYear": "gameAcquisitionYear", "rating": 5]
+        ),
+        FirestoreData(
+            id: "gameId",
+            data: ["title": "gameTitle", "description": "gameDescription", "platform": 4, "imageUrl": "gameImageUrl", "lastUpdated": MockData.timeStamp, "releaseDate": MockData.timeStamp, "notes": "gameNotes", "gameCondition": "gameCondition", "gameCompleteness": "gameCompleteness", "gameRegion": "gameRegion", "storageArea": "gameStorageArea", "acquisitionYear": "gameAcquisitionYear", "rating": 5]
+        )
+    ]
+    
+    static let firestoreGamesIncorrectData = [
+        FirestoreData(id: "gameId", data: ["title": "gameTitle"]),
+        FirestoreData(id: "gameId", data: ["title": "gameTitle"])
+    ]
+    
+    static let firestoreGamesResultConverted = [
+        SavedGame(
+            game: Game(title: "gameTitle", description: "gameDescription", id: "gameId", platformId: 4, imageUrl: "gameImageUrl", releaseDate: MockData.dateValue),
+            acquisitionYear: "gameAcquisitionYear",
+            gameCondition: "gameCondition",
+            gameCompleteness: "gameCompleteness",
+            gameRegion: "gameRegion",
+            storageArea: "gameStorageArea",
+            rating: 5,
+            notes: "gameNotes",
+            lastUpdated: MockData.dateValue
+        ),
+        SavedGame(
+            game: Game(title: "gameTitle", description: "gameDescription", id: "gameId", platformId: 4, imageUrl: "gameImageUrl", releaseDate: MockData.dateValue),
+            acquisitionYear: "gameAcquisitionYear",
+            gameCondition: "gameCondition",
+            gameCompleteness: "gameCompleteness",
+            gameRegion: "gameRegion",
+            storageArea: "gameStorageArea",
+            rating: 5,
+            notes: "gameNotes",
+            lastUpdated: MockData.dateValue
+        )
+    ]
+    
+    static let firestoreCorrectApiKey = FirestoreData(id: "key", data: ["key": "apiKey"])
+    static let firestoreIncorrectApiKey = FirestoreData(id: "key", data: ["wrongKeyAttributes": "apiKey"])
+    
+    static let userPlatformsPath = "users/userId/platforms"
+    static let userGamesPath = "users/userId/platforms/4/games"
+    static let userPath = "users"
 }

@@ -18,12 +18,14 @@ protocol CloudDatabase {
     func saveUserEmail(userId: String, userEmail: String) async -> DatabaseError?
     func saveGames(userId: String, platform: Platform) async -> DatabaseError?
     func saveGame(userId: String, game: SavedGame, platform: Platform, editingEntry: Bool) async -> DatabaseError?
+    func savePlatform(userId: String, platform: Platform) async -> DatabaseError? 
     func saveCollection(userId: String, localDatabase: LocalDatabase) async -> DatabaseError?
     
     func gameIsInDatabase(userId: String, savedGame: SavedGame) async -> Result<Bool, DatabaseError>
     
     func removeGame(userId: String, platform: Platform, savedGame: SavedGame) async -> DatabaseError?
     func removeUser(userId: String) async -> DatabaseError?
+    func removePlatform(userId: String, platform: Platform) async -> DatabaseError? 
     
     func syncLocalAndCloudDatabases(userId: String, localDatabase: LocalDatabase) async -> DatabaseError?
 }
