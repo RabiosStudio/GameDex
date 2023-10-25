@@ -21,7 +21,7 @@ final class MyCollectionSectionTests: XCTestCase {
         XCTAssertEqual(section.cellsVM.count, MockData.platforms.count)
         
         let sortedPlatforms = MockData.platforms.sorted {
-            $0.title > $1.title
+            $0.title < $1.title
         }
         
         for (index, platform) in sortedPlatforms.enumerated() {
