@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import FirebaseFirestore
 
 // sourcery: AutoMockable
 protocol FirestoreSession {
