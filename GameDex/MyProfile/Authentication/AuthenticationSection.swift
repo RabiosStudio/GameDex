@@ -38,30 +38,5 @@ final class AuthenticationSection: Section {
             delegate: primaryButtonDelegate
         )
         self.cellsVM.append(loginButtonCellVM)
-        
-        let otherLoginMethodTitle = userHasAccount ? "\(L10n.or) \n \n \(L10n.login) \(L10n.authThroughOtherMethods)" : "\(L10n.or) \n \n \(L10n.signup) \(L10n.authThroughOtherMethods)"
-        let otherLoginMethodTitleCellVM = TitleCellViewModel(
-            title: otherLoginMethodTitle,
-            size: .big
-        )
-        self.cellsVM.append(otherLoginMethodTitleCellVM)
-        
-        let appleCellVM = BasicCardCellViewModel(
-            cardType: AuthCardType.appleAuth,
-            title: userHasAccount ? L10n.loginApple : L10n.signupApple
-        )
-        self.cellsVM.append(appleCellVM)
-        
-        let facebookCellVM = BasicCardCellViewModel(
-            cardType: AuthCardType.facebookAuth,
-            title: userHasAccount ? L10n.loginFacebook : L10n.signupFacebook
-        )
-        self.cellsVM.append(facebookCellVM)
-        
-        let googleCellVM = BasicCardCellViewModel(
-            cardType: AuthCardType.googleAuth,
-            title: userHasAccount ? L10n.loginGoogle : L10n.signupGoogle
-        )
-        self.cellsVM.append(googleCellVM)
     }
 }

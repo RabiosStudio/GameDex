@@ -40,7 +40,7 @@ final class AuthenticationViewModelTests: XCTestCase {
         }
         XCTAssertTrue(callbackIsCalled)
         XCTAssertEqual(viewModel.numberOfSections(), 1)
-        XCTAssertEqual(viewModel.numberOfItems(in: .zero), 8)
+        XCTAssertEqual(viewModel.numberOfItems(in: .zero), 4)
     }
     
     func test_didTapPrimaryButton_GivenUserHasAccountAndLoginError_ThenAlertParametersAreSetCorrectly() async {
