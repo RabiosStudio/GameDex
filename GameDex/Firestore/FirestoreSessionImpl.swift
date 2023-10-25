@@ -8,7 +8,7 @@
 import Foundation
 import FirebaseFirestore
 
-class FirestoreSessionImpl: FirestoreSession {
+final class FirestoreSessionImpl: FirestoreSession {
     private let database = Firestore.firestore()
     
     func getData(mainPath: String) async -> Result<[FirestoreData], DatabaseError> {
