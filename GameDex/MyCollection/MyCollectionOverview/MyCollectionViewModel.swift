@@ -114,14 +114,12 @@ extension MyCollectionViewModel {
     }
     
     private func handleSearchIconDisplay() {
+        self.rightButtonItems?.removeAll()
         guard !self.platforms.isEmpty else {
-            if let rightButtonItems = self.rightButtonItems,
-               rightButtonItems.contains(.search) {
-                self.rightButtonItems = [.add]
-            }
+            self.rightButtonItems = [.add]
             return
         }
-        self.rightButtonItems?.append(.search)
+        self.rightButtonItems = [.add, .search]
     }
     
     private func handleDataSuccess(platforms: [Platform]) -> EmptyError? {

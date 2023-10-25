@@ -15,7 +15,7 @@ final class MyCollectionSection: Section {
         super.init()
         self.position = 0
         let platforms = platforms.sorted {
-            $0.title > $1.title
+            $0.title < $1.title
         }
         
         // Check all games in collection and add those on the corresponding platform in an array that we will pass to the cell
