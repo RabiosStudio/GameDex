@@ -252,6 +252,43 @@ final class SearchGameByTitleViewModelTests: XCTestCase {
         wait(for: [expectation], timeout: Constants.timeout)
     }
     
+    func test_startSearch_GivenNoAPIErrorAndNoResult_ThenShouldReturnErrorNoItem() {
+        // Given
+        let expectation = XCTestExpectation(description: "perform loadData() asynchronously")
+        
+        let endpoint = GetGamesEndpoint(
+            platformId: MockData.platform.id,
+            title: MockData.platform.title
+        )
+        
+        let networkingSession = APIMock()
+        
+        networkingSession.given(
+            .getData(
+                with: .value(endpoint),
+                willReturn:  Result<SearchGamesData, APIError>.success(MockData.searchGamesResultEmpty)
+            )
+        )
+        
+        let viewModel = SearchGameByTitleViewModel(
+            networkingSession: networkingSession,
+            platform: MockData.platform,
+            myCollectionDelegate: MyCollectionViewModelDelegateMock()
+        )
+        
+        // When
+        viewModel.startSearch(from: MockData.searchGameQuery) { error in
+            // Then
+            guard let error = error as? AddGameError else {
+                XCTFail("Error type is not correct")
+                return
+            }
+            XCTAssertEqual(error, AddGameError.noItems)
+            expectation.fulfill()
+        }
+        wait(for: [expectation], timeout: Constants.timeout)
+    }
+    
     func test_updateSearchTextField_ThenShouldCallCallback() {
         // Given
         let networkingSession = APIMock()

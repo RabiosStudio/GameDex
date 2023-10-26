@@ -23,6 +23,8 @@ enum MockData {
     
     static let platformWithNoGames = Platform(title: "Game Boy Advance", id: 4, imageUrl: "imageUrl", games: nil)
     
+    static let searchGamesResultEmpty = SearchGamesData(offset: .zero, statusCode: 1, results: [])
+    
     static let searchGamesData = SearchGamesData(
         offset: .zero,
         statusCode: 1,
