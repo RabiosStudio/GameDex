@@ -347,9 +347,9 @@ extension ContainerViewController: UICollectionViewDelegate {
             withReuseIdentifier: cellVM.reuseIdentifier,
             for: indexPath
         )
-                
-        let configurableCell = cell as? CellConfigurable                
-        configurableCell?.cellPressed(cellViewModel: cellVM)        
+        
+        let configurableCell = cell as? CellConfigurable
+        configurableCell?.cellPressed(cellViewModel: cellVM)
         collectionView.deselectItem(at: indexPath, animated: true)
     }
 }
@@ -421,14 +421,14 @@ extension ContainerViewController: UISearchBarDelegate {
         self.configureLoader()
         self.viewModel.searchViewModel?.delegate?.startSearch(
             from: searchQuery) { [weak self] error in
-                DispatchQueue.main.async {
-                    if let error = error {
+                if let error = error {
+                    DispatchQueue.main.async {
                         let tabBarOffset = -(self?.tabBarController?.tabBar.frame.size.height ?? 0)
                         self?.updateEmptyState(error: error,
                                                tabBarOffset: tabBarOffset)
-                    } else {
-                        self?.refresh()
                     }
+                } else {
+                    self?.refresh()
                 }
             }
     }

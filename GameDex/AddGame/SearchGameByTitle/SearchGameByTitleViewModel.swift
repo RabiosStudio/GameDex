@@ -45,8 +45,7 @@ final class SearchGameByTitleViewModel: CollectionViewModel {
     }
     
     func loadData(callback: @escaping (EmptyError?) -> ()) {
-        let error = AddGameError.noSearch(platformName: self.platform.title)
-        callback(error)
+        callback(AddGameError.noSearch(platformName: self.platform.title))
     }
     
     func didTapRightButtonItem() {
@@ -74,6 +73,10 @@ extension SearchGameByTitleViewModel: SearchViewModelDelegate {
             
             switch result {
             case .success(let data):
+                guard !data.results.isEmpty else {
+                    callback(AddGameError.noItems)
+                    return
+                }
                 let games = RemoteDataConverter.convert(remoteGames: data.results, platform: self.platform)
                 self.gamesQuery = games
                 self.sections = [SearchGameByTitleSection(
@@ -83,8 +86,7 @@ extension SearchGameByTitleViewModel: SearchViewModelDelegate {
                 )]
                 callback(nil)
             case .failure(_):
-                let error: AddGameError = .server
-                callback(error)
+                callback(AddGameError.server)
             }
         }
     }
