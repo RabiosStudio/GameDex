@@ -45,8 +45,7 @@ final class SearchGameByTitleViewModel: CollectionViewModel {
     }
     
     func loadData(callback: @escaping (EmptyError?) -> ()) {
-        let error = AddGameError.noSearch(platformName: self.platform.title)
-        callback(error)
+        callback(AddGameError.noSearch(platformName: self.platform.title))
     }
     
     func didTapRightButtonItem() {
@@ -87,8 +86,7 @@ extension SearchGameByTitleViewModel: SearchViewModelDelegate {
                 )]
                 callback(nil)
             case .failure(_):
-                let error: AddGameError = .server
-                callback(error)
+                callback(AddGameError.server)
             }
         }
     }
