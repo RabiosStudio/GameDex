@@ -73,13 +73,7 @@ extension SearchGameByTitleViewModel: SearchViewModelDelegate {
             
             switch result {
             case .success(let data):
-                let dataResults = RemoteDataConverter.convert(remoteGames: data.results, platform: self.platform)
-                var games = [Game]()
-                for game in dataResults {
-                    if game.releaseDate != nil {
-                        games.append(game)
-                    }
-                }
+                let games = RemoteDataConverter.convert(remoteGames: data.results, platform: self.platform).filter({ $0.releaseDate != nil })
                 guard !games.isEmpty else {
                     callback(AddGameError.noItems)
                     return
