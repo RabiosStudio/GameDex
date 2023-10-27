@@ -21,6 +21,7 @@
 "errorLogOutDescription" = "Une erreur est survenue lors de la déconnexion.";
 "errorEmailAppDescription" = "Votre application mail n'a pas été détectée. Vous pouvez nous contacter à l'adresse suivante : ";
 "errorCredentialsDescription" = "La vérification des informations d'identification a échouée.";
+"errorDeletePlatformDescription" = "Une erreur est survenue lors de la suppression de la ";
 
 // Success
 "successTitle" = "Succès";
@@ -30,6 +31,7 @@
 "successAuthDescription" = "Vous êtes connectés.";
 "successLogOutDescription" = "Vous êtes déconnectés.";
 "successDeleteAccount" = "Account deleted successfully";
+"successDeletePlatformDescription" = " a bien été supprimée de votre collection";
 
 // Warnings
 "warningTitle" = "Un instant !";
@@ -39,6 +41,8 @@
 "warningLogOut" = "Êtes-vous sûr(e) de vouloir vous déconnecter ?";
 "warningUpdatePassword" = "Votre adresse email a bien été mise à jour mais une erreur est survenue lors de la mise à jour du mot de passe.";
 "warningAccountDeletion" = "La suppression du compte est définitive. Cela n'affecte pas les données enregistrées en local sur votre appareil.";
+"warningPlatformDeletionCloud" = "La collection ne peut pas être restaurée après suppression. Cela n'affectera pas les données sauvegardées en local sur d'autres appareils.";
+"warningPlatformDeletionLocal" = "La collection ne peut pas être restaurée après suppression. Seules les données sauvegardées en local sur votre appreils seront supprimées.";
 
 // Button
 "addAGame" = "Ajouter un jeu";
@@ -49,6 +53,7 @@
 "confirm" = "Confirmer";
 "saveChanges" = "Sauvegarder les modifications";
 "refresh" = "Actualiser";
+"deleteFromCollection" = "Supprimer de ma collection";
 
 // Add Game Steps
 "stepOneOutOfThree" = "Etape 1/3";
@@ -84,6 +89,7 @@
 "updateCredentials" = "Modifiez votre adresse email et votre mot de passe.";
 "confirmCredentials" = "Confirmer votre adresse email et mot de passe actuels pour mettre à jour vos informations.";
 "deleteAccount" = "Supprimer mon compte";
+"collectionManagement" = "Gestion de ma collection";
 
 // Forms
 "title" = "Titre";
@@ -112,7 +118,10 @@
 "currentEmail" = "Adresse mail actuelle";
 "newPassword" = "Nouveau mot de passe";
 "currentPassword" = "Mot de passe actuel";
+"collectionToDelete" = "Collection à supprimer";
 
 // Other
 "game" = "jeu";
 "games" = "jeux";
+"fromYouCollection" = "de votre collection.";
+"selectAndDeleteACollection" = "Sélectionnez une collection à supprimer";
