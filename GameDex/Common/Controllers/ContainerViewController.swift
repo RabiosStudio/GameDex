@@ -249,7 +249,9 @@ class ContainerViewController: UIViewController {
             self.title = self.viewModel.screenTitle
             return
         }
-        self.searchBar.becomeFirstResponder()
+        DispatchQueue.main.async {
+            self.searchBar.becomeFirstResponder()
+        }
         self.searchBar.placeholder = searchVM.placeholder
         self.navigationItem.titleView = self.searchBar
     }
