@@ -195,4 +195,25 @@ extension LocalDatabaseImpl {
             return DatabaseError.removeError
         }
     }
+    
+    func remove(platform: Platform) async -> DatabaseError? {
+        // Remove the object in the following context
+        let fetchedPlatformResult = self.getPlatform(platformId: platform.id)
+        
+        switch fetchedPlatformResult {
+        case .success(let fetchedPlatform):
+            guard let fetchedPlatform else {
+                return DatabaseError.removeError
+            }
+            managedObjectContext.delete(fetchedPlatform)
+            do {
+                try managedObjectContext.save()
+                return nil
+            } catch {
+                return DatabaseError.removeError
+            }
+        case .failure(_):
+            return DatabaseError.removeError
+        }
+    }
 }
