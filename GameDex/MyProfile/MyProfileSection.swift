@@ -69,7 +69,17 @@ final class MyProfileSection: Section {
         }
         
         let collectionManagementCellVM = LabelCellViewModel(
-            text: L10n.collectionManagement
+            text: L10n.collectionManagement,
+            cellTappedCallback: {
+                let screenFactory = CollectionManagementScreenFactory(
+                    myCollectionDelegate: myCollectionDelegate
+                )
+                Routing.shared.route(
+                    navigationStyle: .push(
+                        screenFactory: screenFactory
+                    )
+                )
+            }
         )
         self.cellsVM.append(collectionManagementCellVM)
         
