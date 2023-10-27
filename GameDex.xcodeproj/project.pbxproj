@@ -21,6 +21,9 @@
 		2506D89B2AE16B08006D3F52 /* FirestoreData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2506D89A2AE16B08006D3F52 /* FirestoreData.swift */; };
 		2506D89D2AE16B1E006D3F52 /* FirestoreSessionImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2506D89C2AE16B1E006D3F52 /* FirestoreSessionImpl.swift */; };
 		2506D8A52AE3B60F006D3F52 /* FirestoreDatabaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2506D8A42AE3B60F006D3F52 /* FirestoreDatabaseTests.swift */; };
+		2506D8A82AE934E9006D3F52 /* CollectionManagementViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2506D8A72AE934E9006D3F52 /* CollectionManagementViewModel.swift */; };
+		2506D8AA2AE934F6006D3F52 /* CollectionManagementSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2506D8A92AE934F6006D3F52 /* CollectionManagementSection.swift */; };
+		2506D8AC2AE93504006D3F52 /* CollectionManagementScreenFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2506D8AB2AE93504006D3F52 /* CollectionManagementScreenFactory.swift */; };
 		251C86742A94D5E80020C794 /* Mock.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251C86732A94D5E80020C794 /* Mock.generated.swift */; };
 		251C86BA2A97A29D0020C794 /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251C86B02A97A29D0020C794 /* APIError.swift */; };
 		251C86BC2A97A29D0020C794 /* AlamofireAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251C86B22A97A29D0020C794 /* AlamofireAPI.swift */; };
@@ -225,6 +228,9 @@
 		2506D89A2AE16B08006D3F52 /* FirestoreData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreData.swift; sourceTree = "<group>"; };
 		2506D89C2AE16B1E006D3F52 /* FirestoreSessionImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreSessionImpl.swift; sourceTree = "<group>"; };
 		2506D8A42AE3B60F006D3F52 /* FirestoreDatabaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreDatabaseTests.swift; sourceTree = "<group>"; };
+		2506D8A72AE934E9006D3F52 /* CollectionManagementViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionManagementViewModel.swift; sourceTree = "<group>"; };
+		2506D8A92AE934F6006D3F52 /* CollectionManagementSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionManagementSection.swift; sourceTree = "<group>"; };
+		2506D8AB2AE93504006D3F52 /* CollectionManagementScreenFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionManagementScreenFactory.swift; sourceTree = "<group>"; };
 		251C86732A94D5E80020C794 /* Mock.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mock.generated.swift; sourceTree = "<group>"; };
 		251C86B02A97A29D0020C794 /* APIError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
 		251C86B22A97A29D0020C794 /* AlamofireAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlamofireAPI.swift; sourceTree = "<group>"; };
@@ -457,6 +463,16 @@
 			path = Firestore;
 			sourceTree = "<group>";
 		};
+		2506D8A62AE934C8006D3F52 /* CollectionManagement */ = {
+			isa = PBXGroup;
+			children = (
+				2506D8A72AE934E9006D3F52 /* CollectionManagementViewModel.swift */,
+				2506D8A92AE934F6006D3F52 /* CollectionManagementSection.swift */,
+				2506D8AB2AE93504006D3F52 /* CollectionManagementScreenFactory.swift */,
+			);
+			path = CollectionManagement;
+			sourceTree = "<group>";
+		};
 		251C86762A94DB4D0020C794 /* MyCollection */ = {
 			isa = PBXGroup;
 			children = (
@@ -543,6 +559,7 @@
 		2548E5F52ABEDF2F004151EF /* MyProfile */ = {
 			isa = PBXGroup;
 			children = (
+				2506D8A62AE934C8006D3F52 /* CollectionManagement */,
 				25979DB72ABF2AB5002CEDE7 /* Login */,
 				25979DC42AC17279002CEDE7 /* Authentication */,
 				2506D88F2AE02668006D3F52 /* EditProfile */,
@@ -1415,6 +1432,7 @@
 				25AE1F1B2A8F923B00F2D06A /* ContainerViewController.swift in Sources */,
 				25AE1EBA2A8CB7E300F2D06A /* CollectionViewModel.swift in Sources */,
 				25AE1EE62A8E4D6800F2D06A /* DesignSystem.swift in Sources */,
+				2506D8AA2AE934F6006D3F52 /* CollectionManagementSection.swift in Sources */,
 				25AE1F172A8F900300F2D06A /* AnyBarButtonItem.swift in Sources */,
 				25AE1F082A8F4D2000F2D06A /* NavigationController.swift in Sources */,
 				25AE1F132A8F8DDF00F2D06A /* UINavigationController+Configure.swift in Sources */,
@@ -1473,8 +1491,10 @@
 				25939FFB2AAF5D01000FC253 /* AlertDisplayerImpl.swift in Sources */,
 				25979DBF2ABF310B002CEDE7 /* SelectAddGameMethodCardType.swift in Sources */,
 				25AE1EBE2A8CB85900F2D06A /* CellViewModel.swift in Sources */,
+				2506D8A82AE934E9006D3F52 /* CollectionManagementViewModel.swift in Sources */,
 				251C86D62A9899F40020C794 /* Platform.swift in Sources */,
 				25DA8CB82AADE7E300B40F84 /* SavedGame.swift in Sources */,
+				2506D8AC2AE93504006D3F52 /* CollectionManagementScreenFactory.swift in Sources */,
 				25D6EAE22A8A265C00C2BE57 /* AppDelegate.swift in Sources */,
 				25AE1F1D2A8F926400F2D06A /* ContentViewFactory.swift in Sources */,
 				25EB242C2AA621800024F01C /* ImageDescriptionCell.swift in Sources */,
