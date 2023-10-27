@@ -25,6 +25,58 @@ enum MockData {
     
     static let searchGamesResultEmpty = SearchGamesData(offset: .zero, statusCode: 1, results: [])
     
+    static let searchGamesResultWithoutReleaseDate = SearchGamesData(
+        offset: .zero, statusCode: 1,
+        results: [
+            GameData(
+                deck: "description",
+                guid: "id",
+                image: Image(mediumUrl: "mediumSize",
+                             screenUrl: "BigSize",
+                             imageTags: "imageTags"),
+                imageTags: [
+                    ImageTag(
+                        apiDetailUrl: "",
+                        name: "",
+                        total: 1
+                    )
+                ],
+                name: "Title",
+                originalReleaseDate: nil,
+                platforms: [
+                    PlatformInfo(
+                        id: 4,
+                        name: "Game Boy Advance",
+                        abbreviation: "GBA"
+                    )
+                ],
+                siteDetailUrl: "url"),
+            GameData(
+                deck: "description",
+                guid: "id",
+                image: Image(mediumUrl: "mediumSize",
+                             screenUrl: "BigSize",
+                             imageTags: "imageTags"),
+                imageTags: [
+                    ImageTag(
+                        apiDetailUrl: "",
+                        name: "",
+                        total: 1
+                    )
+                ],
+                name: "Title",
+                originalReleaseDate: nil,
+                platforms: [
+                    PlatformInfo(
+                        id: 4,
+                        name: "Game Boy Advance",
+                        abbreviation: "GBA"
+                    )
+                ],
+                siteDetailUrl: "url")
+        ]
+    )
+    
     static let searchGamesData = SearchGamesData(
         offset: .zero,
         statusCode: 1,

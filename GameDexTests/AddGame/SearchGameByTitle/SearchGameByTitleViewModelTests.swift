@@ -352,6 +352,52 @@ final class SearchGameByTitleViewModelTests: XCTestCase {
         wait(for: [expectation], timeout: Constants.timeout)
     }
     
+    func test_startSearch_GivenSearchResultsWithNoReleaseDate_ThenShouldDisplayErrorNoItems() {
+        // Given
+        let expectation = XCTestExpectation(description: "perform loadData() asynchronously")
+        
+        let endpoint = GetGamesEndpoint(
+            platformId: MockData.platform.id,
+            title: MockData.platform.title
+        )
+        
+        let networkingSession = APIMock()
+        
+        networkingSession.given(
+            .getData(
+                with: .value(endpoint),
+                willReturn:  Result<SearchGamesData, APIError>.success(MockData.searchGamesResultWithoutReleaseDate)
+            )
+        )
+        
+        let viewModel = SearchGameByTitleViewModel(
+            networkingSession: networkingSession,
+            platform: MockData.platform,
+            myCollectionDelegate: MyCollectionViewModelDelegateMock()
+        )
+        
+        let games = RemoteDataConverter.convert(
+            remoteGames: MockData.searchGamesData.results,
+            platform: MockData.platform
+        )
+        
+        viewModel.loadData { _ in
+            
+            // When
+            viewModel.startSearch(from: MockData.searchGameQuery) { error in
+                
+                // Then
+                guard let error = error as? AddGameError else {
+                    XCTFail("Error type is not correct")
+                    return
+                }
+                XCTAssertEqual(error, AddGameError.noItems)
+            }
+            expectation.fulfill()
+        }
+        wait(for: [expectation], timeout: Constants.timeout)
+    }
+    
     func test_didTapRightButtonItem_ThenShouldSetNavigationStyleCorrectly() {
         // Given
         let networkingSession = APIMock()
