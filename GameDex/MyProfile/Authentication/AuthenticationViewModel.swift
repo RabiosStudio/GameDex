@@ -77,6 +77,8 @@ extension AuthenticationViewModel: PrimaryButtonDelegate {
                 email = formCellVM.value as? String
             case .password:
                 password = formCellVM.value as? String
+            default:
+                break
             }
         }
         
