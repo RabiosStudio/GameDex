@@ -79,6 +79,8 @@ final class AuthenticationViewModelTests: XCTestCase {
                 formCellVM.value = "email"
             case .password:
                 formCellVM.value = "password"
+            case .collection(_):
+                XCTFail("Wrong type")
             }
         }
         
@@ -139,6 +141,8 @@ final class AuthenticationViewModelTests: XCTestCase {
                 formCellVM.value = "email"
             case .password:
                 formCellVM.value = "password"
+            case .collection(_):
+                XCTFail("Wrong type")
             }
         }
         
@@ -196,6 +200,8 @@ final class AuthenticationViewModelTests: XCTestCase {
                 formCellVM.value = "email"
             case .password:
                 formCellVM.value = "password"
+            case .collection(_):
+                XCTFail("Wrong type")
             }
         }
         
@@ -256,6 +262,8 @@ final class AuthenticationViewModelTests: XCTestCase {
                 formCellVM.value = "email"
             case .password:
                 formCellVM.value = "password"
+            case .collection(_):
+                XCTFail("Wrong type")
             }
         }
 

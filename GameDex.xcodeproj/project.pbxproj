@@ -24,6 +24,8 @@
 		2506D8A82AE934E9006D3F52 /* CollectionManagementViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2506D8A72AE934E9006D3F52 /* CollectionManagementViewModel.swift */; };
 		2506D8AA2AE934F6006D3F52 /* CollectionManagementSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2506D8A92AE934F6006D3F52 /* CollectionManagementSection.swift */; };
 		2506D8AC2AE93504006D3F52 /* CollectionManagementScreenFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2506D8AB2AE93504006D3F52 /* CollectionManagementScreenFactory.swift */; };
+		2506D8B12AE94E07006D3F52 /* CollectionManagementViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2506D8B02AE94E07006D3F52 /* CollectionManagementViewModelTests.swift */; };
+		2506D8B32AE94E13006D3F52 /* CollectionManagementSectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2506D8B22AE94E13006D3F52 /* CollectionManagementSectionTests.swift */; };
 		251C86742A94D5E80020C794 /* Mock.generated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251C86732A94D5E80020C794 /* Mock.generated.swift */; };
 		251C86BA2A97A29D0020C794 /* APIError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251C86B02A97A29D0020C794 /* APIError.swift */; };
 		251C86BC2A97A29D0020C794 /* AlamofireAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 251C86B22A97A29D0020C794 /* AlamofireAPI.swift */; };
@@ -231,6 +233,8 @@
 		2506D8A72AE934E9006D3F52 /* CollectionManagementViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionManagementViewModel.swift; sourceTree = "<group>"; };
 		2506D8A92AE934F6006D3F52 /* CollectionManagementSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionManagementSection.swift; sourceTree = "<group>"; };
 		2506D8AB2AE93504006D3F52 /* CollectionManagementScreenFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionManagementScreenFactory.swift; sourceTree = "<group>"; };
+		2506D8B02AE94E07006D3F52 /* CollectionManagementViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionManagementViewModelTests.swift; sourceTree = "<group>"; };
+		2506D8B22AE94E13006D3F52 /* CollectionManagementSectionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionManagementSectionTests.swift; sourceTree = "<group>"; };
 		251C86732A94D5E80020C794 /* Mock.generated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Mock.generated.swift; sourceTree = "<group>"; };
 		251C86B02A97A29D0020C794 /* APIError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = APIError.swift; sourceTree = "<group>"; };
 		251C86B22A97A29D0020C794 /* AlamofireAPI.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AlamofireAPI.swift; sourceTree = "<group>"; };
@@ -473,6 +477,15 @@
 			path = CollectionManagement;
 			sourceTree = "<group>";
 		};
+		2506D8AF2AE94DEE006D3F52 /* CollectionManagement */ = {
+			isa = PBXGroup;
+			children = (
+				2506D8B02AE94E07006D3F52 /* CollectionManagementViewModelTests.swift */,
+				2506D8B22AE94E13006D3F52 /* CollectionManagementSectionTests.swift */,
+			);
+			path = CollectionManagement;
+			sourceTree = "<group>";
+		};
 		251C86762A94DB4D0020C794 /* MyCollection */ = {
 			isa = PBXGroup;
 			children = (
@@ -631,6 +644,7 @@
 		25979D9B2ABEF5C6002CEDE7 /* MyProfile */ = {
 			isa = PBXGroup;
 			children = (
+				2506D8AF2AE94DEE006D3F52 /* CollectionManagement */,
 				25E8E49C2AC1B0A80093E7F8 /* Login */,
 				25E8E49D2AC1B0AD0093E7F8 /* Authentication */,
 				2506D88A2ADFEE66006D3F52 /* EditProfile */,
@@ -1541,6 +1555,7 @@
 				25D507552AB6DCD000A772F9 /* EditGameDetailsViewModelTests.swift in Sources */,
 				25EB24502AA8B1280024F01C /* StarRatingCellViewModelTests.swift in Sources */,
 				25979D9D2ABEF5E6002CEDE7 /* MyProfileViewModelTests.swift in Sources */,
+				2506D8B12AE94E07006D3F52 /* CollectionManagementViewModelTests.swift in Sources */,
 				25AE1F3D2A939BE300F2D06A /* ButtonViewModelTests.swift in Sources */,
 				251C87112A9BBD290020C794 /* SelectAddGameMethodViewModelTests.swift in Sources */,
 				25EB240A2AA1D76D0024F01C /* BasicCardCellViewModelTests.swift in Sources */,
@@ -1559,6 +1574,7 @@
 				25EB24542AA8B1430024F01C /* TextViewCellViewModelTests.swift in Sources */,
 				25EDF7AF2AB2E49A00648717 /* MockData.swift in Sources */,
 				25EB243E2AA785FC0024F01C /* AddGameDetailsViewModelTests.swift in Sources */,
+				2506D8B32AE94E13006D3F52 /* CollectionManagementSectionTests.swift in Sources */,
 				25EB240C2AA1D77A0024F01C /* BasicInfoCellViewModelTests.swift in Sources */,
 				2506D88E2ADFEEF4006D3F52 /* EditProfileSectionTests.swift in Sources */,
 				25D507572AB6DCE900A772F9 /* MyCollectionByPlatformViewModelTests.swift in Sources */,
