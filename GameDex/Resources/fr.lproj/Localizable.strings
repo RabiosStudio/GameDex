@@ -21,7 +21,6 @@
 "errorLogOutDescription" = "Une erreur est survenue lors de la déconnexion.";
 "errorEmailAppDescription" = "Votre application mail n'a pas été détectée. Vous pouvez nous contacter à l'adresse suivante : ";
 "errorCredentialsDescription" = "La vérification des informations d'identification a échouée.";
-"errorDeletePlatformDescription" = "Une erreur est survenue lors de la suppression de la ";
 
 // Success
 "successTitle" = "Succès";
@@ -123,5 +122,4 @@
 // Other
 "game" = "jeu";
 "games" = "jeux";
-"fromYouCollection" = "de votre collection.";
 "selectAndDeleteACollection" = "Sélectionnez une collection à supprimer";

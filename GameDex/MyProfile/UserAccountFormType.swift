@@ -20,7 +20,7 @@ enum UserAccountFormType: FormType, Equatable {
             return .emailAddress
         case .password:
             return .asciiCapable
-        case .collection(_):
+        case .collection:
             return nil
         }
     }

@@ -55,11 +55,11 @@ final class CollectionManagementViewModel: CollectionViewModel {
                 self.collection = convertedPlatforms.sorted {
                     $0.title < $1.title
                 }
+                self.handleSectionCreation(isLoggedIn: false)
+                callback(nil)
             case .failure:
                 callback(MyCollectionError.fetchError)
             }
-            self.handleSectionCreation(isLoggedIn: false)
-            callback(nil)
             return
         }
         let fetchPlatformsResult = await self.cloudDatabase.getUserCollection(userId: userId)
@@ -72,11 +72,11 @@ final class CollectionManagementViewModel: CollectionViewModel {
             self.collection = platforms.sorted {
                 $0.title < $1.title
             }
+            self.handleSectionCreation(isLoggedIn: true)
+            callback(nil)
         case .failure:
             callback(MyCollectionError.fetchError)
         }
-        self.handleSectionCreation(isLoggedIn: true)
-        callback(nil)
         return
     }
     
@@ -91,7 +91,7 @@ final class CollectionManagementViewModel: CollectionViewModel {
     }
     
     private func displayAlert(success: Bool, platformTitle: String) {
-        let text = success ? String(describing: platformTitle) + L10n.successDeletePlatformDescription : L10n.errorDeletePlatformDescription + String(describing: platformTitle) + L10n.fromYouCollection
+        let text = success ? "\(platformTitle)" + L10n.successDeletePlatformDescription : L10n.removeGameErrorDescription
         self.alertDisplayer.presentTopFloatAlert(
             parameters: AlertViewModel(
                 alertType: success ? .success : .error,
@@ -113,7 +113,7 @@ final class CollectionManagementViewModel: CollectionViewModel {
         for formCellVM in formCellsVM {
             guard let formType = formCellVM.formType as? UserAccountFormType else { return nil }
             switch formType {
-            case .collection(_):
+            case .collection:
                 platformTitle = formCellVM.value as? String
             default:
                 break

@@ -10,7 +10,7 @@ import UIKit
 
 struct CollectionManagementScreenFactory: ScreenFactory {
     
-    private let myCollectionDelegate: MyCollectionViewModelDelegate?
+    weak var myCollectionDelegate: MyCollectionViewModelDelegate?
     
     var viewController: UIViewController {
         let viewModel = CollectionManagementViewModel(

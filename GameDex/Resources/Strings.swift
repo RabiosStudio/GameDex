@@ -76,8 +76,6 @@ internal enum L10n {
   internal static let errorCredentialsDescription = L10n.tr("Localizable", "errorCredentialsDescription", fallback: "Error verifying credentials")
   /// Error deleting account
   internal static let errorDeleteAccountDescription = L10n.tr("Localizable", "errorDeleteAccountDescription", fallback: "Error deleting account")
-  /// An error occured while removing 
-  internal static let errorDeletePlatformDescription = L10n.tr("Localizable", "errorDeletePlatformDescription", fallback: "An error occured while removing ")
   /// Your email app couldn't be reached. You can contact us at 
   internal static let errorEmailAppDescription = L10n.tr("Localizable", "errorEmailAppDescription", fallback: "Your email app couldn't be reached. You can contact us at ")
   /// An error occured while logging out.
@@ -88,8 +86,6 @@ internal enum L10n {
   internal static let fetchGamesErrorDescription = L10n.tr("Localizable", "fetchGamesErrorDescription", fallback: "An error occured while fetching data.")
   /// Fill Game details
   internal static let fillGameDetails = L10n.tr("Localizable", "fillGameDetails", fallback: "Fill Game details")
-  /// from your collection.
-  internal static let fromYouCollection = L10n.tr("Localizable", "fromYouCollection", fallback: "from your collection.")
   /// game
   internal static let game = L10n.tr("Localizable", "game", fallback: "game")
   /// games

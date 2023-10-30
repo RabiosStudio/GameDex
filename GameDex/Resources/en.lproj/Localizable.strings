@@ -22,7 +22,6 @@
 "errorEmailAppDescription" = "Your email app couldn't be reached. You can contact us at ";
 "errorCredentialsDescription" = "Error verifying credentials";
 "errorDeleteAccountDescription" = "Error deleting account";
-"errorDeletePlatformDescription" = "An error occured while removing ";
 
 // Success
 "successTitle" = "Success";
@@ -128,5 +127,4 @@
 // Other
 "game" = "game";
 "games" = "games";
-"fromYouCollection" = "from your collection.";
 "selectAndDeleteACollection" = "Select a collection to delete";
