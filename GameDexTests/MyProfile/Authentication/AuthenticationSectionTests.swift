@@ -55,6 +55,8 @@ final class AuthenticationSectionTests: XCTestCase {
                     return
                 }
                 XCTAssertEqual(passwordCellVM.placeholder, L10n.password)
+            case .collection(_):
+                return
             }
         }
     }
@@ -102,6 +104,8 @@ final class AuthenticationSectionTests: XCTestCase {
                     return
                 }
                 XCTAssertEqual(passwordCellVM.placeholder, L10n.password)
+            case .collection(_):
+                return
             }
         }
     }

@@ -26,6 +26,7 @@ protocol CloudDatabase {
     func removeGame(userId: String, platform: Platform, savedGame: SavedGame) async -> DatabaseError?
     func removeUser(userId: String) async -> DatabaseError?
     func removePlatform(userId: String, platform: Platform) async -> DatabaseError? 
+    func removePlatformAndGames(userId: String, platform: Platform) async -> DatabaseError?
     
     func syncLocalAndCloudDatabases(userId: String, localDatabase: LocalDatabase) async -> DatabaseError?
 }

@@ -63,6 +63,9 @@ final class EditProfileSectionTests: XCTestCase {
                     return
                 }
                 XCTAssertEqual(passwordCellVM.placeholder, L10n.newPassword)
+            case .collection(_):
+                XCTFail("Wrong type")
+                return
             }
         }
     }
@@ -117,6 +120,9 @@ final class EditProfileSectionTests: XCTestCase {
                     return
                 }
                 XCTAssertEqual(passwordCellVM.placeholder, L10n.currentPassword)
+            case .collection(_):
+                XCTFail("Wrong type")
+                return
             }
         }
     }

@@ -31,6 +31,7 @@
 "successAuthDescription" = "Login successful.";
 "successLogOutDescription" = "You are logged out.";
 "successDeleteAccountDescription" = "Account deleted successfully";
+"successDeletePlatformDescription" = " successfully removed from your collection";
 
 // Warnings
 "warningTitle" = "One moment!";
@@ -40,6 +41,8 @@
 "warningLogOut" = "Are you sure you want to log out?";
 "warningUpdatePassword" = "Your email adress was successfully updated but an error occured while updating password";
 "warningAccountDeletion" = "Account deletion is definitive. This will not delete data saved directly on your device";
+"warningPlatformDeletionCloud" = "Your collection will be deleted permanently. This won't affect the data saved locally on other devices.";
+"warningPlatformDeletionLocal" = "Your collection will be deleted permanently. This will only affect data saved locally on this device.";
 
 // Info
 "infoNoInternet" = "You're not connected to the internet, your collection might not be up to date";
@@ -54,6 +57,7 @@
 "confirm" = "Confirm";
 "saveChanges" = "Save changes";
 "refresh" = "Refresh";
+"deleteFromCollection" = "Delete from collection";
 
 // Add Game Steps
 "stepOneOutOfThree" = "Step 1/3";
@@ -89,6 +93,7 @@
 "updateCredentials" = "Update your email address and password";
 "confirmCredentials" = "Confirm your email address and password to update your information";
 "deleteAccount" = "Delete Account";
+"collectionManagement" = "Collection Management";
 
 // Forms
 "title" = "Title";
@@ -117,7 +122,9 @@
 "currentEmail" = "Current email address";
 "newPassword" = "New password";
 "currentPassword" = "Current password";
+"collectionToDelete" = "Collection to delete";
 
 // Other
 "game" = "game";
 "games" = "games";
+"selectAndDeleteACollection" = "Select a collection to delete";

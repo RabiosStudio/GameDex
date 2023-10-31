@@ -12,6 +12,7 @@ enum UserAccountFormType: FormType, Equatable {
     
     case email
     case password
+    case collection(PickerViewModel)
     
     var keyboardType: UIKeyboardType? {
         switch self {
@@ -19,19 +20,26 @@ enum UserAccountFormType: FormType, Equatable {
             return .emailAddress
         case .password:
             return .asciiCapable
+        case .collection:
+            return nil
         }
     }
     
     var enableSecureTextEntry: Bool {
         switch self {
-        case .email:
-            return false
         case .password:
             return true
+        default:
+            return false
         }
     }
     
     var inputPickerViewModel: PickerViewModel? {
-        return nil
+        switch self {
+        case .collection(let pickerVM):
+            return pickerVM
+        default:
+            return nil
+        }
     }
 }

@@ -75,6 +75,8 @@ final class EditProfileViewModelTests: XCTestCase {
                 formCellVM.value = "email"
             case .password:
                 formCellVM.value = "password"
+            case .collection(_):
+                return
             }
         }
         
@@ -127,6 +129,8 @@ final class EditProfileViewModelTests: XCTestCase {
                 formCellVM.value = "email"
             case .password:
                 formCellVM.value = "password"
+            case .collection(_):
+                return
             }
         }
         
@@ -175,6 +179,9 @@ final class EditProfileViewModelTests: XCTestCase {
                 formCellVM.value = "email"
             case .password:
                 formCellVM.value = "password"
+            case .collection(_):
+                XCTFail("Wrong type")
+                return
             }
         }
         
@@ -226,6 +233,8 @@ final class EditProfileViewModelTests: XCTestCase {
                 formCellVM.value = "email"
             case .password:
                 formCellVM.value = "password"
+            case .collection(_):
+                XCTFail("Wrong type")
             }
         }
         
@@ -276,6 +285,8 @@ final class EditProfileViewModelTests: XCTestCase {
                 formCellVM.value = "email"
             case .password:
                 formCellVM.value = "password"
+            case .collection(_):
+                XCTFail("Wrong type")
             }
         }
         

@@ -254,6 +254,18 @@ class FirestoreDatabase: CloudDatabase {
         }
     }
     
+    func removePlatformAndGames(userId: String, platform: Platform) async -> DatabaseError? {
+        guard let games = platform.games else {
+            return nil
+        }
+        for game in games {
+            guard await self.removeGame(userId: userId, platform: platform, savedGame: game) == nil else {
+                return DatabaseError.removeError
+            }
+        }
+        return nil
+    }
+    
     func removeUser(userId: String) async -> DatabaseError? {
         let fetchedUserPlatforms = await self.getUserCollection(userId: userId)
         switch fetchedUserPlatforms {

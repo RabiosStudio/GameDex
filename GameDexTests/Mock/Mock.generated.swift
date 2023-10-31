@@ -2227,6 +2227,19 @@ open class CloudDatabaseMock: CloudDatabase, Mock {
 		return __value
     }
 
+    open func removePlatformAndGames(userId: String, platform: Platform) -> DatabaseError? {
+        addInvocation(.m_removePlatformAndGames__userId_userIdplatform_platform(Parameter<String>.value(`userId`), Parameter<Platform>.value(`platform`)))
+		let perform = methodPerformValue(.m_removePlatformAndGames__userId_userIdplatform_platform(Parameter<String>.value(`userId`), Parameter<Platform>.value(`platform`))) as? (String, Platform) -> Void
+		perform?(`userId`, `platform`)
+		var __value: DatabaseError? = nil
+		do {
+		    __value = try methodReturnValue(.m_removePlatformAndGames__userId_userIdplatform_platform(Parameter<String>.value(`userId`), Parameter<Platform>.value(`platform`))).casted()
+		} catch {
+			// do nothing
+		}
+		return __value
+    }
+
     open func syncLocalAndCloudDatabases(userId: String, localDatabase: LocalDatabase) -> DatabaseError? {
         addInvocation(.m_syncLocalAndCloudDatabases__userId_userIdlocalDatabase_localDatabase(Parameter<String>.value(`userId`), Parameter<LocalDatabase>.value(`localDatabase`)))
 		let perform = methodPerformValue(.m_syncLocalAndCloudDatabases__userId_userIdlocalDatabase_localDatabase(Parameter<String>.value(`userId`), Parameter<LocalDatabase>.value(`localDatabase`))) as? (String, LocalDatabase) -> Void
@@ -2256,6 +2269,7 @@ open class CloudDatabaseMock: CloudDatabase, Mock {
         case m_removeGame__userId_userIdplatform_platformsavedGame_savedGame(Parameter<String>, Parameter<Platform>, Parameter<SavedGame>)
         case m_removeUser__userId_userId(Parameter<String>)
         case m_removePlatform__userId_userIdplatform_platform(Parameter<String>, Parameter<Platform>)
+        case m_removePlatformAndGames__userId_userIdplatform_platform(Parameter<String>, Parameter<Platform>)
         case m_syncLocalAndCloudDatabases__userId_userIdlocalDatabase_localDatabase(Parameter<String>, Parameter<LocalDatabase>)
 
         static func compareParameters(lhs: MethodType, rhs: MethodType, matcher: Matcher) -> Matcher.ComparisonResult {
@@ -2337,6 +2351,12 @@ open class CloudDatabaseMock: CloudDatabase, Mock {
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsPlatform, rhs: rhsPlatform, with: matcher), lhsPlatform, rhsPlatform, "platform"))
 				return Matcher.ComparisonResult(results)
 
+            case (.m_removePlatformAndGames__userId_userIdplatform_platform(let lhsUserid, let lhsPlatform), .m_removePlatformAndGames__userId_userIdplatform_platform(let rhsUserid, let rhsPlatform)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsUserid, rhs: rhsUserid, with: matcher), lhsUserid, rhsUserid, "userId"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsPlatform, rhs: rhsPlatform, with: matcher), lhsPlatform, rhsPlatform, "platform"))
+				return Matcher.ComparisonResult(results)
+
             case (.m_syncLocalAndCloudDatabases__userId_userIdlocalDatabase_localDatabase(let lhsUserid, let lhsLocaldatabase), .m_syncLocalAndCloudDatabases__userId_userIdlocalDatabase_localDatabase(let rhsUserid, let rhsLocaldatabase)):
 				var results: [Matcher.ParameterComparisonResult] = []
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsUserid, rhs: rhsUserid, with: matcher), lhsUserid, rhsUserid, "userId"))
@@ -2362,6 +2382,7 @@ open class CloudDatabaseMock: CloudDatabase, Mock {
             case let .m_removeGame__userId_userIdplatform_platformsavedGame_savedGame(p0, p1, p2): return p0.intValue + p1.intValue + p2.intValue
             case let .m_removeUser__userId_userId(p0): return p0.intValue
             case let .m_removePlatform__userId_userIdplatform_platform(p0, p1): return p0.intValue + p1.intValue
+            case let .m_removePlatformAndGames__userId_userIdplatform_platform(p0, p1): return p0.intValue + p1.intValue
             case let .m_syncLocalAndCloudDatabases__userId_userIdlocalDatabase_localDatabase(p0, p1): return p0.intValue + p1.intValue
             }
         }
@@ -2381,6 +2402,7 @@ open class CloudDatabaseMock: CloudDatabase, Mock {
             case .m_removeGame__userId_userIdplatform_platformsavedGame_savedGame: return ".removeGame(userId:platform:savedGame:)"
             case .m_removeUser__userId_userId: return ".removeUser(userId:)"
             case .m_removePlatform__userId_userIdplatform_platform: return ".removePlatform(userId:platform:)"
+            case .m_removePlatformAndGames__userId_userIdplatform_platform: return ".removePlatformAndGames(userId:platform:)"
             case .m_syncLocalAndCloudDatabases__userId_userIdlocalDatabase_localDatabase: return ".syncLocalAndCloudDatabases(userId:localDatabase:)"
             }
         }
@@ -2436,6 +2458,9 @@ open class CloudDatabaseMock: CloudDatabase, Mock {
         }
         public static func removePlatform(userId: Parameter<String>, platform: Parameter<Platform>, willReturn: DatabaseError?...) -> MethodStub {
             return Given(method: .m_removePlatform__userId_userIdplatform_platform(`userId`, `platform`), products: willReturn.map({ StubProduct.return($0 as Any) }))
+        }
+        public static func removePlatformAndGames(userId: Parameter<String>, platform: Parameter<Platform>, willReturn: DatabaseError?...) -> MethodStub {
+            return Given(method: .m_removePlatformAndGames__userId_userIdplatform_platform(`userId`, `platform`), products: willReturn.map({ StubProduct.return($0 as Any) }))
         }
         public static func syncLocalAndCloudDatabases(userId: Parameter<String>, localDatabase: Parameter<LocalDatabase>, willReturn: DatabaseError?...) -> MethodStub {
             return Given(method: .m_syncLocalAndCloudDatabases__userId_userIdlocalDatabase_localDatabase(`userId`, `localDatabase`), products: willReturn.map({ StubProduct.return($0 as Any) }))
@@ -2538,6 +2563,13 @@ open class CloudDatabaseMock: CloudDatabase, Mock {
 			willProduce(stubber)
 			return given
         }
+        public static func removePlatformAndGames(userId: Parameter<String>, platform: Parameter<Platform>, willProduce: (Stubber<DatabaseError?>) -> Void) -> MethodStub {
+            let willReturn: [DatabaseError?] = []
+			let given: Given = { return Given(method: .m_removePlatformAndGames__userId_userIdplatform_platform(`userId`, `platform`), products: willReturn.map({ StubProduct.return($0 as Any) })) }()
+			let stubber = given.stub(for: (DatabaseError?).self)
+			willProduce(stubber)
+			return given
+        }
         public static func syncLocalAndCloudDatabases(userId: Parameter<String>, localDatabase: Parameter<LocalDatabase>, willProduce: (Stubber<DatabaseError?>) -> Void) -> MethodStub {
             let willReturn: [DatabaseError?] = []
 			let given: Given = { return Given(method: .m_syncLocalAndCloudDatabases__userId_userIdlocalDatabase_localDatabase(`userId`, `localDatabase`), products: willReturn.map({ StubProduct.return($0 as Any) })) }()
@@ -2564,6 +2596,7 @@ open class CloudDatabaseMock: CloudDatabase, Mock {
         public static func removeGame(userId: Parameter<String>, platform: Parameter<Platform>, savedGame: Parameter<SavedGame>) -> Verify { return Verify(method: .m_removeGame__userId_userIdplatform_platformsavedGame_savedGame(`userId`, `platform`, `savedGame`))}
         public static func removeUser(userId: Parameter<String>) -> Verify { return Verify(method: .m_removeUser__userId_userId(`userId`))}
         public static func removePlatform(userId: Parameter<String>, platform: Parameter<Platform>) -> Verify { return Verify(method: .m_removePlatform__userId_userIdplatform_platform(`userId`, `platform`))}
+        public static func removePlatformAndGames(userId: Parameter<String>, platform: Parameter<Platform>) -> Verify { return Verify(method: .m_removePlatformAndGames__userId_userIdplatform_platform(`userId`, `platform`))}
         public static func syncLocalAndCloudDatabases(userId: Parameter<String>, localDatabase: Parameter<LocalDatabase>) -> Verify { return Verify(method: .m_syncLocalAndCloudDatabases__userId_userIdlocalDatabase_localDatabase(`userId`, `localDatabase`))}
     }
 
@@ -2612,6 +2645,9 @@ open class CloudDatabaseMock: CloudDatabase, Mock {
         }
         public static func removePlatform(userId: Parameter<String>, platform: Parameter<Platform>, perform: @escaping (String, Platform) -> Void) -> Perform {
             return Perform(method: .m_removePlatform__userId_userIdplatform_platform(`userId`, `platform`), performs: perform)
+        }
+        public static func removePlatformAndGames(userId: Parameter<String>, platform: Parameter<Platform>, perform: @escaping (String, Platform) -> Void) -> Perform {
+            return Perform(method: .m_removePlatformAndGames__userId_userIdplatform_platform(`userId`, `platform`), performs: perform)
         }
         public static func syncLocalAndCloudDatabases(userId: Parameter<String>, localDatabase: Parameter<LocalDatabase>, perform: @escaping (String, LocalDatabase) -> Void) -> Perform {
             return Perform(method: .m_syncLocalAndCloudDatabases__userId_userIdlocalDatabase_localDatabase(`userId`, `localDatabase`), performs: perform)
@@ -3669,6 +3705,19 @@ open class LocalDatabaseMock: LocalDatabase, Mock {
 		return __value
     }
 
+    open func remove(platform: Platform) -> DatabaseError? {
+        addInvocation(.m_remove__platform_platform(Parameter<Platform>.value(`platform`)))
+		let perform = methodPerformValue(.m_remove__platform_platform(Parameter<Platform>.value(`platform`))) as? (Platform) -> Void
+		perform?(`platform`)
+		var __value: DatabaseError? = nil
+		do {
+		    __value = try methodReturnValue(.m_remove__platform_platform(Parameter<Platform>.value(`platform`))).casted()
+		} catch {
+			// do nothing
+		}
+		return __value
+    }
+
     open func removeAll() -> DatabaseError? {
         addInvocation(.m_removeAll)
 		let perform = methodPerformValue(.m_removeAll) as? () -> Void
@@ -3689,6 +3738,7 @@ open class LocalDatabaseMock: LocalDatabase, Mock {
         case m_fetchAllPlatforms
         case m_replace__savedGame_savedGame(Parameter<SavedGame>)
         case m_remove__savedGame_savedGame(Parameter<SavedGame>)
+        case m_remove__platform_platform(Parameter<Platform>)
         case m_removeAll
 
         static func compareParameters(lhs: MethodType, rhs: MethodType, matcher: Matcher) -> Matcher.ComparisonResult {
@@ -3716,6 +3766,11 @@ open class LocalDatabaseMock: LocalDatabase, Mock {
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsSavedgame, rhs: rhsSavedgame, with: matcher), lhsSavedgame, rhsSavedgame, "savedGame"))
 				return Matcher.ComparisonResult(results)
 
+            case (.m_remove__platform_platform(let lhsPlatform), .m_remove__platform_platform(let rhsPlatform)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsPlatform, rhs: rhsPlatform, with: matcher), lhsPlatform, rhsPlatform, "platform"))
+				return Matcher.ComparisonResult(results)
+
             case (.m_removeAll, .m_removeAll): return .match
             default: return .none
             }
@@ -3728,6 +3783,7 @@ open class LocalDatabaseMock: LocalDatabase, Mock {
             case .m_fetchAllPlatforms: return 0
             case let .m_replace__savedGame_savedGame(p0): return p0.intValue
             case let .m_remove__savedGame_savedGame(p0): return p0.intValue
+            case let .m_remove__platform_platform(p0): return p0.intValue
             case .m_removeAll: return 0
             }
         }
@@ -3738,6 +3794,7 @@ open class LocalDatabaseMock: LocalDatabase, Mock {
             case .m_fetchAllPlatforms: return ".fetchAllPlatforms()"
             case .m_replace__savedGame_savedGame: return ".replace(savedGame:)"
             case .m_remove__savedGame_savedGame: return ".remove(savedGame:)"
+            case .m_remove__platform_platform: return ".remove(platform:)"
             case .m_removeAll: return ".removeAll()"
             }
         }
@@ -3766,6 +3823,9 @@ open class LocalDatabaseMock: LocalDatabase, Mock {
         }
         public static func remove(savedGame: Parameter<SavedGame>, willReturn: DatabaseError?...) -> MethodStub {
             return Given(method: .m_remove__savedGame_savedGame(`savedGame`), products: willReturn.map({ StubProduct.return($0 as Any) }))
+        }
+        public static func remove(platform: Parameter<Platform>, willReturn: DatabaseError?...) -> MethodStub {
+            return Given(method: .m_remove__platform_platform(`platform`), products: willReturn.map({ StubProduct.return($0 as Any) }))
         }
         public static func removeAll(willReturn: DatabaseError?...) -> MethodStub {
             return Given(method: .m_removeAll, products: willReturn.map({ StubProduct.return($0 as Any) }))
@@ -3805,6 +3865,13 @@ open class LocalDatabaseMock: LocalDatabase, Mock {
 			willProduce(stubber)
 			return given
         }
+        public static func remove(platform: Parameter<Platform>, willProduce: (Stubber<DatabaseError?>) -> Void) -> MethodStub {
+            let willReturn: [DatabaseError?] = []
+			let given: Given = { return Given(method: .m_remove__platform_platform(`platform`), products: willReturn.map({ StubProduct.return($0 as Any) })) }()
+			let stubber = given.stub(for: (DatabaseError?).self)
+			willProduce(stubber)
+			return given
+        }
         public static func removeAll(willProduce: (Stubber<DatabaseError?>) -> Void) -> MethodStub {
             let willReturn: [DatabaseError?] = []
 			let given: Given = { return Given(method: .m_removeAll, products: willReturn.map({ StubProduct.return($0 as Any) })) }()
@@ -3822,6 +3889,7 @@ open class LocalDatabaseMock: LocalDatabase, Mock {
         public static func fetchAllPlatforms() -> Verify { return Verify(method: .m_fetchAllPlatforms)}
         public static func replace(savedGame: Parameter<SavedGame>) -> Verify { return Verify(method: .m_replace__savedGame_savedGame(`savedGame`))}
         public static func remove(savedGame: Parameter<SavedGame>) -> Verify { return Verify(method: .m_remove__savedGame_savedGame(`savedGame`))}
+        public static func remove(platform: Parameter<Platform>) -> Verify { return Verify(method: .m_remove__platform_platform(`platform`))}
         public static func removeAll() -> Verify { return Verify(method: .m_removeAll)}
     }
 
@@ -3843,6 +3911,9 @@ open class LocalDatabaseMock: LocalDatabase, Mock {
         }
         public static func remove(savedGame: Parameter<SavedGame>, perform: @escaping (SavedGame) -> Void) -> Perform {
             return Perform(method: .m_remove__savedGame_savedGame(`savedGame`), performs: perform)
+        }
+        public static func remove(platform: Parameter<Platform>, perform: @escaping (Platform) -> Void) -> Perform {
+            return Perform(method: .m_remove__platform_platform(`platform`), performs: perform)
         }
         public static func removeAll(perform: @escaping () -> Void) -> Perform {
             return Perform(method: .m_removeAll, performs: perform)
