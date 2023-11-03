@@ -84,7 +84,7 @@ extension MyCollectionViewModel {
     private func presentAddGameMethods() {
         Routing.shared.route(
             navigationStyle: .present(
-                screenFactory: SelectAddGameMethodScreenFactory(
+                screenFactory: SelectPlatformScreenFactory(
                     delegate: self
                 ),
                 completionBlock: nil)

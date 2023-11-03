@@ -156,35 +156,37 @@ class ContainerViewController: UIViewController {
     }
     
     private func updateEmptyState(error: EmptyError?, tabBarOffset: CGFloat) {
-        self.configureNavBar()
-        if let error = error {
-            guard let imageName = error.imageName,
-                  let image = UIImage(named: imageName) else {
-                return
-            }
-            let emptyReason = EmptyTextAndButton(
-                tabBarOffset: tabBarOffset,
-                customTitle: error.errorTitle,
-                descriptionText: error.errorDescription,
-                image: image,
-                buttonTitle: error.buttonTitle
-            ) {
-                switch error.errorAction {
-                case let .navigate(style):
-                    _ = Routing.shared.route(navigationStyle: style)
-                case .refresh:
-                    self.refresh()
-                case .none:
-                    break
+        DispatchQueue.main.async {
+            self.configureNavBar()
+            if let error = error {
+                guard let imageName = error.imageName,
+                      let image = UIImage(named: imageName) else {
+                    return
                 }
+                let emptyReason = EmptyTextAndButton(
+                    tabBarOffset: tabBarOffset,
+                    customTitle: error.errorTitle,
+                    descriptionText: error.errorDescription,
+                    image: image,
+                    buttonTitle: error.buttonTitle
+                ) {
+                    switch error.errorAction {
+                    case let .navigate(style):
+                        _ = Routing.shared.route(navigationStyle: style)
+                    case .refresh:
+                        self.refresh()
+                    case .none:
+                        break
+                    }
+                }
+                self.configureNavProgress()
+                self.collectionView.updateEmptyScreen(emptyReason: emptyReason)
+                self.collectionView.reloadData()
+            } else {
+                self.registerCells()
+                self.configureLayout()
+                self.collectionView.reloadData()
             }
-            self.configureNavProgress()
-            self.collectionView.updateEmptyScreen(emptyReason: emptyReason)
-            self.collectionView.reloadData()
-        } else {
-            self.registerCells()
-            self.configureLayout()
-            self.collectionView.reloadData()
         }
     }
     
@@ -193,38 +195,40 @@ class ContainerViewController: UIViewController {
     }
     
     private func configureNavBar() {
-        self.navigationController?.configure()
-        self.configureSearchBar()
-        
-        guard let rightButtonItem = self.viewModel.rightButtonItems else {
-            return
-        }
-        
-        var buttonItemsConfigured = [BarButtonItem]()
-        for item in rightButtonItem {
-            switch item {
-            case .search:
-                buttonItemsConfigured.append(
-                    BarButtonItem(
-                        image: item.image(), actionHandler: { [weak self] in
-                            self?.handleShowSearchBarOnTap()
-                        }
-                    )
-                )
-            default:
-                buttonItemsConfigured.append(
-                    BarButtonItem(
-                        image: item.image(), actionHandler: { [weak self] in
-                            self?.viewModel.didTapRightButtonItem()
-                        }
-                    )
-                )
+        DispatchQueue.main.async {
+            self.navigationController?.configure()
+            self.configureSearchBar()
+            
+            guard let rightButtonItem = self.viewModel.rightButtonItems else {
+                return
             }
-        }
-        
-        switch rightButtonItem {
-        default:
-            self.navigationItem.rightBarButtonItems = buttonItemsConfigured
+            
+            var buttonItemsConfigured = [BarButtonItem]()
+            for item in rightButtonItem {
+                switch item {
+                case .search:
+                    buttonItemsConfigured.append(
+                        BarButtonItem(
+                            image: item.image(), actionHandler: { [weak self] in
+                                self?.handleShowSearchBarOnTap()
+                            }
+                        )
+                    )
+                default:
+                    buttonItemsConfigured.append(
+                        BarButtonItem(
+                            image: item.image(), actionHandler: { [weak self] in
+                                self?.viewModel.didTapRightButtonItem()
+                            }
+                        )
+                    )
+                }
+            }
+            
+            switch rightButtonItem {
+            default:
+                self.navigationItem.rightBarButtonItems = buttonItemsConfigured
+            }
         }
     }
     
@@ -430,7 +434,9 @@ extension ContainerViewController: UISearchBarDelegate {
                                                tabBarOffset: tabBarOffset)
                     }
                 } else {
-                    self?.refresh()
+                    DispatchQueue.main.async {
+                        self?.refresh()
+                    }
                 }
             }
     }
@@ -482,7 +488,7 @@ extension ContainerViewController: ContainerViewControllerDelegate {
 
 // MARK: UICollectionViewDelegateFlowLayout
 
-extension ContainerViewController: UICollectionViewDelegateFlowLayout {    
+extension ContainerViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(
         _ collectionView: UICollectionView,
         layout collectionViewLayout: UICollectionViewLayout,

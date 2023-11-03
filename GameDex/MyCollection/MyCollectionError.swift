@@ -61,7 +61,7 @@ enum MyCollectionError: EmptyError {
         switch self {
         case .emptyCollection(myCollectionDelegate: let delegate):
             let startToAddGame: NavigationStyle = .present(
-                screenFactory: SelectAddGameMethodScreenFactory(
+                screenFactory: SelectPlatformScreenFactory(
                     delegate: delegate
                 ),
                 completionBlock: nil)

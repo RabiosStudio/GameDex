@@ -27,7 +27,6 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
         XCTAssertEqual(viewModel.numberOfItems(in: .zero), .zero)
         XCTAssertEqual(viewModel.searchViewModel?.placeholder, L10n.searchGame)
         XCTAssertEqual(viewModel.searchViewModel?.activateOnTap, true)
-        
     }
     
     func test_loadData_GivenDataInCollection_ThenCallbackIsCalledAndSectionsAreSetCorrectly() async {
@@ -201,8 +200,7 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
             return .present(
                 screenFactory: SearchGameByTitleScreenFactory(
                     platform: platform,
-                    myCollectionDelegate: viewModel,
-                    addToNavController: true
+                    myCollectionDelegate: viewModel
                 ),
                 completionBlock: nil
             )

@@ -21,23 +21,14 @@ struct SearchGameByTitleScreenFactory: ScreenFactory {
             viewModel: viewModel,
             layout: layout
         )
-        if self.addToNavController {
-            let navigationController = UINavigationController(
-                rootViewController: containerController
-            )
-            return navigationController
-        } else {
-            return containerController
-        }
+        return containerController
     }
     
     private let platform: Platform
-    private let addToNavController: Bool
     weak var myCollectionDelegate: MyCollectionViewModelDelegate?
     
-    init(platform: Platform, myCollectionDelegate: MyCollectionViewModelDelegate?, addToNavController: Bool = false) {
+    init(platform: Platform, myCollectionDelegate: MyCollectionViewModelDelegate?) {
         self.platform = platform
-        self.addToNavController = addToNavController
         self.myCollectionDelegate = myCollectionDelegate
     }
 }

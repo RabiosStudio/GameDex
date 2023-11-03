@@ -72,7 +72,8 @@ class Routing: NSObject, Navigator {
             case .pop:
                 print("pop")
             case let .present(screenFactory, screenSize, completionBlock):
-                fromVC?.present(controller: screenFactory.viewController,
+                let navigationController = UINavigationController(rootViewController: screenFactory.viewController)
+                fromVC?.present(controller: navigationController,
                                 animated: animated,
                                 screenSize: screenSize,
                                 completion: {() -> Void in

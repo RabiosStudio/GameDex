@@ -79,8 +79,7 @@ final class MyCollectionByPlatformsViewModel: ConnectivityDisplayerViewModel {
             navigationStyle: .present(
                 screenFactory: SearchGameByTitleScreenFactory(
                     platform: collection,
-                    myCollectionDelegate: self,
-                    addToNavController: true
+                    myCollectionDelegate: self
                 ),
                 completionBlock: nil
             )
