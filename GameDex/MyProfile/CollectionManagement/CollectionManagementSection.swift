@@ -49,9 +49,7 @@ final class CollectionManagementSection: Section {
                 alertDisplayer.presentBasicAlert(
                     parameters: AlertViewModel(
                         alertType: .warning,
-                        description: isLoggedIn ? L10n.warningPlatformDeletionCloud : L10n.warningPlatformDeletionLocal,
-                        cancelButtonTitle: L10n.cancel,
-                        okButtonTitle: L10n.confirm
+                        description: isLoggedIn ? L10n.warningPlatformDeletionCloud : L10n.warningPlatformDeletionLocal
                     )
                 )
             }

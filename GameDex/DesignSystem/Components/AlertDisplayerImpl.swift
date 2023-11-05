@@ -133,7 +133,7 @@ class AlertDisplayerImpl: AlertDisplayer {
                 displayMode: displayMode
             )
             let closeButtonLabel = EKProperty.LabelContent(
-                text: parameters.cancelButtonTitle ?? "",
+                text: L10n.cancel,
                 style: closeButtonLabelStyle
             )
             let closeButton = EKProperty.ButtonContent(
@@ -151,7 +151,7 @@ class AlertDisplayerImpl: AlertDisplayer {
                 displayMode: displayMode
             )
             let okButtonLabel = EKProperty.LabelContent(
-                text: parameters.okButtonTitle ?? "",
+                text: L10n.confirm,
                 style: okButtonLabelStyle
             )
             let okButton = EKProperty.ButtonContent(

@@ -10,6 +10,4 @@ import Foundation
 struct AlertViewModel {
     var alertType: AlertType
     var description: String
-    var cancelButtonTitle: String?
-    var okButtonTitle: String?
 }

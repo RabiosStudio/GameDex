@@ -52,9 +52,7 @@ final class EditProfileSection: Section {
                     alertDisplayer.presentBasicAlert(
                         parameters: AlertViewModel(
                             alertType: .warning,
-                            description: L10n.warningAccountDeletion,
-                            cancelButtonTitle: L10n.cancel,
-                            okButtonTitle: L10n.confirm
+                            description: L10n.warningAccountDeletion
                         )
                     )
                 }
