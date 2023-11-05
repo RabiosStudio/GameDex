@@ -50,13 +50,11 @@ final class PrimaryButtonCell: UICollectionViewCell, CellConfigurable {
     @objc
     private func buttonCellPressed() {
         self.primaryButton.updateButtonDesign(state: .loading)
-        self.isUserInteractionEnabled = false
         
         guard let vm = self.viewModel else { return }
         vm.didTapButton { [weak self] in
             DispatchQueue.main.async {
                 self?.primaryButton.updateButtonDesign(state: vm.buttonViewModel.state)
-                self?.isUserInteractionEnabled = true
             }
         }
     }

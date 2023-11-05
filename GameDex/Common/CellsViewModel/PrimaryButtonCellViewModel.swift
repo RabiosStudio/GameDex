@@ -32,7 +32,6 @@ final class PrimaryButtonCellViewModel: ButtonCollectionCellViewModel {
     
     func didTapButton(completion: @escaping () -> ()) {
         guard let delegate = self.delegate else {
-            self.cellTappedCallback?()
             completion()
             return
         }

@@ -10,11 +10,11 @@ import UIKit
 
 protocol CellConfigurable: UIView {
     func configure(cellViewModel: CellViewModel)
-    func cellPressed(cellViewModel: CellViewModel)
+    func cellTapped(cellViewModel: CellViewModel)
 }
 
 extension CellConfigurable {
-    func cellPressed(cellViewModel: CellViewModel) {
+    func cellTapped(cellViewModel: CellViewModel) {
         cellViewModel.cellTappedCallback?()
     }
 }
