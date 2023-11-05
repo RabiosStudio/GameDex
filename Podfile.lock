@@ -809,7 +809,7 @@ DEPENDENCIES:
   - NVActivityIndicatorView
   - ReachabilitySwift
   - SDWebImage
-  - SwiftEntryKit (= 2.0.0)
+  - SwiftEntryKit (from `https://github.com/RabiosStudio/SwiftEntryKit.git`, branch `master`)
   - SwiftGen (~> 6.0)
   - SwiftLint
   - SwiftyMocky
@@ -847,11 +847,20 @@ SPEC REPOS:
     - RecaptchaInterop
     - SDWebImage
     - Sourcery
-    - SwiftEntryKit
     - SwiftGen
     - SwiftLint
     - SwiftyMocky
     - SwiftyTextView
+
+EXTERNAL SOURCES:
+  SwiftEntryKit:
+    :branch: master
+    :git: https://github.com/RabiosStudio/SwiftEntryKit.git
+
+CHECKOUT OPTIONS:
+  SwiftEntryKit:
+    :commit: 958409d5fe30efedbfd899864346f17d6c97d759
+    :git: https://github.com/RabiosStudio/SwiftEntryKit.git
 
 SPEC CHECKSUMS:
   abseil: 926fb7a82dc6d2b8e1f2ed7f3a718bce691d1e46
@@ -890,6 +899,6 @@ SPEC CHECKSUMS:
   SwiftyMocky: 014739247afadb65efb5bb92ede32c22b9365762
   SwiftyTextView: be873b6b426d148fef9e2a341b3c5989b167572b
 
-PODFILE CHECKSUM: d9c4fdad6f6fd07ffbc1de227dea51e02d51c5b4
+PODFILE CHECKSUM: 33aca0d34bf5e98bd2f7fc9a0045de3a2a0d2ed3
 
 COCOAPODS: 1.12.1

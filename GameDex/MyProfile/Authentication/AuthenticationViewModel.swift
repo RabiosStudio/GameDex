@@ -59,7 +59,7 @@ final class AuthenticationViewModel: CollectionViewModel {
 }
 
 extension AuthenticationViewModel: PrimaryButtonDelegate {
-    func didTapPrimaryButton() async {
+    func didTapPrimaryButton(with title: String?) async {
         guard let firstSection = self.sections.first,
               let formCellsVM = firstSection.cellsVM.filter({ cellVM in
                   return cellVM is (any CollectionFormCellViewModel)

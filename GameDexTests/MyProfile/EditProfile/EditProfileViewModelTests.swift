@@ -42,7 +42,7 @@ final class EditProfileViewModelTests: XCTestCase {
         XCTAssertEqual(viewModel.numberOfItems(in: .zero), 4)
     }
     
-    func test_didTapPrimaryButton_GivenCredentialsConfirmedAndNoError_ThenAlertParametersAreCorrectAndDelegatesCalled() async {
+    func test_didTapPrimaryButton_GivenSaveChangesButtonTappedAndNoError_ThenAlertParametersAreCorrectAndDelegatesCalled() async {
         // Given
         let alertDisplayer = AlertDisplayerMock()
         let myCollectionDelegate = MyCollectionViewModelDelegateMock()
@@ -81,7 +81,7 @@ final class EditProfileViewModelTests: XCTestCase {
         }
         
         // When
-        await viewModel.didTapPrimaryButton()
+        await viewModel.didTapPrimaryButton(with: L10n.saveChanges)
         
         // Then
         alertDisplayer.verify(
@@ -100,7 +100,7 @@ final class EditProfileViewModelTests: XCTestCase {
         containerDelegate.verify(.goBackToRootViewController())
     }
     
-    func test_didTapPrimaryButton_GivenCredentialsConfirmedAndErrorUpdatingUserEmailAddress_ThenAlertParametersAreCorrect() async {
+    func test_didTapPrimaryButton_GivenSaveChangesButtonTappedAndErrorUpdatingUserEmailAddress_ThenAlertParametersAreCorrect() async {
         // Given
         let alertDisplayer = AlertDisplayerMock()
         let authenticationService = AuthenticationServiceMock()
@@ -135,7 +135,7 @@ final class EditProfileViewModelTests: XCTestCase {
         }
         
         // When
-        await viewModel.didTapPrimaryButton()
+        await viewModel.didTapPrimaryButton(with: L10n.saveChanges)
         
         // Then
         alertDisplayer.verify(
@@ -150,7 +150,7 @@ final class EditProfileViewModelTests: XCTestCase {
         )
     }
     
-    func test_didTapPrimaryButton_GivenCredentialsConfirmedAndErrorUpdatingPassword_ThenAlertParametersAreCorrect() async {
+    func test_didTapPrimaryButton_GivenSaveChangesButtonTappedAndErrorUpdatingPassword_ThenAlertParametersAreCorrect() async {
         // Given
         let alertDisplayer = AlertDisplayerMock()
         let authenticationService = AuthenticationServiceMock()
@@ -186,7 +186,7 @@ final class EditProfileViewModelTests: XCTestCase {
         }
         
         // When
-        await viewModel.didTapPrimaryButton()
+        await viewModel.didTapPrimaryButton(with: L10n.saveChanges)
         
         // Then
         alertDisplayer.verify(
@@ -201,7 +201,7 @@ final class EditProfileViewModelTests: XCTestCase {
         )
     }
     
-    func test_didTapPrimaryButton_GivenCredentialsUnconfirmedAndNoError_ThenReauthenticateUser() async {
+    func test_didTapPrimaryButton_GivenConfirmButtonTappedAndNoError_ThenReauthenticateUser() async {
         // Given
         let alertDisplayer = AlertDisplayerMock()
         let myCollectionDelegate = MyCollectionViewModelDelegateMock()
@@ -239,7 +239,7 @@ final class EditProfileViewModelTests: XCTestCase {
         }
         
         // When
-        await viewModel.didTapPrimaryButton()
+        await viewModel.didTapPrimaryButton(with: L10n.confirm)
         
         // Then
         alertDisplayer.verify(
@@ -255,7 +255,7 @@ final class EditProfileViewModelTests: XCTestCase {
         containerDelegate.verify(.reloadSections())
     }
     
-    func test_didTapPrimaryButton_GivenCredentialsUnconfirmedAndErrorReauthenticatingUser_ThenAlertParametersAreCorrectAndContainerDelegateCalled() async {
+    func test_didTapPrimaryButton_GivenConfirmButtonTappedAndErrorReauthenticatingUser_ThenAlertParametersAreCorrectAndContainerDelegateCalled() async {
         // Given
         let alertDisplayer = AlertDisplayerMock()
         let authenticationService = AuthenticationServiceMock()
@@ -291,7 +291,7 @@ final class EditProfileViewModelTests: XCTestCase {
         }
         
         // When
-        await viewModel.didTapPrimaryButton()
+        await viewModel.didTapPrimaryButton(with: L10n.confirm)
         
         // Then
         alertDisplayer.verify(
@@ -305,6 +305,37 @@ final class EditProfileViewModelTests: XCTestCase {
             )
         )
         containerDelegate.verify(.reloadSections())
+    }
+    
+    func test_didTapPrimaryButton_GivenDeleteAccountButtonTapped_ThenAlertParametersAreCorrect() async {
+        // Given
+        let alertDisplayer = AlertDisplayerMock()
+        //        let authenticationService = AuthenticationServiceMock()
+        
+        let viewModel = EditProfileViewModel(
+            myProfileDelegate: MyProfileViewModelDelegateMock(),
+            myCollectionDelegate: MyCollectionViewModelDelegateMock(),
+            alertDisplayer: alertDisplayer,
+            authenticationService: AuthenticationServiceMock(),
+            cloudDatabase: CloudDatabaseMock(),
+            credentialsConfirmed: true
+        )
+        viewModel.loadData { _ in }
+        
+        // When
+        await viewModel.didTapPrimaryButton(with: L10n.deleteAccount)
+        
+        // Then
+        alertDisplayer.verify(
+            .presentBasicAlert(
+                parameters: .value(
+                    AlertViewModel(
+                        alertType: .warning,
+                        description: L10n.warningAccountDeletion
+                    )
+                )
+            )
+        )
     }
     
     func test_didTapOkButton_GivenAccountDeletedSuccessfully_ThenAlertParametersAreCorrectsAndDelegatedAreCalled() async {

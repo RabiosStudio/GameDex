@@ -8,5 +8,11 @@
 import Foundation
 
 struct ButtonViewModel {
-    let title: String?
+    let isEnabled: Bool
+    let buttonTitle: String    
+    
+    init(isEnabled: Bool = true, buttonTitle: String) {
+        self.isEnabled = isEnabled
+        self.buttonTitle = buttonTitle
+    }
 }

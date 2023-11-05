@@ -17,7 +17,7 @@ target 'GameDex' do
   pod 'SDWebImage'
   pod 'SwiftyTextView'
   pod 'Cosmos', '~> 23.0'
-  pod 'SwiftEntryKit', '2.0.0'
+  pod 'SwiftEntryKit', :git => 'https://github.com/RabiosStudio/SwiftEntryKit.git', :branch => 'master'
   pod 'FirebaseAuth'
   pod 'FirebaseFirestore'
   pod 'FirebaseCrashlytics'

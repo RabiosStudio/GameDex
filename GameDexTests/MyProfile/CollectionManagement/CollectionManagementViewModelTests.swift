@@ -394,5 +394,61 @@ final class CollectionManagementViewModelTests: XCTestCase {
             )
         )
     }
+    
+    func test_didTapPrimaryButton_GivenDeleteFromCollectionButtonTappedAndUserLoggedOut_ThenAlertParametersAreCorrect() async {
+        // Given
+        let alertDisplayer = AlertDisplayerMock()
+        let viewModel = CollectionManagementViewModel(
+            myCollectionDelegate: MyCollectionViewModelDelegateMock(),
+            cloudDatabase: CloudDatabaseMock(),
+            localDatabase: LocalDatabaseMock(),
+            authenticationService: AuthenticationServiceMock(),
+            alertDisplayer: alertDisplayer
+        )
+        viewModel.isLoggedIn = true
+        
+        // When
+        await viewModel.didTapPrimaryButton(with: L10n.deleteFromCollection)
+        
+        // Then
+        alertDisplayer.verify(
+            .presentBasicAlert(
+                parameters: .value(
+                    AlertViewModel(
+                        alertType: .warning,
+                        description: L10n.warningPlatformDeletionCloud
+                    )
+                )
+            )
+        )
+    }
+    
+    func test_didTapPrimaryButton_GivenDeleteFromCollectionButtonTappedAndUserIsLoggedIn_ThenAlertParametersAreCorrect() async {
+        // Given
+        let alertDisplayer = AlertDisplayerMock()
+        let viewModel = CollectionManagementViewModel(
+            myCollectionDelegate: MyCollectionViewModelDelegateMock(),
+            cloudDatabase: CloudDatabaseMock(),
+            localDatabase: LocalDatabaseMock(),
+            authenticationService: AuthenticationServiceMock(),
+            alertDisplayer: alertDisplayer
+        )
+        viewModel.isLoggedIn = false
+        
+        // When
+        await viewModel.didTapPrimaryButton(with: L10n.deleteFromCollection)
+        
+        // Then
+        alertDisplayer.verify(
+            .presentBasicAlert(
+                parameters: .value(
+                    AlertViewModel(
+                        alertType: .warning,
+                        description: L10n.warningPlatformDeletionLocal
+                    )
+                )
+            )
+        )
+    }
 }
 

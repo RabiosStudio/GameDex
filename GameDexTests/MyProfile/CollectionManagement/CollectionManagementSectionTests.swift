@@ -12,7 +12,12 @@ final class CollectionManagementSectionTests: XCTestCase {
     
     func test_init_ThenShouldSetPropertiesCorrectly() {
         // Given
-        let section = CollectionManagementSection(isLoggedIn: true, collection: MockData.platforms, alertDisplayer: AlertDisplayerMock())
+        let section = CollectionManagementSection(
+            isLoggedIn: true,
+            collection: MockData.platforms,
+            alertDisplayer: AlertDisplayerMock(),
+            primaryButtonDelegate: PrimaryButtonDelegateMock()
+        )
         
         // Then
         XCTAssertEqual(section.cellsVM.count, 3)
@@ -25,7 +30,7 @@ final class CollectionManagementSectionTests: XCTestCase {
         }
         
         XCTAssertEqual(titleCellVM.title, L10n.selectAndDeleteACollection)
-        XCTAssertEqual(deleteCollectionButtonCellVM.title, L10n.deleteFromCollection)
+        XCTAssertEqual(deleteCollectionButtonCellVM.buttonViewModel, ButtonViewModel(isEnabled: true, buttonTitle: L10n.deleteFromCollection))
         XCTAssertEqual(deleteCollectionButtonCellVM.buttonType, .classic)
         
         guard let formCellsVM = section.cellsVM.filter({ cellVM in
@@ -61,61 +66,5 @@ final class CollectionManagementSectionTests: XCTestCase {
                 return
             }
         }
-    }
-    
-    func test_cellTappedCallback_GivenUserIsLoggedInAndDeleteButtonTapped_ThenDisplayBasicAlert() {
-        // Given
-        let alertDisplayer = AlertDisplayerMock()
-        let section = CollectionManagementSection(isLoggedIn: true, collection: MockData.platforms, alertDisplayer: alertDisplayer)
-        
-        guard let deleteCollectionButtonCellVM = section.cellsVM.last as? PrimaryButtonCellViewModel else {
-            XCTFail("Cell View Models are not correct")
-            return
-        }
-        
-        // When
-        deleteCollectionButtonCellVM.cellTappedCallback?()
-        
-        // Then
-        alertDisplayer.verify(
-            .presentBasicAlert(
-                parameters: .value(
-                    AlertViewModel(
-                        alertType: .warning,
-                        description: L10n.warningPlatformDeletionCloud,
-                        cancelButtonTitle: L10n.cancel,
-                        okButtonTitle: L10n.confirm
-                    )
-                )
-            )
-        )
-    }
-    
-    func test_cellTappedCallback_GivenUserIsLoggedOutAndDeleteButtonTapped_ThenDisplayBasicAlert() {
-        // Given
-        let alertDisplayer = AlertDisplayerMock()
-        let section = CollectionManagementSection(isLoggedIn: false, collection: MockData.platforms, alertDisplayer: alertDisplayer)
-        
-        guard let deleteCollectionButtonCellVM = section.cellsVM.last as? PrimaryButtonCellViewModel else {
-            XCTFail("Cell View Models are not correct")
-            return
-        }
-        
-        // When
-        deleteCollectionButtonCellVM.cellTappedCallback?()
-        
-        // Then
-        alertDisplayer.verify(
-            .presentBasicAlert(
-                parameters: .value(
-                    AlertViewModel(
-                        alertType: .warning,
-                        description: L10n.warningPlatformDeletionLocal,
-                        cancelButtonTitle: L10n.cancel,
-                        okButtonTitle: L10n.confirm
-                    )
-                )
-            )
-        )
     }
 }

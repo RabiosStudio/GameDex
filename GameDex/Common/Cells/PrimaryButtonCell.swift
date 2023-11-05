@@ -11,10 +11,7 @@ import UIKit
 final class PrimaryButtonCell: UICollectionViewCell, CellConfigurable {
     
     private lazy var primaryButton: PrimaryButton = {
-        let primaryButton = PrimaryButton(
-            delegate: nil,
-            shouldEnable: true
-        )
+        let primaryButton = PrimaryButton(delegate: nil)
         primaryButton.layoutMargins = UIEdgeInsets(
             top: DesignSystem.paddingLarge,
             left: DesignSystem.paddingLarge,
@@ -22,11 +19,11 @@ final class PrimaryButtonCell: UICollectionViewCell, CellConfigurable {
             right: DesignSystem.paddingLarge
         )
         primaryButton.translatesAutoresizingMaskIntoConstraints = false
-        primaryButton.isUserInteractionEnabled = false
+        primaryButton.addTarget(self, action: #selector(self.buttonCellPressed), for: .touchUpInside)
         return primaryButton
     }()
     
-    private var buttonTitle: String?
+    private var viewModel: PrimaryButtonCellViewModel?
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -42,36 +39,27 @@ final class PrimaryButtonCell: UICollectionViewCell, CellConfigurable {
         guard let cellVM = cellViewModel as? PrimaryButtonCellViewModel else {
             return
         }
-        self.buttonTitle = cellVM.title
-        self.primaryButton.configure(
-            viewModel: ButtonViewModel(
-                title: self.buttonTitle
-            )
-        )
+        self.viewModel = cellVM        
+        self.primaryButton.configure(viewModel: cellVM.buttonViewModel)
         if cellVM.buttonType == .warning {
             self.primaryButton.backgroundColor = .warningColor
         }
         self.setupConstraints()
     }
     
-    func cellPressed(cellViewModel: CellViewModel) {
-        self.primaryButton.isEnabled = false
-        self.primaryButton.updateButtonDesignForState(buttonTitle: nil)
-        self.didTapPrimaryButton(cellViewModel: cellViewModel) { [weak self] in
-            self?.primaryButton.isEnabled = true
-            self?.primaryButton.updateButtonDesignForState(buttonTitle: self?.buttonTitle)
+    @objc
+    private func buttonCellPressed() {
+        self.primaryButton.updateButtonDesign(state: .loading)
+        
+        guard let vm = self.viewModel else { return }
+        vm.didTap(buttonTitle: self.primaryButton.titleLabel?.text) { [weak self] in
+            DispatchQueue.main.async {
+                let state: ButtonState = .enabled(vm.buttonViewModel.buttonTitle)
+                self?.primaryButton.updateButtonDesign(state: state)
+            }
         }
-        cellViewModel.cellTappedCallback?()
     }
-
-    private func didTapPrimaryButton(cellViewModel: CellViewModel, completion: () -> ()) {
-        guard let cellVM = cellViewModel as? PrimaryButtonCellViewModel else {
-            return
-        }
-        cellVM.didTapButton()
-        completion()
-    }
-    
+        
     private func setupConstraints() {
         NSLayoutConstraint.activate([
             self.primaryButton.topAnchor.constraint(equalTo: self.topAnchor),
@@ -80,5 +68,4 @@ final class PrimaryButtonCell: UICollectionViewCell, CellConfigurable {
             self.primaryButton.bottomAnchor.constraint(equalTo: self.bottomAnchor)
         ])
     }
-    
 }

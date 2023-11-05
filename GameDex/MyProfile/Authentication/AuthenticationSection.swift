@@ -34,7 +34,7 @@ final class AuthenticationSection: Section {
         self.cellsVM.append(passwordTextField)
         
         let loginButtonCellVM = PrimaryButtonCellViewModel(
-            title: userHasAccount ? L10n.login : L10n.createAccount,
+            buttonViewModel: ButtonViewModel(buttonTitle: userHasAccount ? L10n.login : L10n.createAccount),
             delegate: primaryButtonDelegate
         )
         self.cellsVM.append(loginButtonCellVM)

@@ -57,7 +57,26 @@ final class EditProfileViewModel: CollectionViewModel {
 
 // MARK: - PrimaryButtonDelegate
 extension EditProfileViewModel: PrimaryButtonDelegate {
-    func didTapPrimaryButton() async {
+    
+    func didTapPrimaryButton(with title: String?) async {
+        guard let title else { return }
+        
+        switch title {
+        case L10n.deleteAccount:
+            alertDisplayer.presentBasicAlert(
+                parameters: AlertViewModel(
+                    alertType: .warning,
+                    description: L10n.warningAccountDeletion
+                )
+            )
+        case L10n.confirm, L10n.saveChanges:
+            await self.updateProfile()
+        default:
+            return
+        }
+    }
+    
+    private func updateProfile() async {
         guard let firstSection = self.sections.first,
               let formCellsVM = firstSection.cellsVM.filter({ cellVM in
                   return cellVM is (any CollectionFormCellViewModel)

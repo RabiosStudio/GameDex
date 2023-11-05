@@ -13,7 +13,7 @@ final class LoginSectionTests: XCTestCase {
         // Given
         let section = LoginSection(
             myProfileDelegate: MyProfileViewModelDelegateMock(),
-            myCollectionDelegate: MyCollectionViewModelDelegateMock()
+            myCollectionDelegate: MyCollectionViewModelDelegateMock(), primaryButtonDelegate: nil
         )
         
         // Then
@@ -29,53 +29,7 @@ final class LoginSectionTests: XCTestCase {
         
         XCTAssertEqual(imageCellVM.imageName, Asset.devices.name)
         XCTAssertEqual(titleCellVM.title, L10n.loginDescription)
-        XCTAssertEqual(loginButtonCellVM.title, L10n.login)
-        XCTAssertEqual(signupButtonCellVM.title, L10n.createAccount)
-    }
-    
-    func test_cellTappedCallback_ThenLastNavigationStyleIsCorrect() {
-        // Given
-        let myProfileDelegate = MyProfileViewModelDelegateMock()
-        let section = LoginSection(
-            myProfileDelegate: myProfileDelegate,
-            myCollectionDelegate: MyCollectionViewModelDelegateMock()
-        )
-        
-        guard let buttonCellsVM = section.cellsVM.filter({ cellVM in
-            return cellVM is PrimaryButtonCellViewModel
-        }) as? [PrimaryButtonCellViewModel] else {
-            XCTFail("Wrong type")
-            return
-        }
-        
-        let loginButtonCellVM = buttonCellsVM.first { cell in
-            cell.title == L10n.login
-        }
-        let signupButtonCellVM = buttonCellsVM.first { cell in
-            cell.title == L10n.createAccount
-        }
-        
-        // When
-        loginButtonCellVM?.cellTappedCallback?()
-        signupButtonCellVM?.cellTappedCallback?()
-        
-        // Then
-        let expectedNavigationStyle1: NavigationStyle = .push(
-            screenFactory: AuthenticationScreenFactory(
-                userHasAccount: true,
-                myProfileDelegate: myProfileDelegate,
-                myCollectionDelegate: MyCollectionViewModelDelegateMock()
-            )
-        )
-        XCTAssertEqual(Routing.shared.lastNavigationStyle, expectedNavigationStyle1)
-        
-        let expectedNavigationStyle2: NavigationStyle = .push(
-            screenFactory: AuthenticationScreenFactory(
-                userHasAccount: false,
-                myProfileDelegate: myProfileDelegate,
-                myCollectionDelegate: MyCollectionViewModelDelegateMock()
-            )
-        )
-        XCTAssertEqual(Routing.shared.lastNavigationStyle, expectedNavigationStyle2)
+        XCTAssertEqual(loginButtonCellVM.buttonViewModel, ButtonViewModel(isEnabled: true, buttonTitle: L10n.login))
+        XCTAssertEqual(signupButtonCellVM.buttonViewModel, ButtonViewModel(isEnabled: true, buttonTitle: L10n.createAccount))
     }
 }

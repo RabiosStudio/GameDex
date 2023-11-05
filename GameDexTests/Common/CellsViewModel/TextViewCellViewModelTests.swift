@@ -26,4 +26,21 @@ final class TextViewCellViewModelTests: XCTestCase {
         XCTAssertEqual(cellVM.title, "Title")
         XCTAssertEqual(cellVM.value, "Text")
     }
+    
+    func test_value_GivenValueChanged_ThenShouldCallEditFormDelegate() {
+        // Given
+        let delegate = EditFormDelegateMock()
+        let cellVM = TextViewCellViewModel(
+            title: "title",
+            formType: GameFormType.notes,
+            value: "text",
+            editDelegate: delegate
+        )
+        
+        // When
+        cellVM.value = "updated text"
+        
+        // Then
+        delegate.verify(.enableSaveButtonIfNeeded())
+    }
 }

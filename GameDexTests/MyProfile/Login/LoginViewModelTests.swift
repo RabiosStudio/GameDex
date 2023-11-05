@@ -36,4 +36,55 @@ final class LoginViewModelTests: XCTestCase {
         XCTAssertEqual(viewModel.numberOfSections(), 1)
         XCTAssertEqual(viewModel.numberOfItems(in: .zero), 4)
     }
+    
+    func test_didTapPrimaryButton_GivenLoginButtonTapped_ThenSetupCorrectNavigationStyle() async {
+        // Given
+        let myProfileDelegate = MyProfileViewModelDelegateMock()
+        let myCollectionDelegate = MyCollectionViewModelDelegateMock()
+        let viewModel = LoginViewModel(
+            myProfileDelegate: myProfileDelegate,
+            myCollectionDelegate: myCollectionDelegate
+        )
+        viewModel.loadData { _ in }
+        
+        // When
+        await viewModel.didTapPrimaryButton(with: L10n.login)
+        
+        // Then
+        let expectedNavigationStyle: NavigationStyle = .push(
+            screenFactory: AuthenticationScreenFactory(
+                userHasAccount: true,
+                myProfileDelegate: myProfileDelegate,
+                myCollectionDelegate: myCollectionDelegate
+            )
+        )
+        let lastNavigationStyle = Routing.shared.lastNavigationStyle
+        XCTAssertEqual(lastNavigationStyle, expectedNavigationStyle)
+    }
+    
+    func test_didTapPrimaryButton_GivenCreateAccountButtonTapped_ThenSetupCorrectNavigationStyle() async {
+        // Given
+        let myProfileDelegate = MyProfileViewModelDelegateMock()
+        let myCollectionDelegate = MyCollectionViewModelDelegateMock()
+        let viewModel = LoginViewModel(
+            myProfileDelegate: myProfileDelegate,
+            myCollectionDelegate: myCollectionDelegate
+        )
+        viewModel.loadData { _ in }
+        
+        // When
+        await viewModel.didTapPrimaryButton(with: L10n.createAccount)
+        
+        // Then
+        let expectedNavigationStyle: NavigationStyle = .push(
+            screenFactory: AuthenticationScreenFactory(
+                userHasAccount: false,
+                myProfileDelegate: myProfileDelegate,
+                myCollectionDelegate: myCollectionDelegate
+            )
+        )
+        let lastNavigationStyle = Routing.shared.lastNavigationStyle
+        XCTAssertEqual(lastNavigationStyle, expectedNavigationStyle)
+    }
 }
+

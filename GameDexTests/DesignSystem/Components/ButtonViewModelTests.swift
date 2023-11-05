@@ -14,10 +14,9 @@ final class ButtonViewModelTests: XCTestCase {
         // Given
         let title = "Button title"
         // When
-        let viewModel = ButtonViewModel(
-            title: title
-        )
+        let viewModel = ButtonViewModel(buttonTitle: title)
         // Then
-        XCTAssertEqual(viewModel.title, title)
+        XCTAssertEqual(viewModel.buttonTitle, title)
+        XCTAssertTrue(viewModel.isEnabled)
     }
 }

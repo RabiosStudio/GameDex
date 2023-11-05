@@ -65,8 +65,28 @@ extension NavigationStyle: Equatable {
 extension AlertViewModel: Equatable {
     public static func == (lhs: AlertViewModel, rhs: AlertViewModel) -> Bool {
         lhs.alertType == rhs.alertType &&
-        lhs.cancelButtonTitle == rhs.cancelButtonTitle &&
-        lhs.description == rhs.description &&
-        lhs.okButtonTitle == rhs.okButtonTitle
+        lhs.description == rhs.description
+    }
+}
+
+extension ButtonViewModel: Equatable {
+    public static func == (lhs: ButtonViewModel, rhs: ButtonViewModel) -> Bool {
+        lhs.isEnabled == rhs.isEnabled &&
+        lhs.buttonTitle == rhs.buttonTitle
+    }
+}
+
+extension ButtonState: Equatable {
+    public static func == (lhs: ButtonState, rhs: ButtonState) -> Bool {
+        switch (lhs, rhs) {
+        case (.loading, .loading):
+            return true
+        case let (.enabled(title1), .enabled(title2)):
+            return title1 == title2
+        case let (.disabled(title1), .disabled(title2)):
+            return title1 == title2
+        default:
+            return false
+        }
     }
 }
