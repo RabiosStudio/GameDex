@@ -126,40 +126,4 @@ final class EditProfileSectionTests: XCTestCase {
             }
         }
     }
-    
-    func test_cellTappedCallback_GivenDeleteProfileButtonCellTapped_ThenDisplayBasicAlert() {
-        // Given
-        let profileDelegate = MyProfileViewModelDelegateMock()
-        let collectionDelegate = MyCollectionViewModelDelegateMock()
-        let alertDisplayer = AlertDisplayerMock()
-        let primaryButtonDelegate = PrimaryButtonDelegateMock()
-        let section = EditProfileSection(
-            credentialsConfirmed: true,
-            myProfileDelegate: profileDelegate,
-            myCollectionDelegate: collectionDelegate,
-            alertDisplayer: alertDisplayer,
-            primaryButtonDelegate: primaryButtonDelegate
-        )
-        
-        guard let deleteProfileButtonCellVM = section.cellsVM.last as? PrimaryButtonCellViewModel else {
-            XCTFail("Cell View Models are not correct")
-            return
-        }
-        
-        // When
-        deleteProfileButtonCellVM.cellTappedCallback?()
-        
-        // Then
-        alertDisplayer.verify(
-            .presentBasicAlert(
-                parameters: .value(
-                    AlertViewModel(
-                        alertType: .warning,
-                        description: L10n.warningAccountDeletion
-                    )
-                )
-            )
-        )
-        
-    }
 }

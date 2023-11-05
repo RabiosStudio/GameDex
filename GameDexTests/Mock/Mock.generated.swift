@@ -4379,30 +4379,33 @@ open class PrimaryButtonDelegateMock: PrimaryButtonDelegate, Mock {
 
 
 
-    open func didTapPrimaryButton() {
-        addInvocation(.m_didTapPrimaryButton)
-		let perform = methodPerformValue(.m_didTapPrimaryButton) as? () -> Void
-		perform?()
+    open func didTapPrimaryButton(with title: String?) {
+        addInvocation(.m_didTapPrimaryButton__with_title(Parameter<String?>.value(`title`)))
+		let perform = methodPerformValue(.m_didTapPrimaryButton__with_title(Parameter<String?>.value(`title`))) as? (String?) -> Void
+		perform?(`title`)
     }
 
 
     fileprivate enum MethodType {
-        case m_didTapPrimaryButton
+        case m_didTapPrimaryButton__with_title(Parameter<String?>)
 
         static func compareParameters(lhs: MethodType, rhs: MethodType, matcher: Matcher) -> Matcher.ComparisonResult {
             switch (lhs, rhs) {
-            case (.m_didTapPrimaryButton, .m_didTapPrimaryButton): return .match
+            case (.m_didTapPrimaryButton__with_title(let lhsTitle), .m_didTapPrimaryButton__with_title(let rhsTitle)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsTitle, rhs: rhsTitle, with: matcher), lhsTitle, rhsTitle, "with title"))
+				return Matcher.ComparisonResult(results)
             }
         }
 
         func intValue() -> Int {
             switch self {
-            case .m_didTapPrimaryButton: return 0
+            case let .m_didTapPrimaryButton__with_title(p0): return p0.intValue
             }
         }
         func assertionName() -> String {
             switch self {
-            case .m_didTapPrimaryButton: return ".didTapPrimaryButton()"
+            case .m_didTapPrimaryButton__with_title: return ".didTapPrimaryButton(with:)"
             }
         }
     }
@@ -4421,15 +4424,15 @@ open class PrimaryButtonDelegateMock: PrimaryButtonDelegate, Mock {
     public struct Verify {
         fileprivate var method: MethodType
 
-        public static func didTapPrimaryButton() -> Verify { return Verify(method: .m_didTapPrimaryButton)}
+        public static func didTapPrimaryButton(with title: Parameter<String?>) -> Verify { return Verify(method: .m_didTapPrimaryButton__with_title(`title`))}
     }
 
     public struct Perform {
         fileprivate var method: MethodType
         var performs: Any
 
-        public static func didTapPrimaryButton(perform: @escaping () -> Void) -> Perform {
-            return Perform(method: .m_didTapPrimaryButton, performs: perform)
+        public static func didTapPrimaryButton(with title: Parameter<String?>, perform: @escaping (String?) -> Void) -> Perform {
+            return Perform(method: .m_didTapPrimaryButton__with_title(`title`), performs: perform)
         }
     }
 

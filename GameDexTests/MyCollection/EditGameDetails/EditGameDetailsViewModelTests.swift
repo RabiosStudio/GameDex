@@ -106,7 +106,7 @@ final class EditGameDetailsViewModelTests: XCTestCase {
         )
         
         // When
-        await viewModel.didTapPrimaryButton()
+        await viewModel.didTapPrimaryButton(with: nil)
         
         // Then
         alertDisplayer.verify(
@@ -161,7 +161,7 @@ final class EditGameDetailsViewModelTests: XCTestCase {
         )
         
         // When
-        await viewModel.didTapPrimaryButton()
+        await viewModel.didTapPrimaryButton(with: nil)
         
         // Then
         alertDisplayer.verify(
@@ -219,7 +219,7 @@ final class EditGameDetailsViewModelTests: XCTestCase {
         )
         
         // When
-        await viewModel.didTapPrimaryButton()
+        await viewModel.didTapPrimaryButton(with: nil)
         
         // Then
         alertDisplayer.verify(
@@ -277,7 +277,7 @@ final class EditGameDetailsViewModelTests: XCTestCase {
         )
         
         // When
-        await viewModel.didTapPrimaryButton()
+        await viewModel.didTapPrimaryButton(with: nil)
         
         // Then
         alertDisplayer.verify(

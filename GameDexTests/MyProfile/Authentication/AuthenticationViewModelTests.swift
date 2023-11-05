@@ -85,7 +85,7 @@ final class AuthenticationViewModelTests: XCTestCase {
         }
         
         // When
-        await viewModel.didTapPrimaryButton()
+        await viewModel.didTapPrimaryButton(with: nil)
         
         // Then
         alertDisplayer.verify(
@@ -147,7 +147,7 @@ final class AuthenticationViewModelTests: XCTestCase {
         }
         
         // When
-        await viewModel.didTapPrimaryButton()
+        await viewModel.didTapPrimaryButton(with: nil)
         
         // Then
         alertDisplayer.verify(
@@ -206,7 +206,7 @@ final class AuthenticationViewModelTests: XCTestCase {
         }
         
         // When
-        await viewModel.didTapPrimaryButton()
+        await viewModel.didTapPrimaryButton(with: nil)
         
         // Then
         alertDisplayer.verify(
@@ -268,7 +268,7 @@ final class AuthenticationViewModelTests: XCTestCase {
         }
 
         // When
-        await viewModel.didTapPrimaryButton()
+        await viewModel.didTapPrimaryButton(with: nil)
         
         alertDisplayer.verify(
             .presentTopFloatAlert(

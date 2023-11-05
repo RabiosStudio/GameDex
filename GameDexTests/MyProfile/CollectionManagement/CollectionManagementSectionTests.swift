@@ -12,7 +12,12 @@ final class CollectionManagementSectionTests: XCTestCase {
     
     func test_init_ThenShouldSetPropertiesCorrectly() {
         // Given
-        let section = CollectionManagementSection(isLoggedIn: true, collection: MockData.platforms, alertDisplayer: AlertDisplayerMock())
+        let section = CollectionManagementSection(
+            isLoggedIn: true,
+            collection: MockData.platforms,
+            alertDisplayer: AlertDisplayerMock(),
+            primaryButtonDelegate: PrimaryButtonDelegateMock()
+        )
         
         // Then
         XCTAssertEqual(section.cellsVM.count, 3)
@@ -61,57 +66,5 @@ final class CollectionManagementSectionTests: XCTestCase {
                 return
             }
         }
-    }
-    
-    func test_cellTappedCallback_GivenUserIsLoggedInAndDeleteButtonTapped_ThenDisplayBasicAlert() {
-        // Given
-        let alertDisplayer = AlertDisplayerMock()
-        let section = CollectionManagementSection(isLoggedIn: true, collection: MockData.platforms, alertDisplayer: alertDisplayer)
-        
-        guard let deleteCollectionButtonCellVM = section.cellsVM.last as? PrimaryButtonCellViewModel else {
-            XCTFail("Cell View Models are not correct")
-            return
-        }
-        
-        // When
-        deleteCollectionButtonCellVM.cellTappedCallback?()
-        
-        // Then
-        alertDisplayer.verify(
-            .presentBasicAlert(
-                parameters: .value(
-                    AlertViewModel(
-                        alertType: .warning,
-                        description: L10n.warningPlatformDeletionCloud
-                    )
-                )
-            )
-        )
-    }
-    
-    func test_cellTappedCallback_GivenUserIsLoggedOutAndDeleteButtonTapped_ThenDisplayBasicAlert() {
-        // Given
-        let alertDisplayer = AlertDisplayerMock()
-        let section = CollectionManagementSection(isLoggedIn: false, collection: MockData.platforms, alertDisplayer: alertDisplayer)
-        
-        guard let deleteCollectionButtonCellVM = section.cellsVM.last as? PrimaryButtonCellViewModel else {
-            XCTFail("Cell View Models are not correct")
-            return
-        }
-        
-        // When
-        deleteCollectionButtonCellVM.cellTappedCallback?()
-        
-        // Then
-        alertDisplayer.verify(
-            .presentBasicAlert(
-                parameters: .value(
-                    AlertViewModel(
-                        alertType: .warning,
-                        description: L10n.warningPlatformDeletionLocal
-                    )
-                )
-            )
-        )
     }
 }
