@@ -9,10 +9,11 @@ import Foundation
 import UIKit
 
 final class LoginSection: Section {
-    
+        
     init(
         myProfileDelegate: MyProfileViewModelDelegate?,
-        myCollectionDelegate: MyCollectionViewModelDelegate?
+        myCollectionDelegate: MyCollectionViewModelDelegate?,
+        primaryButtonDelegate: PrimaryButtonDelegate?
     ) {
         super.init()
         self.position = 0
@@ -28,37 +29,13 @@ final class LoginSection: Section {
         
         let loginButtonCellVM = PrimaryButtonCellViewModel(
             buttonViewModel: ButtonViewModel(buttonTitle: L10n.login),
-            delegate: nil,
-            cellTappedCallback: {
-                let screenFactory =  AuthenticationScreenFactory(
-                    userHasAccount: true,
-                    myProfileDelegate: myProfileDelegate,
-                    myCollectionDelegate: myCollectionDelegate
-                )
-                Routing.shared.route(
-                    navigationStyle: .push(
-                        screenFactory: screenFactory
-                    )
-                )
-            }
+            delegate: primaryButtonDelegate            
         )
         self.cellsVM.append(loginButtonCellVM)
         
         let signupButtonCellVM = PrimaryButtonCellViewModel(
             buttonViewModel: ButtonViewModel(buttonTitle: L10n.createAccount),
-            delegate: nil,
-            cellTappedCallback: {
-                let screenFactory =  AuthenticationScreenFactory(
-                    userHasAccount: false,
-                    myProfileDelegate: myProfileDelegate,
-                    myCollectionDelegate: myCollectionDelegate
-                )
-                Routing.shared.route(
-                    navigationStyle: .push(
-                        screenFactory: screenFactory
-                    )
-                )
-            }
+            delegate: primaryButtonDelegate            
         )
         
         self.cellsVM.append(signupButtonCellVM)

@@ -13,7 +13,7 @@ final class PrimaryButtonCellViewModel: ButtonCollectionCellViewModel {
     var height: CGFloat = DesignSystem.buttonHeightRegular
     var cellTappedCallback: (() -> Void)?
     
-    private let delegate: PrimaryButtonDelegate?
+    private weak var delegate: PrimaryButtonDelegate?
     
     let buttonViewModel: ButtonViewModel
     let buttonType: ButtonType
@@ -21,22 +21,16 @@ final class PrimaryButtonCellViewModel: ButtonCollectionCellViewModel {
     init(
         buttonViewModel: ButtonViewModel,
         delegate: PrimaryButtonDelegate?,
-        buttonType: ButtonType = .classic,
-        cellTappedCallback: (() -> Void)? = nil
+        buttonType: ButtonType = .classic
     ) {
         self.buttonViewModel = buttonViewModel
         self.delegate = delegate
         self.buttonType = buttonType
-        self.cellTappedCallback = cellTappedCallback
     }
     
-    func didTapButton(completion: @escaping () -> ()) {
-        guard let delegate = self.delegate else {
-            completion()
-            return
-        }
+    func didTap(buttonTitle: String?, completion: @escaping () -> ()) {
         Task {
-            await delegate.didTapPrimaryButton()
+            await delegate?.didTapPrimaryButton(with: buttonTitle)
             completion()
         }
     }

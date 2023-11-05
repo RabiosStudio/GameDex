@@ -52,9 +52,10 @@ final class PrimaryButtonCell: UICollectionViewCell, CellConfigurable {
         self.primaryButton.updateButtonDesign(state: .loading)
         
         guard let vm = self.viewModel else { return }
-        vm.didTapButton { [weak self] in
+        vm.didTap(buttonTitle: self.primaryButton.titleLabel?.text) { [weak self] in
             DispatchQueue.main.async {
-                self?.primaryButton.updateButtonDesign(state: vm.buttonViewModel.state)
+                let state: ButtonState = .enabled(vm.buttonViewModel.buttonTitle)
+                self?.primaryButton.updateButtonDesign(state: state)
             }
         }
     }

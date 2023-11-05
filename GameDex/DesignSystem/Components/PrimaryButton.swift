@@ -11,7 +11,7 @@ import NVActivityIndicatorView
 
 // sourcery: AutoMockable
 protocol PrimaryButtonDelegate: AnyObject {
-    func didTapPrimaryButton() async
+    func didTapPrimaryButton(with title: String?) async
 }
 
 final class PrimaryButton: UIButton {
@@ -54,7 +54,8 @@ final class PrimaryButton: UIButton {
         self.titleLabel?.textAlignment = .center
         self.titleLabel?.numberOfLines = DesignSystem.numberOfLinesStandard
         self.setTitleColor(.primaryBackgroundColor, for: .normal)
-        self.updateButtonDesign(state: viewModel.state)
+        let state: ButtonState = viewModel.isEnabled ? .enabled(viewModel.buttonTitle) : .disabled(viewModel.buttonTitle)
+        self.updateButtonDesign(state: state)
         self.setupConstraints()
     }
     
@@ -80,7 +81,7 @@ final class PrimaryButton: UIButton {
     @objc private func didTapPrimaryButton(_ sender: PrimaryButton) {
         self.updateButtonDesign(state: .loading)
         Task {
-            await self.delegate?.didTapPrimaryButton()
+            await self.delegate?.didTapPrimaryButton(with: self.titleLabel?.text)
         }
     }
     

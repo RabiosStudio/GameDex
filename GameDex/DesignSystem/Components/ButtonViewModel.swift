@@ -9,12 +9,10 @@ import Foundation
 
 struct ButtonViewModel {
     let isEnabled: Bool
-    let buttonTitle: String
-    let state: ButtonState
+    let buttonTitle: String    
     
     init(isEnabled: Bool = true, buttonTitle: String) {
         self.isEnabled = isEnabled
         self.buttonTitle = buttonTitle
-        self.state = self.isEnabled ? .enabled(buttonTitle) : .disabled(buttonTitle)
     }
 }

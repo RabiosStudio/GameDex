@@ -71,7 +71,7 @@ final class EditGameDetailsViewModel: CollectionViewModel {
 }
 
 extension EditGameDetailsViewModel: PrimaryButtonDelegate {
-    func didTapPrimaryButton() async {
+    func didTapPrimaryButton(with title: String?) async {
         guard let gameToSave = getGameToSave() else { return }
         
         guard let userId = self.authenticationService.getUserId() else {

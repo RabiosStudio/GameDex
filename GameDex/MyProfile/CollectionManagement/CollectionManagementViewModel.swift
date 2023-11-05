@@ -15,6 +15,8 @@ final class CollectionManagementViewModel: CollectionViewModel {
     let screenTitle: String? = L10n.collectionManagement
     var sections: [Section] = []
     
+    var isLoggedIn: Bool = false
+    
     weak var containerDelegate: ContainerViewControllerDelegate?
     weak var myProfileDelegate: MyProfileViewModelDelegate?
     weak var myCollectionDelegate: MyCollectionViewModelDelegate?
@@ -55,7 +57,8 @@ final class CollectionManagementViewModel: CollectionViewModel {
                 self.collection = convertedPlatforms.sorted {
                     $0.title < $1.title
                 }
-                self.handleSectionCreation(isLoggedIn: false)
+                self.isLoggedIn = false
+                self.handleSectionCreation()
                 callback(nil)
             case .failure:
                 callback(MyCollectionError.fetchError)
@@ -72,7 +75,8 @@ final class CollectionManagementViewModel: CollectionViewModel {
             self.collection = platforms.sorted {
                 $0.title < $1.title
             }
-            self.handleSectionCreation(isLoggedIn: true)
+            self.isLoggedIn = true
+            self.handleSectionCreation()
             callback(nil)
         case .failure:
             callback(MyCollectionError.fetchError)
@@ -80,12 +84,13 @@ final class CollectionManagementViewModel: CollectionViewModel {
         return
     }
     
-    private func handleSectionCreation(isLoggedIn: Bool) {
+    private func handleSectionCreation() {
         self.sections = [
             CollectionManagementSection(
-                isLoggedIn: isLoggedIn,
+                isLoggedIn: self.isLoggedIn,
                 collection: self.collection,
-                alertDisplayer: self.alertDisplayer
+                alertDisplayer: self.alertDisplayer,
+                primaryButtonDelegate: self
             )
         ]
     }
@@ -151,5 +156,22 @@ extension CollectionManagementViewModel: AlertDisplayerDelegate {
         self.displayAlert(success: true, platformTitle: platformToDelete.title)
         await self.myCollectionDelegate?.reloadCollection()
         self.containerDelegate?.goBackToRootViewController()
+    }
+}
+
+extension CollectionManagementViewModel: PrimaryButtonDelegate {
+    func didTapPrimaryButton(with title: String?) async {
+        guard let title else { return }
+        switch title {
+        case L10n.deleteFromCollection:
+            alertDisplayer.presentBasicAlert(
+                parameters: AlertViewModel(
+                    alertType: .warning,
+                    description: isLoggedIn ? L10n.warningPlatformDeletionCloud : L10n.warningPlatformDeletionLocal
+                )
+            )
+        default:
+            return
+        }        
     }
 }

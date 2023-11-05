@@ -9,11 +9,11 @@ import Foundation
 import UIKit
 
 final class CollectionManagementSection: Section {
-    
     init(
         isLoggedIn: Bool,
         collection: [Platform]?,
-        alertDisplayer: AlertDisplayer
+        alertDisplayer: AlertDisplayer,
+        primaryButtonDelegate: PrimaryButtonDelegate?
     ) {
         super.init()
         self.position = 0
@@ -43,16 +43,8 @@ final class CollectionManagementSection: Section {
         
         let deleteCollectionButtonCellVM = PrimaryButtonCellViewModel(
             buttonViewModel: ButtonViewModel(buttonTitle: L10n.deleteFromCollection),
-            delegate: nil,
-            buttonType: .classic,
-            cellTappedCallback: {
-                alertDisplayer.presentBasicAlert(
-                    parameters: AlertViewModel(
-                        alertType: .warning,
-                        description: isLoggedIn ? L10n.warningPlatformDeletionCloud : L10n.warningPlatformDeletionLocal
-                    )
-                )
-            }
+            delegate: primaryButtonDelegate,
+            buttonType: .classic            
         )
         self.cellsVM.append(deleteCollectionButtonCellVM)
     }
