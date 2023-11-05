@@ -123,11 +123,11 @@ class FirestoreDatabase: CloudDatabase {
     func saveCollection(userId: String, localDatabase: LocalDatabase) async -> DatabaseError? {
         let fetchPlatformsResult = localDatabase.fetchAllPlatforms()
         switch fetchPlatformsResult {
-        case .success(let platform):
-            guard !platform.isEmpty else {
+        case .success(let platformsFetched):
+            guard !platformsFetched.isEmpty else {
                 return nil
             }
-            let platforms = CoreDataConverter.convert(platformsCollected: platform)
+            let platforms = CoreDataConverter.convert(platformsCollected: platformsFetched)
             
             for platform in platforms {
                 if let error = await self.saveGames(
@@ -200,10 +200,9 @@ class FirestoreDatabase: CloudDatabase {
         }
         for item in games {
             let gameData: FirestoreData = self.convert(game: item, platform: platform)
-            guard let error = await self.firestoreSession.setData(path: Collections.userGames(userId, "\(platform.id)").path, firestoreData: gameData) else {
-                return nil
+            guard await self.firestoreSession.setData(path: Collections.userGames(userId, "\(platform.id)").path, firestoreData: gameData) == nil else {
+                return DatabaseError.saveError
             }
-            return DatabaseError.saveError
         }
         return nil
     }
