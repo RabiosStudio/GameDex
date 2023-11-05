@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 import SwiftEntryKit
+import NVActivityIndicatorView
 
 // sourcery: AutoMockable
 protocol AlertDisplayerDelegate: AnyObject {
@@ -24,6 +25,15 @@ protocol AlertDisplayer {
 class AlertDisplayerImpl: AlertDisplayer {
     
     weak var alertDelegate: AlertDisplayerDelegate?
+    private lazy var loader: NVActivityIndicatorView = {
+        let view = NVActivityIndicatorView(
+            frame: CGRect(origin: .zero, size: CGSize(width: 40, height: 40)),
+            type: .ballRotateChase,
+            color: .white,
+            padding: DesignSystem.paddingSmall
+        )
+        return view
+    }()
     
     func presentTopFloatAlert(parameters: AlertViewModel) {
         DispatchQueue.main.async {
@@ -159,11 +169,7 @@ class AlertDisplayerImpl: AlertDisplayer {
                 backgroundColor: EKColor(.primaryColor),
                 highlightedBackgroundColor: EKColor(.secondaryBackgroundColor),
                 displayMode: displayMode
-            ) {
-                Task {
-                    await self.alertDelegate?.didTapOkButton()
-                }
-            }
+            )
             
             // Generate the content
             let buttonsBarContent = EKProperty.ButtonBarContent(
@@ -177,6 +183,17 @@ class AlertDisplayerImpl: AlertDisplayer {
                 buttonBarContent: buttonsBarContent
             )
             let contentView = EKAlertMessageView(with: alertMessage)
+            
+            okButton.action = {
+                Task {
+                    contentView.buttonBarView.showLoader(loader: self.loader, at: 1)
+                    self.loader.startAnimating()
+                    await self.alertDelegate?.didTapOkButton()
+                    contentView.buttonBarView.hideLoader(loader: self.loader, at: 1)
+                    SwiftEntryKit.dismiss()
+                }
+            }
+                        
             SwiftEntryKit.display(entry: contentView, using: attributes)
         }
     }
