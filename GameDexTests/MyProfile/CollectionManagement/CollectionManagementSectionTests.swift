@@ -25,7 +25,7 @@ final class CollectionManagementSectionTests: XCTestCase {
         }
         
         XCTAssertEqual(titleCellVM.title, L10n.selectAndDeleteACollection)
-        XCTAssertEqual(deleteCollectionButtonCellVM.title, L10n.deleteFromCollection)
+        XCTAssertEqual(deleteCollectionButtonCellVM.buttonViewModel, ButtonViewModel(isEnabled: true, buttonTitle: L10n.deleteFromCollection))
         XCTAssertEqual(deleteCollectionButtonCellVM.buttonType, .classic)
         
         guard let formCellsVM = section.cellsVM.filter({ cellVM in
@@ -82,9 +82,7 @@ final class CollectionManagementSectionTests: XCTestCase {
                 parameters: .value(
                     AlertViewModel(
                         alertType: .warning,
-                        description: L10n.warningPlatformDeletionCloud,
-                        cancelButtonTitle: L10n.cancel,
-                        okButtonTitle: L10n.confirm
+                        description: L10n.warningPlatformDeletionCloud
                     )
                 )
             )
@@ -110,9 +108,7 @@ final class CollectionManagementSectionTests: XCTestCase {
                 parameters: .value(
                     AlertViewModel(
                         alertType: .warning,
-                        description: L10n.warningPlatformDeletionLocal,
-                        cancelButtonTitle: L10n.cancel,
-                        okButtonTitle: L10n.confirm
+                        description: L10n.warningPlatformDeletionLocal
                     )
                 )
             )

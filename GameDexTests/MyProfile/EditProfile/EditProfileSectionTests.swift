@@ -34,9 +34,9 @@ final class EditProfileSectionTests: XCTestCase {
         }
         
         XCTAssertEqual(titleCellVM.title, L10n.updateCredentials)
-        XCTAssertEqual(updateProfileButtonCellVM.title, L10n.saveChanges)
+        XCTAssertEqual(updateProfileButtonCellVM.buttonViewModel, ButtonViewModel(isEnabled: true, buttonTitle: L10n.saveChanges))
         XCTAssertEqual(updateProfileButtonCellVM.buttonType, .classic)
-        XCTAssertEqual(deleteProfileButtonCellVM.title, L10n.deleteAccount)
+        XCTAssertEqual(deleteProfileButtonCellVM.buttonViewModel, ButtonViewModel(isEnabled: true, buttonTitle: L10n.deleteAccount))
         XCTAssertEqual(deleteProfileButtonCellVM.buttonType, .warning)
         
         guard let formCellsVM = section.cellsVM.filter({ cellVM in
@@ -94,7 +94,7 @@ final class EditProfileSectionTests: XCTestCase {
         }
         
         XCTAssertEqual(titleCellVM.title, L10n.confirmCredentials)
-        XCTAssertEqual(updateProfileButtonCellVM.title, L10n.confirm)
+        XCTAssertEqual(updateProfileButtonCellVM.buttonViewModel, ButtonViewModel(isEnabled: true, buttonTitle: L10n.confirm))
         
         guard let formCellsVM = section.cellsVM.filter({ cellVM in
             return cellVM is (any CollectionFormCellViewModel)
@@ -155,9 +155,7 @@ final class EditProfileSectionTests: XCTestCase {
                 parameters: .value(
                     AlertViewModel(
                         alertType: .warning,
-                        description: L10n.warningAccountDeletion,
-                        cancelButtonTitle: L10n.cancel,
-                        okButtonTitle: L10n.confirm
+                        description: L10n.warningAccountDeletion
                     )
                 )
             )

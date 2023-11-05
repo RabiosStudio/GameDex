@@ -29,8 +29,8 @@ final class LoginSectionTests: XCTestCase {
         
         XCTAssertEqual(imageCellVM.imageName, Asset.devices.name)
         XCTAssertEqual(titleCellVM.title, L10n.loginDescription)
-        XCTAssertEqual(loginButtonCellVM.title, L10n.login)
-        XCTAssertEqual(signupButtonCellVM.title, L10n.createAccount)
+        XCTAssertEqual(loginButtonCellVM.buttonViewModel, ButtonViewModel(isEnabled: true, buttonTitle: L10n.login))
+        XCTAssertEqual(signupButtonCellVM.buttonViewModel, ButtonViewModel(isEnabled: true, buttonTitle: L10n.createAccount))
     }
     
     func test_cellTappedCallback_ThenLastNavigationStyleIsCorrect() {
@@ -49,10 +49,10 @@ final class LoginSectionTests: XCTestCase {
         }
         
         let loginButtonCellVM = buttonCellsVM.first { cell in
-            cell.title == L10n.login
+            cell.buttonViewModel.buttonTitle == L10n.login
         }
         let signupButtonCellVM = buttonCellsVM.first { cell in
-            cell.title == L10n.createAccount
+            cell.buttonViewModel.buttonTitle == L10n.createAccount
         }
         
         // When

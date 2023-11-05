@@ -21,9 +21,7 @@ extension Matcher {
     enum AlertViewModel {
         static func matcher(lhs: GameDex.AlertViewModel, rhs: GameDex.AlertViewModel) -> Bool {
             lhs.alertType == rhs.alertType &&
-            lhs.cancelButtonTitle == rhs.cancelButtonTitle &&
-            lhs.description == rhs.description &&
-            lhs.okButtonTitle == rhs.okButtonTitle
+            lhs.description == rhs.description
         }
     }
     

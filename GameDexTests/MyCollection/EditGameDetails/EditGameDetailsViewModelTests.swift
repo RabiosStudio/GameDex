@@ -372,9 +372,7 @@ final class EditGameDetailsViewModelTests: XCTestCase {
                 parameters: .value(
                     AlertViewModel(
                         alertType: .warning,
-                        description: L10n.warningRemoveGameDescription,
-                        cancelButtonTitle: L10n.cancel,
-                        okButtonTitle: L10n.confirm
+                        description: L10n.warningRemoveGameDescription
                     )
                 )
             )
