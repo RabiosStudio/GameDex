@@ -42,7 +42,7 @@ final class CollectionManagementSection: Section {
         self.cellsVM.append(collectionCellVM)
         
         let deleteCollectionButtonCellVM = PrimaryButtonCellViewModel(
-            title: L10n.deleteFromCollection,
+            buttonViewModel: ButtonViewModel(buttonTitle: L10n.deleteFromCollection),
             delegate: nil,
             buttonType: .classic,
             cellTappedCallback: {

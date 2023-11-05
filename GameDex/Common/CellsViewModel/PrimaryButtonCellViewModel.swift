@@ -15,24 +15,30 @@ final class PrimaryButtonCellViewModel: ButtonCollectionCellViewModel {
     
     private let delegate: PrimaryButtonDelegate?
     
-    let title: String
+    let buttonViewModel: ButtonViewModel
     let buttonType: ButtonType
     
     init(
-        title: String,
+        buttonViewModel: ButtonViewModel,
         delegate: PrimaryButtonDelegate?,
         buttonType: ButtonType = .classic,
         cellTappedCallback: (() -> Void)? = nil
     ) {
-        self.title = title
+        self.buttonViewModel = buttonViewModel
         self.delegate = delegate
         self.buttonType = buttonType
         self.cellTappedCallback = cellTappedCallback
     }
     
-    func didTapButton() {
+    func didTapButton(completion: @escaping () -> ()) {
+        guard let delegate = self.delegate else {
+            self.cellTappedCallback?()
+            completion()
+            return
+        }
         Task {
-            await self.delegate?.didTapPrimaryButton()
+            await delegate.didTapPrimaryButton()
+            completion()
         }
     }
 }

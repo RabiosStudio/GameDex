@@ -16,26 +16,25 @@ protocol PrimaryButtonDelegate: AnyObject {
 
 final class PrimaryButton: UIButton {
     
-    private lazy var loader: UIView = {
+    private lazy var loader: NVActivityIndicatorView = {
         let view = NVActivityIndicatorView(
             frame: CGRect(
                 x: .zero,
                 y: .zero,
-                width: self.frame.width,
-                height: self.frame.height
+                width: DesignSystem.sizeVerySmall,
+                height: DesignSystem.sizeVerySmall
             ),
             type: .ballRotateChase,
             color: .white,
             padding: DesignSystem.paddingSmall
         )
-        view.startAnimating()
-        view.centerInSuperview()
+        view.translatesAutoresizingMaskIntoConstraints = false
         return view
     }()
     
     weak var delegate: PrimaryButtonDelegate?
     
-    init(delegate: PrimaryButtonDelegate?, shouldEnable: Bool) {
+    init(delegate: PrimaryButtonDelegate?) {
         super.init(frame: .zero)
         self.delegate = delegate
         self.addTarget(
@@ -43,7 +42,6 @@ final class PrimaryButton: UIButton {
             action: #selector(didTapPrimaryButton(_:)),
             for: .touchUpInside
         )
-        self.isEnabled = shouldEnable
     }
     
     required init?(coder: NSCoder) {
@@ -56,7 +54,7 @@ final class PrimaryButton: UIButton {
         self.titleLabel?.textAlignment = .center
         self.titleLabel?.numberOfLines = DesignSystem.numberOfLinesStandard
         self.setTitleColor(.primaryBackgroundColor, for: .normal)
-        self.updateButtonDesignForState(buttonTitle: viewModel.title)
+        self.updateButtonDesign(state: viewModel.state)
         self.setupConstraints()
     }
     
@@ -73,17 +71,14 @@ final class PrimaryButton: UIButton {
     private func setupLoaderConstraints() {
         NSLayoutConstraint.activate(
             [
-                self.loader.topAnchor.constraint(equalTo: self.topAnchor),
-                self.loader.leadingAnchor.constraint(equalTo: self.leadingAnchor),
-                self.loader.trailingAnchor.constraint(equalTo: self.trailingAnchor),
-                self.loader.bottomAnchor.constraint(equalTo: self.bottomAnchor)
+                self.loader.centerXAnchor.constraint(equalTo: self.centerXAnchor),
+                self.loader.centerYAnchor.constraint(equalTo: self.centerYAnchor)
             ]
         )
     }
     
     @objc private func didTapPrimaryButton(_ sender: PrimaryButton) {
-        self.isEnabled = false
-        self.updateButtonDesignForState(buttonTitle: nil)
+        self.updateButtonDesign(state: .loading)
         Task {
             await self.delegate?.didTapPrimaryButton()
         }
@@ -92,15 +87,30 @@ final class PrimaryButton: UIButton {
     private func showLoader() {
         self.addSubview(self.loader)
         self.setupLoaderConstraints()
+        self.loader.startAnimating()
     }
     
-    func updateButtonDesignForState(buttonTitle: String?) {
-        self.setTitle(buttonTitle, for: .normal)
-        if self.isEnabled {
-            self.backgroundColor = .secondaryColor
-        } else {
+    private func hideLoader() {
+        self.loader.removeFromSuperview()
+    }
+    
+    func updateButtonDesign(state: ButtonState) {
+        switch state {
+        case .loading:
+            self.isEnabled = false
             self.showLoader()
+            self.setTitle(nil, for: [])
             self.backgroundColor = .systemGray3
+        case let .enabled(title):
+            self.isEnabled = true
+            self.setTitle(title, for: .normal)
+            self.backgroundColor = .secondaryColor
+            self.hideLoader()
+        case let .disabled(title):
+            self.isEnabled = false
+            self.setTitle(title, for: .disabled)
+            self.backgroundColor = .systemGray3
+            self.hideLoader()
         }
     }
 }

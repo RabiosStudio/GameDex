@@ -27,7 +27,7 @@ final class LoginSection: Section {
         self.cellsVM.append(titleCellVM)
         
         let loginButtonCellVM = PrimaryButtonCellViewModel(
-            title: L10n.login,
+            buttonViewModel: ButtonViewModel(buttonTitle: L10n.login),
             delegate: nil,
             cellTappedCallback: {
                 let screenFactory =  AuthenticationScreenFactory(
@@ -45,7 +45,7 @@ final class LoginSection: Section {
         self.cellsVM.append(loginButtonCellVM)
         
         let signupButtonCellVM = PrimaryButtonCellViewModel(
-            title: L10n.createAccount,
+            buttonViewModel: ButtonViewModel(buttonTitle: L10n.createAccount),
             delegate: nil,
             cellTappedCallback: {
                 let screenFactory =  AuthenticationScreenFactory(

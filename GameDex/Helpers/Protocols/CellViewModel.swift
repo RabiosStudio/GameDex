@@ -26,7 +26,7 @@ protocol CollectionCellViewModel: CellViewModel {
 
 // MARK: - Button
 protocol ButtonCollectionCellViewModel: CollectionCellViewModel {
-    func didTapButton()
+    func didTapButton(completion: @escaping () -> ())
 }
 
 // MARK: - Cards

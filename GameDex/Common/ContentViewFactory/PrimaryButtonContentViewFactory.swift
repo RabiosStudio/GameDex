@@ -12,13 +12,11 @@ final class PrimaryButtonContentViewFactory: ContentViewFactory {
     let position: Position
     
     lazy var contentView: UIView = {
-        let continueButton = PrimaryButton(
-            delegate: self.delegate,
-            shouldEnable: self.shouldEnable
-        )
+        let continueButton = PrimaryButton(delegate: self.delegate)
         continueButton.configure(
             viewModel: ButtonViewModel(
-                title: self.buttonTitle
+                isEnabled: shouldEnable,
+                buttonTitle: self.buttonTitle
             )
         )
         continueButton.layoutMargins = UIEdgeInsets(
