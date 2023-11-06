@@ -27,7 +27,7 @@ enum DesignSystem {
     static let sizeMedium: CGFloat = 100
     static let sizeRegular: CGFloat = 130
     static let sizeBig: CGFloat = 200
-    static let sizeVeryBig: CGFloat = 280
+    static let sizeVeryBig: CGFloat = 350
     
     // MARK: - Button height
     static let buttonHeightRegular: CGFloat = 50
