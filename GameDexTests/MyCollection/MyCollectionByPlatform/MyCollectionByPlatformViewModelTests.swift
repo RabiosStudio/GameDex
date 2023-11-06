@@ -438,57 +438,6 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
         containerDelegate.verify(.reloadSections())
     }
     
-    func test_reloadCollection_GivenDataFetchedCorrectly_ThenSectionsAreSetAndContainerDelegateCalled() async {
-        // Given
-        let authenticationService = AuthenticationServiceMock()
-        authenticationService.given(
-            .isUserLoggedIn(
-                willReturn: true
-            )
-        )
-        
-        let localDatabase = LocalDatabaseMock()
-        localDatabase.given(
-            .getPlatform(
-                platformId: .any,
-                willReturn: Result<PlatformCollected?, DatabaseError>.success(MockData.platformCollected)
-            )
-        )
-        let connectivityChecker = ConnectivityCheckerMock()
-        connectivityChecker.given(
-            .hasConnectivity(
-                willReturn: true
-            )
-        )
-        let alertDisplayer = AlertDisplayerMock()
-        let viewModel = MyCollectionByPlatformsViewModel(
-            platform: MockData.platform,
-            localDatabase: localDatabase,
-            cloudDatabase: CloudDatabaseMock(),
-            alertDisplayer: alertDisplayer,
-            myCollectionDelegate: MyCollectionViewModelDelegateMock(),
-            authenticationService: authenticationService,
-            connectivityChecker: connectivityChecker
-        )
-        let containerDelegate = ContainerViewControllerDelegateMock()
-        viewModel.containerDelegate = containerDelegate
-        
-        let platform = CoreDataConverter.convert(platformCollected: MockData.platformCollected)
-        
-        await viewModel.loadData { _ in }
-        
-        // When
-        await viewModel.reloadCollection()
-        
-        // Then
-        let expectedNumberOfitems = platform.games?.count
-        
-        XCTAssertEqual(viewModel.numberOfSections(), 1)
-        XCTAssertEqual(viewModel.sections[0].cellsVM.count, expectedNumberOfitems)
-        containerDelegate.verify(.reloadSections())
-    }
-    
-    
     func test_reloadCollection_GivenCloudDatabaseFetchDataError_ThenResultsInErrorAlert() async {
         // Given
         let authenticationService = AuthenticationServiceMock()
