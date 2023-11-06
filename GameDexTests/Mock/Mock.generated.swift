@@ -2978,11 +2978,18 @@ open class ContainerViewControllerDelegateMock: ContainerViewControllerDelegate,
 		perform?()
     }
 
+    open func reloadNavBar() {
+        addInvocation(.m_reloadNavBar)
+		let perform = methodPerformValue(.m_reloadNavBar) as? () -> Void
+		perform?()
+    }
+
 
     fileprivate enum MethodType {
         case m_configureSupplementaryView__contentViewFactory_contentViewFactory(Parameter<ContentViewFactory>)
         case m_reloadSections
         case m_goBackToRootViewController
+        case m_reloadNavBar
 
         static func compareParameters(lhs: MethodType, rhs: MethodType, matcher: Matcher) -> Matcher.ComparisonResult {
             switch (lhs, rhs) {
@@ -2994,6 +3001,8 @@ open class ContainerViewControllerDelegateMock: ContainerViewControllerDelegate,
             case (.m_reloadSections, .m_reloadSections): return .match
 
             case (.m_goBackToRootViewController, .m_goBackToRootViewController): return .match
+
+            case (.m_reloadNavBar, .m_reloadNavBar): return .match
             default: return .none
             }
         }
@@ -3003,6 +3012,7 @@ open class ContainerViewControllerDelegateMock: ContainerViewControllerDelegate,
             case let .m_configureSupplementaryView__contentViewFactory_contentViewFactory(p0): return p0.intValue
             case .m_reloadSections: return 0
             case .m_goBackToRootViewController: return 0
+            case .m_reloadNavBar: return 0
             }
         }
         func assertionName() -> String {
@@ -3010,6 +3020,7 @@ open class ContainerViewControllerDelegateMock: ContainerViewControllerDelegate,
             case .m_configureSupplementaryView__contentViewFactory_contentViewFactory: return ".configureSupplementaryView(contentViewFactory:)"
             case .m_reloadSections: return ".reloadSections()"
             case .m_goBackToRootViewController: return ".goBackToRootViewController()"
+            case .m_reloadNavBar: return ".reloadNavBar()"
             }
         }
     }
@@ -3031,6 +3042,7 @@ open class ContainerViewControllerDelegateMock: ContainerViewControllerDelegate,
         public static func configureSupplementaryView(contentViewFactory: Parameter<ContentViewFactory>) -> Verify { return Verify(method: .m_configureSupplementaryView__contentViewFactory_contentViewFactory(`contentViewFactory`))}
         public static func reloadSections() -> Verify { return Verify(method: .m_reloadSections)}
         public static func goBackToRootViewController() -> Verify { return Verify(method: .m_goBackToRootViewController)}
+        public static func reloadNavBar() -> Verify { return Verify(method: .m_reloadNavBar)}
     }
 
     public struct Perform {
@@ -3045,6 +3057,9 @@ open class ContainerViewControllerDelegateMock: ContainerViewControllerDelegate,
         }
         public static func goBackToRootViewController(perform: @escaping () -> Void) -> Perform {
             return Perform(method: .m_goBackToRootViewController, performs: perform)
+        }
+        public static func reloadNavBar(perform: @escaping () -> Void) -> Perform {
+            return Perform(method: .m_reloadNavBar, performs: perform)
         }
     }
 
@@ -4565,10 +4580,17 @@ open class SearchViewModelDelegateMock: SearchViewModelDelegate, Mock {
 		perform?(`searchQuery`, `callback`)
     }
 
+    open func cancelButtonTapped(callback: @escaping (EmptyError?) -> ()) {
+        addInvocation(.m_cancelButtonTapped__callback_callback(Parameter<(EmptyError?) -> ()>.value(`callback`)))
+		let perform = methodPerformValue(.m_cancelButtonTapped__callback_callback(Parameter<(EmptyError?) -> ()>.value(`callback`))) as? (@escaping (EmptyError?) -> ()) -> Void
+		perform?(`callback`)
+    }
+
 
     fileprivate enum MethodType {
         case m_updateSearchTextField__with_textcallback_callback(Parameter<String>, Parameter<(EmptyError?) -> ()>)
         case m_startSearch__from_searchQuerycallback_callback(Parameter<String>, Parameter<(EmptyError?) -> ()>)
+        case m_cancelButtonTapped__callback_callback(Parameter<(EmptyError?) -> ()>)
 
         static func compareParameters(lhs: MethodType, rhs: MethodType, matcher: Matcher) -> Matcher.ComparisonResult {
             switch (lhs, rhs) {
@@ -4583,6 +4605,11 @@ open class SearchViewModelDelegateMock: SearchViewModelDelegate, Mock {
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsSearchquery, rhs: rhsSearchquery, with: matcher), lhsSearchquery, rhsSearchquery, "from searchQuery"))
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsCallback, rhs: rhsCallback, with: matcher), lhsCallback, rhsCallback, "callback"))
 				return Matcher.ComparisonResult(results)
+
+            case (.m_cancelButtonTapped__callback_callback(let lhsCallback), .m_cancelButtonTapped__callback_callback(let rhsCallback)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsCallback, rhs: rhsCallback, with: matcher), lhsCallback, rhsCallback, "callback"))
+				return Matcher.ComparisonResult(results)
             default: return .none
             }
         }
@@ -4591,12 +4618,14 @@ open class SearchViewModelDelegateMock: SearchViewModelDelegate, Mock {
             switch self {
             case let .m_updateSearchTextField__with_textcallback_callback(p0, p1): return p0.intValue + p1.intValue
             case let .m_startSearch__from_searchQuerycallback_callback(p0, p1): return p0.intValue + p1.intValue
+            case let .m_cancelButtonTapped__callback_callback(p0): return p0.intValue
             }
         }
         func assertionName() -> String {
             switch self {
             case .m_updateSearchTextField__with_textcallback_callback: return ".updateSearchTextField(with:callback:)"
             case .m_startSearch__from_searchQuerycallback_callback: return ".startSearch(from:callback:)"
+            case .m_cancelButtonTapped__callback_callback: return ".cancelButtonTapped(callback:)"
             }
         }
     }
@@ -4617,6 +4646,7 @@ open class SearchViewModelDelegateMock: SearchViewModelDelegate, Mock {
 
         public static func updateSearchTextField(with text: Parameter<String>, callback: Parameter<(EmptyError?) -> ()>) -> Verify { return Verify(method: .m_updateSearchTextField__with_textcallback_callback(`text`, `callback`))}
         public static func startSearch(from searchQuery: Parameter<String>, callback: Parameter<(EmptyError?) -> ()>) -> Verify { return Verify(method: .m_startSearch__from_searchQuerycallback_callback(`searchQuery`, `callback`))}
+        public static func cancelButtonTapped(callback: Parameter<(EmptyError?) -> ()>) -> Verify { return Verify(method: .m_cancelButtonTapped__callback_callback(`callback`))}
     }
 
     public struct Perform {
@@ -4628,6 +4658,9 @@ open class SearchViewModelDelegateMock: SearchViewModelDelegate, Mock {
         }
         public static func startSearch(from searchQuery: Parameter<String>, callback: Parameter<(EmptyError?) -> ()>, perform: @escaping (String, @escaping (EmptyError?) -> ()) -> Void) -> Perform {
             return Perform(method: .m_startSearch__from_searchQuerycallback_callback(`searchQuery`, `callback`), performs: perform)
+        }
+        public static func cancelButtonTapped(callback: Parameter<(EmptyError?) -> ()>, perform: @escaping (@escaping (EmptyError?) -> ()) -> Void) -> Perform {
+            return Perform(method: .m_cancelButtonTapped__callback_callback(`callback`), performs: perform)
         }
     }
 

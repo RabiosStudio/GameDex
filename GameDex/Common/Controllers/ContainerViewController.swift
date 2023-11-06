@@ -13,6 +13,7 @@ protocol ContainerViewControllerDelegate: AnyObject {
     func configureSupplementaryView(contentViewFactory: ContentViewFactory)
     func reloadSections()
     func goBackToRootViewController()
+    func reloadNavBar()
 }
 
 class ContainerViewController: UIViewController {
@@ -406,9 +407,7 @@ extension ContainerViewController: UISearchBarDelegate {
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBar.text = nil
         self.navigationItem.titleView = nil
-        self.configureNavBar()
-        
-        self.viewModel.searchViewModel?.delegate?.updateSearchTextField(with: "") { [weak self] error in
+        self.viewModel.searchViewModel?.delegate?.cancelButtonTapped(callback: { [weak self] error in
             if let error = error {
                 let tabBarOffset = -(self?.tabBarController?.tabBar.frame.size.height ?? 0)
                 self?.updateEmptyState(error: error,
@@ -416,7 +415,7 @@ extension ContainerViewController: UISearchBarDelegate {
             } else {
                 self?.refresh()
             }
-        }
+        })
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
@@ -483,6 +482,10 @@ extension ContainerViewController: ContainerViewControllerDelegate {
             self.supplementaryView.removeFromSuperview()
             self.loadData()
         }
+    }
+    
+    func reloadNavBar() {
+        self.configureNavBar()
     }
 }
 
