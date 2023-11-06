@@ -28,7 +28,7 @@ extension SearchViewModelDelegate {
         }
     }
     
-    func cancelButtonTapped(callback: @escaping (EmptyError?) -> ())  {}
+    func cancelButtonTapped(callback: @escaping (EmptyError?) -> ()) {}
 }
 
 struct SearchViewModel {

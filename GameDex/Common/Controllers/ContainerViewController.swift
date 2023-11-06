@@ -335,7 +335,6 @@ class ContainerViewController: UIViewController {
 }
 
 // MARK: CollectionViewDelegate
-
 extension ContainerViewController: UICollectionViewDelegate {
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         let cellVM = self.viewModel.item(at: indexPath)
@@ -362,7 +361,6 @@ extension ContainerViewController: UICollectionViewDelegate {
 }
 
 // MARK: CollectionViewDataSource
-
 extension ContainerViewController: UICollectionViewDataSource {
     func numberOfSections(in collectionView: UICollectionView) -> Int {
         return self.viewModel.numberOfSections()
@@ -384,7 +382,6 @@ extension ContainerViewController: UICollectionViewDataSource {
 }
 
 // MARK: UISearchTextFieldDelegate
-
 extension ContainerViewController: UISearchTextFieldDelegate {
     func textFieldShouldClear(_ textField: UITextField) -> Bool {
         self.viewModel.searchViewModel?.delegate?.updateSearchTextField(with: "", callback: { [weak self] error in
@@ -401,9 +398,7 @@ extension ContainerViewController: UISearchTextFieldDelegate {
 }
 
 // MARK: UISearchDelegate
-
 extension ContainerViewController: UISearchBarDelegate {
-    
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBar.text = nil
         self.navigationItem.titleView = nil
@@ -455,7 +450,6 @@ extension ContainerViewController: UISearchBarDelegate {
 }
 
 // MARK: ContainerViewControllerDelegate
-
 extension ContainerViewController: ContainerViewControllerDelegate {
     func goBackToRootViewController() {
         DispatchQueue.main.async {
@@ -490,7 +484,6 @@ extension ContainerViewController: ContainerViewControllerDelegate {
 }
 
 // MARK: UICollectionViewDelegateFlowLayout
-
 extension ContainerViewController: UICollectionViewDelegateFlowLayout {
     func collectionView(
         _ collectionView: UICollectionView,
