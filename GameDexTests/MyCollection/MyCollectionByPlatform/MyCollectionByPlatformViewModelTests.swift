@@ -626,4 +626,67 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
         XCTAssertEqual(viewModel.sections[0].cellsVM.count, expectedNumberOfitems)
         containerDelegate.verify(.reloadSections())
     }
+    
+    func test_cancelButtonTapped_ThenUpdateSectionAndRightButtonItems() async {
+        // Given
+        let authenticationService = AuthenticationServiceMock()
+        authenticationService.given(.getUserId(willReturn: "user id"))
+        authenticationService.given(.isUserLoggedIn(willReturn: true))
+        let connectivityChecker = ConnectivityCheckerMock()
+        connectivityChecker.given(.hasConnectivity(willReturn: true))
+        let viewModel = MyCollectionByPlatformsViewModel(
+            platform: MockData.platform,
+            localDatabase: LocalDatabaseMock(),
+            cloudDatabase: CloudDatabaseMock(),
+            alertDisplayer: AlertDisplayerMock(),
+            myCollectionDelegate: MyCollectionViewModelDelegateMock(),
+            authenticationService: authenticationService,
+            connectivityChecker: connectivityChecker
+        )
+        
+        await viewModel.loadData { _ in
+            
+            // When
+            viewModel.cancelButtonTapped { _ in
+                
+                // Then
+                XCTAssertEqual(viewModel.numberOfSections(), 1)
+                XCTAssertEqual(viewModel.numberOfItems(in: 0), MockData.platform.games?.count)
+                
+                let expectedButtonItems: [AnyBarButtonItem]? = [.add, .search]
+                XCTAssertEqual(viewModel.rightButtonItems, expectedButtonItems)
+            }
+        }
+    }
+    
+    func test_cancelButtonTapped_GivenNoGames_ThenCallbackErrorNoItem() async {
+        // Given
+        let authenticationService = AuthenticationServiceMock()
+        authenticationService.given(.getUserId(willReturn: "user id"))
+        authenticationService.given(.isUserLoggedIn(willReturn: true))
+        let connectivityChecker = ConnectivityCheckerMock()
+        connectivityChecker.given(.hasConnectivity(willReturn: true))
+        let viewModel = MyCollectionByPlatformsViewModel(
+            platform: MockData.platformWithNoGames,
+            localDatabase: LocalDatabaseMock(),
+            cloudDatabase: CloudDatabaseMock(),
+            alertDisplayer: AlertDisplayerMock(),
+            myCollectionDelegate: MyCollectionViewModelDelegateMock(),
+            authenticationService: authenticationService,
+            connectivityChecker: connectivityChecker
+        )
+        
+        await viewModel.loadData { _ in
+            
+            // When
+            viewModel.cancelButtonTapped { error in
+                guard let error = error as? MyCollectionError else {
+                    XCTFail("wrong type")
+                    return
+                }
+                XCTAssertEqual(error, MyCollectionError.noItems)
+            }
+        }
+    }
+
 }

@@ -215,4 +215,24 @@ final class SelectPlatformViewModelTests: XCTestCase {
         
         XCTAssertEqual(lastNavigationStyle, expectedNavigationStyle)
     }
+    
+    func test_cancelButtonTapped_ThenUpdateSections() {
+        // Given
+        let cloudDatabase = CloudDatabaseMock()
+        cloudDatabase.given(.getAvailablePlatforms(willReturn: .success(MockData.platforms)))
+        let viewModel = SelectPlatformViewModel(
+            cloudDatabase: cloudDatabase,
+            myCollectionDelegate: MyCollectionViewModelDelegateMock()
+        )
+        viewModel.loadData { _ in
+            
+            // When
+            viewModel.cancelButtonTapped { _ in
+                
+                // Then
+                XCTAssertEqual(viewModel.numberOfSections(), 1)
+                XCTAssertEqual(viewModel.numberOfItems(in: .zero), MockData.platforms.count)
+            }
+        }
+    }
 }

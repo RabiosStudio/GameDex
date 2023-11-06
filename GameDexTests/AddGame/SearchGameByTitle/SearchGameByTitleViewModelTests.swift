@@ -408,6 +408,8 @@ final class SearchGameByTitleViewModelTests: XCTestCase {
         )
         
         // When
+        viewModel.cancelButtonTapped { _ in
+        }
         viewModel.didTapRightButtonItem()
         
         // Then

@@ -529,4 +529,34 @@ final class MyCollectionViewModelTests: XCTestCase {
         
         XCTAssertEqual(lastNavigationStyle, expectedNavigationStyle)
     }
+    
+    func test_cancelButtonTapped_ThenUpdateSectionAndRightButtonItems() async {
+        // Given
+        let cloudDatabase = CloudDatabaseMock()
+        cloudDatabase.given(.getUserCollection(userId: .any, willReturn: .success(MockData.platforms)))
+        let authenticationService = AuthenticationServiceMock()
+        authenticationService.given(.getUserId(willReturn: "user id"))
+        authenticationService.given(.isUserLoggedIn(willReturn: true))
+        let connectivityChecker = ConnectivityCheckerMock()
+        connectivityChecker.given(.hasConnectivity(willReturn: true))
+        let viewModel = MyCollectionViewModel(
+            localDatabase: LocalDatabaseMock(),
+            cloudDatabase: cloudDatabase,
+            authenticationService: authenticationService,
+            connectivityChecker: connectivityChecker
+        )
+        
+        await viewModel.loadData { _ in
+            
+            // When
+            viewModel.cancelButtonTapped { _ in
+                
+                // Then
+                XCTAssertEqual(viewModel.platforms, MockData.platforms)
+                
+                let expectedButtonItems: [AnyBarButtonItem]? = [.add, .search]
+                XCTAssertEqual(viewModel.rightButtonItems, expectedButtonItems)
+            }
+        }
+    }
 }
