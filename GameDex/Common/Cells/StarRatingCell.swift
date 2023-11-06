@@ -77,11 +77,11 @@ class StarRatingCell: UICollectionViewCell, CellConfigurable {
                 equalTo: self.trailingAnchor,
                 constant: -DesignSystem.paddingSmall
             ),
-            self.label.bottomAnchor.constraint(
-                equalTo: self.starRatingView.topAnchor,
-                constant: DesignSystem.paddingSmall
-            ),
             
+            self.starRatingView.topAnchor.constraint(
+                equalTo: self.label.bottomAnchor,
+                constant: DesignSystem.paddingRegular
+            ),
             self.starRatingView.leadingAnchor.constraint(
                 equalTo: self.leadingAnchor,
                 constant: DesignSystem.paddingSmall

@@ -21,7 +21,7 @@ class ImageDescriptionCell: UICollectionViewCell, CellConfigurable {
         label.textAlignment = .center
         label.numberOfLines = .zero
         label.textColor = .secondaryColor
-        label.font = Typography.title2bold.font
+        label.font = Typography.title3bold.font
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -30,7 +30,7 @@ class ImageDescriptionCell: UICollectionViewCell, CellConfigurable {
         let label = UILabel()
         label.textAlignment = .center
         label.textColor = .secondaryColor
-        label.font = Typography.title3.font
+        label.font = Typography.headline.font
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -39,7 +39,7 @@ class ImageDescriptionCell: UICollectionViewCell, CellConfigurable {
         let label = UILabel()
         label.textAlignment = .center
         label.textColor = .secondaryColor
-        label.font = Typography.title3.font
+        label.font = Typography.headline.font
         label.numberOfLines = .zero
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
@@ -53,6 +53,14 @@ class ImageDescriptionCell: UICollectionViewCell, CellConfigurable {
         label.numberOfLines = .zero
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
+    }()
+    
+    private lazy var stackView: UIStackView = {
+        let view = UIStackView()
+        view.axis = .vertical
+        view.distribution = .fillProportionally
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
     }()
     
     override init(frame: CGRect) {
@@ -82,10 +90,11 @@ class ImageDescriptionCell: UICollectionViewCell, CellConfigurable {
     
     private func setupViews() {
         self.contentView.addSubview(self.imageView)
-        self.contentView.addSubview(self.title)
-        self.contentView.addSubview(self.subtitle1)
-        self.contentView.addSubview(self.subtitle2)
-        self.contentView.addSubview(self.subtitle3)
+        self.stackView.addArrangedSubview(self.title)
+        self.stackView.addArrangedSubview(self.subtitle1)
+        self.stackView.addArrangedSubview(self.subtitle2)
+        self.stackView.addArrangedSubview(self.subtitle3)
+        self.contentView.addSubview(self.stackView)
     }
     
     private func setupConstraints() {
@@ -107,58 +116,19 @@ class ImageDescriptionCell: UICollectionViewCell, CellConfigurable {
                 multiplier: DesignSystem.fractionalSizeMedium
             ),
             
-            self.title.topAnchor.constraint(
+            self.stackView.topAnchor.constraint(
                 equalTo: self.imageView.bottomAnchor,
                 constant: DesignSystem.paddingSmall
             ),
-            self.title.leadingAnchor.constraint(
+            self.stackView.leadingAnchor.constraint(
                 equalTo: self.leadingAnchor,
                 constant: DesignSystem.paddingSmall
             ),
-            self.title.trailingAnchor.constraint(
+            self.stackView.trailingAnchor.constraint(
                 equalTo: self.trailingAnchor,
                 constant: -DesignSystem.paddingSmall
             ),
-            
-            self.subtitle1.topAnchor.constraint(
-                equalTo: self.title.bottomAnchor,
-                constant: DesignSystem.paddingSmall
-            ),
-            self.subtitle1.leadingAnchor.constraint(
-                equalTo: self.leadingAnchor,
-                constant: DesignSystem.paddingSmall
-            ),
-            self.subtitle1.trailingAnchor.constraint(
-                equalTo: self.trailingAnchor,
-                constant: -DesignSystem.paddingSmall
-            ),
-            
-            self.subtitle2.topAnchor.constraint(
-                equalTo: self.subtitle1.bottomAnchor,
-                constant: DesignSystem.paddingSmall
-            ),
-            self.subtitle2.leadingAnchor.constraint(
-                equalTo: self.leadingAnchor,
-                constant: DesignSystem.paddingSmall
-            ),
-            self.subtitle2.trailingAnchor.constraint(
-                equalTo: self.trailingAnchor,
-                constant: -DesignSystem.paddingSmall
-            ),
-            
-            self.subtitle3.topAnchor.constraint(
-                equalTo: self.subtitle2.bottomAnchor,
-                constant: DesignSystem.paddingSmall
-            ),
-            self.subtitle3.leadingAnchor.constraint(
-                equalTo: self.leadingAnchor,
-                constant: DesignSystem.paddingSmall
-            ),
-            self.subtitle3.trailingAnchor.constraint(
-                equalTo: self.trailingAnchor,
-                constant: -DesignSystem.paddingSmall
-            ),
-            self.subtitle3.bottomAnchor.constraint(
+            self.stackView.bottomAnchor.constraint(
                 equalTo: self.bottomAnchor,
                 constant: -DesignSystem.paddingRegular
             )
