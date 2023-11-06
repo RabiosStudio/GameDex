@@ -19,7 +19,7 @@ final class CollectionManagementViewModelTests: XCTestCase {
             authenticationService: AuthenticationServiceMock(),
             alertDisplayer: AlertDisplayerMock()
         )
-        
+        viewModel.didTapRightButtonItem()
         // Then
         XCTAssertEqual(viewModel.numberOfSections(), .zero)
         XCTAssertEqual(viewModel.numberOfItems(in: .zero), .zero)
@@ -43,6 +43,7 @@ final class CollectionManagementViewModelTests: XCTestCase {
         await viewModel.loadData { _ in
             
         }
+        let item = viewModel.item(at: IndexPath(row: .zero, section: .zero))
         XCTAssertEqual(viewModel.numberOfSections(), 1)
         XCTAssertEqual(viewModel.numberOfItems(in: .zero), 3)
     }

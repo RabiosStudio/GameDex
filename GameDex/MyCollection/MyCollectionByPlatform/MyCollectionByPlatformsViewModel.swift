@@ -176,7 +176,7 @@ extension MyCollectionByPlatformsViewModel: MyCollectionViewModelDelegate {
 }
 
 extension MyCollectionByPlatformsViewModel: SearchViewModelDelegate {
-    func cancelButtonTapped(callback: @escaping (EmptyError?) -> ())  {
+    func cancelButtonTapped(callback: @escaping (EmptyError?) -> ()) {
         guard let collection = self.platform,
               let games = collection.games else {
             callback(MyCollectionError.noItems)

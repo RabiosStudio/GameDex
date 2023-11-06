@@ -10,6 +10,21 @@ import XCTest
 
 final class PrimaryButtonCellViewModelTests: XCTestCase {
     
+    func test_init_ThenShouldSetPropertiesCorrectly() {
+        // Given
+        let title = "Title"
+        
+        // When
+        let cellVM = PrimaryButtonCellViewModel(
+            buttonViewModel: ButtonViewModel(buttonTitle: title),
+            delegate: PrimaryButtonDelegateMock()
+        )
+        // Then
+        let expectedButtonVM = ButtonViewModel(buttonTitle: title)
+        XCTAssertEqual(cellVM.buttonViewModel, expectedButtonVM)
+        XCTAssertEqual(cellVM.reuseIdentifier, "\(cellVM.cellClass)")
+    }
+    
     func test_didTap_ThenShouldCallDelegate() {
         // Given
         let delegate = PrimaryButtonDelegateMock()
@@ -21,12 +36,3 @@ final class PrimaryButtonCellViewModelTests: XCTestCase {
         }
     }
 }
-//
-//        
-//        func didTap(buttonTitle: String?, completion: @escaping () -> ()) {
-//            Task {
-//                await delegate?.didTapPrimaryButton(with: buttonTitle)
-//                completion()
-//            }
-//        }
-//    }

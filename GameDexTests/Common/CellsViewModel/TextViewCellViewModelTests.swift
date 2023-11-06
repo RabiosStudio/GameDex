@@ -25,6 +25,7 @@ final class TextViewCellViewModelTests: XCTestCase {
         // Then
         XCTAssertEqual(cellVM.title, "Title")
         XCTAssertEqual(cellVM.value, "Text")
+        XCTAssertEqual(cellVM.reuseIdentifier, "\(cellVM.cellClass)")
     }
     
     func test_value_GivenValueChanged_ThenShouldCallEditFormDelegate() {

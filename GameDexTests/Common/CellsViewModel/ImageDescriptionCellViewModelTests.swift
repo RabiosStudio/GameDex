@@ -32,5 +32,6 @@ final class ImageDescriptionCellViewModelTests: XCTestCase {
         XCTAssertEqual(cellVM.subtitle1, "Subtitle 1")
         XCTAssertEqual(cellVM.subtitle2, "Subtitle 2")
         XCTAssertEqual(cellVM.subtitle3, "Subtitle 3")
+        XCTAssertEqual(cellVM.reuseIdentifier, "\(cellVM.cellClass)")
     }
 }

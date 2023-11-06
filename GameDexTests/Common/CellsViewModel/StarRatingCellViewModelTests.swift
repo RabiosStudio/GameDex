@@ -24,6 +24,7 @@ final class StarRatingCellViewModelTests: XCTestCase {
         // Then
         XCTAssertEqual(cellVM.title, "Title")
         XCTAssertEqual(cellVM.value, .zero)
+        XCTAssertEqual(cellVM.reuseIdentifier, "\(cellVM.cellClass)")
     }
     
     func test_value_GivenValueChanged_ThenShouldCallEditFormDelegate() {

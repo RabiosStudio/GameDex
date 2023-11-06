@@ -1,27 +1,28 @@
 # Uncomment the next line to define a global platform for your project
  platform :ios, '15.0'
+inhibit_all_warnings!
 
 target 'GameDex' do
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
 
   # Pods for GameDex
-  pod 'SwiftLint'
-  pod 'SwiftGen', '~> 6.0'
-  pod 'EmptyDataSet-Swift', '~> 5.0.0'
-  pod 'NVActivityIndicatorView'
-  pod 'DTTextField'
-  pod 'IQKeyboardManagerSwift', '~> 6.5.0'
-  pod "SwiftyMocky"
-  pod 'Alamofire'
-  pod 'SDWebImage'
-  pod 'SwiftyTextView'
-  pod 'Cosmos', '~> 23.0'
-  pod 'SwiftEntryKit', :git => 'https://github.com/RabiosStudio/SwiftEntryKit.git', :branch => 'master'
-  pod 'FirebaseAuth'
-  pod 'FirebaseFirestore'
-  pod 'FirebaseCrashlytics'
-  pod 'ReachabilitySwift'
+  pod 'SwiftLint', :inhibit_warnings => true
+  pod 'SwiftGen', '~> 6.0', :inhibit_warnings => true
+  pod 'EmptyDataSet-Swift', '~> 5.0.0', :inhibit_warnings => true
+  pod 'NVActivityIndicatorView', :inhibit_warnings => true
+  pod 'DTTextField', :inhibit_warnings => true
+  pod 'IQKeyboardManagerSwift', '~> 6.5.0', :inhibit_warnings => true
+  pod "SwiftyMocky", :inhibit_warnings => true
+  pod 'Alamofire', :inhibit_warnings => true
+  pod 'SDWebImage', :inhibit_warnings => true
+  pod 'SwiftyTextView', :inhibit_warnings => true
+  pod 'Cosmos', '~> 23.0', :inhibit_warnings => true
+  pod 'SwiftEntryKit', :git => 'https://github.com/RabiosStudio/SwiftEntryKit.git', :branch => 'master', :inhibit_warnings => true
+  pod 'FirebaseAuth', :inhibit_warnings => true
+  pod 'FirebaseFirestore', :inhibit_warnings => true
+  pod 'FirebaseCrashlytics', :inhibit_warnings => true
+  pod 'ReachabilitySwift', :inhibit_warnings => true
   
 
   target 'GameDexTests' do

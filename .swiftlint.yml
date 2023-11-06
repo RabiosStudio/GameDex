@@ -18,6 +18,7 @@ disabled_rules:
     - empty_enum_arguments
     - function_body_length
     - class_delegate_protocol
+    - for_where
 
 line_length: 200
 
