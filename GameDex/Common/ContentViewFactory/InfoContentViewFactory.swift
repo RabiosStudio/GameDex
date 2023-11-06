@@ -20,8 +20,8 @@ final class InfoContentViewFactory: ContentViewFactory {
                 textAlignment: .left,
                 numberOfLines: .zero,
                 textColor: .white,
-                backgroundColor: .systemYellow,
-                alpha: DesignSystem.opacityLight,
+                backgroundColor: .systemOrange,
+                alpha: DesignSystem.opaque,
                 font: Typography.title3bold.font,
                 image: UIImage(systemName: "info.circle.fill")?.withTintColor(.white, renderingMode: .alwaysOriginal),
                 cornerRadius: DesignSystem.cornerRadiusBig

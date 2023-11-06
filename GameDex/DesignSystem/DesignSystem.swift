@@ -45,6 +45,7 @@ enum DesignSystem {
     
     // MARK: - Opacity
     static let opacityLight: CGFloat = 0.7
+    static let opaque: CGFloat = 1
     
     // MARK: - Shadow opacity
     static let shadowOpacityRegular: Float = 0.23
