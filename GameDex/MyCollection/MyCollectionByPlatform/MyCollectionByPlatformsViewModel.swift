@@ -176,6 +176,17 @@ extension MyCollectionByPlatformsViewModel: MyCollectionViewModelDelegate {
 }
 
 extension MyCollectionByPlatformsViewModel: SearchViewModelDelegate {
+    func cancelButtonTapped(callback: @escaping (EmptyError?) -> ())  {
+        guard let collection = self.platform,
+              let games = collection.games else {
+            callback(MyCollectionError.noItems)
+            return
+        }
+        self.updateListOfGames(with: games)
+        self.rightButtonItems = [.add, .search]
+        callback(nil)
+    }
+    
     func updateSearchTextField(with text: String, callback: @escaping (EmptyError?) -> ()) {
         guard let collection = self.platform,
               let games = collection.games else {
@@ -187,6 +198,8 @@ extension MyCollectionByPlatformsViewModel: SearchViewModelDelegate {
             callback(nil)
             return
         }
+        self.rightButtonItems = []
+        self.containerDelegate?.reloadNavBar()
         let matchingGames = games.filter({
             $0.game.title.localizedCaseInsensitiveContains(text)
         })

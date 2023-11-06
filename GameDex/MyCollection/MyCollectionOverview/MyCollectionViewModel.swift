@@ -149,12 +149,20 @@ extension MyCollectionViewModel: MyCollectionViewModelDelegate {
 
 // MARK: - SearchViewModelDelegate
 extension MyCollectionViewModel: SearchViewModelDelegate {
+    func cancelButtonTapped(callback: @escaping (EmptyError?) -> ()) {
+        self.updateListOfCollections(with: self.platforms)
+        self.handleSearchIconDisplay()
+        callback(nil)
+    }
+    
     func updateSearchTextField(with text: String, callback: @escaping (EmptyError?) -> ()) {
         guard text != "" else {
             self.updateListOfCollections(with: self.platforms)
             callback(nil)
             return
         }
+        self.rightButtonItems = []
+        self.containerDelegate?.reloadNavBar()
         let matchingCollections = self.platforms.filter({
             $0.title.localizedCaseInsensitiveContains(text)
         })
