@@ -293,15 +293,6 @@ class ContainerViewController: UIViewController {
             delay: .zero,
             options: animationOption,
             animations: {
-                switch notification.name {
-                case UIResponder.keyboardWillShowNotification:
-                    guard let keyboardSize = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue  else { return }
-                    self.stackViewBottomConstraint.constant = -keyboardSize.height
-                case UIResponder.keyboardWillHideNotification:
-                    self.stackViewBottomConstraint.constant = .zero
-                default:
-                    break
-                }
                 self.view.layoutIfNeeded()
             }
         )
