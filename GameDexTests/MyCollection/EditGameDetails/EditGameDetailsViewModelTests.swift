@@ -350,6 +350,52 @@ final class EditGameDetailsViewModelTests: XCTestCase {
         )
     }
     
+    func test_enableSaveButton_GivenStringValueChangedWithNil_ThenShouldCallContainerDelegate() {
+        // Given
+        let localDatabase = LocalDatabaseMock()
+        let containerDelegate = ContainerViewControllerDelegateMock()
+        
+        let viewModel = EditGameDetailsViewModel(
+            savedGame: MockData.savedGame,
+            platform: MockData.platform,
+            localDatabase: localDatabase,
+            cloudDatabase: CloudDatabaseMock(),
+            alertDisplayer: AlertDisplayerMock(),
+            myCollectionDelegate: MyCollectionViewModelDelegateMock(),
+            authenticationService: AuthenticationServiceMock()
+        )
+        
+        viewModel.containerDelegate = containerDelegate
+        
+        viewModel.loadData { _ in
+            
+            let firstSection = viewModel.sections.first!
+            let formCellsVM = firstSection.cellsVM.filter({ cellVM in
+                return cellVM is TextFieldCellViewModel
+            }) as! [TextFieldCellViewModel]
+            
+            for formCellVM in formCellsVM {
+                guard let formType = formCellVM.formType as? GameFormType else { return }
+                switch formType {
+                case .yearOfAcquisition:
+                    formCellVM.value = nil
+                default:
+                    break
+                }
+            }
+        }
+        
+        // When
+        viewModel.enableSaveButtonIfNeeded()
+        
+        // Then
+        containerDelegate.verify(
+            .configureSupplementaryView(
+                contentViewFactory: .any
+            )
+        )
+    }
+    
     func test_didTapRightButtonItem_ThenShouldSetAlertParametersCorrectly() {
         // Given
         let alertDisplayer = AlertDisplayerMock()

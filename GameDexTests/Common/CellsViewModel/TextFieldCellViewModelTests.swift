@@ -25,6 +25,6 @@ final class TextFieldCellViewModelTests: XCTestCase {
         // Then
         XCTAssertEqual(cellVM.placeholder, "Some placeholder")
         XCTAssertEqual(cellVM.value, "Some text")
+        XCTAssertEqual(cellVM.reuseIdentifier, "\(cellVM.cellClass)")
     }
-    
 }

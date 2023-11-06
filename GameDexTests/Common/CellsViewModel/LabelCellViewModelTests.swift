@@ -19,5 +19,6 @@ final class LabelCellViewModelTests: XCTestCase {
         let cellVM = LabelCellViewModel(text: primaryLabel)
         // Then
         XCTAssertEqual(cellVM.text, "Primary label")
+        XCTAssertEqual(cellVM.reuseIdentifier, "\(cellVM.cellClass)")
     }
 }

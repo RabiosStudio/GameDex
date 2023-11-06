@@ -167,6 +167,9 @@ final class MyCollectionViewModelTests: XCTestCase {
             // Then
             XCTAssertEqual(viewModel.numberOfItems(in: .zero), MockData.platforms.count)
             XCTAssertEqual(viewModel.rightButtonItems, [.add, .search])
+            
+            let itemAvailable = viewModel.itemAvailable(at: IndexPath(row: .zero, section: .zero))
+            XCTAssertTrue(itemAvailable)
         }
     }
     
