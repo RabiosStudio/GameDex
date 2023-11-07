@@ -281,6 +281,9 @@ class ContainerViewController: UIViewController {
         // Keyboard animation
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardAnimation), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardAnimation), name: UIResponder.keyboardWillHideNotification, object: nil)
+        
+        // Call loadData when app enters foreground
+        NotificationCenter.default.addObserver(self, selector: #selector(loadData), name: UIApplication.willEnterForegroundNotification, object: nil)
     }
     
     @objc private func handleKeyboardAnimation(notification: NSNotification) {
