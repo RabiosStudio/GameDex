@@ -42,13 +42,62 @@ final class AuthenticationViewModel: CollectionViewModel {
         self.sections = [
             AuthenticationSection(
                 userHasAccount: self.userHasAccount,
-                primaryButtonDelegate: self
+                primaryButtonDelegate: self,
+                completionBlock: { [weak self] in
+                    self?.didTapForgotPassword()
+                }
             )
         ]
         callback(nil)
     }
     
-    private func displayAlert(success: Bool) {
+    private func didTapForgotPassword() {
+        guard let firstSection = self.sections.first,
+              let formCellsVM = firstSection.cellsVM.filter({ cellVM in
+                  return cellVM is (any CollectionFormCellViewModel)
+              }) as? [any CollectionFormCellViewModel] else {
+            return
+        }
+        
+        var email: String?
+        
+        for formCellVM in formCellsVM {
+            guard let formType = formCellVM.formType as? UserAccountFormType else { return }
+            switch formType {
+            case .email:
+                email = formCellVM.value as? String
+            default:
+                break
+            }
+        }
+        
+        guard let email else {
+            self.displayAlertPasswordResetEmailSent(success: false)
+            return
+        }
+        self.sendPasswordResetEmail(userEmail: email)
+    }
+    
+    private func sendPasswordResetEmail(userEmail: String) {
+        Task {
+            guard await self.authenticationSerice.sendPasswordResetEmail(userEmail: userEmail) == nil else {
+                self.displayAlertPasswordResetEmailSent(success: false)
+                return
+            }
+            self.displayAlertPasswordResetEmailSent(success: true)
+        }
+    }
+    
+    private func displayAlertPasswordResetEmailSent(success: Bool) {
+        self.alertDisplayer.presentTopFloatAlert(
+            parameters: AlertViewModel(
+                alertType: success ? .success : .error,
+                description: success ? L10n.successSendingPasswordResetEmail : L10n.errorSendingPasswordResetEmail
+            )
+        )
+    }
+    
+    private func displayAlertLogin(success: Bool) {
         self.alertDisplayer.presentTopFloatAlert(
             parameters: AlertViewModel(
                 alertType: success ? .success : .error,
@@ -93,10 +142,10 @@ extension AuthenticationViewModel: PrimaryButtonDelegate {
                 cloudDatabase: FirestoreDatabase(),
                 localDatabase: LocalDatabaseImpl()
             ) == nil else {
-                self.displayAlert(success: false)
+                self.displayAlertLogin(success: false)
                 return
             }
-            self.displayAlert(success: true)
+            self.displayAlertLogin(success: true)
             self.myProfileDelegate?.reloadMyProfile()
             await self.myCollectionDelegate?.reloadCollection()
             self.containerDelegate?.goBackToRootViewController()
@@ -106,10 +155,10 @@ extension AuthenticationViewModel: PrimaryButtonDelegate {
                 password: password,
                 cloudDatabase: FirestoreDatabase()
             ) == nil else {
-                self.displayAlert(success: false)
+                self.displayAlertLogin(success: false)
                 return
             }
-            self.displayAlert(success: true)
+            self.displayAlertLogin(success: true)
             self.myProfileDelegate?.reloadMyProfile()
             await self.myCollectionDelegate?.reloadCollection()
             self.containerDelegate?.goBackToRootViewController()

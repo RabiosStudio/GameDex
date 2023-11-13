@@ -10,7 +10,11 @@ import UIKit
 
 final class AuthenticationSection: Section {
     
-    init(userHasAccount: Bool, primaryButtonDelegate: PrimaryButtonDelegate?) {
+    init(
+        userHasAccount: Bool,
+        primaryButtonDelegate: PrimaryButtonDelegate?,
+        completionBlock: (() -> Void)?
+    ) {
         super.init()
         self.position = 0
         
@@ -38,5 +42,13 @@ final class AuthenticationSection: Section {
             delegate: primaryButtonDelegate
         )
         self.cellsVM.append(loginButtonCellVM)
+        
+        if userHasAccount {
+            let forgotPasswordLabelCellVM = LabelCellViewModel(
+                text: L10n.forgotPassword,
+                cellTappedCallback: completionBlock
+            )
+            self.cellsVM.append(forgotPasswordLabelCellVM)
+        }
     }
 }
