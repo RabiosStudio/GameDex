@@ -21,6 +21,7 @@
 "errorLogOutDescription" = "Une erreur est survenue lors de la déconnexion.";
 "errorEmailAppDescription" = "Votre application mail n'a pas été détectée. Vous pouvez nous contacter à l'adresse suivante : ";
 "errorCredentialsDescription" = "La vérification des informations d'identification a échouée.";
+"errorSendingPasswordResetEmail" = "Erreur lors de l'envoi du mail de réinitialisation du mot de passe. Veuillez vérifier votre adresse mail.";
 
 // Success
 "successTitle" = "Succès";
@@ -31,6 +32,7 @@
 "successLogOutDescription" = "Vous êtes déconnectés.";
 "successDeleteAccount" = "Account deleted successfully";
 "successDeletePlatformDescription" = " a bien été supprimée de votre collection";
+"successSendingPasswordResetEmail" = "Email de réinitialisation du mot de passe envoyé avec succès.";
 
 // Warnings
 "warningTitle" = "Un instant !";
@@ -89,6 +91,7 @@
 "confirmCredentials" = "Confirmer votre adresse email et mot de passe actuels pour mettre à jour vos informations.";
 "deleteAccount" = "Supprimer mon compte";
 "collectionManagement" = "Gestion de ma collection";
+"forgotPassword" = "Mot de passe oublié ?";
 
 // Forms
 "title" = "Titre";

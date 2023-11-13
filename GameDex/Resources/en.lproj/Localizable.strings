@@ -22,6 +22,7 @@
 "errorEmailAppDescription" = "Your email app couldn't be reached. You can contact us at ";
 "errorCredentialsDescription" = "Error verifying credentials";
 "errorDeleteAccountDescription" = "Error deleting account";
+"errorSendingPasswordResetEmail" = "Error sending password reset email. Please check your email address.";
 
 // Success
 "successTitle" = "Success";
@@ -32,6 +33,7 @@
 "successLogOutDescription" = "You are logged out.";
 "successDeleteAccountDescription" = "Account deleted successfully";
 "successDeletePlatformDescription" = " successfully removed from your collection";
+"successSendingPasswordResetEmail" = "Password reset email sent";
 
 // Warnings
 "warningTitle" = "One moment!";
@@ -94,6 +96,7 @@
 "confirmCredentials" = "Confirm your email address and password to update your information";
 "deleteAccount" = "Delete Account";
 "collectionManagement" = "Collection Management";
+"forgotPassword" = "Forgot password?";
 
 // Forms
 "title" = "Title";
