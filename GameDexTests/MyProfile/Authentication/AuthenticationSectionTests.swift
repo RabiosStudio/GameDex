@@ -14,11 +14,12 @@ final class AuthenticationSectionTests: XCTestCase {
         // Given
         let section = AuthenticationSection(
             userHasAccount: true,
-            primaryButtonDelegate: nil
+            primaryButtonDelegate: nil,
+            completionBlock: nil
         )
         
         // Then
-        XCTAssertEqual(section.cellsVM.count, 4)
+        XCTAssertEqual(section.cellsVM.count, 5)
         
         guard let titleCellVM = section.cellsVM.first as? TitleCellViewModel,
               let loginButtonCellVM = section.cellsVM[3] as? PrimaryButtonCellViewModel else {
@@ -65,7 +66,8 @@ final class AuthenticationSectionTests: XCTestCase {
         // Given
         let section = AuthenticationSection(
             userHasAccount: false,
-            primaryButtonDelegate: nil
+            primaryButtonDelegate: nil, 
+            completionBlock: nil
         )
         
         // Then
@@ -108,5 +110,28 @@ final class AuthenticationSectionTests: XCTestCase {
                 return
             }
         }
+    }
+    
+    func test_cellTappedCallback_GivenForgotPasswordCellTapped_ThenUseCompletionBlock() {
+        // Given
+        var cellTappedCallbackCalled = false
+        let section = AuthenticationSection(
+            userHasAccount: true,
+            primaryButtonDelegate: nil,
+            completionBlock: {
+                cellTappedCallbackCalled = true
+            }
+        )
+        
+        guard let forgotPasswordCellVM = section.cellsVM.last as? LabelCellViewModel else {
+            XCTFail("Cell View Models are not correct")
+            return
+        }
+        
+        // When
+        forgotPasswordCellVM.cellTappedCallback?()
+        
+        // Then
+        XCTAssertTrue(cellTappedCallbackCalled)
     }
 }

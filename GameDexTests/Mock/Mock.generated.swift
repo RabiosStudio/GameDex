@@ -1242,6 +1242,19 @@ open class AuthSessionMock: AuthSession, Mock {
 		return __value
     }
 
+    open func sendPasswordResetEmail(email: String) -> AuthenticationError? {
+        addInvocation(.m_sendPasswordResetEmail__email_email(Parameter<String>.value(`email`)))
+		let perform = methodPerformValue(.m_sendPasswordResetEmail__email_email(Parameter<String>.value(`email`))) as? (String) -> Void
+		perform?(`email`)
+		var __value: AuthenticationError? = nil
+		do {
+		    __value = try methodReturnValue(.m_sendPasswordResetEmail__email_email(Parameter<String>.value(`email`))).casted()
+		} catch {
+			// do nothing
+		}
+		return __value
+    }
+
 
     fileprivate enum MethodType {
         case m_logIn__email_emailpassword_password(Parameter<String>, Parameter<String>)
@@ -1252,6 +1265,7 @@ open class AuthSessionMock: AuthSession, Mock {
         case m_updateUserPassword__to_newPassword(Parameter<String>)
         case m_reauthenticate__email_emailpassword_password(Parameter<String>, Parameter<String>)
         case m_deleteUser
+        case m_sendPasswordResetEmail__email_email(Parameter<String>)
 
         static func compareParameters(lhs: MethodType, rhs: MethodType, matcher: Matcher) -> Matcher.ComparisonResult {
             switch (lhs, rhs) {
@@ -1288,6 +1302,11 @@ open class AuthSessionMock: AuthSession, Mock {
 				return Matcher.ComparisonResult(results)
 
             case (.m_deleteUser, .m_deleteUser): return .match
+
+            case (.m_sendPasswordResetEmail__email_email(let lhsEmail), .m_sendPasswordResetEmail__email_email(let rhsEmail)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsEmail, rhs: rhsEmail, with: matcher), lhsEmail, rhsEmail, "email"))
+				return Matcher.ComparisonResult(results)
             default: return .none
             }
         }
@@ -1302,6 +1321,7 @@ open class AuthSessionMock: AuthSession, Mock {
             case let .m_updateUserPassword__to_newPassword(p0): return p0.intValue
             case let .m_reauthenticate__email_emailpassword_password(p0, p1): return p0.intValue + p1.intValue
             case .m_deleteUser: return 0
+            case let .m_sendPasswordResetEmail__email_email(p0): return p0.intValue
             }
         }
         func assertionName() -> String {
@@ -1314,6 +1334,7 @@ open class AuthSessionMock: AuthSession, Mock {
             case .m_updateUserPassword__to_newPassword: return ".updateUserPassword(to:)"
             case .m_reauthenticate__email_emailpassword_password: return ".reauthenticate(email:password:)"
             case .m_deleteUser: return ".deleteUser()"
+            case .m_sendPasswordResetEmail__email_email: return ".sendPasswordResetEmail(email:)"
             }
         }
     }
@@ -1350,6 +1371,9 @@ open class AuthSessionMock: AuthSession, Mock {
         }
         public static func deleteUser(willReturn: AuthenticationError?...) -> MethodStub {
             return Given(method: .m_deleteUser, products: willReturn.map({ StubProduct.return($0 as Any) }))
+        }
+        public static func sendPasswordResetEmail(email: Parameter<String>, willReturn: AuthenticationError?...) -> MethodStub {
+            return Given(method: .m_sendPasswordResetEmail__email_email(`email`), products: willReturn.map({ StubProduct.return($0 as Any) }))
         }
         public static func logIn(email: Parameter<String>, password: Parameter<String>, willProduce: (Stubber<AuthenticationError?>) -> Void) -> MethodStub {
             let willReturn: [AuthenticationError?] = []
@@ -1407,6 +1431,13 @@ open class AuthSessionMock: AuthSession, Mock {
 			willProduce(stubber)
 			return given
         }
+        public static func sendPasswordResetEmail(email: Parameter<String>, willProduce: (Stubber<AuthenticationError?>) -> Void) -> MethodStub {
+            let willReturn: [AuthenticationError?] = []
+			let given: Given = { return Given(method: .m_sendPasswordResetEmail__email_email(`email`), products: willReturn.map({ StubProduct.return($0 as Any) })) }()
+			let stubber = given.stub(for: (AuthenticationError?).self)
+			willProduce(stubber)
+			return given
+        }
     }
 
     public struct Verify {
@@ -1420,6 +1451,7 @@ open class AuthSessionMock: AuthSession, Mock {
         public static func updateUserPassword(to newPassword: Parameter<String>) -> Verify { return Verify(method: .m_updateUserPassword__to_newPassword(`newPassword`))}
         public static func reauthenticate(email: Parameter<String>, password: Parameter<String>) -> Verify { return Verify(method: .m_reauthenticate__email_emailpassword_password(`email`, `password`))}
         public static func deleteUser() -> Verify { return Verify(method: .m_deleteUser)}
+        public static func sendPasswordResetEmail(email: Parameter<String>) -> Verify { return Verify(method: .m_sendPasswordResetEmail__email_email(`email`))}
     }
 
     public struct Perform {
@@ -1449,6 +1481,9 @@ open class AuthSessionMock: AuthSession, Mock {
         }
         public static func deleteUser(perform: @escaping () -> Void) -> Perform {
             return Perform(method: .m_deleteUser, performs: perform)
+        }
+        public static func sendPasswordResetEmail(email: Parameter<String>, perform: @escaping (String) -> Void) -> Perform {
+            return Perform(method: .m_sendPasswordResetEmail__email_email(`email`), performs: perform)
         }
     }
 
@@ -1687,6 +1722,19 @@ open class AuthenticationServiceMock: AuthenticationService, Mock {
 		return __value
     }
 
+    open func sendPasswordResetEmail(userEmail: String) -> AuthenticationError? {
+        addInvocation(.m_sendPasswordResetEmail__userEmail_userEmail(Parameter<String>.value(`userEmail`)))
+		let perform = methodPerformValue(.m_sendPasswordResetEmail__userEmail_userEmail(Parameter<String>.value(`userEmail`))) as? (String) -> Void
+		perform?(`userEmail`)
+		var __value: AuthenticationError? = nil
+		do {
+		    __value = try methodReturnValue(.m_sendPasswordResetEmail__userEmail_userEmail(Parameter<String>.value(`userEmail`))).casted()
+		} catch {
+			// do nothing
+		}
+		return __value
+    }
+
 
     fileprivate enum MethodType {
         case m_login__email_emailpassword_passwordcloudDatabase_cloudDatabaselocalDatabase_localDatabase(Parameter<String>, Parameter<String>, Parameter<CloudDatabase>, Parameter<LocalDatabase>)
@@ -1698,6 +1746,7 @@ open class AuthenticationServiceMock: AuthenticationService, Mock {
         case m_updateUserPassword__to_newPassword(Parameter<String>)
         case m_reauthenticateUser__email_emailpassword_password(Parameter<String>, Parameter<String>)
         case m_deleteUser__cloudDatabase_cloudDatabase(Parameter<CloudDatabase>)
+        case m_sendPasswordResetEmail__userEmail_userEmail(Parameter<String>)
 
         static func compareParameters(lhs: MethodType, rhs: MethodType, matcher: Matcher) -> Matcher.ComparisonResult {
             switch (lhs, rhs) {
@@ -1743,6 +1792,11 @@ open class AuthenticationServiceMock: AuthenticationService, Mock {
 				var results: [Matcher.ParameterComparisonResult] = []
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsClouddatabase, rhs: rhsClouddatabase, with: matcher), lhsClouddatabase, rhsClouddatabase, "cloudDatabase"))
 				return Matcher.ComparisonResult(results)
+
+            case (.m_sendPasswordResetEmail__userEmail_userEmail(let lhsUseremail), .m_sendPasswordResetEmail__userEmail_userEmail(let rhsUseremail)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsUseremail, rhs: rhsUseremail, with: matcher), lhsUseremail, rhsUseremail, "userEmail"))
+				return Matcher.ComparisonResult(results)
             default: return .none
             }
         }
@@ -1758,6 +1812,7 @@ open class AuthenticationServiceMock: AuthenticationService, Mock {
             case let .m_updateUserPassword__to_newPassword(p0): return p0.intValue
             case let .m_reauthenticateUser__email_emailpassword_password(p0, p1): return p0.intValue + p1.intValue
             case let .m_deleteUser__cloudDatabase_cloudDatabase(p0): return p0.intValue
+            case let .m_sendPasswordResetEmail__userEmail_userEmail(p0): return p0.intValue
             }
         }
         func assertionName() -> String {
@@ -1771,6 +1826,7 @@ open class AuthenticationServiceMock: AuthenticationService, Mock {
             case .m_updateUserPassword__to_newPassword: return ".updateUserPassword(to:)"
             case .m_reauthenticateUser__email_emailpassword_password: return ".reauthenticateUser(email:password:)"
             case .m_deleteUser__cloudDatabase_cloudDatabase: return ".deleteUser(cloudDatabase:)"
+            case .m_sendPasswordResetEmail__userEmail_userEmail: return ".sendPasswordResetEmail(userEmail:)"
             }
         }
     }
@@ -1810,6 +1866,9 @@ open class AuthenticationServiceMock: AuthenticationService, Mock {
         }
         public static func deleteUser(cloudDatabase: Parameter<CloudDatabase>, willReturn: AuthenticationError?...) -> MethodStub {
             return Given(method: .m_deleteUser__cloudDatabase_cloudDatabase(`cloudDatabase`), products: willReturn.map({ StubProduct.return($0 as Any) }))
+        }
+        public static func sendPasswordResetEmail(userEmail: Parameter<String>, willReturn: AuthenticationError?...) -> MethodStub {
+            return Given(method: .m_sendPasswordResetEmail__userEmail_userEmail(`userEmail`), products: willReturn.map({ StubProduct.return($0 as Any) }))
         }
         public static func login(email: Parameter<String>, password: Parameter<String>, cloudDatabase: Parameter<CloudDatabase>, localDatabase: Parameter<LocalDatabase>, willProduce: (Stubber<AuthenticationError?>) -> Void) -> MethodStub {
             let willReturn: [AuthenticationError?] = []
@@ -1874,6 +1933,13 @@ open class AuthenticationServiceMock: AuthenticationService, Mock {
 			willProduce(stubber)
 			return given
         }
+        public static func sendPasswordResetEmail(userEmail: Parameter<String>, willProduce: (Stubber<AuthenticationError?>) -> Void) -> MethodStub {
+            let willReturn: [AuthenticationError?] = []
+			let given: Given = { return Given(method: .m_sendPasswordResetEmail__userEmail_userEmail(`userEmail`), products: willReturn.map({ StubProduct.return($0 as Any) })) }()
+			let stubber = given.stub(for: (AuthenticationError?).self)
+			willProduce(stubber)
+			return given
+        }
     }
 
     public struct Verify {
@@ -1888,6 +1954,7 @@ open class AuthenticationServiceMock: AuthenticationService, Mock {
         public static func updateUserPassword(to newPassword: Parameter<String>) -> Verify { return Verify(method: .m_updateUserPassword__to_newPassword(`newPassword`))}
         public static func reauthenticateUser(email: Parameter<String>, password: Parameter<String>) -> Verify { return Verify(method: .m_reauthenticateUser__email_emailpassword_password(`email`, `password`))}
         public static func deleteUser(cloudDatabase: Parameter<CloudDatabase>) -> Verify { return Verify(method: .m_deleteUser__cloudDatabase_cloudDatabase(`cloudDatabase`))}
+        public static func sendPasswordResetEmail(userEmail: Parameter<String>) -> Verify { return Verify(method: .m_sendPasswordResetEmail__userEmail_userEmail(`userEmail`))}
     }
 
     public struct Perform {
@@ -1920,6 +1987,9 @@ open class AuthenticationServiceMock: AuthenticationService, Mock {
         }
         public static func deleteUser(cloudDatabase: Parameter<CloudDatabase>, perform: @escaping (CloudDatabase) -> Void) -> Perform {
             return Perform(method: .m_deleteUser__cloudDatabase_cloudDatabase(`cloudDatabase`), performs: perform)
+        }
+        public static func sendPasswordResetEmail(userEmail: Parameter<String>, perform: @escaping (String) -> Void) -> Perform {
+            return Perform(method: .m_sendPasswordResetEmail__userEmail_userEmail(`userEmail`), performs: perform)
         }
     }
 

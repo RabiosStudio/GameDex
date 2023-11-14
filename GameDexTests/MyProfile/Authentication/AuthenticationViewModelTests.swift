@@ -24,7 +24,7 @@ final class AuthenticationViewModelTests: XCTestCase {
         XCTAssertEqual(viewModel.numberOfItems(in: .zero), .zero)
     }
     
-    func test_loadData_ThenCallBackIsCalledAndSectionsUpdated() {
+    func test_loadData_ThenCallBackIsCalledAndSectionsUpdated() async {
         // Given
         let viewModel = AuthenticationViewModel(
             userHasAccount: true,
@@ -40,7 +40,7 @@ final class AuthenticationViewModelTests: XCTestCase {
         }
         XCTAssertTrue(callbackIsCalled)
         XCTAssertEqual(viewModel.numberOfSections(), 1)
-        XCTAssertEqual(viewModel.numberOfItems(in: .zero), 4)
+        XCTAssertEqual(viewModel.numberOfItems(in: .zero), 5)
     }
     
     func test_didTapPrimaryButton_GivenUserHasAccountAndLoginError_ThenAlertParametersAreSetCorrectly() async {
@@ -283,5 +283,37 @@ final class AuthenticationViewModelTests: XCTestCase {
         myProfileDelegate.verify(.reloadMyProfile())
         myCollectionDelegate.verify(.reloadCollection())
         containerDelegate.verify(.goBackToRootViewController())
+    }
+    
+    func test_didTapForgotPassword_GivenNoEmailEntry_ThenAlertSettingsAreCorrects() async {
+        // Given
+        let authenticationService = AuthenticationServiceMock()
+//        authenticationService.given(.getUserId(willReturn: "userId"))
+        let alertDisplayer = AlertDisplayerMock()
+        
+        let viewModel = AuthenticationViewModel(
+            userHasAccount: true,
+            authenticationSerice: authenticationService,
+            alertDisplayer: alertDisplayer,
+            myProfileDelegate: MyProfileViewModelDelegateMock(),
+            myCollectionDelegate: MyCollectionViewModelDelegateMock()
+        )
+        
+        viewModel.loadData { _ in }
+        
+        // When
+        viewModel.sections.first?.cellsVM.last?.cellTappedCallback?()
+        
+        // Then
+        alertDisplayer.verify(
+            .presentTopFloatAlert(
+                parameters: .value(
+                    AlertViewModel(
+                        alertType: .error,
+                        description: L10n.errorSendingPasswordResetEmail
+                    )
+                )
+            )
+        )
     }
 }

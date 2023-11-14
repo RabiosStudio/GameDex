@@ -365,4 +365,30 @@ final class AuthenticationServiceImplTests: XCTestCase {
         // Then
         XCTAssertNil(error)
     }
+    
+    func test_sendPasswordResetEmail_GivenNoError_ThenShouldReturnNil() async {
+        // Given
+        let authSession = AuthSessionMock()
+        authSession.given(.sendPasswordResetEmail(email: "email", willReturn: nil))
+        let authenticationService = AuthenticationServiceImpl(authSession: authSession)
+        
+        // When
+        let error = await authenticationService.sendPasswordResetEmail(userEmail: "email")
+        
+        // Then
+        XCTAssertNil(error)
+    }
+    
+    func test_sendPasswordResetEmail_GivenErrorSendingEmail_ThenShouldReturnPasswordResetEmailError() async {
+        // Given
+        let authSession = AuthSessionMock()
+        authSession.given(.sendPasswordResetEmail(email: "email", willReturn: AuthenticationError.passwordResetEmailError))
+        let authenticationService = AuthenticationServiceImpl(authSession: authSession)
+        
+        // When
+        let error = await authenticationService.sendPasswordResetEmail(userEmail: "email")
+        
+        // Then
+        XCTAssertEqual(error, AuthenticationError.passwordResetEmailError)
+    }
 }
