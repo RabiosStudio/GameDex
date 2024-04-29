@@ -204,6 +204,8 @@ internal enum L10n {
   internal static let updateErrorDescription = L10n.tr("Localizable", "updateErrorDescription", fallback: "An error occured while updating data.")
   /// Success updating data.
   internal static let updateSuccessDescription = L10n.tr("Localizable", "updateSuccessDescription", fallback: "Success updating data.")
+  /// Very good
+  internal static let veryGood = L10n.tr("Localizable", "veryGood", fallback: "Very good")
   /// Account deletion is definitive. This will not delete data saved directly on your device
   internal static let warningAccountDeletion = L10n.tr("Localizable", "warningAccountDeletion", fallback: "Account deletion is definitive. This will not delete data saved directly on your device")
   /// This game is already in your collection!

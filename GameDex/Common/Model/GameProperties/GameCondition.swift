@@ -9,6 +9,7 @@ import Foundation
 
 enum GameCondition: CaseIterable {
     case mint
+    case veryGood
     case good
     case acceptable
     case poor
@@ -17,6 +18,8 @@ enum GameCondition: CaseIterable {
         switch self {
         case .mint:
             return L10n.mint
+        case .veryGood:
+            return L10n.veryGood
         case .good:
             return L10n.good
         case .acceptable:
