@@ -89,4 +89,11 @@ class AuthenticationServiceImpl: AuthenticationService {
         }
         return nil
     }
+    
+    func sendPasswordResetEmail(userEmail: String) async -> AuthenticationError? {
+        guard let error = await self.authSession.sendPasswordResetEmail(email: userEmail) else {
+            return nil
+        }
+        return error
+    }
 }

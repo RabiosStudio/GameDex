@@ -18,4 +18,5 @@ protocol AuthenticationService {
     func updateUserPassword(to newPassword: String) async -> AuthenticationError?
     func reauthenticateUser(email: String, password: String) async -> AuthenticationError?
     func deleteUser(cloudDatabase: CloudDatabase) async -> AuthenticationError?
+    func sendPasswordResetEmail(userEmail: String) async -> AuthenticationError? 
 }

@@ -80,12 +80,16 @@ internal enum L10n {
   internal static let errorEmailAppDescription = L10n.tr("Localizable", "errorEmailAppDescription", fallback: "Your email app couldn't be reached. You can contact us at ")
   /// An error occured while logging out.
   internal static let errorLogOutDescription = L10n.tr("Localizable", "errorLogOutDescription", fallback: "An error occured while logging out.")
+  /// Error sending password reset email. Please check your email address.
+  internal static let errorSendingPasswordResetEmail = L10n.tr("Localizable", "errorSendingPasswordResetEmail", fallback: "Error sending password reset email. Please check your email address.")
   /// Error
   internal static let errorTitle = L10n.tr("Localizable", "errorTitle", fallback: "Error")
   /// An error occured while fetching data.
   internal static let fetchGamesErrorDescription = L10n.tr("Localizable", "fetchGamesErrorDescription", fallback: "An error occured while fetching data.")
   /// Fill Game details
   internal static let fillGameDetails = L10n.tr("Localizable", "fillGameDetails", fallback: "Fill Game details")
+  /// Forgot password?
+  internal static let forgotPassword = L10n.tr("Localizable", "forgotPassword", fallback: "Forgot password?")
   /// game
   internal static let game = L10n.tr("Localizable", "game", fallback: "game")
   /// games
@@ -188,6 +192,8 @@ internal enum L10n {
   internal static let successDeletePlatformDescription = L10n.tr("Localizable", "successDeletePlatformDescription", fallback: " successfully removed from your collection")
   /// You are logged out.
   internal static let successLogOutDescription = L10n.tr("Localizable", "successLogOutDescription", fallback: "You are logged out.")
+  /// Password reset email sent
+  internal static let successSendingPasswordResetEmail = L10n.tr("Localizable", "successSendingPasswordResetEmail", fallback: "Password reset email sent")
   /// Success
   internal static let successTitle = L10n.tr("Localizable", "successTitle", fallback: "Success")
   /// Title
