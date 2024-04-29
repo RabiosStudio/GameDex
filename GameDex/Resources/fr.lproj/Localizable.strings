@@ -109,7 +109,8 @@
 "loose" = "Jeu seul";
 "sealed" = "Sous blister";
 "condition" = "État";
-"mint" = "Parfait";
+"mint" = "Neuf";
+"veryGood" = "Très bon";
 "good" = "Bon";
 "acceptable" = "Moyen";
 "poor" = "Mauvais";
