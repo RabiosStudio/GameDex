@@ -32,7 +32,12 @@ final class AddGameDetailsSection: Section {
             placeholder: L10n.condition,
             formType: GameFormType.gameCondition(
                 PickerViewModel(
-                    data: [GameCondition.allCases.map { $0.value }]
+                    data: [GameCondition.allCases.compactMap {
+                        guard $0 != .unknown else {
+                            return nil
+                        }
+                        return $0.value
+                    }]
                 )
             )
         )
@@ -42,7 +47,12 @@ final class AddGameDetailsSection: Section {
             placeholder: L10n.completeness,
             formType: GameFormType.gameCompleteness(
                 PickerViewModel(
-                    data: [GameCompleteness.allCases.map { $0.value }]
+                    data: [GameCompleteness.allCases.compactMap {
+                        guard $0 != .unknown else {
+                            return nil
+                        }
+                        return $0.value
+                    }]
                 )
             )
         )

@@ -58,12 +58,17 @@ final class EditGameDetailsSectionTests: XCTestCase {
                     return
                 }
                 XCTAssertEqual(gameConditionCellVM.placeholder, L10n.condition)
-                XCTAssertEqual(gameConditionCellVM.value, MockData.savedGame.gameCondition)
+                XCTAssertEqual(gameConditionCellVM.value, MockData.savedGame.gameCondition?.value)
                 XCTAssertEqual(
                     gameConditionCellVMFormType,
                     .gameCondition(
                         PickerViewModel(
-                            data: [GameCondition.allCases.map { $0.value }]
+                            data: [GameCondition.allCases.compactMap {
+                                guard $0 != .unknown else {
+                                    return nil
+                                }
+                                return $0.value
+                            }]
                         )
                     )
                 )
@@ -74,12 +79,17 @@ final class EditGameDetailsSectionTests: XCTestCase {
                     return
                 }
                 XCTAssertEqual(gameCompletenessCellVM.placeholder, L10n.completeness)
-                XCTAssertEqual(gameCompletenessCellVM.value, MockData.savedGame.gameCompleteness)
+                XCTAssertEqual(gameCompletenessCellVM.value, MockData.savedGame.gameCompleteness?.value)
                 XCTAssertEqual(
                     gameCompletenessCellVMFormType,
                     .gameCompleteness(
                         PickerViewModel(
-                            data: [GameCompleteness.allCases.map { $0.value }]
+                            data: [GameCompleteness.allCases.compactMap {
+                                guard $0 != .unknown else {
+                                    return nil
+                                }
+                                return $0.value
+                            }]
                         )
                     )
                 )
@@ -90,12 +100,12 @@ final class EditGameDetailsSectionTests: XCTestCase {
                     return
                 }
                 XCTAssertEqual(gameRegionCellVM.placeholder, L10n.region)
-                XCTAssertEqual(gameRegionCellVM.value, MockData.savedGame.gameRegion)
+                XCTAssertEqual(gameRegionCellVM.value, MockData.savedGame.gameRegion?.value)
                 XCTAssertEqual(
                     gameRegionCellVMFormType,
                     .gameRegion(
                         PickerViewModel(
-                            data: [GameRegion.allCases.map { $0.rawValue }]
+                            data: [GameRegion.allCases.map { $0.value }]
                         )
                     )
                 )

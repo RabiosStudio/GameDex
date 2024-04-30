@@ -153,9 +153,9 @@ enum MockData {
     static let savedGame = SavedGame(
             game: MockData.games[0],
             acquisitionYear: "2005",
-            gameCondition: GameCondition.good.value,
-            gameCompleteness: GameCompleteness.complete.value,
-            gameRegion: GameRegion.pal.rawValue,
+            gameCondition: GameCondition.mint,
+            gameCompleteness: GameCompleteness.complete,
+            gameRegion: GameRegion.pal,
             storageArea: "Living room",
             rating: 5,
             notes: nil,
@@ -166,9 +166,9 @@ enum MockData {
         SavedGame(
             game: MockData.games[0],
             acquisitionYear: "2005",
-            gameCondition: GameCondition.good.value,
-            gameCompleteness: GameCompleteness.complete.value,
-            gameRegion: GameRegion.pal.rawValue,
+            gameCondition: GameCondition.mint,
+            gameCompleteness: GameCompleteness.complete,
+            gameRegion: GameRegion.pal,
             storageArea: "Living room",
             rating: 5,
             notes: nil,
@@ -177,9 +177,9 @@ enum MockData {
         SavedGame(
             game: MockData.games[1],
             acquisitionYear: "2000",
-            gameCondition: GameCondition.mint.value,
-            gameCompleteness: GameCompleteness.loose.value,
-            gameRegion: GameRegion.pal.rawValue,
+            gameCondition: GameCondition.mint,
+            gameCompleteness: GameCompleteness.complete,
+            gameRegion: GameRegion.pal,
             storageArea: "Living room",
             rating: 4,
             notes: nil,
@@ -269,11 +269,11 @@ enum MockData {
     static let firestoreGamesCorrectData = [
         FirestoreData(
             id: "gameId",
-            data: ["title": "gameTitle", "description": "gameDescription", "platform": 4, "imageUrl": "gameImageUrl", "lastUpdated": MockData.timeStamp, "releaseDate": MockData.timeStamp, "notes": "gameNotes", "gameCondition": "gameCondition", "gameCompleteness": "gameCompleteness", "gameRegion": "gameRegion", "storageArea": "gameStorageArea", "acquisitionYear": "gameAcquisitionYear", "rating": 5]
+            data: ["title": "gameTitle", "description": "gameDescription", "platform": 4, "imageUrl": "gameImageUrl", "lastUpdated": MockData.timeStamp, "releaseDate": MockData.timeStamp, "notes": "gameNotes", "gameCondition": "mint", "gameCompleteness": "complete", "gameRegion": "pal", "storageArea": "gameStorageArea", "acquisitionYear": "gameAcquisitionYear", "rating": 5]
         ),
         FirestoreData(
             id: "gameId",
-            data: ["title": "gameTitle", "description": "gameDescription", "platform": 4, "imageUrl": "gameImageUrl", "lastUpdated": MockData.timeStamp, "releaseDate": MockData.timeStamp, "notes": "gameNotes", "gameCondition": "gameCondition", "gameCompleteness": "gameCompleteness", "gameRegion": "gameRegion", "storageArea": "gameStorageArea", "acquisitionYear": "gameAcquisitionYear", "rating": 5]
+            data: ["title": "gameTitle", "description": "gameDescription", "platform": 4, "imageUrl": "gameImageUrl", "lastUpdated": MockData.timeStamp, "releaseDate": MockData.timeStamp, "notes": "gameNotes", "gameCondition": "mint", "gameCompleteness": "complete", "gameRegion": "pal", "storageArea": "gameStorageArea", "acquisitionYear": "gameAcquisitionYear", "rating": 5]
         )
     ]
     
@@ -286,9 +286,9 @@ enum MockData {
         SavedGame(
             game: Game(title: "gameTitle", description: "gameDescription", id: "gameId", platformId: 4, imageUrl: "gameImageUrl", releaseDate: MockData.dateValue),
             acquisitionYear: "gameAcquisitionYear",
-            gameCondition: "gameCondition",
-            gameCompleteness: "gameCompleteness",
-            gameRegion: "gameRegion",
+            gameCondition: .mint,
+            gameCompleteness: .complete,
+            gameRegion: .pal,
             storageArea: "gameStorageArea",
             rating: 5,
             notes: "gameNotes",
@@ -297,9 +297,9 @@ enum MockData {
         SavedGame(
             game: Game(title: "gameTitle", description: "gameDescription", id: "gameId", platformId: 4, imageUrl: "gameImageUrl", releaseDate: MockData.dateValue),
             acquisitionYear: "gameAcquisitionYear",
-            gameCondition: "gameCondition",
-            gameCompleteness: "gameCompleteness",
-            gameRegion: "gameRegion",
+            gameCondition: .mint,
+            gameCompleteness: .complete,
+            gameRegion: .pal,
             storageArea: "gameStorageArea",
             rating: 5,
             notes: "gameNotes",

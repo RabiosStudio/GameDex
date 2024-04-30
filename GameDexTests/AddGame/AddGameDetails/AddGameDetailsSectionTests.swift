@@ -59,7 +59,12 @@ final class AddGameDetailsSectionTests: XCTestCase {
                     gameConditionCellVMFormType,
                     .gameCondition(
                         PickerViewModel(
-                            data: [GameCondition.allCases.map { $0.value }]
+                            data: [GameCondition.allCases.compactMap {
+                                guard $0 != .unknown else {
+                                    return nil
+                                }
+                                return $0.value
+                            }]
                         )
                     )
                 )
@@ -74,7 +79,12 @@ final class AddGameDetailsSectionTests: XCTestCase {
                     gameCompletenessCellVMFormType,
                     .gameCompleteness(
                         PickerViewModel(
-                            data: [GameCompleteness.allCases.map { $0.value }]
+                            data: [GameCompleteness.allCases.compactMap {
+                                guard $0 != .unknown else {
+                                    return nil
+                                }
+                                return $0.value
+                            }]
                         )
                     )
                 )
@@ -89,7 +99,7 @@ final class AddGameDetailsSectionTests: XCTestCase {
                     gameRegionCellVMFormType,
                     .gameRegion(
                         PickerViewModel(
-                            data: [GameRegion.allCases.map { $0.rawValue }]
+                            data: [GameRegion.allCases.map { $0.value }]
                         )
                     )
                 )
