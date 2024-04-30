@@ -198,6 +198,8 @@ internal enum L10n {
   internal static let successTitle = L10n.tr("Localizable", "successTitle", fallback: "Success")
   /// Title
   internal static let title = L10n.tr("Localizable", "title", fallback: "Title")
+  /// Unknown
+  internal static let unknown = L10n.tr("Localizable", "unknown", fallback: "Unknown")
   /// Update your email address and password
   internal static let updateCredentials = L10n.tr("Localizable", "updateCredentials", fallback: "Update your email address and password")
   /// An error occured while updating data.

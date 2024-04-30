@@ -348,11 +348,11 @@ extension FirestoreDatabase {
               let lastUpdatedTimeStamp = firestoreData.data[Attributes.lastUpdated.rawValue] as? Timestamp,
               let releaseTimeStamp = firestoreData.data[Attributes.releaseDate.rawValue] as? Timestamp,
               let notes = firestoreData.data[Attributes.notes.rawValue],
-              let gameCondition = firestoreData.data[Attributes.gameCondition.rawValue],
-              let gameCompleteness = firestoreData.data[Attributes.gameCompleteness.rawValue],
-              let gameRegion = firestoreData.data[Attributes.gameRegion.rawValue],
+              let gameCondition = firestoreData.data[Attributes.gameCondition.rawValue] as? String,
+              let gameCompleteness = firestoreData.data[Attributes.gameCompleteness.rawValue] as? String,
+              let gameRegion = firestoreData.data[Attributes.gameRegion.rawValue] as? String,
               let storageArea = firestoreData.data[Attributes.storageArea.rawValue],
-              let acquisitionYear = firestoreData.data[Attributes.acquisitionYear.rawValue],
+              let acquisitionYear = firestoreData.data[Attributes.acquisitionYear.rawValue] as? String,
               let rating = firestoreData.data[Attributes.rating.rawValue] as? Int else {
             return nil
         }
@@ -368,10 +368,10 @@ extension FirestoreDatabase {
                 imageUrl: String(describing: imageUrl),
                 releaseDate: releasedDate
             ),
-            acquisitionYear: acquisitionYear as? String,
-            gameCondition: gameCondition as? String,
-            gameCompleteness: gameCompleteness as? String,
-            gameRegion: gameRegion as? String,
+            acquisitionYear: acquisitionYear,
+            gameCondition: GameCondition(rawValue: gameCondition),
+            gameCompleteness: GameCompleteness(rawValue: gameCompleteness),
+            gameRegion: GameRegion(rawValue: gameRegion),
             storageArea: storageArea as? String,
             rating: rating,
             notes: notes as? String,

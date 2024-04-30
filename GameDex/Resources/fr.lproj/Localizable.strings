@@ -114,6 +114,7 @@
 "good" = "Bon";
 "acceptable" = "Moyen";
 "poor" = "Mauvais";
+"unknown" = "Inconnu(e)";
 "region" = "Région";
 "email" = "Email";
 "password" = "Mot de passe";

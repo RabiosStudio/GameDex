@@ -52,7 +52,7 @@ final class AddGameDetailsSection: Section {
             placeholder: L10n.region,
             formType: GameFormType.gameRegion(
                 PickerViewModel(
-                    data: [GameRegion.allCases.map { $0.rawValue }]
+                    data: [GameRegion.allCases.map { $0.value }]
                 )
             )
         )

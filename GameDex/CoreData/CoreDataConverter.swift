@@ -42,9 +42,9 @@ enum CoreDataConverter {
         gameCollected.notes = gameDetails.notes
         gameCollected.imageUrl = gameDetails.game.imageUrl
         gameCollected.rating = Int16(gameDetails.rating ?? .zero)
-        gameCollected.gameRegion = gameDetails.gameRegion
-        gameCollected.gameCondition = gameDetails.gameCondition
-        gameCollected.gameCompleteness = gameDetails.gameCompleteness
+        gameCollected.gameRegion = gameDetails.gameRegion?.rawValue
+        gameCollected.gameCondition = gameDetails.gameCondition?.rawValue
+        gameCollected.gameCompleteness = gameDetails.gameCompleteness?.rawValue
         gameCollected.acquisitionYear = gameDetails.acquisitionYear
         gameCollected.gameID = gameDetails.game.id
         gameCollected.releaseDate = gameDetails.game.releaseDate
@@ -65,9 +65,15 @@ enum CoreDataConverter {
                     releaseDate: aGame.releaseDate
                 ),
                 acquisitionYear: aGame.acquisitionYear,
-                gameCondition: aGame.gameCondition,
-                gameCompleteness: aGame.gameCompleteness,
-                gameRegion: aGame.gameRegion,
+                gameCondition: GameCondition(
+                    rawValue: aGame.gameCondition ?? ""
+                ) ,
+                gameCompleteness: GameCompleteness(
+                    rawValue: aGame.gameCompleteness ?? ""
+                ),
+                gameRegion: GameRegion(
+                    rawValue: aGame.gameRegion ?? ""
+                ),
                 storageArea: aGame.storageArea,
                 rating: Int(aGame.rating),
                 notes: aGame.notes,

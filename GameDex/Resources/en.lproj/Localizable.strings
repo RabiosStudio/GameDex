@@ -119,6 +119,7 @@
 "good" = "Good";
 "acceptable" = "Acceptable";
 "poor" = "Poor";
+"unknown" = "Unknown";
 "region" = "Region";
 "email" = "Email";
 "password" = "Password";
