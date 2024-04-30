@@ -70,7 +70,7 @@ class Routing: NSObject, Navigator {
                     animated: animated
                 )
             case .pop:
-                print("pop")
+                break
             case let .present(screenFactory, screenSize, completionBlock):
                 let navigationController = UINavigationController(rootViewController: screenFactory.viewController)
                 fromVC?.present(controller: navigationController,

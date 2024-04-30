@@ -34,8 +34,8 @@ final class CollectionManagementSectionTests: XCTestCase {
         XCTAssertEqual(deleteCollectionButtonCellVM.buttonType, .classic)
         
         guard let formCellsVM = section.cellsVM.filter({ cellVM in
-            return cellVM is (any CollectionFormCellViewModel)
-        }) as? [any CollectionFormCellViewModel] else {
+            return cellVM is (any FormCellViewModel)
+        }) as? [any FormCellViewModel] else {
             return
         }
         
