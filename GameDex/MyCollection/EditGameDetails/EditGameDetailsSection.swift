@@ -34,7 +34,12 @@ final class EditGameDetailsSection: Section {
             placeholder: L10n.condition,
             formType: GameFormType.gameCondition(
                 PickerViewModel(
-                    data: [GameCondition.allCases.map { $0.value }]
+                    data: [GameCondition.allCases.compactMap {
+                        guard $0 != .unknown else {
+                            return nil
+                        }
+                        return $0.value
+                    }]
                 )
             ),
             value: savedGame.gameCondition?.value,
@@ -46,7 +51,12 @@ final class EditGameDetailsSection: Section {
             placeholder: L10n.completeness,
             formType: GameFormType.gameCompleteness(
                 PickerViewModel(
-                    data: [GameCompleteness.allCases.map { $0.value }]
+                    data: [GameCompleteness.allCases.compactMap {
+                        guard $0 != .unknown else {
+                            return nil
+                        }
+                        return $0.value
+                    }]
                 )
             ),
             value: savedGame.gameCompleteness?.value,
