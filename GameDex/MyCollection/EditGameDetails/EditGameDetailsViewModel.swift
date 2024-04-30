@@ -39,9 +39,9 @@ final class EditGameDetailsViewModel: CollectionViewModel {
         self.savedGame = savedGame
         self.savedValues = [
             self.savedGame.acquisitionYear,
-            self.savedGame.gameCondition,
-            self.savedGame.gameCompleteness,
-            self.savedGame.gameRegion,
+            self.savedGame.gameCondition?.value,
+            self.savedGame.gameCompleteness?.value,
+            self.savedGame.gameRegion?.value,
             self.savedGame.storageArea,
             self.savedGame.rating,
             self.savedGame.notes
