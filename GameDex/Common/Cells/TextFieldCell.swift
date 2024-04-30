@@ -134,7 +134,7 @@ extension TextFieldCell: UITextFieldDelegate {
                 componentIndex = componentIndexTemp
             }
         }
-        pickerView.selectRow(
+        self.pickerView.selectRow(
             rowIndex,
             inComponent: componentIndex,
             animated: true
