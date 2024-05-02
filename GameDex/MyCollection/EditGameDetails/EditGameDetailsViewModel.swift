@@ -252,6 +252,7 @@ private extension EditGameDetailsViewModel {
         )
         self.configureBottomView(shouldEnableButton: false)
         await self.myCollectionDelegate?.reloadCollection()
+        self.containerDelegate?.goBackToRootViewController()
     }
     
     func handleEditGameFailure(error: DatabaseError) async {
