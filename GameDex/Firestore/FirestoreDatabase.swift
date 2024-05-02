@@ -328,9 +328,9 @@ extension FirestoreDatabase {
             Attributes.imageUrl.rawValue: game.game.imageUrl,
             Attributes.releaseDate.rawValue: game.game.releaseDate as Any,
             Attributes.platform.rawValue: game.game.platformId,
-            Attributes.gameCondition.rawValue: game.gameCondition as Any,
-            Attributes.gameCompleteness.rawValue: game.gameCompleteness as Any,
-            Attributes.gameRegion.rawValue: game.gameRegion as Any,
+            Attributes.gameCondition.rawValue: game.gameCondition?.rawValue as Any,
+            Attributes.gameCompleteness.rawValue: game.gameCompleteness?.rawValue as Any,
+            Attributes.gameRegion.rawValue: game.gameRegion?.rawValue as Any,
             Attributes.storageArea.rawValue: game.storageArea as Any,
             Attributes.rating.rawValue: game.rating as Any,
             Attributes.notes.rawValue: game.notes as Any,
@@ -348,13 +348,25 @@ extension FirestoreDatabase {
               let lastUpdatedTimeStamp = firestoreData.data[Attributes.lastUpdated.rawValue] as? Timestamp,
               let releaseTimeStamp = firestoreData.data[Attributes.releaseDate.rawValue] as? Timestamp,
               let notes = firestoreData.data[Attributes.notes.rawValue],
-              let gameCondition = firestoreData.data[Attributes.gameCondition.rawValue] as? String,
-              let gameCompleteness = firestoreData.data[Attributes.gameCompleteness.rawValue] as? String,
-              let gameRegion = firestoreData.data[Attributes.gameRegion.rawValue] as? String,
               let storageArea = firestoreData.data[Attributes.storageArea.rawValue],
               let acquisitionYear = firestoreData.data[Attributes.acquisitionYear.rawValue] as? String,
               let rating = firestoreData.data[Attributes.rating.rawValue] as? Int else {
             return nil
+        }
+        
+        var gameCondition: GameCondition?
+        if let gameConditionText = firestoreData.data[Attributes.gameCondition.rawValue] as? String {
+            gameCondition = GameCondition(rawValue: gameConditionText)
+        }
+        
+        var gameCompleteness: GameCompleteness?
+        if let gameCompletenessText = firestoreData.data[Attributes.gameCompleteness.rawValue] as? String {
+            gameCompleteness = GameCompleteness(rawValue: gameCompletenessText)
+        }
+        
+        var gameRegion: GameRegion?
+        if let gameRegionText = firestoreData.data[Attributes.gameRegion.rawValue] as? String {
+            gameRegion = GameRegion(rawValue: gameRegionText)
         }
         
         let lastUpdatedDate = lastUpdatedTimeStamp.dateValue()
@@ -369,9 +381,9 @@ extension FirestoreDatabase {
                 releaseDate: releasedDate
             ),
             acquisitionYear: acquisitionYear,
-            gameCondition: GameCondition(rawValue: gameCondition),
-            gameCompleteness: GameCompleteness(rawValue: gameCompleteness),
-            gameRegion: GameRegion(rawValue: gameRegion),
+            gameCondition: gameCondition,
+            gameCompleteness: gameCompleteness,
+            gameRegion: gameRegion,
             storageArea: storageArea as? String,
             rating: rating,
             notes: notes as? String,
