@@ -139,6 +139,9 @@ extension TextFieldCell: UITextFieldDelegate {
             inComponent: componentIndex,
             animated: true
         )
+        let currentText = data[componentIndex][rowIndex]
+        self.storeEntry(cellViewModel: self.cellVM, with: currentText)
+        textField.text = currentText
     }
 }
 
