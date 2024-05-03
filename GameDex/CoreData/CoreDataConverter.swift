@@ -55,7 +55,22 @@ enum CoreDataConverter {
     
     static func convert(platformCollected: PlatformCollected) -> Platform {
         let savedGames = platformCollected.gamesArray.map { aGame in
-            SavedGame(
+            var gameCondition: GameCondition?
+            if let gameConditionText = aGame.gameCondition {
+                gameCondition = GameCondition(rawValue: gameConditionText)
+            }
+            
+            var gameCompleteness: GameCompleteness?
+            if let gameCompletenessText = aGame.gameCompleteness {
+                gameCompleteness = GameCompleteness(rawValue: gameCompletenessText)
+            }
+            
+            var gameRegion: GameRegion?
+            if let gameRegionText = aGame.gameRegion {
+                gameRegion = GameRegion(rawValue: gameRegionText)
+            }
+            
+            return SavedGame(
                 game: Game(
                     title: aGame.title,
                     description: aGame.summary,
@@ -65,15 +80,9 @@ enum CoreDataConverter {
                     releaseDate: aGame.releaseDate
                 ),
                 acquisitionYear: aGame.acquisitionYear,
-                gameCondition: GameCondition(
-                    rawValue: aGame.gameCondition ?? ""
-                ) ,
-                gameCompleteness: GameCompleteness(
-                    rawValue: aGame.gameCompleteness ?? ""
-                ),
-                gameRegion: GameRegion(
-                    rawValue: aGame.gameRegion ?? ""
-                ),
+                gameCondition: gameCondition,
+                gameCompleteness: gameCompleteness,
+                gameRegion: gameRegion,
                 storageArea: aGame.storageArea,
                 rating: Int(aGame.rating),
                 notes: aGame.notes,
