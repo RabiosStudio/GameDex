@@ -349,7 +349,7 @@ extension FirestoreDatabase {
               let releaseTimeStamp = firestoreData.data[Attributes.releaseDate.rawValue] as? Timestamp,
               let notes = firestoreData.data[Attributes.notes.rawValue],
               let storageArea = firestoreData.data[Attributes.storageArea.rawValue],
-              let acquisitionYear = firestoreData.data[Attributes.acquisitionYear.rawValue] as? String,
+              let acquisitionYear = firestoreData.data[Attributes.acquisitionYear.rawValue],
               let rating = firestoreData.data[Attributes.rating.rawValue] as? Int else {
             return nil
         }
@@ -380,7 +380,7 @@ extension FirestoreDatabase {
                 imageUrl: String(describing: imageUrl),
                 releaseDate: releasedDate
             ),
-            acquisitionYear: acquisitionYear,
+            acquisitionYear: acquisitionYear as? String,
             gameCondition: gameCondition,
             gameCompleteness: gameCompleteness,
             gameRegion: gameRegion,
