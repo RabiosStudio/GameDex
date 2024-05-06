@@ -289,15 +289,39 @@ class ContainerViewController: UIViewController {
     @objc private func handleKeyboardAnimation(notification: NSNotification) {
         guard let userInfo = notification.userInfo,
               let duration = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double,
-              let curve = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? NSNumber else { return }
+              let curve = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? NSNumber,
+              let keyboardFrame = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue
+        else { return }
+        
+        switch notification.name {
+        case UIResponder.keyboardWillShowNotification:
+            self.setupStackViewBottomConstraintForKeyboardAnimation(
+                keyboardSize: keyboardFrame.size.height
+            )
+        case UIResponder.keyboardWillHideNotification:
+            self.setupStackViewBottomConstraintForKeyboardAnimation(
+                keyboardSize: .zero
+            )
+        default:
+            break
+        }
+        
         let animationOption = UIView.AnimationOptions(rawValue: curve.uintValue)
         UIView.animate(
             withDuration: duration,
             delay: .zero,
             options: animationOption,
             animations: {
-                self.view.layoutIfNeeded()
+                self.setupStackViewConstraints()
             }
+        )
+    }
+    
+    private func setupStackViewBottomConstraintForKeyboardAnimation(keyboardSize: CGFloat) {
+        NSLayoutConstraint.deactivate([self.stackViewBottomConstraint])
+        self.stackViewBottomConstraint = self.stackView.bottomAnchor.constraint(
+            equalTo: self.view.bottomAnchor,
+            constant: -keyboardSize
         )
     }
     
