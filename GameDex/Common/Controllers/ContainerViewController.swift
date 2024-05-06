@@ -144,6 +144,7 @@ class ContainerViewController: UIViewController {
                     } else {
                         strongSelf.refresh()
                     }
+                    strongSelf.makeSearchBarFirstResponderIfNeeded()
                     strongSelf.refreshControl.endRefreshing()
                 }
             }
@@ -254,11 +255,15 @@ class ContainerViewController: UIViewController {
             self.title = self.viewModel.screenTitle
             return
         }
-        DispatchQueue.main.async {
-            self.searchBar.becomeFirstResponder()
-        }
         self.searchBar.placeholder = searchVM.placeholder
         self.navigationItem.titleView = self.searchBar
+    }
+    
+    private func makeSearchBarFirstResponderIfNeeded() {
+        if let searchViewModel = self.viewModel.searchViewModel,
+           searchViewModel.activateOnTap == false {
+            self.searchBar.becomeFirstResponder()
+        }
     }
     
     private func handleShowSearchBarOnTap() {
