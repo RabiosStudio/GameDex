@@ -22,5 +22,10 @@
         <attribute name="imageUrl" optional="YES" attributeType="String"/>
         <attribute name="title" optional="YES" attributeType="String"/>
         <relationship name="games" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="GameCollected" inverseName="platform" inverseEntity="GameCollected"/>
+        <relationship name="supportedNames" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="PlatformSupportedNames" inverseName="platform" inverseEntity="PlatformSupportedNames"/>
+    </entity>
+    <entity name="PlatformSupportedNames" representedClassName=".PlatformSupportedNames" syncable="YES">
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <relationship name="platform" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="PlatformCollected" inverseName="supportedNames" inverseEntity="PlatformCollected"/>
     </entity>
 </model>

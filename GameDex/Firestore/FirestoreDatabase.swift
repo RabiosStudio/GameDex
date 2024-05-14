@@ -25,7 +25,8 @@ class FirestoreDatabase: CloudDatabase {
             for item in fetchedPlatforms {
                 guard let id = item.data[Attributes.id.rawValue] as? Int,
                       let imageUrl = item.data[Attributes.imageUrl.rawValue] as? String,
-                      let hasPhysicalGames = item.data[Attributes.physical.rawValue] as? Bool else {
+                      let hasPhysicalGames = item.data[Attributes.physical.rawValue] as? Bool,
+                      let supportedNames = item.data[Attributes.supportedNames.rawValue] as? [String] else {
                     return .failure(DatabaseError.fetchError)
                 }
                 
@@ -34,7 +35,8 @@ class FirestoreDatabase: CloudDatabase {
                         title: item.id,
                         id: id,
                         imageUrl: imageUrl,
-                        games: nil
+                        games: nil, 
+                        supportedNames: supportedNames
                     )
                     platforms.append(platform)
                 }
@@ -60,7 +62,8 @@ class FirestoreDatabase: CloudDatabase {
                 title: platform.title,
                 id: platform.id,
                 imageUrl: platform.imageUrl,
-                games: savedGames
+                games: savedGames, 
+                supportedNames: platform.supportedNames
             )
             return .success(platform)
         case .failure(let error):
@@ -76,7 +79,8 @@ class FirestoreDatabase: CloudDatabase {
             for item in fetchedPlatforms {
                 guard let title = item.data[Attributes.title.rawValue] as? String,
                       let imageUrl = item.data[Attributes.imageUrl.rawValue] as? String,
-                      let platformId = Int(item.id) else {
+                      let platformId = Int(item.id),
+                      let supportedNames = item.data[Attributes.supportedNames.rawValue] as? [String] else {
                     return .failure(DatabaseError.fetchError)
                 }
                 
@@ -84,7 +88,8 @@ class FirestoreDatabase: CloudDatabase {
                     title: title,
                     id: platformId,
                     imageUrl: imageUrl,
-                    games: nil
+                    games: nil, 
+                    supportedNames: supportedNames
                 )
                 
                 let fetchSinglePlatformResult = await self.getSinglePlatformCollection(userId: userId, platform: platform)
@@ -183,7 +188,8 @@ class FirestoreDatabase: CloudDatabase {
     func savePlatform(userId: String, platform: Platform) async -> DatabaseError? {
         let platformData = FirestoreData(id: "\(platform.id)", data: [
             Attributes.title.rawValue: platform.title,
-            Attributes.imageUrl.rawValue: platform.imageUrl
+            Attributes.imageUrl.rawValue: platform.imageUrl,
+            Attributes.supportedNames.rawValue: platform.supportedNames
         ])
         guard await self.firestoreSession.setData(path: Collections.userPlatforms(userId).path, firestoreData: platformData) == nil else {
             return DatabaseError.saveError
@@ -301,7 +307,8 @@ class FirestoreDatabase: CloudDatabase {
                     title: platformResult.title,
                     id: platformResult.id,
                     imageUrl: platformResult.imageUrl,
-                    games: nil
+                    games: nil, 
+                    supportedNames: platformResult.supportedNames
                 )
                 guard let games = platformResult.games else {
                     return DatabaseError.removeError
@@ -427,6 +434,6 @@ private extension FirestoreDatabase {
     }
     
     enum Attributes: String {
-        case acquisitionYear, description, email, gameCompleteness, gameCondition, gameRegion, id, image, imageUrl, key, lastUpdated, notes, physical, platform, rating, releaseDate, storageArea, title, isPhysical
+        case acquisitionYear, description, email, gameCompleteness, gameCondition, gameRegion, id, image, imageUrl, key, lastUpdated, notes, physical, platform, rating, releaseDate, storageArea, title, isPhysical, supportedNames
     }
 }

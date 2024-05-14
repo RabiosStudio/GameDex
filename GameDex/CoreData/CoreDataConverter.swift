@@ -28,6 +28,7 @@ enum CoreDataConverter {
         }
         
         platformCollected.games = NSSet(array: gamesCollected)
+        platformCollected.supportedNames = NSSet(array: platform.supportedNames)
         return platformCollected
     }
     
@@ -90,11 +91,18 @@ enum CoreDataConverter {
                 isPhysical: aGame.isPhysical
             )
         }
+        
+        var supportedNames = [String]()
+        for item in platformCollected.supportedNamesArray {
+            supportedNames.append(item.name)
+        }
+        
         let platform = Platform(
             title: platformCollected.title,
             id: Int(platformCollected.id), 
             imageUrl: platformCollected.imageUrl,
-            games: savedGames
+            games: savedGames, 
+            supportedNames: supportedNames
         )
         return platform
     }
