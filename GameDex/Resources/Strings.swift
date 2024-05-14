@@ -82,6 +82,8 @@ internal enum L10n {
   internal static let errorLogOutDescription = L10n.tr("Localizable", "errorLogOutDescription", fallback: "An error occured while logging out.")
   /// Error sending password reset email. Please check your email address.
   internal static let errorSendingPasswordResetEmail = L10n.tr("Localizable", "errorSendingPasswordResetEmail", fallback: "Error sending password reset email. Please check your email address.")
+  /// An error while synchronizing your collection in local. Your database might not be up to date until your next login session.
+  internal static let errorSyncCloudAndLocalDatabases = L10n.tr("Localizable", "errorSyncCloudAndLocalDatabases", fallback: "An error while synchronizing your collection in local. Your database might not be up to date until your next login session.")
   /// Error
   internal static let errorTitle = L10n.tr("Localizable", "errorTitle", fallback: "Error")
   /// An error occured while fetching data.

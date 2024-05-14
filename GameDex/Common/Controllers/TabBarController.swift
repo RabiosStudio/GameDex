@@ -19,7 +19,9 @@ class TabBarController: UITabBarController {
             viewModel: MyProfileViewModel(
                 authenticationService: AuthenticationServiceImpl(),
                 alertDisplayer: AlertDisplayerImpl(),
-                myCollectionDelegate: vm1
+                myCollectionDelegate: vm1,
+                cloudDatabase: FirestoreDatabase(),
+                localDatabase: LocalDatabaseImpl()
             )
         )
         

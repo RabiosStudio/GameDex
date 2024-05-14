@@ -22,6 +22,7 @@
 "errorEmailAppDescription" = "Votre application mail n'a pas été détectée. Vous pouvez nous contacter à l'adresse suivante : ";
 "errorCredentialsDescription" = "La vérification des informations d'identification a échouée.";
 "errorSendingPasswordResetEmail" = "Erreur lors de l'envoi du mail de réinitialisation du mot de passe. Veuillez vérifier votre adresse mail.";
+"errorSyncCloudAndLocalDatabases" = "Une erreur est survenur lors de la synchronisation de votre collection en sur votre appareil. Votre connexion pourrait ne pas être à jour jusqu'à votre prochaine connexion.";
 
 // Success
 "successTitle" = "Succès";

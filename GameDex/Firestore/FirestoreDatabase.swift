@@ -335,7 +335,8 @@ extension FirestoreDatabase {
             Attributes.rating.rawValue: game.rating as Any,
             Attributes.notes.rawValue: game.notes as Any,
             Attributes.lastUpdated.rawValue: game.lastUpdated,
-            Attributes.acquisitionYear.rawValue: game.acquisitionYear as Any
+            Attributes.acquisitionYear.rawValue: game.acquisitionYear as Any,
+            Attributes.isPhysical.rawValue: game.isPhysical as Bool
         ]
         return FirestoreData(id: game.game.id, data: gameData)
     }

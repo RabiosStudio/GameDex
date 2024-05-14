@@ -25,13 +25,19 @@ final class MyProfileViewModel: CollectionViewModel {
     
     private let authenticationService: AuthenticationService
     private var alertDisplayer: AlertDisplayer
+    private let cloudDatabase: CloudDatabase
+    private let localDatabase: LocalDatabase
     
     init(
         authenticationService: AuthenticationService,
         alertDisplayer: AlertDisplayer,
-        myCollectionDelegate: MyCollectionViewModelDelegate?
+        myCollectionDelegate: MyCollectionViewModelDelegate?,
+        cloudDatabase: CloudDatabase,
+        localDatabase: LocalDatabase
     ) {
         self.authenticationService = authenticationService
+        self.cloudDatabase = cloudDatabase
+        self.localDatabase = localDatabase
         self.alertDisplayer = alertDisplayer
         self.alertDisplayer.alertDelegate = self
         self.myCollectionDelegate = myCollectionDelegate
@@ -51,7 +57,7 @@ final class MyProfileViewModel: CollectionViewModel {
         callback(nil)
     }
     
-    private func displayAlert(success: Bool) {
+    private func displayLogOutAlert(success: Bool) {
         self.alertDisplayer.presentTopFloatAlert(
             parameters: AlertViewModel(
                 alertType: success ? .success : .error,
@@ -59,15 +65,32 @@ final class MyProfileViewModel: CollectionViewModel {
             )
         )
     }
+    
+    private func displaySyncDataError() {
+        self.alertDisplayer.presentTopFloatAlert(
+            parameters: AlertViewModel(
+                alertType: .error,
+                description: L10n.errorSyncCloudAndLocalDatabases
+            )
+        )
+    }
 }
 
 extension MyProfileViewModel: AlertDisplayerDelegate {
     func didTapOkButton() async {
+        if let userID = self.authenticationService.getUserId(),
+           let _ = await self.cloudDatabase.syncLocalAndCloudDatabases(
+            userId: userID,
+            localDatabase: self.localDatabase
+           ) {
+            self.displaySyncDataError()
+        }
+        
         guard await self.authenticationService.logout() == nil else {
-            self.displayAlert(success: false)
+            self.displayLogOutAlert(success: false)
             return
         }
-        self.displayAlert(success: true)
+        self.displayLogOutAlert(success: true)
         await self.myCollectionDelegate?.reloadCollection()
         self.containerDelegate?.reloadSections()
     }
