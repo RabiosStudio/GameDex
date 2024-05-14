@@ -19,6 +19,7 @@ disabled_rules:
     - function_body_length
     - class_delegate_protocol
     - for_where
+    - unused_optional_binding
 
 line_length: 200
 

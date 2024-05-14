@@ -163,9 +163,20 @@ extension MyCollectionViewModel: SearchViewModelDelegate {
         }
         self.rightButtonItems = []
         self.containerDelegate?.reloadNavBar()
-        let matchingCollections = self.platforms.filter({
-            $0.title.localizedCaseInsensitiveContains(text)
-        })
+        
+        var matchingCollections = [Platform]()
+        
+        for platform in self.platforms {
+            guard let _ = platform.supportedNames.first(where: { name in
+                name.removeWhiteSpaces().lowercased().contains(
+                    text.removeWhiteSpaces().lowercased()
+                )
+            }) else {
+                continue
+            }
+            matchingCollections.append(platform)
+        }
+        
         self.updateListOfCollections(with: matchingCollections)
         
         if matchingCollections.isEmpty {
