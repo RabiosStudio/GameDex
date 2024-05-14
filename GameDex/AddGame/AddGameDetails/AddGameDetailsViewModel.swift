@@ -152,7 +152,8 @@ private extension AddGameDetailsViewModel {
             storageArea: storageArea,
             rating: rating,
             notes: notes,
-            lastUpdated: Date()
+            lastUpdated: Date(), 
+            isPhysical: true // TODO: Update after adding selector to define if game is digital or physical
         )
     }
     

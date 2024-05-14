@@ -223,7 +223,8 @@ private extension EditGameDetailsViewModel {
             storageArea: storageArea,
             rating: rating,
             notes: notes,
-            lastUpdated: Date()
+            lastUpdated: Date(), 
+            isPhysical: true
         )
     }
     

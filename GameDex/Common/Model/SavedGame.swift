@@ -17,6 +17,7 @@ struct SavedGame {
     let rating: Int?
     let notes: String?
     let lastUpdated: Date
+    let isPhysical: Bool
 }
 
 extension SavedGame: Equatable {

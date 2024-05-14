@@ -86,7 +86,8 @@ enum CoreDataConverter {
                 storageArea: aGame.storageArea,
                 rating: Int(aGame.rating),
                 notes: aGame.notes,
-                lastUpdated: aGame.lastUpdated
+                lastUpdated: aGame.lastUpdated, 
+                isPhysical: aGame.isPhysical
             )
         }
         let platform = Platform(

@@ -350,7 +350,8 @@ extension FirestoreDatabase {
               let notes = firestoreData.data[Attributes.notes.rawValue],
               let storageArea = firestoreData.data[Attributes.storageArea.rawValue],
               let acquisitionYear = firestoreData.data[Attributes.acquisitionYear.rawValue],
-              let rating = firestoreData.data[Attributes.rating.rawValue] as? Int else {
+              let rating = firestoreData.data[Attributes.rating.rawValue] as? Int,
+              let isPhysical = firestoreData.data[Attributes.isPhysical.rawValue] as? Bool else {
             return nil
         }
         
@@ -387,7 +388,8 @@ extension FirestoreDatabase {
             storageArea: storageArea as? String,
             rating: rating,
             notes: notes as? String,
-            lastUpdated: lastUpdatedDate
+            lastUpdated: lastUpdatedDate, 
+            isPhysical: isPhysical
         )
     }
 }
@@ -424,6 +426,6 @@ private extension FirestoreDatabase {
     }
     
     enum Attributes: String {
-        case acquisitionYear, description, email, gameCompleteness, gameCondition, gameRegion, id, image, imageUrl, key, lastUpdated, notes, physical, platform, rating, releaseDate, storageArea, title
+        case acquisitionYear, description, email, gameCompleteness, gameCondition, gameRegion, id, image, imageUrl, key, lastUpdated, notes, physical, platform, rating, releaseDate, storageArea, title, isPhysical
     }
 }
