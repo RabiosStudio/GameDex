@@ -15,7 +15,9 @@ final class MyProfileViewModelTests: XCTestCase {
         let viewModel = MyProfileViewModel(
             authenticationService: AuthenticationServiceMock(),
             alertDisplayer: AlertDisplayerMock(),
-            myCollectionDelegate: MyCollectionViewModelDelegateMock()
+            myCollectionDelegate: MyCollectionViewModelDelegateMock(),
+            cloudDatabase: CloudDatabaseMock(),
+            localDatabase: LocalDatabaseMock()
         )
         
         // Then
@@ -29,7 +31,9 @@ final class MyProfileViewModelTests: XCTestCase {
         let viewModel = MyProfileViewModel(
             authenticationService: authenticationService,
             alertDisplayer: AlertDisplayerMock(),
-            myCollectionDelegate: MyCollectionViewModelDelegateMock()
+            myCollectionDelegate: MyCollectionViewModelDelegateMock(),
+            cloudDatabase: CloudDatabaseMock(),
+            localDatabase: LocalDatabaseMock()
         )
         
         authenticationService.given(
@@ -51,7 +55,9 @@ final class MyProfileViewModelTests: XCTestCase {
         let viewModel = MyProfileViewModel(
             authenticationService: authenticationService,
             alertDisplayer: alertDisplayer,
-            myCollectionDelegate: MyCollectionViewModelDelegateMock()
+            myCollectionDelegate: MyCollectionViewModelDelegateMock(),
+            cloudDatabase: CloudDatabaseMock(),
+            localDatabase: LocalDatabaseMock()
         )
         authenticationService.given(
             .isUserLoggedIn(
@@ -71,7 +77,9 @@ final class MyProfileViewModelTests: XCTestCase {
         let viewModel = MyProfileViewModel(
             authenticationService: AuthenticationServiceMock(),
             alertDisplayer: AlertDisplayerMock(),
-            myCollectionDelegate: MyCollectionViewModelDelegateMock()
+            myCollectionDelegate: MyCollectionViewModelDelegateMock(),
+            cloudDatabase: CloudDatabaseMock(),
+            localDatabase: LocalDatabaseMock()
         )
         
         let containerDelegate = ContainerViewControllerDelegateMock()
@@ -90,7 +98,9 @@ final class MyProfileViewModelTests: XCTestCase {
         let viewModel = MyProfileViewModel(
             authenticationService: authenticationService,
             alertDisplayer: alertDisplayer,
-            myCollectionDelegate: MyCollectionViewModelDelegateMock()
+            myCollectionDelegate: MyCollectionViewModelDelegateMock(),
+            cloudDatabase: CloudDatabaseMock(),
+            localDatabase: LocalDatabaseMock()
         )
         let containerDelegate = ContainerViewControllerDelegateMock()
         viewModel.containerDelegate = containerDelegate
@@ -121,7 +131,9 @@ final class MyProfileViewModelTests: XCTestCase {
         let viewModel = MyProfileViewModel(
             authenticationService: authenticationService,
             alertDisplayer: alertDisplayer,
-            myCollectionDelegate: MyCollectionViewModelDelegateMock()
+            myCollectionDelegate: MyCollectionViewModelDelegateMock(),
+            cloudDatabase: CloudDatabaseMock(),
+            localDatabase: LocalDatabaseMock()
         )
         let containerDelegate = ContainerViewControllerDelegateMock()
         viewModel.containerDelegate = containerDelegate

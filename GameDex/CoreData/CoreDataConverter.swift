@@ -27,8 +27,14 @@ enum CoreDataConverter {
             return gameCollected
         }
         
+        let supportedNames = platform.supportedNames.map { aName in
+            var supportedName = PlatformSupportedNames(context: context)
+            supportedName.name = aName
+            return supportedName
+        }
+        
+        platformCollected.supportedNames = NSSet(array: supportedNames)
         platformCollected.games = NSSet(array: gamesCollected)
-        platformCollected.supportedNames = NSSet(array: platform.supportedNames)
         return platformCollected
     }
     
