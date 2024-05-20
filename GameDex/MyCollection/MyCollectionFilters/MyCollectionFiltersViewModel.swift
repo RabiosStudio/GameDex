@@ -90,7 +90,6 @@ extension MyCollectionFiltersViewModel: EditFormDelegate {
 }
 
 // MARK: - PrimaryButtonDelegate
-
 extension MyCollectionFiltersViewModel: PrimaryButtonDelegate {
     func didTapPrimaryButton(with title: String?) async {
         self.close()
