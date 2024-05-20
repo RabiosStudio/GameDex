@@ -16,7 +16,7 @@ final class MyCollectionByPlatformsViewModel: ConnectivityDisplayerViewModel {
     )
     var isBounceable: Bool = true
     var progress: Float?
-    var rightButtonItems: [AnyBarButtonItem]? = [.add]
+    var rightButtonItems: [AnyBarButtonItem]? = [.filter, .add]
     let screenTitle: String?
     var sections = [Section]()
     var layoutMargins: UIEdgeInsets? = UIEdgeInsets(
@@ -76,6 +76,8 @@ final class MyCollectionByPlatformsViewModel: ConnectivityDisplayerViewModel {
         switch buttonItem {
         case .add:
             self.startSearchingForGames()
+        case .filter:
+            self.openFilters()
         default:
             break
         }
@@ -96,6 +98,10 @@ final class MyCollectionByPlatformsViewModel: ConnectivityDisplayerViewModel {
                 completionBlock: nil
             )
         )
+    }
+    
+    private func openFilters() {
+        print("filter tapped")
     }
     
     private func updateListOfGames(with list: [SavedGame]) {
@@ -195,7 +201,7 @@ extension MyCollectionByPlatformsViewModel: SearchViewModelDelegate {
             return
         }
         self.updateListOfGames(with: games)
-        self.rightButtonItems = [.add]
+        self.rightButtonItems = [.filter, .add]
         callback(nil)
     }
     

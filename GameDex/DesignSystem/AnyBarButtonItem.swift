@@ -13,6 +13,7 @@ enum AnyBarButtonItem {
     case add
     case delete
     case search
+    case filter
     
     func image() -> UIImage {
         switch self {
@@ -24,6 +25,8 @@ enum AnyBarButtonItem {
             return UIImage(systemName: "trash")!
         case .search:
             return UIImage(systemName: "magnifyingglass")!
+        case .filter:
+            return UIImage(systemName: "line.3.horizontal.decrease")!
         }
     }
 }
