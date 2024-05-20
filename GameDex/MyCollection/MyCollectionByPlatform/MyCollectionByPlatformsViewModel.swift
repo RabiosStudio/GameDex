@@ -101,7 +101,12 @@ final class MyCollectionByPlatformsViewModel: ConnectivityDisplayerViewModel {
     }
     
     private func openFilters() {
-        print("filter tapped")
+        Routing.shared.route(
+            navigationStyle: .present(
+                screenFactory: MyCollectionFiltersScreenFactory(),
+                completionBlock: nil
+            )
+        )
     }
     
     private func updateListOfGames(with list: [SavedGame]) {
