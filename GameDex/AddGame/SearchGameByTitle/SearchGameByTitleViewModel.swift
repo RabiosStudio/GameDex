@@ -57,7 +57,12 @@ final class SearchGameByTitleViewModel: CollectionViewModel {
     }
     
     func didTap(buttonItem: AnyBarButtonItem) {
-        self.close()
+        switch buttonItem {
+        case .close:
+            self.close()
+        default:
+            break
+        }
     }
     
     private func close() {
