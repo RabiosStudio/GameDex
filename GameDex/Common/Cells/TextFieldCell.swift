@@ -14,6 +14,7 @@ final class TextFieldCell: UICollectionViewCell, CellConfigurable {
     private lazy var textField: DTTextField = {
         let textField = DTTextField()
         textField.configure()
+        textField.clearButtonMode = .always
         textField.delegate = self
         textField.translatesAutoresizingMaskIntoConstraints = false
         return textField
