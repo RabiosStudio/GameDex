@@ -204,7 +204,6 @@ extension MyCollectionByPlatformsViewModel: SearchViewModelDelegate {
             callback(nil)
             return
         }
-        self.rightButtonItems = []
         self.containerDelegate?.reloadNavBar()
         let matchingGames = games.filter({
             $0.game.title.localizedCaseInsensitiveContains(text)
