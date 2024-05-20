@@ -24,7 +24,7 @@ final class EditGameDetailsSection: Section {
         
         let yearOfAcquisitionCellVM = TextFieldCellViewModel(
             placeholder: L10n.yearOfAcquisition,
-            formType: GameFormType.yearOfAcquisition,
+            formType: GameFormType.yearOfAcquisition(nil),
             value: savedGame.acquisitionYear,
             editDelegate: editDelegate
         )
@@ -78,7 +78,7 @@ final class EditGameDetailsSection: Section {
         
         let storageAreaCellVM = TextFieldCellViewModel(
             placeholder: L10n.storageArea,
-            formType: GameFormType.storageArea,
+            formType: GameFormType.storageArea(nil),
             value: savedGame.storageArea,
             editDelegate: editDelegate
         )

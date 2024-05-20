@@ -101,9 +101,12 @@ final class MyCollectionByPlatformsViewModel: ConnectivityDisplayerViewModel {
     }
     
     private func openFilters() {
+        guard let games = platform?.games else {
+            return
+        }
         Routing.shared.route(
             navigationStyle: .present(
-                screenFactory: MyCollectionFiltersScreenFactory(),
+                screenFactory: MyCollectionFiltersScreenFactory(games: games),
                 completionBlock: nil
             )
         )

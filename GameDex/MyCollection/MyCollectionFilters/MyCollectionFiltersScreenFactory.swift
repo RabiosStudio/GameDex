@@ -9,13 +9,20 @@ import Foundation
 import UIKit
 
 struct MyCollectionFiltersScreenFactory: ScreenFactory {
+    
+    private let games: [SavedGame]
+    
     var viewController: UIViewController {
-        let viewModel = MyCollectionFiltersViewModel()
+        let viewModel = MyCollectionFiltersViewModel(games: self.games)
         let layout = UICollectionViewFlowLayout()
         let containerController = ContainerViewController(
             viewModel: viewModel,
             layout: layout
         )
         return containerController
+    }
+    
+    init(games: [SavedGame]) {
+        self.games = games
     }
 }

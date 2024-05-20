@@ -19,10 +19,17 @@ final class MyCollectionFiltersViewModel: CollectionViewModel {
     
     weak var containerDelegate: ContainerViewControllerDelegate?
     
-    init() {}
+    private let games: [SavedGame]
+    
+    init(games: [SavedGame]) {
+        self.games = games
+    }
     
     func loadData(callback: @escaping (EmptyError?) -> ()) {
-        self.sections = [MyCollectionFiltersSection(editDelegate: self)]
+        self.sections = [MyCollectionFiltersSection(
+            games: self.games,
+            editDelegate: self
+        )]
         callback(nil)
     }
     

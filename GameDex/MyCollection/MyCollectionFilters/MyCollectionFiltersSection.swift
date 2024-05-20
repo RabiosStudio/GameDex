@@ -9,13 +9,24 @@ import Foundation
 
 final class MyCollectionFiltersSection: Section {
     
-    init(editDelegate: EditFormDelegate) {
+    init(games: [SavedGame], editDelegate: EditFormDelegate) {
         super.init()
         self.position = 0
         
+        let acquisitionYearArray = Array(
+            Set(
+                games.compactMap { aGame in
+                    return aGame.acquisitionYear
+                }
+            )
+        )
         let yearOfAcquisitionCellVM = TextFieldCellViewModel(
             placeholder: L10n.yearOfAcquisition,
-            formType: GameFormType.yearOfAcquisition,
+            formType: GameFormType.yearOfAcquisition(
+                PickerViewModel(
+                    data: [acquisitionYearArray]
+                )
+            ),
             value: nil,
             editDelegate: editDelegate
         )
@@ -67,9 +78,20 @@ final class MyCollectionFiltersSection: Section {
         )
         self.cellsVM.append(regionCellVM)
         
+        let storageAreaArray = Array(
+            Set(
+                games.compactMap { aGame in
+                    return aGame.storageArea
+                }
+            )
+        )
         let storageAreaCellVM = TextFieldCellViewModel(
             placeholder: L10n.storageArea,
-            formType: GameFormType.storageArea,
+            formType: GameFormType.storageArea(
+                PickerViewModel(
+                    data: [storageAreaArray]
+                )
+            ),
             value: nil,
             editDelegate: editDelegate
         )
