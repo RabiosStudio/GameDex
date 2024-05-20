@@ -12,6 +12,7 @@ struct Platform {
     let id: Int
     let imageUrl: String
     let games: [SavedGame]?
+    let supportedNames: [String]
 }
 
 extension Platform: Equatable {

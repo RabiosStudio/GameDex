@@ -19,8 +19,9 @@ disabled_rules:
     - function_body_length
     - class_delegate_protocol
     - for_where
+    - unused_optional_binding
 
-line_length: 200
+line_length: 250
 
 function_parameter_count: 4
 cyclomatic_complexity: 15

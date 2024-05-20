@@ -39,9 +39,9 @@ final class EditGameDetailsViewModel: CollectionViewModel {
         self.savedGame = savedGame
         self.savedValues = [
             self.savedGame.acquisitionYear,
-            self.savedGame.gameCondition,
-            self.savedGame.gameCompleteness,
-            self.savedGame.gameRegion,
+            self.savedGame.gameCondition?.value,
+            self.savedGame.gameCompleteness?.value,
+            self.savedGame.gameRegion?.value,
             self.savedGame.storageArea,
             self.savedGame.rating,
             self.savedGame.notes
@@ -87,8 +87,8 @@ extension EditGameDetailsViewModel: EditFormDelegate {
     func enableSaveButtonIfNeeded() {
         guard let firstSection = self.sections.first,
               let formCellsVM = firstSection.cellsVM.filter({ cellVM in
-                  return cellVM is (any CollectionFormCellViewModel)
-              }) as? [any CollectionFormCellViewModel] else {
+                  return cellVM is (any FormCellViewModel)
+              }) as? [any FormCellViewModel] else {
             return
         }
         
@@ -171,13 +171,16 @@ private extension EditGameDetailsViewModel {
     func getGameToSave() -> SavedGame? {
         guard let firstSection = self.sections.first,
               let formCellsVM = firstSection.cellsVM.filter({ cellVM in
-                  return cellVM is (any CollectionFormCellViewModel)
-              }) as? [any CollectionFormCellViewModel] else {
+                  return cellVM is (any FormCellViewModel)
+              }) as? [any FormCellViewModel] else {
             return nil
         }
         
-        var acquisitionYear, gameCondition, gameCompleteness, gameRegion, storageArea, notes: String?
+        var acquisitionYear, storageArea, notes: String?
         var rating: Int?
+        var gameCondition: GameCondition?
+        var gameCompleteness: GameCompleteness?
+        var gameRegion: GameRegion?
         
         for formCellVM in formCellsVM {
             guard let formType = formCellVM.formType as? GameFormType else { return nil }
@@ -185,11 +188,23 @@ private extension EditGameDetailsViewModel {
             case .yearOfAcquisition:
                 acquisitionYear = formCellVM.value as? String
             case .gameCondition(_):
-                gameCondition = formCellVM.value as? String
+                if let conditionText = formCellVM.value as? String {
+                    gameCondition = GameCondition.getRawValue(
+                        value: conditionText
+                    )
+                }
             case .gameCompleteness(_):
-                gameCompleteness = formCellVM.value as? String
+                if let completenessText = formCellVM.value as? String {
+                    gameCompleteness = GameCompleteness.getRawValue(
+                        value: completenessText
+                    )
+                }
             case .gameRegion(_):
-                gameRegion = formCellVM.value as? String
+                if let regionText = formCellVM.value as? String {
+                    gameRegion = GameRegion.getRawValue(
+                        value: regionText
+                    )
+                }
             case .storageArea:
                 storageArea = formCellVM.value as? String
             case .rating:
@@ -208,7 +223,8 @@ private extension EditGameDetailsViewModel {
             storageArea: storageArea,
             rating: rating,
             notes: notes,
-            lastUpdated: Date()
+            lastUpdated: Date(), 
+            isPhysical: true
         )
     }
     
@@ -237,6 +253,7 @@ private extension EditGameDetailsViewModel {
         )
         self.configureBottomView(shouldEnableButton: false)
         await self.myCollectionDelegate?.reloadCollection()
+        self.containerDelegate?.goBackToRootViewController()
     }
     
     func handleEditGameFailure(error: DatabaseError) async {

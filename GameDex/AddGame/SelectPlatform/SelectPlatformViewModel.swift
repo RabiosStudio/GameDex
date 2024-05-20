@@ -93,9 +93,20 @@ extension SelectPlatformViewModel: SearchViewModelDelegate {
             callback(nil)
             return
         }
-        let matchingPlatforms = self.platforms.filter({
-            $0.title.localizedCaseInsensitiveContains(text)
-        })
+        
+        var matchingPlatforms = [Platform]()
+        
+        for platform in self.platforms {
+            guard let _ = platform.supportedNames.first(where: { name in
+                name.removeWhiteSpaces().lowercased().contains(
+                    text.removeWhiteSpaces().lowercased()
+                )
+            }) else {
+                continue
+            }
+            matchingPlatforms.append(platform)
+        }
+        
         self.updateListOfPlatforms(with: matchingPlatforms)
         
         if matchingPlatforms.isEmpty {

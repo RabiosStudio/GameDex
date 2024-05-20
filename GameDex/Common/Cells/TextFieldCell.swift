@@ -123,11 +123,25 @@ extension TextFieldCell: UITextFieldDelegate {
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
         guard let data = self.pickerData,
-              let firstValue = data.first?.first else {
+              let text = textField.text else {
             return
         }
-        self.storeEntry(cellViewModel: self.cellVM, with: firstValue)
-        textField.text = firstValue
+        var componentIndex: Int = .zero
+        var rowIndex: Int = .zero
+        for (componentIndexTemp, componentArray) in data.enumerated() {
+            if let rowIndexTemp = componentArray.firstIndex(of: text) {
+                rowIndex = rowIndexTemp
+                componentIndex = componentIndexTemp
+            }
+        }
+        self.pickerView.selectRow(
+            rowIndex,
+            inComponent: componentIndex,
+            animated: true
+        )
+        let currentText = data[componentIndex][rowIndex]
+        self.storeEntry(cellViewModel: self.cellVM, with: currentText)
+        textField.text = currentText
     }
 }
 

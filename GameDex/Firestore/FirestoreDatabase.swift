@@ -25,7 +25,8 @@ class FirestoreDatabase: CloudDatabase {
             for item in fetchedPlatforms {
                 guard let id = item.data[Attributes.id.rawValue] as? Int,
                       let imageUrl = item.data[Attributes.imageUrl.rawValue] as? String,
-                      let hasPhysicalGames = item.data[Attributes.physical.rawValue] as? Bool else {
+                      let hasPhysicalGames = item.data[Attributes.physical.rawValue] as? Bool,
+                      let supportedNames = item.data[Attributes.supportedNames.rawValue] as? [String] else {
                     return .failure(DatabaseError.fetchError)
                 }
                 
@@ -34,7 +35,8 @@ class FirestoreDatabase: CloudDatabase {
                         title: item.id,
                         id: id,
                         imageUrl: imageUrl,
-                        games: nil
+                        games: nil, 
+                        supportedNames: supportedNames
                     )
                     platforms.append(platform)
                 }
@@ -60,7 +62,8 @@ class FirestoreDatabase: CloudDatabase {
                 title: platform.title,
                 id: platform.id,
                 imageUrl: platform.imageUrl,
-                games: savedGames
+                games: savedGames, 
+                supportedNames: platform.supportedNames
             )
             return .success(platform)
         case .failure(let error):
@@ -76,7 +79,8 @@ class FirestoreDatabase: CloudDatabase {
             for item in fetchedPlatforms {
                 guard let title = item.data[Attributes.title.rawValue] as? String,
                       let imageUrl = item.data[Attributes.imageUrl.rawValue] as? String,
-                      let platformId = Int(item.id) else {
+                      let platformId = Int(item.id),
+                      let supportedNames = item.data[Attributes.supportedNames.rawValue] as? [String] else {
                     return .failure(DatabaseError.fetchError)
                 }
                 
@@ -84,7 +88,8 @@ class FirestoreDatabase: CloudDatabase {
                     title: title,
                     id: platformId,
                     imageUrl: imageUrl,
-                    games: nil
+                    games: nil, 
+                    supportedNames: supportedNames
                 )
                 
                 let fetchSinglePlatformResult = await self.getSinglePlatformCollection(userId: userId, platform: platform)
@@ -183,7 +188,8 @@ class FirestoreDatabase: CloudDatabase {
     func savePlatform(userId: String, platform: Platform) async -> DatabaseError? {
         let platformData = FirestoreData(id: "\(platform.id)", data: [
             Attributes.title.rawValue: platform.title,
-            Attributes.imageUrl.rawValue: platform.imageUrl
+            Attributes.imageUrl.rawValue: platform.imageUrl,
+            Attributes.supportedNames.rawValue: platform.supportedNames
         ])
         guard await self.firestoreSession.setData(path: Collections.userPlatforms(userId).path, firestoreData: platformData) == nil else {
             return DatabaseError.saveError
@@ -301,7 +307,8 @@ class FirestoreDatabase: CloudDatabase {
                     title: platformResult.title,
                     id: platformResult.id,
                     imageUrl: platformResult.imageUrl,
-                    games: nil
+                    games: nil, 
+                    supportedNames: platformResult.supportedNames
                 )
                 guard let games = platformResult.games else {
                     return DatabaseError.removeError
@@ -328,14 +335,15 @@ extension FirestoreDatabase {
             Attributes.imageUrl.rawValue: game.game.imageUrl,
             Attributes.releaseDate.rawValue: game.game.releaseDate as Any,
             Attributes.platform.rawValue: game.game.platformId,
-            Attributes.gameCondition.rawValue: game.gameCondition as Any,
-            Attributes.gameCompleteness.rawValue: game.gameCompleteness as Any,
-            Attributes.gameRegion.rawValue: game.gameRegion as Any,
+            Attributes.gameCondition.rawValue: game.gameCondition?.rawValue as Any,
+            Attributes.gameCompleteness.rawValue: game.gameCompleteness?.rawValue as Any,
+            Attributes.gameRegion.rawValue: game.gameRegion?.rawValue as Any,
             Attributes.storageArea.rawValue: game.storageArea as Any,
             Attributes.rating.rawValue: game.rating as Any,
             Attributes.notes.rawValue: game.notes as Any,
             Attributes.lastUpdated.rawValue: game.lastUpdated,
-            Attributes.acquisitionYear.rawValue: game.acquisitionYear as Any
+            Attributes.acquisitionYear.rawValue: game.acquisitionYear as Any,
+            Attributes.isPhysical.rawValue: game.isPhysical as Bool
         ]
         return FirestoreData(id: game.game.id, data: gameData)
     }
@@ -348,13 +356,26 @@ extension FirestoreDatabase {
               let lastUpdatedTimeStamp = firestoreData.data[Attributes.lastUpdated.rawValue] as? Timestamp,
               let releaseTimeStamp = firestoreData.data[Attributes.releaseDate.rawValue] as? Timestamp,
               let notes = firestoreData.data[Attributes.notes.rawValue],
-              let gameCondition = firestoreData.data[Attributes.gameCondition.rawValue],
-              let gameCompleteness = firestoreData.data[Attributes.gameCompleteness.rawValue],
-              let gameRegion = firestoreData.data[Attributes.gameRegion.rawValue],
               let storageArea = firestoreData.data[Attributes.storageArea.rawValue],
               let acquisitionYear = firestoreData.data[Attributes.acquisitionYear.rawValue],
-              let rating = firestoreData.data[Attributes.rating.rawValue] as? Int else {
+              let rating = firestoreData.data[Attributes.rating.rawValue] as? Int,
+              let isPhysical = firestoreData.data[Attributes.isPhysical.rawValue] as? Bool else {
             return nil
+        }
+        
+        var gameCondition: GameCondition?
+        if let gameConditionText = firestoreData.data[Attributes.gameCondition.rawValue] as? String {
+            gameCondition = GameCondition(rawValue: gameConditionText)
+        }
+        
+        var gameCompleteness: GameCompleteness?
+        if let gameCompletenessText = firestoreData.data[Attributes.gameCompleteness.rawValue] as? String {
+            gameCompleteness = GameCompleteness(rawValue: gameCompletenessText)
+        }
+        
+        var gameRegion: GameRegion?
+        if let gameRegionText = firestoreData.data[Attributes.gameRegion.rawValue] as? String {
+            gameRegion = GameRegion(rawValue: gameRegionText)
         }
         
         let lastUpdatedDate = lastUpdatedTimeStamp.dateValue()
@@ -369,13 +390,14 @@ extension FirestoreDatabase {
                 releaseDate: releasedDate
             ),
             acquisitionYear: acquisitionYear as? String,
-            gameCondition: gameCondition as? String,
-            gameCompleteness: gameCompleteness as? String,
-            gameRegion: gameRegion as? String,
+            gameCondition: gameCondition,
+            gameCompleteness: gameCompleteness,
+            gameRegion: gameRegion,
             storageArea: storageArea as? String,
             rating: rating,
             notes: notes as? String,
-            lastUpdated: lastUpdatedDate
+            lastUpdated: lastUpdatedDate, 
+            isPhysical: isPhysical
         )
     }
 }
@@ -412,6 +434,6 @@ private extension FirestoreDatabase {
     }
     
     enum Attributes: String {
-        case acquisitionYear, description, email, gameCompleteness, gameCondition, gameRegion, id, image, imageUrl, key, lastUpdated, notes, physical, platform, rating, releaseDate, storageArea, title
+        case acquisitionYear, description, email, gameCompleteness, gameCondition, gameRegion, id, image, imageUrl, key, lastUpdated, notes, physical, platform, rating, releaseDate, storageArea, title, isPhysical, supportedNames
     }
 }

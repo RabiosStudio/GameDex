@@ -12,16 +12,16 @@ import FirebaseFirestore
 
 enum MockData {
     static let platforms: [Platform] = [
-        Platform(title: "Atari 2600", id: 28, imageUrl: "imageUrl", games: MockData.savedGames),
-        Platform(title: "Dreamcast", id: 8, imageUrl: "imageUrl", games: MockData.savedGames),
-        Platform(title: "Game Boy Color", id: 11, imageUrl: "imageUrl", games: MockData.savedGames),
-        Platform(title: "Jaguar", id: 17, imageUrl: "imageUrl", games: MockData.savedGames),
-        Platform(title: "SNES", id: 15, imageUrl: "imageUrl", games: MockData.savedGames)
+        Platform(title: "Atari 2600", id: 28, imageUrl: "imageUrl", games: MockData.savedGames, supportedNames: ["Atari 2600"]),
+        Platform(title: "Dreamcast", id: 8, imageUrl: "imageUrl", games: MockData.savedGames, supportedNames: ["Dreamcast"]),
+        Platform(title: "Game Boy Color", id: 11, imageUrl: "imageUrl", games: MockData.savedGames, supportedNames: ["Game Boy Color", "Gameboy Color"]),
+        Platform(title: "Jaguar", id: 17, imageUrl: "imageUrl", games: MockData.savedGames, supportedNames: ["Jaguar"]),
+        Platform(title: "SNES", id: 15, imageUrl: "imageUrl", games: MockData.savedGames, supportedNames: ["SNES", "Super NES", "Super Famicon", "Super Nintendo"])
     ]
     
-    static let platform = Platform(title: "Game Boy Advance", id: 4, imageUrl: "imageUrl", games: MockData.savedGames)
+    static let platform = Platform(title: "Game Boy Advance", id: 4, imageUrl: "imageUrl", games: MockData.savedGames, supportedNames: ["Game Boy Advance", "Gameboy Advance", "GBA"])
     
-    static let platformWithNoGames = Platform(title: "Game Boy Advance", id: 4, imageUrl: "imageUrl", games: nil)
+    static let platformWithNoGames = Platform(title: "Game Boy Advance", id: 4, imageUrl: "imageUrl", games: nil, supportedNames: ["Game Boy Advance", "Gameboy Advance", "GBA"])
     
     static let searchGamesResultEmpty = SearchGamesData(offset: .zero, statusCode: 1, results: [])
     
@@ -153,37 +153,40 @@ enum MockData {
     static let savedGame = SavedGame(
             game: MockData.games[0],
             acquisitionYear: "2005",
-            gameCondition: GameCondition.good.value,
-            gameCompleteness: GameCompleteness.complete.value,
-            gameRegion: GameRegion.pal.rawValue,
+            gameCondition: GameCondition.mint,
+            gameCompleteness: GameCompleteness.complete,
+            gameRegion: GameRegion.pal,
             storageArea: "Living room",
             rating: 5,
             notes: nil,
-            lastUpdated: Date()
+            lastUpdated: Date(),
+            isPhysical: true
         )
     
     static let savedGames = [
         SavedGame(
             game: MockData.games[0],
             acquisitionYear: "2005",
-            gameCondition: GameCondition.good.value,
-            gameCompleteness: GameCompleteness.complete.value,
-            gameRegion: GameRegion.pal.rawValue,
+            gameCondition: GameCondition.mint,
+            gameCompleteness: GameCompleteness.complete,
+            gameRegion: GameRegion.pal,
             storageArea: "Living room",
             rating: 5,
             notes: nil,
-            lastUpdated: Date()
+            lastUpdated: Date(),
+            isPhysical: true
         ),
         SavedGame(
             game: MockData.games[1],
             acquisitionYear: "2000",
-            gameCondition: GameCondition.mint.value,
-            gameCompleteness: GameCompleteness.loose.value,
-            gameRegion: GameRegion.pal.rawValue,
+            gameCondition: GameCondition.mint,
+            gameCompleteness: GameCompleteness.complete,
+            gameRegion: GameRegion.pal,
             storageArea: "Living room",
             rating: 4,
             notes: nil,
-            lastUpdated: Date()
+            lastUpdated: Date(),
+            isPhysical: true
         )
     ]
     
@@ -225,15 +228,15 @@ enum MockData {
     static let firestoreAPIPlatformsCorrectData = [
         FirestoreData(
             id: "Game Boy Advance",
-            data: ["id": 4, "imageUrl": "imageUrl", "physical": true]
+            data: ["id": 4, "imageUrl": "imageUrl", "physical": true, "supportedNames": ["Game Boy Advance","Gameboy Advance","GBA"]]
         ),
         FirestoreData(
             id: "Google Stadia",
-            data: ["id": 175, "imageUrl": "imageUrl", "physical": false]
+            data: ["id": 175, "imageUrl": "imageUrl", "physical": false, "supportedNames": ["Google Stadia"]]
         ),
         FirestoreData(
             id: "Game Cube",
-            data: ["id": 23, "imageUrl": "imageUrl", "physical": true]
+            data: ["id": 23, "imageUrl": "imageUrl", "physical": true, "supportedNames": ["Game Cube","Gamecube","GC"]]
         )
     ]
     static let firestoreAPIPlatformsIncorrectData = [
@@ -251,8 +254,8 @@ enum MockData {
         )
     ]
     static let firestoreAPIPlatformsResultConverted = [
-        Platform(title: "Game Boy Advance", id: 4, imageUrl: "imageUrl", games: nil),
-        Platform(title: "Game Cube", id: 23, imageUrl: "imageUrl", games: nil)
+        Platform(title: "Game Boy Advance", id: 4, imageUrl: "imageUrl", games: nil, supportedNames: ["Game Boy Advance", "Gameboy Advance", "GBA"]),
+        Platform(title: "Game Cube", id: 23, imageUrl: "imageUrl", games: nil, supportedNames: ["Game Cube", "Gamecube", "GC"])
     ]
     
     static let timeStamp = Timestamp(seconds: 1255392000, nanoseconds: 0)
@@ -262,18 +265,19 @@ enum MockData {
         FirestoreData(
             id: "4",
             data: ["title": "title",
-                  "imageUrl": "imageUrl"]
+                  "imageUrl": "imageUrl",
+                   "supportedNames": ["supportedName"]]
         )
     ]
     
     static let firestoreGamesCorrectData = [
         FirestoreData(
             id: "gameId",
-            data: ["title": "gameTitle", "description": "gameDescription", "platform": 4, "imageUrl": "gameImageUrl", "lastUpdated": MockData.timeStamp, "releaseDate": MockData.timeStamp, "notes": "gameNotes", "gameCondition": "gameCondition", "gameCompleteness": "gameCompleteness", "gameRegion": "gameRegion", "storageArea": "gameStorageArea", "acquisitionYear": "gameAcquisitionYear", "rating": 5]
+            data: ["title": "gameTitle", "description": "gameDescription", "platform": 4, "imageUrl": "gameImageUrl", "lastUpdated": MockData.timeStamp, "releaseDate": MockData.timeStamp, "notes": "gameNotes", "gameCondition": "mint", "gameCompleteness": "complete", "gameRegion": "pal", "storageArea": "gameStorageArea", "acquisitionYear": "gameAcquisitionYear", "rating": 5, "isPhysical": true]
         ),
         FirestoreData(
             id: "gameId",
-            data: ["title": "gameTitle", "description": "gameDescription", "platform": 4, "imageUrl": "gameImageUrl", "lastUpdated": MockData.timeStamp, "releaseDate": MockData.timeStamp, "notes": "gameNotes", "gameCondition": "gameCondition", "gameCompleteness": "gameCompleteness", "gameRegion": "gameRegion", "storageArea": "gameStorageArea", "acquisitionYear": "gameAcquisitionYear", "rating": 5]
+            data: ["title": "gameTitle", "description": "gameDescription", "platform": 4, "imageUrl": "gameImageUrl", "lastUpdated": MockData.timeStamp, "releaseDate": MockData.timeStamp, "notes": "gameNotes", "gameCondition": "mint", "gameCompleteness": "complete", "gameRegion": "pal", "storageArea": "gameStorageArea", "acquisitionYear": "gameAcquisitionYear", "rating": 5, "isPhysical": true]
         )
     ]
     
@@ -286,24 +290,26 @@ enum MockData {
         SavedGame(
             game: Game(title: "gameTitle", description: "gameDescription", id: "gameId", platformId: 4, imageUrl: "gameImageUrl", releaseDate: MockData.dateValue),
             acquisitionYear: "gameAcquisitionYear",
-            gameCondition: "gameCondition",
-            gameCompleteness: "gameCompleteness",
-            gameRegion: "gameRegion",
+            gameCondition: .mint,
+            gameCompleteness: .complete,
+            gameRegion: .pal,
             storageArea: "gameStorageArea",
             rating: 5,
             notes: "gameNotes",
-            lastUpdated: MockData.dateValue
+            lastUpdated: MockData.dateValue, 
+            isPhysical: true
         ),
         SavedGame(
             game: Game(title: "gameTitle", description: "gameDescription", id: "gameId", platformId: 4, imageUrl: "gameImageUrl", releaseDate: MockData.dateValue),
             acquisitionYear: "gameAcquisitionYear",
-            gameCondition: "gameCondition",
-            gameCompleteness: "gameCompleteness",
-            gameRegion: "gameRegion",
+            gameCondition: .mint,
+            gameCompleteness: .complete,
+            gameRegion: .pal,
             storageArea: "gameStorageArea",
             rating: 5,
             notes: "gameNotes",
-            lastUpdated: MockData.dateValue
+            lastUpdated: MockData.dateValue,
+            isPhysical: true
         )
     ]
     

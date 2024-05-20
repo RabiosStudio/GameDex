@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22222" systemVersion="22G91" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="22757" systemVersion="23E224" minimumToolsVersion="Automatic" sourceLanguage="Swift" userDefinedModelVersionIdentifier="">
     <entity name="GameCollected" representedClassName=".GameCollected" syncable="YES">
         <attribute name="acquisitionYear" optional="YES" attributeType="String"/>
         <attribute name="gameCompleteness" optional="YES" attributeType="String"/>
@@ -7,6 +7,7 @@
         <attribute name="gameID" optional="YES" attributeType="String"/>
         <attribute name="gameRegion" optional="YES" attributeType="String"/>
         <attribute name="imageUrl" optional="YES" attributeType="String"/>
+        <attribute name="isPhysical" optional="YES" attributeType="Boolean" usesScalarValueType="YES"/>
         <attribute name="lastUpdated" attributeType="Date" usesScalarValueType="NO"/>
         <attribute name="notes" optional="YES" attributeType="String"/>
         <attribute name="rating" optional="YES" attributeType="Integer 16" defaultValueString="0" usesScalarValueType="YES"/>
@@ -21,5 +22,10 @@
         <attribute name="imageUrl" optional="YES" attributeType="String"/>
         <attribute name="title" optional="YES" attributeType="String"/>
         <relationship name="games" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="GameCollected" inverseName="platform" inverseEntity="GameCollected"/>
+        <relationship name="supportedNames" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="PlatformSupportedNames" inverseName="platform" inverseEntity="PlatformSupportedNames"/>
+    </entity>
+    <entity name="PlatformSupportedNames" representedClassName=".PlatformSupportedNames" syncable="YES">
+        <attribute name="name" optional="YES" attributeType="String"/>
+        <relationship name="platform" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="PlatformCollected" inverseName="supportedNames" inverseEntity="PlatformCollected"/>
     </entity>
 </model>

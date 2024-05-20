@@ -34,10 +34,15 @@ final class EditGameDetailsSection: Section {
             placeholder: L10n.condition,
             formType: GameFormType.gameCondition(
                 PickerViewModel(
-                    data: [GameCondition.allCases.map { $0.value }]
+                    data: [GameCondition.allCases.compactMap {
+                        guard $0 != .unknown else {
+                            return nil
+                        }
+                        return $0.value
+                    }]
                 )
             ),
-            value: savedGame.gameCondition,
+            value: savedGame.gameCondition?.value,
             editDelegate: editDelegate
         )
         self.cellsVM.append(conditionCellVM)
@@ -46,10 +51,15 @@ final class EditGameDetailsSection: Section {
             placeholder: L10n.completeness,
             formType: GameFormType.gameCompleteness(
                 PickerViewModel(
-                    data: [GameCompleteness.allCases.map { $0.value }]
+                    data: [GameCompleteness.allCases.compactMap {
+                        guard $0 != .unknown else {
+                            return nil
+                        }
+                        return $0.value
+                    }]
                 )
             ),
-            value: savedGame.gameCompleteness,
+            value: savedGame.gameCompleteness?.value,
             editDelegate: editDelegate
         )
         self.cellsVM.append(completenessCellVM)
@@ -58,10 +68,10 @@ final class EditGameDetailsSection: Section {
             placeholder: L10n.region,
             formType: GameFormType.gameRegion(
                 PickerViewModel(
-                    data: [GameRegion.allCases.map { $0.rawValue }]
+                    data: [GameRegion.allCases.map { $0.value }]
                 )
             ),
-            value: savedGame.gameRegion,
+            value: savedGame.gameRegion?.value,
             editDelegate: editDelegate
         )
         self.cellsVM.append(regionCellVM)

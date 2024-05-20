@@ -40,8 +40,8 @@ final class EditProfileSectionTests: XCTestCase {
         XCTAssertEqual(deleteProfileButtonCellVM.buttonType, .warning)
         
         guard let formCellsVM = section.cellsVM.filter({ cellVM in
-            return cellVM is (any CollectionFormCellViewModel)
-        }) as? [any CollectionFormCellViewModel] else {
+            return cellVM is (any FormCellViewModel)
+        }) as? [any FormCellViewModel] else {
             return
         }
         
@@ -97,8 +97,8 @@ final class EditProfileSectionTests: XCTestCase {
         XCTAssertEqual(updateProfileButtonCellVM.buttonViewModel, ButtonViewModel(isEnabled: true, buttonTitle: L10n.confirm))
         
         guard let formCellsVM = section.cellsVM.filter({ cellVM in
-            return cellVM is (any CollectionFormCellViewModel)
-        }) as? [any CollectionFormCellViewModel] else {
+            return cellVM is (any FormCellViewModel)
+        }) as? [any FormCellViewModel] else {
             return
         }
         

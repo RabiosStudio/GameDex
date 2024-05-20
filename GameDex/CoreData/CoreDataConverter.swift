@@ -27,6 +27,13 @@ enum CoreDataConverter {
             return gameCollected
         }
         
+        let supportedNames = platform.supportedNames.map { aName in
+            var supportedName = PlatformSupportedNames(context: context)
+            supportedName.name = aName
+            return supportedName
+        }
+        
+        platformCollected.supportedNames = NSSet(array: supportedNames)
         platformCollected.games = NSSet(array: gamesCollected)
         return platformCollected
     }
@@ -42,9 +49,9 @@ enum CoreDataConverter {
         gameCollected.notes = gameDetails.notes
         gameCollected.imageUrl = gameDetails.game.imageUrl
         gameCollected.rating = Int16(gameDetails.rating ?? .zero)
-        gameCollected.gameRegion = gameDetails.gameRegion
-        gameCollected.gameCondition = gameDetails.gameCondition
-        gameCollected.gameCompleteness = gameDetails.gameCompleteness
+        gameCollected.gameRegion = gameDetails.gameRegion?.rawValue
+        gameCollected.gameCondition = gameDetails.gameCondition?.rawValue
+        gameCollected.gameCompleteness = gameDetails.gameCompleteness?.rawValue
         gameCollected.acquisitionYear = gameDetails.acquisitionYear
         gameCollected.gameID = gameDetails.game.id
         gameCollected.releaseDate = gameDetails.game.releaseDate
@@ -55,7 +62,22 @@ enum CoreDataConverter {
     
     static func convert(platformCollected: PlatformCollected) -> Platform {
         let savedGames = platformCollected.gamesArray.map { aGame in
-            SavedGame(
+            var gameCondition: GameCondition?
+            if let gameConditionText = aGame.gameCondition {
+                gameCondition = GameCondition(rawValue: gameConditionText)
+            }
+            
+            var gameCompleteness: GameCompleteness?
+            if let gameCompletenessText = aGame.gameCompleteness {
+                gameCompleteness = GameCompleteness(rawValue: gameCompletenessText)
+            }
+            
+            var gameRegion: GameRegion?
+            if let gameRegionText = aGame.gameRegion {
+                gameRegion = GameRegion(rawValue: gameRegionText)
+            }
+            
+            return SavedGame(
                 game: Game(
                     title: aGame.title,
                     description: aGame.summary,
@@ -65,20 +87,28 @@ enum CoreDataConverter {
                     releaseDate: aGame.releaseDate
                 ),
                 acquisitionYear: aGame.acquisitionYear,
-                gameCondition: aGame.gameCondition,
-                gameCompleteness: aGame.gameCompleteness,
-                gameRegion: aGame.gameRegion,
+                gameCondition: gameCondition,
+                gameCompleteness: gameCompleteness,
+                gameRegion: gameRegion,
                 storageArea: aGame.storageArea,
                 rating: Int(aGame.rating),
                 notes: aGame.notes,
-                lastUpdated: aGame.lastUpdated
+                lastUpdated: aGame.lastUpdated, 
+                isPhysical: aGame.isPhysical
             )
         }
+        
+        var supportedNames = [String]()
+        for item in platformCollected.supportedNamesArray {
+            supportedNames.append(item.name)
+        }
+        
         let platform = Platform(
             title: platformCollected.title,
             id: Int(platformCollected.id), 
             imageUrl: platformCollected.imageUrl,
-            games: savedGames
+            games: savedGames, 
+            supportedNames: supportedNames
         )
         return platform
     }

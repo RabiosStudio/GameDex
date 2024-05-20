@@ -33,8 +33,8 @@ final class AuthenticationSectionTests: XCTestCase {
         
         
         guard let formCellsVM = section.cellsVM.filter({ cellVM in
-            return cellVM is (any CollectionFormCellViewModel)
-        }) as? [any CollectionFormCellViewModel] else {
+            return cellVM is (any FormCellViewModel)
+        }) as? [any FormCellViewModel] else {
             return
         }
         
@@ -83,8 +83,8 @@ final class AuthenticationSectionTests: XCTestCase {
         XCTAssertEqual(createAccountButtonCellVM.buttonViewModel, ButtonViewModel(isEnabled: true, buttonTitle: L10n.createAccount))
         
         guard let formCellsVM = section.cellsVM.filter({ cellVM in
-            return cellVM is (any CollectionFormCellViewModel)
-        }) as? [any CollectionFormCellViewModel] else {
+            return cellVM is (any FormCellViewModel)
+        }) as? [any FormCellViewModel] else {
             return
         }
         

@@ -23,6 +23,7 @@
 "errorCredentialsDescription" = "Error verifying credentials";
 "errorDeleteAccountDescription" = "Error deleting account";
 "errorSendingPasswordResetEmail" = "Error sending password reset email. Please check your email address.";
+"errorSyncCloudAndLocalDatabases" = "An error while synchronizing your collection in local. Your database might not be up to date until your next login session.";
 
 // Success
 "successTitle" = "Success";
@@ -119,6 +120,7 @@
 "good" = "Good";
 "acceptable" = "Acceptable";
 "poor" = "Poor";
+"unknown" = "Unknown";
 "region" = "Region";
 "email" = "Email";
 "password" = "Password";

@@ -10,13 +10,14 @@ import Foundation
 struct SavedGame {
     let game: Game
     let acquisitionYear: String?
-    let gameCondition: String?
-    let gameCompleteness: String?
-    let gameRegion: String?
+    let gameCondition: GameCondition?
+    let gameCompleteness: GameCompleteness?
+    let gameRegion: GameRegion?
     let storageArea: String?
     let rating: Int?
     let notes: String?
     let lastUpdated: Date
+    let isPhysical: Bool
 }
 
 extension SavedGame: Equatable {

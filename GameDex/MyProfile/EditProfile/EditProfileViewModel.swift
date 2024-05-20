@@ -79,8 +79,8 @@ extension EditProfileViewModel: PrimaryButtonDelegate {
     private func updateProfile() async {
         guard let firstSection = self.sections.first,
               let formCellsVM = firstSection.cellsVM.filter({ cellVM in
-                  return cellVM is (any CollectionFormCellViewModel)
-              }) as? [any CollectionFormCellViewModel] else {
+                  return cellVM is (any FormCellViewModel)
+              }) as? [any FormCellViewModel] else {
             return
         }
         

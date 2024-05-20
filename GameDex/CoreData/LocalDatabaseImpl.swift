@@ -29,7 +29,7 @@ extension LocalDatabaseImpl {
             guard let platformResult else {
                 let newLocalPlatform = CoreDataConverter.convert(
                     platform: platform,
-                    context: managedObjectContext
+                    context: self.managedObjectContext
                 )
                 newLocalPlatform.addToGames(
                     CoreDataConverter.convert(
@@ -94,7 +94,7 @@ extension LocalDatabaseImpl {
             return .failure(DatabaseError.fetchError)
         }
     }
-
+    
     func getGame(gameId: String) -> Result<GameCollected?, DatabaseError> {
         let fetchRequest: NSFetchRequest<GameCollected>
         fetchRequest = GameCollected.fetchRequest()
@@ -103,7 +103,7 @@ extension LocalDatabaseImpl {
         )
         
         do {
-            let results = try managedObjectContext.fetch(fetchRequest)
+            let results = try self.managedObjectContext.fetch(fetchRequest)
             guard let gameWithId = results.first else {
                 return .success(nil)
             }
@@ -114,26 +114,28 @@ extension LocalDatabaseImpl {
     }
     
     func replace(savedGame: SavedGame) async -> DatabaseError? {
-        // Remove the object in the following context
         let gameResult = getGame(gameId: savedGame.game.id)
-        
         switch gameResult {
-        case .success(let gameToReplace):
+        case let .success(gameToReplace):
             guard let gameToReplace else {
-                return DatabaseError.removeError
+                return DatabaseError.fetchError
             }
-            // Delete object
-            self.managedObjectContext.delete(gameToReplace)
+            gameToReplace.acquisitionYear = savedGame.acquisitionYear
+            gameToReplace.gameCompleteness = savedGame.gameCompleteness?.rawValue
+            gameToReplace.gameCondition = savedGame.gameCondition?.rawValue
+            gameToReplace.gameRegion = savedGame.gameRegion?.rawValue
+            gameToReplace.lastUpdated = savedGame.lastUpdated
+            gameToReplace.notes = savedGame.notes
+            gameToReplace.rating = Int16(savedGame.rating ?? .zero)
+            gameToReplace.storageArea = savedGame.storageArea
             
-            let platform = CoreDataConverter.convert(platformCollected: gameToReplace.platform)
-            
-            // Add updated object
-            guard await self.add(newEntity: savedGame, platform: platform) == nil else {
+            // Save the context
+            guard await self.coreDataStack.saveContext(self.managedObjectContext) == nil else {
                 return DatabaseError.saveError
             }
             return nil
-        case .failure(_):
-            return DatabaseError.replaceError
+        case let .failure(error):
+            return error
         }
     }
     

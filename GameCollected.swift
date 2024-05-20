@@ -28,4 +28,5 @@ public class GameCollected: NSManagedObject {
     @NSManaged public var title: String
     @NSManaged public var lastUpdated: Date
     @NSManaged public var platform: PlatformCollected
+    @NSManaged public var isPhysical: Bool
 }

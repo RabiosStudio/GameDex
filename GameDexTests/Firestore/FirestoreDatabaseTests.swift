@@ -56,7 +56,7 @@ final class FirestoreDatabaseTests: XCTestCase {
         
         // WHEN
         let result = await firestoreDatabase.getSinglePlatformCollection(userId: "userId", platform: MockData.platform)
-        let expectedPlatformResult = Platform(title: MockData.platform.title, id: MockData.platform.id, imageUrl: MockData.platform.imageUrl, games: MockData.firestoreGamesResultConverted)
+        let expectedPlatformResult = Platform(title: MockData.platform.title, id: MockData.platform.id, imageUrl: MockData.platform.imageUrl, games: MockData.firestoreGamesResultConverted, supportedNames: MockData.platform.supportedNames)
         
         // THEN
         XCTAssertEqual(result, .success(expectedPlatformResult))
@@ -185,7 +185,7 @@ final class FirestoreDatabaseTests: XCTestCase {
         let firestoreSession = FirestoreSessionMock()
         firestoreSession.given(.getData(mainPath: .any, willReturn: .success(MockData.firestoreGamesCorrectData)))
         let firestoreDatabase = FirestoreDatabase(firestoreSession: firestoreSession)
-        let newSavedGame = SavedGame(game: Game(title: "title", description: "description", id: "wrongid", platformId: 1, imageUrl: "url", releaseDate: Date.now), acquisitionYear: nil, gameCondition: nil, gameCompleteness: nil, gameRegion: nil, storageArea: nil, rating: 0, notes: nil, lastUpdated: Date.now)
+        let newSavedGame = SavedGame(game: Game(title: "title", description: "description", id: "wrongid", platformId: 1, imageUrl: "url", releaseDate: Date.now), acquisitionYear: nil, gameCondition: nil, gameCompleteness: nil, gameRegion: nil, storageArea: nil, rating: 0, notes: nil, lastUpdated: Date.now, isPhysical: true)
         
         // WHEN
         let result = await firestoreDatabase.gameIsInDatabase(userId: "userId", savedGame: newSavedGame)
@@ -371,7 +371,7 @@ final class FirestoreDatabaseTests: XCTestCase {
         let firestoreSession = FirestoreSessionMock()
         firestoreSession.given(.setData(path: .value(MockData.userPlatformsPath), firestoreData: .any, willReturn: nil))
         let firestoreDatabase = FirestoreDatabase(firestoreSession: firestoreSession)
-        let emptyCollection = Platform(title: "title", id: 1, imageUrl: "url", games: nil)
+        let emptyCollection = Platform(title: "title", id: 1, imageUrl: "url", games: nil, supportedNames: ["supported name"])
         
         // WHEN
         let error = await firestoreDatabase.saveGames(userId: "userId", platform: emptyCollection)
