@@ -4128,24 +4128,39 @@ open class MyCollectionViewModelDelegateMock: MyCollectionViewModelDelegate, Moc
 		perform?()
     }
 
+    open func apply(filters: FilterData) {
+        addInvocation(.m_apply__filters_filters(Parameter<FilterData>.value(`filters`)))
+		let perform = methodPerformValue(.m_apply__filters_filters(Parameter<FilterData>.value(`filters`))) as? (FilterData) -> Void
+		perform?(`filters`)
+    }
+
 
     fileprivate enum MethodType {
         case m_reloadCollection
+        case m_apply__filters_filters(Parameter<FilterData>)
 
         static func compareParameters(lhs: MethodType, rhs: MethodType, matcher: Matcher) -> Matcher.ComparisonResult {
             switch (lhs, rhs) {
             case (.m_reloadCollection, .m_reloadCollection): return .match
+
+            case (.m_apply__filters_filters(let lhsFilters), .m_apply__filters_filters(let rhsFilters)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsFilters, rhs: rhsFilters, with: matcher), lhsFilters, rhsFilters, "filters"))
+				return Matcher.ComparisonResult(results)
+            default: return .none
             }
         }
 
         func intValue() -> Int {
             switch self {
             case .m_reloadCollection: return 0
+            case let .m_apply__filters_filters(p0): return p0.intValue
             }
         }
         func assertionName() -> String {
             switch self {
             case .m_reloadCollection: return ".reloadCollection()"
+            case .m_apply__filters_filters: return ".apply(filters:)"
             }
         }
     }
@@ -4165,6 +4180,7 @@ open class MyCollectionViewModelDelegateMock: MyCollectionViewModelDelegate, Moc
         fileprivate var method: MethodType
 
         public static func reloadCollection() -> Verify { return Verify(method: .m_reloadCollection)}
+        public static func apply(filters: Parameter<FilterData>) -> Verify { return Verify(method: .m_apply__filters_filters(`filters`))}
     }
 
     public struct Perform {
@@ -4173,6 +4189,9 @@ open class MyCollectionViewModelDelegateMock: MyCollectionViewModelDelegate, Moc
 
         public static func reloadCollection(perform: @escaping () -> Void) -> Perform {
             return Perform(method: .m_reloadCollection, performs: perform)
+        }
+        public static func apply(filters: Parameter<FilterData>, perform: @escaping (FilterData) -> Void) -> Perform {
+            return Perform(method: .m_apply__filters_filters(`filters`), performs: perform)
         }
     }
 

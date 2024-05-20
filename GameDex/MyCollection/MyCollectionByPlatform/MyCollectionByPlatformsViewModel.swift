@@ -106,7 +106,10 @@ final class MyCollectionByPlatformsViewModel: ConnectivityDisplayerViewModel {
         }
         Routing.shared.route(
             navigationStyle: .present(
-                screenFactory: MyCollectionFiltersScreenFactory(games: games),
+                screenFactory: MyCollectionFiltersScreenFactory(
+                    games: games,
+                    myCollectionDelegate: self
+                ),
                 completionBlock: nil
             )
         )
@@ -134,6 +137,10 @@ final class MyCollectionByPlatformsViewModel: ConnectivityDisplayerViewModel {
 }
 
 extension MyCollectionByPlatformsViewModel: MyCollectionViewModelDelegate {
+    func apply(filters: FilterData) async {
+        print(filters)
+    }
+    
     func reloadCollection() async {
         guard let platform = self.platform else { return }
         guard let userId = self.authenticationService.getUserId(),

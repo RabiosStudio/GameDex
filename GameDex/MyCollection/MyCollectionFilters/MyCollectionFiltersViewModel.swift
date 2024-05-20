@@ -18,11 +18,16 @@ final class MyCollectionFiltersViewModel: CollectionViewModel {
     var layoutMargins: UIEdgeInsets?
     
     weak var containerDelegate: ContainerViewControllerDelegate?
+    weak var myCollectionDelegate: MyCollectionViewModelDelegate?
     
     private let games: [SavedGame]
     
-    init(games: [SavedGame]) {
+    init(
+        games: [SavedGame],
+        myCollectionDelegate: MyCollectionViewModelDelegate?
+    ) {
         self.games = games
+        self.myCollectionDelegate = myCollectionDelegate
     }
     
     func loadData(callback: @escaping (EmptyError?) -> ()) {
@@ -60,6 +65,62 @@ final class MyCollectionFiltersViewModel: CollectionViewModel {
             )
         )
     }
+    
+    private func getFilters() -> FilterData? {
+        guard let firstSection = self.sections.first,
+              let formCellsVM = firstSection.cellsVM.filter({ cellVM in
+                  return cellVM is (any FormCellViewModel)
+              }) as? [any FormCellViewModel] else {
+            return nil
+        }
+        
+        var acquisitionYear, storageArea: String?
+        var rating: Int?
+        var gameCondition: GameCondition?
+        var gameCompleteness: GameCompleteness?
+        var gameRegion: GameRegion?
+        
+        for formCellVM in formCellsVM {
+            guard let formType = formCellVM.formType as? GameFormType else { return nil }
+            switch formType {
+            case .yearOfAcquisition:
+                acquisitionYear = formCellVM.value as? String
+            case .gameCondition(_):
+                if let conditionText = formCellVM.value as? String {
+                    gameCondition = GameCondition.getRawValue(
+                        value: conditionText
+                    )
+                }
+            case .gameCompleteness(_):
+                if let completenessText = formCellVM.value as? String {
+                    gameCompleteness = GameCompleteness.getRawValue(
+                        value: completenessText
+                    )
+                }
+            case .gameRegion(_):
+                if let regionText = formCellVM.value as? String {
+                    gameRegion = GameRegion.getRawValue(
+                        value: regionText
+                    )
+                }
+            case .storageArea:
+                storageArea = formCellVM.value as? String
+            case .rating:
+                rating = formCellVM.value as? Int
+            default:
+                break
+            }
+        }
+        
+        return FilterData(
+            acquisitionYear: acquisitionYear,
+            gameCondition: gameCondition,
+            gameCompleteness: gameCompleteness,
+            gameRegion: gameRegion,
+            storageArea: storageArea,
+            rating: rating
+        )
+    }
 }
 
 extension MyCollectionFiltersViewModel: EditFormDelegate {
@@ -92,6 +153,10 @@ extension MyCollectionFiltersViewModel: EditFormDelegate {
 // MARK: - PrimaryButtonDelegate
 extension MyCollectionFiltersViewModel: PrimaryButtonDelegate {
     func didTapPrimaryButton(with title: String?) async {
+        guard let selectedFilters = self.getFilters() else {
+            return
+        }
+        await self.myCollectionDelegate?.apply(filters: selectedFilters)
         self.close()
     }
 }

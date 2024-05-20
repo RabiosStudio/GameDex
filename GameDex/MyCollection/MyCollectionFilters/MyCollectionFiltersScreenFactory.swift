@@ -11,9 +11,13 @@ import UIKit
 struct MyCollectionFiltersScreenFactory: ScreenFactory {
     
     private let games: [SavedGame]
+    private weak var myCollectionDelegate: MyCollectionViewModelDelegate?
     
     var viewController: UIViewController {
-        let viewModel = MyCollectionFiltersViewModel(games: self.games)
+        let viewModel = MyCollectionFiltersViewModel(
+            games: self.games,
+            myCollectionDelegate: self.myCollectionDelegate
+        )
         let layout = UICollectionViewFlowLayout()
         let containerController = ContainerViewController(
             viewModel: viewModel,
@@ -23,7 +27,11 @@ struct MyCollectionFiltersScreenFactory: ScreenFactory {
         return containerController
     }
     
-    init(games: [SavedGame]) {
+    init(
+        games: [SavedGame],
+        myCollectionDelegate: MyCollectionViewModelDelegate?
+    ) {
         self.games = games
+        self.myCollectionDelegate = myCollectionDelegate
     }
 }
