@@ -24,7 +24,7 @@ final class MyCollectionFiltersSection: Section {
             placeholder: L10n.yearOfAcquisition,
             formType: GameFormType.yearOfAcquisition(
                 PickerViewModel(
-                    data: [acquisitionYearArray]
+                    data: [acquisitionYearArray.sorted()]
                 )
             ),
             value: nil,
@@ -89,7 +89,7 @@ final class MyCollectionFiltersSection: Section {
             placeholder: L10n.storageArea,
             formType: GameFormType.storageArea(
                 PickerViewModel(
-                    data: [storageAreaArray]
+                    data: [storageAreaArray.sorted()]
                 )
             ),
             value: nil,
