@@ -11,7 +11,8 @@ import UIKit
 // sourcery: AutoMockable
 protocol ContainerViewControllerDelegate: AnyObject {
     func configureSupplementaryView(contentViewFactory: ContentViewFactory)
-    func reloadSections()
+    func reloadData()
+    func reloadSection(emptyError: EmptyError?)
     func goBackToRootViewController()
     func reloadNavBar()
 }
@@ -476,10 +477,21 @@ extension ContainerViewController: ContainerViewControllerDelegate {
         }
     }
     
-    func reloadSections() {
+    func reloadData() {
         DispatchQueue.main.async {
             self.supplementaryView.removeFromSuperview()
             self.loadData()
+        }
+    }
+    
+    func reloadSection(emptyError: EmptyError?) {
+        DispatchQueue.main.async {
+            if let error = emptyError {
+                let tabBarOffset = -(self.tabBarController?.tabBar.frame.size.height ?? 0)
+                self.updateEmptyState(error: error, tabBarOffset: tabBarOffset)
+            } else {
+                self.refresh()
+            }
         }
     }
     

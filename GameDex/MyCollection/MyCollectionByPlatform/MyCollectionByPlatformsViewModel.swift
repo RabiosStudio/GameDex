@@ -137,8 +137,34 @@ final class MyCollectionByPlatformsViewModel: ConnectivityDisplayerViewModel {
 }
 
 extension MyCollectionByPlatformsViewModel: MyCollectionViewModelDelegate {
-    func apply(filters: FilterData) async {
-        print(filters)
+    func apply(filters: [any Filter]) async {
+        guard let games = self.platform?.games,
+              let gameFilters = filters as? [GameFilter] else {
+            return
+        }
+        
+        var shouldKeepGame = false
+        var filteredGames = [SavedGame]()
+        for index in 0..<games.count {
+            let currentGame = games[index]
+            for filter in gameFilters {
+                if let gameString = currentGame[keyPath: filter.keyPath] as? String {
+                    shouldKeepGame = filter.value == gameString
+                } else {
+                    shouldKeepGame = false
+                }
+                if !shouldKeepGame {
+                    break
+                }
+            }
+            if shouldKeepGame {
+                filteredGames.append(games[index])
+            }
+        }
+        self.updateListOfGames(with: filteredGames)
+        self.containerDelegate?.reloadSection(
+            emptyError: filteredGames.isEmpty ? MyCollectionError.noItems : nil
+        )
     }
     
     func reloadCollection() async {
@@ -151,7 +177,7 @@ extension MyCollectionByPlatformsViewModel: MyCollectionViewModelDelegate {
             case .success(let platform):
                 guard let platform else {
                     await self.myCollectionDelegate?.reloadCollection()
-                    self.containerDelegate?.reloadSections()
+                    self.containerDelegate?.reloadData()
                     return
                 }
                 
@@ -172,7 +198,7 @@ extension MyCollectionByPlatformsViewModel: MyCollectionViewModelDelegate {
                     )
                 ]
                 await self.myCollectionDelegate?.reloadCollection()
-                self.containerDelegate?.reloadSections()
+                self.containerDelegate?.reloadData()
             case .failure:
                 self.displayAlert()
             }
@@ -188,7 +214,7 @@ extension MyCollectionByPlatformsViewModel: MyCollectionViewModelDelegate {
         case .success(let platform):
             guard let games = platform.games else {
                 await self.myCollectionDelegate?.reloadCollection()
-                self.containerDelegate?.reloadSections()
+                self.containerDelegate?.reloadData()
                 return
             }
             self.platform = platform
@@ -200,7 +226,7 @@ extension MyCollectionByPlatformsViewModel: MyCollectionViewModelDelegate {
                 )
             ]
             await self.myCollectionDelegate?.reloadCollection()
-            self.containerDelegate?.reloadSections()
+            self.containerDelegate?.reloadData()
         case .failure(_):
             self.displayAlert()
         }

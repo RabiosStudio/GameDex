@@ -66,60 +66,53 @@ final class MyCollectionFiltersViewModel: CollectionViewModel {
         )
     }
     
-    private func getFilters() -> FilterData? {
+    private func getFilters() -> [any Filter]? {
         guard let firstSection = self.sections.first,
               let formCellsVM = firstSection.cellsVM.filter({ cellVM in
                   return cellVM is (any FormCellViewModel)
               }) as? [any FormCellViewModel] else {
             return nil
         }
-        
-        var acquisitionYear, storageArea: String?
-        var rating: Int?
-        var gameCondition: GameCondition?
-        var gameCompleteness: GameCompleteness?
-        var gameRegion: GameRegion?
+
+        var selectedFilters = [GameFilter]()
         
         for formCellVM in formCellsVM {
             guard let formType = formCellVM.formType as? GameFormType else { return nil }
             switch formType {
             case .yearOfAcquisition:
-                acquisitionYear = formCellVM.value as? String
+                guard let acquisitionYear = formCellVM.value as? String else {
+                    break
+                }
+                selectedFilters.append(GameFilter.acquisitionYear(acquisitionYear))
             case .gameCondition(_):
-                if let conditionText = formCellVM.value as? String {
-                    gameCondition = GameCondition.getRawValue(
-                        value: conditionText
-                    )
+                guard let conditionText = formCellVM.value as? String else {
+                    break
                 }
+                selectedFilters.append(GameFilter.gameCondition(conditionText))
             case .gameCompleteness(_):
-                if let completenessText = formCellVM.value as? String {
-                    gameCompleteness = GameCompleteness.getRawValue(
-                        value: completenessText
-                    )
+                guard let completenessText = formCellVM.value as? String else {
+                    break
                 }
+                selectedFilters.append(GameFilter.gameCompleteness(completenessText))
             case .gameRegion(_):
-                if let regionText = formCellVM.value as? String {
-                    gameRegion = GameRegion.getRawValue(
-                        value: regionText
-                    )
+                guard let regionText = formCellVM.value as? String else {
+                    break
                 }
+                selectedFilters.append(GameFilter.gameRegion(regionText))
             case .storageArea:
-                storageArea = formCellVM.value as? String
+                guard let storageArea = formCellVM.value as? String else {
+                    break
+                }
+                selectedFilters.append(GameFilter.storageArea(storageArea))
             case .rating:
-                rating = formCellVM.value as? Int
+                // TODO
+                break
             default:
                 break
             }
         }
         
-        return FilterData(
-            acquisitionYear: acquisitionYear,
-            gameCondition: gameCondition,
-            gameCompleteness: gameCompleteness,
-            gameRegion: gameRegion,
-            storageArea: storageArea,
-            rating: rating
-        )
+        return selectedFilters
     }
 }
 
@@ -156,6 +149,7 @@ extension MyCollectionFiltersViewModel: PrimaryButtonDelegate {
         guard let selectedFilters = self.getFilters() else {
             return
         }
+        
         await self.myCollectionDelegate?.apply(filters: selectedFilters)
         self.close()
     }

@@ -109,7 +109,7 @@ extension EditProfileViewModel: PrimaryButtonDelegate {
             await self.handleUserDetailsUpdate(newEmail: email, newPassword: password)
         } else {
             await self.handleReauthentication(email: email, password: password)
-            self.containerDelegate?.reloadSections()
+            self.containerDelegate?.reloadData()
         }
     }
 }

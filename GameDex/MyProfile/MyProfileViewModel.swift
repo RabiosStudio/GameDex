@@ -94,12 +94,12 @@ extension MyProfileViewModel: AlertDisplayerDelegate {
         }
         self.displayLogOutAlert(success: true)
         await self.myCollectionDelegate?.reloadCollection()
-        self.containerDelegate?.reloadSections()
+        self.containerDelegate?.reloadData()
     }
 }
 
 extension MyProfileViewModel: MyProfileViewModelDelegate {
     func reloadMyProfile() {
-        self.containerDelegate?.reloadSections()
+        self.containerDelegate?.reloadData()
     }
 }
