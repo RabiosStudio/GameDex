@@ -36,7 +36,7 @@ final class SelectPlatformViewModel: CollectionViewModel {
         cloudDatabase: CloudDatabase,
         myCollectionDelegate: MyCollectionViewModelDelegate?
     ) {
-        self.progress = 1/3
+        self.progress = DesignSystem.oneThirdProgress
         self.cloudDatabase = cloudDatabase
         self.myCollectionDelegate = myCollectionDelegate
     }

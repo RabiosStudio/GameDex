@@ -85,6 +85,7 @@ final class MyCollectionByPlatformsViewModel: ConnectivityDisplayerViewModel {
             navigationStyle: .present(
                 screenFactory: SearchGameByTitleScreenFactory(
                     platform: collection,
+                    progress: DesignSystem.halfProgress,
                     myCollectionDelegate: self
                 ),
                 completionBlock: nil

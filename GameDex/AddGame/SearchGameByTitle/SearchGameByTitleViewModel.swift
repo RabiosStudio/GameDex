@@ -37,9 +37,10 @@ final class SearchGameByTitleViewModel: CollectionViewModel {
     init(
         networkingSession: API,
         platform: Platform,
+        progress: Float,
         myCollectionDelegate: MyCollectionViewModelDelegate?
     ) {
-        self.progress = 2/3
+        self.progress = progress
         self.networkingSession = networkingSession
         self.platform = platform
         self.myCollectionDelegate = myCollectionDelegate

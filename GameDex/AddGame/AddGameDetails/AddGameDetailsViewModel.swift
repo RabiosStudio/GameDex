@@ -36,7 +36,7 @@ final class AddGameDetailsViewModel: CollectionViewModel {
         alertDisplayer: AlertDisplayer,
         authenticationService: AuthenticationService
     ) {
-        self.progress = 3/3
+        self.progress = DesignSystem.fullProgress
         self.game = game
         self.platform = platform
         self.sections = [

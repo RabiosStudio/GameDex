@@ -53,6 +53,7 @@ final class SelectPlatformSectionTests: XCTestCase {
             let expectedNavigationStyle: NavigationStyle = .push(
                 screenFactory: SearchGameByTitleScreenFactory(
                     platform: MockData.platforms[index],
+                    progress: DesignSystem.twoThirdProgress,
                     myCollectionDelegate: myCollectionDelegate
                 )
             )

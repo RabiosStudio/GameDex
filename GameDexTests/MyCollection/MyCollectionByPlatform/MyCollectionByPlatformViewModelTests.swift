@@ -199,7 +199,8 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
         let expectedNavigationStyle: NavigationStyle = {
             return .present(
                 screenFactory: SearchGameByTitleScreenFactory(
-                    platform: platform,
+                    platform: platform, 
+                    progress: DesignSystem.halfProgress,
                     myCollectionDelegate: viewModel
                 ),
                 completionBlock: nil

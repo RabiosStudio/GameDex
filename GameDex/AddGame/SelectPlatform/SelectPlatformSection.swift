@@ -21,7 +21,8 @@ final class SelectPlatformSection: Section {
                 caption: platform.imageUrl,
                 cellTappedCallback: {
                     let screenFactory = SearchGameByTitleScreenFactory(
-                        platform: platform,
+                        platform: platform, 
+                        progress: DesignSystem.twoThirdProgress,
                         myCollectionDelegate: myCollectionDelegate
                     )
                     Routing.shared.route(
