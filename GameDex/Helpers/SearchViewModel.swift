@@ -11,7 +11,6 @@ import Foundation
 protocol SearchViewModelDelegate {
     func updateSearchTextField(with text: String, callback: @escaping (EmptyError?) -> ())
     func startSearch(from searchQuery: String, callback: @escaping (EmptyError?) -> ())
-    func cancelButtonTapped(callback: @escaping (EmptyError?) -> ())
 }
 
 extension SearchViewModelDelegate {
@@ -27,8 +26,6 @@ extension SearchViewModelDelegate {
             callback(nil)
         }
     }
-    
-    func cancelButtonTapped(callback: @escaping (EmptyError?) -> ()) {}
 }
 
 struct SearchViewModel {

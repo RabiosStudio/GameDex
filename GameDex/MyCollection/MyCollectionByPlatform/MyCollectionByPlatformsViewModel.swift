@@ -33,6 +33,7 @@ final class MyCollectionByPlatformsViewModel: ConnectivityDisplayerViewModel {
     private let cloudDatabase: CloudDatabase
     private let alertDisplayer: AlertDisplayer
     private var platform: Platform?
+    private var displayedGames: [SavedGame]
     let authenticationService: AuthenticationService
     let connectivityChecker: ConnectivityChecker
     
@@ -53,6 +54,7 @@ final class MyCollectionByPlatformsViewModel: ConnectivityDisplayerViewModel {
         self.authenticationService = authenticationService
         self.connectivityChecker = connectivityChecker
         self.screenTitle = self.platform?.title
+        self.displayedGames = self.platform?.games ?? []
     }
     
     func loadData(callback: @escaping (EmptyError?) -> ()) async {
@@ -162,6 +164,7 @@ extension MyCollectionByPlatformsViewModel: MyCollectionViewModelDelegate {
             }
         }
         self.updateListOfGames(with: filteredGames)
+        self.displayedGames = filteredGames
         self.rightButtonItems = [.filter(active: true), .add]
         self.containerDelegate?.reloadSection(
             emptyError: filteredGames.isEmpty ? MyCollectionError.noItems : nil
@@ -236,29 +239,18 @@ extension MyCollectionByPlatformsViewModel: MyCollectionViewModelDelegate {
 }
 
 extension MyCollectionByPlatformsViewModel: SearchViewModelDelegate {
-    func cancelButtonTapped(callback: @escaping (EmptyError?) -> ()) {
-        guard let collection = self.platform,
-              let games = collection.games else {
-            callback(MyCollectionError.noItems)
-            return
-        }
-        self.updateListOfGames(with: games)
-        callback(nil)
-    }
-    
     func updateSearchTextField(with text: String, callback: @escaping (EmptyError?) -> ()) {
-        guard let collection = self.platform,
-              let games = collection.games else {
+        guard !self.displayedGames.isEmpty else {
             callback(MyCollectionError.noItems)
             return
         }
         guard text != "" else {
-            self.updateListOfGames(with: games)
+            self.updateListOfGames(with: self.displayedGames)
             callback(nil)
             return
         }
         self.containerDelegate?.reloadNavBar()
-        let matchingGames = games.filter({
+        let matchingGames = self.displayedGames.filter({
             $0.game.title.localizedCaseInsensitiveContains(text)
         })
         self.updateListOfGames(with: matchingGames)

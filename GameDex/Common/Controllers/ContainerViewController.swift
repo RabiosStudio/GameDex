@@ -405,20 +405,6 @@ extension ContainerViewController: UISearchTextFieldDelegate {
 
 // MARK: UISearchDelegate
 extension ContainerViewController: UISearchBarDelegate {
-    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
-        searchBar.text = nil
-        self.navigationItem.titleView = nil
-        self.viewModel.searchViewModel?.delegate?.cancelButtonTapped(callback: { [weak self] error in
-            if let error = error {
-                let tabBarOffset = -(self?.tabBarController?.tabBar.frame.size.height ?? 0)
-                self?.updateEmptyState(error: error,
-                                       tabBarOffset: tabBarOffset)
-            } else {
-                self?.refresh()
-            }
-        })
-    }
-    
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
         guard let searchQuery = searchBar.text else {
             return
