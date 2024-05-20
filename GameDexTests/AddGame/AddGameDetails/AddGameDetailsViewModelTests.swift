@@ -402,7 +402,7 @@ final class AddGameDetailsViewModelTests: XCTestCase {
         )
         
         // When
-        viewModel.didTapRightButtonItem()
+        viewModel.didTap(buttonItem: .close)
         
         // Then
         let expectedNavigationStyle: NavigationStyle = {

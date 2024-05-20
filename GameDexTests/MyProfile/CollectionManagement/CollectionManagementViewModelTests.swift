@@ -19,7 +19,7 @@ final class CollectionManagementViewModelTests: XCTestCase {
             authenticationService: AuthenticationServiceMock(),
             alertDisplayer: AlertDisplayerMock()
         )
-        viewModel.didTapRightButtonItem()
+        viewModel.didTap(buttonItem: .close)
         // Then
         XCTAssertEqual(viewModel.numberOfSections(), .zero)
         XCTAssertEqual(viewModel.numberOfItems(in: .zero), .zero)

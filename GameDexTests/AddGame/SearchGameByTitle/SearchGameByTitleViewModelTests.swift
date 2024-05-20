@@ -30,7 +30,8 @@ final class SearchGameByTitleViewModelTests: XCTestCase {
         // When
         let viewModel = SearchGameByTitleViewModel(
             networkingSession: networkingSession,
-            platform: MockData.platform,
+            platform: MockData.platform, 
+            progress: DesignSystem.twoThirdProgress,
             myCollectionDelegate: MyCollectionViewModelDelegateMock()
         )
         
@@ -49,7 +50,8 @@ final class SearchGameByTitleViewModelTests: XCTestCase {
         let networkingSession = APIMock()
         let viewModel = SearchGameByTitleViewModel(
             networkingSession: networkingSession,
-            platform: MockData.platform,
+            platform: MockData.platform, 
+            progress: DesignSystem.twoThirdProgress,
             myCollectionDelegate: MyCollectionViewModelDelegateMock()
         )
         
@@ -84,6 +86,7 @@ final class SearchGameByTitleViewModelTests: XCTestCase {
         let viewModel = SearchGameByTitleViewModel(
             networkingSession: networkingSession,
             platform: MockData.platform,
+            progress: DesignSystem.twoThirdProgress,
             myCollectionDelegate: MyCollectionViewModelDelegateMock()
         )
         
@@ -121,6 +124,7 @@ final class SearchGameByTitleViewModelTests: XCTestCase {
         let viewModel = SearchGameByTitleViewModel(
             networkingSession: networkingSession,
             platform: MockData.platform,
+            progress: DesignSystem.twoThirdProgress,
             myCollectionDelegate: MyCollectionViewModelDelegateMock()
         )
         
@@ -158,6 +162,7 @@ final class SearchGameByTitleViewModelTests: XCTestCase {
         let viewModel = SearchGameByTitleViewModel(
             networkingSession: networkingSession,
             platform: MockData.platform,
+            progress: DesignSystem.twoThirdProgress,
             myCollectionDelegate: MyCollectionViewModelDelegateMock()
         )
         
@@ -195,6 +200,7 @@ final class SearchGameByTitleViewModelTests: XCTestCase {
         let viewModel = SearchGameByTitleViewModel(
             networkingSession: networkingSession,
             platform: MockData.platform,
+            progress: DesignSystem.twoThirdProgress,
             myCollectionDelegate: MyCollectionViewModelDelegateMock()
         )
         
@@ -233,6 +239,7 @@ final class SearchGameByTitleViewModelTests: XCTestCase {
         let viewModel = SearchGameByTitleViewModel(
             networkingSession: networkingSession,
             platform: MockData.platform,
+            progress: DesignSystem.twoThirdProgress,
             myCollectionDelegate: MyCollectionViewModelDelegateMock()
         )
         
@@ -273,6 +280,7 @@ final class SearchGameByTitleViewModelTests: XCTestCase {
         let viewModel = SearchGameByTitleViewModel(
             networkingSession: networkingSession,
             platform: MockData.platform,
+            progress: DesignSystem.twoThirdProgress,
             myCollectionDelegate: MyCollectionViewModelDelegateMock()
         )
         
@@ -295,6 +303,7 @@ final class SearchGameByTitleViewModelTests: XCTestCase {
         let viewModel = SearchGameByTitleViewModel(
             networkingSession: networkingSession,
             platform: MockData.platform,
+            progress: DesignSystem.twoThirdProgress,
             myCollectionDelegate: MyCollectionViewModelDelegateMock()
         )
         
@@ -330,6 +339,7 @@ final class SearchGameByTitleViewModelTests: XCTestCase {
         let viewModel = SearchGameByTitleViewModel(
             networkingSession: networkingSession,
             platform: MockData.platform,
+            progress: DesignSystem.twoThirdProgress,
             myCollectionDelegate: MyCollectionViewModelDelegateMock()
         )
         
@@ -373,6 +383,7 @@ final class SearchGameByTitleViewModelTests: XCTestCase {
         let viewModel = SearchGameByTitleViewModel(
             networkingSession: networkingSession,
             platform: MockData.platform,
+            progress: DesignSystem.twoThirdProgress,
             myCollectionDelegate: MyCollectionViewModelDelegateMock()
         )
         
@@ -404,13 +415,14 @@ final class SearchGameByTitleViewModelTests: XCTestCase {
         let viewModel = SearchGameByTitleViewModel(
             networkingSession: networkingSession,
             platform: MockData.platform,
+            progress: DesignSystem.twoThirdProgress,
             myCollectionDelegate: MyCollectionViewModelDelegateMock()
         )
         
         // When
         viewModel.cancelButtonTapped { _ in
         }
-        viewModel.didTapRightButtonItem()
+        viewModel.didTap(buttonItem: .close)
         
         // Then
         let expectedNavigationStyle: NavigationStyle = {

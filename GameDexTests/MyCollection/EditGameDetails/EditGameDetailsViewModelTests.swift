@@ -410,7 +410,7 @@ final class EditGameDetailsViewModelTests: XCTestCase {
         )
         
         // When
-        viewModel.didTapRightButtonItem()
+        viewModel.didTap(buttonItem: .delete)
         
         // Then
         alertDisplayer.verify(

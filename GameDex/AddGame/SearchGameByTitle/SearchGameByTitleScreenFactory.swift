@@ -10,10 +10,13 @@ import UIKit
 
 struct SearchGameByTitleScreenFactory: ScreenFactory {
     
+    private let progress: Float
+    
     var viewController: UIViewController {
         let viewModel = SearchGameByTitleViewModel(
             networkingSession: AlamofireAPI(),
             platform: self.platform,
+            progress: self.progress,
             myCollectionDelegate: self.myCollectionDelegate
         )
         let layout = UICollectionViewFlowLayout()
@@ -27,8 +30,13 @@ struct SearchGameByTitleScreenFactory: ScreenFactory {
     private let platform: Platform
     weak var myCollectionDelegate: MyCollectionViewModelDelegate?
     
-    init(platform: Platform, myCollectionDelegate: MyCollectionViewModelDelegate?) {
+    init(
+        platform: Platform,
+        progress: Float,
+        myCollectionDelegate: MyCollectionViewModelDelegate?
+    ) {
         self.platform = platform
+        self.progress = progress
         self.myCollectionDelegate = myCollectionDelegate
     }
 }
