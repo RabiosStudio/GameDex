@@ -212,7 +212,7 @@ class ContainerViewController: UIViewController {
                     buttonItemsConfigured.append(
                         BarButtonItem(
                             image: item.image(), actionHandler: { [weak self] in
-                                self?.viewModel.didTapRightButtonItem(fromButton: item)
+                                self?.viewModel.didTap(buttonItem: item)
                             }
                         )
                     )

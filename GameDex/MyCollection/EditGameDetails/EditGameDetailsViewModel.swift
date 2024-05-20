@@ -65,7 +65,7 @@ final class EditGameDetailsViewModel: CollectionViewModel {
         callback(nil)
     }
     
-    func didTapRightButtonItem(fromButton: AnyBarButtonItem) {
+    func didTap(buttonItem: AnyBarButtonItem) {
         self.presentAlertBeforeDeletingGame()
     }
 }

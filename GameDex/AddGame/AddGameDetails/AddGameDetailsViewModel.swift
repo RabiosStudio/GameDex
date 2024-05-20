@@ -54,7 +54,7 @@ final class AddGameDetailsViewModel: CollectionViewModel {
         callback(nil)
     }
     
-    func didTapRightButtonItem(fromButton: AnyBarButtonItem) {
+    func didTap(buttonItem: AnyBarButtonItem) {
         self.close()
     }
 }

@@ -75,7 +75,7 @@ final class MyCollectionViewModel: ConnectivityDisplayerViewModel {
         }
     }
     
-    func didTapRightButtonItem(fromButton: AnyBarButtonItem) {
+    func didTap(buttonItem: AnyBarButtonItem) {
         self.presentAddGameMethods()
     }
 }

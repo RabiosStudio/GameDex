@@ -17,7 +17,7 @@ protocol CollectionViewModel {
     var containerDelegate: ContainerViewControllerDelegate? { get set }
     
     func loadData(callback: @escaping (EmptyError?) -> ()) async
-    func didTapRightButtonItem(fromButton: AnyBarButtonItem)
+    func didTap(buttonItem: AnyBarButtonItem)
 }
 
 extension CollectionViewModel {
@@ -40,5 +40,5 @@ extension CollectionViewModel {
         return self.sections.count > indexPath.section && self.sections[indexPath.section].cellsVM.count > indexPath.row
     }
     
-    func didTapRightButtonItem(fromButton: AnyBarButtonItem) {}
+    func didTap(buttonItem: AnyBarButtonItem) {}
 }

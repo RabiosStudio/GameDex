@@ -66,7 +66,7 @@ final class MyCollectionByPlatformsViewModel: ConnectivityDisplayerViewModel {
         callback(nil)
     }
     
-    func didTapRightButtonItem(fromButton: AnyBarButtonItem) {
+    func didTap(buttonItem: AnyBarButtonItem) {
         self.startSearchingForGames()
     }
     
