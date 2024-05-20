@@ -50,7 +50,7 @@ final class SelectPlatformViewModel: CollectionViewModel {
         }
     }
     
-    func didTapRightButtonItem() {
+    func didTapRightButtonItem(fromButton: AnyBarButtonItem) {
         self.close()
     }
     

@@ -16,7 +16,7 @@ final class MyCollectionByPlatformsViewModel: ConnectivityDisplayerViewModel {
     )
     var isBounceable: Bool = true
     var progress: Float?
-    var rightButtonItems: [AnyBarButtonItem]? = [.add, .search]
+    var rightButtonItems: [AnyBarButtonItem]? = [.add]
     let screenTitle: String?
     var sections = [Section]()
     
@@ -66,7 +66,7 @@ final class MyCollectionByPlatformsViewModel: ConnectivityDisplayerViewModel {
         callback(nil)
     }
     
-    func didTapRightButtonItem() {
+    func didTapRightButtonItem(fromButton: AnyBarButtonItem) {
         self.startSearchingForGames()
     }
     
@@ -183,7 +183,7 @@ extension MyCollectionByPlatformsViewModel: SearchViewModelDelegate {
             return
         }
         self.updateListOfGames(with: games)
-        self.rightButtonItems = [.add, .search]
+        self.rightButtonItems = [.add]
         callback(nil)
     }
     

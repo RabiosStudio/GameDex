@@ -75,7 +75,7 @@ final class MyCollectionViewModel: ConnectivityDisplayerViewModel {
         }
     }
     
-    func didTapRightButtonItem() {
+    func didTapRightButtonItem(fromButton: AnyBarButtonItem) {
         self.presentAddGameMethods()
     }
 }
@@ -113,15 +113,6 @@ extension MyCollectionViewModel {
         ]
     }
     
-    private func handleSearchIconDisplay() {
-        self.rightButtonItems?.removeAll()
-        guard !self.platforms.isEmpty else {
-            self.rightButtonItems = [.add]
-            return
-        }
-        self.rightButtonItems = [.add, .search]
-    }
-    
     private func handleDataSuccess(platforms: [Platform]) -> EmptyError? {
         guard !platforms.isEmpty else {
             self.platforms = []
@@ -129,13 +120,11 @@ extension MyCollectionViewModel {
             return MyCollectionError.emptyCollection(myCollectionDelegate: self)
         }
         self.platforms = platforms
-        self.handleSearchIconDisplay()
         self.handleSectionCreation()
         return nil
     }
     
     private func handleFetchEmptyCollection() {
-        self.handleSearchIconDisplay()
         self.handleSectionCreation()
     }
 }
@@ -151,7 +140,6 @@ extension MyCollectionViewModel: MyCollectionViewModelDelegate {
 extension MyCollectionViewModel: SearchViewModelDelegate {
     func cancelButtonTapped(callback: @escaping (EmptyError?) -> ()) {
         self.updateListOfCollections(with: self.platforms)
-        self.handleSearchIconDisplay()
         callback(nil)
     }
     
@@ -161,7 +149,6 @@ extension MyCollectionViewModel: SearchViewModelDelegate {
             callback(nil)
             return
         }
-        self.rightButtonItems = []
         self.containerDelegate?.reloadNavBar()
         
         var matchingCollections = [Platform]()

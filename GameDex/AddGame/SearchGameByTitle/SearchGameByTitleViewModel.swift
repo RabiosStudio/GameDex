@@ -48,7 +48,7 @@ final class SearchGameByTitleViewModel: CollectionViewModel {
         callback(AddGameError.noSearch(platformName: self.platform.title))
     }
     
-    func didTapRightButtonItem() {
+    func didTapRightButtonItem(fromButton: AnyBarButtonItem) {
         self.close()
     }
     

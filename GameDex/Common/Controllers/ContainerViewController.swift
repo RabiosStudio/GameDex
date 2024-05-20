@@ -45,7 +45,7 @@ class ContainerViewController: UIViewController {
         let view = UIStackView()
         view.axis = .vertical
         view.layoutMargins = .init(
-            top: DesignSystem.paddingRegular,
+            top: .zero,
             left: DesignSystem.paddingRegular,
             bottom: DesignSystem.paddingRegular,
             right: DesignSystem.paddingRegular
@@ -208,19 +208,11 @@ class ContainerViewController: UIViewController {
             var buttonItemsConfigured = [BarButtonItem]()
             for item in rightButtonItem {
                 switch item {
-                case .search:
-                    buttonItemsConfigured.append(
-                        BarButtonItem(
-                            image: item.image(), actionHandler: { [weak self] in
-                                self?.handleShowSearchBarOnTap()
-                            }
-                        )
-                    )
                 default:
                     buttonItemsConfigured.append(
                         BarButtonItem(
                             image: item.image(), actionHandler: { [weak self] in
-                                self?.viewModel.didTapRightButtonItem()
+                                self?.viewModel.didTapRightButtonItem(fromButton: item)
                             }
                         )
                     )
@@ -250,29 +242,19 @@ class ContainerViewController: UIViewController {
     }
     
     private func configureSearchBar() {
-        guard let searchVM = self.viewModel.searchViewModel,
-              searchVM.activateOnTap == false else {
-            self.title = self.viewModel.screenTitle
+        self.title = self.viewModel.screenTitle
+        guard let searchVM = self.viewModel.searchViewModel else {
+            self.searchBar.removeFromSuperview()
             return
         }
         self.searchBar.placeholder = searchVM.placeholder
-        self.navigationItem.titleView = self.searchBar
+        self.stackView.insertArrangedSubview(self.searchBar, at: .zero)
     }
     
     private func makeSearchBarFirstResponderIfNeeded() {
-        if let searchViewModel = self.viewModel.searchViewModel,
-           searchViewModel.activateOnTap == false {
+        if self.viewModel.searchViewModel?.activateOnTap == false {
             self.searchBar.becomeFirstResponder()
         }
-    }
-    
-    private func handleShowSearchBarOnTap() {
-        guard let searchVM = self.viewModel.searchViewModel else { return }
-        self.searchBar.placeholder = searchVM.placeholder
-        self.searchBar.showsCancelButton = true
-        self.searchBar.becomeFirstResponder()
-        self.navigationItem.rightBarButtonItems = nil
-        self.navigationItem.titleView = self.searchBar
     }
     
     private func configureLoader() {
