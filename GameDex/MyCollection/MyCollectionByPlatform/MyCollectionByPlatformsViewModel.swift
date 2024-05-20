@@ -16,7 +16,7 @@ final class MyCollectionByPlatformsViewModel: ConnectivityDisplayerViewModel {
     )
     var isBounceable: Bool = true
     var progress: Float?
-    var rightButtonItems: [AnyBarButtonItem]? = [.filter, .add]
+    var rightButtonItems: [AnyBarButtonItem]? = [.filter(active: false), .add]
     let screenTitle: String?
     var sections = [Section]()
     var layoutMargins: UIEdgeInsets? = UIEdgeInsets(
@@ -162,6 +162,7 @@ extension MyCollectionByPlatformsViewModel: MyCollectionViewModelDelegate {
             }
         }
         self.updateListOfGames(with: filteredGames)
+        self.rightButtonItems = [.filter(active: true), .add]
         self.containerDelegate?.reloadSection(
             emptyError: filteredGames.isEmpty ? MyCollectionError.noItems : nil
         )
@@ -242,7 +243,6 @@ extension MyCollectionByPlatformsViewModel: SearchViewModelDelegate {
             return
         }
         self.updateListOfGames(with: games)
-        self.rightButtonItems = [.filter, .add]
         callback(nil)
     }
     
