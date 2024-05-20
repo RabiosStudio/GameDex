@@ -22,6 +22,8 @@ internal enum L10n {
   internal static let apiErrorDescription = L10n.tr("Localizable", "apiErrorDescription", fallback: "There has been an issue while fetching data.")
   /// Oops!
   internal static let apiErrorTitle = L10n.tr("Localizable", "apiErrorTitle", fallback: "Oops!")
+  /// Apply
+  internal static let apply = L10n.tr("Localizable", "apply", fallback: "Apply")
   /// through other methods below
   internal static let authThroughOtherMethods = L10n.tr("Localizable", "authThroughOtherMethods", fallback: "through other methods below")
   /// Cancel
@@ -90,6 +92,8 @@ internal enum L10n {
   internal static let fetchGamesErrorDescription = L10n.tr("Localizable", "fetchGamesErrorDescription", fallback: "An error occured while fetching data.")
   /// Fill Game details
   internal static let fillGameDetails = L10n.tr("Localizable", "fillGameDetails", fallback: "Fill Game details")
+  /// Filters
+  internal static let filters = L10n.tr("Localizable", "filters", fallback: "Filters")
   /// Forgot password?
   internal static let forgotPassword = L10n.tr("Localizable", "forgotPassword", fallback: "Forgot password?")
   /// game

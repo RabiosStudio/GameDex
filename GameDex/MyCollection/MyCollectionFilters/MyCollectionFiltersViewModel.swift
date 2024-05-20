@@ -13,7 +13,7 @@ final class MyCollectionFiltersViewModel: CollectionViewModel {
     var isBounceable: Bool = true
     var progress: Float?
     var rightButtonItems: [AnyBarButtonItem]? = [.close]
-    let screenTitle: String? = "Filters"
+    let screenTitle: String? = L10n.filters
     var sections = [Section]()
     var layoutMargins: UIEdgeInsets?
     
@@ -46,7 +46,7 @@ final class MyCollectionFiltersViewModel: CollectionViewModel {
     func configureBottomView(shouldEnableButton: Bool) {
         let buttonContentViewFactory = PrimaryButtonContentViewFactory(
             delegate: self,
-            buttonTitle: "Save filters",
+            buttonTitle: L10n.apply,
             shouldEnable: shouldEnableButton,
             position: .bottom
         )
