@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 final class AddGameDetailsViewModel: CollectionViewModel {
     var searchViewModel: SearchViewModel?
@@ -14,6 +15,8 @@ final class AddGameDetailsViewModel: CollectionViewModel {
     var rightButtonItems: [AnyBarButtonItem]? = [.close]
     let screenTitle: String? = L10n.fillGameDetails
     var sections = [Section]()
+    var layoutMargins: UIEdgeInsets?
+    
     weak var containerDelegate: ContainerViewControllerDelegate?
     weak var myCollectionDelegate: MyCollectionViewModelDelegate?
     

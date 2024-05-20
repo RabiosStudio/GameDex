@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 protocol CollectionViewModel {
     var screenTitle: String? { get }
@@ -14,6 +15,7 @@ protocol CollectionViewModel {
     var searchViewModel: SearchViewModel? { get }
     var sections: [Section] { get }
     var progress: Float? { get }
+    var layoutMargins: UIEdgeInsets? { get }
     var containerDelegate: ContainerViewControllerDelegate? { get set }
     
     func loadData(callback: @escaping (EmptyError?) -> ()) async

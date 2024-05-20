@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 final class EditProfileViewModel: CollectionViewModel {
     var searchViewModel: SearchViewModel?
@@ -14,6 +15,7 @@ final class EditProfileViewModel: CollectionViewModel {
     var rightButtonItems: [AnyBarButtonItem]?
     let screenTitle: String? = L10n.editProfile
     var sections: [Section] = []
+    var layoutMargins: UIEdgeInsets?
     
     weak var containerDelegate: ContainerViewControllerDelegate?
     weak var myProfileDelegate: MyProfileViewModelDelegate?

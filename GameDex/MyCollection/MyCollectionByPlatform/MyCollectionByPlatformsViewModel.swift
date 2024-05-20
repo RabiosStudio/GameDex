@@ -19,6 +19,12 @@ final class MyCollectionByPlatformsViewModel: ConnectivityDisplayerViewModel {
     var rightButtonItems: [AnyBarButtonItem]? = [.add]
     let screenTitle: String?
     var sections = [Section]()
+    var layoutMargins: UIEdgeInsets? = UIEdgeInsets(
+        top: .zero,
+        left: DesignSystem.paddingRegular,
+        bottom: DesignSystem.paddingRegular,
+        right: DesignSystem.paddingRegular
+    )
     
     weak var containerDelegate: ContainerViewControllerDelegate?
     weak var myCollectionDelegate: MyCollectionViewModelDelegate?

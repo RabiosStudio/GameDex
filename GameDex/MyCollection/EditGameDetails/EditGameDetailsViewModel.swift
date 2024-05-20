@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 final class EditGameDetailsViewModel: CollectionViewModel {
     var searchViewModel: SearchViewModel?
@@ -14,6 +15,7 @@ final class EditGameDetailsViewModel: CollectionViewModel {
     var rightButtonItems: [AnyBarButtonItem]? = [.delete]
     let screenTitle: String? = L10n.myCollection
     var sections = [Section]()
+    var layoutMargins: UIEdgeInsets?
     
     private let savedGame: SavedGame
     private let localDatabase: LocalDatabase

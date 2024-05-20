@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 final class SearchGameByTitleViewModel: CollectionViewModel {
     lazy var searchViewModel: SearchViewModel? = SearchViewModel(
@@ -18,6 +19,13 @@ final class SearchGameByTitleViewModel: CollectionViewModel {
     var rightButtonItems: [AnyBarButtonItem]? = [.close]
     let screenTitle: String? = L10n.searchGame
     var sections = [Section]()
+    var layoutMargins: UIEdgeInsets? = UIEdgeInsets(
+        top: .zero,
+        left: DesignSystem.paddingRegular,
+        bottom: DesignSystem.paddingRegular,
+        right: DesignSystem.paddingRegular
+    )
+    
     weak var containerDelegate: ContainerViewControllerDelegate?
     weak var myCollectionDelegate: MyCollectionViewModelDelegate?
     

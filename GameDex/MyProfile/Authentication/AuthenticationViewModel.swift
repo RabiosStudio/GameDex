@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 final class AuthenticationViewModel: CollectionViewModel {
     var searchViewModel: SearchViewModel?
@@ -14,6 +15,7 @@ final class AuthenticationViewModel: CollectionViewModel {
     var rightButtonItems: [AnyBarButtonItem]?
     let screenTitle: String?
     var sections: [Section] = []
+    var layoutMargins: UIEdgeInsets?
     
     weak var containerDelegate: ContainerViewControllerDelegate?
     weak var myProfileDelegate: MyProfileViewModelDelegate?

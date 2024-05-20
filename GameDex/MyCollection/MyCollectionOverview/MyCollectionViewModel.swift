@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 // sourcery: AutoMockable
 protocol MyCollectionViewModelDelegate: AnyObject {
@@ -24,6 +25,12 @@ final class MyCollectionViewModel: ConnectivityDisplayerViewModel {
     let screenTitle: String? = L10n.myCollection
     var sections: [Section] = []
     var platforms: [Platform] = []
+    var layoutMargins: UIEdgeInsets? = UIEdgeInsets(
+        top: .zero,
+        left: DesignSystem.paddingRegular,
+        bottom: DesignSystem.paddingRegular,
+        right: DesignSystem.paddingRegular
+    )
     
     weak var containerDelegate: ContainerViewControllerDelegate?
     weak var myCollectionDelegate: MyCollectionViewModelDelegate?

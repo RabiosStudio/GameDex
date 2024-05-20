@@ -44,8 +44,8 @@ class ContainerViewController: UIViewController {
     private lazy var stackView: UIStackView = {
         let view = UIStackView()
         view.axis = .vertical
-        view.layoutMargins = .init(
-            top: .zero,
+        view.layoutMargins = self.viewModel.layoutMargins ?? .init(
+            top: DesignSystem.paddingRegular,
             left: DesignSystem.paddingRegular,
             bottom: DesignSystem.paddingRegular,
             right: DesignSystem.paddingRegular

@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 final class CollectionManagementViewModel: CollectionViewModel {
     var searchViewModel: SearchViewModel?
@@ -16,6 +17,7 @@ final class CollectionManagementViewModel: CollectionViewModel {
     var sections: [Section] = []
     
     var isLoggedIn: Bool = false
+    var layoutMargins: UIEdgeInsets?
     
     weak var containerDelegate: ContainerViewControllerDelegate?
     weak var myProfileDelegate: MyProfileViewModelDelegate?
