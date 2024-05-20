@@ -193,7 +193,7 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
         )
         
         // When
-        viewModel.didTapRightButtonItem()
+        viewModel.didTap(buttonItem: .add)
         
         // Then
         let expectedNavigationStyle: NavigationStyle = {

@@ -422,7 +422,7 @@ final class SearchGameByTitleViewModelTests: XCTestCase {
         // When
         viewModel.cancelButtonTapped { _ in
         }
-        viewModel.didTapRightButtonItem()
+        viewModel.didTap(buttonItem: .close)
         
         // Then
         let expectedNavigationStyle: NavigationStyle = {

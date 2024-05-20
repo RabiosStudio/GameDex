@@ -73,7 +73,12 @@ final class MyCollectionByPlatformsViewModel: ConnectivityDisplayerViewModel {
     }
     
     func didTap(buttonItem: AnyBarButtonItem) {
-        self.startSearchingForGames()
+        switch buttonItem {
+        case .add:
+            self.startSearchingForGames()
+        default:
+            break
+        }
     }
     
     private func startSearchingForGames() {
