@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 // sourcery: AutoMockable
 protocol MyProfileViewModelDelegate: AnyObject {
@@ -19,6 +20,7 @@ final class MyProfileViewModel: CollectionViewModel {
     var rightButtonItems: [AnyBarButtonItem]?
     let screenTitle: String? = L10n.myProfile
     var sections: [Section] = []
+    var layoutMargins: UIEdgeInsets?
     
     weak var containerDelegate: ContainerViewControllerDelegate?
     weak var myCollectionDelegate: MyCollectionViewModelDelegate?

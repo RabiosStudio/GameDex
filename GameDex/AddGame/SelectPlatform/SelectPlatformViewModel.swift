@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 final class SelectPlatformViewModel: CollectionViewModel {
     lazy var searchViewModel: SearchViewModel? = SearchViewModel(
@@ -19,6 +20,13 @@ final class SelectPlatformViewModel: CollectionViewModel {
     let screenTitle: String? = L10n.searchPlatform
     var sections = [Section]()
     private var platforms: [Platform] = []
+    var layoutMargins: UIEdgeInsets? = UIEdgeInsets(
+        top: .zero,
+        left: DesignSystem.paddingRegular,
+        bottom: DesignSystem.paddingRegular,
+        right: DesignSystem.paddingRegular
+    )
+    
     weak var containerDelegate: ContainerViewControllerDelegate?
     weak var myCollectionDelegate: MyCollectionViewModelDelegate?
     
@@ -50,8 +58,13 @@ final class SelectPlatformViewModel: CollectionViewModel {
         }
     }
     
-    func didTapRightButtonItem() {
-        self.close()
+    func didTap(buttonItem: AnyBarButtonItem) {
+        switch buttonItem {
+        case .close:
+            self.close()
+        default:
+            break
+        }
     }
     
     private func close() {

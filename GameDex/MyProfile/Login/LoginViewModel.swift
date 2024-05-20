@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 final class LoginViewModel: CollectionViewModel {
     var searchViewModel: SearchViewModel?
@@ -14,6 +15,7 @@ final class LoginViewModel: CollectionViewModel {
     var rightButtonItems: [AnyBarButtonItem]?
     let screenTitle: String? = L10n.login
     var sections: [Section] = []
+    var layoutMargins: UIEdgeInsets?
     
     weak var containerDelegate: ContainerViewControllerDelegate?
     weak var myProfileDelegate: MyProfileViewModelDelegate?

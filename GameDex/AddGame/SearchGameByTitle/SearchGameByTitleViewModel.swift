@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 final class SearchGameByTitleViewModel: CollectionViewModel {
     lazy var searchViewModel: SearchViewModel? = SearchViewModel(
@@ -18,6 +19,13 @@ final class SearchGameByTitleViewModel: CollectionViewModel {
     var rightButtonItems: [AnyBarButtonItem]? = [.close]
     let screenTitle: String? = L10n.searchGame
     var sections = [Section]()
+    var layoutMargins: UIEdgeInsets? = UIEdgeInsets(
+        top: .zero,
+        left: DesignSystem.paddingRegular,
+        bottom: DesignSystem.paddingRegular,
+        right: DesignSystem.paddingRegular
+    )
+    
     weak var containerDelegate: ContainerViewControllerDelegate?
     weak var myCollectionDelegate: MyCollectionViewModelDelegate?
     
@@ -48,8 +56,13 @@ final class SearchGameByTitleViewModel: CollectionViewModel {
         callback(AddGameError.noSearch(platformName: self.platform.title))
     }
     
-    func didTapRightButtonItem() {
-        self.close()
+    func didTap(buttonItem: AnyBarButtonItem) {
+        switch buttonItem {
+        case .close:
+            self.close()
+        default:
+            break
+        }
     }
     
     private func close() {

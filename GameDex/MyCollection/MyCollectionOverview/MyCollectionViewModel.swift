@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 // sourcery: AutoMockable
 protocol MyCollectionViewModelDelegate: AnyObject {
@@ -24,6 +25,12 @@ final class MyCollectionViewModel: ConnectivityDisplayerViewModel {
     let screenTitle: String? = L10n.myCollection
     var sections: [Section] = []
     var platforms: [Platform] = []
+    var layoutMargins: UIEdgeInsets? = UIEdgeInsets(
+        top: .zero,
+        left: DesignSystem.paddingRegular,
+        bottom: DesignSystem.paddingRegular,
+        right: DesignSystem.paddingRegular
+    )
     
     weak var containerDelegate: ContainerViewControllerDelegate?
     weak var myCollectionDelegate: MyCollectionViewModelDelegate?
@@ -75,7 +82,7 @@ final class MyCollectionViewModel: ConnectivityDisplayerViewModel {
         }
     }
     
-    func didTapRightButtonItem() {
+    func didTap(buttonItem: AnyBarButtonItem) {
         self.presentAddGameMethods()
     }
 }
@@ -113,15 +120,6 @@ extension MyCollectionViewModel {
         ]
     }
     
-    private func handleSearchIconDisplay() {
-        self.rightButtonItems?.removeAll()
-        guard !self.platforms.isEmpty else {
-            self.rightButtonItems = [.add]
-            return
-        }
-        self.rightButtonItems = [.add, .search]
-    }
-    
     private func handleDataSuccess(platforms: [Platform]) -> EmptyError? {
         guard !platforms.isEmpty else {
             self.platforms = []
@@ -129,13 +127,11 @@ extension MyCollectionViewModel {
             return MyCollectionError.emptyCollection(myCollectionDelegate: self)
         }
         self.platforms = platforms
-        self.handleSearchIconDisplay()
         self.handleSectionCreation()
         return nil
     }
     
     private func handleFetchEmptyCollection() {
-        self.handleSearchIconDisplay()
         self.handleSectionCreation()
     }
 }
@@ -151,7 +147,6 @@ extension MyCollectionViewModel: MyCollectionViewModelDelegate {
 extension MyCollectionViewModel: SearchViewModelDelegate {
     func cancelButtonTapped(callback: @escaping (EmptyError?) -> ()) {
         self.updateListOfCollections(with: self.platforms)
-        self.handleSearchIconDisplay()
         callback(nil)
     }
     
@@ -161,7 +156,6 @@ extension MyCollectionViewModel: SearchViewModelDelegate {
             callback(nil)
             return
         }
-        self.rightButtonItems = []
         self.containerDelegate?.reloadNavBar()
         
         var matchingCollections = [Platform]()

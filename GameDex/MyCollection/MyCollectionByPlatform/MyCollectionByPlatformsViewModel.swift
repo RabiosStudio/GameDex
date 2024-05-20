@@ -16,9 +16,15 @@ final class MyCollectionByPlatformsViewModel: ConnectivityDisplayerViewModel {
     )
     var isBounceable: Bool = true
     var progress: Float?
-    var rightButtonItems: [AnyBarButtonItem]? = [.add, .search]
+    var rightButtonItems: [AnyBarButtonItem]? = [.add]
     let screenTitle: String?
     var sections = [Section]()
+    var layoutMargins: UIEdgeInsets? = UIEdgeInsets(
+        top: .zero,
+        left: DesignSystem.paddingRegular,
+        bottom: DesignSystem.paddingRegular,
+        right: DesignSystem.paddingRegular
+    )
     
     weak var containerDelegate: ContainerViewControllerDelegate?
     weak var myCollectionDelegate: MyCollectionViewModelDelegate?
@@ -66,7 +72,7 @@ final class MyCollectionByPlatformsViewModel: ConnectivityDisplayerViewModel {
         callback(nil)
     }
     
-    func didTapRightButtonItem() {
+    func didTap(buttonItem: AnyBarButtonItem) {
         self.startSearchingForGames()
     }
     
@@ -183,7 +189,7 @@ extension MyCollectionByPlatformsViewModel: SearchViewModelDelegate {
             return
         }
         self.updateListOfGames(with: games)
-        self.rightButtonItems = [.add, .search]
+        self.rightButtonItems = [.add]
         callback(nil)
     }
     
@@ -198,7 +204,6 @@ extension MyCollectionByPlatformsViewModel: SearchViewModelDelegate {
             callback(nil)
             return
         }
-        self.rightButtonItems = []
         self.containerDelegate?.reloadNavBar()
         let matchingGames = games.filter({
             $0.game.title.localizedCaseInsensitiveContains(text)
