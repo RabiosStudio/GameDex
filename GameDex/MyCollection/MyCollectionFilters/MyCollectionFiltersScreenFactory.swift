@@ -19,6 +19,7 @@ struct MyCollectionFiltersScreenFactory: ScreenFactory {
             viewModel: viewModel,
             layout: layout
         )
+        viewModel.containerDelegate = containerController
         return containerController
     }
     

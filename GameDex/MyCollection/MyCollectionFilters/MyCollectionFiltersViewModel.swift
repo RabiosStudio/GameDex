@@ -30,6 +30,7 @@ final class MyCollectionFiltersViewModel: CollectionViewModel {
             games: self.games,
             editDelegate: self
         )]
+        self.configureBottomView(shouldEnableButton: false)
         callback(nil)
     }
     
@@ -40,6 +41,16 @@ final class MyCollectionFiltersViewModel: CollectionViewModel {
         default:
             break
         }
+    }
+    
+    func configureBottomView(shouldEnableButton: Bool) {
+        let buttonContentViewFactory = PrimaryButtonContentViewFactory(
+            delegate: self,
+            buttonTitle: "Save filters",
+            shouldEnable: shouldEnableButton,
+            position: .bottom
+        )
+        self.containerDelegate?.configureSupplementaryView(contentViewFactory: buttonContentViewFactory)
     }
     
     private func close() {
@@ -53,5 +64,35 @@ final class MyCollectionFiltersViewModel: CollectionViewModel {
 
 extension MyCollectionFiltersViewModel: EditFormDelegate {
     func enableSaveButtonIfNeeded() {
+        guard let firstSection = self.sections.first,
+              let formCellsVM = firstSection.cellsVM.filter({ cellVM in
+                  return cellVM is (any FormCellViewModel)
+              }) as? [any FormCellViewModel] else {
+            return
+        }
+        
+        let values: [Any?] = formCellsVM.map { $0.value }
+        
+        var shouldEnableButton = false
+        for index in 0..<values.count {
+            let currentValue = values[index]
+            
+            if currentValue != nil,
+               let currentStringValue = currentValue as? String {
+                shouldEnableButton = currentStringValue != ""
+            }
+            if shouldEnableButton {
+                break
+            }
+        }
+        self.configureBottomView(shouldEnableButton: shouldEnableButton)
+    }
+}
+
+// MARK: - PrimaryButtonDelegate
+
+extension MyCollectionFiltersViewModel: PrimaryButtonDelegate {
+    func didTapPrimaryButton(with title: String?) async {
+        
     }
 }
