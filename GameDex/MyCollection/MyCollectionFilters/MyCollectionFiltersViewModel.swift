@@ -12,7 +12,7 @@ final class MyCollectionFiltersViewModel: CollectionViewModel {
     var searchViewModel: SearchViewModel?
     var isBounceable: Bool = true
     var progress: Float?
-    var rightButtonItems: [AnyBarButtonItem]? = [.close, .clear]
+    var buttonItems: [AnyBarButtonItem]? = [.close, .clear]
     let screenTitle: String? = L10n.filters
     var sections = [Section]()
     var layoutMargins: UIEdgeInsets?

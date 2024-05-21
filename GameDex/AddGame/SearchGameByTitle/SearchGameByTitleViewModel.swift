@@ -16,7 +16,7 @@ final class SearchGameByTitleViewModel: CollectionViewModel {
     )
     var isBounceable: Bool = true
     var progress: Float?
-    var rightButtonItems: [AnyBarButtonItem]? = [.close]
+    var buttonItems: [AnyBarButtonItem]? = [.close]
     let screenTitle: String? = L10n.searchGame
     var sections = [Section]()
     var layoutMargins: UIEdgeInsets? = UIEdgeInsets(

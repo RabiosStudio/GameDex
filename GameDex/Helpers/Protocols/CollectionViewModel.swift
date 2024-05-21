@@ -10,7 +10,7 @@ import UIKit
 
 protocol CollectionViewModel {
     var screenTitle: String? { get }
-    var rightButtonItems: [AnyBarButtonItem]? { get }
+    var buttonItems: [AnyBarButtonItem]? { get }
     var isBounceable: Bool { get }
     var searchViewModel: SearchViewModel? { get }
     var sections: [Section] { get }

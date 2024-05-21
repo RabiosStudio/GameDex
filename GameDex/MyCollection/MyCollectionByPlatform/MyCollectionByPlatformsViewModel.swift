@@ -16,7 +16,7 @@ final class MyCollectionByPlatformsViewModel: ConnectivityDisplayerViewModel {
     )
     var isBounceable: Bool = true
     var progress: Float?
-    var rightButtonItems: [AnyBarButtonItem]? = [.filter(active: false), .add]
+    var buttonItems: [AnyBarButtonItem]? = [.filter(active: false), .add]
     let screenTitle: String?
     var sections = [Section]()
     var layoutMargins: UIEdgeInsets? = UIEdgeInsets(
@@ -67,7 +67,7 @@ final class MyCollectionByPlatformsViewModel: ConnectivityDisplayerViewModel {
         }
         self.displayedGames = games
         self.selectedFilters = nil
-        self.rightButtonItems = [.filter(active: false), .add]
+        self.buttonItems = [.filter(active: false), .add]
         self.sections = [
             MyCollectionByPlatformsSection(
                 games: games,
@@ -152,7 +152,7 @@ extension MyCollectionByPlatformsViewModel: MyCollectionViewModelDelegate {
         self.selectedFilters = nil
         self.updateListOfGames(with: games)
         self.displayedGames = games
-        self.rightButtonItems = [.filter(active: false), .add]
+        self.buttonItems = [.filter(active: false), .add]
         self.containerDelegate?.reloadSection(emptyError: nil)
     }
     
@@ -186,7 +186,7 @@ extension MyCollectionByPlatformsViewModel: MyCollectionViewModelDelegate {
         }
         self.updateListOfGames(with: filteredGames)
         self.displayedGames = filteredGames
-        self.rightButtonItems = [.filter(active: true), .add]
+        self.buttonItems = [.filter(active: true), .add]
         self.containerDelegate?.reloadSection(
             emptyError: filteredGames.isEmpty ? MyCollectionError.noItems : nil
         )

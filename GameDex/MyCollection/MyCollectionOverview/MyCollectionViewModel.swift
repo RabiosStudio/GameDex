@@ -23,7 +23,7 @@ final class MyCollectionViewModel: ConnectivityDisplayerViewModel {
     )
     var isBounceable: Bool = true
     var progress: Float?
-    var rightButtonItems: [AnyBarButtonItem]? = [.add]
+    var buttonItems: [AnyBarButtonItem]? = [.add]
     let screenTitle: String? = L10n.myCollection
     var sections: [Section] = []
     var platforms: [Platform] = []
