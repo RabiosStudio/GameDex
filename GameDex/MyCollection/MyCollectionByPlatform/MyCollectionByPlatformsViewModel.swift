@@ -34,6 +34,7 @@ final class MyCollectionByPlatformsViewModel: ConnectivityDisplayerViewModel {
     private let alertDisplayer: AlertDisplayer
     private var platform: Platform?
     private var displayedGames: [SavedGame]
+    private var selectedFilters: [GameFilter]?
     let authenticationService: AuthenticationService
     let connectivityChecker: ConnectivityChecker
     
@@ -65,6 +66,7 @@ final class MyCollectionByPlatformsViewModel: ConnectivityDisplayerViewModel {
             return
         }
         self.displayedGames = games
+        self.selectedFilters = nil
         self.rightButtonItems = [.filter(active: false), .add]
         self.sections = [
             MyCollectionByPlatformsSection(
@@ -112,6 +114,7 @@ final class MyCollectionByPlatformsViewModel: ConnectivityDisplayerViewModel {
             navigationStyle: .present(
                 screenFactory: MyCollectionFiltersScreenFactory(
                     games: games,
+                    selectedFilters: self.selectedFilters ?? nil,
                     myCollectionDelegate: self
                 ),
                 completionBlock: nil
@@ -146,7 +149,7 @@ extension MyCollectionByPlatformsViewModel: MyCollectionViewModelDelegate {
               let gameFilters = filters as? [GameFilter] else {
             return
         }
-        
+        self.selectedFilters = gameFilters
         var shouldKeepGame = false
         var filteredGames = [SavedGame]()
         for index in 0..<games.count {

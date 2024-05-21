@@ -9,9 +9,36 @@ import Foundation
 
 final class MyCollectionFiltersSection: Section {
     
-    init(games: [SavedGame], editDelegate: EditFormDelegate) {
+    init(
+        games: [SavedGame],
+        selectedFilters: [GameFilter]?,
+        editDelegate: EditFormDelegate
+    ) {
         super.init()
         self.position = 0
+        
+        var acquisitionYearFilterValue: String?
+        var conditionFilterValue: String?
+        var completenessFilterValue: String?
+        var regionFilterValue: String?
+        var storageAreaFilterValue: String?
+        
+        if let selectedFilters = selectedFilters {
+            for filter in selectedFilters {
+                switch filter {
+                case .acquisitionYear(let value):
+                    acquisitionYearFilterValue = value
+                case .gameCondition(let value):
+                    conditionFilterValue = value
+                case .gameCompleteness(let value):
+                    completenessFilterValue = value
+                case .gameRegion(let value):
+                    regionFilterValue = value
+                case .storageArea(let value):
+                    storageAreaFilterValue = value
+                }
+            }
+        }
         
         let acquisitionYearArray = Array(
             Set(
@@ -27,7 +54,7 @@ final class MyCollectionFiltersSection: Section {
                     data: [acquisitionYearArray.sorted()]
                 )
             ),
-            value: nil,
+            value: acquisitionYearFilterValue ?? nil,
             editDelegate: editDelegate
         )
         self.cellsVM.append(yearOfAcquisitionCellVM)
@@ -44,7 +71,7 @@ final class MyCollectionFiltersSection: Section {
                     }]
                 )
             ),
-            value: nil,
+            value: conditionFilterValue ?? nil,
             editDelegate: editDelegate
         )
         self.cellsVM.append(conditionCellVM)
@@ -61,7 +88,7 @@ final class MyCollectionFiltersSection: Section {
                     }]
                 )
             ),
-            value: nil,
+            value: completenessFilterValue ?? nil,
             editDelegate: editDelegate
         )
         self.cellsVM.append(completenessCellVM)
@@ -73,7 +100,7 @@ final class MyCollectionFiltersSection: Section {
                     data: [GameRegion.allCases.map { $0.value }]
                 )
             ),
-            value: nil,
+            value: regionFilterValue ?? nil,
             editDelegate: editDelegate
         )
         self.cellsVM.append(regionCellVM)
@@ -92,7 +119,7 @@ final class MyCollectionFiltersSection: Section {
                     data: [storageAreaArray.sorted()]
                 )
             ),
-            value: nil,
+            value: storageAreaFilterValue ?? nil,
             editDelegate: editDelegate
         )
         self.cellsVM.append(storageAreaCellVM)

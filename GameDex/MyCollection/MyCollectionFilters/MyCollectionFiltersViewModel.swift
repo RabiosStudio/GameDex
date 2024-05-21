@@ -21,18 +21,22 @@ final class MyCollectionFiltersViewModel: CollectionViewModel {
     weak var myCollectionDelegate: MyCollectionViewModelDelegate?
     
     private let games: [SavedGame]
+    private let selectedFilters: [GameFilter]?
     
     init(
         games: [SavedGame],
+        selectedFilters: [GameFilter]?,
         myCollectionDelegate: MyCollectionViewModelDelegate?
     ) {
         self.games = games
+        self.selectedFilters = selectedFilters
         self.myCollectionDelegate = myCollectionDelegate
     }
     
     func loadData(callback: @escaping (EmptyError?) -> ()) {
         self.sections = [MyCollectionFiltersSection(
             games: self.games,
+            selectedFilters: self.selectedFilters ?? nil,
             editDelegate: self
         )]
         self.configureBottomView(shouldEnableButton: false)
