@@ -153,12 +153,17 @@ extension MyCollectionByPlatformsViewModel: MyCollectionViewModelDelegate {
         self.updateListOfGames(with: games)
         self.displayedGames = games
         self.buttonItems = [.filter(active: false), .add]
+        self.containerDelegate?.reloadNavBar()
         self.containerDelegate?.reloadSection(emptyError: nil)
     }
     
     func apply(filters: [any Filter]) {
         guard let games = self.platform?.games,
-              let gameFilters = filters as? [GameFilter] else {
+              let gameFilters = filters as? [GameFilter],
+              !gameFilters.isEmpty else {
+            Task {
+                await self.clearFilters()
+            }
             return
         }
         self.selectedFilters = gameFilters
@@ -190,6 +195,7 @@ extension MyCollectionByPlatformsViewModel: MyCollectionViewModelDelegate {
         self.containerDelegate?.reloadSection(
             emptyError: filteredGames.isEmpty ? MyCollectionError.noItems : nil
         )
+        self.containerDelegate?.reloadNavBar()
     }
     
     func reloadCollection() async {
