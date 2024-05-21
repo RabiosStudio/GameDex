@@ -17,7 +17,7 @@ struct MyCollectionFiltersScreenFactory: ScreenFactory {
     var viewController: UIViewController {
         let viewModel = MyCollectionFiltersViewModel(
             games: self.games,
-            selectedFilters: self.selectedFilters,
+            selectedFilters: self.selectedFilters ?? nil,
             myCollectionDelegate: self.myCollectionDelegate
         )
         let layout = UICollectionViewFlowLayout()

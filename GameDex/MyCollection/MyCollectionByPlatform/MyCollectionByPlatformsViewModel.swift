@@ -149,6 +149,7 @@ extension MyCollectionByPlatformsViewModel: MyCollectionViewModelDelegate {
             await self.reloadCollection()
             return
         }
+        self.selectedFilters = nil
         self.updateListOfGames(with: games)
         self.displayedGames = games
         self.rightButtonItems = [.filter(active: false), .add]

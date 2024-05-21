@@ -492,7 +492,7 @@ extension ContainerViewController: ContainerViewControllerDelegate {
                 let tabBarOffset = -(self.tabBarController?.tabBar.frame.size.height ?? 0)
                 self.updateEmptyState(error: error, tabBarOffset: tabBarOffset)
             } else {
-                self.refresh()
+                self.reloadCollectionView()
             }
         }
     }

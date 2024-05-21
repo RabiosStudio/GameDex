@@ -12,7 +12,7 @@ final class MyCollectionFiltersViewModel: CollectionViewModel {
     var searchViewModel: SearchViewModel?
     var isBounceable: Bool = true
     var progress: Float?
-    var rightButtonItems: [AnyBarButtonItem]? = [.close]
+    var rightButtonItems: [AnyBarButtonItem]? = [.close, .clear]
     let screenTitle: String? = L10n.filters
     var sections = [Section]()
     var layoutMargins: UIEdgeInsets?
@@ -21,7 +21,7 @@ final class MyCollectionFiltersViewModel: CollectionViewModel {
     weak var myCollectionDelegate: MyCollectionViewModelDelegate?
     
     private let games: [SavedGame]
-    private let selectedFilters: [GameFilter]?
+    private var selectedFilters: [GameFilter]?
     
     init(
         games: [SavedGame],
@@ -36,7 +36,7 @@ final class MyCollectionFiltersViewModel: CollectionViewModel {
     func loadData(callback: @escaping (EmptyError?) -> ()) {
         self.sections = [MyCollectionFiltersSection(
             games: self.games,
-            selectedFilters: self.selectedFilters ?? nil,
+            selectedFilters: self.selectedFilters,
             editDelegate: self
         )]
         self.configureBottomView(shouldEnableButton: false)
@@ -47,6 +47,18 @@ final class MyCollectionFiltersViewModel: CollectionViewModel {
         switch buttonItem {
         case .close:
             self.close()
+        case .clear:
+            self.selectedFilters = []
+            self.sections = [MyCollectionFiltersSection(
+                games: self.games,
+                selectedFilters: self.selectedFilters,
+                editDelegate: self
+            )]
+            Task {
+                await self.myCollectionDelegate?.clearFilters()
+                self.configureBottomView(shouldEnableButton: true)
+                self.containerDelegate?.reloadSection(emptyError: nil)
+            }
         default:
             break
         }
@@ -70,18 +82,18 @@ final class MyCollectionFiltersViewModel: CollectionViewModel {
         )
     }
     
-    private func getFilters() -> [any Filter]? {
+    private func getFilters() -> [any Filter] {
         guard let firstSection = self.sections.first,
               let formCellsVM = firstSection.cellsVM.filter({ cellVM in
                   return cellVM is (any FormCellViewModel)
               }) as? [any FormCellViewModel] else {
-            return nil
+            return []
         }
 
         var selectedFilters = [GameFilter]()
         
         for formCellVM in formCellsVM {
-            guard let formType = formCellVM.formType as? GameFormType else { return nil }
+            guard let formType = formCellVM.formType as? GameFormType else { return [] }
             switch formType {
             case .yearOfAcquisition:
                 guard let acquisitionYear = formCellVM.value as? String else {
@@ -115,7 +127,7 @@ final class MyCollectionFiltersViewModel: CollectionViewModel {
                 break
             }
         }
-        
+        self.selectedFilters = selectedFilters
         return selectedFilters
     }
 }
@@ -153,8 +165,8 @@ extension MyCollectionFiltersViewModel: EditFormDelegate {
 // MARK: - PrimaryButtonDelegate
 extension MyCollectionFiltersViewModel: PrimaryButtonDelegate {
     func didTapPrimaryButton(with title: String?) async {
-        guard let selectedFilters = self.getFilters(),
-                !selectedFilters.isEmpty else {
+        let selectedFilters = self.getFilters()
+        guard !selectedFilters.isEmpty else {
             await self.myCollectionDelegate?.clearFilters()
             self.close()
             return
