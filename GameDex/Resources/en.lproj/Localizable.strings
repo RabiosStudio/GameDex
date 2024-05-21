@@ -63,6 +63,7 @@
 "deleteFromCollection" = "Delete from collection";
 "apply" = "Apply";
 "clearSearch" = "Clear search";
+"clearAll" = "Clear all";
 
 // Add Game Steps
 "stepOneOutOfThree" = "Step 1/3";

@@ -205,27 +205,39 @@ class ContainerViewController: UIViewController {
             self.navigationController?.configure()
             self.configureSearchBar()
             
-            guard let rightButtonItem = self.viewModel.rightButtonItems else {
+            guard let buttonItems = self.viewModel.rightButtonItems else {
                 return
             }
             
             var buttonItemsConfigured = [BarButtonItem]()
-            for item in rightButtonItem {
+            for item in buttonItems {
                 switch item {
                 default:
-                    buttonItemsConfigured.append(
-                        BarButtonItem(
-                            image: item.image(), actionHandler: { [weak self] in
-                                self?.viewModel.didTap(buttonItem: item)
-                            }
+                    if let image: UIImage = item.content() {
+                        buttonItemsConfigured.append(
+                            BarButtonItem(
+                                image: image, title: nil, actionHandler: { [weak self] in
+                                    self?.viewModel.didTap(buttonItem: item)
+                                }
+                            )
                         )
-                    )
+                    } else if let title: String = item.content() {
+                        buttonItemsConfigured.append(
+                            BarButtonItem(
+                                image: nil,
+                                title: title, actionHandler: { [weak self] in
+                                    self?.viewModel.didTap(buttonItem: item)
+                                }
+                            )
+                        )
+                    }
+                    switch item.position {
+                    case .leading:
+                        self.navigationItem.leftBarButtonItems = buttonItemsConfigured
+                    case .trailing:
+                        self.navigationItem.rightBarButtonItems = buttonItemsConfigured
+                    }
                 }
-            }
-            
-            switch rightButtonItem {
-            default:
-                self.navigationItem.rightBarButtonItems = buttonItemsConfigured
             }
         }
     }

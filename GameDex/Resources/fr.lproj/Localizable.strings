@@ -58,6 +58,7 @@
 "deleteFromCollection" = "Supprimer de ma collection";
 "apply" = "Appliquer";
 "clearSearch" = "Effacer la recherche";
+"clearAll" = "Effacer tout";
 
 // Add Game Steps
 "stepOneOutOfThree" = "Etape 1/3";

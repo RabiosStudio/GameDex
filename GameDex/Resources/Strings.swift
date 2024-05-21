@@ -28,6 +28,8 @@ internal enum L10n {
   internal static let authThroughOtherMethods = L10n.tr("Localizable", "authThroughOtherMethods", fallback: "through other methods below")
   /// Cancel
   internal static let cancel = L10n.tr("Localizable", "cancel", fallback: "Cancel")
+  /// Clear all
+  internal static let clearAll = L10n.tr("Localizable", "clearAll", fallback: "Clear all")
   /// Clear search
   internal static let clearSearch = L10n.tr("Localizable", "clearSearch", fallback: "Clear search")
   /// Collection Management
