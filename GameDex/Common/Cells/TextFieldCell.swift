@@ -95,7 +95,7 @@ final class TextFieldCell: UICollectionViewCell, CellConfigurable {
         ])
     }
     
-    private func storeEntry(cellViewModel: CellViewModel?, with text: String) {
+    private func storeEntry(cellViewModel: CellViewModel?, with text: String?) {
         guard let cellVM = self.cellVM else {
             return
         }
@@ -143,6 +143,11 @@ extension TextFieldCell: UITextFieldDelegate {
         let currentText = data[componentIndex][rowIndex]
         self.storeEntry(cellViewModel: self.cellVM, with: currentText)
         textField.text = currentText
+    }
+    
+    func textFieldShouldClear(_ textField: UITextField) -> Bool {
+        self.storeEntry(cellViewModel: self.cellVM, with: nil)
+        return true
     }
 }
 

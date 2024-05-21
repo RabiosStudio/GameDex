@@ -57,6 +57,7 @@
 "refresh" = "Actualiser";
 "deleteFromCollection" = "Supprimer de ma collection";
 "apply" = "Appliquer";
+"clearSearch" = "Effacer la recherche";
 
 // Add Game Steps
 "stepOneOutOfThree" = "Etape 1/3";

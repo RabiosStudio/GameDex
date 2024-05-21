@@ -154,13 +154,16 @@ class ContainerViewController: UIViewController {
     
     private func refresh() {
         self.configureNavBar()
+        self.reloadCollectionView()
+    }
+    
+    private func reloadCollectionView() {
         self.registerCells()
         self.collectionView.reloadData()
     }
     
     private func updateEmptyState(error: EmptyError?, tabBarOffset: CGFloat) {
         DispatchQueue.main.async {
-            self.configureNavBar()
             if let error = error {
                 guard let imageName = error.imageName,
                       let image = UIImage(named: imageName) else {
@@ -177,7 +180,7 @@ class ContainerViewController: UIViewController {
                     case let .navigate(style):
                         _ = Routing.shared.route(navigationStyle: style)
                     case .refresh:
-                        self.refresh()
+                        self.loadData()
                     case .none:
                         break
                     }
@@ -248,6 +251,7 @@ class ContainerViewController: UIViewController {
             self.searchBar.removeFromSuperview()
             return
         }
+        self.searchBar.text = nil
         self.searchBar.placeholder = searchVM.placeholder
         self.stackView.insertArrangedSubview(self.searchBar, at: .zero)
     }
@@ -396,7 +400,7 @@ extension ContainerViewController: UISearchTextFieldDelegate {
                 self?.updateEmptyState(error: error,
                                        tabBarOffset: tabBarOffset)
             } else {
-                self?.refresh()
+                self?.reloadCollectionView()
             }
         })
         return true
@@ -421,7 +425,7 @@ extension ContainerViewController: UISearchBarDelegate {
                     }
                 } else {
                     DispatchQueue.main.async {
-                        self?.refresh()
+                        self?.reloadCollectionView()
                     }
                 }
             }
@@ -435,7 +439,7 @@ extension ContainerViewController: UISearchBarDelegate {
                 self?.updateEmptyState(error: error,
                                        tabBarOffset: tabBarOffset)
             } else {
-                self?.refresh()
+                self?.reloadCollectionView()
             }
         }
     }

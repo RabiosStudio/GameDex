@@ -53,7 +53,7 @@ enum MyCollectionError: EmptyError {
         case .fetchError:
             return L10n.refresh
         case .noItems:
-            return nil
+            return L10n.clearSearch
         }
     }
     
@@ -69,7 +69,7 @@ enum MyCollectionError: EmptyError {
         case .fetchError:
             return .refresh
         case .noItems:
-            return nil
+            return .refresh
         }
     }
 }

@@ -159,7 +159,6 @@ extension MyCollectionViewModel: SearchViewModelDelegate {
             callback(nil)
             return
         }
-        self.containerDelegate?.reloadNavBar()
         
         var matchingCollections = [Platform]()
         

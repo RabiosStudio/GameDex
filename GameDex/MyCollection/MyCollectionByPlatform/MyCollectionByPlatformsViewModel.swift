@@ -64,6 +64,8 @@ final class MyCollectionByPlatformsViewModel: ConnectivityDisplayerViewModel {
             self.containerDelegate?.goBackToRootViewController()
             return
         }
+        self.displayedGames = games
+        self.rightButtonItems = [.filter(active: false), .add]
         self.sections = [
             MyCollectionByPlatformsSection(
                 games: games,
@@ -249,7 +251,6 @@ extension MyCollectionByPlatformsViewModel: SearchViewModelDelegate {
             callback(nil)
             return
         }
-        self.containerDelegate?.reloadNavBar()
         let matchingGames = self.displayedGames.filter({
             $0.game.title.localizedCaseInsensitiveContains(text)
         })
