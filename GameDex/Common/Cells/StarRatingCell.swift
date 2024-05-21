@@ -45,6 +45,8 @@ class StarRatingCell: UICollectionViewCell, CellConfigurable {
         return button
     }()
     
+    private var cellVM: CellViewModel?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.contentView.backgroundColor = .clear
@@ -63,6 +65,7 @@ class StarRatingCell: UICollectionViewCell, CellConfigurable {
         guard let cellVM = cellViewModel as? StarRatingCellViewModel else {
             return
         }
+        self.cellVM = cellVM
         self.starRatingView.rating = Double(cellVM.value ?? .zero)
         self.setupConstraints()
         self.label.text = cellVM.title
@@ -72,7 +75,11 @@ class StarRatingCell: UICollectionViewCell, CellConfigurable {
     }
     
     @objc private func didTapClearButton(_ sender: UIButton) {
+        guard let cellVM = self.cellVM as? StarRatingCellViewModel else {
+            return
+        }
         self.starRatingView.rating = .zero
+        cellVM.value = Int(self.starRatingView.rating)
     }
     
     private func setupViews() {
@@ -104,6 +111,7 @@ class StarRatingCell: UICollectionViewCell, CellConfigurable {
                 equalTo: self.leadingAnchor,
                 constant: DesignSystem.paddingSmall
             ),
+
             self.starRatingView.bottomAnchor.constraint(
                 equalTo: self.bottomAnchor,
                 constant: -DesignSystem.paddingSmall

@@ -121,8 +121,11 @@ final class MyCollectionFiltersViewModel: CollectionViewModel {
                 }
                 selectedFilters.append(GameFilter.storageArea(storageArea))
             case .rating:
-                // TODO
-                break
+                guard let rating = formCellVM.value as? Int,
+                      rating != .zero else {
+                    break
+                }
+                selectedFilters.append(GameFilter.rating(rating))
             default:
                 break
             }
@@ -134,31 +137,7 @@ final class MyCollectionFiltersViewModel: CollectionViewModel {
 
 extension MyCollectionFiltersViewModel: EditFormDelegate {
     func enableSaveButtonIfNeeded() {
-        guard let firstSection = self.sections.first,
-              let formCellsVM = firstSection.cellsVM.filter({ cellVM in
-                  return cellVM is (any FormCellViewModel)
-              }) as? [any FormCellViewModel] else {
-            return
-        }
-        
-        let values: [Any?] = formCellsVM.map { $0.value }
-        
-        var shouldEnableButton = false
-        for index in 0..<values.count {
-            let currentValue = values[index]
-            
-            if currentValue != nil,
-               let currentStringValue = currentValue as? String {
-                shouldEnableButton = currentStringValue != ""
-            } else if currentValue == nil {
-                shouldEnableButton = true
-            }
-            if shouldEnableButton {
-                break
-            }
-        }
-        
-        self.configureBottomView(shouldEnableButton: shouldEnableButton)
+        self.configureBottomView(shouldEnableButton: true)
     }
 }
 

@@ -1,17 +1,11 @@
 //
-//  FilterData.swift
+//  GameFilter.swift
 //  GameDex
 //
-//  Created by Gabrielle Dalbera on 20/05/2024.
+//  Created by Gabrielle Dalbera on 21/05/2024.
 //
 
 import Foundation
-
-protocol Filter {
-    associatedtype T
-    var value: String { get }
-    var keyPath: PartialKeyPath<T> { get }
-}
 
 enum GameFilter: Filter {
     case acquisitionYear(String)
@@ -19,13 +13,14 @@ enum GameFilter: Filter {
     case gameCompleteness(String)
     case gameRegion(String)
     case storageArea(String)
-//    case rating(String)
+    case rating(Int)
     
-    var value: String {
+    func value<T>() -> T? {
         switch self {
         case .acquisitionYear(let value), .gameCondition(let value), .gameCompleteness(let value), .gameRegion(let value), .storageArea(let value):
-            return value
-//        case .rating(_):
+            return String(value) as? T
+        case .rating(let value):
+            return Int(value) as? T
         }
     }
     
@@ -41,6 +36,8 @@ enum GameFilter: Filter {
             return \SavedGame.gameRegion
         case .storageArea(_):
             return \SavedGame.storageArea
+        case .rating(_):
+            return \SavedGame.rating
         }
     }
 }

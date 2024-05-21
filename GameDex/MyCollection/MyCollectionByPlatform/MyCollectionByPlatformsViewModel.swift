@@ -167,9 +167,13 @@ extension MyCollectionByPlatformsViewModel: MyCollectionViewModelDelegate {
         for index in 0..<games.count {
             let currentGame = games[index]
             for filter in gameFilters {
-                if let gameString = currentGame[keyPath: filter.keyPath] as? String {
-                    shouldKeepGame = filter.value == gameString
-                } else {
+                if let gameStringData = currentGame[keyPath: filter.keyPath] as? String,
+                   let filterStringValue: String = filter.value() {
+                    shouldKeepGame = filterStringValue == gameStringData
+                } else if let gameIntData = currentGame[keyPath: filter.keyPath] as? Int,
+                          let filterIntValue: Int = filter.value() {
+                      shouldKeepGame = filterIntValue == gameIntData
+                  } else {
                     shouldKeepGame = false
                 }
                 if !shouldKeepGame {

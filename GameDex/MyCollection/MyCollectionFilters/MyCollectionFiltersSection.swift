@@ -22,6 +22,7 @@ final class MyCollectionFiltersSection: Section {
         var completenessFilterValue: String?
         var regionFilterValue: String?
         var storageAreaFilterValue: String?
+        var ratingFilterValue: Int?
         
         if let selectedFilters = selectedFilters {
             for filter in selectedFilters {
@@ -36,6 +37,8 @@ final class MyCollectionFiltersSection: Section {
                     regionFilterValue = value
                 case .storageArea(let value):
                     storageAreaFilterValue = value
+                case .rating(let value):
+                    ratingFilterValue = value
                 }
             }
         }
@@ -127,7 +130,7 @@ final class MyCollectionFiltersSection: Section {
         let personalRatingCellVM = StarRatingCellViewModel(
             title: L10n.personalRating,
             formType: GameFormType.rating,
-            value: nil,
+            value: ratingFilterValue ?? nil,
             editDelegate: editDelegate
         )
         self.cellsVM.append(personalRatingCellVM)
