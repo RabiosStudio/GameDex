@@ -99,7 +99,7 @@ final class TextFieldCell: UICollectionViewCell, CellConfigurable {
         guard let cellVM = self.cellVM else {
             return
         }
-        cellVM.value = text
+        cellVM.value = (text == "") ? nil : text
     }
 }
 

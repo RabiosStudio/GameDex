@@ -144,7 +144,18 @@ final class MyCollectionByPlatformsViewModel: ConnectivityDisplayerViewModel {
 }
 
 extension MyCollectionByPlatformsViewModel: MyCollectionViewModelDelegate {
-    func apply(filters: [any Filter]) async {
+    func clearFilters() async {
+        guard let games = self.platform?.games else {
+            await self.reloadCollection()
+            return
+        }
+        self.updateListOfGames(with: games)
+        self.displayedGames = games
+        self.rightButtonItems = [.filter(active: false), .add]
+        self.containerDelegate?.reloadSection(emptyError: nil)
+    }
+    
+    func apply(filters: [any Filter]) {
         guard let games = self.platform?.games,
               let gameFilters = filters as? [GameFilter] else {
             return

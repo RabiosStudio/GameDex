@@ -138,11 +138,14 @@ extension MyCollectionFiltersViewModel: EditFormDelegate {
             if currentValue != nil,
                let currentStringValue = currentValue as? String {
                 shouldEnableButton = currentStringValue != ""
+            } else if currentValue == nil {
+                shouldEnableButton = true
             }
             if shouldEnableButton {
                 break
             }
         }
+        
         self.configureBottomView(shouldEnableButton: shouldEnableButton)
     }
 }
@@ -150,11 +153,13 @@ extension MyCollectionFiltersViewModel: EditFormDelegate {
 // MARK: - PrimaryButtonDelegate
 extension MyCollectionFiltersViewModel: PrimaryButtonDelegate {
     func didTapPrimaryButton(with title: String?) async {
-        guard let selectedFilters = self.getFilters() else {
+        guard let selectedFilters = self.getFilters(),
+                !selectedFilters.isEmpty else {
+            await self.myCollectionDelegate?.clearFilters()
+            self.close()
             return
         }
-        
-        await self.myCollectionDelegate?.apply(filters: selectedFilters)
+        self.myCollectionDelegate?.apply(filters: selectedFilters)
         self.close()
     }
 }

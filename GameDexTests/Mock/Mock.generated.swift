@@ -4146,24 +4146,36 @@ open class MyCollectionViewModelDelegateMock: MyCollectionViewModelDelegate, Moc
 		perform?()
     }
 
+    open func clearFilters() {
+        addInvocation(.m_clearFilters)
+		let perform = methodPerformValue(.m_clearFilters) as? () -> Void
+		perform?()
+    }
+
 
     fileprivate enum MethodType {
         case m_reloadCollection
+        case m_clearFilters
 
         static func compareParameters(lhs: MethodType, rhs: MethodType, matcher: Matcher) -> Matcher.ComparisonResult {
             switch (lhs, rhs) {
             case (.m_reloadCollection, .m_reloadCollection): return .match
+
+            case (.m_clearFilters, .m_clearFilters): return .match
+            default: return .none
             }
         }
 
         func intValue() -> Int {
             switch self {
             case .m_reloadCollection: return 0
+            case .m_clearFilters: return 0
             }
         }
         func assertionName() -> String {
             switch self {
             case .m_reloadCollection: return ".reloadCollection()"
+            case .m_clearFilters: return ".clearFilters()"
             }
         }
     }
@@ -4183,6 +4195,7 @@ open class MyCollectionViewModelDelegateMock: MyCollectionViewModelDelegate, Moc
         fileprivate var method: MethodType
 
         public static func reloadCollection() -> Verify { return Verify(method: .m_reloadCollection)}
+        public static func clearFilters() -> Verify { return Verify(method: .m_clearFilters)}
     }
 
     public struct Perform {
@@ -4191,6 +4204,9 @@ open class MyCollectionViewModelDelegateMock: MyCollectionViewModelDelegate, Moc
 
         public static func reloadCollection(perform: @escaping () -> Void) -> Perform {
             return Perform(method: .m_reloadCollection, performs: perform)
+        }
+        public static func clearFilters(perform: @escaping () -> Void) -> Perform {
+            return Perform(method: .m_clearFilters, performs: perform)
         }
     }
 
