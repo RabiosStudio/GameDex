@@ -143,6 +143,7 @@ class ContainerViewController: UIViewController {
                             error: error,
                             tabBarOffset: tabBarOffset
                         )
+                        strongSelf.configureNavBar()
                     } else {
                         strongSelf.refresh()
                     }
