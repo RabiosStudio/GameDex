@@ -4684,10 +4684,17 @@ open class SearchViewModelDelegateMock: SearchViewModelDelegate, Mock {
 		perform?(`searchQuery`, `callback`)
     }
 
+    open func cancelButtonTapped(callback: @escaping (EmptyError?) -> ()) {
+        addInvocation(.m_cancelButtonTapped__callback_callback(Parameter<(EmptyError?) -> ()>.value(`callback`)))
+		let perform = methodPerformValue(.m_cancelButtonTapped__callback_callback(Parameter<(EmptyError?) -> ()>.value(`callback`))) as? (@escaping (EmptyError?) -> ()) -> Void
+		perform?(`callback`)
+    }
+
 
     fileprivate enum MethodType {
         case m_updateSearchTextField__with_textcallback_callback(Parameter<String>, Parameter<(EmptyError?) -> ()>)
         case m_startSearch__from_searchQuerycallback_callback(Parameter<String>, Parameter<(EmptyError?) -> ()>)
+        case m_cancelButtonTapped__callback_callback(Parameter<(EmptyError?) -> ()>)
 
         static func compareParameters(lhs: MethodType, rhs: MethodType, matcher: Matcher) -> Matcher.ComparisonResult {
             switch (lhs, rhs) {
@@ -4702,6 +4709,11 @@ open class SearchViewModelDelegateMock: SearchViewModelDelegate, Mock {
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsSearchquery, rhs: rhsSearchquery, with: matcher), lhsSearchquery, rhsSearchquery, "from searchQuery"))
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsCallback, rhs: rhsCallback, with: matcher), lhsCallback, rhsCallback, "callback"))
 				return Matcher.ComparisonResult(results)
+
+            case (.m_cancelButtonTapped__callback_callback(let lhsCallback), .m_cancelButtonTapped__callback_callback(let rhsCallback)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsCallback, rhs: rhsCallback, with: matcher), lhsCallback, rhsCallback, "callback"))
+				return Matcher.ComparisonResult(results)
             default: return .none
             }
         }
@@ -4710,12 +4722,14 @@ open class SearchViewModelDelegateMock: SearchViewModelDelegate, Mock {
             switch self {
             case let .m_updateSearchTextField__with_textcallback_callback(p0, p1): return p0.intValue + p1.intValue
             case let .m_startSearch__from_searchQuerycallback_callback(p0, p1): return p0.intValue + p1.intValue
+            case let .m_cancelButtonTapped__callback_callback(p0): return p0.intValue
             }
         }
         func assertionName() -> String {
             switch self {
             case .m_updateSearchTextField__with_textcallback_callback: return ".updateSearchTextField(with:callback:)"
             case .m_startSearch__from_searchQuerycallback_callback: return ".startSearch(from:callback:)"
+            case .m_cancelButtonTapped__callback_callback: return ".cancelButtonTapped(callback:)"
             }
         }
     }
@@ -4736,6 +4750,7 @@ open class SearchViewModelDelegateMock: SearchViewModelDelegate, Mock {
 
         public static func updateSearchTextField(with text: Parameter<String>, callback: Parameter<(EmptyError?) -> ()>) -> Verify { return Verify(method: .m_updateSearchTextField__with_textcallback_callback(`text`, `callback`))}
         public static func startSearch(from searchQuery: Parameter<String>, callback: Parameter<(EmptyError?) -> ()>) -> Verify { return Verify(method: .m_startSearch__from_searchQuerycallback_callback(`searchQuery`, `callback`))}
+        public static func cancelButtonTapped(callback: Parameter<(EmptyError?) -> ()>) -> Verify { return Verify(method: .m_cancelButtonTapped__callback_callback(`callback`))}
     }
 
     public struct Perform {
@@ -4747,6 +4762,9 @@ open class SearchViewModelDelegateMock: SearchViewModelDelegate, Mock {
         }
         public static func startSearch(from searchQuery: Parameter<String>, callback: Parameter<(EmptyError?) -> ()>, perform: @escaping (String, @escaping (EmptyError?) -> ()) -> Void) -> Perform {
             return Perform(method: .m_startSearch__from_searchQuerycallback_callback(`searchQuery`, `callback`), performs: perform)
+        }
+        public static func cancelButtonTapped(callback: Parameter<(EmptyError?) -> ()>, perform: @escaping (@escaping (EmptyError?) -> ()) -> Void) -> Perform {
+            return Perform(method: .m_cancelButtonTapped__callback_callback(`callback`), performs: perform)
         }
     }
 

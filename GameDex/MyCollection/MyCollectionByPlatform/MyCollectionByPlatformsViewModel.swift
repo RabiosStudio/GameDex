@@ -266,6 +266,11 @@ extension MyCollectionByPlatformsViewModel: MyCollectionViewModelDelegate {
 }
 
 extension MyCollectionByPlatformsViewModel: SearchViewModelDelegate {
+    func cancelButtonTapped(callback: @escaping (EmptyError?) -> ()) {
+        self.updateListOfGames(with: self.displayedGames)
+        callback(nil)
+    }
+    
     func updateSearchTextField(with text: String, callback: @escaping (EmptyError?) -> ()) {
         guard !self.displayedGames.isEmpty else {
             callback(MyCollectionError.noItems)
