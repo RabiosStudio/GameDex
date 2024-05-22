@@ -51,7 +51,10 @@ final class CollectionManagementViewModel: CollectionViewModel {
             switch fetchPlatformsResult {
             case .success(let platforms):
                 guard !platforms.isEmpty else {
-                    callback(MyCollectionError.noItems)
+                    let error = MyCollectionError.noItems(
+                        myCollectionDelegate: nil
+                    )
+                    callback(error)
                     return
                 }
                 let convertedPlatforms = CoreDataConverter.convert(platformsCollected: platforms)
@@ -70,7 +73,7 @@ final class CollectionManagementViewModel: CollectionViewModel {
         switch fetchPlatformsResult {
         case .success(let platforms):
             guard !platforms.isEmpty else {
-                callback(MyCollectionError.noItems)
+                callback(MyCollectionError.fetchError)
                 return
             }
             self.collection = platforms.sorted {

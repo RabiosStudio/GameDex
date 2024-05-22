@@ -141,6 +141,16 @@ final class MyCollectionByPlatformsViewModel: ConnectivityDisplayerViewModel {
             )
         )
     }
+    
+    private func handleReloadCollectionSuccess() async {
+        await self.myCollectionDelegate?.reloadCollection()
+        self.apply(filters: self.selectedFilters ?? [])
+    }
+    
+    private func handleReloadEmptyCollection() async {
+        await self.myCollectionDelegate?.reloadCollection()
+        self.containerDelegate?.goBackToRootViewController()
+    }
 }
 
 extension MyCollectionByPlatformsViewModel: MyCollectionViewModelDelegate {
@@ -158,8 +168,7 @@ extension MyCollectionByPlatformsViewModel: MyCollectionViewModelDelegate {
     }
     
     func apply(filters: [any Filter]) {
-        guard let games = self.platform?.games,
-              let gameFilters = filters as? [GameFilter],
+        guard let gameFilters = filters as? [GameFilter],
               !gameFilters.isEmpty else {
             Task {
                 await self.clearFilters()
@@ -169,8 +178,8 @@ extension MyCollectionByPlatformsViewModel: MyCollectionViewModelDelegate {
         self.selectedFilters = gameFilters
         var shouldKeepGame = false
         var filteredGames = [SavedGame]()
-        for index in 0..<games.count {
-            let currentGame = games[index]
+        for index in 0..<self.displayedGames.count {
+            let currentGame = self.displayedGames[index]
             for filter in gameFilters {
                 shouldKeepGame = self.shouldDisplayGame(
                     game: currentGame,
@@ -181,14 +190,14 @@ extension MyCollectionByPlatformsViewModel: MyCollectionViewModelDelegate {
                 }
             }
             if shouldKeepGame {
-                filteredGames.append(games[index])
+                filteredGames.append(self.displayedGames[index])
             }
         }
         self.updateListOfGames(with: filteredGames)
         self.displayedGames = filteredGames
         self.buttonItems = [.filter(active: true), .add]
         self.containerDelegate?.reloadSection(
-            emptyError: filteredGames.isEmpty ? MyCollectionError.noItems : nil
+            emptyError: filteredGames.isEmpty ? MyCollectionError.noItems(myCollectionDelegate: self) : nil
         )
         self.containerDelegate?.reloadNavBar()
     }
@@ -223,18 +232,19 @@ extension MyCollectionByPlatformsViewModel: MyCollectionViewModelDelegate {
             switch fetchCollectionResult {
             case .success(let platform):
                 guard let platform else {
-                    await self.myCollectionDelegate?.reloadCollection()
-                    self.containerDelegate?.goBackToRootViewController()
+                    await self.handleReloadEmptyCollection()
                     return
                 }
                 
                 let currentPlatform = CoreDataConverter.convert(platformCollected: platform)
+                self.platform = currentPlatform
                 
                 guard let games = currentPlatform.games else {
-                    await self.myCollectionDelegate?.reloadCollection()
-                    self.containerDelegate?.goBackToRootViewController()
+                    await self.handleReloadEmptyCollection()
                     return
                 }
+                self.displayedGames = games
+                await self.handleReloadCollectionSuccess()
             case .failure:
                 self.displayAlert()
             }
@@ -249,20 +259,12 @@ extension MyCollectionByPlatformsViewModel: MyCollectionViewModelDelegate {
         switch fetchPlatformsResult {
         case .success(let platform):
             guard let games = platform.games else {
-                await self.myCollectionDelegate?.reloadCollection()
-                self.containerDelegate?.goBackToRootViewController()
+                await self.handleReloadEmptyCollection()
                 return
             }
             self.platform = platform
-            self.sections = [
-                MyCollectionByPlatformsSection(
-                    games: games,
-                    platform: platform,
-                    myCollectionDelegate: self
-                )
-            ]
-            await self.myCollectionDelegate?.reloadCollection()
-            self.containerDelegate?.reloadSection(emptyError: nil)
+            self.displayedGames = games
+            await self.handleReloadCollectionSuccess()
         case .failure(_):
             self.displayAlert()
         }
@@ -278,7 +280,7 @@ extension MyCollectionByPlatformsViewModel: SearchViewModelDelegate {
     
     func updateSearchTextField(with text: String, callback: @escaping (EmptyError?) -> ()) {
         guard !self.displayedGames.isEmpty else {
-            callback(MyCollectionError.noItems)
+            callback(MyCollectionError.noItems(myCollectionDelegate: self))
             return
         }
         guard text != "" else {
@@ -292,7 +294,7 @@ extension MyCollectionByPlatformsViewModel: SearchViewModelDelegate {
         self.updateListOfGames(with: matchingGames)
         
         if matchingGames.isEmpty {
-            callback(MyCollectionError.noItems)
+            callback(MyCollectionError.noItems(myCollectionDelegate: self))
         } else {
             callback(nil)
         }

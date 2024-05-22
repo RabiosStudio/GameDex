@@ -11,7 +11,7 @@ enum MyCollectionError: EmptyError {
     
     case emptyCollection(myCollectionDelegate: MyCollectionViewModelDelegate?)
     case fetchError
-    case noItems
+    case noItems(myCollectionDelegate: MyCollectionViewModelDelegate?)
     
     var errorTitle: String? {
         switch self {
@@ -68,8 +68,11 @@ enum MyCollectionError: EmptyError {
             return .navigate(style: startToAddGame)
         case .fetchError:
             return .refresh
-        case .noItems:
-            return .refresh
+        case .noItems(myCollectionDelegate: let delegate):
+            Task{
+                await delegate?.clearFilters()
+            }
+            return nil
         }
     }
 }

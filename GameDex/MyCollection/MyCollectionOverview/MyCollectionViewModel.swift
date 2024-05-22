@@ -179,7 +179,10 @@ extension MyCollectionViewModel: SearchViewModelDelegate {
         self.updateListOfCollections(with: matchingCollections)
         
         if matchingCollections.isEmpty {
-            callback(MyCollectionError.noItems)
+            let error = MyCollectionError.noItems(
+                myCollectionDelegate: self
+            )
+            callback(error)
         } else {
             callback(nil)
         }
