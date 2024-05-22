@@ -149,7 +149,7 @@ private extension EditGameDetailsViewModel {
             )
         )
         await self.myCollectionDelegate?.reloadCollection()
-        self.containerDelegate?.goBackToRootViewController()
+        self.containerDelegate?.goBackToPreviousScreen()
     }
     func handleRemoveGameError() {
         self.alertDisplayer.presentTopFloatAlert(
@@ -255,7 +255,7 @@ private extension EditGameDetailsViewModel {
         )
         self.configureBottomView(shouldEnableButton: false)
         await self.myCollectionDelegate?.reloadCollection()
-        self.containerDelegate?.goBackToRootViewController()
+        self.containerDelegate?.goBackToPreviousScreen()
     }
     
     func handleEditGameFailure(error: DatabaseError) async {

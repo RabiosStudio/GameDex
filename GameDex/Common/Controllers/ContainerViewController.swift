@@ -14,6 +14,7 @@ protocol ContainerViewControllerDelegate: AnyObject {
     func reloadData()
     func reloadSection(emptyError: EmptyError?)
     func goBackToRootViewController()
+    func goBackToPreviousScreen()
     func reloadNavBar()
 }
 
@@ -491,6 +492,12 @@ extension ContainerViewController: ContainerViewControllerDelegate {
     func goBackToRootViewController() {
         DispatchQueue.main.async {
             self.navigationController?.popToRootViewController(animated: true)
+        }
+    }
+    
+    func goBackToPreviousScreen() {
+        DispatchQueue.main.async {
+            self.navigationController?.popViewController(animated: true)
         }
     }
     

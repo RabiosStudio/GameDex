@@ -16,7 +16,7 @@ final class MyCollectionByPlatformsViewModel: ConnectivityDisplayerViewModel {
     )
     var isBounceable: Bool = true
     var progress: Float?
-    var buttonItems: [AnyBarButtonItem]? = [.filter(active: false), .add]
+    var buttonItems: [AnyBarButtonItem]?
     let screenTitle: String?
     var sections = [Section]()
     var layoutMargins: UIEdgeInsets? = UIEdgeInsets(
@@ -56,21 +56,21 @@ final class MyCollectionByPlatformsViewModel: ConnectivityDisplayerViewModel {
         self.connectivityChecker = connectivityChecker
         self.screenTitle = self.platform?.title
         self.displayedGames = self.platform?.games ?? []
+        self.selectedFilters = nil
+        self.buttonItems = [.filter(active: false), .add]
     }
     
     func loadData(callback: @escaping (EmptyError?) -> ()) async {
         self.displayInfoWarningIfNeeded()
         guard let platform = self.platform,
-              let games = platform.games else {
+              !self.displayedGames.isEmpty else {
             self.containerDelegate?.goBackToRootViewController()
             return
         }
-        self.displayedGames = games
-        self.selectedFilters = nil
-        self.buttonItems = [.filter(active: false), .add]
+        
         self.sections = [
             MyCollectionByPlatformsSection(
-                games: games,
+                games: self.displayedGames,
                 platform: platform,
                 myCollectionDelegate: self
             )
@@ -208,7 +208,7 @@ extension MyCollectionByPlatformsViewModel: MyCollectionViewModelDelegate {
             case .success(let platform):
                 guard let platform else {
                     await self.myCollectionDelegate?.reloadCollection()
-                    self.containerDelegate?.reloadData()
+                    self.containerDelegate?.goBackToRootViewController()
                     return
                 }
                 
@@ -219,17 +219,6 @@ extension MyCollectionByPlatformsViewModel: MyCollectionViewModelDelegate {
                     self.containerDelegate?.goBackToRootViewController()
                     return
                 }
-                
-                self.platform = currentPlatform
-                self.sections = [
-                    MyCollectionByPlatformsSection(
-                        games: games,
-                        platform: currentPlatform,
-                        myCollectionDelegate: self
-                    )
-                ]
-                await self.myCollectionDelegate?.reloadCollection()
-                self.containerDelegate?.reloadData()
             case .failure:
                 self.displayAlert()
             }
@@ -245,7 +234,7 @@ extension MyCollectionByPlatformsViewModel: MyCollectionViewModelDelegate {
         case .success(let platform):
             guard let games = platform.games else {
                 await self.myCollectionDelegate?.reloadCollection()
-                self.containerDelegate?.reloadData()
+                self.containerDelegate?.goBackToRootViewController()
                 return
             }
             self.platform = platform
@@ -257,7 +246,7 @@ extension MyCollectionByPlatformsViewModel: MyCollectionViewModelDelegate {
                 )
             ]
             await self.myCollectionDelegate?.reloadCollection()
-            self.containerDelegate?.reloadData()
+            self.containerDelegate?.reloadSection(emptyError: nil)
         case .failure(_):
             self.displayAlert()
         }

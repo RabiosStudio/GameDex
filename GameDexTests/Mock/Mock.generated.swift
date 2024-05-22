@@ -3054,6 +3054,12 @@ open class ContainerViewControllerDelegateMock: ContainerViewControllerDelegate,
 		perform?()
     }
 
+    open func goBackToPreviousScreen() {
+        addInvocation(.m_goBackToPreviousScreen)
+		let perform = methodPerformValue(.m_goBackToPreviousScreen) as? () -> Void
+		perform?()
+    }
+
     open func reloadNavBar() {
         addInvocation(.m_reloadNavBar)
 		let perform = methodPerformValue(.m_reloadNavBar) as? () -> Void
@@ -3066,6 +3072,7 @@ open class ContainerViewControllerDelegateMock: ContainerViewControllerDelegate,
         case m_reloadData
         case m_reloadSection__emptyError_emptyError(Parameter<EmptyError?>)
         case m_goBackToRootViewController
+        case m_goBackToPreviousScreen
         case m_reloadNavBar
 
         static func compareParameters(lhs: MethodType, rhs: MethodType, matcher: Matcher) -> Matcher.ComparisonResult {
@@ -3084,6 +3091,8 @@ open class ContainerViewControllerDelegateMock: ContainerViewControllerDelegate,
 
             case (.m_goBackToRootViewController, .m_goBackToRootViewController): return .match
 
+            case (.m_goBackToPreviousScreen, .m_goBackToPreviousScreen): return .match
+
             case (.m_reloadNavBar, .m_reloadNavBar): return .match
             default: return .none
             }
@@ -3095,6 +3104,7 @@ open class ContainerViewControllerDelegateMock: ContainerViewControllerDelegate,
             case .m_reloadData: return 0
             case let .m_reloadSection__emptyError_emptyError(p0): return p0.intValue
             case .m_goBackToRootViewController: return 0
+            case .m_goBackToPreviousScreen: return 0
             case .m_reloadNavBar: return 0
             }
         }
@@ -3104,6 +3114,7 @@ open class ContainerViewControllerDelegateMock: ContainerViewControllerDelegate,
             case .m_reloadData: return ".reloadData()"
             case .m_reloadSection__emptyError_emptyError: return ".reloadSection(emptyError:)"
             case .m_goBackToRootViewController: return ".goBackToRootViewController()"
+            case .m_goBackToPreviousScreen: return ".goBackToPreviousScreen()"
             case .m_reloadNavBar: return ".reloadNavBar()"
             }
         }
@@ -3127,6 +3138,7 @@ open class ContainerViewControllerDelegateMock: ContainerViewControllerDelegate,
         public static func reloadData() -> Verify { return Verify(method: .m_reloadData)}
         public static func reloadSection(emptyError: Parameter<EmptyError?>) -> Verify { return Verify(method: .m_reloadSection__emptyError_emptyError(`emptyError`))}
         public static func goBackToRootViewController() -> Verify { return Verify(method: .m_goBackToRootViewController)}
+        public static func goBackToPreviousScreen() -> Verify { return Verify(method: .m_goBackToPreviousScreen)}
         public static func reloadNavBar() -> Verify { return Verify(method: .m_reloadNavBar)}
     }
 
@@ -3145,6 +3157,9 @@ open class ContainerViewControllerDelegateMock: ContainerViewControllerDelegate,
         }
         public static func goBackToRootViewController(perform: @escaping () -> Void) -> Perform {
             return Perform(method: .m_goBackToRootViewController, performs: perform)
+        }
+        public static func goBackToPreviousScreen(perform: @escaping () -> Void) -> Perform {
+            return Perform(method: .m_goBackToPreviousScreen, performs: perform)
         }
         public static func reloadNavBar(perform: @escaping () -> Void) -> Perform {
             return Perform(method: .m_reloadNavBar, performs: perform)
