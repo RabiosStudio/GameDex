@@ -210,37 +210,26 @@ class ContainerViewController: UIViewController {
             guard let buttonItems = self.viewModel.buttonItems else {
                 return
             }
-            
-            var buttonItemsConfigured = [BarButtonItem]()
+            var leadingButtonItemsConfigured = [BarButtonItem]()
+            var trailingButtonItemsConfigured = [BarButtonItem]()
             for item in buttonItems {
-                switch item {
-                default:
-                    if let image: UIImage = item.content() {
-                        buttonItemsConfigured.append(
-                            BarButtonItem(
-                                image: image, title: nil, actionHandler: { [weak self] in
-                                    self?.viewModel.didTap(buttonItem: item)
-                                }
-                            )
-                        )
-                    } else if let title: String = item.content() {
-                        buttonItemsConfigured.append(
-                            BarButtonItem(
-                                image: nil,
-                                title: title, actionHandler: { [weak self] in
-                                    self?.viewModel.didTap(buttonItem: item)
-                                }
-                            )
-                        )
-                    }
-                    switch item.position {
-                    case .leading:
-                        self.navigationItem.leftBarButtonItems = buttonItemsConfigured
-                    case .trailing:
-                        self.navigationItem.rightBarButtonItems = buttonItemsConfigured
-                    }
+                guard let buttonItem = BarButtonConverter.convert(
+                    item: item,
+                    actionHandler: {
+                        self.viewModel.didTap(buttonItem: item)
+                    }) else {
+                    continue
+                }
+                switch item.position {
+                case .leading:
+                    leadingButtonItemsConfigured.append(buttonItem)
+                case .trailing:
+                    trailingButtonItemsConfigured.append(buttonItem)
                 }
             }
+            
+            self.navigationItem.leftBarButtonItems = leadingButtonItemsConfigured
+            self.navigationItem.rightBarButtonItems = trailingButtonItemsConfigured
         }
     }
     
