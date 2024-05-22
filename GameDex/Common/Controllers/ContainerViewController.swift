@@ -370,6 +370,9 @@ extension ContainerViewController: UICollectionViewDelegate {
         guard self.viewModel.itemAvailable(at: indexPath) else {
             return
         }
+        self.searchBar.resignFirstResponder()
+        self.searchBar.showsCancelButton = false
+        
         let cellVM = self.viewModel.item(at: indexPath)
         let cell = collectionView.dequeueReusableCell(
             withReuseIdentifier: cellVM.reuseIdentifier,
