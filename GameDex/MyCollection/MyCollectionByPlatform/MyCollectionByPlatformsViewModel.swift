@@ -172,15 +172,10 @@ extension MyCollectionByPlatformsViewModel: MyCollectionViewModelDelegate {
         for index in 0..<games.count {
             let currentGame = games[index]
             for filter in gameFilters {
-                if let gameStringData = currentGame[keyPath: filter.keyPath] as? String,
-                   let filterStringValue: String = filter.value() {
-                    shouldKeepGame = filterStringValue == gameStringData
-                } else if let gameIntData = currentGame[keyPath: filter.keyPath] as? Int,
-                          let filterIntValue: Int = filter.value() {
-                      shouldKeepGame = filterIntValue == gameIntData
-                  } else {
-                    shouldKeepGame = false
-                }
+                shouldKeepGame = self.shouldDisplayGame(
+                    game: currentGame,
+                    filter: filter
+                )
                 if !shouldKeepGame {
                     break
                 }
@@ -196,6 +191,27 @@ extension MyCollectionByPlatformsViewModel: MyCollectionViewModelDelegate {
             emptyError: filteredGames.isEmpty ? MyCollectionError.noItems : nil
         )
         self.containerDelegate?.reloadNavBar()
+    }
+    
+    func shouldDisplayGame(game: SavedGame, filter: GameFilter) -> Bool{
+        var shouldDisplayGame: Bool = false
+        guard let filterStringValue: String = filter.value() else {
+            if let gameData = game[keyPath: filter.keyPath] as? Int,
+               let filterIntValue: Int = filter.value() {
+                shouldDisplayGame = filterIntValue == gameData
+            }
+            return shouldDisplayGame
+        }
+        if let gameData = game[keyPath: filter.keyPath] as? String {
+            shouldDisplayGame = filterStringValue == gameData
+        } else if let gameData = game[keyPath: filter.keyPath] as? GameCondition {
+            shouldDisplayGame = filterStringValue == gameData.value
+        } else if let gameData = game[keyPath: filter.keyPath] as? GameCompleteness {
+            shouldDisplayGame = filterStringValue == gameData.value
+        } else if let gameData = game[keyPath: filter.keyPath] as? GameRegion {
+            shouldDisplayGame = filterStringValue == gameData.value
+        }
+        return shouldDisplayGame
     }
     
     func reloadCollection() async {

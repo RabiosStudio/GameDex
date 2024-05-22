@@ -184,5 +184,6 @@ extension TextFieldCell: UIPickerViewDelegate {
             return
         }
         self.textField.text = data[component][row]
+        self.storeEntry(cellViewModel: self.cellVM, with: self.textField.text)
     }
 }
