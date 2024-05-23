@@ -57,7 +57,7 @@ final class MyCollectionFiltersViewModel: CollectionViewModel {
             Task {
                 await self.myCollectionDelegate?.clearFilters()
                 self.configureBottomView(shouldEnableButton: true)
-                self.containerDelegate?.reloadSection(emptyError: nil)
+                self.containerDelegate?.reloadSections(emptyError: nil)
             }
         default:
             break
@@ -82,7 +82,7 @@ final class MyCollectionFiltersViewModel: CollectionViewModel {
         )
     }
     
-    private func getFilters() -> [any Filter] {
+    private func getFilters() -> [GameFilter] {
         guard let firstSection = self.sections.first,
               let formCellsVM = firstSection.cellsVM.filter({ cellVM in
                   return cellVM is (any FormCellViewModel)

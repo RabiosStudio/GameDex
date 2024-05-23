@@ -164,23 +164,23 @@ extension MyCollectionByPlatformsViewModel: MyCollectionViewModelDelegate {
         self.displayedGames = games
         self.buttonItems = [.filter(active: false), .add]
         self.containerDelegate?.reloadNavBar()
-        self.containerDelegate?.reloadSection(emptyError: nil)
+        self.containerDelegate?.reloadSections(emptyError: nil)
     }
     
-    func apply(filters: [any Filter]) {
-        guard let gameFilters = filters as? [GameFilter],
-              !gameFilters.isEmpty else {
+    func apply(filters: [GameFilter]) {
+        guard let games = self.platform?.games,
+              !filters.isEmpty else {
             Task {
                 await self.clearFilters()
             }
             return
         }
-        self.selectedFilters = gameFilters
+        self.selectedFilters = filters
         var shouldKeepGame = false
         var filteredGames = [SavedGame]()
-        for index in 0..<self.displayedGames.count {
-            let currentGame = self.displayedGames[index]
-            for filter in gameFilters {
+        for index in 0..<games.count {
+            let currentGame = games[index]
+            for filter in filters {
                 shouldKeepGame = self.shouldDisplayGame(
                     game: currentGame,
                     filter: filter
@@ -190,19 +190,19 @@ extension MyCollectionByPlatformsViewModel: MyCollectionViewModelDelegate {
                 }
             }
             if shouldKeepGame {
-                filteredGames.append(self.displayedGames[index])
+                filteredGames.append(games[index])
             }
         }
         self.updateListOfGames(with: filteredGames)
         self.displayedGames = filteredGames
         self.buttonItems = [.filter(active: true), .add]
-        self.containerDelegate?.reloadSection(
+        self.containerDelegate?.reloadSections(
             emptyError: filteredGames.isEmpty ? MyCollectionError.noItems(myCollectionDelegate: self) : nil
         )
         self.containerDelegate?.reloadNavBar()
     }
     
-    func shouldDisplayGame(game: SavedGame, filter: GameFilter) -> Bool{
+    private func shouldDisplayGame(game: SavedGame, filter: GameFilter) -> Bool {
         var shouldDisplayGame: Bool = false
         guard let filterStringValue: String = filter.value() else {
             if let gameData = game[keyPath: filter.keyPath] as? Int,

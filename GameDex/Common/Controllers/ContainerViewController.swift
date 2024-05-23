@@ -12,7 +12,7 @@ import UIKit
 protocol ContainerViewControllerDelegate: AnyObject {
     func configureSupplementaryView(contentViewFactory: ContentViewFactory)
     func reloadData()
-    func reloadSection(emptyError: EmptyError?)
+    func reloadSections(emptyError: EmptyError?)
     func goBackToRootViewController()
     func goBackToPreviousScreen()
     func reloadNavBar()
@@ -512,7 +512,7 @@ extension ContainerViewController: ContainerViewControllerDelegate {
         }
     }
     
-    func reloadSection(emptyError: EmptyError?) {
+    func reloadSections(emptyError: EmptyError?) {
         DispatchQueue.main.async {
             if let error = emptyError {
                 let tabBarOffset = -(self.tabBarController?.tabBar.frame.size.height ?? 0)

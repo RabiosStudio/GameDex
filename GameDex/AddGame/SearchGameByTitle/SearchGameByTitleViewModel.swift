@@ -78,7 +78,7 @@ final class SearchGameByTitleViewModel: CollectionViewModel {
 extension SearchGameByTitleViewModel: SearchViewModelDelegate {
     func cancelButtonTapped(callback: @escaping ((any EmptyError)?) -> ()) {
         self.sections = []
-        self.containerDelegate?.reloadSection(emptyError: nil)
+        self.containerDelegate?.reloadSections(emptyError: nil)
         callback(AddGameError.noSearch(platformName: self.platform.title))
     }
     

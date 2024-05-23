@@ -3042,9 +3042,9 @@ open class ContainerViewControllerDelegateMock: ContainerViewControllerDelegate,
 		perform?()
     }
 
-    open func reloadSection(emptyError: EmptyError?) {
-        addInvocation(.m_reloadSection__emptyError_emptyError(Parameter<EmptyError?>.value(`emptyError`)))
-		let perform = methodPerformValue(.m_reloadSection__emptyError_emptyError(Parameter<EmptyError?>.value(`emptyError`))) as? (EmptyError?) -> Void
+    open func reloadSections(emptyError: EmptyError?) {
+        addInvocation(.m_reloadSections__emptyError_emptyError(Parameter<EmptyError?>.value(`emptyError`)))
+		let perform = methodPerformValue(.m_reloadSections__emptyError_emptyError(Parameter<EmptyError?>.value(`emptyError`))) as? (EmptyError?) -> Void
 		perform?(`emptyError`)
     }
 
@@ -3070,7 +3070,7 @@ open class ContainerViewControllerDelegateMock: ContainerViewControllerDelegate,
     fileprivate enum MethodType {
         case m_configureSupplementaryView__contentViewFactory_contentViewFactory(Parameter<ContentViewFactory>)
         case m_reloadData
-        case m_reloadSection__emptyError_emptyError(Parameter<EmptyError?>)
+        case m_reloadSections__emptyError_emptyError(Parameter<EmptyError?>)
         case m_goBackToRootViewController
         case m_goBackToPreviousScreen
         case m_reloadNavBar
@@ -3084,7 +3084,7 @@ open class ContainerViewControllerDelegateMock: ContainerViewControllerDelegate,
 
             case (.m_reloadData, .m_reloadData): return .match
 
-            case (.m_reloadSection__emptyError_emptyError(let lhsEmptyerror), .m_reloadSection__emptyError_emptyError(let rhsEmptyerror)):
+            case (.m_reloadSections__emptyError_emptyError(let lhsEmptyerror), .m_reloadSections__emptyError_emptyError(let rhsEmptyerror)):
 				var results: [Matcher.ParameterComparisonResult] = []
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsEmptyerror, rhs: rhsEmptyerror, with: matcher), lhsEmptyerror, rhsEmptyerror, "emptyError"))
 				return Matcher.ComparisonResult(results)
@@ -3102,7 +3102,7 @@ open class ContainerViewControllerDelegateMock: ContainerViewControllerDelegate,
             switch self {
             case let .m_configureSupplementaryView__contentViewFactory_contentViewFactory(p0): return p0.intValue
             case .m_reloadData: return 0
-            case let .m_reloadSection__emptyError_emptyError(p0): return p0.intValue
+            case let .m_reloadSections__emptyError_emptyError(p0): return p0.intValue
             case .m_goBackToRootViewController: return 0
             case .m_goBackToPreviousScreen: return 0
             case .m_reloadNavBar: return 0
@@ -3112,7 +3112,7 @@ open class ContainerViewControllerDelegateMock: ContainerViewControllerDelegate,
             switch self {
             case .m_configureSupplementaryView__contentViewFactory_contentViewFactory: return ".configureSupplementaryView(contentViewFactory:)"
             case .m_reloadData: return ".reloadData()"
-            case .m_reloadSection__emptyError_emptyError: return ".reloadSection(emptyError:)"
+            case .m_reloadSections__emptyError_emptyError: return ".reloadSections(emptyError:)"
             case .m_goBackToRootViewController: return ".goBackToRootViewController()"
             case .m_goBackToPreviousScreen: return ".goBackToPreviousScreen()"
             case .m_reloadNavBar: return ".reloadNavBar()"
@@ -3136,7 +3136,7 @@ open class ContainerViewControllerDelegateMock: ContainerViewControllerDelegate,
 
         public static func configureSupplementaryView(contentViewFactory: Parameter<ContentViewFactory>) -> Verify { return Verify(method: .m_configureSupplementaryView__contentViewFactory_contentViewFactory(`contentViewFactory`))}
         public static func reloadData() -> Verify { return Verify(method: .m_reloadData)}
-        public static func reloadSection(emptyError: Parameter<EmptyError?>) -> Verify { return Verify(method: .m_reloadSection__emptyError_emptyError(`emptyError`))}
+        public static func reloadSections(emptyError: Parameter<EmptyError?>) -> Verify { return Verify(method: .m_reloadSections__emptyError_emptyError(`emptyError`))}
         public static func goBackToRootViewController() -> Verify { return Verify(method: .m_goBackToRootViewController)}
         public static func goBackToPreviousScreen() -> Verify { return Verify(method: .m_goBackToPreviousScreen)}
         public static func reloadNavBar() -> Verify { return Verify(method: .m_reloadNavBar)}
@@ -3152,8 +3152,8 @@ open class ContainerViewControllerDelegateMock: ContainerViewControllerDelegate,
         public static func reloadData(perform: @escaping () -> Void) -> Perform {
             return Perform(method: .m_reloadData, performs: perform)
         }
-        public static func reloadSection(emptyError: Parameter<EmptyError?>, perform: @escaping (EmptyError?) -> Void) -> Perform {
-            return Perform(method: .m_reloadSection__emptyError_emptyError(`emptyError`), performs: perform)
+        public static func reloadSections(emptyError: Parameter<EmptyError?>, perform: @escaping (EmptyError?) -> Void) -> Perform {
+            return Perform(method: .m_reloadSections__emptyError_emptyError(`emptyError`), performs: perform)
         }
         public static func goBackToRootViewController(perform: @escaping () -> Void) -> Perform {
             return Perform(method: .m_goBackToRootViewController, performs: perform)
@@ -4161,6 +4161,12 @@ open class MyCollectionViewModelDelegateMock: MyCollectionViewModelDelegate, Moc
 		perform?()
     }
 
+    open func apply(filters: [GameFilter]) {
+        addInvocation(.m_apply__filters_filters(Parameter<[GameFilter]>.value(`filters`)))
+		let perform = methodPerformValue(.m_apply__filters_filters(Parameter<[GameFilter]>.value(`filters`))) as? ([GameFilter]) -> Void
+		perform?(`filters`)
+    }
+
     open func clearFilters() {
         addInvocation(.m_clearFilters)
 		let perform = methodPerformValue(.m_clearFilters) as? () -> Void
@@ -4170,11 +4176,17 @@ open class MyCollectionViewModelDelegateMock: MyCollectionViewModelDelegate, Moc
 
     fileprivate enum MethodType {
         case m_reloadCollection
+        case m_apply__filters_filters(Parameter<[GameFilter]>)
         case m_clearFilters
 
         static func compareParameters(lhs: MethodType, rhs: MethodType, matcher: Matcher) -> Matcher.ComparisonResult {
             switch (lhs, rhs) {
             case (.m_reloadCollection, .m_reloadCollection): return .match
+
+            case (.m_apply__filters_filters(let lhsFilters), .m_apply__filters_filters(let rhsFilters)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsFilters, rhs: rhsFilters, with: matcher), lhsFilters, rhsFilters, "filters"))
+				return Matcher.ComparisonResult(results)
 
             case (.m_clearFilters, .m_clearFilters): return .match
             default: return .none
@@ -4184,12 +4196,14 @@ open class MyCollectionViewModelDelegateMock: MyCollectionViewModelDelegate, Moc
         func intValue() -> Int {
             switch self {
             case .m_reloadCollection: return 0
+            case let .m_apply__filters_filters(p0): return p0.intValue
             case .m_clearFilters: return 0
             }
         }
         func assertionName() -> String {
             switch self {
             case .m_reloadCollection: return ".reloadCollection()"
+            case .m_apply__filters_filters: return ".apply(filters:)"
             case .m_clearFilters: return ".clearFilters()"
             }
         }
@@ -4210,6 +4224,7 @@ open class MyCollectionViewModelDelegateMock: MyCollectionViewModelDelegate, Moc
         fileprivate var method: MethodType
 
         public static func reloadCollection() -> Verify { return Verify(method: .m_reloadCollection)}
+        public static func apply(filters: Parameter<[GameFilter]>) -> Verify { return Verify(method: .m_apply__filters_filters(`filters`))}
         public static func clearFilters() -> Verify { return Verify(method: .m_clearFilters)}
     }
 
@@ -4219,6 +4234,9 @@ open class MyCollectionViewModelDelegateMock: MyCollectionViewModelDelegate, Moc
 
         public static func reloadCollection(perform: @escaping () -> Void) -> Perform {
             return Perform(method: .m_reloadCollection, performs: perform)
+        }
+        public static func apply(filters: Parameter<[GameFilter]>, perform: @escaping ([GameFilter]) -> Void) -> Perform {
+            return Perform(method: .m_apply__filters_filters(`filters`), performs: perform)
         }
         public static func clearFilters(perform: @escaping () -> Void) -> Perform {
             return Perform(method: .m_clearFilters, performs: perform)

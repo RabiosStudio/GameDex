@@ -16,7 +16,7 @@ final class CollectionManagementViewModel: CollectionViewModel {
     let screenTitle: String? = L10n.collectionManagement
     var sections: [Section] = []
     var layoutMargins: UIEdgeInsets?
-    private var isLoggedIn: Bool = false
+    var isLoggedIn: Bool = false
     
     weak var containerDelegate: ContainerViewControllerDelegate?
     weak var myProfileDelegate: MyProfileViewModelDelegate?

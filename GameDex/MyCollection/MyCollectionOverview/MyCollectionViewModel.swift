@@ -11,7 +11,7 @@ import UIKit
 // sourcery: AutoMockable
 protocol MyCollectionViewModelDelegate: AnyObject {
     func reloadCollection() async
-    func apply(filters: [any Filter])
+    func apply(filters: [GameFilter])
     func clearFilters() async
 }
 
@@ -139,12 +139,12 @@ extension MyCollectionViewModel {
 }
 
 // MARK: - MyCollectionViewModelDelegate
-extension MyCollectionViewModel: MyCollectionViewModelDelegate {
+extension MyCollectionViewModel: MyCollectionViewModelDelegate {        
     func reloadCollection() {
         self.containerDelegate?.reloadData()
     }
     
-    func apply(filters: [any Filter]) {}
+    func apply(filters: [GameFilter]) {}
 
     func clearFilters() {}
 }

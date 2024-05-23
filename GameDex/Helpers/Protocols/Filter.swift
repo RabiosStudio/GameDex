@@ -7,9 +7,8 @@
 
 import Foundation
 
-protocol Filter {
-    associatedtype U
-    
-    var keyPath: PartialKeyPath<U> { get }
-    func value<T>() -> T?
+protocol Filter<Item> {
+    associatedtype Item
+    var keyPath: PartialKeyPath<Item> { get }
+    func value<ValueType>() -> ValueType?
 }
