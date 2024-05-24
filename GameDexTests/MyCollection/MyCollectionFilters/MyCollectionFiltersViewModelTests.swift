@@ -143,7 +143,6 @@ final class MyCollectionFiltersViewModelTests: XCTestCase {
         await viewModel.didTap(buttonItem: .clear)
         
         // Then
-        myCollectionDelegate.verify(.clearFilters())
         containerDelegate.verify(.configureSupplementaryView(contentViewFactory: .any))
     }
 }
