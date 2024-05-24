@@ -106,6 +106,7 @@
 "title" = "Title";
 "platform" = "Platform";
 "isRequired" = "is Required";
+"releaseDate" = "Release date";
 "yearOfAcquisition" = "Year of acquisition";
 "purchasePrice" = "Purchase price";
 "storageArea" = "Storage area";

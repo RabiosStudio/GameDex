@@ -105,6 +105,7 @@
 "title" = "Titre";
 "platform" = "Console";
 "isRequired" = "obligatoire";
+"releaseDate" = "Date de sortie";
 "yearOfAcquisition" = "Année d'acquisition";
 "purchasePrice" = "Prix d'achat";
 "storageArea" = "Lieu de stockage";

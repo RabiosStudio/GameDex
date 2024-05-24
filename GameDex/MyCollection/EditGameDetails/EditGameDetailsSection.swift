@@ -17,7 +17,7 @@ final class EditGameDetailsSection: Section {
             imageStringURL: savedGame.game.imageUrl,
             title: savedGame.game.title,
             subtitle1: platformName,
-            subtitle2: savedGame.game.releaseDate?.convertToString(),
+            subtitle2: savedGame.game.formattedReleaseDate,
             subtitle3: savedGame.game.description
         )
         self.cellsVM.append(gameCellVM)

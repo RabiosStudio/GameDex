@@ -162,6 +162,8 @@ internal enum L10n {
   internal static let refresh = L10n.tr("Localizable", "refresh", fallback: "Refresh")
   /// Region
   internal static let region = L10n.tr("Localizable", "region", fallback: "Region")
+  /// Release date
+  internal static let releaseDate = L10n.tr("Localizable", "releaseDate", fallback: "Release date")
   /// An error occured while removing data.
   internal static let removeGameErrorDescription = L10n.tr("Localizable", "removeGameErrorDescription", fallback: "An error occured while removing data.")
   /// The game was removed from your collection.

@@ -19,7 +19,7 @@ final class MyCollectionByPlatformsSection: Section {
             let gameCellVM = BasicInfoCellViewModel(
                 title: item.game.title,
                 subtitle1: platform.title,
-                subtitle2: item.game.releaseDate?.convertToString(),
+                subtitle2: item.game.formattedReleaseDate,
                 caption: item.game.imageUrl,
                 cellTappedCallback: {
                     let screenFactory = EditGameDetailsScreenFactory(

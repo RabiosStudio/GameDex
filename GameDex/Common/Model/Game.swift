@@ -14,6 +14,14 @@ struct Game: Codable {
     let platformId: Int
     let imageUrl: String
     let releaseDate: Date?
+    
+    var formattedReleaseDate: String? {
+        var text: String?
+        if let releaseDate = self.releaseDate {
+            text = L10n.releaseDate + " : " + releaseDate.convertToString()
+        }
+        return text
+    }
 }
 
 extension Game: Equatable {
