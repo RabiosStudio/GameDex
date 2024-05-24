@@ -31,7 +31,7 @@ enum MyCollectionError: EmptyError {
         case .fetchError:
             return L10n.warningTryAgain
         case .noItems:
-            return L10n.emptyItemsDescription
+            return nil
         }
     }
     

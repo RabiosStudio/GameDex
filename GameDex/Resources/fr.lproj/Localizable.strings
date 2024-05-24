@@ -5,7 +5,7 @@
 // Empty States
 "emptyMyCollectionTitle" = "Votre collection est vide";
 "emptyMyCollectionDescription" = "Commencez par ajouter un premier jeu à votre collection";
-"emptyItemsTitle" = "Aucun résultat ne correspond à votre recherche";
+"emptyItemsTitle" = "Aucun résultat";
 "emptyItemsDescription" = "Essayez une nouvelle recherche";
 "emptyGameSearch" = "Lancez une recherche d'un jeu sur";
 
