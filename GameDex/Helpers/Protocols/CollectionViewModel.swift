@@ -19,7 +19,7 @@ protocol CollectionViewModel {
     var containerDelegate: ContainerViewControllerDelegate? { get set }
     
     func loadData(callback: @escaping (EmptyError?) -> ()) async
-    func didTap(buttonItem: AnyBarButtonItem)
+    func didTap(buttonItem: AnyBarButtonItem) async
 }
 
 extension CollectionViewModel {

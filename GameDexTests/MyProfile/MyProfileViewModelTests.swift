@@ -88,7 +88,7 @@ final class MyProfileViewModelTests: XCTestCase {
         
         viewModel.reloadMyProfile()
         
-        containerDelegate.verify(.reloadSections())
+        containerDelegate.verify(.reloadData())
     }
     
     func test_didTapOkButton_GivenNoError_ThenAlertParametersAreCorrectsAndContainerDelegateIsCalled() async {
@@ -121,7 +121,7 @@ final class MyProfileViewModelTests: XCTestCase {
                 )
             )
         )
-        containerDelegate.verify(.reloadSections())
+        containerDelegate.verify(.reloadData())
     }
     
     func test_didTapOkButton_GivenErrorLogOut_ThenAlertParametersAreCorrects() async {

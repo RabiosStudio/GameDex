@@ -396,7 +396,7 @@ final class EditGameDetailsViewModelTests: XCTestCase {
         )
     }
     
-    func test_didTapRightButtonItem_ThenShouldSetAlertParametersCorrectly() {
+    func test_didTapButtonItem_ThenShouldSetAlertParametersCorrectly() async {
         // Given
         let alertDisplayer = AlertDisplayerMock()
         let viewModel = EditGameDetailsViewModel(
@@ -410,7 +410,7 @@ final class EditGameDetailsViewModelTests: XCTestCase {
         )
         
         // When
-        viewModel.didTap(buttonItem: .delete)
+        await viewModel.didTap(buttonItem: .delete)
         
         // Then
         alertDisplayer.verify(
@@ -518,7 +518,7 @@ final class EditGameDetailsViewModelTests: XCTestCase {
             )
         )
         
-        containerDelegate.verify(.goBackToRootViewController())
+        containerDelegate.verify(.goBackToPreviousScreen())
     }
     
     func test_didTapOkButton_GivenCloudRemoveDataError_ThenShouldSetAlertParametersCorrectlyAndCallContainerDelegate() async {
@@ -621,7 +621,7 @@ final class EditGameDetailsViewModelTests: XCTestCase {
                 )
             )
         )
-        containerDelegate.verify(.goBackToRootViewController())
+        containerDelegate.verify(.goBackToPreviousScreen())
     }
 }
 

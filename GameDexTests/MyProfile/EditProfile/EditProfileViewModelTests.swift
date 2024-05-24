@@ -252,7 +252,7 @@ final class EditProfileViewModelTests: XCTestCase {
                 )
             )
         )
-        containerDelegate.verify(.reloadSections())
+        containerDelegate.verify(.reloadData())
     }
     
     func test_didTapPrimaryButton_GivenConfirmButtonTappedAndErrorReauthenticatingUser_ThenAlertParametersAreCorrectAndContainerDelegateCalled() async {
@@ -304,7 +304,7 @@ final class EditProfileViewModelTests: XCTestCase {
                 )
             )
         )
-        containerDelegate.verify(.reloadSections())
+        containerDelegate.verify(.reloadData())
     }
     
     func test_didTapPrimaryButton_GivenDeleteAccountButtonTapped_ThenAlertParametersAreCorrect() async {

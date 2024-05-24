@@ -43,7 +43,7 @@ final class MyCollectionViewModelTests: XCTestCase {
 
     }
     
-    func test_loadData_GivenUserIsLoggedInAndDatabaseFetchError_ThenShouldSetupRightButtonItemsCorrectlyAndCallbackShouldReturnFetchError() async {
+    func test_loadData_GivenUserIsLoggedInAndDatabaseFetchError_ThenShouldSetupButtonItemsCorrectlyAndCallbackShouldReturnFetchError() async {
         // Given
         let authenticationService = AuthenticationServiceMock()
         authenticationService.given(
@@ -82,11 +82,11 @@ final class MyCollectionViewModelTests: XCTestCase {
                 return
             }
             XCTAssertEqual(error, MyCollectionError.fetchError)
-            XCTAssertEqual(viewModel.rightButtonItems, [.add])
+            XCTAssertEqual(viewModel.buttonItems, [.add])
         }
     }
     
-    func test_loadData_GivenUserIsLoggedInAndEmptyCollectionFetched_ThenShouldSetupRightButtonItemsCorrectlyAndCallbackShouldReturnNoItems() async {
+    func test_loadData_GivenUserIsLoggedInAndEmptyCollectionFetched_ThenShouldSetupButtonItemsCorrectlyAndCallbackShouldReturnNoItems() async {
         // Given
         let authenticationService = AuthenticationServiceMock()
         authenticationService.given(
@@ -126,11 +126,11 @@ final class MyCollectionViewModelTests: XCTestCase {
             callbackIsCalled = true
             XCTAssertEqual(emptyCollection, [])
             XCTAssertTrue(callbackIsCalled)
-            XCTAssertEqual(viewModel.rightButtonItems, [.add])
+            XCTAssertEqual(viewModel.buttonItems, [.add])
         }
     }
     
-    func test_loadData_GivenUserIsLoggedInAndNoError_ThenShouldSetupSectionsAndRightButtonItemsCorrectly() async {
+    func test_loadData_GivenUserIsLoggedInAndNoError_ThenShouldSetupSectionsAndButtonItemsCorrectly() async {
         // Given
         let authenticationService = AuthenticationServiceMock()
         authenticationService.given(
@@ -166,14 +166,14 @@ final class MyCollectionViewModelTests: XCTestCase {
             
             // Then
             XCTAssertEqual(viewModel.numberOfItems(in: .zero), MockData.platforms.count)
-            XCTAssertEqual(viewModel.rightButtonItems, [.add, .search])
+            XCTAssertEqual(viewModel.buttonItems, [.add])
             
             let itemAvailable = viewModel.itemAvailable(at: IndexPath(row: .zero, section: .zero))
             XCTAssertTrue(itemAvailable)
         }
     }
     
-    func test_loadData_GivenUserIsLoggedOutAndDatabaseFetchError_ThenShouldSetupRightButtonItemsCorrectlyAndCallbackShouldReturnFetchError() async {
+    func test_loadData_GivenUserIsLoggedOutAndDatabaseFetchError_ThenShouldSetupButtonItemsCorrectlyAndCallbackShouldReturnFetchError() async {
         // Given
         let authenticationService = AuthenticationServiceMock()
         authenticationService.given(
@@ -212,11 +212,11 @@ final class MyCollectionViewModelTests: XCTestCase {
             }
             XCTAssertEqual(error, MyCollectionError.fetchError)
             XCTAssertTrue(callbackIsCalled)
-            XCTAssertEqual(viewModel.rightButtonItems, [.add])
+            XCTAssertEqual(viewModel.buttonItems, [.add])
         }
     }
     
-    func test_loadData_GivenUserIsLoggedOutAndEmptyCollectionFetched_ThenShouldSetupRightButtonItemsCorrectlyAndCallbackShouldReturnNoItems() async {
+    func test_loadData_GivenUserIsLoggedOutAndEmptyCollectionFetched_ThenShouldSetupButtonItemsCorrectlyAndCallbackShouldReturnNoItems() async {
         // Given
         let authenticationService = AuthenticationServiceMock()
         authenticationService.given(
@@ -252,7 +252,7 @@ final class MyCollectionViewModelTests: XCTestCase {
             callbackIsCalled = true
             XCTAssertEqual(emptyCollection, [])
             XCTAssertTrue(callbackIsCalled)
-            XCTAssertEqual(viewModel.rightButtonItems, [.add])
+            XCTAssertEqual(viewModel.buttonItems, [.add])
         }
     }
     
@@ -443,7 +443,7 @@ final class MyCollectionViewModelTests: XCTestCase {
                     XCTFail("Error type is not correct")
                     return
                 }
-                XCTAssertEqual(error, MyCollectionError.noItems)
+                XCTAssertEqual(error, MyCollectionError.noItems(myCollectionDelegate: viewModel))
             }
         }
     }
@@ -503,10 +503,10 @@ final class MyCollectionViewModelTests: XCTestCase {
         // When
         viewModel.reloadCollection()
         
-        containerDelegate.verify(.reloadSections())
+        containerDelegate.verify(.reloadData())
     }
     
-    func test_didTapRightButtonItem_ThenShouldSetNavigationStyleCorrectly() {
+    func test_didTapButtonItem_ThenShouldSetNavigationStyleCorrectly() async {
         // Given
         let localDatabase = LocalDatabaseMock()
         let viewModel = MyCollectionViewModel(
@@ -517,7 +517,7 @@ final class MyCollectionViewModelTests: XCTestCase {
         )
         
         // When
-        viewModel.didTapRightButtonItem()
+        await viewModel.didTap(buttonItem: .add)
         
         // Then
         let expectedNavigationStyle: NavigationStyle = {
@@ -533,7 +533,7 @@ final class MyCollectionViewModelTests: XCTestCase {
         XCTAssertEqual(lastNavigationStyle, expectedNavigationStyle)
     }
     
-    func test_cancelButtonTapped_ThenUpdateSectionAndRightButtonItems() async {
+    func test_cancelButtonTapped_ThenUpdateSectionAndButtonItems() async {
         // Given
         let cloudDatabase = CloudDatabaseMock()
         cloudDatabase.given(.getUserCollection(userId: .any, willReturn: .success(MockData.platforms)))
@@ -557,8 +557,8 @@ final class MyCollectionViewModelTests: XCTestCase {
                 // Then
                 XCTAssertEqual(viewModel.platforms, MockData.platforms)
                 
-                let expectedButtonItems: [AnyBarButtonItem]? = [.add, .search]
-                XCTAssertEqual(viewModel.rightButtonItems, expectedButtonItems)
+                let expectedButtonItems: [AnyBarButtonItem]? = [.add]
+                XCTAssertEqual(viewModel.buttonItems, expectedButtonItems)
             }
         }
     }

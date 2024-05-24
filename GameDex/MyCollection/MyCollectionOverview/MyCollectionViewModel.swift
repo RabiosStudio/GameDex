@@ -11,7 +11,7 @@ import UIKit
 // sourcery: AutoMockable
 protocol MyCollectionViewModelDelegate: AnyObject {
     func reloadCollection() async
-    func apply(filters: [GameFilter])
+    func apply(filters: [GameFilter]) async
     func clearFilters() async
 }
 
@@ -85,7 +85,12 @@ final class MyCollectionViewModel: ConnectivityDisplayerViewModel {
     }
     
     func didTap(buttonItem: AnyBarButtonItem) {
-        self.presentAddGameMethods()
+        switch buttonItem {
+        case .add:
+            self.presentAddGameMethods()
+        default:
+            break
+        }
     }
 }
 
@@ -144,7 +149,7 @@ extension MyCollectionViewModel: MyCollectionViewModelDelegate {
         self.containerDelegate?.reloadData()
     }
     
-    func apply(filters: [GameFilter]) {}
+    func apply(filters: [GameFilter]) async {}
 
     func clearFilters() {}
 }

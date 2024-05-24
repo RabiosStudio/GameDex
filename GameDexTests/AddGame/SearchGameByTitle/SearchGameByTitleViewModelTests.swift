@@ -409,7 +409,7 @@ final class SearchGameByTitleViewModelTests: XCTestCase {
         wait(for: [expectation], timeout: Constants.timeout)
     }
     
-    func test_didTapRightButtonItem_ThenShouldSetNavigationStyleCorrectly() {
+    func test_didTapButtonItem_ThenShouldSetNavigationStyleCorrectly() async {
         // Given
         let networkingSession = APIMock()
         let viewModel = SearchGameByTitleViewModel(
@@ -422,7 +422,7 @@ final class SearchGameByTitleViewModelTests: XCTestCase {
         // When
         viewModel.cancelButtonTapped { _ in
         }
-        viewModel.didTap(buttonItem: .close)
+        await viewModel.didTap(buttonItem: .close)
         
         // Then
         let expectedNavigationStyle: NavigationStyle = {

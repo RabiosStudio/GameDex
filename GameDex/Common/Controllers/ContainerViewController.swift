@@ -216,7 +216,9 @@ class ContainerViewController: UIViewController {
                 guard let buttonItem = BarButtonConverter.convert(
                     item: item,
                     actionHandler: {
-                        self.viewModel.didTap(buttonItem: item)
+                        Task {
+                            await self.viewModel.didTap(buttonItem: item)
+                        }
                     }) else {
                     continue
                 }

@@ -385,7 +385,7 @@ final class AddGameDetailsViewModelTests: XCTestCase {
         )
     }
     
-    func test_didTapRightButtonItem_ThenShouldSetNavigationStyleCorrectlyAndCallmyCollectionDelegate() {
+    func test_didTapButtonItem_ThenShouldSetNavigationStyleCorrectlyAndCallmyCollectionDelegate() async {
         // Given
         let localDatabase = LocalDatabaseMock()
         let alertDisplayer = AlertDisplayerMock()
@@ -400,6 +400,7 @@ final class AddGameDetailsViewModelTests: XCTestCase {
             alertDisplayer: alertDisplayer,
             authenticationService: AuthenticationServiceMock()
         )
+        viewModel.loadData { _ in }
         
         // When
         viewModel.didTap(buttonItem: .close)

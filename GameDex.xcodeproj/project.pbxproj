@@ -74,6 +74,8 @@
 		254E8B8E2A8B69E000C101C8 /* swiftgen.yml in Resources */ = {isa = PBXBuildFile; fileRef = 254E8B8C2A8B69E000C101C8 /* swiftgen.yml */; };
 		254E8B912A8B6BC000C101C8 /* Assets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254E8B902A8B6BC000C101C8 /* Assets.swift */; };
 		254E8B942A8B6BCA00C101C8 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254E8B932A8B6BCA00C101C8 /* Strings.swift */; };
+		255F8EBA2BFF765600DFE8D4 /* MyCollectionFiltersViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 255F8EB92BFF765600DFE8D4 /* MyCollectionFiltersViewModelTests.swift */; };
+		255F8EBC2BFF768300DFE8D4 /* MyCollectionFiltersSectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 255F8EBB2BFF768300DFE8D4 /* MyCollectionFiltersSectionTests.swift */; };
 		2560B0172ACFEEEC00EBAADB /* ConnectivityCheckerImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2560B0162ACFEEEC00EBAADB /* ConnectivityCheckerImpl.swift */; };
 		2560B0192ACFF1DF00EBAADB /* InfoContentViewFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2560B0182ACFF1DF00EBAADB /* InfoContentViewFactory.swift */; };
 		2560B01B2ACFF38800EBAADB /* InfoView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2560B01A2ACFF38800EBAADB /* InfoView.swift */; };
@@ -286,6 +288,8 @@
 		254E8B8C2A8B69E000C101C8 /* swiftgen.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = swiftgen.yml; sourceTree = "<group>"; };
 		254E8B902A8B6BC000C101C8 /* Assets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Assets.swift; sourceTree = "<group>"; };
 		254E8B932A8B6BCA00C101C8 /* Strings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
+		255F8EB92BFF765600DFE8D4 /* MyCollectionFiltersViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCollectionFiltersViewModelTests.swift; sourceTree = "<group>"; };
+		255F8EBB2BFF768300DFE8D4 /* MyCollectionFiltersSectionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCollectionFiltersSectionTests.swift; sourceTree = "<group>"; };
 		2560B0162ACFEEEC00EBAADB /* ConnectivityCheckerImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectivityCheckerImpl.swift; sourceTree = "<group>"; };
 		2560B0182ACFF1DF00EBAADB /* InfoContentViewFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoContentViewFactory.swift; sourceTree = "<group>"; };
 		2560B01A2ACFF38800EBAADB /* InfoView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InfoView.swift; sourceTree = "<group>"; };
@@ -496,6 +500,7 @@
 				25D5074B2AB619ED00A772F9 /* MyCollectionOverview */,
 				25D5074E2AB6DC7400A772F9 /* MyCollectionByPlatform */,
 				25D5074F2AB6DC8B00A772F9 /* EditGameDetails */,
+				255F8EB82BFF762B00DFE8D4 /* MyCollectionFilters */,
 			);
 			path = MyCollection;
 			sourceTree = "<group>";
@@ -627,6 +632,15 @@
 				2586302B2BF3925F00AD3EE4 /* String+Extension.swift */,
 			);
 			path = DesignSystem;
+			sourceTree = "<group>";
+		};
+		255F8EB82BFF762B00DFE8D4 /* MyCollectionFilters */ = {
+			isa = PBXGroup;
+			children = (
+				255F8EB92BFF765600DFE8D4 /* MyCollectionFiltersViewModelTests.swift */,
+				255F8EBB2BFF768300DFE8D4 /* MyCollectionFiltersSectionTests.swift */,
+			);
+			path = MyCollectionFilters;
 			sourceTree = "<group>";
 		};
 		2560B0152ACFEEE000EBAADB /* Reachability */ = {
@@ -1553,6 +1567,7 @@
 				25979D9F2ABEF5F2002CEDE7 /* MyProfileSectionTests.swift in Sources */,
 				25979DC12ABF3C00002CEDE7 /* LoginViewModelTests.swift in Sources */,
 				25F6632C2A94CF13005F5412 /* MyCollectionViewModelTests.swift in Sources */,
+				255F8EBC2BFF768300DFE8D4 /* MyCollectionFiltersSectionTests.swift in Sources */,
 				251C86742A94D5E80020C794 /* Mock.generated.swift in Sources */,
 				25D507552AB6DCD000A772F9 /* EditGameDetailsViewModelTests.swift in Sources */,
 				25EB24502AA8B1280024F01C /* StarRatingCellViewModelTests.swift in Sources */,
@@ -1583,6 +1598,7 @@
 				2506D88C2ADFEEE7006D3F52 /* EditProfileViewModelTests.swift in Sources */,
 				25EB24522AA8B1350024F01C /* ImageDescriptionCellViewModelTests.swift in Sources */,
 				25D6EAF92A8A265D00C2BE57 /* TextFieldCellViewModelTests.swift in Sources */,
+				255F8EBA2BFF765600DFE8D4 /* MyCollectionFiltersViewModelTests.swift in Sources */,
 				252E37812AD8220400987DD5 /* AuthenticationServiceImplTests.swift in Sources */,
 				25D507532AB6DCBE00A772F9 /* EditGameDetailsSectionTests.swift in Sources */,
 				25EB24082AA1D5C20024F01C /* LabelCellViewModelTests.swift in Sources */,

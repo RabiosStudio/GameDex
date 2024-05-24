@@ -69,7 +69,7 @@ enum MyCollectionError: EmptyError {
         case .fetchError:
             return .refresh
         case .noItems(myCollectionDelegate: let delegate):
-            Task{
+            Task {
                 await delegate?.clearFilters()
             }
             return nil

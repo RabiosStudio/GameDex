@@ -21,7 +21,7 @@ final class MyCollectionFiltersViewModel: CollectionViewModel {
     weak var myCollectionDelegate: MyCollectionViewModelDelegate?
     
     private let games: [SavedGame]
-    private var selectedFilters: [GameFilter]?
+    var selectedFilters: [GameFilter]?
     
     init(
         games: [SavedGame],
@@ -43,7 +43,7 @@ final class MyCollectionFiltersViewModel: CollectionViewModel {
         callback(nil)
     }
     
-    func didTap(buttonItem: AnyBarButtonItem) {
+    func didTap(buttonItem: AnyBarButtonItem) async {
         switch buttonItem {
         case .close:
             self.close()
@@ -54,11 +54,9 @@ final class MyCollectionFiltersViewModel: CollectionViewModel {
                 selectedFilters: self.selectedFilters,
                 editDelegate: self
             )]
-            Task {
-                await self.myCollectionDelegate?.clearFilters()
-                self.configureBottomView(shouldEnableButton: true)
-                self.containerDelegate?.reloadSections(emptyError: nil)
-            }
+            await self.myCollectionDelegate?.clearFilters()
+            self.configureBottomView(shouldEnableButton: true)
+            self.containerDelegate?.reloadSections(emptyError: nil)
         default:
             break
         }
@@ -150,7 +148,7 @@ extension MyCollectionFiltersViewModel: PrimaryButtonDelegate {
             self.close()
             return
         }
-        self.myCollectionDelegate?.apply(filters: selectedFilters)
+        await self.myCollectionDelegate?.apply(filters: selectedFilters)
         self.close()
     }
 }

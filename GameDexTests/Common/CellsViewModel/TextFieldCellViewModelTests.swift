@@ -18,7 +18,7 @@ final class TextFieldCellViewModelTests: XCTestCase {
         // When
         let cellVM = TextFieldCellViewModel(
             placeholder: placeholder,
-            formType: GameFormType.storageArea,
+            formType: GameFormType.storageArea(nil),
             value: text,
             editDelegate: EditFormDelegateMock()
         )

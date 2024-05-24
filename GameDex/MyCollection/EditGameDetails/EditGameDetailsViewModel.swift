@@ -68,7 +68,12 @@ final class EditGameDetailsViewModel: CollectionViewModel {
     }
     
     func didTap(buttonItem: AnyBarButtonItem) {
-        self.presentAlertBeforeDeletingGame()
+        switch buttonItem {
+        case .delete:
+            self.presentAlertBeforeDeletingGame()
+        default:
+            break
+        }
     }
 }
 

@@ -144,7 +144,7 @@ final class MyCollectionByPlatformsViewModel: ConnectivityDisplayerViewModel {
     
     private func handleReloadCollectionSuccess() async {
         await self.myCollectionDelegate?.reloadCollection()
-        self.apply(filters: self.selectedFilters ?? [])
+        await self.apply(filters: self.selectedFilters ?? [])
     }
     
     private func handleReloadEmptyCollection() async {
@@ -167,12 +167,10 @@ extension MyCollectionByPlatformsViewModel: MyCollectionViewModelDelegate {
         self.containerDelegate?.reloadSections(emptyError: nil)
     }
     
-    func apply(filters: [GameFilter]) {
+    func apply(filters: [GameFilter]) async {
         guard let games = self.platform?.games,
               !filters.isEmpty else {
-            Task {
-                await self.clearFilters()
-            }
+            await self.clearFilters()
             return
         }
         self.selectedFilters = filters
@@ -214,11 +212,11 @@ extension MyCollectionByPlatformsViewModel: MyCollectionViewModelDelegate {
         if let gameData = game[keyPath: filter.keyPath] as? String {
             shouldDisplayGame = filterStringValue == gameData
         } else if let gameData = game[keyPath: filter.keyPath] as? GameCondition {
-            shouldDisplayGame = filterStringValue == gameData.value
+            shouldDisplayGame = filterStringValue == gameData.rawValue
         } else if let gameData = game[keyPath: filter.keyPath] as? GameCompleteness {
-            shouldDisplayGame = filterStringValue == gameData.value
+            shouldDisplayGame = filterStringValue == gameData.rawValue
         } else if let gameData = game[keyPath: filter.keyPath] as? GameRegion {
-            shouldDisplayGame = filterStringValue == gameData.value
+            shouldDisplayGame = filterStringValue == gameData.rawValue
         }
         return shouldDisplayGame
     }
@@ -258,7 +256,8 @@ extension MyCollectionByPlatformsViewModel: MyCollectionViewModelDelegate {
         )
         switch fetchPlatformsResult {
         case .success(let platform):
-            guard let games = platform.games else {
+            guard let games = platform.games,
+                  !games.isEmpty else {
                 await self.handleReloadEmptyCollection()
                 return
             }
