@@ -101,17 +101,26 @@ final class MyCollectionFiltersViewModel: CollectionViewModel {
                 guard let conditionText = formCellVM.value as? String else {
                     break
                 }
-                selectedFilters.append(GameFilter.gameCondition(conditionText))
+                let condition = GameCondition.getRawValue(
+                    value: conditionText
+                )
+                selectedFilters.append(GameFilter.gameCondition(condition.rawValue))
             case .gameCompleteness(_):
                 guard let completenessText = formCellVM.value as? String else {
                     break
                 }
-                selectedFilters.append(GameFilter.gameCompleteness(completenessText))
+                let completeness = GameCompleteness.getRawValue(
+                    value: completenessText
+                )
+                selectedFilters.append(GameFilter.gameCompleteness(completeness.rawValue))
             case .gameRegion(_):
                 guard let regionText = formCellVM.value as? String else {
                     break
                 }
-                selectedFilters.append(GameFilter.gameRegion(regionText))
+                let region = GameRegion.getRawValue(
+                    value: regionText
+                )
+                selectedFilters.append(GameFilter.gameRegion(region.rawValue))
             case .storageArea:
                 guard let storageArea = formCellVM.value as? String else {
                     break

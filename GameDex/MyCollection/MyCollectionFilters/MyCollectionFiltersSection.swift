@@ -30,11 +30,23 @@ final class MyCollectionFiltersSection: Section {
                 case .acquisitionYear(let value):
                     acquisitionYearFilterValue = value
                 case .gameCondition(let value):
-                    conditionFilterValue = value
+                    var gameConditionText: String?
+                    if let gameCondition = GameCondition(rawValue: value) {
+                        gameConditionText = gameCondition.value
+                    }
+                    conditionFilterValue = gameConditionText
                 case .gameCompleteness(let value):
-                    completenessFilterValue = value
+                    var gameCompletenessText: String?
+                    if let gameCompleteness = GameCompleteness(rawValue: value) {
+                        gameCompletenessText = gameCompleteness.value
+                    }
+                    completenessFilterValue = gameCompletenessText
                 case .gameRegion(let value):
-                    regionFilterValue = value
+                    var gameRegionText: String?
+                    if let gameRegion = GameRegion(rawValue: value) {
+                        gameRegionText = gameRegion.value
+                    }
+                    regionFilterValue = gameRegionText
                 case .storageArea(let value):
                     storageAreaFilterValue = value
                 case .rating(let value):
@@ -50,17 +62,19 @@ final class MyCollectionFiltersSection: Section {
                 }
             )
         )
-        let yearOfAcquisitionCellVM = TextFieldCellViewModel(
-            placeholder: L10n.yearOfAcquisition,
-            formType: GameFormType.yearOfAcquisition(
-                PickerViewModel(
-                    data: [acquisitionYearArray.sorted()]
-                )
-            ),
-            value: acquisitionYearFilterValue ?? nil,
-            editDelegate: editDelegate
-        )
-        self.cellsVM.append(yearOfAcquisitionCellVM)
+        if !acquisitionYearArray.isEmpty {
+            let yearOfAcquisitionCellVM = TextFieldCellViewModel(
+                placeholder: L10n.yearOfAcquisition,
+                formType: GameFormType.yearOfAcquisition(
+                    PickerViewModel(
+                        data: [acquisitionYearArray.sorted()]
+                    )
+                ),
+                value: acquisitionYearFilterValue ?? nil,
+                editDelegate: editDelegate
+            )
+            self.cellsVM.append(yearOfAcquisitionCellVM)
+        }
         
         let conditionCellVM = TextFieldCellViewModel(
             placeholder: L10n.condition,
@@ -115,17 +129,19 @@ final class MyCollectionFiltersSection: Section {
                 }
             )
         )
-        let storageAreaCellVM = TextFieldCellViewModel(
-            placeholder: L10n.storageArea,
-            formType: GameFormType.storageArea(
-                PickerViewModel(
-                    data: [storageAreaArray.sorted()]
-                )
-            ),
-            value: storageAreaFilterValue ?? nil,
-            editDelegate: editDelegate
-        )
-        self.cellsVM.append(storageAreaCellVM)
+        if !storageAreaArray.isEmpty {
+            let storageAreaCellVM = TextFieldCellViewModel(
+                placeholder: L10n.storageArea,
+                formType: GameFormType.storageArea(
+                    PickerViewModel(
+                        data: [storageAreaArray.sorted()]
+                    )
+                ),
+                value: storageAreaFilterValue ?? nil,
+                editDelegate: editDelegate
+            )
+            self.cellsVM.append(storageAreaCellVM)
+        }
         
         let personalRatingCellVM = StarRatingCellViewModel(
             title: L10n.personalRating,

@@ -191,13 +191,15 @@ final class MyCollectionFiltersSectionTests: XCTestCase {
                     )
                 )
             case .gameCondition(_):
+                var gameConditionText: String?
                 guard let gameConditionCellVM = formCellVM as? TextFieldCellViewModel,
                       let gameConditionCellVMFormType = gameConditionCellVM.formType as? GameFormType else {
                     XCTFail("Wrong type")
                     return
                 }
+                
                 XCTAssertEqual(gameConditionCellVM.placeholder, L10n.condition)
-                XCTAssertEqual(gameConditionCellVM.value, MockData.gameFiltersWithMatchingGames[0].value())
+                XCTAssertEqual(gameConditionCellVM.value, GameCondition.mint.value)
                 XCTAssertEqual(
                     gameConditionCellVMFormType,
                     .gameCondition(
@@ -218,7 +220,7 @@ final class MyCollectionFiltersSectionTests: XCTestCase {
                     return
                 }
                 XCTAssertEqual(gameCompletenessCellVM.placeholder, L10n.completeness)
-                XCTAssertEqual(gameCompletenessCellVM.value, MockData.gameFiltersWithMatchingGames[1].value())
+                XCTAssertEqual(gameCompletenessCellVM.value, GameCompleteness.complete.value)
                 XCTAssertEqual(
                     gameCompletenessCellVMFormType,
                     .gameCompleteness(
@@ -239,7 +241,7 @@ final class MyCollectionFiltersSectionTests: XCTestCase {
                     return
                 }
                 XCTAssertEqual(gameRegionCellVM.placeholder, L10n.region)
-                XCTAssertEqual(gameRegionCellVM.value, MockData.gameFiltersWithMatchingGames[2].value())
+                XCTAssertEqual(gameRegionCellVM.value, GameRegion.pal.value)
                 XCTAssertEqual(
                     gameRegionCellVMFormType,
                     .gameRegion(

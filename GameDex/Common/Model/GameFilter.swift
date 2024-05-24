@@ -9,9 +9,9 @@ import Foundation
 
 enum GameFilter: Filter {
     case acquisitionYear(String)
-    case gameCondition(String)
-    case gameCompleteness(String)
-    case gameRegion(String)
+    case gameCondition(GameCondition.RawValue)
+    case gameCompleteness(GameCompleteness.RawValue)
+    case gameRegion(GameRegion.RawValue)
     case storageArea(String)
     case rating(Int)
     
