@@ -443,26 +443,8 @@ extension ContainerViewController: UISearchBarDelegate {
         })
     }
     
-    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        guard let searchQuery = searchBar.text else {
-            return
-        }
-        self.searchBar.endEditing(true)
-        self.configureLoader()
-        self.viewModel.searchViewModel?.delegate?.startSearch(
-            from: searchQuery) { [weak self] error in
-                if let error = error {
-                    DispatchQueue.main.async {
-                        let tabBarOffset = -(self?.tabBarController?.tabBar.frame.size.height ?? 0)
-                        self?.updateEmptyState(error: error,
-                                               tabBarOffset: tabBarOffset)
-                    }
-                } else {
-                    DispatchQueue.main.async {
-                        self?.reloadCollectionView()
-                    }
-                }
-            }
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        searchBar.showsCancelButton = false
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
