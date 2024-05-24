@@ -54,7 +54,6 @@ final class MyCollectionFiltersViewModel: CollectionViewModel {
                 selectedFilters: self.selectedFilters,
                 editDelegate: self
             )]
-            await self.myCollectionDelegate?.clearFilters()
             self.configureBottomView(shouldEnableButton: true)
             self.containerDelegate?.reloadSections(emptyError: nil)
         default:
