@@ -46,6 +46,10 @@
 "warningPlatformDeletionCloud" = "La collection ne peut pas être restaurée après suppression. Cela n'affectera pas les données sauvegardées en local sur d'autres appareils.";
 "warningPlatformDeletionLocal" = "La collection ne peut pas être restaurée après suppression. Seules les données sauvegardées en local sur votre appreils seront supprimées.";
 
+// Info
+"infoNoInternet" = "Aucun accès internet, votre collection pourrait ne pas être à jour.";
+"infoLogout" = "Vous n'êtes pas connecté, votre collection pourrait ne pas être à jour.";
+
 // Button
 "addAGame" = "Ajouter un jeu";
 "addGameToCollection" = "Ajouter à ma collection";
@@ -90,7 +94,7 @@
 "signupEmail" = "Avec une adresse email";
 "createAccount" = "Créer un compte";
 "authThroughOtherMethods" = "via d'autres méthodes d'authentification";
-"editProfile" = "Modifier mon compte";
+"editProfile" = "Modifier/Supprimer mon compte";
 "updateCredentials" = "Modifiez votre adresse email et votre mot de passe.";
 "confirmCredentials" = "Confirmer votre adresse email et mot de passe actuels pour mettre à jour vos informations.";
 "deleteAccount" = "Supprimer mon compte";

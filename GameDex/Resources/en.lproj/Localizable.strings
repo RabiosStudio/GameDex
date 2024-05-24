@@ -48,8 +48,8 @@
 "warningPlatformDeletionLocal" = "Your collection will be deleted permanently. This will only affect data saved locally on this device.";
 
 // Info
-"infoNoInternet" = "You're not connected to the internet, your collection might not be up to date";
-"infoLogout" = "You're not logged in, your collection might not be up to date";
+"infoNoInternet" = "You're not connected to the internet, your collection might not be up to date.";
+"infoLogout" = "You're not logged in, your collection might not be up to date.";
 
 // Button
 "addAGame" = "Add a game";
@@ -95,7 +95,7 @@
 "signupEmail" = "Sign up with email";
 "createAccount" = "Create account";
 "authThroughOtherMethods" = "through other methods below";
-"editProfile" = "Edit profile";
+"editProfile" = "Edit/Delete profile";
 "updateCredentials" = "Update your email address and password";
 "confirmCredentials" = "Confirm your email address and password to update your information";
 "deleteAccount" = "Delete Account";
