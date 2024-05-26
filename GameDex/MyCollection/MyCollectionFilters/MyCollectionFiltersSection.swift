@@ -65,7 +65,7 @@ final class MyCollectionFiltersSection: Section {
         if !acquisitionYearArray.isEmpty {
             let yearOfAcquisitionCellVM = TextFieldCellViewModel(
                 placeholder: L10n.yearOfAcquisition,
-                formType: GameFormType.yearOfAcquisition(
+                formType: GameFilterFormType.yearOfAcquisition(
                     PickerViewModel(
                         data: [acquisitionYearArray.sorted()]
                     )
@@ -78,7 +78,7 @@ final class MyCollectionFiltersSection: Section {
         
         let conditionCellVM = TextFieldCellViewModel(
             placeholder: L10n.condition,
-            formType: GameFormType.gameCondition(
+            formType: GameFilterFormType.gameCondition(
                 PickerViewModel(
                     data: [GameCondition.allCases.compactMap {
                         guard $0 != .unknown else {
@@ -95,7 +95,7 @@ final class MyCollectionFiltersSection: Section {
         
         let completenessCellVM = TextFieldCellViewModel(
             placeholder: L10n.completeness,
-            formType: GameFormType.gameCompleteness(
+            formType: GameFilterFormType.gameCompleteness(
                 PickerViewModel(
                     data: [GameCompleteness.allCases.compactMap {
                         guard $0 != .unknown else {
@@ -112,7 +112,7 @@ final class MyCollectionFiltersSection: Section {
         
         let regionCellVM = TextFieldCellViewModel(
             placeholder: L10n.region,
-            formType: GameFormType.gameRegion(
+            formType: GameFilterFormType.gameRegion(
                 PickerViewModel(
                     data: [GameRegion.allCases.map { $0.value }]
                 )
@@ -132,7 +132,7 @@ final class MyCollectionFiltersSection: Section {
         if !storageAreaArray.isEmpty {
             let storageAreaCellVM = TextFieldCellViewModel(
                 placeholder: L10n.storageArea,
-                formType: GameFormType.storageArea(
+                formType: GameFilterFormType.storageArea(
                     PickerViewModel(
                         data: [storageAreaArray.sorted()]
                     )
@@ -145,7 +145,7 @@ final class MyCollectionFiltersSection: Section {
         
         let personalRatingCellVM = StarRatingCellViewModel(
             title: L10n.personalRating,
-            formType: GameFormType.rating,
+            formType: GameFilterFormType.rating,
             value: ratingFilterValue ?? nil,
             editDelegate: editDelegate
         )

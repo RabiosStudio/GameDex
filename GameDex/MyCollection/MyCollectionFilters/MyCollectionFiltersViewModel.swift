@@ -90,7 +90,7 @@ final class MyCollectionFiltersViewModel: CollectionViewModel {
         var selectedFilters = [GameFilter]()
         
         for formCellVM in formCellsVM {
-            guard let formType = formCellVM.formType as? GameFormType else { return [] }
+            guard let formType = formCellVM.formType as? GameFilterFormType else { return [] }
             switch formType {
             case .yearOfAcquisition:
                 guard let acquisitionYear = formCellVM.value as? String else {
@@ -132,8 +132,6 @@ final class MyCollectionFiltersViewModel: CollectionViewModel {
                     break
                 }
                 selectedFilters.append(GameFilter.rating(rating))
-            default:
-                break
             }
         }
         return selectedFilters

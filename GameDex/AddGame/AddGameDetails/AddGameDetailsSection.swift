@@ -24,7 +24,7 @@ final class AddGameDetailsSection: Section {
         
         let yearOfAcquisitionCellVM = TextFieldCellViewModel(
             placeholder: L10n.yearOfAcquisition,
-            formType: GameFormType.yearOfAcquisition(nil)
+            formType: GameFormType.yearOfAcquisition
         )
         self.cellsVM.append(yearOfAcquisitionCellVM)
         
@@ -70,7 +70,7 @@ final class AddGameDetailsSection: Section {
         
         let storageAreaCellVM = TextFieldCellViewModel(
             placeholder: L10n.storageArea,
-            formType: GameFormType.storageArea(nil)
+            formType: GameFormType.storageArea
         )
         self.cellsVM.append(storageAreaCellVM)
         

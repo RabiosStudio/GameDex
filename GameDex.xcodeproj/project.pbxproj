@@ -74,6 +74,7 @@
 		254E8B8E2A8B69E000C101C8 /* swiftgen.yml in Resources */ = {isa = PBXBuildFile; fileRef = 254E8B8C2A8B69E000C101C8 /* swiftgen.yml */; };
 		254E8B912A8B6BC000C101C8 /* Assets.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254E8B902A8B6BC000C101C8 /* Assets.swift */; };
 		254E8B942A8B6BCA00C101C8 /* Strings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 254E8B932A8B6BCA00C101C8 /* Strings.swift */; };
+		255A0A482C035DDD007ED3D3 /* GameFilterFormType.swift in Sources */ = {isa = PBXBuildFile; fileRef = 255A0A472C035DDD007ED3D3 /* GameFilterFormType.swift */; };
 		255F8EBA2BFF765600DFE8D4 /* MyCollectionFiltersViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 255F8EB92BFF765600DFE8D4 /* MyCollectionFiltersViewModelTests.swift */; };
 		255F8EBC2BFF768300DFE8D4 /* MyCollectionFiltersSectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 255F8EBB2BFF768300DFE8D4 /* MyCollectionFiltersSectionTests.swift */; };
 		2560B0172ACFEEEC00EBAADB /* ConnectivityCheckerImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2560B0162ACFEEEC00EBAADB /* ConnectivityCheckerImpl.swift */; };
@@ -288,6 +289,7 @@
 		254E8B8C2A8B69E000C101C8 /* swiftgen.yml */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.yaml; path = swiftgen.yml; sourceTree = "<group>"; };
 		254E8B902A8B6BC000C101C8 /* Assets.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Assets.swift; sourceTree = "<group>"; };
 		254E8B932A8B6BCA00C101C8 /* Strings.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Strings.swift; sourceTree = "<group>"; };
+		255A0A472C035DDD007ED3D3 /* GameFilterFormType.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameFilterFormType.swift; sourceTree = "<group>"; };
 		255F8EB92BFF765600DFE8D4 /* MyCollectionFiltersViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCollectionFiltersViewModelTests.swift; sourceTree = "<group>"; };
 		255F8EBB2BFF768300DFE8D4 /* MyCollectionFiltersSectionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCollectionFiltersSectionTests.swift; sourceTree = "<group>"; };
 		2560B0162ACFEEEC00EBAADB /* ConnectivityCheckerImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConnectivityCheckerImpl.swift; sourceTree = "<group>"; };
@@ -556,6 +558,7 @@
 				256D9C412AD2BD9700D4AA23 /* Position.swift */,
 				2506D8962AE026B2006D3F52 /* ButtonType.swift */,
 				258630382BFCB43A00AD3EE4 /* GameFilter.swift */,
+				255A0A472C035DDD007ED3D3 /* GameFilterFormType.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1494,6 +1497,7 @@
 				25EB241C2AA5F8C30024F01C /* AddGameDetailsViewModel.swift in Sources */,
 				251C873D2A9D09AA0020C794 /* BasicInfoCellViewModel.swift in Sources */,
 				254354782A93B1BB00E53351 /* LabelCellViewModel.swift in Sources */,
+				255A0A482C035DDD007ED3D3 /* GameFilterFormType.swift in Sources */,
 				254E8B912A8B6BC000C101C8 /* Assets.swift in Sources */,
 				254E8B852A8A81F400C101C8 /* UIColorExtension.swift in Sources */,
 				256D9C442AD2C48300D4AA23 /* ConnectivityDisplayerViewModel.swift in Sources */,
