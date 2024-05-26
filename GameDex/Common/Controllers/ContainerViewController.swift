@@ -204,6 +204,7 @@ class ContainerViewController: UIViewController {
     
     private func configureNavBar() {
         DispatchQueue.main.async {
+            self.title = self.viewModel.screenTitle            
             self.navigationController?.configure()
             self.configureSearchBar()
             
@@ -251,7 +252,6 @@ class ContainerViewController: UIViewController {
     }
     
     private func configureSearchBar() {
-        self.title = self.viewModel.screenTitle
         guard let searchVM = self.viewModel.searchViewModel else {
             self.searchBar.removeFromSuperview()
             return
