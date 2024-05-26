@@ -98,7 +98,7 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
         await viewModel.loadData { _ in }
         
         // Then
-        containerDelegate.verify(.goBackToRootViewController())
+        containerDelegate.verify(.goBackToRootViewController(), count: .once)
     }
     
     func test_loadData_GivenUserIsNotLoggedIn_ThenShouldSetupSupplementaryView() async {
@@ -135,7 +135,7 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
             containerDelegate.verify(
                 .configureSupplementaryView(
                     contentViewFactory: .any
-                )
+                ), count: .once
             )
         }
     }
@@ -174,7 +174,7 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
             containerDelegate.verify(
                 .configureSupplementaryView(
                     contentViewFactory: .any
-                )
+                ), count: .once
             )
         }
     }
@@ -398,11 +398,11 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
                         description: L10n.fetchGamesErrorDescription
                     )
                 )
-            )
+            ), count: .once
         )
     }
     
-    func test_reloadCollection_GivenLocalDatabaseEmptyCollectionFetched_ThenResultsInErrorAlert() async {
+    func test_reloadCollection_GivenLocalDatabaseEmptyCollectionFetched_ThenReloadCollectionAndGoBackToRootViewController() async {
         // Given
         let emptyCollection = [PlatformCollected]()
         let localDatabase = LocalDatabaseMock()
@@ -437,8 +437,8 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
         await viewModel.reloadCollection()
         
         // Then
-        myCollectionDelegate.verify(.reloadCollection())
-        containerDelegate.verify(.goBackToRootViewController())
+        myCollectionDelegate.verify(.reloadCollection(), count: .once)
+        containerDelegate.verify(.goBackToRootViewController(), count: .once)
     }
     
     func test_reloadCollection_GivenCloudDatabaseFetchDataError_ThenResultsInErrorAlert() async {
@@ -487,7 +487,7 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
                         description: L10n.fetchGamesErrorDescription
                     )
                 )
-            )
+            ), count: .once
         )
     }
     
@@ -532,8 +532,8 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
         await viewModel.reloadCollection()
         
         // Then
-        myCollectionDelegate.verify(.reloadCollection())
-        containerDelegate.verify(.goBackToRootViewController())
+        myCollectionDelegate.verify(.reloadCollection(), count: .once)
+        containerDelegate.verify(.goBackToRootViewController(), count: .once)
     }
     
     func test_reloadCollection_GivenCloudDatabaseNoError_ThenSectionsAreSetAndContainerDelegateCalled() async {
@@ -579,7 +579,7 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
         
         XCTAssertEqual(viewModel.numberOfSections(), 1)
         XCTAssertEqual(viewModel.sections[0].cellsVM.count, expectedNumberOfitems)
-        myCollectionDelegate.verify(.reloadCollection())
+        myCollectionDelegate.verify(.reloadCollection(), count: .once)
     }
     
     func test_cancelButtonTapped_ThenUpdateSectionAndButtonItems() async {
@@ -672,8 +672,8 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
         await viewModel.clearFilters()
         
         // Then
-        myCollectionDelegate.verify(.reloadCollection())
-        containerDelegate.verify(.goBackToRootViewController())
+        myCollectionDelegate.verify(.reloadCollection(), count: .once)
+        containerDelegate.verify(.goBackToRootViewController(), count: .once)
     }
     
     func test_clearFilters_GivenCollection_ThenReloadNavBarAndSections() async {
@@ -708,8 +708,8 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
         await viewModel.clearFilters()
         
         // Then
-        containerDelegate.verify(.reloadNavBar())
-        containerDelegate.verify(.reloadSections(emptyError: .any))
+        containerDelegate.verify(.reloadNavBar(), count: .once)
+        containerDelegate.verify(.reloadSections(emptyError: .any), count: .once)
     }
     
     func test_applyFilters_GivenMatchingGames_ThenReloadNavBarAndSections() async {
@@ -737,8 +737,8 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
         await viewModel.apply(filters: MockData.gameFiltersWithMatchingGames)
         
         // Then
-        containerDelegate.verify(.reloadNavBar())
-        containerDelegate.verify(.reloadSections(emptyError: .any))
+        containerDelegate.verify(.reloadNavBar(), count: .once)
+        containerDelegate.verify(.reloadSections(emptyError: .any), count: .once)
     }
     
     func test_applyFilters_GivenNoMatchingGames_ThenReloadSectionsAndNavBar() async {
@@ -766,8 +766,8 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
         await viewModel.apply(filters: MockData.gameFiltersWithNoMatchingGames)
         
         // Then
-        containerDelegate.verify(.reloadNavBar())
-        containerDelegate.verify(.reloadSections(emptyError: .any))
+        containerDelegate.verify(.reloadNavBar(), count: .once)
+        containerDelegate.verify(.reloadSections(emptyError: .any), count: .once)
     }
 
     func test_didTapFilterButtonItem_ThenOpenMyCollectionFiltersView() async {

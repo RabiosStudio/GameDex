@@ -32,7 +32,7 @@ final class PrimaryButtonCellViewModelTests: XCTestCase {
         
         // When
         viewModel.didTap(buttonTitle: "title") {
-            delegate.verify(.didTapPrimaryButton(with: "title"))
+            delegate.verify(.didTapPrimaryButton(with: "title"), count: .once)
         }
     }
 }

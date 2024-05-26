@@ -103,7 +103,7 @@ final class AddGameDetailsViewModelTests: XCTestCase {
                         description: L10n.saveGameSuccessDescription
                     )
                 )
-            )
+            ), count: .once
         )
         
         myCollectionDelegate.verify(.reloadCollection())
@@ -156,7 +156,7 @@ final class AddGameDetailsViewModelTests: XCTestCase {
                         description: L10n.saveGameErrorDescription
                     )
                 )
-            )
+            ), count: .once
         )
         
     }
@@ -203,7 +203,7 @@ final class AddGameDetailsViewModelTests: XCTestCase {
                         description: L10n.warningGameAlreadyInDatabase
                     )
                 )
-            )
+            ), count: .once
         )
     }
     
@@ -260,7 +260,7 @@ final class AddGameDetailsViewModelTests: XCTestCase {
                         description: L10n.saveGameSuccessDescription
                     )
                 )
-            )
+            ), count: .once
         )
         
         myCollectionDelegate.verify(.reloadCollection())
@@ -324,7 +324,7 @@ final class AddGameDetailsViewModelTests: XCTestCase {
                         description: L10n.saveGameErrorDescription
                     )
                 )
-            )
+            ), count: .once
         )
     }
     
@@ -381,11 +381,11 @@ final class AddGameDetailsViewModelTests: XCTestCase {
                         description: L10n.warningGameAlreadyInDatabase
                     )
                 )
-            )
+            ), count: .once
         )
     }
     
-    func test_didTapButtonItem_ThenShouldSetNavigationStyleCorrectlyAndCallmyCollectionDelegate() async {
+    func test_didTapButtonItem_ThenShouldSetNavigationStyleCorrectlyAndCallMyCollectionDelegate() async {
         // Given
         let localDatabase = LocalDatabaseMock()
         let alertDisplayer = AlertDisplayerMock()
@@ -400,7 +400,6 @@ final class AddGameDetailsViewModelTests: XCTestCase {
             alertDisplayer: alertDisplayer,
             authenticationService: AuthenticationServiceMock()
         )
-        viewModel.loadData { _ in }
         
         // When
         viewModel.didTap(buttonItem: .close)

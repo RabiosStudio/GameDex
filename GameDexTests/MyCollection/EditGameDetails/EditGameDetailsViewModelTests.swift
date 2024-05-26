@@ -117,12 +117,12 @@ final class EditGameDetailsViewModelTests: XCTestCase {
                         description: L10n.updateSuccessDescription
                     )
                 )
-            )
+            ), count: .once
         )
         containerDelegate.verify(
             .configureSupplementaryView(
                 contentViewFactory: .any
-            )
+            ), count: 2
         )
     }
     
@@ -172,12 +172,12 @@ final class EditGameDetailsViewModelTests: XCTestCase {
                         description: L10n.updateErrorDescription
                     )
                 )
-            )
+            ), count: .once
         )
         containerDelegate.verify(
             .configureSupplementaryView(
                 contentViewFactory: .any
-            )
+            ), count: 2
         )
     }
     
@@ -230,12 +230,12 @@ final class EditGameDetailsViewModelTests: XCTestCase {
                         description: L10n.updateSuccessDescription
                     )
                 )
-            )
+            ), count: .once
         )
         containerDelegate.verify(
             .configureSupplementaryView(
                 contentViewFactory: .any
-            )
+            ), count: 2
         )
     }
     
@@ -288,12 +288,12 @@ final class EditGameDetailsViewModelTests: XCTestCase {
                         description: L10n.updateErrorDescription
                     )
                 )
-            )
+            ), count: .once
         )
         containerDelegate.verify(
             .configureSupplementaryView(
                 contentViewFactory: .any
-            )
+            ), count: 2
         )
     }
     
@@ -346,7 +346,7 @@ final class EditGameDetailsViewModelTests: XCTestCase {
         containerDelegate.verify(
             .configureSupplementaryView(
                 contentViewFactory: .any
-            )
+            ), count: 2
         )
     }
     
@@ -392,7 +392,7 @@ final class EditGameDetailsViewModelTests: XCTestCase {
         containerDelegate.verify(
             .configureSupplementaryView(
                 contentViewFactory: .any
-            )
+            ), count: 3
         )
     }
     
@@ -421,7 +421,7 @@ final class EditGameDetailsViewModelTests: XCTestCase {
                         description: L10n.warningRemoveGameDescription
                     )
                 )
-            )
+            ), count: .once
         )
     }
     
@@ -468,7 +468,7 @@ final class EditGameDetailsViewModelTests: XCTestCase {
                         description: L10n.removeGameErrorDescription
                     )
                 )
-            )
+            ), count: .once
         )
     }
     
@@ -515,7 +515,7 @@ final class EditGameDetailsViewModelTests: XCTestCase {
                         description: L10n.removeGameSuccessDescription
                     )
                 )
-            )
+            ), count: .once
         )
         
         containerDelegate.verify(.goBackToPreviousScreen())
@@ -568,7 +568,7 @@ final class EditGameDetailsViewModelTests: XCTestCase {
                         description: L10n.removeGameErrorDescription
                     )
                 )
-            )
+            ), count: .once
         )
     }
     
@@ -619,9 +619,9 @@ final class EditGameDetailsViewModelTests: XCTestCase {
                         description: L10n.removeGameSuccessDescription
                     )
                 )
-            )
+            ), count: .once
         )
-        containerDelegate.verify(.goBackToPreviousScreen())
+        containerDelegate.verify(.goBackToPreviousScreen(), count: .once)
     }
 }
 

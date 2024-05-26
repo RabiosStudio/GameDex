@@ -292,7 +292,7 @@ final class MyCollectionViewModelTests: XCTestCase {
             containerDelegate.verify(
                 .configureSupplementaryView(
                     contentViewFactory: .any
-                )
+                ), count: .once
             )
         }
     }
@@ -333,7 +333,7 @@ final class MyCollectionViewModelTests: XCTestCase {
             containerDelegate.verify(
                 .configureSupplementaryView(
                     contentViewFactory: .any
-                )
+                ), count: .once
             )
         }
     }
@@ -443,7 +443,7 @@ final class MyCollectionViewModelTests: XCTestCase {
                     XCTFail("Error type is not correct")
                     return
                 }
-                XCTAssertEqual(error, MyCollectionError.noItems(myCollectionDelegate: viewModel))
+                XCTAssertEqual(error, MyCollectionError.noItems(delegate: viewModel))
             }
         }
     }
@@ -503,7 +503,7 @@ final class MyCollectionViewModelTests: XCTestCase {
         // When
         viewModel.reloadCollection()
         
-        containerDelegate.verify(.reloadData())
+        containerDelegate.verify(.reloadData(), count: .once)
     }
     
     func test_didTapButtonItem_ThenShouldSetNavigationStyleCorrectly() async {
@@ -517,7 +517,7 @@ final class MyCollectionViewModelTests: XCTestCase {
         )
         
         // When
-        await viewModel.didTap(buttonItem: .add)
+        viewModel.didTap(buttonItem: .add)
         
         // Then
         let expectedNavigationStyle: NavigationStyle = {

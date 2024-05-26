@@ -68,7 +68,7 @@ final class CollectionManagementViewModelTests: XCTestCase {
                 XCTFail("Wrong type")
                 return
             }
-            XCTAssertEqual(error, MyCollectionError.noItems(myCollectionDelegate: nil))
+            XCTAssertEqual(error, MyCollectionError.noItems(delegate: nil))
         }
     }
     
@@ -221,7 +221,7 @@ final class CollectionManagementViewModelTests: XCTestCase {
                         description: "" + L10n.successDeletePlatformDescription
                     )
                 )
-            )
+            ), count: .once
         )
     }
     
@@ -280,7 +280,7 @@ final class CollectionManagementViewModelTests: XCTestCase {
                         description: "\(MockData.platforms[0].title)" + L10n.successDeletePlatformDescription
                     )
                 )
-            )
+            ), count: .once
         )
     }
     
@@ -336,7 +336,7 @@ final class CollectionManagementViewModelTests: XCTestCase {
                         description: L10n.removeGameErrorDescription
                     )
                 )
-            )
+            ), count: .once
         )
     }
     
@@ -392,7 +392,7 @@ final class CollectionManagementViewModelTests: XCTestCase {
                         description: L10n.removeGameErrorDescription
                     )
                 )
-            )
+            ), count: .once
         )
     }
     
@@ -420,7 +420,7 @@ final class CollectionManagementViewModelTests: XCTestCase {
                         description: L10n.warningPlatformDeletionCloud
                     )
                 )
-            )
+            ), count: .once
         )
     }
     
@@ -448,7 +448,7 @@ final class CollectionManagementViewModelTests: XCTestCase {
                         description: L10n.warningPlatformDeletionLocal
                     )
                 )
-            )
+            ), count: .once
         )
     }
 }

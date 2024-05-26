@@ -48,7 +48,7 @@ final class MyCollectionFiltersViewModelTests: XCTestCase {
         XCTAssertTrue(callbackIsCalled)
         XCTAssertEqual(viewModel.numberOfSections(), 1)
         XCTAssertEqual(viewModel.numberOfItems(in: .zero), 6)
-        containerDelegate.verify(.configureSupplementaryView(contentViewFactory: .any))
+        containerDelegate.verify(.configureSupplementaryView(contentViewFactory: .any), count: .once)
     }
     
     func test_didTapPrimaryButton_GivenNoFilter_ThenMyCollectionDelegateClearFiltersIsCalledAndViewIsDismissed() async {
@@ -65,7 +65,7 @@ final class MyCollectionFiltersViewModelTests: XCTestCase {
         await viewModel.didTapPrimaryButton(with: nil)
         
         // Then
-        myCollectionDelegate.verify(.clearFilters())
+        myCollectionDelegate.verify(.clearFilters(), count: .once)
         XCTAssertEqual(Routing.shared.lastNavigationStyle, .dismiss(completionBlock: nil))
     }
     
@@ -85,7 +85,7 @@ final class MyCollectionFiltersViewModelTests: XCTestCase {
         await viewModel.didTapPrimaryButton(with: nil)
         
         // Then
-        myCollectionDelegate.verify(.apply(filters: .any))
+        myCollectionDelegate.verify(.apply(filters: .any), count: .once)
         XCTAssertEqual(Routing.shared.lastNavigationStyle, .dismiss(completionBlock: nil))
     }
     
@@ -107,7 +107,7 @@ final class MyCollectionFiltersViewModelTests: XCTestCase {
         containerDelegate.verify(
             .configureSupplementaryView(
                 contentViewFactory: .any
-            )
+            ), count: 2
         )
     }
     
@@ -143,6 +143,6 @@ final class MyCollectionFiltersViewModelTests: XCTestCase {
         await viewModel.didTap(buttonItem: .clear)
         
         // Then
-        containerDelegate.verify(.configureSupplementaryView(contentViewFactory: .any))
+        containerDelegate.verify(.configureSupplementaryView(contentViewFactory: .any), count: 2)
     }
 }

@@ -29,14 +29,14 @@ final class MyCollectionFiltersSectionTests: XCTestCase {
         }
         
         for formCellVM in formCellsVM {
-            guard let formType = formCellVM.formType as? GameFormType else {
+            guard let formType = formCellVM.formType as? GameFilterFormType else {
                 XCTFail("Wrong type")
                 return
             }
             switch formType {
             case .yearOfAcquisition:
                 guard let acquisitionYearCellVM = formCellVM as? TextFieldCellViewModel,
-                      let acquisitionYearCellVMFormType = acquisitionYearCellVM.formType as? GameFormType else {
+                      let acquisitionYearCellVMFormType = acquisitionYearCellVM.formType as? GameFilterFormType else {
                     XCTFail("Wrong type")
                     return
                 }
@@ -57,7 +57,7 @@ final class MyCollectionFiltersSectionTests: XCTestCase {
                 )
             case .gameCondition(_):
                 guard let gameConditionCellVM = formCellVM as? TextFieldCellViewModel,
-                      let gameConditionCellVMFormType = gameConditionCellVM.formType as? GameFormType else {
+                      let gameConditionCellVMFormType = gameConditionCellVM.formType as? GameFilterFormType else {
                     XCTFail("Wrong type")
                     return
                 }
@@ -77,7 +77,7 @@ final class MyCollectionFiltersSectionTests: XCTestCase {
                 )
             case .gameCompleteness(_):
                 guard let gameCompletenessCellVM = formCellVM as? TextFieldCellViewModel,
-                      let gameCompletenessCellVMFormType = gameCompletenessCellVM.formType as? GameFormType  else {
+                      let gameCompletenessCellVMFormType = gameCompletenessCellVM.formType as? GameFilterFormType  else {
                     XCTFail("Wrong type")
                     return
                 }
@@ -97,7 +97,7 @@ final class MyCollectionFiltersSectionTests: XCTestCase {
                 )
             case .gameRegion(_):
                 guard let gameRegionCellVM = formCellVM as? TextFieldCellViewModel,
-                      let gameRegionCellVMFormType = gameRegionCellVM.formType as? GameFormType else {
+                      let gameRegionCellVMFormType = gameRegionCellVM.formType as? GameFilterFormType else {
                     XCTFail("Wrong type")
                     return
                 }
@@ -112,7 +112,7 @@ final class MyCollectionFiltersSectionTests: XCTestCase {
                 )
             case .storageArea:
                 guard let storageAreaCellVM = formCellVM as? TextFieldCellViewModel,
-                      let storageAreaCellVMFormType = storageAreaCellVM.formType as? GameFormType else {
+                      let storageAreaCellVMFormType = storageAreaCellVM.formType as? GameFilterFormType else {
                     XCTFail("Wrong type")
                     return
                 }
@@ -163,14 +163,14 @@ final class MyCollectionFiltersSectionTests: XCTestCase {
         }
         
         for formCellVM in formCellsVM {
-            guard let formType = formCellVM.formType as? GameFormType else {
+            guard let formType = formCellVM.formType as? GameFilterFormType else {
                 XCTFail("Wrong type")
                 return
             }
             switch formType {
             case .yearOfAcquisition:
                 guard let acquisitionYearCellVM = formCellVM as? TextFieldCellViewModel,
-                      let acquisitionYearCellVMFormType = acquisitionYearCellVM.formType as? GameFormType else {
+                      let acquisitionYearCellVMFormType = acquisitionYearCellVM.formType as? GameFilterFormType else {
                     XCTFail("Wrong type")
                     return
                 }
@@ -193,7 +193,7 @@ final class MyCollectionFiltersSectionTests: XCTestCase {
             case .gameCondition(_):
                 var gameConditionText: String?
                 guard let gameConditionCellVM = formCellVM as? TextFieldCellViewModel,
-                      let gameConditionCellVMFormType = gameConditionCellVM.formType as? GameFormType else {
+                      let gameConditionCellVMFormType = gameConditionCellVM.formType as? GameFilterFormType else {
                     XCTFail("Wrong type")
                     return
                 }
@@ -215,7 +215,7 @@ final class MyCollectionFiltersSectionTests: XCTestCase {
                 )
             case .gameCompleteness(_):
                 guard let gameCompletenessCellVM = formCellVM as? TextFieldCellViewModel,
-                      let gameCompletenessCellVMFormType = gameCompletenessCellVM.formType as? GameFormType  else {
+                      let gameCompletenessCellVMFormType = gameCompletenessCellVM.formType as? GameFilterFormType  else {
                     XCTFail("Wrong type")
                     return
                 }
@@ -236,7 +236,7 @@ final class MyCollectionFiltersSectionTests: XCTestCase {
                 )
             case .gameRegion(_):
                 guard let gameRegionCellVM = formCellVM as? TextFieldCellViewModel,
-                      let gameRegionCellVMFormType = gameRegionCellVM.formType as? GameFormType else {
+                      let gameRegionCellVMFormType = gameRegionCellVM.formType as? GameFilterFormType else {
                     XCTFail("Wrong type")
                     return
                 }
@@ -252,7 +252,7 @@ final class MyCollectionFiltersSectionTests: XCTestCase {
                 )
             case .storageArea:
                 guard let storageAreaCellVM = formCellVM as? TextFieldCellViewModel,
-                      let storageAreaCellVMFormType = storageAreaCellVM.formType as? GameFormType else {
+                      let storageAreaCellVMFormType = storageAreaCellVM.formType as? GameFilterFormType else {
                     XCTFail("Wrong type")
                     return
                 }
