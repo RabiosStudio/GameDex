@@ -13,7 +13,7 @@ final class MyCollectionByPlatformsSection: Section {
         super.init()
         self.position = 0
         
-        let sortedCollection = games.sorted { $0.game.title < $1.game.title }
+        let sortedCollection = games.sorted { $0.game.title.lowercased() < $1.game.title.lowercased() }
         
         for item in sortedCollection {
             let gameCellVM = BasicInfoCellViewModel(
