@@ -92,7 +92,7 @@ extension SearchGameByTitleViewModel: SearchViewModelDelegate {
             let result: Result<SearchGamesData, APIError> = await self.networkingSession.getData(with: endpoint)
             
             switch result {
-            case .success(let data):
+            case let .success(data):
                 let games = RemoteDataConverter.convert(remoteGames: data.results, platform: self.platform).filter({ $0.releaseDate != nil })
                 guard !games.isEmpty else {
                     callback(AddGameError.noItems)

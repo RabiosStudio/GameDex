@@ -282,7 +282,7 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
                     XCTFail("Error type is not correct")
                     return
                 }
-                XCTAssertEqual(error, MyCollectionError.noItems(myCollectionDelegate: viewModel))
+                XCTAssertEqual(error, MyCollectionError.noItems(delegate: viewModel))
             }
         }
     }

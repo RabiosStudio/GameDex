@@ -195,28 +195,19 @@ extension MyCollectionByPlatformsViewModel: MyCollectionViewModelDelegate {
         self.displayedGames = filteredGames
         self.buttonItems = [.filter(active: true), .add]
         self.containerDelegate?.reloadSections(
-            emptyError: filteredGames.isEmpty ? MyCollectionError.noItems(myCollectionDelegate: self) : nil
+            emptyError: filteredGames.isEmpty ? MyCollectionError.noItems(delegate: self) : nil
         )
         self.containerDelegate?.reloadNavBar()
     }
     
     private func shouldDisplayGame(game: SavedGame, filter: GameFilter) -> Bool {
         var shouldDisplayGame: Bool = false
-        guard let filterStringValue: String = filter.value() else {
-            if let gameData = game[keyPath: filter.keyPath] as? Int,
-               let filterIntValue: Int = filter.value() {
-                shouldDisplayGame = filterIntValue == gameData
-            }
-            return shouldDisplayGame
-        }
-        if let gameData = game[keyPath: filter.keyPath] as? String {
+        if let gameData = game[keyPath: filter.keyPath] as? String,
+           let filterStringValue: String = filter.value() {
             shouldDisplayGame = filterStringValue == gameData
-        } else if let gameData = game[keyPath: filter.keyPath] as? GameCondition {
-            shouldDisplayGame = filterStringValue == gameData.rawValue
-        } else if let gameData = game[keyPath: filter.keyPath] as? GameCompleteness {
-            shouldDisplayGame = filterStringValue == gameData.rawValue
-        } else if let gameData = game[keyPath: filter.keyPath] as? GameRegion {
-            shouldDisplayGame = filterStringValue == gameData.rawValue
+        } else if let gameData = game[keyPath: filter.keyPath] as? Int,
+                  let filterIntValue: Int = filter.value() {
+            shouldDisplayGame = filterIntValue == gameData
         }
         return shouldDisplayGame
     }
@@ -228,7 +219,7 @@ extension MyCollectionByPlatformsViewModel: MyCollectionViewModelDelegate {
             
             let fetchCollectionResult = self.localDatabase.getPlatform(platformId: platform.id)
             switch fetchCollectionResult {
-            case .success(let platform):
+            case let .success(platform):
                 guard let platform else {
                     await self.handleReloadEmptyCollection()
                     return
@@ -255,7 +246,7 @@ extension MyCollectionByPlatformsViewModel: MyCollectionViewModelDelegate {
             platform: platform
         )
         switch fetchPlatformsResult {
-        case .success(let platform):
+        case let .success(platform):
             guard let games = platform.games,
                   !games.isEmpty else {
                 await self.handleReloadEmptyCollection()
@@ -279,7 +270,7 @@ extension MyCollectionByPlatformsViewModel: SearchViewModelDelegate {
     
     func updateSearchTextField(with text: String, callback: @escaping (EmptyError?) -> ()) {
         guard !self.displayedGames.isEmpty else {
-            callback(MyCollectionError.noItems(myCollectionDelegate: self))
+            callback(MyCollectionError.noItems(delegate: self))
             return
         }
         guard text != "" else {
@@ -293,7 +284,7 @@ extension MyCollectionByPlatformsViewModel: SearchViewModelDelegate {
         self.updateListOfGames(with: matchingGames)
         
         if matchingGames.isEmpty {
-            callback(MyCollectionError.noItems(myCollectionDelegate: self))
+            callback(MyCollectionError.noItems(delegate: self))
         } else {
             callback(nil)
         }

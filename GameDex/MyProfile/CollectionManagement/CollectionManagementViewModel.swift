@@ -49,10 +49,10 @@ final class CollectionManagementViewModel: CollectionViewModel {
         guard let userId = authenticationService.getUserId() else {
             let fetchPlatformsResult = self.localDatabase.fetchAllPlatforms()
             switch fetchPlatformsResult {
-            case .success(let platforms):
+            case let .success(platforms):
                 guard !platforms.isEmpty else {
                     let error = MyCollectionError.noItems(
-                        myCollectionDelegate: nil
+                        delegate: nil
                     )
                     callback(error)
                     return
@@ -71,7 +71,7 @@ final class CollectionManagementViewModel: CollectionViewModel {
         }
         let fetchPlatformsResult = await self.cloudDatabase.getUserCollection(userId: userId)
         switch fetchPlatformsResult {
-        case .success(let platforms):
+        case let .success(platforms):
             guard !platforms.isEmpty else {
                 callback(MyCollectionError.fetchError)
                 return

@@ -95,11 +95,12 @@ final class TextFieldCell: UICollectionViewCell, CellConfigurable {
         ])
     }
     
-    private func storeEntry(cellViewModel: CellViewModel?, with text: String?) {
-        guard let cellVM = self.cellVM else {
+    private func storeEntry(with text: String?) {
+        guard let text else {
+            self.cellVM?.value = nil
             return
         }
-        cellVM.value = (text == "") ? nil : text
+        self.cellVM?.value = text.isEmpty ? nil : text
     }
 }
 
@@ -119,7 +120,7 @@ extension TextFieldCell: UITextFieldDelegate {
         guard let text = textField.text else {
             return
         }
-        self.storeEntry(cellViewModel: self.cellVM, with: text)
+        self.storeEntry(with: text)
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
@@ -141,12 +142,12 @@ extension TextFieldCell: UITextFieldDelegate {
             animated: true
         )
         let currentText = data[componentIndex][rowIndex]
-        self.storeEntry(cellViewModel: self.cellVM, with: currentText)
+        self.storeEntry(with: currentText)
         textField.text = currentText
     }
     
     func textFieldShouldClear(_ textField: UITextField) -> Bool {
-        self.storeEntry(cellViewModel: self.cellVM, with: nil)
+        self.storeEntry(with: nil)
         return true
     }
 }
@@ -184,6 +185,6 @@ extension TextFieldCell: UIPickerViewDelegate {
             return
         }
         self.textField.text = data[component][row]
-        self.storeEntry(cellViewModel: self.cellVM, with: self.textField.text)
+        self.storeEntry(with: self.textField.text)
     }
 }

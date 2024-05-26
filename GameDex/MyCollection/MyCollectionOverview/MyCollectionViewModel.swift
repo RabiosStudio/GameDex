@@ -60,7 +60,7 @@ final class MyCollectionViewModel: ConnectivityDisplayerViewModel {
               self.connectivityChecker.hasConnectivity() else {
             let platformsFetched = self.localDatabase.fetchAllPlatforms()
             switch platformsFetched {
-            case .success(let platforms):
+            case let .success(platforms):
                 guard let emptyError = self.handleDataSuccess(platforms: CoreDataConverter.convert(platformsCollected: platforms)) else {
                     callback(nil)
                     return
@@ -73,7 +73,7 @@ final class MyCollectionViewModel: ConnectivityDisplayerViewModel {
         }
         let platformsFetched = await self.cloudDatabase.getUserCollection(userId: userId)
         switch platformsFetched {
-        case .success(let platforms):
+        case let .success(platforms):
             guard let emptyError = self.handleDataSuccess(platforms: platforms) else {
                 callback(nil)
                 return
@@ -131,7 +131,7 @@ extension MyCollectionViewModel {
         guard !platforms.isEmpty else {
             self.platforms = []
             self.handleFetchEmptyCollection()
-            return MyCollectionError.emptyCollection(myCollectionDelegate: self)
+            return MyCollectionError.emptyCollection(delegate: self)
         }
         self.platforms = platforms
         self.handleSectionCreation()
@@ -184,9 +184,7 @@ extension MyCollectionViewModel: SearchViewModelDelegate {
         self.updateListOfCollections(with: matchingCollections)
         
         if matchingCollections.isEmpty {
-            let error = MyCollectionError.noItems(
-                myCollectionDelegate: self
-            )
+            let error = MyCollectionError.noItems(delegate: self)
             callback(error)
         } else {
             callback(nil)

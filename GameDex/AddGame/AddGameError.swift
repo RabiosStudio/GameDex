@@ -18,7 +18,7 @@ enum AddGameError: EmptyError {
             return L10n.emptyItemsTitle
         case .server:
             return L10n.apiErrorTitle
-        case .noSearch(let platformName):
+        case let .noSearch(platformName):
             return L10n.emptyGameSearch + " " + platformName
         }
     }

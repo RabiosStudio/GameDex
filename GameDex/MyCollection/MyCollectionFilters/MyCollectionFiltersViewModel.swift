@@ -136,7 +136,6 @@ final class MyCollectionFiltersViewModel: CollectionViewModel {
                 break
             }
         }
-        self.selectedFilters = selectedFilters
         return selectedFilters
     }
 }

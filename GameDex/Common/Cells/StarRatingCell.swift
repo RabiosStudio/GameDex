@@ -34,7 +34,7 @@ class StarRatingCell: UICollectionViewCell, CellConfigurable {
     
     private lazy var clearButton: UIButton = {
         let button = UIButton()
-        let clearImage = UIImage(systemName: "xmark.circle.fill")?.withTintColor(.systemGray4, renderingMode: .alwaysOriginal)
+        let clearImage = UIImage(systemName: "xmark.circle.fill")?.withTintColor(.secondaryBackgroundColor, renderingMode: .alwaysOriginal)
         button.setImage(clearImage, for: .normal)
         button.addTarget(
             self,

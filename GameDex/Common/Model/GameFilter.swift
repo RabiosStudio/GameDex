@@ -17,9 +17,9 @@ enum GameFilter: Filter {
     
     func value<T>() -> T? {
         switch self {
-        case .acquisitionYear(let value), .gameCondition(let value), .gameCompleteness(let value), .gameRegion(let value), .storageArea(let value):
+        case let .acquisitionYear(value), let .gameCondition(value), let  .gameCompleteness(value), let .gameRegion(value), let .storageArea(value):
             return String(value) as? T
-        case .rating(let value):
+        case let .rating(value):
             return Int(value) as? T
         }
     }
@@ -29,11 +29,11 @@ enum GameFilter: Filter {
         case .acquisitionYear(_):
             return \SavedGame.acquisitionYear
         case .gameCondition(_):
-            return \SavedGame.gameCondition
+            return \SavedGame.gameCondition?.rawValue
         case .gameCompleteness(_):
-            return \SavedGame.gameCompleteness
+            return \SavedGame.gameCompleteness?.rawValue
         case .gameRegion(_):
-            return \SavedGame.gameRegion
+            return \SavedGame.gameRegion?.rawValue
         case .storageArea(_):
             return \SavedGame.storageArea
         case .rating(_):

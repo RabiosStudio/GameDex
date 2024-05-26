@@ -34,7 +34,7 @@ enum GameFormType: FormType, Equatable {
     
     var inputPickerViewModel: PickerViewModel? {
         switch self {
-        case .gameCompleteness(let pickerVM), .gameCondition(let pickerVM), .gameRegion(let pickerVM), .yearOfAcquisition(let pickerVM?), .storageArea(let pickerVM?):
+        case let .gameCompleteness(pickerVM), let .gameCondition(pickerVM), let .gameRegion(pickerVM), let .yearOfAcquisition(pickerVM?), let .storageArea( pickerVM?):
             return pickerVM
         default:
             return nil

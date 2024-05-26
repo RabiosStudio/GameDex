@@ -27,29 +27,29 @@ final class MyCollectionFiltersSection: Section {
         if let selectedFilters = selectedFilters {
             for filter in selectedFilters {
                 switch filter {
-                case .acquisitionYear(let value):
+                case let .acquisitionYear(value):
                     acquisitionYearFilterValue = value
-                case .gameCondition(let value):
+                case let .gameCondition(value):
                     var gameConditionText: String?
                     if let gameCondition = GameCondition(rawValue: value) {
                         gameConditionText = gameCondition.value
                     }
                     conditionFilterValue = gameConditionText
-                case .gameCompleteness(let value):
+                case let .gameCompleteness(value):
                     var gameCompletenessText: String?
                     if let gameCompleteness = GameCompleteness(rawValue: value) {
                         gameCompletenessText = gameCompleteness.value
                     }
                     completenessFilterValue = gameCompletenessText
-                case .gameRegion(let value):
+                case let .gameRegion(value):
                     var gameRegionText: String?
                     if let gameRegion = GameRegion(rawValue: value) {
                         gameRegionText = gameRegion.value
                     }
                     regionFilterValue = gameRegionText
-                case .storageArea(let value):
+                case let .storageArea(value):
                     storageAreaFilterValue = value
-                case .rating(let value):
+                case let .rating(value):
                     ratingFilterValue = value
                 }
             }

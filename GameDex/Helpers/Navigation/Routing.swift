@@ -59,7 +59,7 @@ class Routing: NSObject, Navigator {
         // Navigate on main thread to avoid crashes
         DispatchQueue.main.async(execute: {() -> Void in
             switch navigationStyle {
-            case .push(let screenFactory):
+            case let .push(screenFactory):
                 var fromNavigationController: UINavigationController? = fromController as? UINavigationController
                 
                 if let navigationController = fromVC?.navController as? UINavigationController {
@@ -79,7 +79,7 @@ class Routing: NSObject, Navigator {
                                 completion: {() -> Void in
                     completionBlock?()
                 })
-            case .selectTab(let index, let completionBlock):
+            case let .selectTab(index, completionBlock):
                 guard let navigationController = fromVC as? UINavigationController ?? fromVC?.navController as? UINavigationController,
                       let tabBarController = navigationController.tabBarController else {
                     return
@@ -87,7 +87,7 @@ class Routing: NSObject, Navigator {
                 
                 tabBarController.selectedIndex = index
                 completionBlock?()
-            case .dismiss(let completionBlock):
+            case let .dismiss(completionBlock):
                 fromVC?.dismissController(animated: animated,
                                           completion: {() -> Void in
                     completionBlock?()
