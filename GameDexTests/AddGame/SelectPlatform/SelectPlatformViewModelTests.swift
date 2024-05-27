@@ -196,7 +196,7 @@ final class SelectPlatformViewModelTests: XCTestCase {
         XCTAssertTrue(callbackIsCalled)
     }
     
-    func test_didTapRightButtonItem_ThenShouldSetNavigationStyleCorrectly() {
+    func test_didTapButtonItem_ThenShouldSetNavigationStyleCorrectly() async {
         // Given
         let cloudDatabase = CloudDatabaseMock()
         let viewModel = SelectPlatformViewModel(
@@ -205,7 +205,7 @@ final class SelectPlatformViewModelTests: XCTestCase {
         )
         
         // When
-        viewModel.didTap(buttonItem: .close)
+        await viewModel.didTap(buttonItem: .close)
         
         // Then
         let expectedNavigationStyle: NavigationStyle = {

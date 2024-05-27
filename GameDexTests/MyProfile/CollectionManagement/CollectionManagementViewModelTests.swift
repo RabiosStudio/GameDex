@@ -10,7 +10,7 @@ import XCTest
 
 final class CollectionManagementViewModelTests: XCTestCase {
     
-    func test_init_ThenShouldSetupPropertiesCorrectly() {
+    func test_init_ThenShouldSetupPropertiesCorrectly() async {
         // Given
         let viewModel = CollectionManagementViewModel(
             myCollectionDelegate: MyCollectionViewModelDelegateMock(),
@@ -19,7 +19,7 @@ final class CollectionManagementViewModelTests: XCTestCase {
             authenticationService: AuthenticationServiceMock(),
             alertDisplayer: AlertDisplayerMock()
         )
-        viewModel.didTap(buttonItem: .close)
+        await viewModel.didTap(buttonItem: .close)
         // Then
         XCTAssertEqual(viewModel.numberOfSections(), .zero)
         XCTAssertEqual(viewModel.numberOfItems(in: .zero), .zero)
@@ -68,7 +68,7 @@ final class CollectionManagementViewModelTests: XCTestCase {
                 XCTFail("Wrong type")
                 return
             }
-            XCTAssertEqual(error, MyCollectionError.noItems)
+            XCTAssertEqual(error, MyCollectionError.noItems(delegate: nil))
         }
     }
     
@@ -138,7 +138,7 @@ final class CollectionManagementViewModelTests: XCTestCase {
                 XCTFail("Wrong type")
                 return
             }
-            XCTAssertEqual(error, MyCollectionError.noItems)
+            XCTAssertEqual(error, MyCollectionError.fetchError)
         }
     }
     
@@ -221,7 +221,7 @@ final class CollectionManagementViewModelTests: XCTestCase {
                         description: "" + L10n.successDeletePlatformDescription
                     )
                 )
-            )
+            ), count: .once
         )
     }
     
@@ -280,7 +280,7 @@ final class CollectionManagementViewModelTests: XCTestCase {
                         description: "\(MockData.platforms[0].title)" + L10n.successDeletePlatformDescription
                     )
                 )
-            )
+            ), count: .once
         )
     }
     
@@ -336,7 +336,7 @@ final class CollectionManagementViewModelTests: XCTestCase {
                         description: L10n.removeGameErrorDescription
                     )
                 )
-            )
+            ), count: .once
         )
     }
     
@@ -392,7 +392,7 @@ final class CollectionManagementViewModelTests: XCTestCase {
                         description: L10n.removeGameErrorDescription
                     )
                 )
-            )
+            ), count: .once
         )
     }
     
@@ -420,7 +420,7 @@ final class CollectionManagementViewModelTests: XCTestCase {
                         description: L10n.warningPlatformDeletionCloud
                     )
                 )
-            )
+            ), count: .once
         )
     }
     
@@ -448,7 +448,7 @@ final class CollectionManagementViewModelTests: XCTestCase {
                         description: L10n.warningPlatformDeletionLocal
                     )
                 )
-            )
+            ), count: .once
         )
     }
 }

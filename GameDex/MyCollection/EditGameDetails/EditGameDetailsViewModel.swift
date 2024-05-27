@@ -12,7 +12,7 @@ final class EditGameDetailsViewModel: CollectionViewModel {
     var searchViewModel: SearchViewModel?
     var isBounceable: Bool = true
     var progress: Float?
-    var rightButtonItems: [AnyBarButtonItem]? = [.delete]
+    var buttonItems: [AnyBarButtonItem]? = [.delete]
     let screenTitle: String? = L10n.myCollection
     var sections = [Section]()
     var layoutMargins: UIEdgeInsets?
@@ -68,7 +68,12 @@ final class EditGameDetailsViewModel: CollectionViewModel {
     }
     
     func didTap(buttonItem: AnyBarButtonItem) {
-        self.presentAlertBeforeDeletingGame()
+        switch buttonItem {
+        case .delete:
+            self.presentAlertBeforeDeletingGame()
+        default:
+            break
+        }
     }
 }
 
@@ -149,7 +154,7 @@ private extension EditGameDetailsViewModel {
             )
         )
         await self.myCollectionDelegate?.reloadCollection()
-        self.containerDelegate?.goBackToRootViewController()
+        self.containerDelegate?.goBackToPreviousScreen()
     }
     func handleRemoveGameError() {
         self.alertDisplayer.presentTopFloatAlert(
@@ -255,7 +260,7 @@ private extension EditGameDetailsViewModel {
         )
         self.configureBottomView(shouldEnableButton: false)
         await self.myCollectionDelegate?.reloadCollection()
-        self.containerDelegate?.goBackToRootViewController()
+        self.containerDelegate?.goBackToPreviousScreen()
     }
     
     func handleEditGameFailure(error: DatabaseError) async {

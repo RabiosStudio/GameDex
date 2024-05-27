@@ -10,7 +10,7 @@ import UIKit
 
 protocol CollectionViewModel {
     var screenTitle: String? { get }
-    var rightButtonItems: [AnyBarButtonItem]? { get }
+    var buttonItems: [AnyBarButtonItem]? { get }
     var isBounceable: Bool { get }
     var searchViewModel: SearchViewModel? { get }
     var sections: [Section] { get }
@@ -19,7 +19,7 @@ protocol CollectionViewModel {
     var containerDelegate: ContainerViewControllerDelegate? { get set }
     
     func loadData(callback: @escaping (EmptyError?) -> ()) async
-    func didTap(buttonItem: AnyBarButtonItem)
+    func didTap(buttonItem: AnyBarButtonItem) async
 }
 
 extension CollectionViewModel {

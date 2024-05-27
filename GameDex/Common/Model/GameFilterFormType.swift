@@ -1,28 +1,23 @@
 //
-//  GameFormType.swift
+//  GameFilterFormType.swift
 //  GameDex
 //
-//  Created by Gabrielle Dalbera on 11/09/2023.
+//  Created by Gabrielle Dalbera on 26/05/2024.
 //
 
 import Foundation
 import UIKit
 
-enum GameFormType: FormType, Equatable {
-    case yearOfAcquisition
+enum GameFilterFormType: FormType, Equatable {
+    case yearOfAcquisition(PickerViewModel)
     case gameCondition(PickerViewModel)
     case gameCompleteness(PickerViewModel)
     case gameRegion(PickerViewModel)
-    case storageArea
+    case storageArea(PickerViewModel)
     case rating
-    case notes
     
     var keyboardType: UIKeyboardType? {
         switch self {
-        case .storageArea, .notes:
-            return .asciiCapable
-        case .yearOfAcquisition:
-            return .asciiCapableNumberPad
         default:
             return nil
         }
@@ -34,9 +29,9 @@ enum GameFormType: FormType, Equatable {
     
     var inputPickerViewModel: PickerViewModel? {
         switch self {
-        case let .gameCompleteness(pickerVM), let .gameCondition(pickerVM), let .gameRegion(pickerVM):
+        case let .gameCompleteness(pickerVM), let .gameCondition(pickerVM), let .gameRegion(pickerVM), let .yearOfAcquisition(pickerVM), let .storageArea(pickerVM):
             return pickerVM
-        default:
+        case .rating:
             return nil
         }
     }

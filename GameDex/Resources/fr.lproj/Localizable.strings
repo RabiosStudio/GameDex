@@ -5,7 +5,7 @@
 // Empty States
 "emptyMyCollectionTitle" = "Votre collection est vide";
 "emptyMyCollectionDescription" = "Commencez par ajouter un premier jeu à votre collection";
-"emptyItemsTitle" = "Aucun résultat ne correspond à votre recherche";
+"emptyItemsTitle" = "Aucun résultat";
 "emptyItemsDescription" = "Essayez une nouvelle recherche";
 "emptyGameSearch" = "Lancez une recherche d'un jeu sur";
 
@@ -46,6 +46,10 @@
 "warningPlatformDeletionCloud" = "La collection ne peut pas être restaurée après suppression. Cela n'affectera pas les données sauvegardées en local sur d'autres appareils.";
 "warningPlatformDeletionLocal" = "La collection ne peut pas être restaurée après suppression. Seules les données sauvegardées en local sur votre appreils seront supprimées.";
 
+// Info
+"infoNoInternet" = "Aucun accès internet, votre collection pourrait ne pas être à jour.";
+"infoLogout" = "Vous n'êtes pas connecté, votre collection pourrait ne pas être à jour.";
+
 // Button
 "addAGame" = "Ajouter un jeu";
 "addGameToCollection" = "Ajouter à ma collection";
@@ -56,6 +60,9 @@
 "saveChanges" = "Sauvegarder les modifications";
 "refresh" = "Actualiser";
 "deleteFromCollection" = "Supprimer de ma collection";
+"apply" = "Appliquer";
+"clearSearch" = "Effacer la recherche";
+"clearAll" = "Effacer tout";
 
 // Add Game Steps
 "stepOneOutOfThree" = "Etape 1/3";
@@ -87,7 +94,7 @@
 "signupEmail" = "Avec une adresse email";
 "createAccount" = "Créer un compte";
 "authThroughOtherMethods" = "via d'autres méthodes d'authentification";
-"editProfile" = "Modifier mon compte";
+"editProfile" = "Modifier/Supprimer mon compte";
 "updateCredentials" = "Modifiez votre adresse email et votre mot de passe.";
 "confirmCredentials" = "Confirmer votre adresse email et mot de passe actuels pour mettre à jour vos informations.";
 "deleteAccount" = "Supprimer mon compte";
@@ -98,6 +105,7 @@
 "title" = "Titre";
 "platform" = "Console";
 "isRequired" = "obligatoire";
+"releaseDate" = "Date de sortie";
 "yearOfAcquisition" = "Année d'acquisition";
 "purchasePrice" = "Prix d'achat";
 "storageArea" = "Lieu de stockage";
@@ -128,4 +136,5 @@
 // Other
 "game" = "jeu";
 "games" = "jeux";
+"filters" = "Filtres";
 "selectAndDeleteACollection" = "Sélectionnez une collection à supprimer";

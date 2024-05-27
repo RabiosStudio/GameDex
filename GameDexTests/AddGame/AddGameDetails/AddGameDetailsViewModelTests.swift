@@ -103,7 +103,7 @@ final class AddGameDetailsViewModelTests: XCTestCase {
                         description: L10n.saveGameSuccessDescription
                     )
                 )
-            )
+            ), count: .once
         )
         
         myCollectionDelegate.verify(.reloadCollection())
@@ -156,7 +156,7 @@ final class AddGameDetailsViewModelTests: XCTestCase {
                         description: L10n.saveGameErrorDescription
                     )
                 )
-            )
+            ), count: .once
         )
         
     }
@@ -203,7 +203,7 @@ final class AddGameDetailsViewModelTests: XCTestCase {
                         description: L10n.warningGameAlreadyInDatabase
                     )
                 )
-            )
+            ), count: .once
         )
     }
     
@@ -260,7 +260,7 @@ final class AddGameDetailsViewModelTests: XCTestCase {
                         description: L10n.saveGameSuccessDescription
                     )
                 )
-            )
+            ), count: .once
         )
         
         myCollectionDelegate.verify(.reloadCollection())
@@ -324,7 +324,7 @@ final class AddGameDetailsViewModelTests: XCTestCase {
                         description: L10n.saveGameErrorDescription
                     )
                 )
-            )
+            ), count: .once
         )
     }
     
@@ -381,11 +381,11 @@ final class AddGameDetailsViewModelTests: XCTestCase {
                         description: L10n.warningGameAlreadyInDatabase
                     )
                 )
-            )
+            ), count: .once
         )
     }
     
-    func test_didTapRightButtonItem_ThenShouldSetNavigationStyleCorrectlyAndCallmyCollectionDelegate() {
+    func test_didTapButtonItem_ThenShouldSetNavigationStyleCorrectlyAndCallMyCollectionDelegate() async {
         // Given
         let localDatabase = LocalDatabaseMock()
         let alertDisplayer = AlertDisplayerMock()

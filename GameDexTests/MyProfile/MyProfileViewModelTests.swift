@@ -88,7 +88,7 @@ final class MyProfileViewModelTests: XCTestCase {
         
         viewModel.reloadMyProfile()
         
-        containerDelegate.verify(.reloadSections())
+        containerDelegate.verify(.reloadData(), count: .once)
     }
     
     func test_didTapOkButton_GivenNoError_ThenAlertParametersAreCorrectsAndContainerDelegateIsCalled() async {
@@ -119,9 +119,9 @@ final class MyProfileViewModelTests: XCTestCase {
                         description: L10n.successLogOutDescription
                     )
                 )
-            )
+            ), count: .once
         )
-        containerDelegate.verify(.reloadSections())
+        containerDelegate.verify(.reloadData(), count: .once)
     }
     
     func test_didTapOkButton_GivenErrorLogOut_ThenAlertParametersAreCorrects() async {
@@ -152,7 +152,7 @@ final class MyProfileViewModelTests: XCTestCase {
                         description: L10n.errorLogOutDescription
                     )
                 )
-            )
+            ), count: .once
         )
     }
 }

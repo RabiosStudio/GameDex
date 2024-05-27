@@ -12,11 +12,11 @@ final class CollectionManagementViewModel: CollectionViewModel {
     var searchViewModel: SearchViewModel?
     var isBounceable: Bool = false
     var progress: Float?
-    var rightButtonItems: [AnyBarButtonItem]?
+    var buttonItems: [AnyBarButtonItem]?
     let screenTitle: String? = L10n.collectionManagement
     var sections: [Section] = []
     var layoutMargins: UIEdgeInsets?
-    private var isLoggedIn: Bool = false
+    var isLoggedIn: Bool = false
     
     weak var containerDelegate: ContainerViewControllerDelegate?
     weak var myProfileDelegate: MyProfileViewModelDelegate?
@@ -49,9 +49,12 @@ final class CollectionManagementViewModel: CollectionViewModel {
         guard let userId = authenticationService.getUserId() else {
             let fetchPlatformsResult = self.localDatabase.fetchAllPlatforms()
             switch fetchPlatformsResult {
-            case .success(let platforms):
+            case let .success(platforms):
                 guard !platforms.isEmpty else {
-                    callback(MyCollectionError.noItems)
+                    let error = MyCollectionError.noItems(
+                        delegate: nil
+                    )
+                    callback(error)
                     return
                 }
                 let convertedPlatforms = CoreDataConverter.convert(platformsCollected: platforms)
@@ -68,9 +71,9 @@ final class CollectionManagementViewModel: CollectionViewModel {
         }
         let fetchPlatformsResult = await self.cloudDatabase.getUserCollection(userId: userId)
         switch fetchPlatformsResult {
-        case .success(let platforms):
+        case let .success(platforms):
             guard !platforms.isEmpty else {
-                callback(MyCollectionError.noItems)
+                callback(MyCollectionError.fetchError)
                 return
             }
             self.collection = platforms.sorted {

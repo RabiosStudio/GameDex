@@ -17,7 +17,7 @@ final class MyProfileViewModel: CollectionViewModel {
     var searchViewModel: SearchViewModel?
     var isBounceable: Bool = true
     var progress: Float?
-    var rightButtonItems: [AnyBarButtonItem]?
+    var buttonItems: [AnyBarButtonItem]?
     let screenTitle: String? = L10n.myProfile
     var sections: [Section] = []
     var layoutMargins: UIEdgeInsets?
@@ -94,12 +94,12 @@ extension MyProfileViewModel: AlertDisplayerDelegate {
         }
         self.displayLogOutAlert(success: true)
         await self.myCollectionDelegate?.reloadCollection()
-        self.containerDelegate?.reloadSections()
+        self.containerDelegate?.reloadData()
     }
 }
 
 extension MyProfileViewModel: MyProfileViewModelDelegate {
     func reloadMyProfile() {
-        self.containerDelegate?.reloadSections()
+        self.containerDelegate?.reloadData()
     }
 }

@@ -16,7 +16,7 @@ final class SelectPlatformViewModel: CollectionViewModel {
     )
     var isBounceable: Bool = true
     var progress: Float?
-    var rightButtonItems: [AnyBarButtonItem]? = [.close]
+    var buttonItems: [AnyBarButtonItem]? = [.close]
     let screenTitle: String? = L10n.searchPlatform
     var sections = [Section]()
     private var platforms: [Platform] = []
@@ -78,7 +78,7 @@ final class SelectPlatformViewModel: CollectionViewModel {
     private func requestData() async -> AddGameError? {
         let fetchedPlatformsResult = await self.cloudDatabase.getAvailablePlatforms()
         switch fetchedPlatformsResult {
-        case .success(let platforms):
+        case let .success(platforms):
             self.platforms = platforms
             return nil
         case .failure(_):

@@ -29,12 +29,12 @@ final class MyCollectionByPlatformSectionTests: XCTestCase {
         
         XCTAssertEqual(game1CellVM.title, "Title")
         XCTAssertEqual(game1CellVM.subtitle1, "Game Boy Advance")
-        XCTAssertEqual(game1CellVM.subtitle2, Date.now.convertToString())
+        XCTAssertEqual(game1CellVM.subtitle2, MockData.savedGames[0].game.formattedReleaseDate)
         XCTAssertEqual(game1CellVM.caption, "imageURL")
         
         XCTAssertEqual(game2CellVM.title, "Title")
         XCTAssertEqual(game2CellVM.subtitle1, "Game Boy Advance")
-        XCTAssertEqual(game1CellVM.subtitle2, Date.now.convertToString())
+        XCTAssertEqual(game1CellVM.subtitle2, MockData.savedGames[1].game.formattedReleaseDate)
         XCTAssertEqual(game2CellVM.caption, "imageURL")
     }
     

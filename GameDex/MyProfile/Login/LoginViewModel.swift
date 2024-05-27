@@ -12,7 +12,7 @@ final class LoginViewModel: CollectionViewModel {
     var searchViewModel: SearchViewModel?
     var isBounceable: Bool = false
     var progress: Float?
-    var rightButtonItems: [AnyBarButtonItem]?
+    var buttonItems: [AnyBarButtonItem]?
     let screenTitle: String? = L10n.login
     var sections: [Section] = []
     var layoutMargins: UIEdgeInsets?

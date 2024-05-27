@@ -16,7 +16,7 @@ final class SearchGameByTitleViewModel: CollectionViewModel {
     )
     var isBounceable: Bool = true
     var progress: Float?
-    var rightButtonItems: [AnyBarButtonItem]? = [.close]
+    var buttonItems: [AnyBarButtonItem]? = [.close]
     let screenTitle: String? = L10n.searchGame
     var sections = [Section]()
     var layoutMargins: UIEdgeInsets? = UIEdgeInsets(
@@ -76,6 +76,12 @@ final class SearchGameByTitleViewModel: CollectionViewModel {
 }
 
 extension SearchGameByTitleViewModel: SearchViewModelDelegate {
+    func cancelButtonTapped(callback: @escaping ((any EmptyError)?) -> ()) {
+        self.sections = []
+        self.containerDelegate?.reloadSections(emptyError: nil)
+        callback(AddGameError.noSearch(platformName: self.platform.title))
+    }
+    
     func startSearch(from searchQuery: String, callback: @escaping (EmptyError?) -> ()) {
         Task {
             let endpoint = GetGamesEndpoint(platformId: self.platform.id, title: searchQuery)
@@ -86,7 +92,7 @@ extension SearchGameByTitleViewModel: SearchViewModelDelegate {
             let result: Result<SearchGamesData, APIError> = await self.networkingSession.getData(with: endpoint)
             
             switch result {
-            case .success(let data):
+            case let .success(data):
                 let games = RemoteDataConverter.convert(remoteGames: data.results, platform: self.platform).filter({ $0.releaseDate != nil })
                 guard !games.isEmpty else {
                     callback(AddGameError.noItems)

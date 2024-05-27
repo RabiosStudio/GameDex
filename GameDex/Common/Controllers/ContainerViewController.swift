@@ -11,8 +11,10 @@ import UIKit
 // sourcery: AutoMockable
 protocol ContainerViewControllerDelegate: AnyObject {
     func configureSupplementaryView(contentViewFactory: ContentViewFactory)
-    func reloadSections()
+    func reloadData()
+    func reloadSections(emptyError: EmptyError?)
     func goBackToRootViewController()
+    func goBackToPreviousScreen()
     func reloadNavBar()
 }
 
@@ -141,6 +143,7 @@ class ContainerViewController: UIViewController {
                             error: error,
                             tabBarOffset: tabBarOffset
                         )
+                        strongSelf.configureNavBar()
                     } else {
                         strongSelf.refresh()
                     }
@@ -153,13 +156,16 @@ class ContainerViewController: UIViewController {
     
     private func refresh() {
         self.configureNavBar()
+        self.reloadCollectionView()
+    }
+    
+    private func reloadCollectionView() {
         self.registerCells()
         self.collectionView.reloadData()
     }
     
     private func updateEmptyState(error: EmptyError?, tabBarOffset: CGFloat) {
         DispatchQueue.main.async {
-            self.configureNavBar()
             if let error = error {
                 guard let imageName = error.imageName,
                       let image = UIImage(named: imageName) else {
@@ -176,7 +182,7 @@ class ContainerViewController: UIViewController {
                     case let .navigate(style):
                         _ = Routing.shared.route(navigationStyle: style)
                     case .refresh:
-                        self.refresh()
+                        self.loadData()
                     case .none:
                         break
                     }
@@ -198,31 +204,35 @@ class ContainerViewController: UIViewController {
     
     private func configureNavBar() {
         DispatchQueue.main.async {
+            self.title = self.viewModel.screenTitle            
             self.navigationController?.configure()
             self.configureSearchBar()
             
-            guard let rightButtonItem = self.viewModel.rightButtonItems else {
+            guard let buttonItems = self.viewModel.buttonItems else {
                 return
             }
-            
-            var buttonItemsConfigured = [BarButtonItem]()
-            for item in rightButtonItem {
-                switch item {
-                default:
-                    buttonItemsConfigured.append(
-                        BarButtonItem(
-                            image: item.image(), actionHandler: { [weak self] in
-                                self?.viewModel.didTap(buttonItem: item)
-                            }
-                        )
-                    )
+            var leadingButtonItemsConfigured = [BarButtonItem]()
+            var trailingButtonItemsConfigured = [BarButtonItem]()
+            for item in buttonItems {
+                guard let buttonItem = BarButtonConverter.convert(
+                    item: item,
+                    actionHandler: {
+                        Task {
+                            await self.viewModel.didTap(buttonItem: item)
+                        }
+                    }) else {
+                    continue
+                }
+                switch item.position {
+                case .leading:
+                    leadingButtonItemsConfigured.append(buttonItem)
+                case .trailing:
+                    trailingButtonItemsConfigured.append(buttonItem)
                 }
             }
             
-            switch rightButtonItem {
-            default:
-                self.navigationItem.rightBarButtonItems = buttonItemsConfigured
-            }
+            self.navigationItem.leftBarButtonItems = leadingButtonItemsConfigured
+            self.navigationItem.rightBarButtonItems = trailingButtonItemsConfigured
         }
     }
     
@@ -242,11 +252,11 @@ class ContainerViewController: UIViewController {
     }
     
     private func configureSearchBar() {
-        self.title = self.viewModel.screenTitle
         guard let searchVM = self.viewModel.searchViewModel else {
             self.searchBar.removeFromSuperview()
             return
         }
+        self.searchBar.text = nil
         self.searchBar.placeholder = searchVM.placeholder
         self.stackView.insertArrangedSubview(self.searchBar, at: .zero)
     }
@@ -353,6 +363,9 @@ extension ContainerViewController: UICollectionViewDelegate {
         guard self.viewModel.itemAvailable(at: indexPath) else {
             return
         }
+        self.searchBar.resignFirstResponder()
+        self.searchBar.showsCancelButton = false
+        
         let cellVM = self.viewModel.item(at: indexPath)
         let cell = collectionView.dequeueReusableCell(
             withReuseIdentifier: cellVM.reuseIdentifier,
@@ -395,7 +408,7 @@ extension ContainerViewController: UISearchTextFieldDelegate {
                 self?.updateEmptyState(error: error,
                                        tabBarOffset: tabBarOffset)
             } else {
-                self?.refresh()
+                self?.reloadCollectionView()
             }
         })
         return true
@@ -404,18 +417,34 @@ extension ContainerViewController: UISearchTextFieldDelegate {
 
 // MARK: UISearchDelegate
 extension ContainerViewController: UISearchBarDelegate {
+    
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        searchBar.showsCancelButton = true
+    }
+    
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
         searchBar.text = nil
-        self.navigationItem.titleView = nil
+        searchBar.showsCancelButton = false
+        searchBar.endEditing(true)
+        
+        self.configureLoader()
         self.viewModel.searchViewModel?.delegate?.cancelButtonTapped(callback: { [weak self] error in
             if let error = error {
-                let tabBarOffset = -(self?.tabBarController?.tabBar.frame.size.height ?? 0)
-                self?.updateEmptyState(error: error,
-                                       tabBarOffset: tabBarOffset)
+                DispatchQueue.main.async {
+                    let tabBarOffset = -(self?.tabBarController?.tabBar.frame.size.height ?? 0)
+                    self?.updateEmptyState(error: error,
+                                           tabBarOffset: tabBarOffset)
+                }
             } else {
-                self?.refresh()
+                DispatchQueue.main.async {
+                    self?.reloadCollectionView()
+                }
             }
         })
+    }
+    
+    func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
+        searchBar.showsCancelButton = false
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
@@ -434,7 +463,7 @@ extension ContainerViewController: UISearchBarDelegate {
                     }
                 } else {
                     DispatchQueue.main.async {
-                        self?.refresh()
+                        self?.reloadCollectionView()
                     }
                 }
             }
@@ -448,7 +477,7 @@ extension ContainerViewController: UISearchBarDelegate {
                 self?.updateEmptyState(error: error,
                                        tabBarOffset: tabBarOffset)
             } else {
-                self?.refresh()
+                self?.reloadCollectionView()
             }
         }
     }
@@ -459,6 +488,12 @@ extension ContainerViewController: ContainerViewControllerDelegate {
     func goBackToRootViewController() {
         DispatchQueue.main.async {
             self.navigationController?.popToRootViewController(animated: true)
+        }
+    }
+    
+    func goBackToPreviousScreen() {
+        DispatchQueue.main.async {
+            self.navigationController?.popViewController(animated: true)
         }
     }
     
@@ -476,10 +511,21 @@ extension ContainerViewController: ContainerViewControllerDelegate {
         }
     }
     
-    func reloadSections() {
+    func reloadData() {
         DispatchQueue.main.async {
             self.supplementaryView.removeFromSuperview()
             self.loadData()
+        }
+    }
+    
+    func reloadSections(emptyError: EmptyError?) {
+        DispatchQueue.main.async {
+            if let error = emptyError {
+                let tabBarOffset = -(self.tabBarController?.tabBar.frame.size.height ?? 0)
+                self.updateEmptyState(error: error, tabBarOffset: tabBarOffset)
+            } else {
+                self.reloadCollectionView()
+            }
         }
     }
     

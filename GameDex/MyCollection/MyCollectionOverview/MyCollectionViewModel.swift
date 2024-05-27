@@ -11,6 +11,8 @@ import UIKit
 // sourcery: AutoMockable
 protocol MyCollectionViewModelDelegate: AnyObject {
     func reloadCollection() async
+    func apply(filters: [GameFilter]) async
+    func clearFilters() async
 }
 
 final class MyCollectionViewModel: ConnectivityDisplayerViewModel {
@@ -21,7 +23,7 @@ final class MyCollectionViewModel: ConnectivityDisplayerViewModel {
     )
     var isBounceable: Bool = true
     var progress: Float?
-    var rightButtonItems: [AnyBarButtonItem]? = [.add]
+    var buttonItems: [AnyBarButtonItem]? = [.add]
     let screenTitle: String? = L10n.myCollection
     var sections: [Section] = []
     var platforms: [Platform] = []
@@ -58,7 +60,7 @@ final class MyCollectionViewModel: ConnectivityDisplayerViewModel {
               self.connectivityChecker.hasConnectivity() else {
             let platformsFetched = self.localDatabase.fetchAllPlatforms()
             switch platformsFetched {
-            case .success(let platforms):
+            case let .success(platforms):
                 guard let emptyError = self.handleDataSuccess(platforms: CoreDataConverter.convert(platformsCollected: platforms)) else {
                     callback(nil)
                     return
@@ -71,7 +73,7 @@ final class MyCollectionViewModel: ConnectivityDisplayerViewModel {
         }
         let platformsFetched = await self.cloudDatabase.getUserCollection(userId: userId)
         switch platformsFetched {
-        case .success(let platforms):
+        case let .success(platforms):
             guard let emptyError = self.handleDataSuccess(platforms: platforms) else {
                 callback(nil)
                 return
@@ -83,7 +85,12 @@ final class MyCollectionViewModel: ConnectivityDisplayerViewModel {
     }
     
     func didTap(buttonItem: AnyBarButtonItem) {
-        self.presentAddGameMethods()
+        switch buttonItem {
+        case .add:
+            self.presentAddGameMethods()
+        default:
+            break
+        }
     }
 }
 
@@ -124,7 +131,7 @@ extension MyCollectionViewModel {
         guard !platforms.isEmpty else {
             self.platforms = []
             self.handleFetchEmptyCollection()
-            return MyCollectionError.emptyCollection(myCollectionDelegate: self)
+            return MyCollectionError.emptyCollection(delegate: self)
         }
         self.platforms = platforms
         self.handleSectionCreation()
@@ -137,10 +144,14 @@ extension MyCollectionViewModel {
 }
 
 // MARK: - MyCollectionViewModelDelegate
-extension MyCollectionViewModel: MyCollectionViewModelDelegate {
+extension MyCollectionViewModel: MyCollectionViewModelDelegate {        
     func reloadCollection() {
-        self.containerDelegate?.reloadSections()
+        self.containerDelegate?.reloadData()
     }
+    
+    func apply(filters: [GameFilter]) async {}
+
+    func clearFilters() {}
 }
 
 // MARK: - SearchViewModelDelegate
@@ -156,7 +167,6 @@ extension MyCollectionViewModel: SearchViewModelDelegate {
             callback(nil)
             return
         }
-        self.containerDelegate?.reloadNavBar()
         
         var matchingCollections = [Platform]()
         
@@ -174,7 +184,8 @@ extension MyCollectionViewModel: SearchViewModelDelegate {
         self.updateListOfCollections(with: matchingCollections)
         
         if matchingCollections.isEmpty {
-            callback(MyCollectionError.noItems)
+            let error = MyCollectionError.noItems(delegate: self)
+            callback(error)
         } else {
             callback(nil)
         }

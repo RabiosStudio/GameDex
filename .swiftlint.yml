@@ -20,6 +20,7 @@ disabled_rules:
     - class_delegate_protocol
     - for_where
     - unused_optional_binding
+    - type_name
 
 line_length: 250
 

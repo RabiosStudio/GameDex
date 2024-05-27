@@ -90,3 +90,9 @@ extension ButtonState: Equatable {
         }
     }
 }
+
+extension AnyBarButtonItem: Equatable {
+    public static func == (lhs: AnyBarButtonItem, rhs: AnyBarButtonItem) -> Bool {
+        return lhs.position == lhs.position
+    }
+}

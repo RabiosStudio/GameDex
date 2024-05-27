@@ -36,7 +36,7 @@ enum UserAccountFormType: FormType, Equatable {
     
     var inputPickerViewModel: PickerViewModel? {
         switch self {
-        case .collection(let pickerVM):
+        case let .collection(pickerVM):
             return pickerVM
         default:
             return nil

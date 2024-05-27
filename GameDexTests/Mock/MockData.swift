@@ -319,4 +319,15 @@ enum MockData {
     static let userPlatformsPath = "users/userId/platforms"
     static let userGamesPath = "users/userId/platforms/4/games"
     static let userPath = "users"
+    
+    static let gameFiltersWithMatchingGames = [
+        GameFilter.gameCondition("mint"),
+        GameFilter.gameCompleteness("complete"),
+        GameFilter.gameRegion("pal"),
+    ]
+    
+    static let gameFiltersWithNoMatchingGames = [
+        GameFilter.acquisitionYear("2019"),
+        GameFilter.rating(1)
+    ]
 }

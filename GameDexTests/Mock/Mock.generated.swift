@@ -3036,15 +3036,27 @@ open class ContainerViewControllerDelegateMock: ContainerViewControllerDelegate,
 		perform?(`contentViewFactory`)
     }
 
-    open func reloadSections() {
-        addInvocation(.m_reloadSections)
-		let perform = methodPerformValue(.m_reloadSections) as? () -> Void
+    open func reloadData() {
+        addInvocation(.m_reloadData)
+		let perform = methodPerformValue(.m_reloadData) as? () -> Void
 		perform?()
+    }
+
+    open func reloadSections(emptyError: EmptyError?) {
+        addInvocation(.m_reloadSections__emptyError_emptyError(Parameter<EmptyError?>.value(`emptyError`)))
+		let perform = methodPerformValue(.m_reloadSections__emptyError_emptyError(Parameter<EmptyError?>.value(`emptyError`))) as? (EmptyError?) -> Void
+		perform?(`emptyError`)
     }
 
     open func goBackToRootViewController() {
         addInvocation(.m_goBackToRootViewController)
 		let perform = methodPerformValue(.m_goBackToRootViewController) as? () -> Void
+		perform?()
+    }
+
+    open func goBackToPreviousScreen() {
+        addInvocation(.m_goBackToPreviousScreen)
+		let perform = methodPerformValue(.m_goBackToPreviousScreen) as? () -> Void
 		perform?()
     }
 
@@ -3057,8 +3069,10 @@ open class ContainerViewControllerDelegateMock: ContainerViewControllerDelegate,
 
     fileprivate enum MethodType {
         case m_configureSupplementaryView__contentViewFactory_contentViewFactory(Parameter<ContentViewFactory>)
-        case m_reloadSections
+        case m_reloadData
+        case m_reloadSections__emptyError_emptyError(Parameter<EmptyError?>)
         case m_goBackToRootViewController
+        case m_goBackToPreviousScreen
         case m_reloadNavBar
 
         static func compareParameters(lhs: MethodType, rhs: MethodType, matcher: Matcher) -> Matcher.ComparisonResult {
@@ -3068,9 +3082,16 @@ open class ContainerViewControllerDelegateMock: ContainerViewControllerDelegate,
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsContentviewfactory, rhs: rhsContentviewfactory, with: matcher), lhsContentviewfactory, rhsContentviewfactory, "contentViewFactory"))
 				return Matcher.ComparisonResult(results)
 
-            case (.m_reloadSections, .m_reloadSections): return .match
+            case (.m_reloadData, .m_reloadData): return .match
+
+            case (.m_reloadSections__emptyError_emptyError(let lhsEmptyerror), .m_reloadSections__emptyError_emptyError(let rhsEmptyerror)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsEmptyerror, rhs: rhsEmptyerror, with: matcher), lhsEmptyerror, rhsEmptyerror, "emptyError"))
+				return Matcher.ComparisonResult(results)
 
             case (.m_goBackToRootViewController, .m_goBackToRootViewController): return .match
+
+            case (.m_goBackToPreviousScreen, .m_goBackToPreviousScreen): return .match
 
             case (.m_reloadNavBar, .m_reloadNavBar): return .match
             default: return .none
@@ -3080,16 +3101,20 @@ open class ContainerViewControllerDelegateMock: ContainerViewControllerDelegate,
         func intValue() -> Int {
             switch self {
             case let .m_configureSupplementaryView__contentViewFactory_contentViewFactory(p0): return p0.intValue
-            case .m_reloadSections: return 0
+            case .m_reloadData: return 0
+            case let .m_reloadSections__emptyError_emptyError(p0): return p0.intValue
             case .m_goBackToRootViewController: return 0
+            case .m_goBackToPreviousScreen: return 0
             case .m_reloadNavBar: return 0
             }
         }
         func assertionName() -> String {
             switch self {
             case .m_configureSupplementaryView__contentViewFactory_contentViewFactory: return ".configureSupplementaryView(contentViewFactory:)"
-            case .m_reloadSections: return ".reloadSections()"
+            case .m_reloadData: return ".reloadData()"
+            case .m_reloadSections__emptyError_emptyError: return ".reloadSections(emptyError:)"
             case .m_goBackToRootViewController: return ".goBackToRootViewController()"
+            case .m_goBackToPreviousScreen: return ".goBackToPreviousScreen()"
             case .m_reloadNavBar: return ".reloadNavBar()"
             }
         }
@@ -3110,8 +3135,10 @@ open class ContainerViewControllerDelegateMock: ContainerViewControllerDelegate,
         fileprivate var method: MethodType
 
         public static func configureSupplementaryView(contentViewFactory: Parameter<ContentViewFactory>) -> Verify { return Verify(method: .m_configureSupplementaryView__contentViewFactory_contentViewFactory(`contentViewFactory`))}
-        public static func reloadSections() -> Verify { return Verify(method: .m_reloadSections)}
+        public static func reloadData() -> Verify { return Verify(method: .m_reloadData)}
+        public static func reloadSections(emptyError: Parameter<EmptyError?>) -> Verify { return Verify(method: .m_reloadSections__emptyError_emptyError(`emptyError`))}
         public static func goBackToRootViewController() -> Verify { return Verify(method: .m_goBackToRootViewController)}
+        public static func goBackToPreviousScreen() -> Verify { return Verify(method: .m_goBackToPreviousScreen)}
         public static func reloadNavBar() -> Verify { return Verify(method: .m_reloadNavBar)}
     }
 
@@ -3122,11 +3149,17 @@ open class ContainerViewControllerDelegateMock: ContainerViewControllerDelegate,
         public static func configureSupplementaryView(contentViewFactory: Parameter<ContentViewFactory>, perform: @escaping (ContentViewFactory) -> Void) -> Perform {
             return Perform(method: .m_configureSupplementaryView__contentViewFactory_contentViewFactory(`contentViewFactory`), performs: perform)
         }
-        public static func reloadSections(perform: @escaping () -> Void) -> Perform {
-            return Perform(method: .m_reloadSections, performs: perform)
+        public static func reloadData(perform: @escaping () -> Void) -> Perform {
+            return Perform(method: .m_reloadData, performs: perform)
+        }
+        public static func reloadSections(emptyError: Parameter<EmptyError?>, perform: @escaping (EmptyError?) -> Void) -> Perform {
+            return Perform(method: .m_reloadSections__emptyError_emptyError(`emptyError`), performs: perform)
         }
         public static func goBackToRootViewController(perform: @escaping () -> Void) -> Perform {
             return Perform(method: .m_goBackToRootViewController, performs: perform)
+        }
+        public static func goBackToPreviousScreen(perform: @escaping () -> Void) -> Perform {
+            return Perform(method: .m_goBackToPreviousScreen, performs: perform)
         }
         public static func reloadNavBar(perform: @escaping () -> Void) -> Perform {
             return Perform(method: .m_reloadNavBar, performs: perform)
@@ -4128,24 +4161,50 @@ open class MyCollectionViewModelDelegateMock: MyCollectionViewModelDelegate, Moc
 		perform?()
     }
 
+    open func apply(filters: [GameFilter]) {
+        addInvocation(.m_apply__filters_filters(Parameter<[GameFilter]>.value(`filters`)))
+		let perform = methodPerformValue(.m_apply__filters_filters(Parameter<[GameFilter]>.value(`filters`))) as? ([GameFilter]) -> Void
+		perform?(`filters`)
+    }
+
+    open func clearFilters() {
+        addInvocation(.m_clearFilters)
+		let perform = methodPerformValue(.m_clearFilters) as? () -> Void
+		perform?()
+    }
+
 
     fileprivate enum MethodType {
         case m_reloadCollection
+        case m_apply__filters_filters(Parameter<[GameFilter]>)
+        case m_clearFilters
 
         static func compareParameters(lhs: MethodType, rhs: MethodType, matcher: Matcher) -> Matcher.ComparisonResult {
             switch (lhs, rhs) {
             case (.m_reloadCollection, .m_reloadCollection): return .match
+
+            case (.m_apply__filters_filters(let lhsFilters), .m_apply__filters_filters(let rhsFilters)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsFilters, rhs: rhsFilters, with: matcher), lhsFilters, rhsFilters, "filters"))
+				return Matcher.ComparisonResult(results)
+
+            case (.m_clearFilters, .m_clearFilters): return .match
+            default: return .none
             }
         }
 
         func intValue() -> Int {
             switch self {
             case .m_reloadCollection: return 0
+            case let .m_apply__filters_filters(p0): return p0.intValue
+            case .m_clearFilters: return 0
             }
         }
         func assertionName() -> String {
             switch self {
             case .m_reloadCollection: return ".reloadCollection()"
+            case .m_apply__filters_filters: return ".apply(filters:)"
+            case .m_clearFilters: return ".clearFilters()"
             }
         }
     }
@@ -4165,6 +4224,8 @@ open class MyCollectionViewModelDelegateMock: MyCollectionViewModelDelegate, Moc
         fileprivate var method: MethodType
 
         public static func reloadCollection() -> Verify { return Verify(method: .m_reloadCollection)}
+        public static func apply(filters: Parameter<[GameFilter]>) -> Verify { return Verify(method: .m_apply__filters_filters(`filters`))}
+        public static func clearFilters() -> Verify { return Verify(method: .m_clearFilters)}
     }
 
     public struct Perform {
@@ -4173,6 +4234,12 @@ open class MyCollectionViewModelDelegateMock: MyCollectionViewModelDelegate, Moc
 
         public static func reloadCollection(perform: @escaping () -> Void) -> Perform {
             return Perform(method: .m_reloadCollection, performs: perform)
+        }
+        public static func apply(filters: Parameter<[GameFilter]>, perform: @escaping ([GameFilter]) -> Void) -> Perform {
+            return Perform(method: .m_apply__filters_filters(`filters`), performs: perform)
+        }
+        public static func clearFilters(perform: @escaping () -> Void) -> Perform {
+            return Perform(method: .m_clearFilters, performs: perform)
         }
     }
 

@@ -32,6 +32,21 @@ class StarRatingCell: UICollectionViewCell, CellConfigurable {
         return view
     }()
     
+    private lazy var clearButton: UIButton = {
+        let button = UIButton()
+        let clearImage = UIImage(systemName: "xmark.circle.fill")?.withTintColor(.secondaryBackgroundColor, renderingMode: .alwaysOriginal)
+        button.setImage(clearImage, for: .normal)
+        button.addTarget(
+            self,
+            action: #selector(didTapClearButton(_:)),
+            for: .touchUpInside
+        )
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
+    private var cellVM: CellViewModel?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.contentView.backgroundColor = .clear
@@ -50,6 +65,7 @@ class StarRatingCell: UICollectionViewCell, CellConfigurable {
         guard let cellVM = cellViewModel as? StarRatingCellViewModel else {
             return
         }
+        self.cellVM = cellVM
         self.starRatingView.rating = Double(cellVM.value ?? .zero)
         self.setupConstraints()
         self.label.text = cellVM.title
@@ -58,9 +74,18 @@ class StarRatingCell: UICollectionViewCell, CellConfigurable {
         }
     }
     
+    @objc private func didTapClearButton(_ sender: UIButton) {
+        guard let cellVM = self.cellVM as? StarRatingCellViewModel else {
+            return
+        }
+        self.starRatingView.rating = .zero
+        cellVM.value = Int(self.starRatingView.rating)
+    }
+    
     private func setupViews() {
         self.contentView.addSubview(self.label)
         self.contentView.addSubview(self.starRatingView)
+        self.contentView.addSubview(self.clearButton)
     }
     
     private func setupConstraints() {
@@ -86,14 +111,24 @@ class StarRatingCell: UICollectionViewCell, CellConfigurable {
                 equalTo: self.leadingAnchor,
                 constant: DesignSystem.paddingSmall
             ),
-            self.starRatingView.trailingAnchor.constraint(
-                equalTo: self.trailingAnchor,
-                constant: -DesignSystem.paddingSmall
-            ),
+
             self.starRatingView.bottomAnchor.constraint(
                 equalTo: self.bottomAnchor,
                 constant: -DesignSystem.paddingSmall
-            )
+            ),
+            
+            self.clearButton.topAnchor.constraint(
+                equalTo: self.label.bottomAnchor,
+                constant: DesignSystem.paddingRegular
+            ),
+            self.clearButton.trailingAnchor.constraint(
+                equalTo: self.trailingAnchor
+            ),
+            self.clearButton.bottomAnchor.constraint(
+                equalTo: self.bottomAnchor,
+                constant: -DesignSystem.paddingSmall
+            ),
+            self.clearButton.widthAnchor.constraint(equalTo: self.clearButton.heightAnchor)
         ])
     }
     

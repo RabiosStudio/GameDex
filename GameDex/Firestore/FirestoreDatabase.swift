@@ -21,7 +21,7 @@ class FirestoreDatabase: CloudDatabase {
         
         var platforms = [Platform]()
         switch fetchedPlatformsResult {
-        case .success(let fetchedPlatforms):
+        case let .success(fetchedPlatforms):
             for item in fetchedPlatforms {
                 guard let id = item.data[Attributes.id.rawValue] as? Int,
                       let imageUrl = item.data[Attributes.imageUrl.rawValue] as? String,
@@ -42,7 +42,7 @@ class FirestoreDatabase: CloudDatabase {
                 }
             }
             return .success(platforms)
-        case .failure(let error):
+        case let .failure(error):
             return .failure(error)
         }
     }
@@ -50,7 +50,7 @@ class FirestoreDatabase: CloudDatabase {
     func getSinglePlatformCollection(userId: String, platform: Platform) async -> Result<Platform, DatabaseError> {
         let fetchedGamesResult = await self.firestoreSession.getData(mainPath: Collections.userGames(userId, "\(platform.id)").path)
         switch fetchedGamesResult {
-        case .success(let fetchedGames):
+        case let .success(fetchedGames):
             var savedGames = [SavedGame]()
             for item in fetchedGames {
                 guard let savedGame = self.convert(firestoreData: item) else {
@@ -66,7 +66,7 @@ class FirestoreDatabase: CloudDatabase {
                 supportedNames: platform.supportedNames
             )
             return .success(platform)
-        case .failure(let error):
+        case let .failure(error):
             return .failure(error)
         }
     }
@@ -74,7 +74,7 @@ class FirestoreDatabase: CloudDatabase {
     func getUserCollection(userId: String) async -> Result<[Platform], DatabaseError> {
         let fetchedPlatformsResult = await self.firestoreSession.getData(mainPath: Collections.userPlatforms(userId).path)
         switch fetchedPlatformsResult {
-        case .success(let fetchedPlatforms):
+        case let .success(fetchedPlatforms):
             var platforms = [Platform]()
             for item in fetchedPlatforms {
                 guard let title = item.data[Attributes.title.rawValue] as? String,
@@ -94,14 +94,14 @@ class FirestoreDatabase: CloudDatabase {
                 
                 let fetchSinglePlatformResult = await self.getSinglePlatformCollection(userId: userId, platform: platform)
                 switch fetchSinglePlatformResult {
-                case .success(let platform):
+                case let .success(platform):
                     platforms.append(platform)
                 case .failure:
                     return .failure(DatabaseError.fetchError)
                 }
             }
             return .success(platforms)
-        case .failure(let error):
+        case let .failure(error):
             return .failure(error)
         }
     }
@@ -128,7 +128,7 @@ class FirestoreDatabase: CloudDatabase {
     func saveCollection(userId: String, localDatabase: LocalDatabase) async -> DatabaseError? {
         let fetchPlatformsResult = localDatabase.fetchAllPlatforms()
         switch fetchPlatformsResult {
-        case .success(let platformsFetched):
+        case let .success(platformsFetched):
             guard !platformsFetched.isEmpty else {
                 return nil
             }
@@ -151,14 +151,14 @@ class FirestoreDatabase: CloudDatabase {
     func gameIsInDatabase(userId: String, savedGame: SavedGame) async -> Result<Bool, DatabaseError> {
         let fetchedGamesResult = await self.firestoreSession.getData(mainPath: Collections.userGames(userId, "\(savedGame.game.platformId)").path)
         switch fetchedGamesResult {
-        case .success(let fetchedGames):
+        case let .success(fetchedGames):
             for item in fetchedGames {
                 if item.id == savedGame.game.id {
                     return .success(true)
                 }
             }
             return .success(false)
-        case .failure(let error):
+        case let .failure(error):
             return .failure(error)
         }
     }
@@ -167,7 +167,7 @@ class FirestoreDatabase: CloudDatabase {
         if !editingEntry {
             let fetchResult = await self.gameIsInDatabase(userId: userId, savedGame: game)
             switch fetchResult {
-            case .success(let platform):
+            case let .success(platform):
                 guard platform == false else {
                     return DatabaseError.itemAlreadySaved
                 }
@@ -216,12 +216,12 @@ class FirestoreDatabase: CloudDatabase {
     func getApiKey() async -> Result<String, DatabaseError> {
         let fetchedApiKeyResult = await self.firestoreSession.getSingleData(path: Collections.apiKey.path, directory: Collections.searchGamesApi.path)
         switch fetchedApiKeyResult {
-        case .success(let fetchedApiKey):
+        case let .success(fetchedApiKey):
             guard let key = fetchedApiKey.data[Attributes.key.rawValue] as? String else {
                 return .failure(DatabaseError.fetchError)
             }
             return .success(key)
-        case .failure(let error):
+        case let .failure(error):
             return .failure(error)
         }
     }
@@ -274,7 +274,7 @@ class FirestoreDatabase: CloudDatabase {
     func removeUser(userId: String) async -> DatabaseError? {
         let fetchedUserPlatforms = await self.getUserCollection(userId: userId)
         switch fetchedUserPlatforms {
-        case .success(let platforms):
+        case let .success(platforms):
             for platform in platforms {
                 guard let games = platform.games else { break }
                 for game in games {
@@ -290,7 +290,7 @@ class FirestoreDatabase: CloudDatabase {
                 return DatabaseError.removeError
             }
             return nil
-        case .failure(let error):
+        case let .failure(error):
             return error
         }
     }
@@ -298,7 +298,7 @@ class FirestoreDatabase: CloudDatabase {
     func syncLocalAndCloudDatabases(userId: String, localDatabase: LocalDatabase) async -> DatabaseError? {
         let fetchCloudPlatformsResult = await self.getUserCollection(userId: userId)
         switch fetchCloudPlatformsResult {
-        case .success(let platformsResult):
+        case let .success(platformsResult):
             guard await localDatabase.removeAll() == nil else {
                 return DatabaseError.removeError
             }
