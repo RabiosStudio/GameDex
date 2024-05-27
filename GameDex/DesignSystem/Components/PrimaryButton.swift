@@ -54,7 +54,7 @@ final class PrimaryButton: UIButton {
         self.titleLabel?.textAlignment = .center
         self.titleLabel?.numberOfLines = DesignSystem.numberOfLinesStandard
         self.setTitleColor(.primaryBackgroundColor, for: .normal)
-        let state: ButtonState = viewModel.isEnabled ? .enabled(viewModel.buttonTitle) : .disabled(viewModel.buttonTitle)
+        let state: ButtonState = viewModel.isEnabled ? .enabled(viewModel.title, viewModel.backgroundColor) : .disabled(viewModel.title)
         self.updateButtonDesign(state: state)
         self.setupConstraints()
     }
@@ -102,10 +102,10 @@ final class PrimaryButton: UIButton {
             self.showLoader()
             self.setTitle(nil, for: [])
             self.backgroundColor = .systemGray3
-        case let .enabled(title):
+        case let .enabled(title, color):
             self.isEnabled = true
             self.setTitle(title, for: .normal)
-            self.backgroundColor = .secondaryColor
+            self.backgroundColor = color
             self.hideLoader()
         case let .disabled(title):
             self.isEnabled = false

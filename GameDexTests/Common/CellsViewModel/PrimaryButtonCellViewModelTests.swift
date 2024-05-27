@@ -16,11 +16,11 @@ final class PrimaryButtonCellViewModelTests: XCTestCase {
         
         // When
         let cellVM = PrimaryButtonCellViewModel(
-            buttonViewModel: ButtonViewModel(buttonTitle: title),
+            buttonViewModel: ButtonViewModel(title: title, backgroundColor: .secondaryColor),
             delegate: PrimaryButtonDelegateMock()
         )
         // Then
-        let expectedButtonVM = ButtonViewModel(buttonTitle: title)
+        let expectedButtonVM = ButtonViewModel(title: title, backgroundColor: .secondaryColor)
         XCTAssertEqual(cellVM.buttonViewModel, expectedButtonVM)
         XCTAssertEqual(cellVM.reuseIdentifier, "\(cellVM.cellClass)")
     }
@@ -28,7 +28,7 @@ final class PrimaryButtonCellViewModelTests: XCTestCase {
     func test_didTap_ThenShouldCallDelegate() {
         // Given
         let delegate = PrimaryButtonDelegateMock()
-        let viewModel = PrimaryButtonCellViewModel(buttonViewModel: ButtonViewModel(buttonTitle: "title"), delegate: delegate)
+        let viewModel = PrimaryButtonCellViewModel(buttonViewModel: ButtonViewModel(title: "title", backgroundColor: .secondaryColor), delegate: delegate)
         
         // When
         viewModel.didTap(buttonTitle: "title") {
