@@ -55,8 +55,8 @@ final class PrimaryButtonCell: UICollectionViewCell, CellConfigurable {
         vm.didTap(buttonTitle: self.primaryButton.titleLabel?.text) { [weak self] in
             DispatchQueue.main.async {
                 let state: ButtonState = .enabled(
-                    vm.buttonViewModel.buttonTitle,
-                    vm.buttonViewModel.buttonBackgroundColor
+                    vm.buttonViewModel.title,
+                    vm.buttonViewModel.backgroundColor
                 )
                 self?.primaryButton.updateButtonDesign(state: state)
             }

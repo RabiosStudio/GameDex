@@ -29,8 +29,8 @@ final class LoginSection: Section {
         
         let loginButtonCellVM = PrimaryButtonCellViewModel(
             buttonViewModel: ButtonViewModel(
-                buttonTitle: L10n.login,
-                buttonBackgroundColor: .secondaryColor
+                title: L10n.login,
+                backgroundColor: .secondaryColor
             ),
             delegate: primaryButtonDelegate
         )
@@ -38,8 +38,8 @@ final class LoginSection: Section {
         
         let signupButtonCellVM = PrimaryButtonCellViewModel(
             buttonViewModel: ButtonViewModel(
-                buttonTitle: L10n.createAccount,
-                buttonBackgroundColor: .secondaryColor
+                title: L10n.createAccount,
+                backgroundColor: .secondaryColor
             ),
             delegate: primaryButtonDelegate
         )

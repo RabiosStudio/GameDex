@@ -30,7 +30,7 @@ final class CollectionManagementSectionTests: XCTestCase {
         }
         
         XCTAssertEqual(titleCellVM.title, L10n.selectAndDeleteACollection)
-        XCTAssertEqual(deleteCollectionButtonCellVM.buttonViewModel, ButtonViewModel(isEnabled: true, buttonTitle: L10n.deleteFromCollection, buttonBackgroundColor: .primaryColor))
+        XCTAssertEqual(deleteCollectionButtonCellVM.buttonViewModel, ButtonViewModel(isEnabled: true, title: L10n.deleteFromCollection, backgroundColor: .primaryColor))
         XCTAssertEqual(deleteCollectionButtonCellVM.buttonType, .classic)
         
         guard let formCellsVM = section.cellsVM.filter({ cellVM in

@@ -16,8 +16,8 @@ final class PrimaryButtonContentViewFactory: ContentViewFactory {
         continueButton.configure(
             viewModel: ButtonViewModel(
                 isEnabled: shouldEnable,
-                buttonTitle: self.buttonTitle,
-                buttonBackgroundColor: .secondaryColor
+                title: self.buttonTitle,
+                backgroundColor: .secondaryColor
             )
         )
         continueButton.layoutMargins = UIEdgeInsets(

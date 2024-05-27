@@ -39,8 +39,8 @@ final class AuthenticationSection: Section {
         
         let loginButtonCellVM = PrimaryButtonCellViewModel(
             buttonViewModel: ButtonViewModel(
-                buttonTitle: userHasAccount ? L10n.login : L10n.createAccount,
-                buttonBackgroundColor: .secondaryColor
+                title: userHasAccount ? L10n.login : L10n.createAccount,
+                backgroundColor: .secondaryColor
             ),
             delegate: primaryButtonDelegate
         )

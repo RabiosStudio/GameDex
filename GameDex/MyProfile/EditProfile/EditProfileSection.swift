@@ -39,8 +39,8 @@ final class EditProfileSection: Section {
         
         let updateProfileButtonCellVM = PrimaryButtonCellViewModel(
             buttonViewModel: ButtonViewModel(
-                buttonTitle: credentialsConfirmed ? L10n.saveChanges : L10n.confirm,
-                buttonBackgroundColor: .secondaryColor
+                title: credentialsConfirmed ? L10n.saveChanges : L10n.confirm,
+                backgroundColor: .secondaryColor
             ),
             delegate: primaryButtonDelegate
         )
@@ -49,8 +49,8 @@ final class EditProfileSection: Section {
         if credentialsConfirmed {
             let deleteProfileButtonCellVM = PrimaryButtonCellViewModel(
                 buttonViewModel: ButtonViewModel(
-                    buttonTitle: L10n.deleteAccount,
-                    buttonBackgroundColor: .primaryColor
+                    title: L10n.deleteAccount,
+                    backgroundColor: .primaryColor
                 ),
                 delegate: primaryButtonDelegate,
                 buttonType: .warning

@@ -72,7 +72,7 @@ extension AlertViewModel: Equatable {
 extension ButtonViewModel: Equatable {
     public static func == (lhs: ButtonViewModel, rhs: ButtonViewModel) -> Bool {
         lhs.isEnabled == rhs.isEnabled &&
-        lhs.buttonTitle == rhs.buttonTitle
+        lhs.title == rhs.title
     }
 }
 

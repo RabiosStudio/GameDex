@@ -54,7 +54,7 @@ final class PrimaryButton: UIButton {
         self.titleLabel?.textAlignment = .center
         self.titleLabel?.numberOfLines = DesignSystem.numberOfLinesStandard
         self.setTitleColor(.primaryBackgroundColor, for: .normal)
-        let state: ButtonState = viewModel.isEnabled ? .enabled(viewModel.buttonTitle, viewModel.buttonBackgroundColor) : .disabled(viewModel.buttonTitle)
+        let state: ButtonState = viewModel.isEnabled ? .enabled(viewModel.title, viewModel.backgroundColor) : .disabled(viewModel.title)
         self.updateButtonDesign(state: state)
         self.setupConstraints()
     }
