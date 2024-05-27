@@ -132,6 +132,7 @@ class ContainerViewController: UIViewController {
     // MARK: - Methods
     
     @objc private func loadData() {
+        self.configureNavBarTitle()
         self.configureLoader()
         Task {
             await self.viewModel.loadData { [weak self] error in
@@ -143,7 +144,7 @@ class ContainerViewController: UIViewController {
                             error: error,
                             tabBarOffset: tabBarOffset
                         )
-                        strongSelf.configureNavBar()
+                        strongSelf.configureNavBarAndSearchBar()
                     } else {
                         strongSelf.refresh()
                     }
@@ -155,7 +156,7 @@ class ContainerViewController: UIViewController {
     }
     
     private func refresh() {
-        self.configureNavBar()
+        self.configureNavBarAndSearchBar()
         self.reloadCollectionView()
     }
     
@@ -202,9 +203,12 @@ class ContainerViewController: UIViewController {
         self.collectionView.collectionViewLayout = self.layout
     }
     
-    private func configureNavBar() {
+    private func configureNavBarTitle() {
+        self.title = self.viewModel.screenTitle
+    }
+    
+    private func configureNavBarAndSearchBar() {
         DispatchQueue.main.async {
-            self.title = self.viewModel.screenTitle            
             self.navigationController?.configure()
             self.configureSearchBar()
             
@@ -530,7 +534,7 @@ extension ContainerViewController: ContainerViewControllerDelegate {
     }
     
     func reloadNavBar() {
-        self.configureNavBar()
+        self.configureNavBarAndSearchBar()
     }
 }
 
