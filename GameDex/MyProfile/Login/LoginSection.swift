@@ -28,14 +28,20 @@ final class LoginSection: Section {
         self.cellsVM.append(titleCellVM)
         
         let loginButtonCellVM = PrimaryButtonCellViewModel(
-            buttonViewModel: ButtonViewModel(buttonTitle: L10n.login),
-            delegate: primaryButtonDelegate            
+            buttonViewModel: ButtonViewModel(
+                buttonTitle: L10n.login,
+                buttonBackgroundColor: .secondaryColor
+            ),
+            delegate: primaryButtonDelegate
         )
         self.cellsVM.append(loginButtonCellVM)
         
         let signupButtonCellVM = PrimaryButtonCellViewModel(
-            buttonViewModel: ButtonViewModel(buttonTitle: L10n.createAccount),
-            delegate: primaryButtonDelegate            
+            buttonViewModel: ButtonViewModel(
+                buttonTitle: L10n.createAccount,
+                buttonBackgroundColor: .secondaryColor
+            ),
+            delegate: primaryButtonDelegate
         )
         
         self.cellsVM.append(signupButtonCellVM)

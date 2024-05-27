@@ -6,13 +6,20 @@
 //
 
 import Foundation
+import UIKit
 
 struct ButtonViewModel {
     let isEnabled: Bool
-    let buttonTitle: String    
+    let buttonTitle: String
+    let buttonBackgroundColor: UIColor
     
-    init(isEnabled: Bool = true, buttonTitle: String) {
+    init(
+        isEnabled: Bool = true,
+        buttonTitle: String,
+        buttonBackgroundColor: UIColor
+    ) {
         self.isEnabled = isEnabled
         self.buttonTitle = buttonTitle
+        self.buttonBackgroundColor = buttonBackgroundColor
     }
 }
