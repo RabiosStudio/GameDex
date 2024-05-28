@@ -50,4 +50,9 @@ enum DesignSystem {
     // MARK: - Shadow opacity
     static let shadowOpacityRegular: Float = 0.23
     
+    // MARK: - ProgressBar
+    static let oneThirdProgress: Float = 1/3
+    static let twoThirdProgress: Float = 2/3
+    static let halfProgress: Float = 1/2
+    static let fullProgress: Float = 1/1
 }

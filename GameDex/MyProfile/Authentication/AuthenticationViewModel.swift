@@ -6,14 +6,16 @@
 //
 
 import Foundation
+import UIKit
 
 final class AuthenticationViewModel: CollectionViewModel {
     var searchViewModel: SearchViewModel?
     var isBounceable: Bool = false
     var progress: Float?
-    var rightButtonItems: [AnyBarButtonItem]?
+    var buttonItems: [AnyBarButtonItem]?
     let screenTitle: String?
     var sections: [Section] = []
+    var layoutMargins: UIEdgeInsets?
     
     weak var containerDelegate: ContainerViewControllerDelegate?
     weak var myProfileDelegate: MyProfileViewModelDelegate?

@@ -6,9 +6,10 @@
 //
 
 import Foundation
+import UIKit
 
 enum ButtonState {
     case loading
-    case enabled(String)
+    case enabled(String, UIColor)
     case disabled(String)
 }

@@ -6,14 +6,17 @@
 //
 
 import Foundation
+import UIKit
 
 final class AddGameDetailsViewModel: CollectionViewModel {
     var searchViewModel: SearchViewModel?
     var isBounceable: Bool = true
     var progress: Float?
-    var rightButtonItems: [AnyBarButtonItem]? = [.close]
+    var buttonItems: [AnyBarButtonItem]? = [.close]
     let screenTitle: String? = L10n.fillGameDetails
     var sections = [Section]()
+    var layoutMargins: UIEdgeInsets?
+    
     weak var containerDelegate: ContainerViewControllerDelegate?
     weak var myCollectionDelegate: MyCollectionViewModelDelegate?
     
@@ -33,7 +36,7 @@ final class AddGameDetailsViewModel: CollectionViewModel {
         alertDisplayer: AlertDisplayer,
         authenticationService: AuthenticationService
     ) {
-        self.progress = 3/3
+        self.progress = DesignSystem.fullProgress
         self.game = game
         self.platform = platform
         self.sections = [
@@ -54,8 +57,13 @@ final class AddGameDetailsViewModel: CollectionViewModel {
         callback(nil)
     }
     
-    func didTapRightButtonItem() {
-        self.close()
+    func didTap(buttonItem: AnyBarButtonItem) {
+        switch buttonItem {
+        case .close:
+            self.close()
+        default:
+            break
+        }
     }
 }
 

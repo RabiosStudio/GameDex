@@ -26,7 +26,7 @@ final class AddGameDetailsSectionTests: XCTestCase {
         
         XCTAssertEqual(gameCellVM.title, "Title")
         XCTAssertEqual(gameCellVM.subtitle1, "Game Boy Advance")
-        XCTAssertEqual(gameCellVM.subtitle2, Date.now.convertToString())
+        XCTAssertEqual(gameCellVM.subtitle2, L10n.releaseDate + " : " + Date.now.convertToString())
         XCTAssertEqual(gameCellVM.subtitle3, "description")
         XCTAssertEqual(gameCellVM.imageStringURL, "imageURL")
         

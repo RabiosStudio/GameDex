@@ -96,7 +96,7 @@ final class AuthenticationViewModelTests: XCTestCase {
                         description: L10n.errorAuthDescription
                     )
                 )
-            )
+            ), count: .once
         )
     }
     
@@ -158,7 +158,7 @@ final class AuthenticationViewModelTests: XCTestCase {
                         description: L10n.successAuthDescription
                     )
                 )
-            )
+            ), count: .once
         )
         
         myProfileDelegate.verify(.reloadMyProfile())
@@ -217,7 +217,7 @@ final class AuthenticationViewModelTests: XCTestCase {
                         description: L10n.errorAuthDescription
                     )
                 )
-            )
+            ), count: .once
         )
     }
     
@@ -278,11 +278,11 @@ final class AuthenticationViewModelTests: XCTestCase {
                         description: L10n.successAuthDescription
                     )
                 )
-            )
+            ), count: .once
         )
-        myProfileDelegate.verify(.reloadMyProfile())
-        myCollectionDelegate.verify(.reloadCollection())
-        containerDelegate.verify(.goBackToRootViewController())
+        myProfileDelegate.verify(.reloadMyProfile(), count: .once)
+        myCollectionDelegate.verify(.reloadCollection(), count: .once)
+        containerDelegate.verify(.goBackToRootViewController(), count: .once)
     }
     
     func test_didTapForgotPassword_GivenNoEmailEntry_ThenAlertSettingsAreCorrects() async {
@@ -313,7 +313,7 @@ final class AuthenticationViewModelTests: XCTestCase {
                         description: L10n.errorSendingPasswordResetEmail
                     )
                 )
-            )
+            ), count: .once
         )
     }
 }

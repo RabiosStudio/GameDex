@@ -28,7 +28,7 @@ enum CoreDataConverter {
         }
         
         let supportedNames = platform.supportedNames.map { aName in
-            var supportedName = PlatformSupportedNames(context: context)
+            let supportedName = PlatformSupportedNames(context: context)
             supportedName.name = aName
             return supportedName
         }

@@ -12,8 +12,12 @@ class BarButtonItem: UIBarButtonItem {
     
     internal var actionHandler: (() -> Void)?
     
-    convenience init(image: UIImage, actionHandler: (() -> Void)?) {
-        self.init(image: image, style: .plain, target: nil, action: #selector(barButtonItemPressed))
+    convenience init(image: UIImage?, title: String?, actionHandler: (() -> Void)?) {
+        if let image = image {
+            self.init(image: image, style: .plain, target: nil, action: #selector(barButtonItemPressed))
+        } else {
+            self.init(title: title, style: .plain, target: nil, action: #selector(barButtonItemPressed))
+        }
         self.target = self
         self.actionHandler = actionHandler
     }

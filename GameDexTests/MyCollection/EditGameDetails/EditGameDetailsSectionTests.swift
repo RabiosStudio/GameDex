@@ -28,7 +28,7 @@ final class EditGameDetailsSectionTests: XCTestCase {
         
         XCTAssertEqual(gameCellVM.title, "Title")
         XCTAssertEqual(gameCellVM.subtitle1, "Game Boy Advance")
-        XCTAssertEqual(gameCellVM.subtitle2, Date.now.convertToString())
+        XCTAssertEqual(gameCellVM.subtitle2, MockData.savedGame.game.formattedReleaseDate)
         XCTAssertEqual(gameCellVM.subtitle3, "description")
         XCTAssertEqual(gameCellVM.imageStringURL, "imageURL")
         

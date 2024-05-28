@@ -6,18 +6,20 @@
 //
 
 import Foundation
+import UIKit
 
 protocol CollectionViewModel {
     var screenTitle: String? { get }
-    var rightButtonItems: [AnyBarButtonItem]? { get }
+    var buttonItems: [AnyBarButtonItem]? { get }
     var isBounceable: Bool { get }
     var searchViewModel: SearchViewModel? { get }
     var sections: [Section] { get }
     var progress: Float? { get }
+    var layoutMargins: UIEdgeInsets? { get }
     var containerDelegate: ContainerViewControllerDelegate? { get set }
     
     func loadData(callback: @escaping (EmptyError?) -> ()) async
-    func didTapRightButtonItem()
+    func didTap(buttonItem: AnyBarButtonItem) async
 }
 
 extension CollectionViewModel {
@@ -40,5 +42,5 @@ extension CollectionViewModel {
         return self.sections.count > indexPath.section && self.sections[indexPath.section].cellsVM.count > indexPath.row
     }
     
-    func didTapRightButtonItem() {}
+    func didTap(buttonItem: AnyBarButtonItem) {}
 }

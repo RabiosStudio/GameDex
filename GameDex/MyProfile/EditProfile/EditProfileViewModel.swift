@@ -6,14 +6,16 @@
 //
 
 import Foundation
+import UIKit
 
 final class EditProfileViewModel: CollectionViewModel {
     var searchViewModel: SearchViewModel?
     var isBounceable: Bool = false
     var progress: Float?
-    var rightButtonItems: [AnyBarButtonItem]?
+    var buttonItems: [AnyBarButtonItem]?
     let screenTitle: String? = L10n.editProfile
     var sections: [Section] = []
+    var layoutMargins: UIEdgeInsets?
     
     weak var containerDelegate: ContainerViewControllerDelegate?
     weak var myProfileDelegate: MyProfileViewModelDelegate?
@@ -107,7 +109,7 @@ extension EditProfileViewModel: PrimaryButtonDelegate {
             await self.handleUserDetailsUpdate(newEmail: email, newPassword: password)
         } else {
             await self.handleReauthentication(email: email, password: password)
-            self.containerDelegate?.reloadSections()
+            self.containerDelegate?.reloadData()
         }
     }
 }

@@ -144,7 +144,7 @@ extension LocalDatabaseImpl {
         let gameResult = getGame(gameId: savedGame.game.id)
         
         switch gameResult {
-        case .success(let gameToRemove):
+        case let .success(gameToRemove):
             guard let gameToRemove else {
                 return DatabaseError.removeError
             }
@@ -152,7 +152,7 @@ extension LocalDatabaseImpl {
             let fetchedPlatform = self.getPlatform(platformId: Int(gameToRemove.platform.id))
             
             switch fetchedPlatform {
-            case .success(let platformResult):
+            case let .success(platformResult):
                 guard let platformResult else {
                     return DatabaseError.removeError
                 }
@@ -183,7 +183,7 @@ extension LocalDatabaseImpl {
     func removeAll() async -> DatabaseError? {
         let fetchPlatformsResult = self.fetchAllPlatforms()
         switch fetchPlatformsResult {
-        case .success(let result):
+        case let .success(result):
             for item in result {
                 managedObjectContext.delete(item)
             }
@@ -203,7 +203,7 @@ extension LocalDatabaseImpl {
         let fetchedPlatformResult = self.getPlatform(platformId: platform.id)
         
         switch fetchedPlatformResult {
-        case .success(let fetchedPlatform):
+        case let .success(fetchedPlatform):
             guard let fetchedPlatform else {
                 return DatabaseError.removeError
             }

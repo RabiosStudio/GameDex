@@ -117,12 +117,12 @@ final class EditGameDetailsViewModelTests: XCTestCase {
                         description: L10n.updateSuccessDescription
                     )
                 )
-            )
+            ), count: .once
         )
         containerDelegate.verify(
             .configureSupplementaryView(
                 contentViewFactory: .any
-            )
+            ), count: 2
         )
     }
     
@@ -172,12 +172,12 @@ final class EditGameDetailsViewModelTests: XCTestCase {
                         description: L10n.updateErrorDescription
                     )
                 )
-            )
+            ), count: .once
         )
         containerDelegate.verify(
             .configureSupplementaryView(
                 contentViewFactory: .any
-            )
+            ), count: 2
         )
     }
     
@@ -230,12 +230,12 @@ final class EditGameDetailsViewModelTests: XCTestCase {
                         description: L10n.updateSuccessDescription
                     )
                 )
-            )
+            ), count: .once
         )
         containerDelegate.verify(
             .configureSupplementaryView(
                 contentViewFactory: .any
-            )
+            ), count: 2
         )
     }
     
@@ -288,12 +288,12 @@ final class EditGameDetailsViewModelTests: XCTestCase {
                         description: L10n.updateErrorDescription
                     )
                 )
-            )
+            ), count: .once
         )
         containerDelegate.verify(
             .configureSupplementaryView(
                 contentViewFactory: .any
-            )
+            ), count: 2
         )
     }
     
@@ -346,7 +346,7 @@ final class EditGameDetailsViewModelTests: XCTestCase {
         containerDelegate.verify(
             .configureSupplementaryView(
                 contentViewFactory: .any
-            )
+            ), count: 2
         )
     }
     
@@ -392,11 +392,11 @@ final class EditGameDetailsViewModelTests: XCTestCase {
         containerDelegate.verify(
             .configureSupplementaryView(
                 contentViewFactory: .any
-            )
+            ), count: 3
         )
     }
     
-    func test_didTapRightButtonItem_ThenShouldSetAlertParametersCorrectly() {
+    func test_didTapButtonItem_ThenShouldSetAlertParametersCorrectly() async {
         // Given
         let alertDisplayer = AlertDisplayerMock()
         let viewModel = EditGameDetailsViewModel(
@@ -410,7 +410,7 @@ final class EditGameDetailsViewModelTests: XCTestCase {
         )
         
         // When
-        viewModel.didTapRightButtonItem()
+        await viewModel.didTap(buttonItem: .delete)
         
         // Then
         alertDisplayer.verify(
@@ -421,7 +421,7 @@ final class EditGameDetailsViewModelTests: XCTestCase {
                         description: L10n.warningRemoveGameDescription
                     )
                 )
-            )
+            ), count: .once
         )
     }
     
@@ -468,7 +468,7 @@ final class EditGameDetailsViewModelTests: XCTestCase {
                         description: L10n.removeGameErrorDescription
                     )
                 )
-            )
+            ), count: .once
         )
     }
     
@@ -515,10 +515,10 @@ final class EditGameDetailsViewModelTests: XCTestCase {
                         description: L10n.removeGameSuccessDescription
                     )
                 )
-            )
+            ), count: .once
         )
         
-        containerDelegate.verify(.goBackToRootViewController())
+        containerDelegate.verify(.goBackToPreviousScreen())
     }
     
     func test_didTapOkButton_GivenCloudRemoveDataError_ThenShouldSetAlertParametersCorrectlyAndCallContainerDelegate() async {
@@ -568,7 +568,7 @@ final class EditGameDetailsViewModelTests: XCTestCase {
                         description: L10n.removeGameErrorDescription
                     )
                 )
-            )
+            ), count: .once
         )
     }
     
@@ -619,9 +619,9 @@ final class EditGameDetailsViewModelTests: XCTestCase {
                         description: L10n.removeGameSuccessDescription
                     )
                 )
-            )
+            ), count: .once
         )
-        containerDelegate.verify(.goBackToRootViewController())
+        containerDelegate.verify(.goBackToPreviousScreen(), count: .once)
     }
 }
 

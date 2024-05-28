@@ -121,7 +121,7 @@ final class MyProfileSectionTests: XCTestCase {
                         description: L10n.warningLogOut
                     )
                 )
-            )
+            ), count: .once
         )
     }
     
@@ -209,6 +209,6 @@ final class MyProfileSectionTests: XCTestCase {
             alertType: .error,
             description: L10n.errorEmailAppDescription + email
         )
-        alertDisplayer.verify(.presentTopFloatAlert(parameters: .value(alertVM)))
+        alertDisplayer.verify(.presentTopFloatAlert(parameters: .value(alertVM)), count: .once)
     }
 }

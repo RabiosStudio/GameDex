@@ -28,7 +28,7 @@ final class AuthenticationSectionTests: XCTestCase {
         }
         
         XCTAssertEqual(titleCellVM.title, L10n.loginEmail)
-        XCTAssertEqual(loginButtonCellVM.buttonViewModel, ButtonViewModel(isEnabled: true, buttonTitle: L10n.login))
+        XCTAssertEqual(loginButtonCellVM.buttonViewModel, ButtonViewModel(isEnabled: true, title: L10n.login, backgroundColor: .secondaryColor))
         
         
         
@@ -80,7 +80,7 @@ final class AuthenticationSectionTests: XCTestCase {
         }
         
         XCTAssertEqual(titleCellVM.title, L10n.signupEmail)
-        XCTAssertEqual(createAccountButtonCellVM.buttonViewModel, ButtonViewModel(isEnabled: true, buttonTitle: L10n.createAccount))
+        XCTAssertEqual(createAccountButtonCellVM.buttonViewModel, ButtonViewModel(isEnabled: true, title: L10n.createAccount, backgroundColor: .secondaryColor))
         
         guard let formCellsVM = section.cellsVM.filter({ cellVM in
             return cellVM is (any FormCellViewModel)

@@ -29,7 +29,7 @@ final class LoginSectionTests: XCTestCase {
         
         XCTAssertEqual(imageCellVM.imageName, Asset.devices.name)
         XCTAssertEqual(titleCellVM.title, L10n.loginDescription)
-        XCTAssertEqual(loginButtonCellVM.buttonViewModel, ButtonViewModel(isEnabled: true, buttonTitle: L10n.login))
-        XCTAssertEqual(signupButtonCellVM.buttonViewModel, ButtonViewModel(isEnabled: true, buttonTitle: L10n.createAccount))
+        XCTAssertEqual(loginButtonCellVM.buttonViewModel, ButtonViewModel(isEnabled: true, title: L10n.login, backgroundColor: .secondaryColor))
+        XCTAssertEqual(signupButtonCellVM.buttonViewModel, ButtonViewModel(isEnabled: true, title: L10n.createAccount, backgroundColor: .secondaryColor))
     }
 }

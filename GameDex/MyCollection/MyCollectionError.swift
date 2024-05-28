@@ -9,9 +9,9 @@ import Foundation
 
 enum MyCollectionError: EmptyError {
     
-    case emptyCollection(myCollectionDelegate: MyCollectionViewModelDelegate?)
+    case emptyCollection(delegate: MyCollectionViewModelDelegate?)
     case fetchError
-    case noItems
+    case noItems(delegate: MyCollectionViewModelDelegate?)
     
     var errorTitle: String? {
         switch self {
@@ -31,7 +31,7 @@ enum MyCollectionError: EmptyError {
         case .fetchError:
             return L10n.warningTryAgain
         case .noItems:
-            return L10n.emptyItemsDescription
+            return nil
         }
     }
     
@@ -53,13 +53,13 @@ enum MyCollectionError: EmptyError {
         case .fetchError:
             return L10n.refresh
         case .noItems:
-            return nil
+            return L10n.clearSearch
         }
     }
     
     var errorAction: ErrorAction? {
         switch self {
-        case .emptyCollection(myCollectionDelegate: let delegate):
+        case let .emptyCollection(delegate):
             let startToAddGame: NavigationStyle = .present(
                 screenFactory: SelectPlatformScreenFactory(
                     delegate: delegate
@@ -68,7 +68,10 @@ enum MyCollectionError: EmptyError {
             return .navigate(style: startToAddGame)
         case .fetchError:
             return .refresh
-        case .noItems:
+        case let .noItems(delegate):
+            Task {
+                await delegate?.clearFilters()
+            }
             return nil
         }
     }

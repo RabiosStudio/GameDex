@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 final class SelectPlatformViewModel: CollectionViewModel {
     lazy var searchViewModel: SearchViewModel? = SearchViewModel(
@@ -15,10 +16,17 @@ final class SelectPlatformViewModel: CollectionViewModel {
     )
     var isBounceable: Bool = true
     var progress: Float?
-    var rightButtonItems: [AnyBarButtonItem]? = [.close]
+    var buttonItems: [AnyBarButtonItem]? = [.close]
     let screenTitle: String? = L10n.searchPlatform
     var sections = [Section]()
     private var platforms: [Platform] = []
+    var layoutMargins: UIEdgeInsets? = UIEdgeInsets(
+        top: .zero,
+        left: DesignSystem.paddingRegular,
+        bottom: DesignSystem.paddingRegular,
+        right: DesignSystem.paddingRegular
+    )
+    
     weak var containerDelegate: ContainerViewControllerDelegate?
     weak var myCollectionDelegate: MyCollectionViewModelDelegate?
     
@@ -28,7 +36,7 @@ final class SelectPlatformViewModel: CollectionViewModel {
         cloudDatabase: CloudDatabase,
         myCollectionDelegate: MyCollectionViewModelDelegate?
     ) {
-        self.progress = 1/3
+        self.progress = DesignSystem.oneThirdProgress
         self.cloudDatabase = cloudDatabase
         self.myCollectionDelegate = myCollectionDelegate
     }
@@ -50,8 +58,13 @@ final class SelectPlatformViewModel: CollectionViewModel {
         }
     }
     
-    func didTapRightButtonItem() {
-        self.close()
+    func didTap(buttonItem: AnyBarButtonItem) {
+        switch buttonItem {
+        case .close:
+            self.close()
+        default:
+            break
+        }
     }
     
     private func close() {
@@ -65,7 +78,7 @@ final class SelectPlatformViewModel: CollectionViewModel {
     private func requestData() async -> AddGameError? {
         let fetchedPlatformsResult = await self.cloudDatabase.getAvailablePlatforms()
         switch fetchedPlatformsResult {
-        case .success(let platforms):
+        case let .success(platforms):
             self.platforms = platforms
             return nil
         case .failure(_):

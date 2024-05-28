@@ -38,14 +38,20 @@ final class EditProfileSection: Section {
         self.cellsVM.append(passwordTextFieldCellVM)
         
         let updateProfileButtonCellVM = PrimaryButtonCellViewModel(
-            buttonViewModel: ButtonViewModel(buttonTitle: credentialsConfirmed ? L10n.saveChanges : L10n.confirm),
+            buttonViewModel: ButtonViewModel(
+                title: credentialsConfirmed ? L10n.saveChanges : L10n.confirm,
+                backgroundColor: .secondaryColor
+            ),
             delegate: primaryButtonDelegate
         )
         self.cellsVM.append(updateProfileButtonCellVM)
         
         if credentialsConfirmed {
             let deleteProfileButtonCellVM = PrimaryButtonCellViewModel(
-                buttonViewModel: ButtonViewModel(buttonTitle: L10n.deleteAccount),
+                buttonViewModel: ButtonViewModel(
+                    title: L10n.deleteAccount,
+                    backgroundColor: .primaryColor
+                ),
                 delegate: primaryButtonDelegate,
                 buttonType: .warning
             )

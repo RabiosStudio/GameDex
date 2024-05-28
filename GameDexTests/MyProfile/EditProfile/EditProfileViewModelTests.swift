@@ -92,12 +92,12 @@ final class EditProfileViewModelTests: XCTestCase {
                         description: L10n.updateSuccessDescription
                     )
                 )
-            )
+            ), count: .once
         )
         
-        myCollectionDelegate.verify(.reloadCollection())
-        myProfileDelegate.verify(.reloadMyProfile())
-        containerDelegate.verify(.goBackToRootViewController())
+        myCollectionDelegate.verify(.reloadCollection(), count: .once)
+        myProfileDelegate.verify(.reloadMyProfile(), count: .once)
+        containerDelegate.verify(.goBackToRootViewController(), count: .once)
     }
     
     func test_didTapPrimaryButton_GivenSaveChangesButtonTappedAndErrorUpdatingUserEmailAddress_ThenAlertParametersAreCorrect() async {
@@ -146,7 +146,7 @@ final class EditProfileViewModelTests: XCTestCase {
                         description: L10n.updateErrorDescription
                     )
                 )
-            )
+            ), count: .once
         )
     }
     
@@ -197,7 +197,7 @@ final class EditProfileViewModelTests: XCTestCase {
                         description: L10n.warningUpdatePassword
                     )
                 )
-            )
+            ), count: .once
         )
     }
     
@@ -250,9 +250,9 @@ final class EditProfileViewModelTests: XCTestCase {
                         description: L10n.successAuthDescription
                     )
                 )
-            )
+            ), count: .once
         )
-        containerDelegate.verify(.reloadSections())
+        containerDelegate.verify(.reloadData(), count: .once)
     }
     
     func test_didTapPrimaryButton_GivenConfirmButtonTappedAndErrorReauthenticatingUser_ThenAlertParametersAreCorrectAndContainerDelegateCalled() async {
@@ -302,9 +302,9 @@ final class EditProfileViewModelTests: XCTestCase {
                         description: L10n.errorCredentialsDescription
                     )
                 )
-            )
+            ), count: .once
         )
-        containerDelegate.verify(.reloadSections())
+        containerDelegate.verify(.reloadData(), count: .once)
     }
     
     func test_didTapPrimaryButton_GivenDeleteAccountButtonTapped_ThenAlertParametersAreCorrect() async {
@@ -334,7 +334,7 @@ final class EditProfileViewModelTests: XCTestCase {
                         description: L10n.warningAccountDeletion
                     )
                 )
-            )
+            ), count: .once
         )
     }
     
@@ -372,12 +372,12 @@ final class EditProfileViewModelTests: XCTestCase {
                         description: L10n.successDeleteAccountDescription
                     )
                 )
-            )
+            ), count: .once
         )
         
-        myCollectionDelegate.verify(.reloadCollection())
-        myProfileDelegate.verify(.reloadMyProfile())
-        containerDelegate.verify(.goBackToRootViewController())
+        myCollectionDelegate.verify(.reloadCollection(), count: .once)
+        myProfileDelegate.verify(.reloadMyProfile(), count: .once)
+        containerDelegate.verify(.goBackToRootViewController(), count: .once)
     }
     
     func test_didTapOkButton_GivenErrorDeletingAccount_ThenAlertParametersAreCorrects() async {
@@ -412,7 +412,7 @@ final class EditProfileViewModelTests: XCTestCase {
                         description: L10n.errorDeleteAccountDescription
                     )
                 )
-            )
+            ), count: .once
         )
     }
 }

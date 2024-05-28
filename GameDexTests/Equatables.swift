@@ -72,7 +72,7 @@ extension AlertViewModel: Equatable {
 extension ButtonViewModel: Equatable {
     public static func == (lhs: ButtonViewModel, rhs: ButtonViewModel) -> Bool {
         lhs.isEnabled == rhs.isEnabled &&
-        lhs.buttonTitle == rhs.buttonTitle
+        lhs.title == rhs.title
     }
 }
 
@@ -88,5 +88,11 @@ extension ButtonState: Equatable {
         default:
             return false
         }
+    }
+}
+
+extension AnyBarButtonItem: Equatable {
+    public static func == (lhs: AnyBarButtonItem, rhs: AnyBarButtonItem) -> Bool {
+        return lhs.position == lhs.position
     }
 }

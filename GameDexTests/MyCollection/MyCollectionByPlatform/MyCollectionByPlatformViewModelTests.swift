@@ -98,7 +98,7 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
         await viewModel.loadData { _ in }
         
         // Then
-        containerDelegate.verify(.goBackToRootViewController())
+        containerDelegate.verify(.goBackToRootViewController(), count: .once)
     }
     
     func test_loadData_GivenUserIsNotLoggedIn_ThenShouldSetupSupplementaryView() async {
@@ -135,7 +135,7 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
             containerDelegate.verify(
                 .configureSupplementaryView(
                     contentViewFactory: .any
-                )
+                ), count: .once
             )
         }
     }
@@ -174,12 +174,12 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
             containerDelegate.verify(
                 .configureSupplementaryView(
                     contentViewFactory: .any
-                )
+                ), count: .once
             )
         }
     }
     
-    func test_didTapRightButtonItem_ThenShouldSetNavigationStyleCorrectly() {
+    func test_didTapButtonItem_ThenShouldSetNavigationStyleCorrectly() async {
         // Given
         let platform = MockData.platform
         let viewModel = MyCollectionByPlatformsViewModel(
@@ -193,13 +193,14 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
         )
         
         // When
-        viewModel.didTapRightButtonItem()
+        viewModel.didTap(buttonItem: .add)
         
         // Then
         let expectedNavigationStyle: NavigationStyle = {
             return .present(
                 screenFactory: SearchGameByTitleScreenFactory(
                     platform: platform,
+                    progress: DesignSystem.halfProgress,
                     myCollectionDelegate: viewModel
                 ),
                 completionBlock: nil
@@ -281,7 +282,7 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
                     XCTFail("Error type is not correct")
                     return
                 }
-                XCTAssertEqual(error, MyCollectionError.noItems)
+                XCTAssertEqual(error, MyCollectionError.noItems(delegate: viewModel))
             }
         }
     }
@@ -397,11 +398,11 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
                         description: L10n.fetchGamesErrorDescription
                     )
                 )
-            )
+            ), count: .once
         )
     }
     
-    func test_reloadCollection_GivenLocalDatabaseEmptyCollectionFetched_ThenResultsInErrorAlert() async {
+    func test_reloadCollection_GivenLocalDatabaseEmptyCollectionFetched_ThenReloadCollectionAndGoBackToRootViewController() async {
         // Given
         let emptyCollection = [PlatformCollected]()
         let localDatabase = LocalDatabaseMock()
@@ -417,13 +418,14 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
             )
         )
         let platform = MockData.platformWithNoGames
+        let myCollectionDelegate = MyCollectionViewModelDelegateMock()
         let alertDisplayer = AlertDisplayerMock()
         let viewModel = MyCollectionByPlatformsViewModel(
             platform: platform,
             localDatabase: localDatabase,
             cloudDatabase: CloudDatabaseMock(),
             alertDisplayer: alertDisplayer,
-            myCollectionDelegate: MyCollectionViewModelDelegateMock(),
+            myCollectionDelegate: myCollectionDelegate,
             authenticationService: AuthenticationServiceMock(),
             connectivityChecker: ConnectivityCheckerMock()
         )
@@ -435,7 +437,8 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
         await viewModel.reloadCollection()
         
         // Then
-        containerDelegate.verify(.reloadSections())
+        myCollectionDelegate.verify(.reloadCollection(), count: .once)
+        containerDelegate.verify(.goBackToRootViewController(), count: .once)
     }
     
     func test_reloadCollection_GivenCloudDatabaseFetchDataError_ThenResultsInErrorAlert() async {
@@ -484,7 +487,7 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
                         description: L10n.fetchGamesErrorDescription
                     )
                 )
-            )
+            ), count: .once
         )
     }
     
@@ -510,13 +513,14 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
             )
         )
         let platform = MockData.platformWithNoGames
+        let myCollectionDelegate = MyCollectionViewModelDelegateMock()
         let alertDisplayer = AlertDisplayerMock()
         let viewModel = MyCollectionByPlatformsViewModel(
             platform: platform,
             localDatabase: LocalDatabaseMock(),
             cloudDatabase: cloudDatabase,
             alertDisplayer: alertDisplayer,
-            myCollectionDelegate: MyCollectionViewModelDelegateMock(),
+            myCollectionDelegate: myCollectionDelegate,
             authenticationService: authenticationService,
             connectivityChecker: connectivityChecker
         )
@@ -528,7 +532,8 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
         await viewModel.reloadCollection()
         
         // Then
-        containerDelegate.verify(.reloadSections())
+        myCollectionDelegate.verify(.reloadCollection(), count: .once)
+        containerDelegate.verify(.goBackToRootViewController(), count: .once)
     }
     
     func test_reloadCollection_GivenCloudDatabaseNoError_ThenSectionsAreSetAndContainerDelegateCalled() async {
@@ -550,13 +555,14 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
                 willReturn: .success(MockData.platform)
             )
         )
+        let myCollectionDelegate = MyCollectionViewModelDelegateMock()
         let alertDisplayer = AlertDisplayerMock()
         let viewModel = MyCollectionByPlatformsViewModel(
             platform: MockData.platform,
             localDatabase: LocalDatabaseMock(),
             cloudDatabase: cloudDatabase,
             alertDisplayer: alertDisplayer,
-            myCollectionDelegate: MyCollectionViewModelDelegateMock(),
+            myCollectionDelegate: myCollectionDelegate,
             authenticationService: authenticationService,
             connectivityChecker: connectivityChecker
         )
@@ -573,10 +579,10 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
         
         XCTAssertEqual(viewModel.numberOfSections(), 1)
         XCTAssertEqual(viewModel.sections[0].cellsVM.count, expectedNumberOfitems)
-        containerDelegate.verify(.reloadSections())
+        myCollectionDelegate.verify(.reloadCollection(), count: .once)
     }
     
-    func test_cancelButtonTapped_ThenUpdateSectionAndRightButtonItems() async {
+    func test_cancelButtonTapped_ThenUpdateSectionAndButtonItems() async {
         // Given
         let authenticationService = AuthenticationServiceMock()
         authenticationService.given(.getUserId(willReturn: "user id"))
@@ -602,8 +608,8 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
                 XCTAssertEqual(viewModel.numberOfSections(), 1)
                 XCTAssertEqual(viewModel.numberOfItems(in: 0), MockData.platform.games?.count)
                 
-                let expectedButtonItems: [AnyBarButtonItem]? = [.add, .search]
-                XCTAssertEqual(viewModel.rightButtonItems, expectedButtonItems)
+                let expectedButtonItems: [AnyBarButtonItem]? = [.add, .filter(active: true)]
+                XCTAssertEqual(viewModel.buttonItems, expectedButtonItems)
             }
         }
     }
@@ -628,14 +634,178 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
         await viewModel.loadData { _ in
             
             // When
-            viewModel.cancelButtonTapped { error in
-                guard let error = error as? MyCollectionError else {
-                    XCTFail("wrong type")
-                    return
-                }
-                XCTAssertEqual(error, MyCollectionError.noItems)
+            viewModel.cancelButtonTapped { _ in
+                XCTAssertEqual(viewModel.sections.count, .zero)
             }
         }
     }
+    
+    func test_clearFilters_GivenNoGames_ThenReloadCollection() async {
+        // Given
+        let myCollectionDelegate = MyCollectionViewModelDelegateMock()
+        let authenticationService = AuthenticationServiceMock()
+        authenticationService.given(.getUserId(willReturn: "user id"))
+        authenticationService.given(.isUserLoggedIn(willReturn: true))
+        let connectivityChecker = ConnectivityCheckerMock()
+        connectivityChecker.given(.hasConnectivity(willReturn: true))
+        let cloudDatabase = CloudDatabaseMock()
+        cloudDatabase.given(
+            .getSinglePlatformCollection(
+                userId: .any,
+                platform: .any,
+                willReturn: .success(MockData.platformWithNoGames)
+            )
+        )
+        let viewModel = MyCollectionByPlatformsViewModel(
+            platform: MockData.platformWithNoGames,
+            localDatabase: LocalDatabaseMock(),
+            cloudDatabase: cloudDatabase,
+            alertDisplayer: AlertDisplayerMock(),
+            myCollectionDelegate: myCollectionDelegate,
+            authenticationService: authenticationService,
+            connectivityChecker: connectivityChecker
+        )
+        let containerDelegate = ContainerViewControllerDelegateMock()
+        viewModel.containerDelegate = containerDelegate
+        
+        // When
+        await viewModel.clearFilters()
+        
+        // Then
+        myCollectionDelegate.verify(.reloadCollection(), count: .once)
+        containerDelegate.verify(.goBackToRootViewController(), count: .once)
+    }
+    
+    func test_clearFilters_GivenCollection_ThenReloadNavBarAndSections() async {
+        // Given
+        let myCollectionDelegate = MyCollectionViewModelDelegateMock()
+        let authenticationService = AuthenticationServiceMock()
+        authenticationService.given(.getUserId(willReturn: "user id"))
+        authenticationService.given(.isUserLoggedIn(willReturn: true))
+        let connectivityChecker = ConnectivityCheckerMock()
+        connectivityChecker.given(.hasConnectivity(willReturn: true))
+        let cloudDatabase = CloudDatabaseMock()
+        cloudDatabase.given(
+            .getSinglePlatformCollection(
+                userId: .any,
+                platform: .any,
+                willReturn: .success(MockData.platformWithNoGames)
+            )
+        )
+        let viewModel = MyCollectionByPlatformsViewModel(
+            platform: MockData.platform,
+            localDatabase: LocalDatabaseMock(),
+            cloudDatabase: cloudDatabase,
+            alertDisplayer: AlertDisplayerMock(),
+            myCollectionDelegate: myCollectionDelegate,
+            authenticationService: authenticationService,
+            connectivityChecker: connectivityChecker
+        )
+        let containerDelegate = ContainerViewControllerDelegateMock()
+        viewModel.containerDelegate = containerDelegate
+        
+        // When
+        await viewModel.clearFilters()
+        
+        // Then
+        containerDelegate.verify(.reloadNavBar(), count: .once)
+        containerDelegate.verify(.reloadSections(emptyError: .any), count: .once)
+    }
+    
+    func test_applyFilters_GivenMatchingGames_ThenReloadNavBarAndSections() async {
+        // Given
+        let myCollectionDelegate = MyCollectionViewModelDelegateMock()
+        let authenticationService = AuthenticationServiceMock()
+        authenticationService.given(.getUserId(willReturn: "user id"))
+        authenticationService.given(.isUserLoggedIn(willReturn: true))
+        let connectivityChecker = ConnectivityCheckerMock()
+        connectivityChecker.given(.hasConnectivity(willReturn: true))
+        let viewModel = MyCollectionByPlatformsViewModel(
+            platform: MockData.platform,
+            localDatabase: LocalDatabaseMock(),
+            cloudDatabase: CloudDatabaseMock(),
+            alertDisplayer: AlertDisplayerMock(),
+            myCollectionDelegate: myCollectionDelegate,
+            authenticationService: authenticationService,
+            connectivityChecker: connectivityChecker
+        )
+        let containerDelegate = ContainerViewControllerDelegateMock()
+        viewModel.containerDelegate = containerDelegate
+        await viewModel.loadData { _ in }
+        
+        // When
+        await viewModel.apply(filters: MockData.gameFiltersWithMatchingGames)
+        
+        // Then
+        containerDelegate.verify(.reloadNavBar(), count: .once)
+        containerDelegate.verify(.reloadSections(emptyError: .any), count: .once)
+    }
+    
+    func test_applyFilters_GivenNoMatchingGames_ThenReloadSectionsAndNavBar() async {
+        // Given
+        let myCollectionDelegate = MyCollectionViewModelDelegateMock()
+        let authenticationService = AuthenticationServiceMock()
+        authenticationService.given(.getUserId(willReturn: "user id"))
+        authenticationService.given(.isUserLoggedIn(willReturn: true))
+        let connectivityChecker = ConnectivityCheckerMock()
+        connectivityChecker.given(.hasConnectivity(willReturn: true))
+        let viewModel = MyCollectionByPlatformsViewModel(
+            platform: MockData.platform,
+            localDatabase: LocalDatabaseMock(),
+            cloudDatabase: CloudDatabaseMock(),
+            alertDisplayer: AlertDisplayerMock(),
+            myCollectionDelegate: myCollectionDelegate,
+            authenticationService: authenticationService,
+            connectivityChecker: connectivityChecker
+        )
+        let containerDelegate = ContainerViewControllerDelegateMock()
+        viewModel.containerDelegate = containerDelegate
+        await viewModel.loadData { _ in }
+        
+        // When
+        await viewModel.apply(filters: MockData.gameFiltersWithNoMatchingGames)
+        
+        // Then
+        containerDelegate.verify(.reloadNavBar(), count: .once)
+        containerDelegate.verify(.reloadSections(emptyError: .any), count: .once)
+    }
 
+    func test_didTapFilterButtonItem_ThenOpenMyCollectionFiltersView() async {
+        // Given
+        let connectivityChecker = ConnectivityCheckerMock()
+        connectivityChecker.given(.hasConnectivity(willReturn: true))
+        let authenticationSercive = AuthenticationServiceMock()
+        authenticationSercive.given(.isUserLoggedIn(willReturn: false))
+        let viewModel = MyCollectionByPlatformsViewModel(
+            platform: MockData.platform,
+            localDatabase: LocalDatabaseMock(),
+            cloudDatabase: CloudDatabaseMock(),
+            alertDisplayer: AlertDisplayerMock(),
+            myCollectionDelegate: MyCollectionViewModelDelegateMock(),
+            authenticationService: authenticationSercive,
+            connectivityChecker: connectivityChecker
+        )
+        await viewModel.loadData { _ in }
+        
+        // When
+        viewModel.didTap(buttonItem: .filter(active: false))
+        
+        // Then
+        let expectedNavigationStyle: NavigationStyle = {
+            return .present(
+                screenFactory: MyCollectionFiltersScreenFactory(
+                    games: MockData.savedGames,
+                    selectedFilters: nil,
+                    myCollectionDelegate: viewModel
+                ),
+                completionBlock: nil
+            )
+        }()
+        let lastNavigationStyle = Routing.shared.lastNavigationStyle
+        
+        XCTAssertEqual(lastNavigationStyle, expectedNavigationStyle)
+    }
 }
+
+
+
