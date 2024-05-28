@@ -23,6 +23,7 @@ target 'GameDex' do
   pod 'FirebaseFirestore', :inhibit_warnings => true
   pod 'FirebaseCrashlytics', :inhibit_warnings => true
   pod 'ReachabilitySwift', :inhibit_warnings => true
+  pod 'BetterSegmentedControl', :inhibit_warnings => true
   
 
   target 'GameDexTests' do
