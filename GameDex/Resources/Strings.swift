@@ -62,6 +62,8 @@ internal enum L10n {
   internal static let deleteAccount = L10n.tr("Localizable", "deleteAccount", fallback: "Delete Account")
   /// Delete from collection
   internal static let deleteFromCollection = L10n.tr("Localizable", "deleteFromCollection", fallback: "Delete from collection")
+  /// Digital
+  internal static let digital = L10n.tr("Localizable", "digital", fallback: "Digital")
   /// Edit/Delete profile
   internal static let editProfile = L10n.tr("Localizable", "editProfile", fallback: "Edit/Delete profile")
   /// Email
@@ -152,6 +154,8 @@ internal enum L10n {
   internal static let password = L10n.tr("Localizable", "password", fallback: "Password")
   /// Personal rating
   internal static let personalRating = L10n.tr("Localizable", "personalRating", fallback: "Personal rating")
+  /// Physical
+  internal static let physical = L10n.tr("Localizable", "physical", fallback: "Physical")
   /// Platform
   internal static let platform = L10n.tr("Localizable", "platform", fallback: "Platform")
   /// Poor

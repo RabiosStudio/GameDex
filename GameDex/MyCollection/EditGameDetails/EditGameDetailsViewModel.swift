@@ -218,6 +218,8 @@ private extension EditGameDetailsViewModel {
                 rating = formCellVM.value as? Int
             case .notes:
                 notes = formCellVM.value as? String
+            case .isPhysical:
+                break
             }
         }
         

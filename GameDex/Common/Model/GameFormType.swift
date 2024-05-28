@@ -9,6 +9,7 @@ import Foundation
 import UIKit
 
 enum GameFormType: FormType, Equatable {
+    case isPhysical
     case yearOfAcquisition
     case gameCondition(PickerViewModel)
     case gameCompleteness(PickerViewModel)

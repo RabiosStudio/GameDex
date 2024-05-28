@@ -132,6 +132,8 @@
 "newPassword" = "Nouveau mot de passe";
 "currentPassword" = "Mot de passe actuel";
 "collectionToDelete" = "Collection à supprimer";
+"physical" = "Physique";
+"digital" = "Digital";
 
 // Other
 "game" = "jeu";

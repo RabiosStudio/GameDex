@@ -133,6 +133,8 @@
 "newPassword" = "New password";
 "currentPassword" = "Current password";
 "collectionToDelete" = "Collection to delete";
+"physical" = "Physical";
+"digital" = "Digital";
 
 // Other
 "game" = "game";
