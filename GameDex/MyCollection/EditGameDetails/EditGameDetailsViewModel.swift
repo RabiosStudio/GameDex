@@ -40,6 +40,7 @@ final class EditGameDetailsViewModel: CollectionViewModel {
     ) {
         self.savedGame = savedGame
         self.savedValues = [
+            self.savedGame.isPhysical ? L10n.physical : L10n.digital,
             self.savedGame.acquisitionYear,
             self.savedGame.gameCondition?.value,
             self.savedGame.gameCompleteness?.value,
@@ -106,7 +107,7 @@ extension EditGameDetailsViewModel: EditFormDelegate {
         
         var shouldEnableButton = false
         for index in 0..<savedValues.count {
-            let savedValue = savedValues[index]
+            let savedValue = self.savedValues[index]
             let currentValue = currentValues[index]
             
             if currentValue == nil && savedValue != nil || currentValue != nil && savedValue == nil {
@@ -114,10 +115,10 @@ extension EditGameDetailsViewModel: EditFormDelegate {
             } else if let savedStringValue = savedValue as? String,
                       let currentStringValue = currentValue as? String {
                 shouldEnableButton = savedStringValue != currentStringValue
-            } else if let saveIntValue = savedValue as? Int,
+            } else if let savedIntValue = savedValue as? Int,
                       let currentIntValue = currentValue as? Int {
-                shouldEnableButton = saveIntValue != currentIntValue
-            }
+                shouldEnableButton = savedIntValue != currentIntValue
+            } 
             if shouldEnableButton {
                 break
             }
