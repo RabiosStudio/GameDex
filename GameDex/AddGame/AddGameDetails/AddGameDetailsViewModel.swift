@@ -114,6 +114,7 @@ private extension AddGameDetailsViewModel {
         var gameCondition: GameCondition?
         var gameCompleteness: GameCompleteness?
         var gameRegion: GameRegion?
+        var isPhysical: Bool = true
         
         for formCellVM in formCellsVM {
             guard let formType = formCellVM.formType as? GameFormType else { return nil }
@@ -145,7 +146,15 @@ private extension AddGameDetailsViewModel {
             case .notes:
                 notes = formCellVM.value as? String
             case .isPhysical:
-                break
+                let isPhysicalText = formCellVM.value as? String
+                switch isPhysicalText {
+                case L10n.physical:
+                    isPhysical = true
+                case L10n.digital:
+                    isPhysical = false
+                default:
+                    break
+                }
             }
         }
         
@@ -163,7 +172,7 @@ private extension AddGameDetailsViewModel {
             rating: rating,
             notes: notes,
             lastUpdated: Date(), 
-            isPhysical: true // TODO: Update after adding selector to define if game is digital or physical
+            isPhysical: isPhysical
         )
     }
     

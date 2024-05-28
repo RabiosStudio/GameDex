@@ -56,6 +56,7 @@ enum CoreDataConverter {
         gameCollected.gameID = gameDetails.game.id
         gameCollected.releaseDate = gameDetails.game.releaseDate
         gameCollected.lastUpdated = gameDetails.lastUpdated
+        gameCollected.isPhysical = gameDetails.isPhysical
     
         return gameCollected
     }

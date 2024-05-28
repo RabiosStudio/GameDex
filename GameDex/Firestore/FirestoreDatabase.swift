@@ -153,8 +153,13 @@ class FirestoreDatabase: CloudDatabase {
         switch fetchedGamesResult {
         case let .success(fetchedGames):
             for item in fetchedGames {
-                if item.id == savedGame.game.id {
-                    return .success(true)
+                guard item.id != savedGame.game.id else {
+                    guard let gameFormatNumber  = item.data[Attributes.isPhysical.rawValue] as? Int,
+                          let savedGameFormatNumber = savedGame.isPhysical ? 1 : .zero,
+                          gameFormatNumber != savedGameFormatNumber else {
+                        return .success(true)
+                    }
+                    continue
                 }
             }
             return .success(false)
@@ -165,10 +170,10 @@ class FirestoreDatabase: CloudDatabase {
     
     func saveGame(userId: String, game: SavedGame, platform: Platform, editingEntry: Bool) async -> DatabaseError? {
         if !editingEntry {
-            let fetchResult = await self.gameIsInDatabase(userId: userId, savedGame: game)
-            switch fetchResult {
-            case let .success(platform):
-                guard platform == false else {
+            let gameIsInDatabaseFetchResult = await self.gameIsInDatabase(userId: userId, savedGame: game)
+            switch gameIsInDatabaseFetchResult {
+            case let .success(gameIsInDatabase):
+                guard gameIsInDatabase == false else {
                     return DatabaseError.itemAlreadySaved
                 }
             case .failure:
