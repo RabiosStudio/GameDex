@@ -23,9 +23,12 @@ final class EditGameDetailsSection: Section {
         self.cellsVM.append(gameCellVM)
         
         let isPhysicalCellVM = SegmentedControlCellViewModel(
-            segments: [L10n.physical, L10n.digital],
+            segments: [
+                SegmentItemViewModel(title: GameFormat.physical.text, image: GameFormat.physical.image),
+                SegmentItemViewModel(title: GameFormat.digital.text, image: GameFormat.digital.image)
+            ],
             formType: GameFormType.isPhysical,
-            value: savedGame.isPhysical ? L10n.physical : L10n.digital,
+            value: savedGame.isPhysical ? GameFormat.physical.text : GameFormat.digital.text,
             editDelegate: editDelegate
         )
         self.cellsVM.append(isPhysicalCellVM)

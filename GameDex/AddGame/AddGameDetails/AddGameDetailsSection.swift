@@ -23,7 +23,10 @@ final class AddGameDetailsSection: Section {
         self.cellsVM.append(gameCellVM)
         
         let isPhysicalCellVM = SegmentedControlCellViewModel(
-            segments: [L10n.physical, L10n.digital],
+            segments: [
+                SegmentItemViewModel(title: GameFormat.physical.text, image: GameFormat.physical.image),
+                SegmentItemViewModel(title: GameFormat.digital.text, image: GameFormat.digital.image)
+            ],
             formType: GameFormType.isPhysical
         )
         self.cellsVM.append(isPhysicalCellVM)

@@ -148,9 +148,9 @@ private extension AddGameDetailsViewModel {
             case .isPhysical:
                 let isPhysicalText = formCellVM.value as? String
                 switch isPhysicalText {
-                case L10n.physical:
+                case GameFormat.physical.text:
                     isPhysical = true
-                case L10n.digital:
+                case GameFormat.digital.text:
                     isPhysical = false
                 default:
                     break

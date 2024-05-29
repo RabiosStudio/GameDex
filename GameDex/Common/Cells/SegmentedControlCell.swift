@@ -46,11 +46,14 @@ class SegmentedControlCell: UICollectionViewCell, CellConfigurable {
         }
         self.cellVM = cellVM
         self.setupConstraints()
-        self.segmentedControl.segments = LabelSegment.segments(
-            withTitles: cellVM.segments,
+        self.segmentedControl.segments = LabelAndIconSegment.segments(
+            with: cellVM.segments,
             normalTextColor: .secondaryColor,
-            selectedTextColor: .primaryBackgroundColor
+            selectedTextColor: .primaryBackgroundColor,
+            normalIconTintColor: .secondaryColor,
+            selectedIconTintColor: .primaryBackgroundColor
         )
+        
         self.segmentedControl.setIndex(cellVM.selectedSegmentIndex)
     }
     
@@ -59,7 +62,7 @@ class SegmentedControlCell: UICollectionViewCell, CellConfigurable {
             return
         }
         let index = sender.index
-        cellVM.value = cellVM.segments[index]
+        cellVM.value = cellVM.segments[index].title
     }
     
     private func setupViews() {

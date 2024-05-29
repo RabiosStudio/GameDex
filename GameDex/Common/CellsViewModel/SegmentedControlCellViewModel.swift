@@ -15,7 +15,7 @@ final class SegmentedControlCellViewModel: CollectionFormCellViewModel {
     var cellTappedCallback: (() -> Void)?
     let height: CGFloat = DesignSystem.sizeVerySmall
     
-    let segments: [String]
+    let segments: [SegmentItemViewModel]
     let selectedSegmentIndex: Int
     var formType: FormType
     var value: ValueType? {
@@ -26,7 +26,7 @@ final class SegmentedControlCellViewModel: CollectionFormCellViewModel {
     
     weak var editFormDelegate: EditFormDelegate?
     
-    init(segments: [String],
+    init(segments: [SegmentItemViewModel],
          formType: FormType,
          value: String? = nil,
          editDelegate: EditFormDelegate? = nil
@@ -37,7 +37,7 @@ final class SegmentedControlCellViewModel: CollectionFormCellViewModel {
         self.editFormDelegate = editDelegate
         
         guard let value = self.value,
-              let index = segments.firstIndex(of: value) else {
+              let index = segments.firstIndex(where: { $0.title == value }) else {
             self.selectedSegmentIndex = .zero
             return
         }

@@ -40,7 +40,7 @@ final class EditGameDetailsViewModel: CollectionViewModel {
     ) {
         self.savedGame = savedGame
         self.savedValues = [
-            self.savedGame.isPhysical ? L10n.physical : L10n.digital,
+            self.savedGame.isPhysical ? GameFormat.physical.text : GameFormat.digital.text,
             self.savedGame.acquisitionYear,
             self.savedGame.gameCondition?.value,
             self.savedGame.gameCompleteness?.value,
@@ -223,9 +223,9 @@ private extension EditGameDetailsViewModel {
             case .isPhysical:
                 let isPhysicalText = formCellVM.value as? String
                 switch isPhysicalText {
-                case L10n.physical:
+                case GameFormat.physical.text:
                     isPhysical = true
-                case L10n.digital:
+                case GameFormat.digital.text:
                     isPhysical = false
                 default:
                     break
