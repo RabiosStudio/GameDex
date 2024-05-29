@@ -46,6 +46,7 @@
 "warningAccountDeletion" = "Account deletion is definitive. This will not delete data saved directly on your device";
 "warningPlatformDeletionCloud" = "Your collection will be deleted permanently. This won't affect the data saved locally on other devices.";
 "warningPlatformDeletionLocal" = "Your collection will be deleted permanently. This will only affect data saved locally on this device.";
+"warningGameFormatAlreadyExists" = "A game with the selected new game format already exists in your collection.";
 
 // Info
 "infoNoInternet" = "You're not connected to the internet, your collection might not be up to date.";

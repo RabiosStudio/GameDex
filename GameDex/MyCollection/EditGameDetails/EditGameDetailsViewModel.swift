@@ -80,7 +80,7 @@ final class EditGameDetailsViewModel: CollectionViewModel {
 
 extension EditGameDetailsViewModel: PrimaryButtonDelegate {
     func didTapPrimaryButton(with title: String?) async {
-        guard let gameToSave = getGameToSave() else { return }
+        guard let gameToSave = self.getGameToSave() else { return }
         
         guard let userId = self.authenticationService.getUserId() else {
             await self.saveInLocal(gameToSave: gameToSave)
@@ -189,6 +189,7 @@ private extension EditGameDetailsViewModel {
         var gameCondition: GameCondition?
         var gameCompleteness: GameCompleteness?
         var gameRegion: GameRegion?
+        var isPhysical: Bool = true
         
         for formCellVM in formCellsVM {
             guard let formType = formCellVM.formType as? GameFormType else { return nil }
@@ -220,7 +221,15 @@ private extension EditGameDetailsViewModel {
             case .notes:
                 notes = formCellVM.value as? String
             case .isPhysical:
-                break
+                let isPhysicalText = formCellVM.value as? String
+                switch isPhysicalText {
+                case L10n.physical:
+                    isPhysical = true
+                case L10n.digital:
+                    isPhysical = false
+                default:
+                    break
+                }
             }
         }
         
@@ -234,7 +243,7 @@ private extension EditGameDetailsViewModel {
             rating: rating,
             notes: notes,
             lastUpdated: Date(), 
-            isPhysical: true
+            isPhysical: isPhysical
         )
     }
     
@@ -247,7 +256,7 @@ private extension EditGameDetailsViewModel {
     }
     
     func saveInCloud(userId: String, gameToSave: SavedGame) async {
-        guard let error = await self.cloudDatabase.saveGame(userId: userId, game: gameToSave, platform: self.platform, editingEntry: true) else {
+        guard let error = await self.cloudDatabase.replaceGame(userId: userId, newGame: gameToSave, oldGame: self.savedGame, platform: self.platform) else {
             await self.handleEditGameSuccess()
             return
         }
@@ -269,8 +278,8 @@ private extension EditGameDetailsViewModel {
     func handleEditGameFailure(error: DatabaseError) async {
         self.alertDisplayer.presentTopFloatAlert(
             parameters: AlertViewModel(
-                alertType: .error,
-                description: L10n.updateErrorDescription
+                alertType: error == .itemAlreadySaved ? .warning : .error,
+                description: error == .itemAlreadySaved ? L10n.warningGameFormatAlreadyExists : L10n.updateErrorDescription
             )
         )
         self.configureBottomView(shouldEnableButton: true)

@@ -228,6 +228,8 @@ internal enum L10n {
   internal static let warningAccountDeletion = L10n.tr("Localizable", "warningAccountDeletion", fallback: "Account deletion is definitive. This will not delete data saved directly on your device")
   /// This game is already in your collection!
   internal static let warningGameAlreadyInDatabase = L10n.tr("Localizable", "warningGameAlreadyInDatabase", fallback: "This game is already in your collection!")
+  /// A game with the selected new game format already exists in your collection.
+  internal static let warningGameFormatAlreadyExists = L10n.tr("Localizable", "warningGameFormatAlreadyExists", fallback: "A game with the selected new game format already exists in your collection.")
   /// Are you sure you want to log out?
   internal static let warningLogOut = L10n.tr("Localizable", "warningLogOut", fallback: "Are you sure you want to log out?")
   /// Your collection will be deleted permanently. This won't affect the data saved locally on other devices.

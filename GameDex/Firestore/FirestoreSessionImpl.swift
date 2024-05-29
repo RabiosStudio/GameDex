@@ -11,9 +11,19 @@ import FirebaseFirestore
 final class FirestoreSessionImpl: FirestoreSession {
     private let database = Firestore.firestore()
     
-    func getData(mainPath: String) async -> Result<[FirestoreData], DatabaseError> {
+    func getData(mainPath: String, condition: FirestoreQuery? = nil) async -> Result<[FirestoreData], DatabaseError> {
         do {
-            let fetchedData = try await self.database.collection(mainPath).getDocuments()
+            guard let condition = condition else {
+                let fetchedData = try await self.database.collection(mainPath).getDocuments()
+                var firestoreData = [FirestoreData]()
+                for item in fetchedData.documents {
+                    firestoreData.append(FirestoreData(id: item.documentID, data: item.data()))
+                }
+                return .success(firestoreData)
+            }
+            let collection = self.database.collection(mainPath)
+            let query = collection.whereField(condition.key, isEqualTo: condition.value)
+            let fetchedData = try await query.getDocuments()
             var firestoreData = [FirestoreData]()
             for item in fetchedData.documents {
                 firestoreData.append(FirestoreData(id: item.documentID, data: item.data()))
