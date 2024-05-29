@@ -20,21 +20,21 @@ final class SegmentedControlCellViewModel: CollectionFormCellViewModel {
     var formType: FormType
     var value: ValueType? {
         didSet {
-            self.editFormDelegate?.enableSaveButtonIfNeeded()
+            self.formDelegate?.enableSaveButtonIfNeeded()
         }
     }
     
-    weak var editFormDelegate: EditFormDelegate?
+    weak var formDelegate: FormDelegate?
     
     init(segments: [SegmentItemViewModel],
          formType: FormType,
          value: String? = nil,
-         editDelegate: EditFormDelegate? = nil
+         formDelegate: FormDelegate? = nil
     ) {
         self.segments = segments
         self.formType = formType
         self.value = value
-        self.editFormDelegate = editDelegate
+        self.formDelegate = formDelegate
         
         guard let value = self.value,
               let index = segments.firstIndex(where: { $0.title == value }) else {

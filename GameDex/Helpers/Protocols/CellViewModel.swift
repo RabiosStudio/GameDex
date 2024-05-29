@@ -48,10 +48,10 @@ protocol FormCellViewModel {
     
     var formType: FormType { get set }
     var value: ValueType? { get set }
-    var editFormDelegate: EditFormDelegate? { get }
+    var formDelegate: FormDelegate? { get }
 }
 
 // sourcery: AutoMockable
-protocol EditFormDelegate: AnyObject {
+protocol FormDelegate: AnyObject {
     func enableSaveButtonIfNeeded()
 }

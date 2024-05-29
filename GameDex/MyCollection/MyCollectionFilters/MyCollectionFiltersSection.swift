@@ -12,7 +12,7 @@ final class MyCollectionFiltersSection: Section {
     init(
         games: [SavedGame],
         selectedFilters: [GameFilter]?,
-        editDelegate: EditFormDelegate
+        formDelegate: FormDelegate
     ) {
         super.init()
         self.position = 0
@@ -71,7 +71,7 @@ final class MyCollectionFiltersSection: Section {
                     )
                 ),
                 value: acquisitionYearFilterValue ?? nil,
-                editDelegate: editDelegate
+                formDelegate: formDelegate
             )
             self.cellsVM.append(yearOfAcquisitionCellVM)
         }
@@ -89,7 +89,7 @@ final class MyCollectionFiltersSection: Section {
                 )
             ),
             value: conditionFilterValue ?? nil,
-            editDelegate: editDelegate
+            formDelegate: formDelegate
         )
         self.cellsVM.append(conditionCellVM)
         
@@ -106,7 +106,7 @@ final class MyCollectionFiltersSection: Section {
                 )
             ),
             value: completenessFilterValue ?? nil,
-            editDelegate: editDelegate
+            formDelegate: formDelegate
         )
         self.cellsVM.append(completenessCellVM)
         
@@ -118,7 +118,7 @@ final class MyCollectionFiltersSection: Section {
                 )
             ),
             value: regionFilterValue ?? nil,
-            editDelegate: editDelegate
+            formDelegate: formDelegate
         )
         self.cellsVM.append(regionCellVM)
         
@@ -138,7 +138,7 @@ final class MyCollectionFiltersSection: Section {
                     )
                 ),
                 value: storageAreaFilterValue ?? nil,
-                editDelegate: editDelegate
+                formDelegate: formDelegate
             )
             self.cellsVM.append(storageAreaCellVM)
         }
@@ -147,7 +147,7 @@ final class MyCollectionFiltersSection: Section {
             title: L10n.personalRating,
             formType: GameFilterFormType.rating,
             value: ratingFilterValue ?? nil,
-            editDelegate: editDelegate
+            formDelegate: formDelegate
         )
         self.cellsVM.append(personalRatingCellVM)
     }

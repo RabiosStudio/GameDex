@@ -9,7 +9,7 @@ import Foundation
 
 final class EditGameDetailsSection: Section {
     
-    init(savedGame: SavedGame, platformName: String, editDelegate: EditFormDelegate) {
+    init(savedGame: SavedGame, platformName: String, formDelegate: FormDelegate) {
         super.init()
         self.position = 0
         
@@ -29,7 +29,7 @@ final class EditGameDetailsSection: Section {
             ],
             formType: GameFormType.isPhysical,
             value: savedGame.isPhysical ? GameFormat.physical.text : GameFormat.digital.text,
-            editDelegate: editDelegate
+            formDelegate: formDelegate
         )
         self.cellsVM.append(isPhysicalCellVM)
         
@@ -37,7 +37,7 @@ final class EditGameDetailsSection: Section {
             placeholder: L10n.yearOfAcquisition,
             formType: GameFormType.yearOfAcquisition,
             value: savedGame.acquisitionYear,
-            editDelegate: editDelegate
+            formDelegate: formDelegate
         )
         self.cellsVM.append(yearOfAcquisitionCellVM)
         
@@ -54,7 +54,7 @@ final class EditGameDetailsSection: Section {
                 )
             ),
             value: savedGame.gameCondition?.value,
-            editDelegate: editDelegate
+            formDelegate: formDelegate
         )
         self.cellsVM.append(conditionCellVM)
         
@@ -71,7 +71,7 @@ final class EditGameDetailsSection: Section {
                 )
             ),
             value: savedGame.gameCompleteness?.value,
-            editDelegate: editDelegate
+            formDelegate: formDelegate
         )
         self.cellsVM.append(completenessCellVM)
         
@@ -83,7 +83,7 @@ final class EditGameDetailsSection: Section {
                 )
             ),
             value: savedGame.gameRegion?.value,
-            editDelegate: editDelegate
+            formDelegate: formDelegate
         )
         self.cellsVM.append(regionCellVM)
         
@@ -91,7 +91,7 @@ final class EditGameDetailsSection: Section {
             placeholder: L10n.storageArea,
             formType: GameFormType.storageArea,
             value: savedGame.storageArea,
-            editDelegate: editDelegate
+            formDelegate: formDelegate
         )
         self.cellsVM.append(storageAreaCellVM)
         
@@ -99,7 +99,7 @@ final class EditGameDetailsSection: Section {
             title: L10n.personalRating,
             formType: GameFormType.rating,
             value: savedGame.rating,
-            editDelegate: editDelegate
+            formDelegate: formDelegate
         )
         self.cellsVM.append(personalRatingCellVM)
         
@@ -107,7 +107,7 @@ final class EditGameDetailsSection: Section {
             title: L10n.otherDetails,
             formType: GameFormType.notes,
             value: savedGame.notes,
-            editDelegate: editDelegate
+            formDelegate: formDelegate
         )
         self.cellsVM.append(otherDetailsCellVM)
     }

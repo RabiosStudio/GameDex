@@ -37,7 +37,7 @@ final class MyCollectionFiltersViewModel: CollectionViewModel {
         self.sections = [MyCollectionFiltersSection(
             games: self.games,
             selectedFilters: self.selectedFilters,
-            editDelegate: self
+            formDelegate: self
         )]
         self.configureBottomView(shouldEnableButton: false)
         callback(nil)
@@ -52,7 +52,7 @@ final class MyCollectionFiltersViewModel: CollectionViewModel {
             self.sections = [MyCollectionFiltersSection(
                 games: self.games,
                 selectedFilters: self.selectedFilters,
-                editDelegate: self
+                formDelegate: self
             )]
             self.configureBottomView(shouldEnableButton: true)
             self.containerDelegate?.reloadSections(emptyError: nil)
@@ -138,7 +138,7 @@ final class MyCollectionFiltersViewModel: CollectionViewModel {
     }
 }
 
-extension MyCollectionFiltersViewModel: EditFormDelegate {
+extension MyCollectionFiltersViewModel: FormDelegate {
     func enableSaveButtonIfNeeded() {
         self.configureBottomView(shouldEnableButton: true)
     }

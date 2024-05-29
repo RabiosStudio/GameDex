@@ -62,7 +62,7 @@ final class EditGameDetailsViewModel: CollectionViewModel {
         self.sections = [EditGameDetailsSection(
             savedGame: self.savedGame,
             platformName: self.platform.title,
-            editDelegate: self
+            formDelegate: self
         )]
         self.configureBottomView(shouldEnableButton: false)
         callback(nil)
@@ -91,7 +91,7 @@ extension EditGameDetailsViewModel: PrimaryButtonDelegate {
     }
 }
 
-extension EditGameDetailsViewModel: EditFormDelegate {
+extension EditGameDetailsViewModel: FormDelegate {
     func enableSaveButtonIfNeeded() {
         guard let firstSection = self.sections.first,
               let formCellsVM = firstSection.cellsVM.filter({ cellVM in
