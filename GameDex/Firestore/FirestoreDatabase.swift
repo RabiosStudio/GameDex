@@ -206,7 +206,7 @@ class FirestoreDatabase: CloudDatabase {
     
     func getGameUUID(
         userId: String,
-        newGame: SavedGame,
+        newGame: SavedGame? = nil,
         oldGame: SavedGame
     ) async -> Result<String?, DatabaseError> {
         let query = FirestoreQuery(
@@ -219,6 +219,15 @@ class FirestoreDatabase: CloudDatabase {
             guard fetchedGames.count <= 1 else {
                 // If there are more than 1 game with the same ID, it means that the game was saved with different game formats
                 for fetchedGame in fetchedGames {
+                    guard let newGame else {
+                        // No newGame defined, so the user is not trying to edit a game but deleting it instead.
+                        let result = self.isSameGame(savedGame: oldGame, firestoreGameData: fetchedGame)
+                        if result {
+                            return .success(fetchedGame.id)
+                        } else {
+                            break
+                        }
+                    }
                     let fetchedGameFormatNumber  = fetchedGame.data[Attributes.isPhysical.rawValue] as? Int
                     let newGameFormatNumber = newGame.isPhysical ? 1 : .zero
                     let oldGameFormatNumber = oldGame.isPhysical ? 1 : .zero
@@ -236,6 +245,11 @@ class FirestoreDatabase: CloudDatabase {
         case .failure:
             return .failure(DatabaseError.fetchError)
         }
+    }
+    
+    func isSameGame(savedGame: SavedGame, firestoreGameData: FirestoreData) -> Bool {
+        let fetchedGame = self.convert(firestoreData: firestoreGameData)
+        return fetchedGame == savedGame
     }
     
     func savePlatform(userId: String, platform: Platform) async -> DatabaseError? {
@@ -290,25 +304,32 @@ class FirestoreDatabase: CloudDatabase {
     }
     
     func removeGame(userId: String, platform: Platform, savedGame: SavedGame) async -> DatabaseError? {
-        guard await self.firestoreSession.deleteData(
-            path: Collections.userGames(userId, "\(savedGame.game.platformId)").path,
-            directory: savedGame.game.id
-        ) == nil else {
-            return DatabaseError.removeError
-        }
-        // once game is deleted, we have to check if the platform still has other games. If not, then we delete the plaform from database.
-        let fetchPlatformResult = await self.getSinglePlatformCollection(userId: userId, platform: platform)
-        switch fetchPlatformResult {
-        case let .success(platform):
-            guard platform.games?.count != .zero else {
-                guard let error = await self.removePlatform(userId: userId, platform: platform) else {
-                    return nil
-                }
-                return error
+        let fetchGameUUIDResult = await self.getGameUUID(userId: userId, oldGame: savedGame)
+        switch fetchGameUUIDResult {
+        case let .success(fetchedGameUUID):
+            guard let gameUUID = fetchedGameUUID,
+                  await self.firestoreSession.deleteData(
+                      path: Collections.userGames(userId, "\(savedGame.game.platformId)").path,
+                      directory: gameUUID
+                  ) == nil else {
+                return DatabaseError.fetchError
             }
-            return nil
-        case .failure:
-            return DatabaseError.removeError
+            // once game is deleted, we have to check if the platform still has other games. If not, then we delete the plaform from database.
+            let fetchPlatformResult = await self.getSinglePlatformCollection(userId: userId, platform: platform)
+            switch fetchPlatformResult {
+            case let .success(platform):
+                guard platform.games?.count != .zero else {
+                    guard let error = await self.removePlatform(userId: userId, platform: platform) else {
+                        return nil
+                    }
+                    return error
+                }
+                return nil
+            case .failure:
+                return DatabaseError.removeError
+            }
+        case let .failure(error):
+            return error
         }
     }
     
