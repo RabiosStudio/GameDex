@@ -484,7 +484,7 @@ private extension FirestoreDatabase {
         case searchPlatform
         case userPlatforms(String)
         case userGames(String, String)
-        case userGame(String, String, String)
+//        case userGame(String, String, String)
         case users
         case apiKey
         case searchGamesApi
@@ -497,8 +497,8 @@ private extension FirestoreDatabase {
                 return "users/\(userId)/platforms"
             case let .userGames(userId, platformId):
                 return "users/\(userId)/platforms/\(platformId)/games"
-            case let .userGame(userId, platformId, gameId):
-                return "users/\(userId)/platforms/\(platformId)/games/\(gameId)"
+//            case let .userGame(userId, platformId, gameId):
+//                return "users/\(userId)/platforms/\(platformId)/games/\(gameId)"
             case .users:
                 return "users"
             case .apiKey:
