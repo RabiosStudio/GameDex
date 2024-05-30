@@ -130,12 +130,6 @@ class LabelAndIconSegment: BetterSegmentedControlSegment {
         
         if let icon = icon {
             let imageView = UIImageView(image: icon)
-//            imageView.frame = CGRect(
-//                x: 0,
-//                y: 0,
-//                width: iconSize?.width ?? DesignSystem.sizeTiny,
-//                height: iconSize?.height ?? DesignSystem.sizeTiny
-//            )
             imageView.contentMode = .scaleAspectFit
             imageView.tintColor = iconTintColor
             imageView.autoresizingMask = [

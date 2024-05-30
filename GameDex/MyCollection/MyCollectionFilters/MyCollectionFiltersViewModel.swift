@@ -142,6 +142,8 @@ extension MyCollectionFiltersViewModel: FormDelegate {
     func enableSaveButtonIfNeeded() {
         self.configureBottomView(shouldEnableButton: true)
     }
+    
+    func refreshSectionsDependingOnGameFormat() {}
 }
 
 // MARK: - PrimaryButtonDelegate

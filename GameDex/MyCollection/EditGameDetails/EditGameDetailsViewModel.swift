@@ -59,11 +59,7 @@ final class EditGameDetailsViewModel: CollectionViewModel {
     }
     
     func loadData(callback: @escaping (EmptyError?) -> ()) {
-        self.sections = [EditGameDetailsSection(
-            savedGame: self.savedGame,
-            platformName: self.platform.title,
-            formDelegate: self
-        )]
+        self.updateSections(with: self.savedGame)
         self.configureBottomView(shouldEnableButton: false)
         callback(nil)
     }
@@ -75,6 +71,14 @@ final class EditGameDetailsViewModel: CollectionViewModel {
         default:
             break
         }
+    }
+    
+    private func updateSections(with savedGame: SavedGame) {
+        self.sections = [EditGameDetailsSection(
+            savedGame: savedGame,
+            platformName: self.platform.title,
+            formDelegate: self
+        )]
     }
 }
 
@@ -92,6 +96,14 @@ extension EditGameDetailsViewModel: PrimaryButtonDelegate {
 }
 
 extension EditGameDetailsViewModel: FormDelegate {
+    func refreshSectionsDependingOnGameFormat() {
+        guard let editedGame = self.getGameToSave() else {
+            return
+        }
+        self.updateSections(with: editedGame)
+        self.containerDelegate?.reloadSections(emptyError: nil)
+    }
+    
     func enableSaveButtonIfNeeded() {
         guard let firstSection = self.sections.first,
               let formCellsVM = firstSection.cellsVM.filter({ cellVM in

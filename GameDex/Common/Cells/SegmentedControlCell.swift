@@ -20,10 +20,13 @@ class SegmentedControlCell: UICollectionViewCell, CellConfigurable {
         control.setOptions([
             .backgroundColor(.secondaryBackgroundColor),
             .indicatorViewBackgroundColor(.secondaryColor),
-            .cornerRadius(DesignSystem.cornerRadiusBig),
-            .animationSpringDamping(Constants.segmentedControlAnimation)
-        ])
-        control.addTarget(self, action: #selector(segmentedControlValueChanged(_:)), for: .valueChanged)
+            .cornerRadius(DesignSystem.cornerRadiusBig)
+        ])        
+        control.addTarget(
+            self,
+            action: #selector(segmentedControlValueChanged(_:)),
+            for: .valueChanged
+        )        
         control.translatesAutoresizingMaskIntoConstraints = false
         return control
     }()
@@ -53,8 +56,8 @@ class SegmentedControlCell: UICollectionViewCell, CellConfigurable {
             normalIconTintColor: .secondaryColor,
             selectedIconTintColor: .primaryBackgroundColor
         )
-        
         self.segmentedControl.setIndex(cellVM.selectedSegmentIndex)
+        self.addNotificationObservers()
     }
     
     @objc func segmentedControlValueChanged(_ sender: BetterSegmentedControl) {
@@ -63,6 +66,22 @@ class SegmentedControlCell: UICollectionViewCell, CellConfigurable {
         }
         let index = sender.index
         cellVM.value = cellVM.segments[index].title
+    }
+    
+    private func addNotificationObservers() {
+        NotificationCenter.default.addObserver(self, selector: #selector(handleSegmentedControlInteraction), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleSegmentedControlInteraction), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    @objc private func handleSegmentedControlInteraction(notification: NSNotification) {
+        switch notification.name {
+        case UIResponder.keyboardWillShowNotification:
+            self.segmentedControl.isUserInteractionEnabled = false
+        case UIResponder.keyboardWillHideNotification:
+            self.segmentedControl.isUserInteractionEnabled = true
+        default:
+            break
+        }
     }
     
     private func setupViews() {

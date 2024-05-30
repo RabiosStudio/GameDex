@@ -54,4 +54,5 @@ protocol FormCellViewModel {
 // sourcery: AutoMockable
 protocol FormDelegate: AnyObject {
     func enableSaveButtonIfNeeded()
+    func refreshSectionsDependingOnGameFormat()
 }

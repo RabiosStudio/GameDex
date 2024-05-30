@@ -41,59 +41,61 @@ final class EditGameDetailsSection: Section {
         )
         self.cellsVM.append(yearOfAcquisitionCellVM)
         
-        let conditionCellVM = TextFieldCellViewModel(
-            placeholder: L10n.condition,
-            formType: GameFormType.gameCondition(
-                PickerViewModel(
-                    data: [GameCondition.allCases.compactMap {
-                        guard $0 != .unknown else {
-                            return nil
-                        }
-                        return $0.value
-                    }]
-                )
-            ),
-            value: savedGame.gameCondition?.value,
-            formDelegate: formDelegate
-        )
-        self.cellsVM.append(conditionCellVM)
-        
-        let completenessCellVM = TextFieldCellViewModel(
-            placeholder: L10n.completeness,
-            formType: GameFormType.gameCompleteness(
-                PickerViewModel(
-                    data: [GameCompleteness.allCases.compactMap {
-                        guard $0 != .unknown else {
-                            return nil
-                        }
-                        return $0.value
-                    }]
-                )
-            ),
-            value: savedGame.gameCompleteness?.value,
-            formDelegate: formDelegate
-        )
-        self.cellsVM.append(completenessCellVM)
-        
-        let regionCellVM = TextFieldCellViewModel(
-            placeholder: L10n.region,
-            formType: GameFormType.gameRegion(
-                PickerViewModel(
-                    data: [GameRegion.allCases.map { $0.value }]
-                )
-            ),
-            value: savedGame.gameRegion?.value,
-            formDelegate: formDelegate
-        )
-        self.cellsVM.append(regionCellVM)
-        
-        let storageAreaCellVM = TextFieldCellViewModel(
-            placeholder: L10n.storageArea,
-            formType: GameFormType.storageArea,
-            value: savedGame.storageArea,
-            formDelegate: formDelegate
-        )
-        self.cellsVM.append(storageAreaCellVM)
+        if savedGame.isPhysical {
+            let conditionCellVM = TextFieldCellViewModel(
+                placeholder: L10n.condition,
+                formType: GameFormType.gameCondition(
+                    PickerViewModel(
+                        data: [GameCondition.allCases.compactMap {
+                            guard $0 != .unknown else {
+                                return nil
+                            }
+                            return $0.value
+                        }]
+                    )
+                ),
+                value: savedGame.gameCondition?.value,
+                formDelegate: formDelegate
+            )
+            self.cellsVM.append(conditionCellVM)
+            
+            let completenessCellVM = TextFieldCellViewModel(
+                placeholder: L10n.completeness,
+                formType: GameFormType.gameCompleteness(
+                    PickerViewModel(
+                        data: [GameCompleteness.allCases.compactMap {
+                            guard $0 != .unknown else {
+                                return nil
+                            }
+                            return $0.value
+                        }]
+                    )
+                ),
+                value: savedGame.gameCompleteness?.value,
+                formDelegate: formDelegate
+            )
+            self.cellsVM.append(completenessCellVM)
+            
+            let regionCellVM = TextFieldCellViewModel(
+                placeholder: L10n.region,
+                formType: GameFormType.gameRegion(
+                    PickerViewModel(
+                        data: [GameRegion.allCases.map { $0.value }]
+                    )
+                ),
+                value: savedGame.gameRegion?.value,
+                formDelegate: formDelegate
+            )
+            self.cellsVM.append(regionCellVM)
+            
+            let storageAreaCellVM = TextFieldCellViewModel(
+                placeholder: L10n.storageArea,
+                formType: GameFormType.storageArea,
+                value: savedGame.storageArea,
+                formDelegate: formDelegate
+            )
+            self.cellsVM.append(storageAreaCellVM)
+        }
         
         let personalRatingCellVM = StarRatingCellViewModel(
             title: L10n.personalRating,
