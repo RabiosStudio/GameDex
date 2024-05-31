@@ -9,7 +9,7 @@ import Foundation
 
 final class EditGameDetailsSection: Section {
     
-    init(savedGame: SavedGame, platformName: String, formDelegate: FormDelegate) {
+    init(savedGame: SavedGame, platformName: String, gameForm: GameForm, formDelegate: FormDelegate) {
         super.init()
         self.position = 0
         
@@ -28,7 +28,7 @@ final class EditGameDetailsSection: Section {
                 SegmentItemViewModel(title: GameFormat.digital.text, image: GameFormat.digital.image)
             ],
             formType: GameFormType.isPhysical,
-            value: savedGame.isPhysical ? GameFormat.physical.text : GameFormat.digital.text,
+            value: gameForm.isPhysical ? GameFormat.physical.text : GameFormat.digital.text,
             formDelegate: formDelegate
         )
         self.cellsVM.append(isPhysicalCellVM)
@@ -36,12 +36,12 @@ final class EditGameDetailsSection: Section {
         let yearOfAcquisitionCellVM = TextFieldCellViewModel(
             placeholder: L10n.yearOfAcquisition,
             formType: GameFormType.yearOfAcquisition,
-            value: savedGame.acquisitionYear,
+            value: gameForm.acquisitionYear,
             formDelegate: formDelegate
         )
         self.cellsVM.append(yearOfAcquisitionCellVM)
         
-        if savedGame.isPhysical {
+        if gameForm.isPhysical {
             let conditionCellVM = TextFieldCellViewModel(
                 placeholder: L10n.condition,
                 formType: GameFormType.gameCondition(
@@ -54,7 +54,7 @@ final class EditGameDetailsSection: Section {
                         }]
                     )
                 ),
-                value: savedGame.gameCondition?.value,
+                value: gameForm.gameCondition?.value,
                 formDelegate: formDelegate
             )
             self.cellsVM.append(conditionCellVM)
@@ -71,7 +71,7 @@ final class EditGameDetailsSection: Section {
                         }]
                     )
                 ),
-                value: savedGame.gameCompleteness?.value,
+                value: gameForm.gameCompleteness?.value,
                 formDelegate: formDelegate
             )
             self.cellsVM.append(completenessCellVM)
@@ -83,7 +83,7 @@ final class EditGameDetailsSection: Section {
                         data: [GameRegion.allCases.map { $0.value }]
                     )
                 ),
-                value: savedGame.gameRegion?.value,
+                value: gameForm.gameRegion?.value,
                 formDelegate: formDelegate
             )
             self.cellsVM.append(regionCellVM)
@@ -91,7 +91,7 @@ final class EditGameDetailsSection: Section {
             let storageAreaCellVM = TextFieldCellViewModel(
                 placeholder: L10n.storageArea,
                 formType: GameFormType.storageArea,
-                value: savedGame.storageArea,
+                value: gameForm.storageArea,
                 formDelegate: formDelegate
             )
             self.cellsVM.append(storageAreaCellVM)
@@ -100,7 +100,7 @@ final class EditGameDetailsSection: Section {
         let personalRatingCellVM = StarRatingCellViewModel(
             title: L10n.personalRating,
             formType: GameFormType.rating,
-            value: savedGame.rating,
+            value: gameForm.rating,
             formDelegate: formDelegate
         )
         self.cellsVM.append(personalRatingCellVM)
@@ -108,7 +108,7 @@ final class EditGameDetailsSection: Section {
         let otherDetailsCellVM = TextViewCellViewModel(
             title: L10n.otherDetails,
             formType: GameFormType.notes,
-            value: savedGame.notes,
+            value: gameForm.notes,
             formDelegate: formDelegate
         )
         self.cellsVM.append(otherDetailsCellVM)

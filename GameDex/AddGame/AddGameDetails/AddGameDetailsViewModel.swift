@@ -52,7 +52,7 @@ final class AddGameDetailsViewModel: CollectionViewModel {
             gameCompleteness: nil,
             gameRegion: nil,
             storageArea: nil,
-            rating: nil,
+            rating: .zero,
             notes: nil
             )
     }
@@ -77,7 +77,6 @@ final class AddGameDetailsViewModel: CollectionViewModel {
 
 extension AddGameDetailsViewModel: PrimaryButtonDelegate {
     func didTapPrimaryButton(with title: String?) async {
-        self.updateGameForm()
         guard let gameToSave = self.getGameToSave() else { return }
         
         guard let userId = self.authenticationService.getUserId() else {
@@ -91,8 +90,48 @@ extension AddGameDetailsViewModel: PrimaryButtonDelegate {
 
 // MARK: - FormDelegate
 extension AddGameDetailsViewModel: FormDelegate {
-    func enableSaveButtonIfNeeded() {
-        self.updateGameForm()
+    func didUpdate(value: Any, for type: any FormType) {
+        guard let formType = type as? GameFormType else {
+            return
+        }
+        switch formType {
+        case .yearOfAcquisition:
+            self.gameForm.acquisitionYear = value as? String
+        case .gameCondition(_):
+            if let stringValue = value as? String {
+                self.gameForm.gameCondition = GameCondition.getRawValue(
+                    value: stringValue
+                )
+            }
+        case .gameCompleteness(_):
+            if let stringValue = value as? String {
+                self.gameForm.gameCompleteness = GameCompleteness.getRawValue(
+                    value: stringValue
+                )
+            }
+        case .gameRegion(_):
+            if let stringValue = value as? String {
+                self.gameForm.gameRegion = GameRegion.getRawValue(
+                    value: stringValue
+                )
+            }
+        case .storageArea:
+            self.gameForm.storageArea = value as? String
+        case .rating:
+            self.gameForm.rating = value as? Int ?? .zero
+        case .notes:
+            self.gameForm.notes = value as? String
+        case .isPhysical:
+            let stringValue = value as? String
+            switch stringValue {
+            case GameFormat.physical.text:
+                self.gameForm.isPhysical = true
+            case GameFormat.digital.text:
+                self.gameForm.isPhysical = false
+            default:
+                break
+            }
+        }
     }
     
     func refreshSectionsDependingOnGameFormat() {
@@ -118,79 +157,6 @@ private extension AddGameDetailsViewModel {
             position: .bottom
         )
         self.containerDelegate?.configureSupplementaryView(contentViewFactory: buttonContentViewFactory)
-    }
-    
-    func updateGameForm() {
-        guard let firstSection = self.sections.first,
-              let formCellsVM = firstSection.cellsVM.filter({ cellVM in
-                  return cellVM is (any FormCellViewModel)
-              }) as? [any FormCellViewModel] else {
-            return
-        }
-        
-        var acquisitionYear, storageArea, notes: String?
-        var rating: Int?
-        var gameCondition: GameCondition?
-        var gameCompleteness: GameCompleteness?
-        var gameRegion: GameRegion?
-        var isPhysical: Bool = true
-        
-        for formCellVM in formCellsVM {
-            guard let formType = formCellVM.formType as? GameFormType else { return }
-            switch formType {
-            case .yearOfAcquisition:
-                acquisitionYear = formCellVM.value as? String
-            case .gameCondition(_):
-                if let conditionText = formCellVM.value as? String {
-                    gameCondition = GameCondition.getRawValue(
-                        value: conditionText
-                    )
-                }
-            case .gameCompleteness(_):
-                if let completenessText = formCellVM.value as? String {
-                    gameCompleteness = GameCompleteness.getRawValue(
-                        value: completenessText
-                    )
-                }
-            case .gameRegion(_):
-                if let regionText = formCellVM.value as? String {
-                    gameRegion = GameRegion.getRawValue(
-                        value: regionText
-                    )
-                }
-            case .storageArea:
-                storageArea = formCellVM.value as? String
-            case .rating:
-                rating = formCellVM.value as? Int
-            case .notes:
-                notes = formCellVM.value as? String
-            case .isPhysical:
-                let isPhysicalText = formCellVM.value as? String
-                switch isPhysicalText {
-                case GameFormat.physical.text:
-                    isPhysical = true
-                case GameFormat.digital.text:
-                    isPhysical = false
-                default:
-                    break
-                }
-            }
-        }
-        
-        if rating == nil {
-            rating = .zero
-        }
-        
-        self.gameForm = GameForm(
-            isPhysical: isPhysical,
-            acquisitionYear: acquisitionYear,
-            gameCondition: gameCondition,
-            gameCompleteness: gameCompleteness,
-            gameRegion: gameRegion,
-            storageArea: storageArea,
-            rating: rating,
-            notes: notes
-        )
     }
 
     func getGameToSave() -> SavedGame? {

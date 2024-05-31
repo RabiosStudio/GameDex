@@ -55,4 +55,9 @@ protocol FormCellViewModel {
 protocol FormDelegate: AnyObject {
     func enableSaveButtonIfNeeded()
     func refreshSectionsDependingOnGameFormat()
+    func didUpdate(value: Any, for type: FormType)
+}
+
+extension FormDelegate {
+    func enableSaveButtonIfNeeded() {}
 }

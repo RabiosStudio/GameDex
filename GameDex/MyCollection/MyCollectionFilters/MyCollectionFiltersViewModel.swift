@@ -139,6 +139,8 @@ final class MyCollectionFiltersViewModel: CollectionViewModel {
 }
 
 extension MyCollectionFiltersViewModel: FormDelegate {
+    func didUpdate(value: Any, for type: any FormType) {}
+    
     func enableSaveButtonIfNeeded() {
         self.configureBottomView(shouldEnableButton: true)
     }

@@ -7,13 +7,13 @@
 
 import Foundation
 
-struct GameForm {
-    let isPhysical: Bool
-    let acquisitionYear: String?
-    let gameCondition: GameCondition?
-    let gameCompleteness: GameCompleteness?
-    let gameRegion: GameRegion?
-    let storageArea: String?
-    let rating: Int?
-    let notes: String?
+struct GameForm: Equatable {
+    var isPhysical: Bool
+    var acquisitionYear: String?
+    var gameCondition: GameCondition?
+    var gameCompleteness: GameCompleteness?
+    var gameRegion: GameRegion?
+    var storageArea: String?
+    var rating: Int
+    var notes: String?
 }
