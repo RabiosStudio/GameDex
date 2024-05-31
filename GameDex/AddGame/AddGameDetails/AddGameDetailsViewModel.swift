@@ -22,6 +22,7 @@ final class AddGameDetailsViewModel: CollectionViewModel {
     
     private let game: Game
     private let platform: Platform
+    private var gameForm: GameForm
     private let localDatabase: LocalDatabase
     private let cloudDatabase: CloudDatabase
     private let alertDisplayer: AlertDisplayer
@@ -39,20 +40,25 @@ final class AddGameDetailsViewModel: CollectionViewModel {
         self.progress = DesignSystem.fullProgress
         self.game = game
         self.platform = platform
-        self.sections = [
-            AddGameDetailsSection(
-                game: self.game,
-                platform: self.platform
-            )
-        ]
         self.localDatabase = localDatabase
         self.cloudDatabase = cloudDatabase
         self.myCollectionDelegate = myCollectionDelegate
         self.alertDisplayer = alertDisplayer
         self.authenticationService = authenticationService
+        self.gameForm = GameForm(
+            isPhysical: true,
+            acquisitionYear: nil,
+            gameCondition: nil,
+            gameCompleteness: nil,
+            gameRegion: nil,
+            storageArea: nil,
+            rating: nil,
+            notes: nil
+            )
     }
     
     func loadData(callback: @escaping (EmptyError?) -> ()) {
+        self.updateSections(gameForm: self.gameForm)
         self.configureBottomView()
         callback(nil)
     }
@@ -71,7 +77,8 @@ final class AddGameDetailsViewModel: CollectionViewModel {
 
 extension AddGameDetailsViewModel: PrimaryButtonDelegate {
     func didTapPrimaryButton(with title: String?) async {
-        guard let gameToSave = getGameToSave() else { return }
+        self.updateGameForm()
+        guard let gameToSave = self.getGameToSave() else { return }
         
         guard let userId = self.authenticationService.getUserId() else {
             await self.saveInLocal(gameToSave: gameToSave)
@@ -79,6 +86,18 @@ extension AddGameDetailsViewModel: PrimaryButtonDelegate {
         }
         
         await self.saveInCloud(userId: userId, gameToSave: gameToSave)
+    }
+}
+
+// MARK: - FormDelegate
+extension AddGameDetailsViewModel: FormDelegate {
+    func enableSaveButtonIfNeeded() {
+        self.updateGameForm()
+    }
+    
+    func refreshSectionsDependingOnGameFormat() {
+        self.updateSections(gameForm: self.gameForm)
+        self.containerDelegate?.reloadSections(emptyError: nil)
     }
 }
 
@@ -100,13 +119,13 @@ private extension AddGameDetailsViewModel {
         )
         self.containerDelegate?.configureSupplementaryView(contentViewFactory: buttonContentViewFactory)
     }
-
-    func getGameToSave() -> SavedGame? {
+    
+    func updateGameForm() {
         guard let firstSection = self.sections.first,
               let formCellsVM = firstSection.cellsVM.filter({ cellVM in
                   return cellVM is (any FormCellViewModel)
               }) as? [any FormCellViewModel] else {
-            return nil
+            return
         }
         
         var acquisitionYear, storageArea, notes: String?
@@ -117,7 +136,7 @@ private extension AddGameDetailsViewModel {
         var isPhysical: Bool = true
         
         for formCellVM in formCellsVM {
-            guard let formType = formCellVM.formType as? GameFormType else { return nil }
+            guard let formType = formCellVM.formType as? GameFormType else { return }
             switch formType {
             case .yearOfAcquisition:
                 acquisitionYear = formCellVM.value as? String
@@ -162,18 +181,40 @@ private extension AddGameDetailsViewModel {
             rating = .zero
         }
         
-        return SavedGame(
-            game: self.game,
+        self.gameForm = GameForm(
+            isPhysical: isPhysical,
             acquisitionYear: acquisitionYear,
             gameCondition: gameCondition,
             gameCompleteness: gameCompleteness,
             gameRegion: gameRegion,
             storageArea: storageArea,
             rating: rating,
-            notes: notes,
-            lastUpdated: Date(), 
-            isPhysical: isPhysical
+            notes: notes
         )
+    }
+
+    func getGameToSave() -> SavedGame? {
+        return SavedGame(
+            game: self.game,
+            acquisitionYear: self.gameForm.acquisitionYear,
+            gameCondition: self.gameForm.isPhysical ? self.gameForm.gameCondition : nil,
+            gameCompleteness: self.gameForm.isPhysical ? self.gameForm.gameCompleteness : nil,
+            gameRegion: self.gameForm.isPhysical ? self.gameForm.gameRegion : nil,
+            storageArea: self.gameForm.isPhysical ? self.gameForm.storageArea : nil,
+            rating: self.gameForm.rating,
+            notes: self.gameForm.notes,
+            lastUpdated: Date(),
+            isPhysical: self.gameForm.isPhysical
+        )
+    }
+    
+    func updateSections(gameForm: GameForm ) {
+        self.sections = [AddGameDetailsSection(
+            game: self.game,
+            platform: self.platform,
+            gameForm: gameForm,
+            formDelegate: self
+        )]
     }
     
     func saveInLocal(gameToSave: SavedGame) async {

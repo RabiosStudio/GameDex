@@ -18,10 +18,10 @@ final class EditGameDetailsViewModel: CollectionViewModel {
     var layoutMargins: UIEdgeInsets?
     
     private let savedGame: SavedGame
+    private var gameForm: GameForm
     private let localDatabase: LocalDatabase
     private let cloudDatabase: CloudDatabase
     private var alertDisplayer: AlertDisplayer
-    private let savedValues: [Any?]
     private let platform: Platform
     private let authenticationService: AuthenticationService
     
@@ -39,17 +39,17 @@ final class EditGameDetailsViewModel: CollectionViewModel {
         authenticationService: AuthenticationService
     ) {
         self.savedGame = savedGame
-        self.savedValues = [
-            self.savedGame.isPhysical ? GameFormat.physical.text : GameFormat.digital.text,
-            self.savedGame.acquisitionYear,
-            self.savedGame.gameCondition?.value,
-            self.savedGame.gameCompleteness?.value,
-            self.savedGame.gameRegion?.value,
-            self.savedGame.storageArea,
-            self.savedGame.rating,
-            self.savedGame.notes
-        ]
         self.platform = platform
+        self.gameForm = GameForm(
+            isPhysical: savedGame.isPhysical,
+            acquisitionYear: savedGame.acquisitionYear,
+            gameCondition: savedGame.gameCondition,
+            gameCompleteness: savedGame.gameCompleteness,
+            gameRegion: savedGame.gameRegion,
+            storageArea: savedGame.storageArea,
+            rating: savedGame.rating,
+            notes: savedGame.notes
+        )
         self.localDatabase = localDatabase
         self.cloudDatabase = cloudDatabase
         self.authenticationService = authenticationService
@@ -72,18 +72,11 @@ final class EditGameDetailsViewModel: CollectionViewModel {
             break
         }
     }
-    
-    private func updateSections(with savedGame: SavedGame) {
-        self.sections = [EditGameDetailsSection(
-            savedGame: savedGame,
-            platformName: self.platform.title,
-            formDelegate: self
-        )]
-    }
 }
 
 extension EditGameDetailsViewModel: PrimaryButtonDelegate {
     func didTapPrimaryButton(with title: String?) async {
+        self.updateGameForm()
         guard let gameToSave = self.getGameToSave() else { return }
         
         guard let userId = self.authenticationService.getUserId() else {
@@ -105,36 +98,17 @@ extension EditGameDetailsViewModel: FormDelegate {
     }
     
     func enableSaveButtonIfNeeded() {
-        guard let firstSection = self.sections.first,
-              let formCellsVM = firstSection.cellsVM.filter({ cellVM in
-                  return cellVM is (any FormCellViewModel)
-              }) as? [any FormCellViewModel] else {
-            return
-        }
-        
-        let currentValues: [Any?] = formCellsVM.map { $0.value }
-        guard currentValues.count == savedValues.count else {
-            return
-        }
+        self.updateGameForm()
         
         var shouldEnableButton = false
-        for index in 0..<savedValues.count {
-            let savedValue = self.savedValues[index]
-            let currentValue = currentValues[index]
-            
-            if currentValue == nil && savedValue != nil || currentValue != nil && savedValue == nil {
-                shouldEnableButton = true
-            } else if let savedStringValue = savedValue as? String,
-                      let currentStringValue = currentValue as? String {
-                shouldEnableButton = savedStringValue != currentStringValue
-            } else if let savedIntValue = savedValue as? Int,
-                      let currentIntValue = currentValue as? Int {
-                shouldEnableButton = savedIntValue != currentIntValue
-            } 
-            if shouldEnableButton {
-                break
-            }
+        if self.gameForm.isPhysical != self.savedGame.isPhysical {
+            shouldEnableButton = true
+        } else if self.gameForm.isPhysical == self.savedGame.isPhysical && self.gameForm.acquisitionYear != self.savedGame.acquisitionYear || self.gameForm.gameCompleteness != self.savedGame.gameCompleteness || self.gameForm.gameCondition != self.savedGame.gameCondition || self.gameForm.gameRegion != self.savedGame.gameRegion || self.gameForm.notes != self.savedGame.notes || self.gameForm.rating != self.savedGame.rating || self.gameForm.storageArea != self.savedGame.storageArea {
+            shouldEnableButton = true
+        } else {
+            shouldEnableButton = false
         }
+        
         self.configureBottomView(shouldEnableButton: shouldEnableButton)
     }
 }
@@ -150,6 +124,14 @@ extension EditGameDetailsViewModel: AlertDisplayerDelegate {
 }
 
 private extension EditGameDetailsViewModel {
+    func updateSections(with savedGame: SavedGame) {
+        self.sections = [EditGameDetailsSection(
+            savedGame: savedGame,
+            platformName: self.platform.title,
+            formDelegate: self
+        )]
+    }
+    
     func presentAlertBeforeDeletingGame() {
         self.alertDisplayer.presentBasicAlert(
             parameters: AlertViewModel(
@@ -188,12 +170,12 @@ private extension EditGameDetailsViewModel {
         self.containerDelegate?.configureSupplementaryView(contentViewFactory: buttonContentViewFactory)
     }
     
-    func getGameToSave() -> SavedGame? {
+    func updateGameForm() {
         guard let firstSection = self.sections.first,
               let formCellsVM = firstSection.cellsVM.filter({ cellVM in
                   return cellVM is (any FormCellViewModel)
               }) as? [any FormCellViewModel] else {
-            return nil
+            return
         }
         
         var acquisitionYear, storageArea, notes: String?
@@ -204,7 +186,7 @@ private extension EditGameDetailsViewModel {
         var isPhysical: Bool = true
         
         for formCellVM in formCellsVM {
-            guard let formType = formCellVM.formType as? GameFormType else { return nil }
+            guard let formType = formCellVM.formType as? GameFormType else { return }
             switch formType {
             case .yearOfAcquisition:
                 acquisitionYear = formCellVM.value as? String
@@ -245,17 +227,30 @@ private extension EditGameDetailsViewModel {
             }
         }
         
-        return SavedGame(
-            game: self.savedGame.game,
+        self.gameForm = GameForm(
+            isPhysical: isPhysical,
             acquisitionYear: acquisitionYear,
             gameCondition: gameCondition,
             gameCompleteness: gameCompleteness,
             gameRegion: gameRegion,
             storageArea: storageArea,
             rating: rating,
-            notes: notes,
-            lastUpdated: Date(), 
-            isPhysical: isPhysical
+            notes: notes
+        )
+    }
+    
+    func getGameToSave() -> SavedGame? {
+        return SavedGame(
+            game: self.savedGame.game,
+            acquisitionYear: self.gameForm.acquisitionYear,
+            gameCondition: self.gameForm.isPhysical ? self.gameForm.gameCondition : nil,
+            gameCompleteness: self.gameForm.isPhysical ? self.gameForm.gameCompleteness : nil,
+            gameRegion: self.gameForm.isPhysical ? self.gameForm.gameRegion : nil,
+            storageArea: self.gameForm.isPhysical ? self.gameForm.storageArea : nil,
+            rating: self.gameForm.rating,
+            notes: self.gameForm.notes,
+            lastUpdated: Date(),
+            isPhysical: self.gameForm.isPhysical
         )
     }
     
