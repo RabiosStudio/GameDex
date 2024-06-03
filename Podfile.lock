@@ -629,6 +629,7 @@ PODS:
     - abseil/base/config
     - abseil/meta/type_traits
   - Alamofire (5.7.1)
+  - BetterSegmentedControl (2.0.1)
   - BoringSSL-GRPC (0.0.24):
     - BoringSSL-GRPC/Implementation (= 0.0.24)
     - BoringSSL-GRPC/Interface (= 0.0.24)
@@ -799,6 +800,7 @@ PODS:
 
 DEPENDENCIES:
   - Alamofire
+  - BetterSegmentedControl
   - Cosmos (~> 23.0)
   - DTTextField
   - EmptyDataSet-Swift (~> 5.0.0)
@@ -819,6 +821,7 @@ SPEC REPOS:
   trunk:
     - abseil
     - Alamofire
+    - BetterSegmentedControl
     - BoringSSL-GRPC
     - Cosmos
     - DTTextField
@@ -865,6 +868,7 @@ CHECKOUT OPTIONS:
 SPEC CHECKSUMS:
   abseil: 926fb7a82dc6d2b8e1f2ed7f3a718bce691d1e46
   Alamofire: 0123a34370cb170936ae79a8df46cc62b2edeb88
+  BetterSegmentedControl: 09607b27861d49cbce48b7673b74f9150a3d371a
   BoringSSL-GRPC: 3175b25143e648463a56daeaaa499c6cb86dad33
   Cosmos: b5c6a9a637e28a061b54c8f8b1d8529d7d4db73f
   DTTextField: 768d5991211599145f289971e5936f8bb29990bb
@@ -899,6 +903,6 @@ SPEC CHECKSUMS:
   SwiftyMocky: 014739247afadb65efb5bb92ede32c22b9365762
   SwiftyTextView: be873b6b426d148fef9e2a341b3c5989b167572b
 
-PODFILE CHECKSUM: 9eac306adb8b0b8024b0290abdb2cca6a7953328
+PODFILE CHECKSUM: b01aac69aa36591b99000305613b347faa4fe48c
 
 COCOAPODS: 1.12.1

@@ -36,9 +36,8 @@ final class AddGameDetailsViewModelTests: XCTestCase {
         )
         
         // Then
-        XCTAssertEqual(viewModel.sections.count, 1)
-        XCTAssertEqual(viewModel.numberOfSections(), 1)
-        XCTAssertEqual(viewModel.numberOfItems(in: .zero), 8)
+        XCTAssertEqual(viewModel.sections.count, .zero)
+        XCTAssertEqual(viewModel.numberOfSections(), .zero)
     }
     
     func test_loadData_ThenCallBackIsCalled() {
@@ -243,7 +242,6 @@ final class AddGameDetailsViewModelTests: XCTestCase {
                 userId: .any,
                 game: .any,
                 platform: .any,
-                editingEntry: .value(false),
                 willReturn: nil
             )
         )
@@ -307,7 +305,6 @@ final class AddGameDetailsViewModelTests: XCTestCase {
                 userId: .any,
                 game: .any,
                 platform: .any,
-                editingEntry: .value(false),
                 willReturn: DatabaseError.saveError
             )
         )
@@ -364,7 +361,6 @@ final class AddGameDetailsViewModelTests: XCTestCase {
                 userId: .any,
                 game: .any,
                 platform: .any,
-                editingEntry: .value(false),
                 willReturn: DatabaseError.itemAlreadySaved
             )
         )

@@ -44,7 +44,7 @@ extension LocalDatabaseImpl {
             }
             if platformResult.gamesArray.contains(
                 where: { aGame in
-                    aGame.title == newEntity.game.title
+                    aGame.title == newEntity.game.title && aGame.isPhysical == newEntity.isPhysical
                 }
             ) {
                 return DatabaseError.itemAlreadySaved
@@ -128,6 +128,7 @@ extension LocalDatabaseImpl {
             gameToReplace.notes = savedGame.notes
             gameToReplace.rating = Int16(savedGame.rating ?? .zero)
             gameToReplace.storageArea = savedGame.storageArea
+            gameToReplace.isPhysical = savedGame.isPhysical
             
             // Save the context
             guard await self.coreDataStack.saveContext(self.managedObjectContext) == nil else {

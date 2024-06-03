@@ -17,7 +17,7 @@ class FirestoreDatabase: CloudDatabase {
     }
     
     func getAvailablePlatforms() async -> Result<[Platform], DatabaseError> {
-        let fetchedPlatformsResult = await self.firestoreSession.getData(mainPath: Collections.searchPlatform.path)
+        let fetchedPlatformsResult = await self.firestoreSession.getData(mainPath: Collections.searchPlatform.path, condition: nil)
         
         var platforms = [Platform]()
         switch fetchedPlatformsResult {
@@ -48,7 +48,7 @@ class FirestoreDatabase: CloudDatabase {
     }
     
     func getSinglePlatformCollection(userId: String, platform: Platform) async -> Result<Platform, DatabaseError> {
-        let fetchedGamesResult = await self.firestoreSession.getData(mainPath: Collections.userGames(userId, "\(platform.id)").path)
+        let fetchedGamesResult = await self.firestoreSession.getData(mainPath: Collections.userGames(userId, "\(platform.id)").path, condition: nil)
         switch fetchedGamesResult {
         case let .success(fetchedGames):
             var savedGames = [SavedGame]()
@@ -72,7 +72,7 @@ class FirestoreDatabase: CloudDatabase {
     }
     
     func getUserCollection(userId: String) async -> Result<[Platform], DatabaseError> {
-        let fetchedPlatformsResult = await self.firestoreSession.getData(mainPath: Collections.userPlatforms(userId).path)
+        let fetchedPlatformsResult = await self.firestoreSession.getData(mainPath: Collections.userPlatforms(userId).path, condition: nil)
         switch fetchedPlatformsResult {
         case let .success(fetchedPlatforms):
             var platforms = [Platform]()
@@ -149,12 +149,18 @@ class FirestoreDatabase: CloudDatabase {
     }
     
     func gameIsInDatabase(userId: String, savedGame: SavedGame) async -> Result<Bool, DatabaseError> {
-        let fetchedGamesResult = await self.firestoreSession.getData(mainPath: Collections.userGames(userId, "\(savedGame.game.platformId)").path)
+        let fetchedGamesResult = await self.firestoreSession.getData(mainPath: Collections.userGames(userId, "\(savedGame.game.platformId)").path, condition: nil)
         switch fetchedGamesResult {
         case let .success(fetchedGames):
             for item in fetchedGames {
-                if item.id == savedGame.game.id {
-                    return .success(true)
+                guard let fetchedGameId = item.data[Attributes.id.rawValue] as? String,
+                      fetchedGameId != savedGame.game.id else {
+                    guard let gameFormatNumber  = item.data[Attributes.isPhysical.rawValue] as? Int,
+                          let savedGameFormatNumber = savedGame.isPhysical ? 1 : .zero,
+                          gameFormatNumber != savedGameFormatNumber else {
+                        return .success(true)
+                    }
+                    continue
                 }
             }
             return .success(false)
@@ -163,17 +169,30 @@ class FirestoreDatabase: CloudDatabase {
         }
     }
     
-    func saveGame(userId: String, game: SavedGame, platform: Platform, editingEntry: Bool) async -> DatabaseError? {
-        if !editingEntry {
-            let fetchResult = await self.gameIsInDatabase(userId: userId, savedGame: game)
-            switch fetchResult {
-            case let .success(platform):
-                guard platform == false else {
-                    return DatabaseError.itemAlreadySaved
-                }
-            case .failure:
-                break
+    func replaceGame(userId: String, newGame: SavedGame, oldGame: SavedGame, platform: Platform) async -> DatabaseError? {
+        let fetchGameUUIDResult = await self.getGameUUID(userId: userId, newGame: newGame, oldGame: oldGame)
+        switch fetchGameUUIDResult {
+        case let .success(fetchedGameUUID):
+            let gameUUID = fetchedGameUUID
+            let gameData: FirestoreData = self.convert(game: newGame, gameUUID: gameUUID, platform: platform)
+            guard await self.firestoreSession.setData(path: Collections.userGames(userId, "\(newGame.game.platformId)").path, firestoreData: gameData) == nil else {
+                return DatabaseError.saveError
             }
+        case let .failure(error):
+            return error
+        }
+        return nil
+    }
+    
+    func saveGame(userId: String, game: SavedGame, platform: Platform) async -> DatabaseError? {
+        let gameIsInDatabaseFetchResult = await self.gameIsInDatabase(userId: userId, savedGame: game)
+        switch gameIsInDatabaseFetchResult {
+        case let .success(gameIsInDatabase):
+            guard gameIsInDatabase == false else {
+                return DatabaseError.itemAlreadySaved
+            }
+        case .failure:
+            break
         }
         guard await self.savePlatform(userId: userId, platform: platform) == nil else {
             return DatabaseError.saveError
@@ -183,6 +202,54 @@ class FirestoreDatabase: CloudDatabase {
             return DatabaseError.saveError
         }
         return nil
+    }
+    
+    func getGameUUID(
+        userId: String,
+        newGame: SavedGame? = nil,
+        oldGame: SavedGame
+    ) async -> Result<String?, DatabaseError> {
+        let query = FirestoreQuery(
+            key: Attributes.id.rawValue,
+            value: oldGame.game.id
+        )
+        let fetchedGamesResult = await self.firestoreSession.getData(mainPath: Collections.userGames(userId, "\(oldGame.game.platformId)").path, condition: query)
+        switch fetchedGamesResult {
+        case let .success(fetchedGames):
+            guard fetchedGames.count <= 1 else {
+                // If there are more than 1 game with the same ID, it means that the game was saved with different game formats
+                for fetchedGame in fetchedGames {
+                    guard let newGame else {
+                        // No newGame defined, so the user is not trying to edit a game but deleting it instead.
+                        let result = self.isSameGame(savedGame: oldGame, firestoreGameData: fetchedGame)
+                        if result {
+                            return .success(fetchedGame.id)
+                        } else {
+                            break
+                        }
+                    }
+                    let fetchedGameFormatNumber  = fetchedGame.data[Attributes.isPhysical.rawValue] as? Int
+                    let newGameFormatNumber = newGame.isPhysical ? 1 : .zero
+                    let oldGameFormatNumber = oldGame.isPhysical ? 1 : .zero
+                    
+                    if fetchedGameFormatNumber == newGameFormatNumber && fetchedGameFormatNumber ==  oldGameFormatNumber {
+                        // The game format was not updated, we simply return the game UUID
+                        return .success(fetchedGame.id)
+                    }
+                }
+                // The format was updated but the collection already contains 2 formats of this game
+                return .failure(DatabaseError.itemAlreadySaved)
+            }
+            // Zero or one game in collection with matching ID
+            return fetchedGames.isEmpty ? .failure(DatabaseError.fetchError) : .success(fetchedGames.first?.id)
+        case .failure:
+            return .failure(DatabaseError.fetchError)
+        }
+    }
+    
+    func isSameGame(savedGame: SavedGame, firestoreGameData: FirestoreData) -> Bool {
+        let fetchedGame = self.convert(firestoreData: firestoreGameData)
+        return fetchedGame == savedGame
     }
     
     func savePlatform(userId: String, platform: Platform) async -> DatabaseError? {
@@ -237,25 +304,32 @@ class FirestoreDatabase: CloudDatabase {
     }
     
     func removeGame(userId: String, platform: Platform, savedGame: SavedGame) async -> DatabaseError? {
-        guard await self.firestoreSession.deleteData(
-            path: Collections.userGames(userId, "\(savedGame.game.platformId)").path,
-            directory: savedGame.game.id
-        ) == nil else {
-            return DatabaseError.removeError
-        }
-        // once game is deleted, we have to check if the platform still has other games. If not, then we delete the plaform from database.
-        let fetchPlatformResult = await self.getSinglePlatformCollection(userId: userId, platform: platform)
-        switch fetchPlatformResult {
-        case let .success(platform):
-            guard platform.games?.count != .zero else {
-                guard let error = await self.removePlatform(userId: userId, platform: platform) else {
-                    return nil
-                }
-                return error
+        let fetchGameUUIDResult = await self.getGameUUID(userId: userId, oldGame: savedGame)
+        switch fetchGameUUIDResult {
+        case let .success(fetchedGameUUID):
+            guard let gameUUID = fetchedGameUUID,
+                  await self.firestoreSession.deleteData(
+                      path: Collections.userGames(userId, "\(savedGame.game.platformId)").path,
+                      directory: gameUUID
+                  ) == nil else {
+                return DatabaseError.removeError
             }
-            return nil
-        case .failure:
-            return DatabaseError.removeError
+            // once game is deleted, we have to check if the platform still has other games. If not, then we delete the plaform from database.
+            let fetchPlatformResult = await self.getSinglePlatformCollection(userId: userId, platform: platform)
+            switch fetchPlatformResult {
+            case let .success(platform):
+                guard platform.games?.count != .zero else {
+                    guard let error = await self.removePlatform(userId: userId, platform: platform) else {
+                        return nil
+                    }
+                    return error
+                }
+                return nil
+            case .failure:
+                return DatabaseError.removeError
+            }
+        case let .failure(error):
+            return error
         }
     }
     
@@ -328,8 +402,9 @@ class FirestoreDatabase: CloudDatabase {
 
 // MARK: - Data convertion
 extension FirestoreDatabase {
-    func convert(game: SavedGame, platform: Platform) -> FirestoreData {
+    func convert(game: SavedGame, gameUUID: String? = nil, platform: Platform) -> FirestoreData {
         let gameData: [String: Any] = [
+            Attributes.id.rawValue: game.game.id,
             Attributes.title.rawValue: game.game.title,
             Attributes.description.rawValue: game.game.description,
             Attributes.imageUrl.rawValue: game.game.imageUrl,
@@ -345,7 +420,7 @@ extension FirestoreDatabase {
             Attributes.acquisitionYear.rawValue: game.acquisitionYear as Any,
             Attributes.isPhysical.rawValue: game.isPhysical as Bool
         ]
-        return FirestoreData(id: game.game.id, data: gameData)
+        return FirestoreData(id: gameUUID ?? UUID().uuidString, data: gameData)
     }
     
     func convert(firestoreData: FirestoreData) -> SavedGame? {
@@ -359,7 +434,8 @@ extension FirestoreDatabase {
               let storageArea = firestoreData.data[Attributes.storageArea.rawValue],
               let acquisitionYear = firestoreData.data[Attributes.acquisitionYear.rawValue],
               let rating = firestoreData.data[Attributes.rating.rawValue] as? Int,
-              let isPhysical = firestoreData.data[Attributes.isPhysical.rawValue] as? Bool else {
+              let isPhysical = firestoreData.data[Attributes.isPhysical.rawValue] as? Bool,
+              let id = firestoreData.data[Attributes.id.rawValue] as? String else {
             return nil
         }
         
@@ -384,7 +460,7 @@ extension FirestoreDatabase {
             game: Game(
                 title: title,
                 description: String(describing: description),
-                id: firestoreData.id,
+                id: id,
                 platformId: platformId,
                 imageUrl: String(describing: imageUrl),
                 releaseDate: releasedDate
@@ -408,7 +484,6 @@ private extension FirestoreDatabase {
         case searchPlatform
         case userPlatforms(String)
         case userGames(String, String)
-        case userGame(String, String, String)
         case users
         case apiKey
         case searchGamesApi
@@ -421,8 +496,6 @@ private extension FirestoreDatabase {
                 return "users/\(userId)/platforms"
             case let .userGames(userId, platformId):
                 return "users/\(userId)/platforms/\(platformId)/games"
-            case let .userGame(userId, platformId, gameId):
-                return "users/\(userId)/platforms/\(platformId)/games/\(gameId)"
             case .users:
                 return "users"
             case .apiKey:

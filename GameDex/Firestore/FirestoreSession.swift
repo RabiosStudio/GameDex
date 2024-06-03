@@ -9,7 +9,7 @@ import Foundation
 
 // sourcery: AutoMockable
 protocol FirestoreSession {
-    func getData(mainPath: String) async -> Result<[FirestoreData], DatabaseError>
+    func getData(mainPath: String, condition: FirestoreQuery?) async -> Result<[FirestoreData], DatabaseError>
     func getSingleData(path: String, directory: String) async -> Result<FirestoreData, DatabaseError>
     func setData(path: String, firestoreData: FirestoreData) async -> DatabaseError?
     func deleteData(path: String, directory: String) async -> DatabaseError? 

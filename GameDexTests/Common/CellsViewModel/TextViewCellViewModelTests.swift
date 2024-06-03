@@ -19,7 +19,7 @@ final class TextViewCellViewModelTests: XCTestCase {
             title: title,
             formType: GameFormType.notes,
             value: text,
-            editDelegate: EditFormDelegateMock()
+            formDelegate: FormDelegateMock()
         )
         
         // Then
@@ -30,12 +30,12 @@ final class TextViewCellViewModelTests: XCTestCase {
     
     func test_value_GivenValueChanged_ThenShouldCallEditFormDelegate() {
         // Given
-        let delegate = EditFormDelegateMock()
+        let delegate = FormDelegateMock()
         let cellVM = TextViewCellViewModel(
             title: "title",
             formType: GameFormType.notes,
             value: "text",
-            editDelegate: delegate
+            formDelegate: delegate
         )
         
         // When

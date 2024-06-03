@@ -14,7 +14,7 @@ struct SavedGame {
     let gameCompleteness: GameCompleteness?
     let gameRegion: GameRegion?
     let storageArea: String?
-    let rating: Int?
+    let rating: Int
     let notes: String?
     let lastUpdated: Date
     let isPhysical: Bool
