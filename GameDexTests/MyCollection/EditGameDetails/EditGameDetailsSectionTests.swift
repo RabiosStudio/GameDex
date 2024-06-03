@@ -15,11 +15,12 @@ final class EditGameDetailsSectionTests: XCTestCase {
         let section = EditGameDetailsSection(
             savedGame: MockData.savedGame,
             platformName: MockData.platform.title,
-            editDelegate: EditFormDelegateMock()
+            gameForm: MockData.gameForm,
+            formDelegate: FormDelegateMock()
         )
         
         // Then
-        XCTAssertEqual(section.cellsVM.count, 8)
+        XCTAssertEqual(section.cellsVM.count, 9)
         
         guard let gameCellVM = section.cellsVM.first as? ImageDescriptionCellViewModel else {
             XCTFail("Wrong type")
@@ -44,7 +45,7 @@ final class EditGameDetailsSectionTests: XCTestCase {
                 return
             }
             switch formType {
-            case .yearOfAcquisition:
+            case .acquisitionYear:
                 guard let acquisitionYearCellVM = formCellVM as? TextFieldCellViewModel else {
                     XCTFail("Wrong type")
                     return
@@ -130,6 +131,12 @@ final class EditGameDetailsSectionTests: XCTestCase {
                 }
                 XCTAssertEqual(notesCellVM.title, L10n.otherDetails)
                 XCTAssertEqual(notesCellVM.value, MockData.savedGame.notes)
+            case .isPhysical:
+                guard let isPhysicalCellVM = formCellVM as? SegmentedControlCellViewModel else {
+                    XCTFail("Wrong type")
+                    return
+                }
+                XCTAssertEqual(isPhysicalCellVM.value, MockData.savedGame.isPhysical ? L10n.physical : L10n.digital)
             }
         }
     }

@@ -40,7 +40,7 @@ final class AddGameDetailsSection: Section {
         
         let yearOfAcquisitionCellVM = TextFieldCellViewModel(
             placeholder: L10n.yearOfAcquisition,
-            formType: GameFormType.yearOfAcquisition,
+            formType: GameFormType.acquisitionYear,
             value: gameForm.acquisitionYear,
             formDelegate: formDelegate
         )

@@ -20,7 +20,7 @@ final class TextFieldCellViewModelTests: XCTestCase {
             placeholder: placeholder,
             formType: GameFormType.storageArea,
             value: text,
-            editDelegate: EditFormDelegateMock()
+            formDelegate: FormDelegateMock()
         )
         // Then
         XCTAssertEqual(cellVM.placeholder, "Some placeholder")

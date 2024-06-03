@@ -2166,6 +2166,20 @@ open class CloudDatabaseMock: CloudDatabase, Mock {
 		return __value
     }
 
+    open func getGameUUID(userId: String, newGame: SavedGame?, oldGame: SavedGame) -> Result<String?, DatabaseError> {
+        addInvocation(.m_getGameUUID__userId_userIdnewGame_newGameoldGame_oldGame(Parameter<String>.value(`userId`), Parameter<SavedGame?>.value(`newGame`), Parameter<SavedGame>.value(`oldGame`)))
+		let perform = methodPerformValue(.m_getGameUUID__userId_userIdnewGame_newGameoldGame_oldGame(Parameter<String>.value(`userId`), Parameter<SavedGame?>.value(`newGame`), Parameter<SavedGame>.value(`oldGame`))) as? (String, SavedGame?, SavedGame) -> Void
+		perform?(`userId`, `newGame`, `oldGame`)
+		var __value: Result<String?, DatabaseError>
+		do {
+		    __value = try methodReturnValue(.m_getGameUUID__userId_userIdnewGame_newGameoldGame_oldGame(Parameter<String>.value(`userId`), Parameter<SavedGame?>.value(`newGame`), Parameter<SavedGame>.value(`oldGame`))).casted()
+		} catch {
+			onFatalFailure("Stub return value not specified for getGameUUID(userId: String, newGame: SavedGame?, oldGame: SavedGame). Use given")
+			Failure("Stub return value not specified for getGameUUID(userId: String, newGame: SavedGame?, oldGame: SavedGame). Use given")
+		}
+		return __value
+    }
+
     open func saveUser(userId: String, userEmail: String) -> DatabaseError? {
         addInvocation(.m_saveUser__userId_userIduserEmail_userEmail(Parameter<String>.value(`userId`), Parameter<String>.value(`userEmail`)))
 		let perform = methodPerformValue(.m_saveUser__userId_userIduserEmail_userEmail(Parameter<String>.value(`userId`), Parameter<String>.value(`userEmail`))) as? (String, String) -> Void
@@ -2205,13 +2219,13 @@ open class CloudDatabaseMock: CloudDatabase, Mock {
 		return __value
     }
 
-    open func saveGame(userId: String, game: SavedGame, platform: Platform, editingEntry: Bool) -> DatabaseError? {
-        addInvocation(.m_saveGame__userId_userIdgame_gameplatform_platformeditingEntry_editingEntry(Parameter<String>.value(`userId`), Parameter<SavedGame>.value(`game`), Parameter<Platform>.value(`platform`), Parameter<Bool>.value(`editingEntry`)))
-		let perform = methodPerformValue(.m_saveGame__userId_userIdgame_gameplatform_platformeditingEntry_editingEntry(Parameter<String>.value(`userId`), Parameter<SavedGame>.value(`game`), Parameter<Platform>.value(`platform`), Parameter<Bool>.value(`editingEntry`))) as? (String, SavedGame, Platform, Bool) -> Void
-		perform?(`userId`, `game`, `platform`, `editingEntry`)
+    open func saveGame(userId: String, game: SavedGame, platform: Platform) -> DatabaseError? {
+        addInvocation(.m_saveGame__userId_userIdgame_gameplatform_platform(Parameter<String>.value(`userId`), Parameter<SavedGame>.value(`game`), Parameter<Platform>.value(`platform`)))
+		let perform = methodPerformValue(.m_saveGame__userId_userIdgame_gameplatform_platform(Parameter<String>.value(`userId`), Parameter<SavedGame>.value(`game`), Parameter<Platform>.value(`platform`))) as? (String, SavedGame, Platform) -> Void
+		perform?(`userId`, `game`, `platform`)
 		var __value: DatabaseError? = nil
 		do {
-		    __value = try methodReturnValue(.m_saveGame__userId_userIdgame_gameplatform_platformeditingEntry_editingEntry(Parameter<String>.value(`userId`), Parameter<SavedGame>.value(`game`), Parameter<Platform>.value(`platform`), Parameter<Bool>.value(`editingEntry`))).casted()
+		    __value = try methodReturnValue(.m_saveGame__userId_userIdgame_gameplatform_platform(Parameter<String>.value(`userId`), Parameter<SavedGame>.value(`game`), Parameter<Platform>.value(`platform`))).casted()
 		} catch {
 			// do nothing
 		}
@@ -2240,6 +2254,33 @@ open class CloudDatabaseMock: CloudDatabase, Mock {
 		    __value = try methodReturnValue(.m_saveCollection__userId_userIdlocalDatabase_localDatabase(Parameter<String>.value(`userId`), Parameter<LocalDatabase>.value(`localDatabase`))).casted()
 		} catch {
 			// do nothing
+		}
+		return __value
+    }
+
+    open func replaceGame(userId: String, newGame: SavedGame, oldGame: SavedGame, platform: Platform) -> DatabaseError? {
+        addInvocation(.m_replaceGame__userId_userIdnewGame_newGameoldGame_oldGameplatform_platform(Parameter<String>.value(`userId`), Parameter<SavedGame>.value(`newGame`), Parameter<SavedGame>.value(`oldGame`), Parameter<Platform>.value(`platform`)))
+		let perform = methodPerformValue(.m_replaceGame__userId_userIdnewGame_newGameoldGame_oldGameplatform_platform(Parameter<String>.value(`userId`), Parameter<SavedGame>.value(`newGame`), Parameter<SavedGame>.value(`oldGame`), Parameter<Platform>.value(`platform`))) as? (String, SavedGame, SavedGame, Platform) -> Void
+		perform?(`userId`, `newGame`, `oldGame`, `platform`)
+		var __value: DatabaseError? = nil
+		do {
+		    __value = try methodReturnValue(.m_replaceGame__userId_userIdnewGame_newGameoldGame_oldGameplatform_platform(Parameter<String>.value(`userId`), Parameter<SavedGame>.value(`newGame`), Parameter<SavedGame>.value(`oldGame`), Parameter<Platform>.value(`platform`))).casted()
+		} catch {
+			// do nothing
+		}
+		return __value
+    }
+
+    open func isSameGame(savedGame: SavedGame, firestoreGameData: FirestoreData) -> Bool {
+        addInvocation(.m_isSameGame__savedGame_savedGamefirestoreGameData_firestoreGameData(Parameter<SavedGame>.value(`savedGame`), Parameter<FirestoreData>.value(`firestoreGameData`)))
+		let perform = methodPerformValue(.m_isSameGame__savedGame_savedGamefirestoreGameData_firestoreGameData(Parameter<SavedGame>.value(`savedGame`), Parameter<FirestoreData>.value(`firestoreGameData`))) as? (SavedGame, FirestoreData) -> Void
+		perform?(`savedGame`, `firestoreGameData`)
+		var __value: Bool
+		do {
+		    __value = try methodReturnValue(.m_isSameGame__savedGame_savedGamefirestoreGameData_firestoreGameData(Parameter<SavedGame>.value(`savedGame`), Parameter<FirestoreData>.value(`firestoreGameData`))).casted()
+		} catch {
+			onFatalFailure("Stub return value not specified for isSameGame(savedGame: SavedGame, firestoreGameData: FirestoreData). Use given")
+			Failure("Stub return value not specified for isSameGame(savedGame: SavedGame, firestoreGameData: FirestoreData). Use given")
 		}
 		return __value
     }
@@ -2329,12 +2370,15 @@ open class CloudDatabaseMock: CloudDatabase, Mock {
         case m_getSinglePlatformCollection__userId_userIdplatform_platform(Parameter<String>, Parameter<Platform>)
         case m_getUserCollection__userId_userId(Parameter<String>)
         case m_getAvailablePlatforms
+        case m_getGameUUID__userId_userIdnewGame_newGameoldGame_oldGame(Parameter<String>, Parameter<SavedGame?>, Parameter<SavedGame>)
         case m_saveUser__userId_userIduserEmail_userEmail(Parameter<String>, Parameter<String>)
         case m_saveUserEmail__userId_userIduserEmail_userEmail(Parameter<String>, Parameter<String>)
         case m_saveGames__userId_userIdplatform_platform(Parameter<String>, Parameter<Platform>)
-        case m_saveGame__userId_userIdgame_gameplatform_platformeditingEntry_editingEntry(Parameter<String>, Parameter<SavedGame>, Parameter<Platform>, Parameter<Bool>)
+        case m_saveGame__userId_userIdgame_gameplatform_platform(Parameter<String>, Parameter<SavedGame>, Parameter<Platform>)
         case m_savePlatform__userId_userIdplatform_platform(Parameter<String>, Parameter<Platform>)
         case m_saveCollection__userId_userIdlocalDatabase_localDatabase(Parameter<String>, Parameter<LocalDatabase>)
+        case m_replaceGame__userId_userIdnewGame_newGameoldGame_oldGameplatform_platform(Parameter<String>, Parameter<SavedGame>, Parameter<SavedGame>, Parameter<Platform>)
+        case m_isSameGame__savedGame_savedGamefirestoreGameData_firestoreGameData(Parameter<SavedGame>, Parameter<FirestoreData>)
         case m_gameIsInDatabase__userId_userIdsavedGame_savedGame(Parameter<String>, Parameter<SavedGame>)
         case m_removeGame__userId_userIdplatform_platformsavedGame_savedGame(Parameter<String>, Parameter<Platform>, Parameter<SavedGame>)
         case m_removeUser__userId_userId(Parameter<String>)
@@ -2359,6 +2403,13 @@ open class CloudDatabaseMock: CloudDatabase, Mock {
 
             case (.m_getAvailablePlatforms, .m_getAvailablePlatforms): return .match
 
+            case (.m_getGameUUID__userId_userIdnewGame_newGameoldGame_oldGame(let lhsUserid, let lhsNewgame, let lhsOldgame), .m_getGameUUID__userId_userIdnewGame_newGameoldGame_oldGame(let rhsUserid, let rhsNewgame, let rhsOldgame)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsUserid, rhs: rhsUserid, with: matcher), lhsUserid, rhsUserid, "userId"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsNewgame, rhs: rhsNewgame, with: matcher), lhsNewgame, rhsNewgame, "newGame"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsOldgame, rhs: rhsOldgame, with: matcher), lhsOldgame, rhsOldgame, "oldGame"))
+				return Matcher.ComparisonResult(results)
+
             case (.m_saveUser__userId_userIduserEmail_userEmail(let lhsUserid, let lhsUseremail), .m_saveUser__userId_userIduserEmail_userEmail(let rhsUserid, let rhsUseremail)):
 				var results: [Matcher.ParameterComparisonResult] = []
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsUserid, rhs: rhsUserid, with: matcher), lhsUserid, rhsUserid, "userId"))
@@ -2377,12 +2428,11 @@ open class CloudDatabaseMock: CloudDatabase, Mock {
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsPlatform, rhs: rhsPlatform, with: matcher), lhsPlatform, rhsPlatform, "platform"))
 				return Matcher.ComparisonResult(results)
 
-            case (.m_saveGame__userId_userIdgame_gameplatform_platformeditingEntry_editingEntry(let lhsUserid, let lhsGame, let lhsPlatform, let lhsEditingentry), .m_saveGame__userId_userIdgame_gameplatform_platformeditingEntry_editingEntry(let rhsUserid, let rhsGame, let rhsPlatform, let rhsEditingentry)):
+            case (.m_saveGame__userId_userIdgame_gameplatform_platform(let lhsUserid, let lhsGame, let lhsPlatform), .m_saveGame__userId_userIdgame_gameplatform_platform(let rhsUserid, let rhsGame, let rhsPlatform)):
 				var results: [Matcher.ParameterComparisonResult] = []
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsUserid, rhs: rhsUserid, with: matcher), lhsUserid, rhsUserid, "userId"))
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsGame, rhs: rhsGame, with: matcher), lhsGame, rhsGame, "game"))
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsPlatform, rhs: rhsPlatform, with: matcher), lhsPlatform, rhsPlatform, "platform"))
-				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsEditingentry, rhs: rhsEditingentry, with: matcher), lhsEditingentry, rhsEditingentry, "editingEntry"))
 				return Matcher.ComparisonResult(results)
 
             case (.m_savePlatform__userId_userIdplatform_platform(let lhsUserid, let lhsPlatform), .m_savePlatform__userId_userIdplatform_platform(let rhsUserid, let rhsPlatform)):
@@ -2395,6 +2445,20 @@ open class CloudDatabaseMock: CloudDatabase, Mock {
 				var results: [Matcher.ParameterComparisonResult] = []
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsUserid, rhs: rhsUserid, with: matcher), lhsUserid, rhsUserid, "userId"))
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsLocaldatabase, rhs: rhsLocaldatabase, with: matcher), lhsLocaldatabase, rhsLocaldatabase, "localDatabase"))
+				return Matcher.ComparisonResult(results)
+
+            case (.m_replaceGame__userId_userIdnewGame_newGameoldGame_oldGameplatform_platform(let lhsUserid, let lhsNewgame, let lhsOldgame, let lhsPlatform), .m_replaceGame__userId_userIdnewGame_newGameoldGame_oldGameplatform_platform(let rhsUserid, let rhsNewgame, let rhsOldgame, let rhsPlatform)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsUserid, rhs: rhsUserid, with: matcher), lhsUserid, rhsUserid, "userId"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsNewgame, rhs: rhsNewgame, with: matcher), lhsNewgame, rhsNewgame, "newGame"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsOldgame, rhs: rhsOldgame, with: matcher), lhsOldgame, rhsOldgame, "oldGame"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsPlatform, rhs: rhsPlatform, with: matcher), lhsPlatform, rhsPlatform, "platform"))
+				return Matcher.ComparisonResult(results)
+
+            case (.m_isSameGame__savedGame_savedGamefirestoreGameData_firestoreGameData(let lhsSavedgame, let lhsFirestoregamedata), .m_isSameGame__savedGame_savedGamefirestoreGameData_firestoreGameData(let rhsSavedgame, let rhsFirestoregamedata)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsSavedgame, rhs: rhsSavedgame, with: matcher), lhsSavedgame, rhsSavedgame, "savedGame"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsFirestoregamedata, rhs: rhsFirestoregamedata, with: matcher), lhsFirestoregamedata, rhsFirestoregamedata, "firestoreGameData"))
 				return Matcher.ComparisonResult(results)
 
             case (.m_gameIsInDatabase__userId_userIdsavedGame_savedGame(let lhsUserid, let lhsSavedgame), .m_gameIsInDatabase__userId_userIdsavedGame_savedGame(let rhsUserid, let rhsSavedgame)):
@@ -2442,12 +2506,15 @@ open class CloudDatabaseMock: CloudDatabase, Mock {
             case let .m_getSinglePlatformCollection__userId_userIdplatform_platform(p0, p1): return p0.intValue + p1.intValue
             case let .m_getUserCollection__userId_userId(p0): return p0.intValue
             case .m_getAvailablePlatforms: return 0
+            case let .m_getGameUUID__userId_userIdnewGame_newGameoldGame_oldGame(p0, p1, p2): return p0.intValue + p1.intValue + p2.intValue
             case let .m_saveUser__userId_userIduserEmail_userEmail(p0, p1): return p0.intValue + p1.intValue
             case let .m_saveUserEmail__userId_userIduserEmail_userEmail(p0, p1): return p0.intValue + p1.intValue
             case let .m_saveGames__userId_userIdplatform_platform(p0, p1): return p0.intValue + p1.intValue
-            case let .m_saveGame__userId_userIdgame_gameplatform_platformeditingEntry_editingEntry(p0, p1, p2, p3): return p0.intValue + p1.intValue + p2.intValue + p3.intValue
+            case let .m_saveGame__userId_userIdgame_gameplatform_platform(p0, p1, p2): return p0.intValue + p1.intValue + p2.intValue
             case let .m_savePlatform__userId_userIdplatform_platform(p0, p1): return p0.intValue + p1.intValue
             case let .m_saveCollection__userId_userIdlocalDatabase_localDatabase(p0, p1): return p0.intValue + p1.intValue
+            case let .m_replaceGame__userId_userIdnewGame_newGameoldGame_oldGameplatform_platform(p0, p1, p2, p3): return p0.intValue + p1.intValue + p2.intValue + p3.intValue
+            case let .m_isSameGame__savedGame_savedGamefirestoreGameData_firestoreGameData(p0, p1): return p0.intValue + p1.intValue
             case let .m_gameIsInDatabase__userId_userIdsavedGame_savedGame(p0, p1): return p0.intValue + p1.intValue
             case let .m_removeGame__userId_userIdplatform_platformsavedGame_savedGame(p0, p1, p2): return p0.intValue + p1.intValue + p2.intValue
             case let .m_removeUser__userId_userId(p0): return p0.intValue
@@ -2462,12 +2529,15 @@ open class CloudDatabaseMock: CloudDatabase, Mock {
             case .m_getSinglePlatformCollection__userId_userIdplatform_platform: return ".getSinglePlatformCollection(userId:platform:)"
             case .m_getUserCollection__userId_userId: return ".getUserCollection(userId:)"
             case .m_getAvailablePlatforms: return ".getAvailablePlatforms()"
+            case .m_getGameUUID__userId_userIdnewGame_newGameoldGame_oldGame: return ".getGameUUID(userId:newGame:oldGame:)"
             case .m_saveUser__userId_userIduserEmail_userEmail: return ".saveUser(userId:userEmail:)"
             case .m_saveUserEmail__userId_userIduserEmail_userEmail: return ".saveUserEmail(userId:userEmail:)"
             case .m_saveGames__userId_userIdplatform_platform: return ".saveGames(userId:platform:)"
-            case .m_saveGame__userId_userIdgame_gameplatform_platformeditingEntry_editingEntry: return ".saveGame(userId:game:platform:editingEntry:)"
+            case .m_saveGame__userId_userIdgame_gameplatform_platform: return ".saveGame(userId:game:platform:)"
             case .m_savePlatform__userId_userIdplatform_platform: return ".savePlatform(userId:platform:)"
             case .m_saveCollection__userId_userIdlocalDatabase_localDatabase: return ".saveCollection(userId:localDatabase:)"
+            case .m_replaceGame__userId_userIdnewGame_newGameoldGame_oldGameplatform_platform: return ".replaceGame(userId:newGame:oldGame:platform:)"
+            case .m_isSameGame__savedGame_savedGamefirestoreGameData_firestoreGameData: return ".isSameGame(savedGame:firestoreGameData:)"
             case .m_gameIsInDatabase__userId_userIdsavedGame_savedGame: return ".gameIsInDatabase(userId:savedGame:)"
             case .m_removeGame__userId_userIdplatform_platformsavedGame_savedGame: return ".removeGame(userId:platform:savedGame:)"
             case .m_removeUser__userId_userId: return ".removeUser(userId:)"
@@ -2499,6 +2569,9 @@ open class CloudDatabaseMock: CloudDatabase, Mock {
         public static func getAvailablePlatforms(willReturn: Result<[Platform], DatabaseError>...) -> MethodStub {
             return Given(method: .m_getAvailablePlatforms, products: willReturn.map({ StubProduct.return($0 as Any) }))
         }
+        public static func getGameUUID(userId: Parameter<String>, newGame: Parameter<SavedGame?>, oldGame: Parameter<SavedGame>, willReturn: Result<String?, DatabaseError>...) -> MethodStub {
+            return Given(method: .m_getGameUUID__userId_userIdnewGame_newGameoldGame_oldGame(`userId`, `newGame`, `oldGame`), products: willReturn.map({ StubProduct.return($0 as Any) }))
+        }
         public static func saveUser(userId: Parameter<String>, userEmail: Parameter<String>, willReturn: DatabaseError?...) -> MethodStub {
             return Given(method: .m_saveUser__userId_userIduserEmail_userEmail(`userId`, `userEmail`), products: willReturn.map({ StubProduct.return($0 as Any) }))
         }
@@ -2508,14 +2581,20 @@ open class CloudDatabaseMock: CloudDatabase, Mock {
         public static func saveGames(userId: Parameter<String>, platform: Parameter<Platform>, willReturn: DatabaseError?...) -> MethodStub {
             return Given(method: .m_saveGames__userId_userIdplatform_platform(`userId`, `platform`), products: willReturn.map({ StubProduct.return($0 as Any) }))
         }
-        public static func saveGame(userId: Parameter<String>, game: Parameter<SavedGame>, platform: Parameter<Platform>, editingEntry: Parameter<Bool>, willReturn: DatabaseError?...) -> MethodStub {
-            return Given(method: .m_saveGame__userId_userIdgame_gameplatform_platformeditingEntry_editingEntry(`userId`, `game`, `platform`, `editingEntry`), products: willReturn.map({ StubProduct.return($0 as Any) }))
+        public static func saveGame(userId: Parameter<String>, game: Parameter<SavedGame>, platform: Parameter<Platform>, willReturn: DatabaseError?...) -> MethodStub {
+            return Given(method: .m_saveGame__userId_userIdgame_gameplatform_platform(`userId`, `game`, `platform`), products: willReturn.map({ StubProduct.return($0 as Any) }))
         }
         public static func savePlatform(userId: Parameter<String>, platform: Parameter<Platform>, willReturn: DatabaseError?...) -> MethodStub {
             return Given(method: .m_savePlatform__userId_userIdplatform_platform(`userId`, `platform`), products: willReturn.map({ StubProduct.return($0 as Any) }))
         }
         public static func saveCollection(userId: Parameter<String>, localDatabase: Parameter<LocalDatabase>, willReturn: DatabaseError?...) -> MethodStub {
             return Given(method: .m_saveCollection__userId_userIdlocalDatabase_localDatabase(`userId`, `localDatabase`), products: willReturn.map({ StubProduct.return($0 as Any) }))
+        }
+        public static func replaceGame(userId: Parameter<String>, newGame: Parameter<SavedGame>, oldGame: Parameter<SavedGame>, platform: Parameter<Platform>, willReturn: DatabaseError?...) -> MethodStub {
+            return Given(method: .m_replaceGame__userId_userIdnewGame_newGameoldGame_oldGameplatform_platform(`userId`, `newGame`, `oldGame`, `platform`), products: willReturn.map({ StubProduct.return($0 as Any) }))
+        }
+        public static func isSameGame(savedGame: Parameter<SavedGame>, firestoreGameData: Parameter<FirestoreData>, willReturn: Bool...) -> MethodStub {
+            return Given(method: .m_isSameGame__savedGame_savedGamefirestoreGameData_firestoreGameData(`savedGame`, `firestoreGameData`), products: willReturn.map({ StubProduct.return($0 as Any) }))
         }
         public static func gameIsInDatabase(userId: Parameter<String>, savedGame: Parameter<SavedGame>, willReturn: Result<Bool, DatabaseError>...) -> MethodStub {
             return Given(method: .m_gameIsInDatabase__userId_userIdsavedGame_savedGame(`userId`, `savedGame`), products: willReturn.map({ StubProduct.return($0 as Any) }))
@@ -2563,6 +2642,13 @@ open class CloudDatabaseMock: CloudDatabase, Mock {
 			willProduce(stubber)
 			return given
         }
+        public static func getGameUUID(userId: Parameter<String>, newGame: Parameter<SavedGame?>, oldGame: Parameter<SavedGame>, willProduce: (Stubber<Result<String?, DatabaseError>>) -> Void) -> MethodStub {
+            let willReturn: [Result<String?, DatabaseError>] = []
+			let given: Given = { return Given(method: .m_getGameUUID__userId_userIdnewGame_newGameoldGame_oldGame(`userId`, `newGame`, `oldGame`), products: willReturn.map({ StubProduct.return($0 as Any) })) }()
+			let stubber = given.stub(for: (Result<String?, DatabaseError>).self)
+			willProduce(stubber)
+			return given
+        }
         public static func saveUser(userId: Parameter<String>, userEmail: Parameter<String>, willProduce: (Stubber<DatabaseError?>) -> Void) -> MethodStub {
             let willReturn: [DatabaseError?] = []
 			let given: Given = { return Given(method: .m_saveUser__userId_userIduserEmail_userEmail(`userId`, `userEmail`), products: willReturn.map({ StubProduct.return($0 as Any) })) }()
@@ -2584,9 +2670,9 @@ open class CloudDatabaseMock: CloudDatabase, Mock {
 			willProduce(stubber)
 			return given
         }
-        public static func saveGame(userId: Parameter<String>, game: Parameter<SavedGame>, platform: Parameter<Platform>, editingEntry: Parameter<Bool>, willProduce: (Stubber<DatabaseError?>) -> Void) -> MethodStub {
+        public static func saveGame(userId: Parameter<String>, game: Parameter<SavedGame>, platform: Parameter<Platform>, willProduce: (Stubber<DatabaseError?>) -> Void) -> MethodStub {
             let willReturn: [DatabaseError?] = []
-			let given: Given = { return Given(method: .m_saveGame__userId_userIdgame_gameplatform_platformeditingEntry_editingEntry(`userId`, `game`, `platform`, `editingEntry`), products: willReturn.map({ StubProduct.return($0 as Any) })) }()
+			let given: Given = { return Given(method: .m_saveGame__userId_userIdgame_gameplatform_platform(`userId`, `game`, `platform`), products: willReturn.map({ StubProduct.return($0 as Any) })) }()
 			let stubber = given.stub(for: (DatabaseError?).self)
 			willProduce(stubber)
 			return given
@@ -2602,6 +2688,20 @@ open class CloudDatabaseMock: CloudDatabase, Mock {
             let willReturn: [DatabaseError?] = []
 			let given: Given = { return Given(method: .m_saveCollection__userId_userIdlocalDatabase_localDatabase(`userId`, `localDatabase`), products: willReturn.map({ StubProduct.return($0 as Any) })) }()
 			let stubber = given.stub(for: (DatabaseError?).self)
+			willProduce(stubber)
+			return given
+        }
+        public static func replaceGame(userId: Parameter<String>, newGame: Parameter<SavedGame>, oldGame: Parameter<SavedGame>, platform: Parameter<Platform>, willProduce: (Stubber<DatabaseError?>) -> Void) -> MethodStub {
+            let willReturn: [DatabaseError?] = []
+			let given: Given = { return Given(method: .m_replaceGame__userId_userIdnewGame_newGameoldGame_oldGameplatform_platform(`userId`, `newGame`, `oldGame`, `platform`), products: willReturn.map({ StubProduct.return($0 as Any) })) }()
+			let stubber = given.stub(for: (DatabaseError?).self)
+			willProduce(stubber)
+			return given
+        }
+        public static func isSameGame(savedGame: Parameter<SavedGame>, firestoreGameData: Parameter<FirestoreData>, willProduce: (Stubber<Bool>) -> Void) -> MethodStub {
+            let willReturn: [Bool] = []
+			let given: Given = { return Given(method: .m_isSameGame__savedGame_savedGamefirestoreGameData_firestoreGameData(`savedGame`, `firestoreGameData`), products: willReturn.map({ StubProduct.return($0 as Any) })) }()
+			let stubber = given.stub(for: (Bool).self)
 			willProduce(stubber)
 			return given
         }
@@ -2656,12 +2756,15 @@ open class CloudDatabaseMock: CloudDatabase, Mock {
         public static func getSinglePlatformCollection(userId: Parameter<String>, platform: Parameter<Platform>) -> Verify { return Verify(method: .m_getSinglePlatformCollection__userId_userIdplatform_platform(`userId`, `platform`))}
         public static func getUserCollection(userId: Parameter<String>) -> Verify { return Verify(method: .m_getUserCollection__userId_userId(`userId`))}
         public static func getAvailablePlatforms() -> Verify { return Verify(method: .m_getAvailablePlatforms)}
+        public static func getGameUUID(userId: Parameter<String>, newGame: Parameter<SavedGame?>, oldGame: Parameter<SavedGame>) -> Verify { return Verify(method: .m_getGameUUID__userId_userIdnewGame_newGameoldGame_oldGame(`userId`, `newGame`, `oldGame`))}
         public static func saveUser(userId: Parameter<String>, userEmail: Parameter<String>) -> Verify { return Verify(method: .m_saveUser__userId_userIduserEmail_userEmail(`userId`, `userEmail`))}
         public static func saveUserEmail(userId: Parameter<String>, userEmail: Parameter<String>) -> Verify { return Verify(method: .m_saveUserEmail__userId_userIduserEmail_userEmail(`userId`, `userEmail`))}
         public static func saveGames(userId: Parameter<String>, platform: Parameter<Platform>) -> Verify { return Verify(method: .m_saveGames__userId_userIdplatform_platform(`userId`, `platform`))}
-        public static func saveGame(userId: Parameter<String>, game: Parameter<SavedGame>, platform: Parameter<Platform>, editingEntry: Parameter<Bool>) -> Verify { return Verify(method: .m_saveGame__userId_userIdgame_gameplatform_platformeditingEntry_editingEntry(`userId`, `game`, `platform`, `editingEntry`))}
+        public static func saveGame(userId: Parameter<String>, game: Parameter<SavedGame>, platform: Parameter<Platform>) -> Verify { return Verify(method: .m_saveGame__userId_userIdgame_gameplatform_platform(`userId`, `game`, `platform`))}
         public static func savePlatform(userId: Parameter<String>, platform: Parameter<Platform>) -> Verify { return Verify(method: .m_savePlatform__userId_userIdplatform_platform(`userId`, `platform`))}
         public static func saveCollection(userId: Parameter<String>, localDatabase: Parameter<LocalDatabase>) -> Verify { return Verify(method: .m_saveCollection__userId_userIdlocalDatabase_localDatabase(`userId`, `localDatabase`))}
+        public static func replaceGame(userId: Parameter<String>, newGame: Parameter<SavedGame>, oldGame: Parameter<SavedGame>, platform: Parameter<Platform>) -> Verify { return Verify(method: .m_replaceGame__userId_userIdnewGame_newGameoldGame_oldGameplatform_platform(`userId`, `newGame`, `oldGame`, `platform`))}
+        public static func isSameGame(savedGame: Parameter<SavedGame>, firestoreGameData: Parameter<FirestoreData>) -> Verify { return Verify(method: .m_isSameGame__savedGame_savedGamefirestoreGameData_firestoreGameData(`savedGame`, `firestoreGameData`))}
         public static func gameIsInDatabase(userId: Parameter<String>, savedGame: Parameter<SavedGame>) -> Verify { return Verify(method: .m_gameIsInDatabase__userId_userIdsavedGame_savedGame(`userId`, `savedGame`))}
         public static func removeGame(userId: Parameter<String>, platform: Parameter<Platform>, savedGame: Parameter<SavedGame>) -> Verify { return Verify(method: .m_removeGame__userId_userIdplatform_platformsavedGame_savedGame(`userId`, `platform`, `savedGame`))}
         public static func removeUser(userId: Parameter<String>) -> Verify { return Verify(method: .m_removeUser__userId_userId(`userId`))}
@@ -2686,6 +2789,9 @@ open class CloudDatabaseMock: CloudDatabase, Mock {
         public static func getAvailablePlatforms(perform: @escaping () -> Void) -> Perform {
             return Perform(method: .m_getAvailablePlatforms, performs: perform)
         }
+        public static func getGameUUID(userId: Parameter<String>, newGame: Parameter<SavedGame?>, oldGame: Parameter<SavedGame>, perform: @escaping (String, SavedGame?, SavedGame) -> Void) -> Perform {
+            return Perform(method: .m_getGameUUID__userId_userIdnewGame_newGameoldGame_oldGame(`userId`, `newGame`, `oldGame`), performs: perform)
+        }
         public static func saveUser(userId: Parameter<String>, userEmail: Parameter<String>, perform: @escaping (String, String) -> Void) -> Perform {
             return Perform(method: .m_saveUser__userId_userIduserEmail_userEmail(`userId`, `userEmail`), performs: perform)
         }
@@ -2695,14 +2801,20 @@ open class CloudDatabaseMock: CloudDatabase, Mock {
         public static func saveGames(userId: Parameter<String>, platform: Parameter<Platform>, perform: @escaping (String, Platform) -> Void) -> Perform {
             return Perform(method: .m_saveGames__userId_userIdplatform_platform(`userId`, `platform`), performs: perform)
         }
-        public static func saveGame(userId: Parameter<String>, game: Parameter<SavedGame>, platform: Parameter<Platform>, editingEntry: Parameter<Bool>, perform: @escaping (String, SavedGame, Platform, Bool) -> Void) -> Perform {
-            return Perform(method: .m_saveGame__userId_userIdgame_gameplatform_platformeditingEntry_editingEntry(`userId`, `game`, `platform`, `editingEntry`), performs: perform)
+        public static func saveGame(userId: Parameter<String>, game: Parameter<SavedGame>, platform: Parameter<Platform>, perform: @escaping (String, SavedGame, Platform) -> Void) -> Perform {
+            return Perform(method: .m_saveGame__userId_userIdgame_gameplatform_platform(`userId`, `game`, `platform`), performs: perform)
         }
         public static func savePlatform(userId: Parameter<String>, platform: Parameter<Platform>, perform: @escaping (String, Platform) -> Void) -> Perform {
             return Perform(method: .m_savePlatform__userId_userIdplatform_platform(`userId`, `platform`), performs: perform)
         }
         public static func saveCollection(userId: Parameter<String>, localDatabase: Parameter<LocalDatabase>, perform: @escaping (String, LocalDatabase) -> Void) -> Perform {
             return Perform(method: .m_saveCollection__userId_userIdlocalDatabase_localDatabase(`userId`, `localDatabase`), performs: perform)
+        }
+        public static func replaceGame(userId: Parameter<String>, newGame: Parameter<SavedGame>, oldGame: Parameter<SavedGame>, platform: Parameter<Platform>, perform: @escaping (String, SavedGame, SavedGame, Platform) -> Void) -> Perform {
+            return Perform(method: .m_replaceGame__userId_userIdnewGame_newGameoldGame_oldGameplatform_platform(`userId`, `newGame`, `oldGame`, `platform`), performs: perform)
+        }
+        public static func isSameGame(savedGame: Parameter<SavedGame>, firestoreGameData: Parameter<FirestoreData>, perform: @escaping (SavedGame, FirestoreData) -> Void) -> Perform {
+            return Perform(method: .m_isSameGame__savedGame_savedGamefirestoreGameData_firestoreGameData(`savedGame`, `firestoreGameData`), performs: perform)
         }
         public static func gameIsInDatabase(userId: Parameter<String>, savedGame: Parameter<SavedGame>, perform: @escaping (String, SavedGame) -> Void) -> Perform {
             return Perform(method: .m_gameIsInDatabase__userId_userIdsavedGame_savedGame(`userId`, `savedGame`), performs: perform)
@@ -3239,9 +3351,9 @@ open class ContainerViewControllerDelegateMock: ContainerViewControllerDelegate,
     }
 }
 
-// MARK: - EditFormDelegate
+// MARK: - FirestoreSession
 
-open class EditFormDelegateMock: EditFormDelegate, Mock {
+open class FirestoreSessionMock: FirestoreSession, Mock {
     public init(sequencing sequencingPolicy: SequencingPolicy = .lastWrittenResolvedFirst, stubbing stubbingPolicy: StubbingPolicy = .wrap, file: StaticString = #file, line: UInt = #line) {
         SwiftyMockyTestObserver.setup()
         self.sequencingPolicy = sequencingPolicy
@@ -3283,30 +3395,110 @@ open class EditFormDelegateMock: EditFormDelegate, Mock {
 
 
 
-    open func enableSaveButtonIfNeeded() {
-        addInvocation(.m_enableSaveButtonIfNeeded)
-		let perform = methodPerformValue(.m_enableSaveButtonIfNeeded) as? () -> Void
-		perform?()
+    open func getData(mainPath: String, condition: FirestoreQuery?) -> Result<[FirestoreData], DatabaseError> {
+        addInvocation(.m_getData__mainPath_mainPathcondition_condition(Parameter<String>.value(`mainPath`), Parameter<FirestoreQuery?>.value(`condition`)))
+		let perform = methodPerformValue(.m_getData__mainPath_mainPathcondition_condition(Parameter<String>.value(`mainPath`), Parameter<FirestoreQuery?>.value(`condition`))) as? (String, FirestoreQuery?) -> Void
+		perform?(`mainPath`, `condition`)
+		var __value: Result<[FirestoreData], DatabaseError>
+		do {
+		    __value = try methodReturnValue(.m_getData__mainPath_mainPathcondition_condition(Parameter<String>.value(`mainPath`), Parameter<FirestoreQuery?>.value(`condition`))).casted()
+		} catch {
+			onFatalFailure("Stub return value not specified for getData(mainPath: String, condition: FirestoreQuery?). Use given")
+			Failure("Stub return value not specified for getData(mainPath: String, condition: FirestoreQuery?). Use given")
+		}
+		return __value
+    }
+
+    open func getSingleData(path: String, directory: String) -> Result<FirestoreData, DatabaseError> {
+        addInvocation(.m_getSingleData__path_pathdirectory_directory(Parameter<String>.value(`path`), Parameter<String>.value(`directory`)))
+		let perform = methodPerformValue(.m_getSingleData__path_pathdirectory_directory(Parameter<String>.value(`path`), Parameter<String>.value(`directory`))) as? (String, String) -> Void
+		perform?(`path`, `directory`)
+		var __value: Result<FirestoreData, DatabaseError>
+		do {
+		    __value = try methodReturnValue(.m_getSingleData__path_pathdirectory_directory(Parameter<String>.value(`path`), Parameter<String>.value(`directory`))).casted()
+		} catch {
+			onFatalFailure("Stub return value not specified for getSingleData(path: String, directory: String). Use given")
+			Failure("Stub return value not specified for getSingleData(path: String, directory: String). Use given")
+		}
+		return __value
+    }
+
+    open func setData(path: String, firestoreData: FirestoreData) -> DatabaseError? {
+        addInvocation(.m_setData__path_pathfirestoreData_firestoreData(Parameter<String>.value(`path`), Parameter<FirestoreData>.value(`firestoreData`)))
+		let perform = methodPerformValue(.m_setData__path_pathfirestoreData_firestoreData(Parameter<String>.value(`path`), Parameter<FirestoreData>.value(`firestoreData`))) as? (String, FirestoreData) -> Void
+		perform?(`path`, `firestoreData`)
+		var __value: DatabaseError? = nil
+		do {
+		    __value = try methodReturnValue(.m_setData__path_pathfirestoreData_firestoreData(Parameter<String>.value(`path`), Parameter<FirestoreData>.value(`firestoreData`))).casted()
+		} catch {
+			// do nothing
+		}
+		return __value
+    }
+
+    open func deleteData(path: String, directory: String) -> DatabaseError? {
+        addInvocation(.m_deleteData__path_pathdirectory_directory(Parameter<String>.value(`path`), Parameter<String>.value(`directory`)))
+		let perform = methodPerformValue(.m_deleteData__path_pathdirectory_directory(Parameter<String>.value(`path`), Parameter<String>.value(`directory`))) as? (String, String) -> Void
+		perform?(`path`, `directory`)
+		var __value: DatabaseError? = nil
+		do {
+		    __value = try methodReturnValue(.m_deleteData__path_pathdirectory_directory(Parameter<String>.value(`path`), Parameter<String>.value(`directory`))).casted()
+		} catch {
+			// do nothing
+		}
+		return __value
     }
 
 
     fileprivate enum MethodType {
-        case m_enableSaveButtonIfNeeded
+        case m_getData__mainPath_mainPathcondition_condition(Parameter<String>, Parameter<FirestoreQuery?>)
+        case m_getSingleData__path_pathdirectory_directory(Parameter<String>, Parameter<String>)
+        case m_setData__path_pathfirestoreData_firestoreData(Parameter<String>, Parameter<FirestoreData>)
+        case m_deleteData__path_pathdirectory_directory(Parameter<String>, Parameter<String>)
 
         static func compareParameters(lhs: MethodType, rhs: MethodType, matcher: Matcher) -> Matcher.ComparisonResult {
             switch (lhs, rhs) {
-            case (.m_enableSaveButtonIfNeeded, .m_enableSaveButtonIfNeeded): return .match
+            case (.m_getData__mainPath_mainPathcondition_condition(let lhsMainpath, let lhsCondition), .m_getData__mainPath_mainPathcondition_condition(let rhsMainpath, let rhsCondition)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsMainpath, rhs: rhsMainpath, with: matcher), lhsMainpath, rhsMainpath, "mainPath"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsCondition, rhs: rhsCondition, with: matcher), lhsCondition, rhsCondition, "condition"))
+				return Matcher.ComparisonResult(results)
+
+            case (.m_getSingleData__path_pathdirectory_directory(let lhsPath, let lhsDirectory), .m_getSingleData__path_pathdirectory_directory(let rhsPath, let rhsDirectory)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsPath, rhs: rhsPath, with: matcher), lhsPath, rhsPath, "path"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsDirectory, rhs: rhsDirectory, with: matcher), lhsDirectory, rhsDirectory, "directory"))
+				return Matcher.ComparisonResult(results)
+
+            case (.m_setData__path_pathfirestoreData_firestoreData(let lhsPath, let lhsFirestoredata), .m_setData__path_pathfirestoreData_firestoreData(let rhsPath, let rhsFirestoredata)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsPath, rhs: rhsPath, with: matcher), lhsPath, rhsPath, "path"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsFirestoredata, rhs: rhsFirestoredata, with: matcher), lhsFirestoredata, rhsFirestoredata, "firestoreData"))
+				return Matcher.ComparisonResult(results)
+
+            case (.m_deleteData__path_pathdirectory_directory(let lhsPath, let lhsDirectory), .m_deleteData__path_pathdirectory_directory(let rhsPath, let rhsDirectory)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsPath, rhs: rhsPath, with: matcher), lhsPath, rhsPath, "path"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsDirectory, rhs: rhsDirectory, with: matcher), lhsDirectory, rhsDirectory, "directory"))
+				return Matcher.ComparisonResult(results)
+            default: return .none
             }
         }
 
         func intValue() -> Int {
             switch self {
-            case .m_enableSaveButtonIfNeeded: return 0
+            case let .m_getData__mainPath_mainPathcondition_condition(p0, p1): return p0.intValue + p1.intValue
+            case let .m_getSingleData__path_pathdirectory_directory(p0, p1): return p0.intValue + p1.intValue
+            case let .m_setData__path_pathfirestoreData_firestoreData(p0, p1): return p0.intValue + p1.intValue
+            case let .m_deleteData__path_pathdirectory_directory(p0, p1): return p0.intValue + p1.intValue
             }
         }
         func assertionName() -> String {
             switch self {
-            case .m_enableSaveButtonIfNeeded: return ".enableSaveButtonIfNeeded()"
+            case .m_getData__mainPath_mainPathcondition_condition: return ".getData(mainPath:condition:)"
+            case .m_getSingleData__path_pathdirectory_directory: return ".getSingleData(path:directory:)"
+            case .m_setData__path_pathfirestoreData_firestoreData: return ".setData(path:firestoreData:)"
+            case .m_deleteData__path_pathdirectory_directory: return ".deleteData(path:directory:)"
             }
         }
     }
@@ -3320,20 +3512,72 @@ open class EditFormDelegateMock: EditFormDelegate, Mock {
         }
 
 
+        public static func getData(mainPath: Parameter<String>, condition: Parameter<FirestoreQuery?>, willReturn: Result<[FirestoreData], DatabaseError>...) -> MethodStub {
+            return Given(method: .m_getData__mainPath_mainPathcondition_condition(`mainPath`, `condition`), products: willReturn.map({ StubProduct.return($0 as Any) }))
+        }
+        public static func getSingleData(path: Parameter<String>, directory: Parameter<String>, willReturn: Result<FirestoreData, DatabaseError>...) -> MethodStub {
+            return Given(method: .m_getSingleData__path_pathdirectory_directory(`path`, `directory`), products: willReturn.map({ StubProduct.return($0 as Any) }))
+        }
+        public static func setData(path: Parameter<String>, firestoreData: Parameter<FirestoreData>, willReturn: DatabaseError?...) -> MethodStub {
+            return Given(method: .m_setData__path_pathfirestoreData_firestoreData(`path`, `firestoreData`), products: willReturn.map({ StubProduct.return($0 as Any) }))
+        }
+        public static func deleteData(path: Parameter<String>, directory: Parameter<String>, willReturn: DatabaseError?...) -> MethodStub {
+            return Given(method: .m_deleteData__path_pathdirectory_directory(`path`, `directory`), products: willReturn.map({ StubProduct.return($0 as Any) }))
+        }
+        public static func getData(mainPath: Parameter<String>, condition: Parameter<FirestoreQuery?>, willProduce: (Stubber<Result<[FirestoreData], DatabaseError>>) -> Void) -> MethodStub {
+            let willReturn: [Result<[FirestoreData], DatabaseError>] = []
+			let given: Given = { return Given(method: .m_getData__mainPath_mainPathcondition_condition(`mainPath`, `condition`), products: willReturn.map({ StubProduct.return($0 as Any) })) }()
+			let stubber = given.stub(for: (Result<[FirestoreData], DatabaseError>).self)
+			willProduce(stubber)
+			return given
+        }
+        public static func getSingleData(path: Parameter<String>, directory: Parameter<String>, willProduce: (Stubber<Result<FirestoreData, DatabaseError>>) -> Void) -> MethodStub {
+            let willReturn: [Result<FirestoreData, DatabaseError>] = []
+			let given: Given = { return Given(method: .m_getSingleData__path_pathdirectory_directory(`path`, `directory`), products: willReturn.map({ StubProduct.return($0 as Any) })) }()
+			let stubber = given.stub(for: (Result<FirestoreData, DatabaseError>).self)
+			willProduce(stubber)
+			return given
+        }
+        public static func setData(path: Parameter<String>, firestoreData: Parameter<FirestoreData>, willProduce: (Stubber<DatabaseError?>) -> Void) -> MethodStub {
+            let willReturn: [DatabaseError?] = []
+			let given: Given = { return Given(method: .m_setData__path_pathfirestoreData_firestoreData(`path`, `firestoreData`), products: willReturn.map({ StubProduct.return($0 as Any) })) }()
+			let stubber = given.stub(for: (DatabaseError?).self)
+			willProduce(stubber)
+			return given
+        }
+        public static func deleteData(path: Parameter<String>, directory: Parameter<String>, willProduce: (Stubber<DatabaseError?>) -> Void) -> MethodStub {
+            let willReturn: [DatabaseError?] = []
+			let given: Given = { return Given(method: .m_deleteData__path_pathdirectory_directory(`path`, `directory`), products: willReturn.map({ StubProduct.return($0 as Any) })) }()
+			let stubber = given.stub(for: (DatabaseError?).self)
+			willProduce(stubber)
+			return given
+        }
     }
 
     public struct Verify {
         fileprivate var method: MethodType
 
-        public static func enableSaveButtonIfNeeded() -> Verify { return Verify(method: .m_enableSaveButtonIfNeeded)}
+        public static func getData(mainPath: Parameter<String>, condition: Parameter<FirestoreQuery?>) -> Verify { return Verify(method: .m_getData__mainPath_mainPathcondition_condition(`mainPath`, `condition`))}
+        public static func getSingleData(path: Parameter<String>, directory: Parameter<String>) -> Verify { return Verify(method: .m_getSingleData__path_pathdirectory_directory(`path`, `directory`))}
+        public static func setData(path: Parameter<String>, firestoreData: Parameter<FirestoreData>) -> Verify { return Verify(method: .m_setData__path_pathfirestoreData_firestoreData(`path`, `firestoreData`))}
+        public static func deleteData(path: Parameter<String>, directory: Parameter<String>) -> Verify { return Verify(method: .m_deleteData__path_pathdirectory_directory(`path`, `directory`))}
     }
 
     public struct Perform {
         fileprivate var method: MethodType
         var performs: Any
 
-        public static func enableSaveButtonIfNeeded(perform: @escaping () -> Void) -> Perform {
-            return Perform(method: .m_enableSaveButtonIfNeeded, performs: perform)
+        public static func getData(mainPath: Parameter<String>, condition: Parameter<FirestoreQuery?>, perform: @escaping (String, FirestoreQuery?) -> Void) -> Perform {
+            return Perform(method: .m_getData__mainPath_mainPathcondition_condition(`mainPath`, `condition`), performs: perform)
+        }
+        public static func getSingleData(path: Parameter<String>, directory: Parameter<String>, perform: @escaping (String, String) -> Void) -> Perform {
+            return Perform(method: .m_getSingleData__path_pathdirectory_directory(`path`, `directory`), performs: perform)
+        }
+        public static func setData(path: Parameter<String>, firestoreData: Parameter<FirestoreData>, perform: @escaping (String, FirestoreData) -> Void) -> Perform {
+            return Perform(method: .m_setData__path_pathfirestoreData_firestoreData(`path`, `firestoreData`), performs: perform)
+        }
+        public static func deleteData(path: Parameter<String>, directory: Parameter<String>, perform: @escaping (String, String) -> Void) -> Perform {
+            return Perform(method: .m_deleteData__path_pathdirectory_directory(`path`, `directory`), performs: perform)
         }
     }
 
@@ -3410,9 +3654,9 @@ open class EditFormDelegateMock: EditFormDelegate, Mock {
     }
 }
 
-// MARK: - FirestoreSession
+// MARK: - FormDelegate
 
-open class FirestoreSessionMock: FirestoreSession, Mock {
+open class FormDelegateMock: FormDelegate, Mock {
     public init(sequencing sequencingPolicy: SequencingPolicy = .lastWrittenResolvedFirst, stubbing stubbingPolicy: StubbingPolicy = .wrap, file: StaticString = #file, line: UInt = #line) {
         SwiftyMockyTestObserver.setup()
         self.sequencingPolicy = sequencingPolicy
@@ -3454,90 +3698,40 @@ open class FirestoreSessionMock: FirestoreSession, Mock {
 
 
 
-    open func getData(mainPath: String) -> Result<[FirestoreData], DatabaseError> {
-        addInvocation(.m_getData__mainPath_mainPath(Parameter<String>.value(`mainPath`)))
-		let perform = methodPerformValue(.m_getData__mainPath_mainPath(Parameter<String>.value(`mainPath`))) as? (String) -> Void
-		perform?(`mainPath`)
-		var __value: Result<[FirestoreData], DatabaseError>
-		do {
-		    __value = try methodReturnValue(.m_getData__mainPath_mainPath(Parameter<String>.value(`mainPath`))).casted()
-		} catch {
-			onFatalFailure("Stub return value not specified for getData(mainPath: String). Use given")
-			Failure("Stub return value not specified for getData(mainPath: String). Use given")
-		}
-		return __value
+    open func enableSaveButtonIfNeeded() {
+        addInvocation(.m_enableSaveButtonIfNeeded)
+		let perform = methodPerformValue(.m_enableSaveButtonIfNeeded) as? () -> Void
+		perform?()
     }
 
-    open func getSingleData(path: String, directory: String) -> Result<FirestoreData, DatabaseError> {
-        addInvocation(.m_getSingleData__path_pathdirectory_directory(Parameter<String>.value(`path`), Parameter<String>.value(`directory`)))
-		let perform = methodPerformValue(.m_getSingleData__path_pathdirectory_directory(Parameter<String>.value(`path`), Parameter<String>.value(`directory`))) as? (String, String) -> Void
-		perform?(`path`, `directory`)
-		var __value: Result<FirestoreData, DatabaseError>
-		do {
-		    __value = try methodReturnValue(.m_getSingleData__path_pathdirectory_directory(Parameter<String>.value(`path`), Parameter<String>.value(`directory`))).casted()
-		} catch {
-			onFatalFailure("Stub return value not specified for getSingleData(path: String, directory: String). Use given")
-			Failure("Stub return value not specified for getSingleData(path: String, directory: String). Use given")
-		}
-		return __value
+    open func refreshSectionsDependingOnGameFormat() {
+        addInvocation(.m_refreshSectionsDependingOnGameFormat)
+		let perform = methodPerformValue(.m_refreshSectionsDependingOnGameFormat) as? () -> Void
+		perform?()
     }
 
-    open func setData(path: String, firestoreData: FirestoreData) -> DatabaseError? {
-        addInvocation(.m_setData__path_pathfirestoreData_firestoreData(Parameter<String>.value(`path`), Parameter<FirestoreData>.value(`firestoreData`)))
-		let perform = methodPerformValue(.m_setData__path_pathfirestoreData_firestoreData(Parameter<String>.value(`path`), Parameter<FirestoreData>.value(`firestoreData`))) as? (String, FirestoreData) -> Void
-		perform?(`path`, `firestoreData`)
-		var __value: DatabaseError? = nil
-		do {
-		    __value = try methodReturnValue(.m_setData__path_pathfirestoreData_firestoreData(Parameter<String>.value(`path`), Parameter<FirestoreData>.value(`firestoreData`))).casted()
-		} catch {
-			// do nothing
-		}
-		return __value
-    }
-
-    open func deleteData(path: String, directory: String) -> DatabaseError? {
-        addInvocation(.m_deleteData__path_pathdirectory_directory(Parameter<String>.value(`path`), Parameter<String>.value(`directory`)))
-		let perform = methodPerformValue(.m_deleteData__path_pathdirectory_directory(Parameter<String>.value(`path`), Parameter<String>.value(`directory`))) as? (String, String) -> Void
-		perform?(`path`, `directory`)
-		var __value: DatabaseError? = nil
-		do {
-		    __value = try methodReturnValue(.m_deleteData__path_pathdirectory_directory(Parameter<String>.value(`path`), Parameter<String>.value(`directory`))).casted()
-		} catch {
-			// do nothing
-		}
-		return __value
+    open func didUpdate(value: Any, for type: FormType) {
+        addInvocation(.m_didUpdate__value_valuefor_type(Parameter<Any>.value(`value`), Parameter<FormType>.value(`type`)))
+		let perform = methodPerformValue(.m_didUpdate__value_valuefor_type(Parameter<Any>.value(`value`), Parameter<FormType>.value(`type`))) as? (Any, FormType) -> Void
+		perform?(`value`, `type`)
     }
 
 
     fileprivate enum MethodType {
-        case m_getData__mainPath_mainPath(Parameter<String>)
-        case m_getSingleData__path_pathdirectory_directory(Parameter<String>, Parameter<String>)
-        case m_setData__path_pathfirestoreData_firestoreData(Parameter<String>, Parameter<FirestoreData>)
-        case m_deleteData__path_pathdirectory_directory(Parameter<String>, Parameter<String>)
+        case m_enableSaveButtonIfNeeded
+        case m_refreshSectionsDependingOnGameFormat
+        case m_didUpdate__value_valuefor_type(Parameter<Any>, Parameter<FormType>)
 
         static func compareParameters(lhs: MethodType, rhs: MethodType, matcher: Matcher) -> Matcher.ComparisonResult {
             switch (lhs, rhs) {
-            case (.m_getData__mainPath_mainPath(let lhsMainpath), .m_getData__mainPath_mainPath(let rhsMainpath)):
-				var results: [Matcher.ParameterComparisonResult] = []
-				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsMainpath, rhs: rhsMainpath, with: matcher), lhsMainpath, rhsMainpath, "mainPath"))
-				return Matcher.ComparisonResult(results)
+            case (.m_enableSaveButtonIfNeeded, .m_enableSaveButtonIfNeeded): return .match
 
-            case (.m_getSingleData__path_pathdirectory_directory(let lhsPath, let lhsDirectory), .m_getSingleData__path_pathdirectory_directory(let rhsPath, let rhsDirectory)):
-				var results: [Matcher.ParameterComparisonResult] = []
-				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsPath, rhs: rhsPath, with: matcher), lhsPath, rhsPath, "path"))
-				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsDirectory, rhs: rhsDirectory, with: matcher), lhsDirectory, rhsDirectory, "directory"))
-				return Matcher.ComparisonResult(results)
+            case (.m_refreshSectionsDependingOnGameFormat, .m_refreshSectionsDependingOnGameFormat): return .match
 
-            case (.m_setData__path_pathfirestoreData_firestoreData(let lhsPath, let lhsFirestoredata), .m_setData__path_pathfirestoreData_firestoreData(let rhsPath, let rhsFirestoredata)):
+            case (.m_didUpdate__value_valuefor_type(let lhsValue, let lhsType), .m_didUpdate__value_valuefor_type(let rhsValue, let rhsType)):
 				var results: [Matcher.ParameterComparisonResult] = []
-				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsPath, rhs: rhsPath, with: matcher), lhsPath, rhsPath, "path"))
-				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsFirestoredata, rhs: rhsFirestoredata, with: matcher), lhsFirestoredata, rhsFirestoredata, "firestoreData"))
-				return Matcher.ComparisonResult(results)
-
-            case (.m_deleteData__path_pathdirectory_directory(let lhsPath, let lhsDirectory), .m_deleteData__path_pathdirectory_directory(let rhsPath, let rhsDirectory)):
-				var results: [Matcher.ParameterComparisonResult] = []
-				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsPath, rhs: rhsPath, with: matcher), lhsPath, rhsPath, "path"))
-				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsDirectory, rhs: rhsDirectory, with: matcher), lhsDirectory, rhsDirectory, "directory"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsValue, rhs: rhsValue, with: matcher), lhsValue, rhsValue, "value"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsType, rhs: rhsType, with: matcher), lhsType, rhsType, "for type"))
 				return Matcher.ComparisonResult(results)
             default: return .none
             }
@@ -3545,18 +3739,16 @@ open class FirestoreSessionMock: FirestoreSession, Mock {
 
         func intValue() -> Int {
             switch self {
-            case let .m_getData__mainPath_mainPath(p0): return p0.intValue
-            case let .m_getSingleData__path_pathdirectory_directory(p0, p1): return p0.intValue + p1.intValue
-            case let .m_setData__path_pathfirestoreData_firestoreData(p0, p1): return p0.intValue + p1.intValue
-            case let .m_deleteData__path_pathdirectory_directory(p0, p1): return p0.intValue + p1.intValue
+            case .m_enableSaveButtonIfNeeded: return 0
+            case .m_refreshSectionsDependingOnGameFormat: return 0
+            case let .m_didUpdate__value_valuefor_type(p0, p1): return p0.intValue + p1.intValue
             }
         }
         func assertionName() -> String {
             switch self {
-            case .m_getData__mainPath_mainPath: return ".getData(mainPath:)"
-            case .m_getSingleData__path_pathdirectory_directory: return ".getSingleData(path:directory:)"
-            case .m_setData__path_pathfirestoreData_firestoreData: return ".setData(path:firestoreData:)"
-            case .m_deleteData__path_pathdirectory_directory: return ".deleteData(path:directory:)"
+            case .m_enableSaveButtonIfNeeded: return ".enableSaveButtonIfNeeded()"
+            case .m_refreshSectionsDependingOnGameFormat: return ".refreshSectionsDependingOnGameFormat()"
+            case .m_didUpdate__value_valuefor_type: return ".didUpdate(value:for:)"
             }
         }
     }
@@ -3570,72 +3762,28 @@ open class FirestoreSessionMock: FirestoreSession, Mock {
         }
 
 
-        public static func getData(mainPath: Parameter<String>, willReturn: Result<[FirestoreData], DatabaseError>...) -> MethodStub {
-            return Given(method: .m_getData__mainPath_mainPath(`mainPath`), products: willReturn.map({ StubProduct.return($0 as Any) }))
-        }
-        public static func getSingleData(path: Parameter<String>, directory: Parameter<String>, willReturn: Result<FirestoreData, DatabaseError>...) -> MethodStub {
-            return Given(method: .m_getSingleData__path_pathdirectory_directory(`path`, `directory`), products: willReturn.map({ StubProduct.return($0 as Any) }))
-        }
-        public static func setData(path: Parameter<String>, firestoreData: Parameter<FirestoreData>, willReturn: DatabaseError?...) -> MethodStub {
-            return Given(method: .m_setData__path_pathfirestoreData_firestoreData(`path`, `firestoreData`), products: willReturn.map({ StubProduct.return($0 as Any) }))
-        }
-        public static func deleteData(path: Parameter<String>, directory: Parameter<String>, willReturn: DatabaseError?...) -> MethodStub {
-            return Given(method: .m_deleteData__path_pathdirectory_directory(`path`, `directory`), products: willReturn.map({ StubProduct.return($0 as Any) }))
-        }
-        public static func getData(mainPath: Parameter<String>, willProduce: (Stubber<Result<[FirestoreData], DatabaseError>>) -> Void) -> MethodStub {
-            let willReturn: [Result<[FirestoreData], DatabaseError>] = []
-			let given: Given = { return Given(method: .m_getData__mainPath_mainPath(`mainPath`), products: willReturn.map({ StubProduct.return($0 as Any) })) }()
-			let stubber = given.stub(for: (Result<[FirestoreData], DatabaseError>).self)
-			willProduce(stubber)
-			return given
-        }
-        public static func getSingleData(path: Parameter<String>, directory: Parameter<String>, willProduce: (Stubber<Result<FirestoreData, DatabaseError>>) -> Void) -> MethodStub {
-            let willReturn: [Result<FirestoreData, DatabaseError>] = []
-			let given: Given = { return Given(method: .m_getSingleData__path_pathdirectory_directory(`path`, `directory`), products: willReturn.map({ StubProduct.return($0 as Any) })) }()
-			let stubber = given.stub(for: (Result<FirestoreData, DatabaseError>).self)
-			willProduce(stubber)
-			return given
-        }
-        public static func setData(path: Parameter<String>, firestoreData: Parameter<FirestoreData>, willProduce: (Stubber<DatabaseError?>) -> Void) -> MethodStub {
-            let willReturn: [DatabaseError?] = []
-			let given: Given = { return Given(method: .m_setData__path_pathfirestoreData_firestoreData(`path`, `firestoreData`), products: willReturn.map({ StubProduct.return($0 as Any) })) }()
-			let stubber = given.stub(for: (DatabaseError?).self)
-			willProduce(stubber)
-			return given
-        }
-        public static func deleteData(path: Parameter<String>, directory: Parameter<String>, willProduce: (Stubber<DatabaseError?>) -> Void) -> MethodStub {
-            let willReturn: [DatabaseError?] = []
-			let given: Given = { return Given(method: .m_deleteData__path_pathdirectory_directory(`path`, `directory`), products: willReturn.map({ StubProduct.return($0 as Any) })) }()
-			let stubber = given.stub(for: (DatabaseError?).self)
-			willProduce(stubber)
-			return given
-        }
     }
 
     public struct Verify {
         fileprivate var method: MethodType
 
-        public static func getData(mainPath: Parameter<String>) -> Verify { return Verify(method: .m_getData__mainPath_mainPath(`mainPath`))}
-        public static func getSingleData(path: Parameter<String>, directory: Parameter<String>) -> Verify { return Verify(method: .m_getSingleData__path_pathdirectory_directory(`path`, `directory`))}
-        public static func setData(path: Parameter<String>, firestoreData: Parameter<FirestoreData>) -> Verify { return Verify(method: .m_setData__path_pathfirestoreData_firestoreData(`path`, `firestoreData`))}
-        public static func deleteData(path: Parameter<String>, directory: Parameter<String>) -> Verify { return Verify(method: .m_deleteData__path_pathdirectory_directory(`path`, `directory`))}
+        public static func enableSaveButtonIfNeeded() -> Verify { return Verify(method: .m_enableSaveButtonIfNeeded)}
+        public static func refreshSectionsDependingOnGameFormat() -> Verify { return Verify(method: .m_refreshSectionsDependingOnGameFormat)}
+        public static func didUpdate(value: Parameter<Any>, for type: Parameter<FormType>) -> Verify { return Verify(method: .m_didUpdate__value_valuefor_type(`value`, `type`))}
     }
 
     public struct Perform {
         fileprivate var method: MethodType
         var performs: Any
 
-        public static func getData(mainPath: Parameter<String>, perform: @escaping (String) -> Void) -> Perform {
-            return Perform(method: .m_getData__mainPath_mainPath(`mainPath`), performs: perform)
+        public static func enableSaveButtonIfNeeded(perform: @escaping () -> Void) -> Perform {
+            return Perform(method: .m_enableSaveButtonIfNeeded, performs: perform)
         }
-        public static func getSingleData(path: Parameter<String>, directory: Parameter<String>, perform: @escaping (String, String) -> Void) -> Perform {
-            return Perform(method: .m_getSingleData__path_pathdirectory_directory(`path`, `directory`), performs: perform)
+        public static func refreshSectionsDependingOnGameFormat(perform: @escaping () -> Void) -> Perform {
+            return Perform(method: .m_refreshSectionsDependingOnGameFormat, performs: perform)
         }
-        public static func setData(path: Parameter<String>, firestoreData: Parameter<FirestoreData>, perform: @escaping (String, FirestoreData) -> Void) -> Perform {
-            return Perform(method: .m_setData__path_pathfirestoreData_firestoreData(`path`, `firestoreData`), performs: perform)
-        }
-        public static func deleteData(path: Parameter<String>, directory: Parameter<String>, perform: @escaping (String, String) -> Void) -> Perform {
-            return Perform(method: .m_deleteData__path_pathdirectory_directory(`path`, `directory`), performs: perform)
+        public static func didUpdate(value: Parameter<Any>, for type: Parameter<FormType>, perform: @escaping (Any, FormType) -> Void) -> Perform {
+            return Perform(method: .m_didUpdate__value_valuefor_type(`value`, `type`), performs: perform)
         }
     }
 

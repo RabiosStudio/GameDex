@@ -312,7 +312,7 @@ class FirestoreDatabase: CloudDatabase {
                       path: Collections.userGames(userId, "\(savedGame.game.platformId)").path,
                       directory: gameUUID
                   ) == nil else {
-                return DatabaseError.fetchError
+                return DatabaseError.removeError
             }
             // once game is deleted, we have to check if the platform still has other games. If not, then we delete the plaform from database.
             let fetchPlatformResult = await self.getSinglePlatformCollection(userId: userId, platform: platform)

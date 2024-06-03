@@ -18,7 +18,7 @@ final class StarRatingCellViewModelTests: XCTestCase {
             title: title,
             formType: GameFormType.rating,
             value: .zero,
-            editDelegate: EditFormDelegateMock()
+            formDelegate: FormDelegateMock()
         )
         
         // Then
@@ -29,12 +29,12 @@ final class StarRatingCellViewModelTests: XCTestCase {
     
     func test_value_GivenValueChanged_ThenShouldCallEditFormDelegate() {
         // Given
-        let delegate = EditFormDelegateMock()
+        let delegate = FormDelegateMock()
         let cellVM = StarRatingCellViewModel(
             title: "title",
             formType: GameFormType.notes,
             value: .zero,
-            editDelegate: delegate
+            formDelegate: delegate
         )
         
         // When

@@ -10,7 +10,7 @@ import UIKit
 
 enum GameFormType: FormType, Equatable {
     case isPhysical
-    case yearOfAcquisition
+    case acquisitionYear
     case gameCondition(PickerViewModel)
     case gameCompleteness(PickerViewModel)
     case gameRegion(PickerViewModel)
@@ -22,7 +22,7 @@ enum GameFormType: FormType, Equatable {
         switch self {
         case .storageArea, .notes:
             return .asciiCapable
-        case .yearOfAcquisition:
+        case .acquisitionYear:
             return .asciiCapableNumberPad
         default:
             return nil

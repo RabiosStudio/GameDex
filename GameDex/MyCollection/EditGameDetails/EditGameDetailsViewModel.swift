@@ -17,8 +17,8 @@ final class EditGameDetailsViewModel: CollectionViewModel {
     var sections = [Section]()
     var layoutMargins: UIEdgeInsets?
     
+    var gameForm: GameForm
     private let savedGame: SavedGame
-    private var gameForm: GameForm
     private var initialGameForm: GameForm
     private let localDatabase: LocalDatabase
     private let cloudDatabase: CloudDatabase
@@ -48,7 +48,7 @@ final class EditGameDetailsViewModel: CollectionViewModel {
             gameCompleteness: savedGame.gameCompleteness,
             gameRegion: savedGame.gameRegion,
             storageArea: savedGame.storageArea,
-            rating: savedGame.rating ?? .zero,
+            rating: savedGame.rating,
             notes: savedGame.notes
         )
         self.initialGameForm = self.gameForm
@@ -95,7 +95,7 @@ extension EditGameDetailsViewModel: FormDelegate {
             return
         }
         switch formType {
-        case .yearOfAcquisition:
+        case .acquisitionYear:
             self.gameForm.acquisitionYear = value as? String
         case .gameCondition(_):
             if let stringValue = value as? String {

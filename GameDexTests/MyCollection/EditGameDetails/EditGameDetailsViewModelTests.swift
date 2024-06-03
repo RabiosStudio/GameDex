@@ -68,7 +68,7 @@ final class EditGameDetailsViewModelTests: XCTestCase {
         // Then
         XCTAssertTrue(callbackIsCalled)
         XCTAssertEqual(viewModel.numberOfSections(), 1)
-        XCTAssertEqual(viewModel.numberOfItems(in: .zero), 8)
+        XCTAssertEqual(viewModel.numberOfItems(in: .zero), 9)
     }
     
     func test_didTapPrimaryButton_GivenLocalDatabaseNoError_ThenAlertParametersAreCorrect() async {
@@ -209,11 +209,11 @@ final class EditGameDetailsViewModelTests: XCTestCase {
         viewModel.loadData { _ in }
         
         cloudDatabase.given(
-            .saveGame(
+            .replaceGame(
                 userId: .any,
-                game: .any,
+                newGame: .any,
+                oldGame: .any,
                 platform: .any,
-                editingEntry: .value(true),
                 willReturn: nil
             )
         )
@@ -267,12 +267,12 @@ final class EditGameDetailsViewModelTests: XCTestCase {
         viewModel.loadData { _ in }
         
         cloudDatabase.given(
-            .saveGame(
+            .replaceGame(
                 userId: .any,
-                game: .any,
+                newGame: .any,
+                oldGame: .any,
                 platform: .any,
-                editingEntry: .value(true),
-                willReturn: DatabaseError.saveError
+                willReturn: DatabaseError.replaceError
             )
         )
         
@@ -329,7 +329,7 @@ final class EditGameDetailsViewModelTests: XCTestCase {
             for formCellVM in formCellsVM {
                 guard let formType = formCellVM.formType as? GameFormType else { return }
                 switch formType {
-                case .yearOfAcquisition:
+                case .acquisitionYear:
                     acquisitionYear = formCellVM.value as? String
                     acquisitionYear = "2023"
                 case .rating:
@@ -377,7 +377,7 @@ final class EditGameDetailsViewModelTests: XCTestCase {
             for formCellVM in formCellsVM {
                 guard let formType = formCellVM.formType as? GameFormType else { return }
                 switch formType {
-                case .yearOfAcquisition:
+                case .acquisitionYear:
                     formCellVM.value = nil
                 default:
                     break
@@ -623,5 +623,72 @@ final class EditGameDetailsViewModelTests: XCTestCase {
         )
         containerDelegate.verify(.goBackToPreviousScreen(), count: .once)
     }
+    
+    func test_didUpdate_GivenCloudNoError_ThenShouldSetAlertParametersCorrectlyAndCallContainerDelegate() async {
+        // Given
+        let savedGame = MockData.savedGame
+        let platform = MockData.platform
+        let containerDelegate = ContainerViewControllerDelegateMock()
+        let viewModel = EditGameDetailsViewModel(
+            savedGame: savedGame,
+            platform: platform,
+            localDatabase: LocalDatabaseMock(),
+            cloudDatabase: CloudDatabaseMock(),
+            alertDisplayer: AlertDisplayerMock(),
+            myCollectionDelegate: MyCollectionViewModelDelegateMock(),
+            authenticationService: AuthenticationServiceMock()
+        )
+        viewModel.containerDelegate = containerDelegate
+        
+        // WHEN
+        viewModel.didUpdate(value: MockData.editedGameForm.acquisitionYear as Any, for: GameFormType.acquisitionYear)
+        viewModel.didUpdate(
+            value: MockData.editedGameForm.gameCondition as Any,
+            for: GameFormType.gameCondition(
+                PickerViewModel(
+                    data: [GameCondition.allCases.compactMap {
+                        guard $0 != .unknown else {
+                            return nil
+                        }
+                        return $0.value
+                    }]
+                )
+            )
+        )
+        viewModel.didUpdate(
+            value: MockData.editedGameForm.gameCompleteness as Any,
+            for: GameFormType.gameCompleteness(
+                PickerViewModel(
+                    data: [GameCompleteness.allCases.compactMap {
+                        guard $0 != .unknown else {
+                            return nil
+                        }
+                        return $0.value
+                    }]
+                )
+            )
+        )
+        viewModel.didUpdate(
+            value: MockData.editedGameForm.gameRegion as Any,
+            for: GameFormType.gameRegion(
+                PickerViewModel(
+                    data: [GameRegion.allCases.map { $0.value }]
+                )
+            )
+        )
+        viewModel.didUpdate(value: MockData.editedGameForm.storageArea as Any, for: GameFormType.storageArea)
+        viewModel.didUpdate(value: MockData.editedGameForm.rating as Any, for: GameFormType.rating)
+        viewModel.didUpdate(value: MockData.editedGameForm.notes as Any, for: GameFormType.notes)
+        viewModel.didUpdate(value: MockData.editedGameForm.isPhysical as Any, for: GameFormType.isPhysical)
+        
+        // THEN
+        XCTAssertEqual(viewModel.gameForm.acquisitionYear, MockData.editedGameForm.acquisitionYear)
+        XCTAssertEqual(viewModel.gameForm.gameCompleteness, MockData.editedGameForm.gameCompleteness)
+        XCTAssertEqual(viewModel.gameForm.gameCondition, MockData.editedGameForm.gameCondition)
+        XCTAssertEqual(viewModel.gameForm.gameRegion, MockData.editedGameForm.gameRegion)
+        XCTAssertEqual(viewModel.gameForm.storageArea, MockData.editedGameForm.storageArea)
+        XCTAssertEqual(viewModel.gameForm.rating, MockData.editedGameForm.rating)
+        XCTAssertEqual(viewModel.gameForm.notes, MockData.editedGameForm.notes)
+        XCTAssertEqual(viewModel.gameForm.isPhysical, MockData.editedGameForm.isPhysical)
+    }
 }
-

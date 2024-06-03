@@ -107,7 +107,7 @@ class LabelAndIconSegment: BetterSegmentedControlSegment {
                          withIcon icon: UIImage? = nil,
                          iconSize: CGSize? = nil,
                          iconTintColor: UIColor? = nil,
-                         accessibilityIdentifier: String?) -> UIView {
+                         accessibilityIdentifier: String? = nil) -> UIView {
         let view = UIView()
         view.backgroundColor = backgroundColor
         view.layoutMargins = .init(

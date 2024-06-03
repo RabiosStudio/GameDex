@@ -12,11 +12,11 @@ final class MyCollectionFiltersSectionTests: XCTestCase {
     
     func test_initWithoutFilters_ThenShouldSetPropertiesCorrectly() {
         // Given
-        let editFormDelegate = EditFormDelegateMock()
+        let editFormDelegate = FormDelegateMock()
         let section = MyCollectionFiltersSection(
             games: MockData.savedGames,
             selectedFilters: nil,
-            editDelegate: editFormDelegate
+            formDelegate: editFormDelegate
         )
         
         // Then
@@ -146,11 +146,11 @@ final class MyCollectionFiltersSectionTests: XCTestCase {
     
     func test_initWithFilters_ThenShouldSetPropertiesCorrectly() {
         // Given
-        let editFormDelegate = EditFormDelegateMock()
+        let editFormDelegate = FormDelegateMock()
         let section = MyCollectionFiltersSection(
             games: MockData.savedGames,
             selectedFilters: MockData.gameFiltersWithMatchingGames,
-            editDelegate: editFormDelegate
+            formDelegate: editFormDelegate
         )
         
         // Then

@@ -95,7 +95,7 @@ extension AddGameDetailsViewModel: FormDelegate {
             return
         }
         switch formType {
-        case .yearOfAcquisition:
+        case .acquisitionYear:
             self.gameForm.acquisitionYear = value as? String
         case .gameCondition(_):
             if let stringValue = value as? String {
