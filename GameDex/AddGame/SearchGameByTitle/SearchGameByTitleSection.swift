@@ -24,8 +24,8 @@ final class SearchGameByTitleSection: Section {
                 subtitle2: game.formattedReleaseDate,
                 caption: game.imageUrl,
                 cellTappedCallback: {
-                    let screenFactory = AddGameDetailsScreenFactory(
-                        game: game,
+                    let screenFactory = GameDetailsScreenFactory(
+                        gameDetailsContext: GameDetailsContext.add(game: game),
                         platform: platform,
                         myCollectionDelegate: myCollectionDelegate
                     )
