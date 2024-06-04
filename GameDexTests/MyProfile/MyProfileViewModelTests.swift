@@ -48,7 +48,7 @@ final class MyProfileViewModelTests: XCTestCase {
         XCTAssertEqual(viewModel.numberOfItems(in: .zero), 4)
     }
     
-    func test_loadData_GivenUserIsNotLoggedIn_ThenSectionsUpdated() {
+    func test_loadData_GivenUserIsNotLoggedIn_ThenSectionsAreUpdatedAndSupplementaryViewIsConfigured() {
         // Given
         let authenticationService = AuthenticationServiceMock()
         let alertDisplayer = AlertDisplayerMock()
@@ -64,12 +64,16 @@ final class MyProfileViewModelTests: XCTestCase {
                 willReturn: false
             )
         )
+        let containerDelegate = ContainerViewControllerDelegateMock()
+        viewModel.containerDelegate = containerDelegate
         
         // When
         viewModel.loadData { _ in }
         
         XCTAssertEqual(viewModel.numberOfSections(), 1)
         XCTAssertEqual(viewModel.numberOfItems(in: .zero), 3)
+        
+        containerDelegate.verify(.configureSupplementaryView(contentViewFactory: .any), count: .once)
     }
     
     func test_reloadMyProfile_ThenContainerDelegateIsCalled() {
