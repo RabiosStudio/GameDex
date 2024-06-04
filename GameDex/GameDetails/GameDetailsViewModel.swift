@@ -152,17 +152,16 @@ extension GameDetailsViewModel: FormDelegate {
                 break
             }
         }
+        
+        self.configureBottomView(
+            shouldEnableButton: self.initialGameForm != self.gameForm
+        )
     }
     
     func refreshSectionsDependingOnGameFormat() {
         self.updateSections(with: self.gameForm)
         self.containerDelegate?.reloadSections(emptyError: nil)
-    }
-    
-    func enableSaveButtonIfNeeded() {
-        self.configureBottomView(
-            shouldEnableButton: self.initialGameForm != self.gameForm
-        )
+        
     }
 }
 

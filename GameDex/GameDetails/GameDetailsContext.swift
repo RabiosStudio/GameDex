@@ -1,5 +1,5 @@
 //
-//  GameDetailsUserAction.swift
+//  GameDetailsContext.swift
 //  GameDex
 //
 //  Created by Gabrielle Dalbera on 03/06/2024.
