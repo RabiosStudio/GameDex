@@ -153,9 +153,14 @@ extension GameDetailsViewModel: FormDelegate {
             }
         }
         
-        self.configureBottomView(
-            shouldEnableButton: self.initialGameForm != self.gameForm
-        )
+        switch self.gameDetailsContext {
+        case .edit:
+            self.configureBottomView(
+                shouldEnableButton: self.initialGameForm != self.gameForm
+            )
+        default:
+            break
+        }
     }
     
     func refreshSectionsDependingOnGameFormat() {

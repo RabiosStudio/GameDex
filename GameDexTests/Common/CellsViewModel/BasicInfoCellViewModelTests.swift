@@ -13,6 +13,7 @@ final class BasicInfoCellViewModelTests: XCTestCase {
         // Given
         let text = "Title"
         let subtitle1 = "Subtitle 1"
+        let icon = GameFormat.physical.image
         let subtitle2 = "Subtitle 2"
         let captionName = "Caption Name"
         
@@ -21,10 +22,12 @@ final class BasicInfoCellViewModelTests: XCTestCase {
             title: text,
             subtitle1: subtitle1,
             subtitle2: subtitle2,
-            caption: captionName
+            caption: captionName,
+            icon: icon
         )
         // Then
         XCTAssertEqual(cellVM.title, "Title")
+        XCTAssertEqual(cellVM.icon, icon)
         XCTAssertEqual(cellVM.subtitle1, "Subtitle 1")
         XCTAssertEqual(cellVM.subtitle2, "Subtitle 2")
         XCTAssertEqual(cellVM.caption, "Caption Name")

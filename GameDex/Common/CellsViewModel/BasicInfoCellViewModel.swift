@@ -6,6 +6,7 @@
 //
 
 import Foundation
+import UIKit
 
 final class BasicInfoCellViewModel: CollectionCellViewModel {
     var cellClass: AnyClass = BasicInfoCell.self
@@ -17,18 +18,21 @@ final class BasicInfoCellViewModel: CollectionCellViewModel {
     let subtitle1: String?
     let subtitle2: String?
     let caption: String?
+    let icon: UIImage?
     
     init(
         title: String,
-        subtitle1: String?,
-        subtitle2: String?,
-        caption: String?,
+        subtitle1: String? = nil,
+        subtitle2: String? = nil,
+        caption: String? = nil,
+        icon: UIImage? = nil,
         cellTappedCallback: (() -> Void)? = nil
     ) {
         self.title = title
         self.subtitle1 = subtitle1
         self.subtitle2 = subtitle2
         self.caption = caption
+        self.icon = icon
         self.cellTappedCallback = cellTappedCallback
     }
 }

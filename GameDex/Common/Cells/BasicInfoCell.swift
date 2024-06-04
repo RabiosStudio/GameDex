@@ -17,6 +17,17 @@ final class BasicInfoCell: UICollectionViewCell, CellConfigurable {
         return view
     }()
     
+    private lazy var iconView: UIImageView = {
+        let view = UIImageView()
+        view.contentMode = .scaleAspectFit
+        view.clipsToBounds = true
+        view.tintColor = .primaryColor
+        view.layer.cornerRadius = DesignSystem.cornerRadiusBig
+        view.layer.masksToBounds = false
+        view.translatesAutoresizingMaskIntoConstraints = false
+        return view
+    }()
+    
     private lazy var titleLabel: VerticallyAlignedUILabel = {
         let label = VerticallyAlignedUILabel()
         label.font = Typography.title3bold.font
@@ -73,6 +84,11 @@ final class BasicInfoCell: UICollectionViewCell, CellConfigurable {
             self.imageView.setImageWith(url: imageURL)
         }
         
+        if let icon = cellVM.icon {
+            self.iconView.image = icon
+            self.iconView.backgroundColor = .primaryBackgroundColor
+        }
+        
         self.titleLabel.text = cellVM.title
         
         self.setupSubviews(
@@ -86,6 +102,7 @@ final class BasicInfoCell: UICollectionViewCell, CellConfigurable {
     
     private func setupSubviews(subtitle1: String?, subtitle2: String?) {
         self.contentView.addSubview(self.imageView)
+        self.contentView.addSubview(self.iconView)
         self.stackView.addArrangedSubview(self.titleLabel)
         guard subtitle1 != nil else {
             return
@@ -117,6 +134,20 @@ final class BasicInfoCell: UICollectionViewCell, CellConfigurable {
                 constant: -DesignSystem.paddingSmall
             ),
             
+            self.iconView.topAnchor.constraint(
+                equalTo: self.topAnchor
+            ),
+            self.iconView.leadingAnchor.constraint(
+                equalTo: self.leadingAnchor
+            ),
+            self.iconView.heightAnchor.constraint(
+                equalTo: self.imageView.heightAnchor,
+                multiplier: DesignSystem.fractionalSizeVerySmall
+            ),
+            self.iconView.widthAnchor.constraint(
+                equalTo: self.iconView.heightAnchor
+            ),
+            
             self.stackView.topAnchor.constraint(
                 equalTo: self.topAnchor,
                 constant: DesignSystem.paddingSmall
@@ -136,5 +167,7 @@ final class BasicInfoCell: UICollectionViewCell, CellConfigurable {
                 equalTo: self.widthAnchor, multiplier: DesignSystem.fractionalSizeBig
             )
         ])
+        self.layoutIfNeeded()
+        self.layoutSubviews()
     }
 }

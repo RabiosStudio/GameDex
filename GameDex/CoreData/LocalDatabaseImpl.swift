@@ -95,12 +95,15 @@ extension LocalDatabaseImpl {
         }
     }
     
-    func getGame(gameId: String) -> Result<GameCollected?, DatabaseError> {
+    func getGame(savedGame: SavedGame) -> Result<GameCollected?, DatabaseError> {
         let fetchRequest: NSFetchRequest<GameCollected>
         fetchRequest = GameCollected.fetchRequest()
-        fetchRequest.predicate = NSPredicate(
-            format: "gameID == %@", gameId
-        )
+        
+        let predicateGameID = NSPredicate(format: "gameID == %@", savedGame.game.id)
+        let predicateGameFormat = NSPredicate(format: "isPhysical == %@", NSNumber(value: savedGame.isPhysical))
+        let predicate = NSCompoundPredicate(type: .and, subpredicates: [predicateGameID, predicateGameFormat])
+
+        fetchRequest.predicate = predicate
         
         do {
             let results = try self.managedObjectContext.fetch(fetchRequest)
@@ -114,7 +117,7 @@ extension LocalDatabaseImpl {
     }
     
     func replace(savedGame: SavedGame) async -> DatabaseError? {
-        let gameResult = getGame(gameId: savedGame.game.id)
+        let gameResult = getGame(savedGame: savedGame)
         switch gameResult {
         case let .success(gameToReplace):
             guard let gameToReplace else {
@@ -142,7 +145,7 @@ extension LocalDatabaseImpl {
     
     func remove(savedGame: SavedGame) async -> DatabaseError? {
         // Remove the object in the following context
-        let gameResult = getGame(gameId: savedGame.game.id)
+        let gameResult = getGame(savedGame: savedGame)
         
         switch gameResult {
         case let .success(gameToRemove):
