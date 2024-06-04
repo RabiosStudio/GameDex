@@ -1,15 +1,15 @@
 //
-//  EditGameDetailsViewModelTests.swift
+//  GameDetailsViewModelTests.swift
 //  GameDexTests
 //
-//  Created by Gabrielle Dalbera on 17/09/2023.
+//  Created by Gabrielle Dalbera on 04/06/2024.
 //
 
 import XCTest
 @testable import GameDex
 import SwiftyMocky
 
-final class EditGameDetailsViewModelTests: XCTestCase {
+final class GameDetailsViewModelTests: XCTestCase {
     
     // MARK: Setup
     
@@ -29,8 +29,8 @@ final class EditGameDetailsViewModelTests: XCTestCase {
     
     func test_init_ThenShouldNoSectionsAndItems() {
         // Given
-        let viewModel = EditGameDetailsViewModel(
-            savedGame: MockData.savedGame,
+        let viewModel = GameDetailsViewModel(
+            gameDetailsContext: .edit(savedGame: MockData.savedGame),
             platform: MockData.platform,
             localDatabase: LocalDatabaseMock(),
             cloudDatabase: CloudDatabaseMock(),
@@ -46,10 +46,10 @@ final class EditGameDetailsViewModelTests: XCTestCase {
         XCTAssertEqual(numberOfItems, .zero)
     }
     
-    func test_loadData_ThenCallBackIsCalledAndSectionsAreSetCorrectly() {
+    func test_loadData_GivenGameDetailsContextAdd_ThenCallBackIsCalledAndSectionsAreSetCorrectly() {
         // Given
-        let viewModel = EditGameDetailsViewModel(
-            savedGame: MockData.savedGame,
+        let viewModel = GameDetailsViewModel(
+            gameDetailsContext: .add(game: MockData.game),
             platform: MockData.platform,
             localDatabase: LocalDatabaseMock(),
             cloudDatabase: CloudDatabaseMock(),
@@ -71,15 +71,40 @@ final class EditGameDetailsViewModelTests: XCTestCase {
         XCTAssertEqual(viewModel.numberOfItems(in: .zero), 9)
     }
     
-    func test_didTapPrimaryButton_GivenLocalDatabaseNoError_ThenAlertParametersAreCorrect() async {
+    func test_loadData_GivenGameDetailsContextEdit_ThenCallBackIsCalledAndSectionsAreSetCorrectly() {
+        // Given
+        let viewModel = GameDetailsViewModel(
+            gameDetailsContext: .edit(savedGame: MockData.savedGame),
+            platform: MockData.platform,
+            localDatabase: LocalDatabaseMock(),
+            cloudDatabase: CloudDatabaseMock(),
+            alertDisplayer: AlertDisplayerMock(),
+            myCollectionDelegate: MyCollectionViewModelDelegateMock(),
+            authenticationService: AuthenticationServiceMock()
+        )
+        
+        var callbackIsCalled = false
+        
+        // When
+        viewModel.loadData { _ in
+            callbackIsCalled = true
+        }
+        
+        // Then
+        XCTAssertTrue(callbackIsCalled)
+        XCTAssertEqual(viewModel.numberOfSections(), 1)
+        XCTAssertEqual(viewModel.numberOfItems(in: .zero), 9)
+    }
+    
+    func test_didTapPrimaryButton_GivenContextEditAndLocalDatabaseNoError_ThenAlertParametersAreCorrectAndSupplementaryViewConfiguredTwice() async {
         // Given
         let localDatabase = LocalDatabaseMock()
         let authenticationService = AuthenticationServiceMock()
         let alertDisplayer = AlertDisplayerMock()
         let containerDelegate = ContainerViewControllerDelegateMock()
         
-        let viewModel = EditGameDetailsViewModel(
-            savedGame: MockData.savedGame,
+        let viewModel = GameDetailsViewModel(
+            gameDetailsContext: .edit(savedGame: MockData.savedGame),
             platform: MockData.platform,
             localDatabase: localDatabase,
             cloudDatabase: CloudDatabaseMock(),
@@ -126,15 +151,15 @@ final class EditGameDetailsViewModelTests: XCTestCase {
         )
     }
     
-    func test_didTapPrimaryButton_GivenLocalDatabaseErrorReplacingData_ThenAlertParametersAreCorrect() async {
+    func test_didTapPrimaryButton_GivenContextEditAndLocalDatabaseErrorReplacingData_ThenAlertParametersAreCorrectAndSupplementaryViewConfiguredTwice() async {
         // Given
         let localDatabase = LocalDatabaseMock()
         let authenticationService = AuthenticationServiceMock()
         let alertDisplayer = AlertDisplayerMock()
         let containerDelegate = ContainerViewControllerDelegateMock()
         
-        let viewModel = EditGameDetailsViewModel(
-            savedGame: MockData.savedGame,
+        let viewModel = GameDetailsViewModel(
+            gameDetailsContext: .edit(savedGame: MockData.savedGame),
             platform: MockData.platform,
             localDatabase: localDatabase,
             cloudDatabase: CloudDatabaseMock(),
@@ -181,15 +206,15 @@ final class EditGameDetailsViewModelTests: XCTestCase {
         )
     }
     
-    func test_didTapPrimaryButton_GivenCloudDatabaseNoError_ThenAlertParametersAreCorrect() async {
+    func test_didTapPrimaryButton_GivenContextEditAndCloudDatabaseNoError_ThenAlertParametersAreCorrectAndSupplementaryViewConfiguredTwice() async {
         // Given
         let cloudDatabase = CloudDatabaseMock()
         let authenticationService = AuthenticationServiceMock()
         let alertDisplayer = AlertDisplayerMock()
         let containerDelegate = ContainerViewControllerDelegateMock()
         
-        let viewModel = EditGameDetailsViewModel(
-            savedGame: MockData.savedGame,
+        let viewModel = GameDetailsViewModel(
+            gameDetailsContext: .edit(savedGame: MockData.savedGame),
             platform: MockData.platform,
             localDatabase: LocalDatabaseMock(),
             cloudDatabase: cloudDatabase,
@@ -239,15 +264,15 @@ final class EditGameDetailsViewModelTests: XCTestCase {
         )
     }
     
-    func test_didTapPrimaryButton_GivenCloudDatabaseErrorReplacingData_ThenAlertParametersAreCorrect() async {
+    func test_didTapPrimaryButton_GivenContextEditAndCloudDatabaseErrorReplacingData_ThenAlertParametersAreCorrectAndSupplementaryViewConfiguredTwice() async {
         // Given
         let cloudDatabase = CloudDatabaseMock()
         let authenticationService = AuthenticationServiceMock()
         let alertDisplayer = AlertDisplayerMock()
         let containerDelegate = ContainerViewControllerDelegateMock()
         
-        let viewModel = EditGameDetailsViewModel(
-            savedGame: MockData.savedGame,
+        let viewModel = GameDetailsViewModel(
+            gameDetailsContext: .edit(savedGame: MockData.savedGame),
             platform: MockData.platform,
             localDatabase: LocalDatabaseMock(),
             cloudDatabase: cloudDatabase,
@@ -297,110 +322,285 @@ final class EditGameDetailsViewModelTests: XCTestCase {
         )
     }
     
-    func test_enableSaveButton_GivenStringValueChanged_ThenShouldCallContainerDelegate() {
+    func test_didTapPrimaryButton_GivenContextAddAndLocalDatabaseNoError_ThenNavigationStyleIsDismissAndAlertParametersAreCorrect() async {
         // Given
         let localDatabase = LocalDatabaseMock()
-        let containerDelegate = ContainerViewControllerDelegateMock()
+        let authenticationService = AuthenticationServiceMock()
+        authenticationService.given(
+            .getUserId(
+                willReturn: nil
+            )
+        )
+        let alertDisplayer = AlertDisplayerMock()
+        let myCollectionDelegate = MyCollectionViewModelDelegateMock()
         
-        let viewModel = EditGameDetailsViewModel(
-            savedGame: MockData.savedGame,
+        let viewModel  = GameDetailsViewModel(
+            gameDetailsContext: .add(game: MockData.game),
             platform: MockData.platform,
             localDatabase: localDatabase,
             cloudDatabase: CloudDatabaseMock(),
-            alertDisplayer: AlertDisplayerMock(),
-            myCollectionDelegate: MyCollectionViewModelDelegateMock(),
-            authenticationService: AuthenticationServiceMock()
+            alertDisplayer: alertDisplayer,
+            myCollectionDelegate: myCollectionDelegate,
+            authenticationService: authenticationService
         )
         
-        viewModel.containerDelegate = containerDelegate
-        
-        viewModel.loadData { _ in
-            
-            guard let firstSection = viewModel.sections.first,
-                  let formCellsVM = firstSection.cellsVM.filter({ cellVM in
-                      return cellVM is (any FormCellViewModel)
-                  }) as? [any FormCellViewModel] else {
-                XCTFail("Wrong type")
-                return
-            }
-            var acquisitionYear: String?
-            var rating: Int?
-            
-            for formCellVM in formCellsVM {
-                guard let formType = formCellVM.formType as? GameFormType else { return }
-                switch formType {
-                case .acquisitionYear:
-                    acquisitionYear = formCellVM.value as? String
-                    acquisitionYear = "2023"
-                case .rating:
-                    rating = formCellVM.value as? Int
-                    rating = 3
-                default:
-                    break
-                }
-            }
-        }
-        viewModel.enableSaveButtonIfNeeded()
-        
-        // Then
-        containerDelegate.verify(
-            .configureSupplementaryView(
-                contentViewFactory: .any
-            ), count: 2
+        localDatabase.given(
+            .add(
+                newEntity: .any,
+                platform: .any,
+                willReturn: nil
+            )
         )
-    }
-    
-    func test_enableSaveButton_GivenStringValueChangedWithNil_ThenShouldCallContainerDelegate() {
-        // Given
-        let localDatabase = LocalDatabaseMock()
-        let containerDelegate = ContainerViewControllerDelegateMock()
-        
-        let viewModel = EditGameDetailsViewModel(
-            savedGame: MockData.savedGame,
-            platform: MockData.platform,
-            localDatabase: localDatabase,
-            cloudDatabase: CloudDatabaseMock(),
-            alertDisplayer: AlertDisplayerMock(),
-            myCollectionDelegate: MyCollectionViewModelDelegateMock(),
-            authenticationService: AuthenticationServiceMock()
-        )
-        
-        viewModel.containerDelegate = containerDelegate
-        
-        viewModel.loadData { _ in
-            
-            let firstSection = viewModel.sections.first!
-            let formCellsVM = firstSection.cellsVM.filter({ cellVM in
-                return cellVM is TextFieldCellViewModel
-            }) as! [TextFieldCellViewModel]
-            
-            for formCellVM in formCellsVM {
-                guard let formType = formCellVM.formType as? GameFormType else { return }
-                switch formType {
-                case .acquisitionYear:
-                    formCellVM.value = nil
-                default:
-                    break
-                }
-            }
-        }
         
         // When
-        viewModel.enableSaveButtonIfNeeded()
+        await viewModel.didTapPrimaryButton(with: nil)
         
         // Then
-        containerDelegate.verify(
-            .configureSupplementaryView(
-                contentViewFactory: .any
-            ), count: 3
+        alertDisplayer.verify(
+            .presentTopFloatAlert(
+                parameters: .value(
+                    AlertViewModel(
+                        alertType: .success,
+                        description: L10n.saveGameSuccessDescription
+                    )
+                )
+            ), count: .once
+        )
+        
+        myCollectionDelegate.verify(.reloadCollection())
+        if case .dismiss = Routing.shared.lastNavigationStyle {
+            XCTAssertTrue(true)
+        } else {
+            XCTFail("Wrong navigation style")
+        }
+    }
+    
+    func test_didTapPrimaryButton_GivenContextAddAndLocalDatabaseItemAlreadySavedError_ThenAlertParametersAreSetCorrectly() async {
+        // Given
+        let localDatabase = LocalDatabaseMock()
+        let alertDisplayer = AlertDisplayerMock()
+        let authenticationService = AuthenticationServiceMock()
+        
+        let viewModel  = GameDetailsViewModel(
+            gameDetailsContext: .add(game: MockData.game),
+            platform: MockData.platform,
+            localDatabase: localDatabase,
+            cloudDatabase: CloudDatabaseMock(),
+            alertDisplayer: alertDisplayer,
+            myCollectionDelegate: MyCollectionViewModelDelegateMock(),
+            authenticationService: authenticationService
+        )
+        
+        authenticationService.given(
+            .getUserId(
+                willReturn: nil
+            )
+        )
+        
+        localDatabase.given(
+            .add(
+                newEntity: .any,
+                platform: .any,
+                willReturn: DatabaseError.itemAlreadySaved
+            )
+        )
+        
+        // When
+        await viewModel.didTapPrimaryButton(with: nil)
+        
+        // Then
+        alertDisplayer.verify(
+            .presentTopFloatAlert(
+                parameters: .value(
+                    AlertViewModel(
+                        alertType: .warning,
+                        description: L10n.warningGameAlreadyInDatabase
+                    )
+                )
+            ), count: .once
         )
     }
     
-    func test_didTapButtonItem_ThenShouldSetAlertParametersCorrectly() async {
+    func test_didTapPrimaryButton_GivenContextAddAndCloudDatabaseNoError_ThenNavigationStyleIsDismissAndAlertParametersAreCorrect() async {
+        // Given
+        let cloudDatabase = CloudDatabaseMock()
+        let authenticationService = AuthenticationServiceMock()
+        let alertDisplayer = AlertDisplayerMock()
+        let myCollectionDelegate = MyCollectionViewModelDelegateMock()
+        
+        let viewModel  = GameDetailsViewModel(
+            gameDetailsContext: .add(game: MockData.game),
+            platform: MockData.platform,
+            localDatabase: LocalDatabaseMock(),
+            cloudDatabase: cloudDatabase,
+            alertDisplayer: alertDisplayer,
+            myCollectionDelegate: myCollectionDelegate,
+            authenticationService: authenticationService
+        )
+        
+        authenticationService.given(
+            .getUserId(
+                willReturn: "userId"
+            )
+        )
+        
+        cloudDatabase.given(
+            .gameIsInDatabase(
+                userId: .any,
+                savedGame: .any,
+                willReturn: .success(false)
+            )
+        )
+        
+        cloudDatabase.given(
+            .saveGame(
+                userId: .any,
+                game: .any,
+                platform: .any,
+                willReturn: nil
+            )
+        )
+        
+        // When
+        await viewModel.didTapPrimaryButton(with: nil)
+        
+        // Then
+        alertDisplayer.verify(
+            .presentTopFloatAlert(
+                parameters: .value(
+                    AlertViewModel(
+                        alertType: .success,
+                        description: L10n.saveGameSuccessDescription
+                    )
+                )
+            ), count: .once
+        )
+        
+        myCollectionDelegate.verify(.reloadCollection())
+        if case .dismiss = Routing.shared.lastNavigationStyle {
+            XCTAssertTrue(true)
+        } else {
+            XCTFail("Wrong navigation style")
+        }
+    }
+    
+    func test_didTapPrimaryButton_GivenContextAddAndCloudDatabaseSaveError_ThenAlertParametersAreSetCorrectly() async {
+        // Given
+        let cloudDatabase = CloudDatabaseMock()
+        let authenticationService = AuthenticationServiceMock()
+        let alertDisplayer = AlertDisplayerMock()
+        let myCollectionDelegate = MyCollectionViewModelDelegateMock()
+        
+        let viewModel  = GameDetailsViewModel(
+            gameDetailsContext: .add(game: MockData.game),
+            platform: MockData.platform,
+            localDatabase: LocalDatabaseMock(),
+            cloudDatabase: cloudDatabase,
+            alertDisplayer: alertDisplayer,
+            myCollectionDelegate: myCollectionDelegate,
+            authenticationService: authenticationService
+        )
+        
+        authenticationService.given(
+            .getUserId(
+                willReturn: "userId"
+            )
+        )
+        
+        cloudDatabase.given(
+            .gameIsInDatabase(
+                userId: .any,
+                savedGame: .any,
+                willReturn: .success(false)
+            )
+        )
+        
+        cloudDatabase.given(
+            .saveGame(
+                userId: .any,
+                game: .any,
+                platform: .any,
+                willReturn: DatabaseError.saveError
+            )
+        )
+        
+        // When
+        await viewModel.didTapPrimaryButton(with: nil)
+        
+        // Then
+        alertDisplayer.verify(
+            .presentTopFloatAlert(
+                parameters: .value(
+                    AlertViewModel(
+                        alertType: .error,
+                        description: L10n.saveGameErrorDescription
+                    )
+                )
+            ), count: .once
+        )
+    }
+    
+    func test_didTapPrimaryButton_GivenContextAddAndCloudDatabaseItemAlreadySavedError_ThenAlertParametersAreSetCorrectly() async {
+        // Given
+        let cloudDatabase = CloudDatabaseMock()
+        let authenticationService = AuthenticationServiceMock()
+        let alertDisplayer = AlertDisplayerMock()
+        let myCollectionDelegate = MyCollectionViewModelDelegateMock()
+        
+        let viewModel  = GameDetailsViewModel(
+            gameDetailsContext: .add(game: MockData.game),
+            platform: MockData.platform,
+            localDatabase: LocalDatabaseMock(),
+            cloudDatabase: cloudDatabase,
+            alertDisplayer: alertDisplayer,
+            myCollectionDelegate: myCollectionDelegate,
+            authenticationService: authenticationService
+        )
+        
+        authenticationService.given(
+            .getUserId(
+                willReturn: "userId"
+            )
+        )
+        
+        cloudDatabase.given(
+            .gameIsInDatabase(
+                userId: .any,
+                savedGame: .any,
+                willReturn: .success(true)
+            )
+        )
+        
+        cloudDatabase.given(
+            .saveGame(
+                userId: .any,
+                game: .any,
+                platform: .any,
+                willReturn: DatabaseError.itemAlreadySaved
+            )
+        )
+        
+        // When
+        await viewModel.didTapPrimaryButton(with: nil)
+        
+        // Then
+        alertDisplayer.verify(
+            .presentTopFloatAlert(
+                parameters: .value(
+                    AlertViewModel(
+                        alertType: .warning,
+                        description: L10n.warningGameAlreadyInDatabase
+                    )
+                )
+            ), count: .once
+        )
+    }
+    
+    func test_didTapButtonItem_GivenContextEdit_ThenShouldSetAlertParametersCorrectly() async {
         // Given
         let alertDisplayer = AlertDisplayerMock()
-        let viewModel = EditGameDetailsViewModel(
-            savedGame: MockData.savedGame,
+        let viewModel = GameDetailsViewModel(
+            gameDetailsContext: .edit(savedGame: MockData.savedGame),
             platform: MockData.platform,
             localDatabase: LocalDatabaseMock(),
             cloudDatabase: CloudDatabaseMock(),
@@ -410,7 +610,7 @@ final class EditGameDetailsViewModelTests: XCTestCase {
         )
         
         // When
-        await viewModel.didTap(buttonItem: .delete)
+        viewModel.didTap(buttonItem: .delete)
         
         // Then
         alertDisplayer.verify(
@@ -425,14 +625,43 @@ final class EditGameDetailsViewModelTests: XCTestCase {
         )
     }
     
-    func test_didTapOkButton_GivenLocalRemoveDataError_ThenShouldSetAlertParametersCorrectlyAndCallContainerDelegate() async {
+    func test_didTapButtonItem_GivenContextAdd_ThenShouldSetNavigationStyleCorrectlyAndCallMyCollectionDelegate() async {
+        // Given
+        let localDatabase = LocalDatabaseMock()
+        let alertDisplayer = AlertDisplayerMock()
+        let myCollectionDelegate = MyCollectionViewModelDelegateMock()
+        
+        let viewModel  = GameDetailsViewModel(
+            gameDetailsContext: .add(game: MockData.game),
+            platform: MockData.platform,
+            localDatabase: localDatabase,
+            cloudDatabase: CloudDatabaseMock(),
+            alertDisplayer: alertDisplayer,
+            myCollectionDelegate: myCollectionDelegate,
+            authenticationService: AuthenticationServiceMock()
+        )
+        
+        // When
+        viewModel.didTap(buttonItem: .close)
+        
+        // Then
+        let expectedNavigationStyle: NavigationStyle = {
+            return .dismiss(completionBlock: nil)
+        }()
+        let lastNavigationStyle = Routing.shared.lastNavigationStyle
+        
+        XCTAssertEqual(lastNavigationStyle, expectedNavigationStyle)
+    }
+    
+    func test_didTapOkButton_GivenContextEditAndLocalRemoveDataError_ThenShouldSetAlertParametersCorrectlyAndCallContainerDelegate() async {
         // Given
         let localDatabase = LocalDatabaseMock()
         let authenticationService = AuthenticationServiceMock()
         let alertDisplayer = AlertDisplayerMock()
         let containerDelegate = ContainerViewControllerDelegateMock()
-        let viewModel = EditGameDetailsViewModel(
-            savedGame: MockData.savedGame,
+        
+        let viewModel = GameDetailsViewModel(
+            gameDetailsContext: .edit(savedGame: MockData.savedGame),
             platform: MockData.platform,
             localDatabase: localDatabase,
             cloudDatabase: CloudDatabaseMock(),
@@ -472,14 +701,14 @@ final class EditGameDetailsViewModelTests: XCTestCase {
         )
     }
     
-    func test_didTapOkButton_GivenLocalNoError_ThenShouldSetAlertParametersCorrectlyAndCallContainerDelegate() async {
+    func test_didTapOkButton_GivenContextEditAndLocalNoError_ThenShouldSetAlertParametersCorrectlyAndCallContainerDelegate() async {
         // Given
         let localDatabase = LocalDatabaseMock()
         let authenticationService = AuthenticationServiceMock()
         let alertDisplayer = AlertDisplayerMock()
         let containerDelegate = ContainerViewControllerDelegateMock()
-        let viewModel = EditGameDetailsViewModel(
-            savedGame: MockData.savedGame,
+        let viewModel = GameDetailsViewModel(
+            gameDetailsContext: .edit(savedGame: MockData.savedGame),
             platform: MockData.platform,
             localDatabase: localDatabase,
             cloudDatabase: CloudDatabaseMock(),
@@ -521,7 +750,7 @@ final class EditGameDetailsViewModelTests: XCTestCase {
         containerDelegate.verify(.goBackToPreviousScreen())
     }
     
-    func test_didTapOkButton_GivenCloudRemoveDataError_ThenShouldSetAlertParametersCorrectlyAndCallContainerDelegate() async {
+    func test_didTapOkButton_GivenContextEditAndCloudRemoveDataError_ThenShouldSetAlertParametersCorrectlyAndCallContainerDelegate() async {
         // Given
         let savedGame = MockData.savedGame
         let platform = MockData.platform
@@ -529,9 +758,9 @@ final class EditGameDetailsViewModelTests: XCTestCase {
         let authenticationService = AuthenticationServiceMock()
         let alertDisplayer = AlertDisplayerMock()
         let containerDelegate = ContainerViewControllerDelegateMock()
-        let viewModel = EditGameDetailsViewModel(
-            savedGame: savedGame,
-            platform: platform,
+        let viewModel = GameDetailsViewModel(
+            gameDetailsContext: .edit(savedGame: MockData.savedGame),
+            platform: MockData.platform,
             localDatabase: LocalDatabaseMock(),
             cloudDatabase: cloudDatabase,
             alertDisplayer: alertDisplayer,
@@ -572,17 +801,15 @@ final class EditGameDetailsViewModelTests: XCTestCase {
         )
     }
     
-    func test_didTapOkButton_GivenCloudNoError_ThenShouldSetAlertParametersCorrectlyAndCallContainerDelegate() async {
+    func test_didTapOkButton_GivenContextEditAndCloudNoError_ThenShouldSetAlertParametersCorrectlyAndCallContainerDelegate() async {
         // Given
-        let savedGame = MockData.savedGame
-        let platform = MockData.platform
         let cloudDatabase = CloudDatabaseMock()
         let authenticationService = AuthenticationServiceMock()
         let alertDisplayer = AlertDisplayerMock()
         let containerDelegate = ContainerViewControllerDelegateMock()
-        let viewModel = EditGameDetailsViewModel(
-            savedGame: savedGame,
-            platform: platform,
+        let viewModel = GameDetailsViewModel(
+            gameDetailsContext: .edit(savedGame: MockData.savedGame),
+            platform: MockData.platform,
             localDatabase: LocalDatabaseMock(),
             cloudDatabase: cloudDatabase,
             alertDisplayer: alertDisplayer,
@@ -601,8 +828,8 @@ final class EditGameDetailsViewModelTests: XCTestCase {
         cloudDatabase.given(
             .removeGame(
                 userId: .any,
-                platform: .value(platform),
-                savedGame: .value(savedGame),
+                platform: .value(MockData.platform),
+                savedGame: .value(MockData.savedGame),
                 willReturn: nil
             )
         )
@@ -624,14 +851,12 @@ final class EditGameDetailsViewModelTests: XCTestCase {
         containerDelegate.verify(.goBackToPreviousScreen(), count: .once)
     }
     
-    func test_didUpdate_GivenCloudNoError_ThenShouldSetAlertParametersCorrectlyAndCallContainerDelegate() async {
+    func test_didUpdate_GivenContextEditAndCloudNoError_ThenShouldSetAlertParametersCorrectlyAndCallContainerDelegate() async {
         // Given
-        let savedGame = MockData.savedGame
-        let platform = MockData.platform
         let containerDelegate = ContainerViewControllerDelegateMock()
-        let viewModel = EditGameDetailsViewModel(
-            savedGame: savedGame,
-            platform: platform,
+        let viewModel = GameDetailsViewModel(
+            gameDetailsContext: .edit(savedGame: MockData.savedGame),
+            platform: MockData.platform,
             localDatabase: LocalDatabaseMock(),
             cloudDatabase: CloudDatabaseMock(),
             alertDisplayer: AlertDisplayerMock(),
@@ -691,4 +916,32 @@ final class EditGameDetailsViewModelTests: XCTestCase {
         XCTAssertEqual(viewModel.gameForm.notes, MockData.editedGameForm.notes)
         XCTAssertEqual(viewModel.gameForm.isPhysical, MockData.editedGameForm.isPhysical)
     }
+    
+    func test_refreshSectionsDependingOnGameFormat_GivenFormatIsUpdated_ThenShouldReloadSections() {
+        // Given
+        let containerDelegate = ContainerViewControllerDelegateMock()
+        let viewModel = GameDetailsViewModel(
+            gameDetailsContext: .edit(savedGame: MockData.savedGame),
+            platform: MockData.platform,
+            localDatabase: LocalDatabaseMock(),
+            cloudDatabase: CloudDatabaseMock(),
+            alertDisplayer: AlertDisplayerMock(),
+            myCollectionDelegate: MyCollectionViewModelDelegateMock(),
+            authenticationService: AuthenticationServiceMock()
+        )
+        viewModel.containerDelegate = containerDelegate
+        viewModel.loadData { _ in }
+        
+        // When
+        viewModel.gameForm = MockData.digitalGameForm
+        viewModel.refreshSectionsDependingOnGameFormat()
+        
+        // Then
+        XCTAssertEqual(viewModel.numberOfSections(), 1)
+        XCTAssertEqual(viewModel.numberOfItems(in: .zero), 5)
+        containerDelegate.verify(.reloadSections(emptyError: .any), count: .once)
+    }
 }
+
+
+

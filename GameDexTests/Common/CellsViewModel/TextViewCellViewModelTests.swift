@@ -42,6 +42,6 @@ final class TextViewCellViewModelTests: XCTestCase {
         cellVM.value = "updated text"
         
         // Then
-        delegate.verify(.enableSaveButtonIfNeeded(), count: .once)
+        delegate.verify(.didUpdate(value: .any, for: .any), count: .once)
     }
 }

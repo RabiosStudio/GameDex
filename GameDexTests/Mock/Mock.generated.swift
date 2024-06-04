@@ -3698,12 +3698,6 @@ open class FormDelegateMock: FormDelegate, Mock {
 
 
 
-    open func enableSaveButtonIfNeeded() {
-        addInvocation(.m_enableSaveButtonIfNeeded)
-		let perform = methodPerformValue(.m_enableSaveButtonIfNeeded) as? () -> Void
-		perform?()
-    }
-
     open func refreshSectionsDependingOnGameFormat() {
         addInvocation(.m_refreshSectionsDependingOnGameFormat)
 		let perform = methodPerformValue(.m_refreshSectionsDependingOnGameFormat) as? () -> Void
@@ -3718,14 +3712,11 @@ open class FormDelegateMock: FormDelegate, Mock {
 
 
     fileprivate enum MethodType {
-        case m_enableSaveButtonIfNeeded
         case m_refreshSectionsDependingOnGameFormat
         case m_didUpdate__value_valuefor_type(Parameter<Any>, Parameter<FormType>)
 
         static func compareParameters(lhs: MethodType, rhs: MethodType, matcher: Matcher) -> Matcher.ComparisonResult {
             switch (lhs, rhs) {
-            case (.m_enableSaveButtonIfNeeded, .m_enableSaveButtonIfNeeded): return .match
-
             case (.m_refreshSectionsDependingOnGameFormat, .m_refreshSectionsDependingOnGameFormat): return .match
 
             case (.m_didUpdate__value_valuefor_type(let lhsValue, let lhsType), .m_didUpdate__value_valuefor_type(let rhsValue, let rhsType)):
@@ -3739,14 +3730,12 @@ open class FormDelegateMock: FormDelegate, Mock {
 
         func intValue() -> Int {
             switch self {
-            case .m_enableSaveButtonIfNeeded: return 0
             case .m_refreshSectionsDependingOnGameFormat: return 0
             case let .m_didUpdate__value_valuefor_type(p0, p1): return p0.intValue + p1.intValue
             }
         }
         func assertionName() -> String {
             switch self {
-            case .m_enableSaveButtonIfNeeded: return ".enableSaveButtonIfNeeded()"
             case .m_refreshSectionsDependingOnGameFormat: return ".refreshSectionsDependingOnGameFormat()"
             case .m_didUpdate__value_valuefor_type: return ".didUpdate(value:for:)"
             }
@@ -3767,7 +3756,6 @@ open class FormDelegateMock: FormDelegate, Mock {
     public struct Verify {
         fileprivate var method: MethodType
 
-        public static func enableSaveButtonIfNeeded() -> Verify { return Verify(method: .m_enableSaveButtonIfNeeded)}
         public static func refreshSectionsDependingOnGameFormat() -> Verify { return Verify(method: .m_refreshSectionsDependingOnGameFormat)}
         public static func didUpdate(value: Parameter<Any>, for type: Parameter<FormType>) -> Verify { return Verify(method: .m_didUpdate__value_valuefor_type(`value`, `type`))}
     }
@@ -3776,9 +3764,6 @@ open class FormDelegateMock: FormDelegate, Mock {
         fileprivate var method: MethodType
         var performs: Any
 
-        public static func enableSaveButtonIfNeeded(perform: @escaping () -> Void) -> Perform {
-            return Perform(method: .m_enableSaveButtonIfNeeded, performs: perform)
-        }
         public static func refreshSectionsDependingOnGameFormat(perform: @escaping () -> Void) -> Perform {
             return Perform(method: .m_refreshSectionsDependingOnGameFormat, performs: perform)
         }

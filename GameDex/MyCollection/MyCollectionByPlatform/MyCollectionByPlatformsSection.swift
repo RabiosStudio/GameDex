@@ -22,8 +22,8 @@ final class MyCollectionByPlatformsSection: Section {
                 subtitle2: item.game.formattedReleaseDate,
                 caption: item.game.imageUrl,
                 cellTappedCallback: {
-                    let screenFactory = EditGameDetailsScreenFactory(
-                        savedGame: item,
+                    let screenFactory = GameDetailsScreenFactory(
+                        gameDetailsContext: .edit(savedGame: item),
                         platform: platform,
                         myCollectionDelegate: myCollectionDelegate
                     )

@@ -1,17 +1,17 @@
 //
-//  AddGameDetailsSection.swift
+//  GameDetailsSection.swift
 //  GameDex
 //
-//  Created by Gabrielle Dalbera on 04/09/2023.
+//  Created by Gabrielle Dalbera on 03/06/2024.
 //
 
 import Foundation
 
-final class AddGameDetailsSection: Section {
+final class GameDetailsSection: Section {
     
     init(
         game: Game,
-        platform: Platform,
+        platformName: String,
         gameForm: GameForm,
         formDelegate: FormDelegate
     ) {
@@ -21,7 +21,7 @@ final class AddGameDetailsSection: Section {
         let gameCellVM = ImageDescriptionCellViewModel(
             imageStringURL: game.imageUrl,
             title: game.title,
-            subtitle1: platform.title,
+            subtitle1: platformName,
             subtitle2: game.formattedReleaseDate,
             subtitle3: game.description
         )
@@ -118,4 +118,5 @@ final class AddGameDetailsSection: Section {
         )
         self.cellsVM.append(otherDetailsCellVM)
     }
+
 }

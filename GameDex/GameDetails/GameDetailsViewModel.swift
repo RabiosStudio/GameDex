@@ -1,29 +1,31 @@
 //
-//  EditGameDetailsViewModel.swift
+//  GameDetailsViewModel.swift
 //  GameDex
 //
-//  Created by Gabrielle Dalbera on 14/09/2023.
+//  Created by Gabrielle Dalbera on 03/06/2024.
 //
 
 import Foundation
 import UIKit
 
-final class EditGameDetailsViewModel: CollectionViewModel {
+final class GameDetailsViewModel: CollectionViewModel {
     var searchViewModel: SearchViewModel?
     var isBounceable: Bool = true
     var progress: Float?
-    var buttonItems: [AnyBarButtonItem]? = [.delete]
-    let screenTitle: String? = L10n.myCollection
+    var buttonItems: [AnyBarButtonItem]?
+    let screenTitle: String?
     var sections = [Section]()
     var layoutMargins: UIEdgeInsets?
     
     var gameForm: GameForm
-    private let savedGame: SavedGame
+    private let gameDetailsContext: GameDetailsContext
+    private let game: Game
+    private var savedGame: SavedGame?
     private var initialGameForm: GameForm
+    private let platform: Platform
     private let localDatabase: LocalDatabase
     private let cloudDatabase: CloudDatabase
     private var alertDisplayer: AlertDisplayer
-    private let platform: Platform
     private let authenticationService: AuthenticationService
     
     weak var containerDelegate: ContainerViewControllerDelegate?
@@ -31,7 +33,7 @@ final class EditGameDetailsViewModel: CollectionViewModel {
     weak var myCollectionDelegate: MyCollectionViewModelDelegate?
     
     init(
-        savedGame: SavedGame,
+        gameDetailsContext: GameDetailsContext,
         platform: Platform,
         localDatabase: LocalDatabase,
         cloudDatabase: CloudDatabase,
@@ -39,18 +41,31 @@ final class EditGameDetailsViewModel: CollectionViewModel {
         myCollectionDelegate: MyCollectionViewModelDelegate?,
         authenticationService: AuthenticationService
     ) {
-        self.savedGame = savedGame
         self.platform = platform
-        self.gameForm = GameForm(
-            isPhysical: savedGame.isPhysical,
-            acquisitionYear: savedGame.acquisitionYear,
-            gameCondition: savedGame.gameCondition,
-            gameCompleteness: savedGame.gameCompleteness,
-            gameRegion: savedGame.gameRegion,
-            storageArea: savedGame.storageArea,
-            rating: savedGame.rating,
-            notes: savedGame.notes
-        )
+        self.gameDetailsContext = gameDetailsContext
+        switch gameDetailsContext {
+        case let .add(game):
+            self.game = game
+            self.gameForm = GameForm(isPhysical: true, rating: 0)
+            self.progress = DesignSystem.fullProgress
+            self.buttonItems = [.close]
+            self.screenTitle = L10n.fillGameDetails
+        case let .edit(savedGame):
+            self.savedGame = savedGame
+            self.game = savedGame.game
+            self.gameForm = GameForm(
+                isPhysical: savedGame.isPhysical,
+                acquisitionYear: savedGame.acquisitionYear,
+                gameCondition: savedGame.gameCondition,
+                gameCompleteness: savedGame.gameCompleteness,
+                gameRegion: savedGame.gameRegion,
+                storageArea: savedGame.storageArea,
+                rating: savedGame.rating,
+                notes: savedGame.notes
+            )
+            self.buttonItems = [.delete]
+            self.screenTitle = L10n.myCollection
+        }
         self.initialGameForm = self.gameForm
         self.localDatabase = localDatabase
         self.cloudDatabase = cloudDatabase
@@ -62,7 +77,12 @@ final class EditGameDetailsViewModel: CollectionViewModel {
     
     func loadData(callback: @escaping (EmptyError?) -> ()) {
         self.updateSections(with: self.initialGameForm)
-        self.configureBottomView(shouldEnableButton: false)
+        switch self.gameDetailsContext {
+        case .add:
+            self.configureBottomView(shouldEnableButton: true)
+        case .edit:
+            self.configureBottomView(shouldEnableButton: false)
+        }
         callback(nil)
     }
     
@@ -70,26 +90,26 @@ final class EditGameDetailsViewModel: CollectionViewModel {
         switch buttonItem {
         case .delete:
             self.presentAlertBeforeDeletingGame()
+        case .close:
+            self.close()
         default:
             break
         }
     }
 }
 
-extension EditGameDetailsViewModel: PrimaryButtonDelegate {
+extension GameDetailsViewModel: PrimaryButtonDelegate {
     func didTapPrimaryButton(with title: String?) async {
         guard let gameToSave = self.getGameToSave() else { return }
-        
         guard let userId = self.authenticationService.getUserId() else {
             await self.saveInLocal(gameToSave: gameToSave)
             return
         }
-        
         await self.saveInCloud(userId: userId, gameToSave: gameToSave)
     }
 }
 
-extension EditGameDetailsViewModel: FormDelegate {
+extension GameDetailsViewModel: FormDelegate {
     func didUpdate(value: Any, for type: any FormType) {
         guard let formType = type as? GameFormType else {
             return
@@ -97,19 +117,19 @@ extension EditGameDetailsViewModel: FormDelegate {
         switch formType {
         case .acquisitionYear:
             self.gameForm.acquisitionYear = value as? String
-        case .gameCondition(_):
+        case .gameCondition:
             if let stringValue = value as? String {
                 self.gameForm.gameCondition = GameCondition.getRawValue(
                     value: stringValue
                 )
             }
-        case .gameCompleteness(_):
+        case .gameCompleteness:
             if let stringValue = value as? String {
                 self.gameForm.gameCompleteness = GameCompleteness.getRawValue(
                     value: stringValue
                 )
             }
-        case .gameRegion(_):
+        case .gameRegion:
             if let stringValue = value as? String {
                 self.gameForm.gameRegion = GameRegion.getRawValue(
                     value: stringValue
@@ -132,21 +152,20 @@ extension EditGameDetailsViewModel: FormDelegate {
                 break
             }
         }
+        
+        self.configureBottomView(
+            shouldEnableButton: self.initialGameForm != self.gameForm
+        )
     }
     
     func refreshSectionsDependingOnGameFormat() {
         self.updateSections(with: self.gameForm)
         self.containerDelegate?.reloadSections(emptyError: nil)
-    }
-    
-    func enableSaveButtonIfNeeded() {
-        self.configureBottomView(
-            shouldEnableButton: self.initialGameForm != self.gameForm
-        )
+        
     }
 }
 
-extension EditGameDetailsViewModel: AlertDisplayerDelegate {
+extension GameDetailsViewModel: AlertDisplayerDelegate {
     func didTapOkButton() async {
         guard let userId = self.authenticationService.getUserId() else {
             await self.removeInLocal()
@@ -156,10 +175,18 @@ extension EditGameDetailsViewModel: AlertDisplayerDelegate {
     }
 }
 
-private extension EditGameDetailsViewModel {
+private extension GameDetailsViewModel {
+    func close() {
+        Routing.shared.route(
+            navigationStyle: .dismiss(
+                completionBlock: nil
+            )
+        )
+    }
+    
     func updateSections(with gameForm: GameForm) {
-        self.sections = [EditGameDetailsSection(
-            savedGame: self.savedGame,
+        self.sections = [GameDetailsSection(
+            game: self.game,
             platformName: self.platform.title,
             gameForm: self.gameForm,
             formDelegate: self
@@ -175,29 +202,18 @@ private extension EditGameDetailsViewModel {
         )
     }
     
-    func handleRemoveGameSuccess() async {
-        self.alertDisplayer.presentTopFloatAlert(
-            parameters: AlertViewModel(
-                alertType: .success,
-                description: L10n.removeGameSuccessDescription
-            )
-        )
-        await self.myCollectionDelegate?.reloadCollection()
-        self.containerDelegate?.goBackToPreviousScreen()
-    }
-    func handleRemoveGameError() {
-        self.alertDisplayer.presentTopFloatAlert(
-            parameters: AlertViewModel(
-                alertType: .error,
-                description: L10n.removeGameErrorDescription
-            )
-        )
-    }
-    
     func configureBottomView(shouldEnableButton: Bool) {
+        let buttonTitle: String
+        switch self.gameDetailsContext {
+        case .add:
+            buttonTitle = L10n.addGameToCollection
+        case .edit:
+            buttonTitle = L10n.saveChanges
+        }
+        
         let buttonContentViewFactory = PrimaryButtonContentViewFactory(
             delegate: self,
-            buttonTitle: L10n.saveChanges,
+            buttonTitle: buttonTitle,
             shouldEnable: shouldEnableButton,
             position: .bottom
         )
@@ -206,7 +222,7 @@ private extension EditGameDetailsViewModel {
 
     func getGameToSave() -> SavedGame? {
         return SavedGame(
-            game: self.savedGame.game,
+            game: self.game,
             acquisitionYear: self.gameForm.acquisitionYear,
             gameCondition: self.gameForm.isPhysical ? self.gameForm.gameCondition : nil,
             gameCompleteness: self.gameForm.isPhysical ? self.gameForm.gameCompleteness : nil,
@@ -220,46 +236,83 @@ private extension EditGameDetailsViewModel {
     }
     
     func saveInLocal(gameToSave: SavedGame) async {
-        guard let error = await self.localDatabase.replace(savedGame: gameToSave) else {
-            await self.handleEditGameSuccess()
-            return
+        switch self.gameDetailsContext {
+        case .add:
+            guard let error = await self.localDatabase.add(newEntity: gameToSave, platform: self.platform) else {
+                await self.handleSuccess()
+                return
+            }
+            await self.handleFailure(error: error)
+        case .edit:
+            guard let error = await self.localDatabase.replace(savedGame: gameToSave) else {
+                await self.handleSuccess()
+                return
+            }
+            await self.handleFailure(error: error)
         }
-        await self.handleEditGameFailure(error: error)
     }
     
     func saveInCloud(userId: String, gameToSave: SavedGame) async {
-        guard let error = await self.cloudDatabase.replaceGame(userId: userId, newGame: gameToSave, oldGame: self.savedGame, platform: self.platform) else {
-            await self.handleEditGameSuccess()
-            return
+        switch self.gameDetailsContext {
+        case .add:
+            guard let error = await self.cloudDatabase.saveGame(userId: userId, game: gameToSave, platform: self.platform) else {
+                await self.handleSuccess()
+                return
+            }
+            await self.handleFailure(error: error)
+        case let .edit(savedGame):
+            guard let error = await self.cloudDatabase.replaceGame(userId: userId, newGame: gameToSave, oldGame: savedGame, platform: self.platform) else {
+                await self.handleSuccess()
+                return
+            }
+            await self.handleFailure(error: error)
         }
-        await self.handleEditGameFailure(error: error)
     }
     
-    func handleEditGameSuccess() async {
-        self.alertDisplayer.presentTopFloatAlert(
-            parameters: AlertViewModel(
-                alertType: .success,
-                description: L10n.updateSuccessDescription
+    func handleSuccess() async {
+        switch self.gameDetailsContext {
+        case .add:
+            self.alertDisplayer.presentTopFloatAlert(
+                parameters: AlertViewModel(
+                    alertType: .success,
+                    description: L10n.saveGameSuccessDescription
+                )
             )
-        )
-        self.configureBottomView(shouldEnableButton: false)
-        await self.myCollectionDelegate?.reloadCollection()
-        self.containerDelegate?.goBackToPreviousScreen()
+            await self.myCollectionDelegate?.reloadCollection()
+            self.close()
+        case .edit:
+            self.alertDisplayer.presentTopFloatAlert(
+                parameters: AlertViewModel(
+                    alertType: .success,
+                    description: L10n.updateSuccessDescription
+                )
+            )
+            self.configureBottomView(shouldEnableButton: false)
+            await self.myCollectionDelegate?.reloadCollection()
+            self.containerDelegate?.goBackToPreviousScreen()
+        }
     }
     
-    func handleEditGameFailure(error: DatabaseError) async {
+    func handleFailure(error: DatabaseError) async {
+        let errorDescription: String
+        switch self.gameDetailsContext {
+        case .add:
+            errorDescription = L10n.saveGameErrorDescription
+        case .edit:
+            errorDescription = L10n.updateErrorDescription
+        }
         self.alertDisplayer.presentTopFloatAlert(
             parameters: AlertViewModel(
                 alertType: error == .itemAlreadySaved ? .warning : .error,
-                description: error == .itemAlreadySaved ? L10n.warningGameFormatAlreadyExists : L10n.updateErrorDescription
+                description: error == .itemAlreadySaved ? L10n.warningGameAlreadyInDatabase : errorDescription
             )
         )
         self.configureBottomView(shouldEnableButton: true)
-        return
     }
     
     func removeInLocal() async {
-        guard await self.localDatabase.remove(savedGame: self.savedGame) == nil else {
+        guard let savedGame,
+              await self.localDatabase.remove(savedGame: savedGame) == nil else {
             self.handleRemoveGameError()
             return
         }
@@ -267,10 +320,31 @@ private extension EditGameDetailsViewModel {
     }
     
     func removeInCloud(userId: String) async {
-        guard await self.cloudDatabase.removeGame(userId: userId, platform: self.platform, savedGame: self.savedGame) == nil else {
+        guard let savedGame,
+              await self.cloudDatabase.removeGame(userId: userId, platform: self.platform, savedGame: savedGame) == nil else {
             self.handleRemoveGameError()
             return
         }
         await self.handleRemoveGameSuccess()
+    }
+    
+    func handleRemoveGameSuccess() async {
+        self.alertDisplayer.presentTopFloatAlert(
+            parameters: AlertViewModel(
+                alertType: .success,
+                description: L10n.removeGameSuccessDescription
+            )
+        )
+        await self.myCollectionDelegate?.reloadCollection()
+        self.containerDelegate?.goBackToPreviousScreen()
+    }
+    
+    func handleRemoveGameError() {
+        self.alertDisplayer.presentTopFloatAlert(
+            parameters: AlertViewModel(
+                alertType: .error,
+                description: L10n.removeGameErrorDescription
+            )
+        )
     }
 }

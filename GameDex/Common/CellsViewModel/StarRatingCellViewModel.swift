@@ -20,7 +20,6 @@ final class StarRatingCellViewModel: CollectionFormCellViewModel {
     var value: ValueType? {
         didSet {
             self.formDelegate?.didUpdate(value: self.value as Any, for: self.formType)
-            self.formDelegate?.enableSaveButtonIfNeeded()
         }
     }
     

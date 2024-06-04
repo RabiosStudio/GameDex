@@ -54,8 +54,8 @@ final class SearchGameByTitleSectionTests: XCTestCase {
             
             // Then
             let expectedNavigationStyle: NavigationStyle = .push(
-                screenFactory: AddGameDetailsScreenFactory(
-                    game: MockData.games[index],
+                screenFactory: GameDetailsScreenFactory(
+                    gameDetailsContext: .add(game: MockData.games[index]),
                     platform: MockData.platform,
                     myCollectionDelegate: myCollectionDelegate
                 )
