@@ -407,13 +407,7 @@ extension ContainerViewController: UICollectionViewDataSource {
 extension ContainerViewController: UISearchTextFieldDelegate {
     func textFieldShouldClear(_ textField: UITextField) -> Bool {
         self.viewModel.searchViewModel?.delegate?.updateSearchTextField(with: "", callback: { [weak self] error in
-            if let error = error {
-                let tabBarOffset = -(self?.tabBarController?.tabBar.frame.size.height ?? 0)
-                self?.updateEmptyState(error: error,
-                                       tabBarOffset: tabBarOffset)
-            } else {
-                self?.reloadCollectionView()
-            }
+            self?.reloadSections(emptyError: error)
         })
         return true
     }
@@ -433,17 +427,7 @@ extension ContainerViewController: UISearchBarDelegate {
         
         self.configureLoader()
         self.viewModel.searchViewModel?.delegate?.cancelButtonTapped(callback: { [weak self] error in
-            if let error = error {
-                DispatchQueue.main.async {
-                    let tabBarOffset = -(self?.tabBarController?.tabBar.frame.size.height ?? 0)
-                    self?.updateEmptyState(error: error,
-                                           tabBarOffset: tabBarOffset)
-                }
-            } else {
-                DispatchQueue.main.async {
-                    self?.reloadCollectionView()
-                }
-            }
+            self?.reloadSections(emptyError: error)
         })
     }
     
@@ -459,30 +443,14 @@ extension ContainerViewController: UISearchBarDelegate {
         self.configureLoader()
         self.viewModel.searchViewModel?.delegate?.startSearch(
             from: searchQuery) { [weak self] error in
-                if let error = error {
-                    DispatchQueue.main.async {
-                        let tabBarOffset = -(self?.tabBarController?.tabBar.frame.size.height ?? 0)
-                        self?.updateEmptyState(error: error,
-                                               tabBarOffset: tabBarOffset)
-                    }
-                } else {
-                    DispatchQueue.main.async {
-                        self?.reloadCollectionView()
-                    }
-                }
+                self?.reloadSections(emptyError: error)
             }
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         // called when text changes (including clear)
         self.viewModel.searchViewModel?.delegate?.updateSearchTextField(with: searchText) { [weak self] error in
-            if let error = error {
-                let tabBarOffset = -(self?.tabBarController?.tabBar.frame.size.height ?? 0)
-                self?.updateEmptyState(error: error,
-                                       tabBarOffset: tabBarOffset)
-            } else {
-                self?.reloadCollectionView()
-            }
+            self?.reloadSections(emptyError: error)
         }
     }
 }
