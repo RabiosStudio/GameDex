@@ -41,6 +41,6 @@ final class StarRatingCellViewModelTests: XCTestCase {
         cellVM.value = 1
         
         // Then
-        delegate.verify(.enableSaveButtonIfNeeded(), count: .once)
+        delegate.verify(.didUpdate(value: .any, for: .any), count: .once)
     }
 }
