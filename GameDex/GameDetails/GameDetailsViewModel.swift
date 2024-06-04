@@ -154,7 +154,7 @@ extension GameDetailsViewModel: FormDelegate {
         }
         
         switch self.gameDetailsContext {
-        case .edit(savedGame: let savedGame):
+        case .edit:
             self.configureBottomView(
                 shouldEnableButton: self.initialGameForm != self.gameForm
             )
