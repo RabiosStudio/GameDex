@@ -370,4 +370,15 @@ enum MockData {
         rating: 4,
         notes: "notes"
     )
+    
+    static let digitalGameForm = GameForm(
+        isPhysical: false,
+        acquisitionYear: MockData.gameForm.acquisitionYear,
+        gameCondition: nil,
+        gameCompleteness: nil,
+        gameRegion: nil,
+        storageArea: nil,
+        rating: MockData.gameForm.rating,
+        notes: MockData.gameForm.notes
+    )
 }

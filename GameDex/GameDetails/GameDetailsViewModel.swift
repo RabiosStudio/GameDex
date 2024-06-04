@@ -17,10 +17,10 @@ final class GameDetailsViewModel: CollectionViewModel {
     var sections = [Section]()
     var layoutMargins: UIEdgeInsets?
     
+    var gameForm: GameForm
     private let gameDetailsContext: GameDetailsContext
     private let game: Game
     private var savedGame: SavedGame?
-    private var gameForm: GameForm
     private var initialGameForm: GameForm
     private let platform: Platform
     private let localDatabase: LocalDatabase
@@ -256,7 +256,7 @@ private extension GameDetailsViewModel {
     func saveInCloud(userId: String, gameToSave: SavedGame) async {
         switch self.gameDetailsContext {
         case .add:
-            guard let error = await self.localDatabase.add(newEntity: gameToSave, platform: self.platform) else {
+            guard let error = await self.cloudDatabase.saveGame(userId: userId, game: gameToSave, platform: self.platform) else {
                 await self.handleSuccess()
                 return
             }
