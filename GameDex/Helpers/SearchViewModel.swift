@@ -33,6 +33,7 @@ extension SearchViewModelDelegate {
 
 struct SearchViewModel {
     let placeholder: String
+    let alwaysShow: Bool
     let activateOnTap: Bool
     var delegate: SearchViewModelDelegate?
 }

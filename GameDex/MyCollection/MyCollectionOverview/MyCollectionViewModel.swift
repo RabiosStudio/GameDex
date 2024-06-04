@@ -18,6 +18,7 @@ protocol MyCollectionViewModelDelegate: AnyObject {
 final class MyCollectionViewModel: ConnectivityDisplayerViewModel {
     lazy var searchViewModel: SearchViewModel? = SearchViewModel(
         placeholder: L10n.searchCollection,
+        alwaysShow: false,
         activateOnTap: true,
         delegate: self
     )

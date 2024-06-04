@@ -11,6 +11,7 @@ import UIKit
 final class MyCollectionByPlatformsViewModel: ConnectivityDisplayerViewModel {
     lazy var searchViewModel: SearchViewModel? = SearchViewModel(
         placeholder: L10n.searchGame,
+        alwaysShow: true,
         activateOnTap: true,
         delegate: self
     )
@@ -163,7 +164,7 @@ extension MyCollectionByPlatformsViewModel: MyCollectionViewModelDelegate {
         self.updateListOfGames(with: games)
         self.displayedGames = games
         self.buttonItems = [.filter(active: false), .add]
-        self.containerDelegate?.reloadNavBar()
+        self.containerDelegate?.reloadNavBarAndSearchBar()
         self.containerDelegate?.reloadSections(emptyError: nil)
     }
     
@@ -197,7 +198,7 @@ extension MyCollectionByPlatformsViewModel: MyCollectionViewModelDelegate {
         self.containerDelegate?.reloadSections(
             emptyError: filteredGames.isEmpty ? MyCollectionError.noItems(delegate: self) : nil
         )
-        self.containerDelegate?.reloadNavBar()
+        self.containerDelegate?.reloadNavBarAndSearchBar()
     }
     
     private func shouldDisplayGame(game: SavedGame, filter: GameFilter) -> Bool {
