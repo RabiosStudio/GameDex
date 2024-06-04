@@ -23,7 +23,7 @@ final class MyCollectionByPlatformsSection: Section {
                 caption: item.game.imageUrl,
                 cellTappedCallback: {
                     let screenFactory = GameDetailsScreenFactory(
-                        gameDetailsContext: GameDetailsContext.edit(savedGame: item),
+                        gameDetailsContext: .edit(savedGame: item),
                         platform: platform,
                         myCollectionDelegate: myCollectionDelegate
                     )

@@ -25,7 +25,7 @@ final class SearchGameByTitleSection: Section {
                 caption: game.imageUrl,
                 cellTappedCallback: {
                     let screenFactory = GameDetailsScreenFactory(
-                        gameDetailsContext: GameDetailsContext.add(game: game),
+                        gameDetailsContext: .add(game: game),
                         platform: platform,
                         myCollectionDelegate: myCollectionDelegate
                     )
