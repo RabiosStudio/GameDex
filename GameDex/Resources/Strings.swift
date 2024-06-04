@@ -24,6 +24,8 @@ internal enum L10n {
   internal static let apiErrorTitle = L10n.tr("Localizable", "apiErrorTitle", fallback: "Oops!")
   /// Apply
   internal static let apply = L10n.tr("Localizable", "apply", fallback: "Apply")
+  /// App version
+  internal static let appVersion = L10n.tr("Localizable", "appVersion", fallback: "App version")
   /// through other methods below
   internal static let authThroughOtherMethods = L10n.tr("Localizable", "authThroughOtherMethods", fallback: "through other methods below")
   /// Cancel
