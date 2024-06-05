@@ -11,6 +11,7 @@ import UIKit
 final class SelectPlatformViewModel: CollectionViewModel {
     lazy var searchViewModel: SearchViewModel? = SearchViewModel(
         placeholder: L10n.searchPlatform,
+        alwaysShow: true,
         activateOnTap: false,
         delegate: self
     )

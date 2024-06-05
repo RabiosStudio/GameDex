@@ -15,7 +15,7 @@ protocol ContainerViewControllerDelegate: AnyObject {
     func reloadSections(emptyError: EmptyError?)
     func goBackToRootViewController()
     func goBackToPreviousScreen()
-    func reloadNavBar()
+    func reloadNavBarAndSearchBar()
 }
 
 class ContainerViewController: UIViewController {
@@ -144,7 +144,12 @@ class ContainerViewController: UIViewController {
                             error: error,
                             tabBarOffset: tabBarOffset
                         )
-                        strongSelf.configureNavBarAndSearchBar()
+                        strongSelf.configureNavBar()
+                        if let searchVM = strongSelf.viewModel.searchViewModel, searchVM.alwaysShow {
+                            strongSelf.configureSearchBar()
+                        } else {
+                            strongSelf.searchBar.removeFromSuperview()
+                        }
                     } else {
                         strongSelf.refresh()
                     }
@@ -156,7 +161,8 @@ class ContainerViewController: UIViewController {
     }
     
     private func refresh() {
-        self.configureNavBarAndSearchBar()
+        self.configureNavBar()
+        self.configureSearchBar()
         self.reloadCollectionView()
     }
     
@@ -207,10 +213,9 @@ class ContainerViewController: UIViewController {
         self.title = self.viewModel.screenTitle
     }
     
-    private func configureNavBarAndSearchBar() {
+    private func configureNavBar() {
         DispatchQueue.main.async {
             self.navigationController?.configure()
-            self.configureSearchBar()
             
             guard let buttonItems = self.viewModel.buttonItems else {
                 return
@@ -533,8 +538,9 @@ extension ContainerViewController: ContainerViewControllerDelegate {
         }
     }
     
-    func reloadNavBar() {
-        self.configureNavBarAndSearchBar()
+    func reloadNavBarAndSearchBar() {
+        self.configureNavBar()
+        self.configureSearchBar()
     }
 }
 

@@ -11,6 +11,7 @@ import UIKit
 final class SearchGameByTitleViewModel: CollectionViewModel {
     lazy var searchViewModel: SearchViewModel? = SearchViewModel(
         placeholder: L10n.searchGame,
+        alwaysShow: true,
         activateOnTap: false,
         delegate: self
     )
