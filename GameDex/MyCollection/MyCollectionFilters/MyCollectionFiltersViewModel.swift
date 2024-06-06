@@ -21,7 +21,7 @@ final class MyCollectionFiltersViewModel: CollectionViewModel {
     weak var myCollectionDelegate: MyCollectionViewModelDelegate?
     
     private let games: [SavedGame]
-    private var gameFilterForm: GameFilterForm
+    var gameFilterForm: GameFilterForm
     
     init(
         games: [SavedGame],

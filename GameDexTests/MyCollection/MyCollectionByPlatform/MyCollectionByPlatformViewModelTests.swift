@@ -795,7 +795,7 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
             return .present(
                 screenFactory: MyCollectionFiltersScreenFactory(
                     games: MockData.savedGames,
-                    selectedFilters: nil,
+                    gameFilterForm: nil,
                     myCollectionDelegate: viewModel
                 ),
                 completionBlock: nil

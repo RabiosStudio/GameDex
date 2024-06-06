@@ -17,7 +17,7 @@ final class MyCollectionFiltersViewModelTests: XCTestCase {
         // Given
         let viewModel = MyCollectionFiltersViewModel(
             games: MockData.savedGames,
-            selectedFilters: nil,
+            gameFilterForm: nil,
             myCollectionDelegate: MyCollectionViewModelDelegateMock()
         )
         // When
@@ -33,7 +33,7 @@ final class MyCollectionFiltersViewModelTests: XCTestCase {
         let containerDelegate = ContainerViewControllerDelegateMock()
         let viewModel = MyCollectionFiltersViewModel(
             games: MockData.savedGames,
-            selectedFilters: nil,
+            gameFilterForm: nil,
             myCollectionDelegate: MyCollectionViewModelDelegateMock()
         )
         viewModel.containerDelegate = containerDelegate
@@ -47,7 +47,7 @@ final class MyCollectionFiltersViewModelTests: XCTestCase {
         // Then
         XCTAssertTrue(callbackIsCalled)
         XCTAssertEqual(viewModel.numberOfSections(), 1)
-        XCTAssertEqual(viewModel.numberOfItems(in: .zero), 6)
+        XCTAssertEqual(viewModel.numberOfItems(in: .zero), 7)
         containerDelegate.verify(.configureSupplementaryView(contentViewFactory: .any), count: .once)
     }
     
@@ -56,7 +56,7 @@ final class MyCollectionFiltersViewModelTests: XCTestCase {
         let myCollectionDelegate = MyCollectionViewModelDelegateMock()
         let viewModel = MyCollectionFiltersViewModel(
             games: MockData.savedGames,
-            selectedFilters: nil,
+            gameFilterForm: nil,
             myCollectionDelegate: myCollectionDelegate
         )
         viewModel.loadData { _ in }
@@ -75,7 +75,7 @@ final class MyCollectionFiltersViewModelTests: XCTestCase {
         let containerDelegate = ContainerViewControllerDelegateMock()
         let viewModel = MyCollectionFiltersViewModel(
             games: MockData.savedGames,
-            selectedFilters: MockData.gameFiltersWithMatchingGames,
+            gameFilterForm: MockData.gameFilterForm,
             myCollectionDelegate: myCollectionDelegate
         )
         viewModel.containerDelegate = containerDelegate
@@ -89,33 +89,11 @@ final class MyCollectionFiltersViewModelTests: XCTestCase {
         XCTAssertEqual(Routing.shared.lastNavigationStyle, .dismiss(completionBlock: nil))
     }
     
-    func test_enableSaveButtonIfNeeded_ThenConfigureBottomView() {
-        // Given
-        let containerDelegate = ContainerViewControllerDelegateMock()
-        let viewModel = MyCollectionFiltersViewModel(
-            games: MockData.savedGames,
-            selectedFilters: MockData.gameFiltersWithMatchingGames,
-            myCollectionDelegate: MyCollectionViewModelDelegateMock()
-        )
-        viewModel.containerDelegate = containerDelegate
-        viewModel.loadData { _ in }
-        
-        // When
-        viewModel.enableSaveButtonIfNeeded()
-        
-        // Then
-        containerDelegate.verify(
-            .configureSupplementaryView(
-                contentViewFactory: .any
-            ), count: 2
-        )
-    }
-    
     func test_didTapCloseButtonItem_ThenViewShouldBeDismissed() async {
         // Given
         let viewModel = MyCollectionFiltersViewModel(
             games: MockData.savedGames,
-            selectedFilters: MockData.gameFiltersWithMatchingGames,
+            gameFilterForm: MockData.gameFilterForm,
             myCollectionDelegate: MyCollectionViewModelDelegateMock()
         )
         viewModel.loadData { _ in }
@@ -133,7 +111,7 @@ final class MyCollectionFiltersViewModelTests: XCTestCase {
         let containerDelegate = ContainerViewControllerDelegateMock()
         let viewModel = MyCollectionFiltersViewModel(
             games: MockData.savedGames,
-            selectedFilters: MockData.gameFiltersWithMatchingGames,
+            gameFilterForm: MockData.gameFilterForm,
             myCollectionDelegate: myCollectionDelegate
         )
         viewModel.containerDelegate = containerDelegate
@@ -144,5 +122,99 @@ final class MyCollectionFiltersViewModelTests: XCTestCase {
         
         // Then
         containerDelegate.verify(.configureSupplementaryView(contentViewFactory: .any), count: 2)
+    }
+    
+    func test_didUpdate_ThenSetsGameFilterFormCorrectly() {
+        // GIVEN
+        let viewModel = MyCollectionFiltersViewModel(
+            games: MockData.savedGames,
+            gameFilterForm: MockData.digitalGameFilterForm,
+            myCollectionDelegate: MyCollectionViewModelDelegateMock()
+        )
+        viewModel.loadData { _ in }
+        
+        // WHEN
+        var acquisitionYearArea = [String]()
+        for item in MockData.savedGames {
+            if let data = item.acquisitionYear {
+                acquisitionYearArea.append(data)
+            }
+        }
+        viewModel.didUpdate(
+            value: MockData.gameFilterForm.acquisitionYear as Any,
+            for: GameFilterFormType.acquisitionYear(
+                PickerViewModel(
+                    data: [acquisitionYearArea]
+                )
+            )
+        )
+        viewModel.didUpdate(
+            value: MockData.gameFilterForm.gameCondition as Any,
+            for: GameFilterFormType.gameCondition(
+                PickerViewModel(
+                    data: [GameCondition.allCases.compactMap {
+                        guard $0 != .unknown else {
+                            return nil
+                        }
+                        return $0.value
+                    }]
+                )
+            )
+        )
+        viewModel.didUpdate(
+            value: MockData.gameFilterForm.gameCompleteness as Any,
+            for: GameFilterFormType.gameCompleteness(
+                PickerViewModel(
+                    data: [GameCompleteness.allCases.compactMap {
+                        guard $0 != .unknown else {
+                            return nil
+                        }
+                        return $0.value
+                    }]
+                )
+            )
+        )
+        viewModel.didUpdate(
+            value: MockData.gameFilterForm.gameRegion as Any,
+            for: GameFilterFormType.gameRegion(
+                PickerViewModel(
+                    data: [GameRegion.allCases.map { $0.value }]
+                )
+            )
+        )
+        viewModel.didUpdate(value: MockData.gameFilterForm.rating as Any, for: GameFilterFormType.rating)
+        
+        var storageAreaArray = [String]()
+        for item in MockData.savedGames {
+            if let data = item.storageArea {
+                storageAreaArray.append(data)
+            }
+        }
+        viewModel.didUpdate(
+            value: MockData.gameFilterForm.storageArea as Any,
+            for: GameFilterFormType.storageArea(
+                PickerViewModel(
+                    data: [storageAreaArray]
+                )
+            )
+        )
+        
+        let gameFormatArray = [L10n.physical, L10n.digital, L10n.any]
+        viewModel.didUpdate(
+            value: MockData.gameFilterForm.isPhysical as Any,
+            for: GameFilterFormType.isPhysical(
+                PickerViewModel(
+                    data: [gameFormatArray]
+                )
+            )
+        )
+        
+        // THEN
+        XCTAssertEqual(viewModel.gameFilterForm.acquisitionYear, MockData.gameFilterForm.acquisitionYear)
+        XCTAssertEqual(viewModel.gameFilterForm.gameCompleteness, MockData.gameFilterForm.gameCompleteness)
+        XCTAssertEqual(viewModel.gameFilterForm.gameCondition, MockData.gameFilterForm.gameCondition)
+        XCTAssertEqual(viewModel.gameFilterForm.gameRegion, MockData.gameFilterForm.gameRegion)
+        XCTAssertEqual(viewModel.gameFilterForm.storageArea, MockData.gameFilterForm.storageArea)
+        XCTAssertEqual(viewModel.gameFilterForm.rating, MockData.gameFilterForm.rating)
     }
 }

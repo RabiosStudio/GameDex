@@ -381,4 +381,24 @@ enum MockData {
         rating: MockData.gameForm.rating,
         notes: MockData.gameForm.notes
     )
+    
+    static let gameFilterForm = GameFilterForm(
+        isPhysical: MockData.savedGame.isPhysical,
+        acquisitionYear: MockData.savedGame.acquisitionYear,
+        gameCondition: MockData.savedGame.gameCondition,
+        gameCompleteness: MockData.savedGame.gameCompleteness,
+        gameRegion: MockData.savedGame.gameRegion,
+        storageArea: MockData.savedGame.storageArea,
+        rating: MockData.savedGame.rating
+    )
+    
+    static let digitalGameFilterForm = GameFilterForm(
+        isPhysical: false,
+        acquisitionYear: MockData.savedGame.acquisitionYear,
+        gameCondition: MockData.savedGame.gameCondition,
+        gameCompleteness: MockData.savedGame.gameCompleteness,
+        gameRegion: MockData.savedGame.gameRegion,
+        storageArea: MockData.savedGame.storageArea,
+        rating: MockData.savedGame.rating
+    )
 }
