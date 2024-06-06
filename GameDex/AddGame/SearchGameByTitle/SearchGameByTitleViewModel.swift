@@ -84,6 +84,8 @@ extension SearchGameByTitleViewModel: SearchViewModelDelegate {
     }
     
     func startSearch(from searchQuery: String, callback: @escaping (EmptyError?) -> ()) {
+        self.sections = []
+        self.containerDelegate?.reloadSections(emptyError: nil)
         Task {
             let endpoint = GetGamesEndpoint(platformId: self.platform.id, title: searchQuery)
             
@@ -96,6 +98,7 @@ extension SearchGameByTitleViewModel: SearchViewModelDelegate {
             case let .success(data):
                 let games = RemoteDataConverter.convert(remoteGames: data.results, platform: self.platform).filter({ $0.releaseDate != nil })
                 guard !games.isEmpty else {
+                    self.sections = []
                     callback(AddGameError.noItems)
                     return
                 }
@@ -107,6 +110,7 @@ extension SearchGameByTitleViewModel: SearchViewModelDelegate {
                 )]
                 callback(nil)
             case .failure(_):
+                self.sections = []
                 callback(AddGameError.server)
             }
         }

@@ -89,6 +89,8 @@ final class SearchGameByTitleViewModelTests: XCTestCase {
             progress: DesignSystem.twoThirdProgress,
             myCollectionDelegate: MyCollectionViewModelDelegateMock()
         )
+        let containerDelegate = ContainerViewControllerDelegateMock()
+        viewModel.containerDelegate = containerDelegate
         
         // When
         viewModel.startSearch(from: MockData.searchGameQuery) { error in
@@ -101,6 +103,9 @@ final class SearchGameByTitleViewModelTests: XCTestCase {
             XCTAssertEqual(endpoint.url, URL(string: "games"))
             expectation.fulfill()
         }
+        
+        containerDelegate.verify(.reloadSections(emptyError: .any), count: .once)
+        
         wait(for: [expectation], timeout: Constants.timeout)
     }
     
@@ -127,6 +132,8 @@ final class SearchGameByTitleViewModelTests: XCTestCase {
             progress: DesignSystem.twoThirdProgress,
             myCollectionDelegate: MyCollectionViewModelDelegateMock()
         )
+        let containerDelegate = ContainerViewControllerDelegateMock()
+        viewModel.containerDelegate = containerDelegate
         
         // When
         viewModel.startSearch(from: MockData.searchGameQuery) { error in
@@ -138,6 +145,8 @@ final class SearchGameByTitleViewModelTests: XCTestCase {
             XCTAssertEqual(error, AddGameError.server)
             expectation.fulfill()
         }
+        
+        containerDelegate.verify(.reloadSections(emptyError: .any), count: .once)
         
         wait(for: [expectation], timeout: Constants.timeout)
     }
@@ -165,6 +174,8 @@ final class SearchGameByTitleViewModelTests: XCTestCase {
             progress: DesignSystem.twoThirdProgress,
             myCollectionDelegate: MyCollectionViewModelDelegateMock()
         )
+        let containerDelegate = ContainerViewControllerDelegateMock()
+        viewModel.containerDelegate = containerDelegate
         
         // When
         viewModel.startSearch(from: MockData.searchGameQuery) { error in
@@ -176,6 +187,8 @@ final class SearchGameByTitleViewModelTests: XCTestCase {
             XCTAssertEqual(error, AddGameError.server)
             expectation.fulfill()
         }
+        
+        containerDelegate.verify(.reloadSections(emptyError: .any), count: .once)
         
         wait(for: [expectation], timeout: Constants.timeout)
     }
@@ -203,6 +216,8 @@ final class SearchGameByTitleViewModelTests: XCTestCase {
             progress: DesignSystem.twoThirdProgress,
             myCollectionDelegate: MyCollectionViewModelDelegateMock()
         )
+        let containerDelegate = ContainerViewControllerDelegateMock()
+        viewModel.containerDelegate = containerDelegate
         
         // When
         viewModel.startSearch(from: MockData.searchGameQuery) { error in
@@ -214,6 +229,8 @@ final class SearchGameByTitleViewModelTests: XCTestCase {
             XCTAssertEqual(error, AddGameError.server)
             expectation.fulfill()
         }
+        
+        containerDelegate.verify(.reloadSections(emptyError: .any), count: .once)
         
         wait(for: [expectation], timeout: Constants.timeout)
     }
@@ -242,6 +259,8 @@ final class SearchGameByTitleViewModelTests: XCTestCase {
             progress: DesignSystem.twoThirdProgress,
             myCollectionDelegate: MyCollectionViewModelDelegateMock()
         )
+        let containerDelegate = ContainerViewControllerDelegateMock()
+        viewModel.containerDelegate = containerDelegate
         
         let games = RemoteDataConverter.convert(
             remoteGames: MockData.searchGamesData.results,
@@ -256,6 +275,9 @@ final class SearchGameByTitleViewModelTests: XCTestCase {
             
             expectation.fulfill()
         }
+        
+        containerDelegate.verify(.reloadSections(emptyError: .any), count: .once)
+        
         wait(for: [expectation], timeout: Constants.timeout)
     }
     
@@ -283,6 +305,8 @@ final class SearchGameByTitleViewModelTests: XCTestCase {
             progress: DesignSystem.twoThirdProgress,
             myCollectionDelegate: MyCollectionViewModelDelegateMock()
         )
+        let containerDelegate = ContainerViewControllerDelegateMock()
+        viewModel.containerDelegate = containerDelegate
         
         // When
         viewModel.startSearch(from: MockData.searchGameQuery) { error in
@@ -294,6 +318,9 @@ final class SearchGameByTitleViewModelTests: XCTestCase {
             XCTAssertEqual(error, AddGameError.noItems)
             expectation.fulfill()
         }
+        
+        containerDelegate.verify(.reloadSections(emptyError: .any), count: .once)
+        
         wait(for: [expectation], timeout: Constants.timeout)
     }
     
@@ -342,6 +369,8 @@ final class SearchGameByTitleViewModelTests: XCTestCase {
             progress: DesignSystem.twoThirdProgress,
             myCollectionDelegate: MyCollectionViewModelDelegateMock()
         )
+        let containerDelegate = ContainerViewControllerDelegateMock()
+        viewModel.containerDelegate = containerDelegate
         
         let games = RemoteDataConverter.convert(
             remoteGames: MockData.searchGamesData.results,
@@ -359,6 +388,9 @@ final class SearchGameByTitleViewModelTests: XCTestCase {
             }
             expectation.fulfill()
         }
+        
+        containerDelegate.verify(.reloadSections(emptyError: .any), count: .once)
+        
         wait(for: [expectation], timeout: Constants.timeout)
     }
     
@@ -386,6 +418,8 @@ final class SearchGameByTitleViewModelTests: XCTestCase {
             progress: DesignSystem.twoThirdProgress,
             myCollectionDelegate: MyCollectionViewModelDelegateMock()
         )
+        let containerDelegate = ContainerViewControllerDelegateMock()
+        viewModel.containerDelegate = containerDelegate
         
         let games = RemoteDataConverter.convert(
             remoteGames: MockData.searchGamesData.results,
@@ -406,6 +440,9 @@ final class SearchGameByTitleViewModelTests: XCTestCase {
             }
             expectation.fulfill()
         }
+        
+        containerDelegate.verify(.reloadSections(emptyError: .any), count: .once)
+        
         wait(for: [expectation], timeout: Constants.timeout)
     }
     
