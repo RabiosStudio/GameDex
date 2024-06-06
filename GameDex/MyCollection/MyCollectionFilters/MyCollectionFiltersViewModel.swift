@@ -21,24 +21,20 @@ final class MyCollectionFiltersViewModel: CollectionViewModel {
     weak var myCollectionDelegate: MyCollectionViewModelDelegate?
     
     private let games: [SavedGame]
-    var selectedFilters: [GameFilter]?
+    private var gameFilterForm: GameFilterForm
     
     init(
         games: [SavedGame],
-        selectedFilters: [GameFilter]?,
+        gameFilterForm: GameFilterForm?,
         myCollectionDelegate: MyCollectionViewModelDelegate?
     ) {
         self.games = games
-        self.selectedFilters = selectedFilters
+        self.gameFilterForm = gameFilterForm ?? GameFilterForm()
         self.myCollectionDelegate = myCollectionDelegate
     }
     
     func loadData(callback: @escaping (EmptyError?) -> ()) {
-        self.sections = [MyCollectionFiltersSection(
-            games: self.games,
-            selectedFilters: self.selectedFilters,
-            formDelegate: self
-        )]
+        self.updateSections()
         self.configureBottomView(shouldEnableButton: false)
         callback(nil)
     }
@@ -48,14 +44,15 @@ final class MyCollectionFiltersViewModel: CollectionViewModel {
         case .close:
             self.close()
         case .clear:
-            self.selectedFilters = []
+            self.gameFilterForm = GameFilterForm()
             self.sections = [MyCollectionFiltersSection(
                 games: self.games,
-                selectedFilters: self.selectedFilters,
+                gameFilterForm: self.gameFilterForm,
                 formDelegate: self
             )]
-            self.configureBottomView(shouldEnableButton: true)
             self.containerDelegate?.reloadSections(emptyError: nil)
+            self.configureBottomView(shouldEnableButton: false)
+            await self.myCollectionDelegate?.clearFilters()
         default:
             break
         }
@@ -80,72 +77,108 @@ final class MyCollectionFiltersViewModel: CollectionViewModel {
     }
     
     private func getFilters() -> [GameFilter] {
-        guard let firstSection = self.sections.first,
-              let formCellsVM = firstSection.cellsVM.filter({ cellVM in
-                  return cellVM is (any FormCellViewModel)
-              }) as? [any FormCellViewModel] else {
-            return []
-        }
-
         var selectedFilters = [GameFilter]()
         
-        for formCellVM in formCellsVM {
-            guard let formType = formCellVM.formType as? GameFilterFormType else { return [] }
-            switch formType {
-            case .yearOfAcquisition:
-                guard let acquisitionYear = formCellVM.value as? String else {
-                    break
-                }
-                selectedFilters.append(GameFilter.acquisitionYear(acquisitionYear))
-            case .gameCondition(_):
-                guard let conditionText = formCellVM.value as? String else {
-                    break
-                }
-                let condition = GameCondition.getRawValue(
-                    value: conditionText
-                )
-                selectedFilters.append(GameFilter.gameCondition(condition.rawValue))
-            case .gameCompleteness(_):
-                guard let completenessText = formCellVM.value as? String else {
-                    break
-                }
-                let completeness = GameCompleteness.getRawValue(
-                    value: completenessText
-                )
-                selectedFilters.append(GameFilter.gameCompleteness(completeness.rawValue))
-            case .gameRegion(_):
-                guard let regionText = formCellVM.value as? String else {
-                    break
-                }
-                let region = GameRegion.getRawValue(
-                    value: regionText
-                )
-                selectedFilters.append(GameFilter.gameRegion(region.rawValue))
-            case .storageArea:
-                guard let storageArea = formCellVM.value as? String else {
-                    break
-                }
-                selectedFilters.append(GameFilter.storageArea(storageArea))
-            case .rating:
-                guard let rating = formCellVM.value as? Int,
-                      rating != .zero else {
-                    break
-                }
-                selectedFilters.append(GameFilter.rating(rating))
-            }
+        if let isPhysical = self.gameFilterForm.isPhysical {
+            selectedFilters.append(
+                GameFilter.isPhysical(isPhysical)
+            )
+        }
+        if let acquisitionYear = self.gameFilterForm.acquisitionYear {
+            selectedFilters.append(GameFilter.acquisitionYear(acquisitionYear))
+        }
+        if let gameCondition = self.gameFilterForm.gameCondition {
+            let conditionValue = GameCondition.getRawValue(
+                value: gameCondition.value
+            )
+            selectedFilters.append(
+                GameFilter.gameCondition(conditionValue.rawValue)
+            )
+        }
+        if let gameCompleteness = self.gameFilterForm.gameCompleteness {
+            let completenessValue = GameCompleteness.getRawValue(
+                value: gameCompleteness.value
+            )
+            selectedFilters.append(
+                GameFilter.gameCompleteness(completenessValue.rawValue)
+            )
+        }
+        if let gameRegion = self.gameFilterForm.gameRegion {
+            let regionValue = GameRegion.getRawValue(
+                value: gameRegion.value
+            )
+            selectedFilters.append(
+                GameFilter.gameRegion(regionValue.rawValue)
+            )
+        }
+        if let storageArea = self.gameFilterForm.storageArea {
+            selectedFilters.append(GameFilter.storageArea(storageArea))
+        }
+        if let rating = self.gameFilterForm.rating {
+            selectedFilters.append(GameFilter.rating(rating))
         }
         return selectedFilters
     }
 }
 
 extension MyCollectionFiltersViewModel: FormDelegate {
-    func didUpdate(value: Any, for type: any FormType) {}
-    
-    func enableSaveButtonIfNeeded() {
+    func didUpdate(value: Any, for type: any FormType) {
+        guard let formType = type as? GameFilterFormType else {
+            return
+        }
+        switch formType {
+        case .acquisitionYear:
+            self.gameFilterForm.acquisitionYear = value as? String
+        case .gameCondition:
+            if let stringValue = value as? String {
+                self.gameFilterForm.gameCondition = GameCondition.getRawValue(
+                    value: stringValue
+                )
+            }
+        case .gameCompleteness:
+            if let stringValue = value as? String {
+                self.gameFilterForm.gameCompleteness = GameCompleteness.getRawValue(
+                    value: stringValue
+                )
+            }
+        case .gameRegion:
+            if let stringValue = value as? String {
+                self.gameFilterForm.gameRegion = GameRegion.getRawValue(
+                    value: stringValue
+                )
+            }
+        case .storageArea:
+            self.gameFilterForm.storageArea = value as? String
+        case .rating:
+            self.gameFilterForm.rating = value as? Int ?? .zero
+        case .isPhysical:
+            let stringValue = value as? String
+            switch stringValue {
+            case GameFormat.physical.text:
+                self.gameFilterForm.isPhysical = true
+            case GameFormat.digital.text:
+                self.gameFilterForm.isPhysical = false
+            case L10n.any:
+                self.gameFilterForm.isPhysical = nil
+            default:
+                break
+            }
+        }
         self.configureBottomView(shouldEnableButton: true)
     }
     
-    func refreshSectionsDependingOnGameFormat() {}
+    func refreshSectionsDependingOnGameFormat() {
+        self.updateSections()
+        self.containerDelegate?.reloadSections(emptyError: nil)
+    }
+    
+    func updateSections() {
+        self.sections = [MyCollectionFiltersSection(
+            games: self.games,
+            gameFilterForm: self.gameFilterForm,
+            formDelegate: self
+        )]
+    }
 }
 
 // MARK: - PrimaryButtonDelegate
@@ -154,6 +187,7 @@ extension MyCollectionFiltersViewModel: PrimaryButtonDelegate {
         let selectedFilters = self.getFilters()
         guard !selectedFilters.isEmpty else {
             await self.myCollectionDelegate?.clearFilters()
+            self.configureBottomView(shouldEnableButton: false)
             self.close()
             return
         }

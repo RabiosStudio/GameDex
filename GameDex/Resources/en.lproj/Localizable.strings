@@ -136,6 +136,8 @@
 "collectionToDelete" = "Collection to delete";
 "physical" = "Physical";
 "digital" = "Digital";
+"any" = "Any";
+"gameFormat" = "Game format";
 
 // Other
 "game" = "game";

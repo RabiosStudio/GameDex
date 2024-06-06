@@ -36,6 +36,7 @@ final class MyCollectionByPlatformsViewModel: ConnectivityDisplayerViewModel {
     private var platform: Platform?
     private var displayedGames: [SavedGame]
     private var selectedFilters: [GameFilter]?
+    private var gameFilterForm: GameFilterForm?
     let authenticationService: AuthenticationService
     let connectivityChecker: ConnectivityChecker
     
@@ -58,6 +59,7 @@ final class MyCollectionByPlatformsViewModel: ConnectivityDisplayerViewModel {
         self.screenTitle = self.platform?.title
         self.displayedGames = self.platform?.games ?? []
         self.selectedFilters = nil
+        self.gameFilterForm = nil
         self.buttonItems = [.filter(active: false), .add]
     }
     
@@ -115,7 +117,7 @@ final class MyCollectionByPlatformsViewModel: ConnectivityDisplayerViewModel {
             navigationStyle: .present(
                 screenFactory: MyCollectionFiltersScreenFactory(
                     games: games,
-                    selectedFilters: self.selectedFilters ?? nil,
+                    gameFilterForm: self.gameFilterForm ?? nil,
                     myCollectionDelegate: self
                 ),
                 completionBlock: nil
@@ -168,6 +170,50 @@ extension MyCollectionByPlatformsViewModel: MyCollectionViewModelDelegate {
         self.containerDelegate?.reloadSections(emptyError: nil)
     }
     
+    private func createGameFilterForm(from filters: [GameFilter]){
+        var isPhysicalFilterValue: Bool?
+        var acquisitionYearFilterValue: String?
+        var gameConditionFilterValue: GameCondition?
+        var gameCompletenessFilterValue: GameCompleteness?
+        var gameRegionFilterValue: GameRegion?
+        var storageAreaFilterValue: String?
+        var ratingFilterValue: Int?
+        
+        for filter in filters {
+            switch filter {
+            case let .isPhysical(value):
+                isPhysicalFilterValue = value
+            case let .acquisitionYear(value):
+                acquisitionYearFilterValue = value
+            case let .gameCondition(value):
+                if let gameCondition = GameCondition(rawValue: value) {
+                    gameConditionFilterValue = gameCondition
+                }
+            case let .gameCompleteness(value):
+                if let gameCompleteness = GameCompleteness(rawValue: value) {
+                    gameCompletenessFilterValue = gameCompleteness
+                }
+            case let .gameRegion(value):
+                if let gameRegion = GameRegion(rawValue: value) {
+                    gameRegionFilterValue = gameRegion
+                }
+            case let .storageArea(value):
+                storageAreaFilterValue = value
+            case let .rating(value):
+                ratingFilterValue = value
+            }
+        }
+        self.gameFilterForm = GameFilterForm(
+            isPhysical: isPhysicalFilterValue,
+            acquisitionYear: acquisitionYearFilterValue,
+            gameCondition: gameConditionFilterValue,
+            gameCompleteness: gameCompletenessFilterValue,
+            gameRegion: gameRegionFilterValue,
+            storageArea: storageAreaFilterValue,
+            rating: ratingFilterValue
+        )
+    }
+    
     func apply(filters: [GameFilter]) async {
         guard let games = self.platform?.games,
               !filters.isEmpty else {
@@ -175,11 +221,15 @@ extension MyCollectionByPlatformsViewModel: MyCollectionViewModelDelegate {
             return
         }
         self.selectedFilters = filters
+        self.createGameFilterForm(from: filters)
+        
+        let newFilters = self.removeFiltersDependingOnGameFormat(filters: filters)
+        
         var shouldKeepGame = false
         var filteredGames = [SavedGame]()
         for index in 0..<games.count {
             let currentGame = games[index]
-            for filter in filters {
+            for filter in newFilters {
                 shouldKeepGame = self.shouldDisplayGame(
                     game: currentGame,
                     filter: filter
@@ -209,8 +259,31 @@ extension MyCollectionByPlatformsViewModel: MyCollectionViewModelDelegate {
         } else if let gameData = game[keyPath: filter.keyPath] as? Int,
                   let filterIntValue: Int = filter.value() {
             shouldDisplayGame = filterIntValue == gameData
+        } else if let gameData = game[keyPath: filter.keyPath] as? Bool,
+                  let filterBoolValue: Bool = filter.value() {
+            shouldDisplayGame = filterBoolValue == gameData
         }
         return shouldDisplayGame
+    }
+    
+    private func removeFiltersDependingOnGameFormat(filters: [GameFilter]) -> [GameFilter] {
+        guard filters.contains(where: { aFilter in
+            aFilter.self == .isPhysical(false)
+        }) else {
+            // Filter on game format "Physical"
+            return filters
+        }
+        // Filter on game format "Digital", we need to remove filters that apply only to Physical games
+        var newGameFilters = [GameFilter]()
+        for filter in filters {
+            switch filter {
+            case .acquisitionYear, .isPhysical, .rating:
+                newGameFilters.append(filter)
+            case .gameCondition, .gameCompleteness, .gameRegion, .storageArea:
+                break
+            }
+        }
+        return newGameFilters
     }
     
     func reloadCollection() async {

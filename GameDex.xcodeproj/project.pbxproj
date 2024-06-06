@@ -159,6 +159,7 @@
 		25BA888A2C0E040600B8CD28 /* GameDetailsScreenFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25BA88892C0E040600B8CD28 /* GameDetailsScreenFactory.swift */; };
 		25BA888D2C0F03AD00B8CD28 /* GameDetailsSectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25BA888C2C0F03AD00B8CD28 /* GameDetailsSectionTests.swift */; };
 		25BA888F2C0F03BA00B8CD28 /* GameDetailsViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25BA888E2C0F03BA00B8CD28 /* GameDetailsViewModelTests.swift */; };
+		25BA889D2C11BA8B00B8CD28 /* GameFilterForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25BA889C2C11BA8B00B8CD28 /* GameFilterForm.swift */; };
 		25BDEC8A2AC5781C0083E0B2 /* FirestoreDatabase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25BDEC892AC5781C0083E0B2 /* FirestoreDatabase.swift */; };
 		25D5074D2AB61BB200A772F9 /* MyCollectionSectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D5074C2AB61BB200A772F9 /* MyCollectionSectionTests.swift */; };
 		25D507512AB6DCAD00A772F9 /* MyCollectionByPlatformSectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25D507502AB6DCAD00A772F9 /* MyCollectionByPlatformSectionTests.swift */; };
@@ -377,6 +378,7 @@
 		25BA88892C0E040600B8CD28 /* GameDetailsScreenFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameDetailsScreenFactory.swift; sourceTree = "<group>"; };
 		25BA888C2C0F03AD00B8CD28 /* GameDetailsSectionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameDetailsSectionTests.swift; sourceTree = "<group>"; };
 		25BA888E2C0F03BA00B8CD28 /* GameDetailsViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameDetailsViewModelTests.swift; sourceTree = "<group>"; };
+		25BA889C2C11BA8B00B8CD28 /* GameFilterForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GameFilterForm.swift; sourceTree = "<group>"; };
 		25BDEC892AC5781C0083E0B2 /* FirestoreDatabase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirestoreDatabase.swift; sourceTree = "<group>"; };
 		25D5074C2AB61BB200A772F9 /* MyCollectionSectionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCollectionSectionTests.swift; sourceTree = "<group>"; };
 		25D507502AB6DCAD00A772F9 /* MyCollectionByPlatformSectionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyCollectionByPlatformSectionTests.swift; sourceTree = "<group>"; };
@@ -566,6 +568,7 @@
 				255A0A472C035DDD007ED3D3 /* GameFilterFormType.swift */,
 				255A0A512C072BDF007ED3D3 /* SegmentItem.swift */,
 				25BA88802C09C9FE00B8CD28 /* GameForm.swift */,
+				25BA889C2C11BA8B00B8CD28 /* GameFilterForm.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -1490,6 +1493,7 @@
 				2586302A2BF3727000AD3EE4 /* PlatformSupportedNames.swift in Sources */,
 				251C873D2A9D09AA0020C794 /* BasicInfoCellViewModel.swift in Sources */,
 				254354782A93B1BB00E53351 /* LabelCellViewModel.swift in Sources */,
+				25BA889D2C11BA8B00B8CD28 /* GameFilterForm.swift in Sources */,
 				255A0A482C035DDD007ED3D3 /* GameFilterFormType.swift in Sources */,
 				254E8B912A8B6BC000C101C8 /* Assets.swift in Sources */,
 				254E8B852A8A81F400C101C8 /* UIColorExtension.swift in Sources */,
