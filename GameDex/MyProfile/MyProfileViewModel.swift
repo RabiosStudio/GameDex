@@ -29,6 +29,7 @@ final class MyProfileViewModel: CollectionViewModel {
     private var alertDisplayer: AlertDisplayer
     private let cloudDatabase: CloudDatabase
     private let localDatabase: LocalDatabase
+    private let appVersion: String? = Bundle.main.releaseVersionNumber
     
     init(
         authenticationService: AuthenticationService,
@@ -56,6 +57,9 @@ final class MyProfileViewModel: CollectionViewModel {
                 appLauncher: AppLauncherImpl()
             )
         ]
+        if let appVersion = self.appVersion {
+            self.containerDelegate?.configureSupplementaryView(contentViewFactory: LabelContentViewFactory(text: L10n.appVersion + " " + appVersion, position: .bottom))
+        }
         callback(nil)
     }
     
