@@ -261,13 +261,15 @@ class ContainerViewController: UIViewController {
     }
     
     private func configureSearchBar() {
-        guard let searchVM = self.viewModel.searchViewModel else {
-            self.searchBar.removeFromSuperview()
-            return
+        DispatchQueue.main.async {
+            guard let searchVM = self.viewModel.searchViewModel else {
+                self.searchBar.removeFromSuperview()
+                return
+            }
+            self.searchBar.text = nil
+            self.searchBar.placeholder = searchVM.placeholder
+            self.stackView.insertArrangedSubview(self.searchBar, at: .zero)
         }
-        self.searchBar.text = nil
-        self.searchBar.placeholder = searchVM.placeholder
-        self.stackView.insertArrangedSubview(self.searchBar, at: .zero)
     }
     
     private func makeSearchBarFirstResponderIfNeeded() {
