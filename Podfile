@@ -12,7 +12,6 @@ target 'GameDex' do
   pod 'EmptyDataSet-Swift', '~> 5.0.0', :inhibit_warnings => true
   pod 'NVActivityIndicatorView', :inhibit_warnings => true
   pod 'DTTextField', :inhibit_warnings => true
-  pod 'IQKeyboardManagerSwift', '~> 6.5.0', :inhibit_warnings => true
   pod "SwiftyMocky", :inhibit_warnings => true
   pod 'Alamofire', :inhibit_warnings => true
   pod 'SDWebImage', :inhibit_warnings => true
