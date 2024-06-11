@@ -170,7 +170,7 @@ extension MyCollectionByPlatformsViewModel: MyCollectionViewModelDelegate {
         self.containerDelegate?.reloadSections(emptyError: nil)
     }
     
-    private func createGameFilterForm(from filters: [GameFilter]){
+    private func createGameFilterForm(from filters: [GameFilter]) {
         var isPhysicalFilterValue: Bool?
         var acquisitionYearFilterValue: String?
         var gameConditionFilterValue: GameCondition?

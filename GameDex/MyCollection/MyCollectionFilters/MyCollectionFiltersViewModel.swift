@@ -51,7 +51,7 @@ final class MyCollectionFiltersViewModel: CollectionViewModel {
                 formDelegate: self
             )]
             self.containerDelegate?.reloadSections(emptyError: nil)
-            self.configureBottomView(shouldEnableButton: false)
+            self.configureBottomView(shouldEnableButton: true)
             await self.myCollectionDelegate?.clearFilters()
         default:
             break
@@ -115,7 +115,9 @@ final class MyCollectionFiltersViewModel: CollectionViewModel {
             selectedFilters.append(GameFilter.storageArea(storageArea))
         }
         if let rating = self.gameFilterForm.rating {
-            selectedFilters.append(GameFilter.rating(rating))
+            if rating != .zero {
+                selectedFilters.append(GameFilter.rating(rating))
+            }
         }
         return selectedFilters
     }
