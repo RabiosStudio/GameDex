@@ -11,6 +11,7 @@ import UIKit
 final class MyCollectionFiltersViewModel: CollectionViewModel {
     var searchViewModel: SearchViewModel?
     var isBounceable: Bool = true
+    var isRefreshable: Bool = false
     var progress: Float?
     var buttonItems: [AnyBarButtonItem]? = [.close, .clear]
     let screenTitle: String? = L10n.filters

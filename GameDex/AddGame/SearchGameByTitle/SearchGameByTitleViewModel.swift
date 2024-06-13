@@ -16,6 +16,7 @@ final class SearchGameByTitleViewModel: CollectionViewModel {
         delegate: self
     )
     var isBounceable: Bool = true
+    var isRefreshable: Bool = false
     var progress: Float?
     var buttonItems: [AnyBarButtonItem]? = [.close]
     let screenTitle: String? = L10n.searchGame

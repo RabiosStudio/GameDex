@@ -16,6 +16,7 @@ protocol MyProfileViewModelDelegate: AnyObject {
 final class MyProfileViewModel: CollectionViewModel {
     var searchViewModel: SearchViewModel?
     var isBounceable: Bool = true
+    var isRefreshable: Bool = false
     var progress: Float?
     var buttonItems: [AnyBarButtonItem]?
     let screenTitle: String? = L10n.myProfile
