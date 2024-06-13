@@ -11,49 +11,28 @@ final class MyCollectionFiltersSection: Section {
     
     init(
         games: [SavedGame],
-        selectedFilters: [GameFilter]?,
+        gameFilterForm: GameFilterForm,
         formDelegate: FormDelegate
     ) {
         super.init()
         self.position = 0
         
-        var acquisitionYearFilterValue: String?
-        var conditionFilterValue: String?
-        var completenessFilterValue: String?
-        var regionFilterValue: String?
-        var storageAreaFilterValue: String?
-        var ratingFilterValue: Int?
-        
-        if let selectedFilters = selectedFilters {
-            for filter in selectedFilters {
-                switch filter {
-                case let .acquisitionYear(value):
-                    acquisitionYearFilterValue = value
-                case let .gameCondition(value):
-                    var gameConditionText: String?
-                    if let gameCondition = GameCondition(rawValue: value) {
-                        gameConditionText = gameCondition.value
-                    }
-                    conditionFilterValue = gameConditionText
-                case let .gameCompleteness(value):
-                    var gameCompletenessText: String?
-                    if let gameCompleteness = GameCompleteness(rawValue: value) {
-                        gameCompletenessText = gameCompleteness.value
-                    }
-                    completenessFilterValue = gameCompletenessText
-                case let .gameRegion(value):
-                    var gameRegionText: String?
-                    if let gameRegion = GameRegion(rawValue: value) {
-                        gameRegionText = gameRegion.value
-                    }
-                    regionFilterValue = gameRegionText
-                case let .storageArea(value):
-                    storageAreaFilterValue = value
-                case let .rating(value):
-                    ratingFilterValue = value
-                }
-            }
+        var isPhysicalValue: String?
+        if let isPhysical = gameFilterForm.isPhysical {
+            isPhysicalValue = isPhysical ? GameFormat.physical.text : GameFormat.digital.text
         }
+        
+        let isPhysicalCellVM = TextFieldCellViewModel(
+            placeholder: L10n.gameFormat,
+            formType: GameFilterFormType.isPhysical(
+                PickerViewModel(
+                    data: [[GameFormat.physical.text, GameFormat.digital.text, L10n.any]]
+                )
+            ),
+            value: isPhysicalValue,
+            formDelegate: formDelegate
+        )
+        self.cellsVM.append(isPhysicalCellVM)
         
         let acquisitionYearArray = Array(
             Set(
@@ -65,12 +44,12 @@ final class MyCollectionFiltersSection: Section {
         if !acquisitionYearArray.isEmpty {
             let yearOfAcquisitionCellVM = TextFieldCellViewModel(
                 placeholder: L10n.yearOfAcquisition,
-                formType: GameFilterFormType.yearOfAcquisition(
+                formType: GameFilterFormType.acquisitionYear(
                     PickerViewModel(
                         data: [acquisitionYearArray.sorted()]
                     )
                 ),
-                value: acquisitionYearFilterValue ?? nil,
+                value: gameFilterForm.acquisitionYear ?? nil,
                 formDelegate: formDelegate
             )
             self.cellsVM.append(yearOfAcquisitionCellVM)
@@ -88,7 +67,7 @@ final class MyCollectionFiltersSection: Section {
                     }]
                 )
             ),
-            value: conditionFilterValue ?? nil,
+            value: gameFilterForm.gameCondition?.value ?? nil,
             formDelegate: formDelegate
         )
         self.cellsVM.append(conditionCellVM)
@@ -105,7 +84,7 @@ final class MyCollectionFiltersSection: Section {
                     }]
                 )
             ),
-            value: completenessFilterValue ?? nil,
+            value: gameFilterForm.gameCompleteness?.value ?? nil,
             formDelegate: formDelegate
         )
         self.cellsVM.append(completenessCellVM)
@@ -117,7 +96,7 @@ final class MyCollectionFiltersSection: Section {
                     data: [GameRegion.allCases.map { $0.value }]
                 )
             ),
-            value: regionFilterValue ?? nil,
+            value: gameFilterForm.gameRegion?.value ?? nil,
             formDelegate: formDelegate
         )
         self.cellsVM.append(regionCellVM)
@@ -137,7 +116,7 @@ final class MyCollectionFiltersSection: Section {
                         data: [storageAreaArray.sorted()]
                     )
                 ),
-                value: storageAreaFilterValue ?? nil,
+                value: gameFilterForm.storageArea ?? nil,
                 formDelegate: formDelegate
             )
             self.cellsVM.append(storageAreaCellVM)
@@ -146,7 +125,7 @@ final class MyCollectionFiltersSection: Section {
         let personalRatingCellVM = StarRatingCellViewModel(
             title: L10n.personalRating,
             formType: GameFilterFormType.rating,
-            value: ratingFilterValue ?? nil,
+            value: gameFilterForm.rating ?? nil,
             formDelegate: formDelegate
         )
         self.cellsVM.append(personalRatingCellVM)

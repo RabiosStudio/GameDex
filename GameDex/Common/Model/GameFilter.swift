@@ -7,7 +7,8 @@
 
 import Foundation
 
-enum GameFilter: Filter {
+enum GameFilter: Filter, Equatable {
+    case isPhysical(Bool)
     case acquisitionYear(String)
     case gameCondition(GameCondition.RawValue)
     case gameCompleteness(GameCompleteness.RawValue)
@@ -21,23 +22,27 @@ enum GameFilter: Filter {
             return String(value) as? T
         case let .rating(value):
             return Int(value) as? T
+        case let .isPhysical(value):
+            return Bool(value) as? T
         }
     }
     
     var keyPath: PartialKeyPath<SavedGame> {
         switch self {
-        case .acquisitionYear(_):
+        case .acquisitionYear:
             return \SavedGame.acquisitionYear
-        case .gameCondition(_):
+        case .gameCondition:
             return \SavedGame.gameCondition?.rawValue
-        case .gameCompleteness(_):
+        case .gameCompleteness:
             return \SavedGame.gameCompleteness?.rawValue
-        case .gameRegion(_):
+        case .gameRegion:
             return \SavedGame.gameRegion?.rawValue
-        case .storageArea(_):
+        case .storageArea:
             return \SavedGame.storageArea
-        case .rating(_):
+        case .rating:
             return \SavedGame.rating
+        case .isPhysical:
+            return \SavedGame.isPhysical
         }
     }
 }

@@ -37,15 +37,6 @@ final class AuthenticationSection: Section {
         )
         self.cellsVM.append(passwordTextField)
         
-        let loginButtonCellVM = PrimaryButtonCellViewModel(
-            buttonViewModel: ButtonViewModel(
-                title: userHasAccount ? L10n.login : L10n.createAccount,
-                backgroundColor: .secondaryColor
-            ),
-            delegate: primaryButtonDelegate
-        )
-        self.cellsVM.append(loginButtonCellVM)
-        
         if userHasAccount {
             let forgotPasswordLabelCellVM = LabelCellViewModel(
                 text: L10n.forgotPassword,

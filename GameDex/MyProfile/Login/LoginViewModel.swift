@@ -56,8 +56,8 @@ extension LoginViewModel: PrimaryButtonDelegate {
         
         let screenFactory =  AuthenticationScreenFactory(
             userHasAccount: userHasAccount,
-            myProfileDelegate: myProfileDelegate,
-            myCollectionDelegate: myCollectionDelegate
+            myProfileDelegate: self.myProfileDelegate,
+            myCollectionDelegate: self.myCollectionDelegate
         )
         Routing.shared.route(
             navigationStyle: .push(
