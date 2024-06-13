@@ -447,20 +447,24 @@ extension ContainerViewController: UISearchBarDelegate {
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        guard let searchQuery = searchBar.text else {
+        guard let searchText = searchBar.text else {
             return
         }
+        let searchQuery = searchText.removeTrailingWhitespace()
         self.searchBar.endEditing(true)
         self.configureLoader()
         self.viewModel.searchViewModel?.delegate?.startSearch(
             from: searchQuery) { [weak self] error in
                 self?.reloadSections(emptyError: error)
+                DispatchQueue.main.async {
+                    self?.searchBar.text = searchQuery
+                }
             }
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         // called when text changes (including clear)
-        self.viewModel.searchViewModel?.delegate?.updateSearchTextField(with: searchText) { [weak self] error in
+        self.viewModel.searchViewModel?.delegate?.updateSearchTextField(with: searchText.removeTrailingWhitespace()) { [weak self] error in
             self?.reloadSections(emptyError: error)
         }
     }
