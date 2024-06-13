@@ -26,7 +26,6 @@ class ContainerViewController: UIViewController {
     private let layout: UICollectionViewLayout
     private lazy var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
-        refreshControl.addTarget(self, action: #selector(loadData), for: .valueChanged)
         return refreshControl
     }()
     
@@ -145,6 +144,7 @@ class ContainerViewController: UIViewController {
                             tabBarOffset: tabBarOffset
                         )
                         strongSelf.configureNavBar()
+                        strongSelf.configureRefreshControl()
                         if let searchVM = strongSelf.viewModel.searchViewModel, searchVM.alwaysShow {
                             strongSelf.configureSearchBar()
                         } else {
@@ -289,9 +289,6 @@ class ContainerViewController: UIViewController {
         // Keyboard animation
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardAnimation), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardAnimation), name: UIResponder.keyboardWillHideNotification, object: nil)
-        
-        // Call loadData when app enters foreground
-        NotificationCenter.default.addObserver(self, selector: #selector(loadData), name: UIApplication.willEnterForegroundNotification, object: nil)
     }
     
     @objc private func handleKeyboardAnimation(notification: NSNotification) {
@@ -333,12 +330,19 @@ class ContainerViewController: UIViewController {
         )
     }
     
+    private func configureRefreshControl() {
+        if self.viewModel.isRefreshable {
+            self.collectionView.addSubview(self.refreshControl)
+            self.refreshControl.addTarget(self, action: #selector(loadData), for: .valueChanged)
+        }
+    }
+    
     private func setupContent() {
         self.registerCells()
         self.collectionView.delegate = self
         self.collectionView.dataSource = self
         self.collectionView.alwaysBounceVertical = self.viewModel.isBounceable
-        self.collectionView.addSubview(self.refreshControl)
+        self.configureRefreshControl()
         self.stackView.addArrangedSubview(self.collectionView)
         self.view.addSubview(stackView)
         self.setupStackViewConstraints()
