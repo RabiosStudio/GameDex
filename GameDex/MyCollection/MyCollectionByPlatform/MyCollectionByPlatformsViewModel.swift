@@ -16,6 +16,7 @@ final class MyCollectionByPlatformsViewModel: ConnectivityDisplayerViewModel {
         delegate: self
     )
     var isBounceable: Bool = true
+    var isRefreshable: Bool = false
     var progress: Float?
     var buttonItems: [AnyBarButtonItem]?
     let screenTitle: String?

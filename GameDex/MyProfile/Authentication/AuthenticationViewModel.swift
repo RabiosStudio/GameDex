@@ -11,6 +11,7 @@ import UIKit
 final class AuthenticationViewModel: CollectionViewModel {
     var searchViewModel: SearchViewModel?
     var isBounceable: Bool = false
+    var isRefreshable: Bool = false
     var progress: Float?
     var buttonItems: [AnyBarButtonItem]?
     let screenTitle: String?

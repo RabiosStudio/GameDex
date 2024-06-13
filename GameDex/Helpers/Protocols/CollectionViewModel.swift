@@ -12,6 +12,7 @@ protocol CollectionViewModel {
     var screenTitle: String? { get }
     var buttonItems: [AnyBarButtonItem]? { get }
     var isBounceable: Bool { get }
+    var isRefreshable: Bool { get }
     var searchViewModel: SearchViewModel? { get }
     var sections: [Section] { get }
     var progress: Float? { get }
