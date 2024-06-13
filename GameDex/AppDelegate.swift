@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import IQKeyboardManagerSwift
 import FirebaseCore
 
 @UIApplicationMain
