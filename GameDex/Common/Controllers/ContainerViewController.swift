@@ -138,11 +138,7 @@ class ContainerViewController: UIViewController {
                 DispatchQueue.main.async {
                     guard let strongSelf = self else { return }
                     if let error = error {
-                        let tabBarOffset = -(self?.tabBarController?.tabBar.frame.size.height ?? 0)
-                        strongSelf.updateEmptyState(
-                            error: error,
-                            tabBarOffset: tabBarOffset
-                        )
+                        strongSelf.updateEmptyState(error: error)
                         strongSelf.configureNavBar()
                         strongSelf.configureRefreshControl()
                         if let searchVM = strongSelf.viewModel.searchViewModel, searchVM.alwaysShow {
@@ -171,18 +167,18 @@ class ContainerViewController: UIViewController {
         self.collectionView.reloadData()
     }
     
-    private func updateEmptyState(error: EmptyError?, tabBarOffset: CGFloat) {
+    private func updateEmptyState(error: EmptyError?) {
         DispatchQueue.main.async {
             if let error = error {
-                guard let imageName = error.imageName,
-                      let image = UIImage(named: imageName) else {
-                    return
+                var image: UIImage?
+                if let imageName = error.imageName {
+                    image = UIImage(named: imageName)
                 }
+                let resizedImage = image?.resized(toWidth: DesignSystem.sizeSmall, isOpaque: false)
                 let emptyReason = EmptyTextAndButton(
-                    tabBarOffset: tabBarOffset,
                     customTitle: error.errorTitle,
                     descriptionText: error.errorDescription,
-                    image: image,
+                    image: resizedImage,
                     buttonTitle: error.buttonTitle
                 ) {
                     switch error.errorAction {
@@ -279,9 +275,7 @@ class ContainerViewController: UIViewController {
     }
     
     private func configureLoader() {
-        let tabBarOffset = -(self.tabBarController?.tabBar.frame.size.height ?? 0)
-        let emptyLoader = EmptyLoader(tabBarOffset: tabBarOffset)
-        self.collectionView.updateEmptyScreen(emptyReason: emptyLoader)
+        self.collectionView.updateEmptyScreen(emptyReason: EmptyLoader())
         self.collectionView.reloadEmptyDataSet()
     }
     
@@ -508,8 +502,7 @@ extension ContainerViewController: ContainerViewControllerDelegate {
     func reloadSections(emptyError: EmptyError?) {
         DispatchQueue.main.async {
             if let error = emptyError {
-                let tabBarOffset = -(self.tabBarController?.tabBar.frame.size.height ?? 0)
-                self.updateEmptyState(error: error, tabBarOffset: tabBarOffset)
+                self.updateEmptyState(error: error)
             } else {
                 self.reloadCollectionView()
             }

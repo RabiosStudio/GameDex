@@ -13,7 +13,7 @@ struct EmptyLoader: EmptyReason {
     var completionBlock: (() -> Void)?
     
     var verticalOffset: CGFloat {
-        return tabBarOffset
+        return .zero
     }
     
     var customView: UIView? {
@@ -23,11 +23,5 @@ struct EmptyLoader: EmptyReason {
                                            padding: 16)
         view.startAnimating()
         return view
-    }
-    
-    let tabBarOffset: CGFloat
-    
-    init(tabBarOffset: CGFloat) {
-        self.tabBarOffset = tabBarOffset
     }
 }
