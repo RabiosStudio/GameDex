@@ -195,7 +195,8 @@ private extension GameDetailsViewModel {
             game: self.game,
             platformName: self.platform.title,
             gameForm: self.gameForm,
-            formDelegate: self
+            formDelegate: self,
+            containerDelegate: self.containerDelegate
         )]
     }
     

@@ -23,16 +23,19 @@ final class TextViewCellViewModel: CollectionFormCellViewModel {
         }
     }
     
+    weak var containerDelegate: ContainerViewControllerDelegate?
     weak var formDelegate: FormDelegate?
     
     init(title: String,
          formType: FormType,
          value: String? = nil,
-         formDelegate: FormDelegate? = nil
+         formDelegate: FormDelegate? = nil,
+         containerDelegate: ContainerViewControllerDelegate?
     ) {
         self.title = title
         self.formType = formType
         self.value = value
         self.formDelegate = formDelegate
+        self.containerDelegate = containerDelegate
     }
 }

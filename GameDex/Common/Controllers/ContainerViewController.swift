@@ -16,6 +16,7 @@ protocol ContainerViewControllerDelegate: AnyObject {
     func goBackToRootViewController()
     func goBackToPreviousScreen()
     func reloadNavBarAndSearchBar()
+    func scrollToItem(cell: UICollectionViewCell)
 }
 
 class ContainerViewController: UIViewController {
@@ -477,6 +478,21 @@ extension ContainerViewController: UISearchBarDelegate {
 
 // MARK: ContainerViewControllerDelegate
 extension ContainerViewController: ContainerViewControllerDelegate {
+    func scrollToItem(cell: UICollectionViewCell) {
+        guard let indexPath = self.collectionView.indexPath(for: cell) else {
+            return
+        }
+        let visibleIndexPaths = self.collectionView.indexPathsForVisibleItems
+        if visibleIndexPaths.contains(indexPath) && self.keyboardIsVisible == false {
+            let adjustment = self.collectionView.cellForItem(at: indexPath)?.frame.size.height ?? 100
+            self.collectionView.scrollToItem(
+                at: indexPath,
+                at: .bottom,
+                adjustment: adjustment
+            )
+        }
+    }
+    
     func goBackToRootViewController() {
         DispatchQueue.main.async {
             self.navigationController?.popToRootViewController(animated: true)
