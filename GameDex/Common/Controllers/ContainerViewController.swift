@@ -69,6 +69,8 @@ class ContainerViewController: UIViewController {
     
     private lazy var stackViewBottomConstraint: NSLayoutConstraint = self.stackView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
     
+    private lazy var keyboardIsVisible: Bool = false
+    
     // MARK: - Init
     
     init(viewModel: CollectionViewModel, layout: UICollectionViewLayout) {
@@ -291,6 +293,21 @@ class ContainerViewController: UIViewController {
               let curve = userInfo[UIResponder.keyboardAnimationCurveUserInfoKey] as? NSNumber,
               let keyboardFrame = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue
         else { return }
+        
+        switch notification.name {
+        case UIResponder.keyboardWillShowNotification:
+            self.setupStackViewBottomConstraintForKeyboardAnimation(
+                keyboardSize: keyboardFrame.size.height
+            )
+            self.keyboardIsVisible = true
+        case UIResponder.keyboardWillHideNotification:
+            self.setupStackViewBottomConstraintForKeyboardAnimation(
+                keyboardSize: .zero
+            )
+            self.keyboardIsVisible = false
+        default:
+            break
+        }
         
         let animationOption = UIView.AnimationOptions(rawValue: curve.uintValue)
         UIView.animate(
