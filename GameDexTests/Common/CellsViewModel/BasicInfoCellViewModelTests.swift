@@ -23,7 +23,8 @@ final class BasicInfoCellViewModelTests: XCTestCase {
             subtitle1: subtitle1,
             subtitle2: subtitle2,
             caption: captionName,
-            icon: icon
+            icon: icon,
+            size: .big
         )
         // Then
         XCTAssertEqual(cellVM.title, "Title")
@@ -32,5 +33,6 @@ final class BasicInfoCellViewModelTests: XCTestCase {
         XCTAssertEqual(cellVM.subtitle2, "Subtitle 2")
         XCTAssertEqual(cellVM.caption, "Caption Name")
         XCTAssertEqual(cellVM.reuseIdentifier, "\(cellVM.cellClass)")
+        XCTAssertEqual(cellVM.height, DesignSystem.sizeBig)
     }
 }
