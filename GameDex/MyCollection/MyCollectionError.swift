@@ -42,7 +42,7 @@ enum MyCollectionError: EmptyError {
         case .fetchError:
             return Asset.exclamationMark.name
         case .noItems:
-            return Asset.noItems.name
+            return nil
         }
     }
     

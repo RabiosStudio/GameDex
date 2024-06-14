@@ -10,10 +10,8 @@ import UIKit
 struct EmptyTextAndButton: EmptyReason {
     // Vertical Offset
     var verticalOffset: CGFloat {
-        return tabBarOffset
+        return .zero
     }
-    
-    let tabBarOffset: CGFloat
     
     // Title
     let customTitle: String?
@@ -60,13 +58,13 @@ struct EmptyTextAndButton: EmptyReason {
     
     let buttonTitle: String?
     
-    init(tabBarOffset: CGFloat,
-         customTitle: String?,
-         descriptionText: String?,
-         image: UIImage?,
-         buttonTitle: String?,
-         completionBlock: (() -> Void)? ) {
-        self.tabBarOffset = tabBarOffset
+    init(
+        customTitle: String?,
+        descriptionText: String?,
+        image: UIImage?,
+        buttonTitle: String?,
+        completionBlock: (() -> Void)?
+    ) {
         self.customTitle = customTitle
         self.descriptionText = descriptionText
         self.image = image

@@ -153,7 +153,9 @@ extension MyCollectionViewModel: MyCollectionViewModelDelegate {
     
     func apply(filters: [GameFilter]) async {}
 
-    func clearFilters() {}
+    func clearFilters() {
+        self.containerDelegate?.reloadData()
+    }
 }
 
 // MARK: - SearchViewModelDelegate

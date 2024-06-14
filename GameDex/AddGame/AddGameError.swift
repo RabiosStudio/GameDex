@@ -37,7 +37,7 @@ enum AddGameError: EmptyError {
     var imageName: String? {
         switch self {
         case .noItems:
-            return Asset.noItems.name
+            return nil
         case .server:
             return Asset.exclamationMark.name
         case .noSearch:
