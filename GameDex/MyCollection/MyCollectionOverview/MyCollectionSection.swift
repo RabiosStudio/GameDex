@@ -30,6 +30,7 @@ final class MyCollectionSection: Section {
                 title: platform.title,
                 subtitle1: "\(gameArray.count) \(text)",
                 caption: platform.imageUrl,
+                size: .small,
                 cellTappedCallback: {
                     let screenFactory = MyCollectionByPlatformsScreenFactory(
                         platform: platform,
