@@ -3178,6 +3178,12 @@ open class ContainerViewControllerDelegateMock: ContainerViewControllerDelegate,
 		perform?()
     }
 
+    open func scrollToItem(cell: UICollectionViewCell) {
+        addInvocation(.m_scrollToItem__cell_cell(Parameter<UICollectionViewCell>.value(`cell`)))
+		let perform = methodPerformValue(.m_scrollToItem__cell_cell(Parameter<UICollectionViewCell>.value(`cell`))) as? (UICollectionViewCell) -> Void
+		perform?(`cell`)
+    }
+
 
     fileprivate enum MethodType {
         case m_configureSupplementaryView__contentViewFactory_contentViewFactory(Parameter<ContentViewFactory>)
@@ -3186,6 +3192,7 @@ open class ContainerViewControllerDelegateMock: ContainerViewControllerDelegate,
         case m_goBackToRootViewController
         case m_goBackToPreviousScreen
         case m_reloadNavBarAndSearchBar
+        case m_scrollToItem__cell_cell(Parameter<UICollectionViewCell>)
 
         static func compareParameters(lhs: MethodType, rhs: MethodType, matcher: Matcher) -> Matcher.ComparisonResult {
             switch (lhs, rhs) {
@@ -3206,6 +3213,11 @@ open class ContainerViewControllerDelegateMock: ContainerViewControllerDelegate,
             case (.m_goBackToPreviousScreen, .m_goBackToPreviousScreen): return .match
 
             case (.m_reloadNavBarAndSearchBar, .m_reloadNavBarAndSearchBar): return .match
+
+            case (.m_scrollToItem__cell_cell(let lhsCell), .m_scrollToItem__cell_cell(let rhsCell)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsCell, rhs: rhsCell, with: matcher), lhsCell, rhsCell, "cell"))
+				return Matcher.ComparisonResult(results)
             default: return .none
             }
         }
@@ -3218,6 +3230,7 @@ open class ContainerViewControllerDelegateMock: ContainerViewControllerDelegate,
             case .m_goBackToRootViewController: return 0
             case .m_goBackToPreviousScreen: return 0
             case .m_reloadNavBarAndSearchBar: return 0
+            case let .m_scrollToItem__cell_cell(p0): return p0.intValue
             }
         }
         func assertionName() -> String {
@@ -3228,6 +3241,7 @@ open class ContainerViewControllerDelegateMock: ContainerViewControllerDelegate,
             case .m_goBackToRootViewController: return ".goBackToRootViewController()"
             case .m_goBackToPreviousScreen: return ".goBackToPreviousScreen()"
             case .m_reloadNavBarAndSearchBar: return ".reloadNavBarAndSearchBar()"
+            case .m_scrollToItem__cell_cell: return ".scrollToItem(cell:)"
             }
         }
     }
@@ -3252,6 +3266,7 @@ open class ContainerViewControllerDelegateMock: ContainerViewControllerDelegate,
         public static func goBackToRootViewController() -> Verify { return Verify(method: .m_goBackToRootViewController)}
         public static func goBackToPreviousScreen() -> Verify { return Verify(method: .m_goBackToPreviousScreen)}
         public static func reloadNavBarAndSearchBar() -> Verify { return Verify(method: .m_reloadNavBarAndSearchBar)}
+        public static func scrollToItem(cell: Parameter<UICollectionViewCell>) -> Verify { return Verify(method: .m_scrollToItem__cell_cell(`cell`))}
     }
 
     public struct Perform {
@@ -3275,6 +3290,9 @@ open class ContainerViewControllerDelegateMock: ContainerViewControllerDelegate,
         }
         public static func reloadNavBarAndSearchBar(perform: @escaping () -> Void) -> Perform {
             return Perform(method: .m_reloadNavBarAndSearchBar, performs: perform)
+        }
+        public static func scrollToItem(cell: Parameter<UICollectionViewCell>, perform: @escaping (UICollectionViewCell) -> Void) -> Perform {
+            return Perform(method: .m_scrollToItem__cell_cell(`cell`), performs: perform)
         }
     }
 
