@@ -34,6 +34,8 @@ final class BasicInfoCell: UICollectionViewCell, CellConfigurable {
         label.textColor = .secondaryColor
         label.textAlignment = .left
         label.numberOfLines = .zero
+        label.setContentHuggingPriority(.required, for: .vertical)
+        label.setContentCompressionResistancePriority(.required, for: .vertical)
         return label
     }()
     
@@ -41,6 +43,8 @@ final class BasicInfoCell: UICollectionViewCell, CellConfigurable {
         let label = VerticallyAlignedUILabel()
         label.font = Typography.body.font
         label.textColor = .secondaryColor
+        label.setContentHuggingPriority(.required, for: .vertical)
+        label.setContentCompressionResistancePriority(.required, for: .vertical)
         return label
     }()
     
@@ -49,6 +53,8 @@ final class BasicInfoCell: UICollectionViewCell, CellConfigurable {
         label.font = Typography.body.font
         label.textColor = .secondaryColor
         label.numberOfLines = .zero
+        label.setContentHuggingPriority(.required, for: .vertical)
+        label.setContentCompressionResistancePriority(.required, for: .vertical)
         return label
     }()
     

@@ -12,7 +12,7 @@ final class BasicInfoCellViewModel: CollectionCellViewModel {
     var cellClass: AnyClass = BasicInfoCell.self
     var indexPath: IndexPath?
     var cellTappedCallback: (() -> Void)?
-    var height: CGFloat = DesignSystem.sizeRegular
+    var height: CGFloat
     
     let title: String
     let subtitle1: String?
@@ -26,6 +26,7 @@ final class BasicInfoCellViewModel: CollectionCellViewModel {
         subtitle2: String? = nil,
         caption: String? = nil,
         icon: UIImage? = nil,
+        size: CellSize,
         cellTappedCallback: (() -> Void)? = nil
     ) {
         self.title = title
@@ -33,6 +34,7 @@ final class BasicInfoCellViewModel: CollectionCellViewModel {
         self.subtitle2 = subtitle2
         self.caption = caption
         self.icon = icon
+        self.height = size.height
         self.cellTappedCallback = cellTappedCallback
     }
 }

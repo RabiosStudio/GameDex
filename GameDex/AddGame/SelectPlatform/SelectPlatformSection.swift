@@ -17,6 +17,7 @@ final class SelectPlatformSection: Section {
             let platformCellVM = BasicInfoCellViewModel(
                 title: platform.title,
                 caption: platform.imageUrl,
+                size: .small,
                 cellTappedCallback: {
                     let screenFactory = SearchGameByTitleScreenFactory(
                         platform: platform, 
