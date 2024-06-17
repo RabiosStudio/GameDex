@@ -116,4 +116,8 @@ extension TextViewCell: UITextViewDelegate {
         }
         self.storeEntry(cellViewModel: self.cellVM, with: text)
     }
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        self.cellVM?.containerDelegate?.scrollToItem(cell: self)
+    }
 }

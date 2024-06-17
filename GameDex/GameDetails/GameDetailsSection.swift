@@ -13,7 +13,8 @@ final class GameDetailsSection: Section {
         game: Game,
         platformName: String,
         gameForm: GameForm,
-        formDelegate: FormDelegate
+        formDelegate: FormDelegate,
+        containerDelegate: ContainerViewControllerDelegate?
     ) {
         super.init()
         self.position = 0
@@ -114,9 +115,10 @@ final class GameDetailsSection: Section {
             title: L10n.otherDetails,
             formType: GameFormType.notes,
             value: gameForm.notes,
-            formDelegate: formDelegate
+            formDelegate: formDelegate,
+            containerDelegate: containerDelegate
         )
+        
         self.cellsVM.append(otherDetailsCellVM)
     }
-
 }

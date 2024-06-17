@@ -16,6 +16,7 @@ protocol ContainerViewControllerDelegate: AnyObject {
     func goBackToRootViewController()
     func goBackToPreviousScreen()
     func reloadNavBarAndSearchBar()
+    func scrollToItem(cell: UICollectionViewCell)
 }
 
 class ContainerViewController: UIViewController {
@@ -68,6 +69,8 @@ class ContainerViewController: UIViewController {
     private lazy var supplementaryView = UIView()
     
     private lazy var stackViewBottomConstraint: NSLayoutConstraint = self.stackView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
+    
+    private lazy var keyboardIsVisible: Bool = false
     
     // MARK: - Init
     
@@ -292,6 +295,21 @@ class ContainerViewController: UIViewController {
               let keyboardFrame = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue
         else { return }
         
+        switch notification.name {
+        case UIResponder.keyboardWillShowNotification:
+            self.setupStackViewBottomConstraintForKeyboardAnimation(
+                keyboardSize: keyboardFrame.size.height
+            )
+            self.keyboardIsVisible = true
+        case UIResponder.keyboardWillHideNotification:
+            self.setupStackViewBottomConstraintForKeyboardAnimation(
+                keyboardSize: .zero
+            )
+            self.keyboardIsVisible = false
+        default:
+            break
+        }
+        
         let animationOption = UIView.AnimationOptions(rawValue: curve.uintValue)
         UIView.animate(
             withDuration: duration,
@@ -460,6 +478,21 @@ extension ContainerViewController: UISearchBarDelegate {
 
 // MARK: ContainerViewControllerDelegate
 extension ContainerViewController: ContainerViewControllerDelegate {
+    func scrollToItem(cell: UICollectionViewCell) {
+        guard let indexPath = self.collectionView.indexPath(for: cell) else {
+            return
+        }
+        let visibleIndexPaths = self.collectionView.indexPathsForVisibleItems
+        if visibleIndexPaths.contains(indexPath) && self.keyboardIsVisible == false {
+            let adjustment = self.collectionView.cellForItem(at: indexPath)?.frame.size.height ?? 100
+            self.collectionView.scrollToItem(
+                at: indexPath,
+                at: .bottom,
+                adjustment: adjustment
+            )
+        }
+    }
+    
     func goBackToRootViewController() {
         DispatchQueue.main.async {
             self.navigationController?.popToRootViewController(animated: true)
