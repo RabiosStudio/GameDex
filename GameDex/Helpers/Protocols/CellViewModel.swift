@@ -56,3 +56,7 @@ protocol FormDelegate: AnyObject {
     func refreshSectionsDependingOnGameFormat()
     func didUpdate(value: Any, for type: FormType)
 }
+
+extension FormDelegate {
+    func refreshSectionsDependingOnGameFormat() {}
+}
