@@ -50,13 +50,3 @@ protocol FormCellViewModel {
     var value: ValueType? { get set }
     var formDelegate: FormDelegate? { get }
 }
-
-// sourcery: AutoMockable
-protocol FormDelegate: AnyObject {
-    func refreshSectionsDependingOnGameFormat()
-    func didUpdate(value: Any, for type: FormType)
-}
-
-extension FormDelegate {
-    func refreshSectionsDependingOnGameFormat() {}
-}

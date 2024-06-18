@@ -110,7 +110,7 @@ extension GameDetailsViewModel: PrimaryButtonDelegate {
     }
 }
 
-extension GameDetailsViewModel: FormDelegate {
+extension GameDetailsViewModel: GameFormDelegate {
     func didUpdate(value: Any, for type: any FormType) {
         guard let formType = type as? GameFormType else {
             return

@@ -13,7 +13,7 @@ final class GameDetailsSection: Section {
         game: Game,
         platformName: String,
         gameForm: GameForm,
-        formDelegate: FormDelegate,
+        formDelegate: GameFormDelegate,
         containerDelegate: ContainerViewControllerDelegate?
     ) {
         super.init()
