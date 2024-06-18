@@ -13,6 +13,7 @@ final class AuthenticationSection: Section {
     init(
         userHasAccount: Bool,
         primaryButtonDelegate: PrimaryButtonDelegate?,
+        formDelegate: FormDelegate,
         completionBlock: (() -> Void)?
     ) {
         super.init()
@@ -27,13 +28,15 @@ final class AuthenticationSection: Section {
         
         let emailTextField = TextFieldCellViewModel(
             placeholder: L10n.email,
-            formType: UserAccountFormType.email
+            formType: UserAccountFormType.email,
+            formDelegate: formDelegate
         )
         self.cellsVM.append(emailTextField)
         
         let passwordTextField = TextFieldCellViewModel(
             placeholder: L10n.password,
-            formType: UserAccountFormType.password
+            formType: UserAccountFormType.password,
+            formDelegate: formDelegate
         )
         self.cellsVM.append(passwordTextField)
         

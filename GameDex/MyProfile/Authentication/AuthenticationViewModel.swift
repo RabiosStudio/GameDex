@@ -25,6 +25,7 @@ final class AuthenticationViewModel: CollectionViewModel {
     private let userHasAccount: Bool
     private let authenticationSerice: AuthenticationService
     private let alertDisplayer: AlertDisplayer
+    private var userAccountForm: UserAccountForm
     
     init(
         userHasAccount: Bool,
@@ -39,13 +40,15 @@ final class AuthenticationViewModel: CollectionViewModel {
         self.myProfileDelegate = myProfileDelegate
         self.myCollectionDelegate = myCollectionDelegate
         self.screenTitle = userHasAccount ? L10n.login : L10n.signup
+        self.userAccountForm = UserAccountForm()
     }
     
     func loadData(callback: @escaping (EmptyError?) -> ()) {
         self.sections = [
             AuthenticationSection(
                 userHasAccount: self.userHasAccount,
-                primaryButtonDelegate: self,
+                primaryButtonDelegate: self, 
+                formDelegate: self,
                 completionBlock: { [weak self] in
                     self?.didTapForgotPassword()
                 }
@@ -67,26 +70,7 @@ final class AuthenticationViewModel: CollectionViewModel {
     }
     
     private func didTapForgotPassword() {
-        guard let firstSection = self.sections.first,
-              let formCellsVM = firstSection.cellsVM.filter({ cellVM in
-                  return cellVM is (any FormCellViewModel)
-              }) as? [any FormCellViewModel] else {
-            return
-        }
-        
-        var email: String?
-        
-        for formCellVM in formCellsVM {
-            guard let formType = formCellVM.formType as? UserAccountFormType else { return }
-            switch formType {
-            case .email:
-                email = formCellVM.value as? String
-            default:
-                break
-            }
-        }
-        
-        guard let email else {
+        guard let email = self.userAccountForm.email else {
             self.displayAlertPasswordResetEmailSent(success: false)
             return
         }
@@ -124,29 +108,8 @@ final class AuthenticationViewModel: CollectionViewModel {
 
 extension AuthenticationViewModel: PrimaryButtonDelegate {
     func didTapPrimaryButton(with title: String?) async {
-        guard let firstSection = self.sections.first,
-              let formCellsVM = firstSection.cellsVM.filter({ cellVM in
-                  return cellVM is (any FormCellViewModel)
-              }) as? [any FormCellViewModel] else {
-            return
-        }
-        
-        var email: String?
-        var password: String?
-        
-        for formCellVM in formCellsVM {
-            guard let formType = formCellVM.formType as? UserAccountFormType else { return }
-            switch formType {
-            case .email:
-                email = formCellVM.value as? String
-            case .password:
-                password = formCellVM.value as? String
-            default:
-                break
-            }
-        }
-        
-        guard let email, let password else {
+        guard let email = self.userAccountForm.email,
+              let password = self.userAccountForm.password else {
             return
         }
         
@@ -177,6 +140,22 @@ extension AuthenticationViewModel: PrimaryButtonDelegate {
             self.myProfileDelegate?.reloadMyProfile()
             await self.myCollectionDelegate?.reloadCollection()
             self.containerDelegate?.goBackToRootViewController()
+        }
+    }
+}
+
+extension AuthenticationViewModel: FormDelegate {
+    func didUpdate(value: Any, for type: any FormType) {
+        guard let formType = type as? UserAccountFormType else {
+            return
+        }
+        switch formType {
+        case .email:
+            self.userAccountForm.email = value as? String
+        case .password:
+            self.userAccountForm.password = value as? String
+        default:
+            break
         }
     }
 }
