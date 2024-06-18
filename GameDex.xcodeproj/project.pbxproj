@@ -123,6 +123,7 @@
 		25979DCC2AC17C22002CEDE7 /* ImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25979DCB2AC17C22002CEDE7 /* ImageCell.swift */; };
 		25979DCE2AC17C2C002CEDE7 /* ImageCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25979DCD2AC17C2C002CEDE7 /* ImageCellViewModel.swift */; };
 		25ADAE962C1CA1AF00BE26FA /* UICollectionView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25ADAE952C1CA1AF00BE26FA /* UICollectionView+Extension.swift */; };
+		25ADAE9A2C21BD0300BE26FA /* UserAccountForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25ADAE992C21BD0300BE26FA /* UserAccountForm.swift */; };
 		25AE1EAE2A8BB89400F2D06A /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AE1EAD2A8BB89400F2D06A /* Section.swift */; };
 		25AE1EBA2A8CB7E300F2D06A /* CollectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AE1EB92A8CB7E300F2D06A /* CollectionViewModel.swift */; };
 		25AE1EBC2A8CB82500F2D06A /* CellConfigurable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AE1EBB2A8CB82500F2D06A /* CellConfigurable.swift */; };
@@ -342,6 +343,7 @@
 		25979DCB2AC17C22002CEDE7 /* ImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCell.swift; sourceTree = "<group>"; };
 		25979DCD2AC17C2C002CEDE7 /* ImageCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCellViewModel.swift; sourceTree = "<group>"; };
 		25ADAE952C1CA1AF00BE26FA /* UICollectionView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Extension.swift"; sourceTree = "<group>"; };
+		25ADAE992C21BD0300BE26FA /* UserAccountForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAccountForm.swift; sourceTree = "<group>"; };
 		25AE1EAD2A8BB89400F2D06A /* Section.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Section.swift; sourceTree = "<group>"; };
 		25AE1EB92A8CB7E300F2D06A /* CollectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewModel.swift; sourceTree = "<group>"; };
 		25AE1EBB2A8CB82500F2D06A /* CellConfigurable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellConfigurable.swift; sourceTree = "<group>"; };
@@ -733,6 +735,7 @@
 			children = (
 				25BA88802C09C9FE00B8CD28 /* GameForm.swift */,
 				25BA889C2C11BA8B00B8CD28 /* GameFilterForm.swift */,
+				25ADAE992C21BD0300BE26FA /* UserAccountForm.swift */,
 			);
 			path = Forms;
 			sourceTree = "<group>";
@@ -1479,6 +1482,7 @@
 				2506D89B2AE16B08006D3F52 /* FirestoreData.swift in Sources */,
 				25979DA82ABF0E52002CEDE7 /* LoginViewModel.swift in Sources */,
 				25AE1F1B2A8F923B00F2D06A /* ContainerViewController.swift in Sources */,
+				25ADAE9A2C21BD0300BE26FA /* UserAccountForm.swift in Sources */,
 				25AE1EBA2A8CB7E300F2D06A /* CollectionViewModel.swift in Sources */,
 				25AE1EE62A8E4D6800F2D06A /* DesignSystem.swift in Sources */,
 				2506D8AA2AE934F6006D3F52 /* CollectionManagementSection.swift in Sources */,
