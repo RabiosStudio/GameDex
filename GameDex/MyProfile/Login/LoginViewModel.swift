@@ -11,6 +11,7 @@ import UIKit
 final class LoginViewModel: CollectionViewModel {
     var searchViewModel: SearchViewModel?
     var isBounceable: Bool = false
+    var isRefreshable: Bool = false
     var progress: Float?
     var buttonItems: [AnyBarButtonItem]?
     let screenTitle: String? = L10n.login
@@ -56,8 +57,8 @@ extension LoginViewModel: PrimaryButtonDelegate {
         
         let screenFactory =  AuthenticationScreenFactory(
             userHasAccount: userHasAccount,
-            myProfileDelegate: myProfileDelegate,
-            myCollectionDelegate: myCollectionDelegate
+            myProfileDelegate: self.myProfileDelegate,
+            myCollectionDelegate: self.myCollectionDelegate
         )
         Routing.shared.route(
             navigationStyle: .push(

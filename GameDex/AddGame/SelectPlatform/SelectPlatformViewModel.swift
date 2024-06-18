@@ -11,10 +11,12 @@ import UIKit
 final class SelectPlatformViewModel: CollectionViewModel {
     lazy var searchViewModel: SearchViewModel? = SearchViewModel(
         placeholder: L10n.searchPlatform,
+        alwaysShow: true,
         activateOnTap: false,
         delegate: self
     )
     var isBounceable: Bool = true
+    var isRefreshable: Bool = false
     var progress: Float?
     var buttonItems: [AnyBarButtonItem]? = [.close]
     let screenTitle: String? = L10n.searchPlatform

@@ -48,12 +48,6 @@ class TextViewCell: UICollectionViewCell, CellConfigurable {
         return nil
     }
     
-    override func prepareForReuse() {
-        super.prepareForReuse()
-        self.textView.text = nil
-        self.label.text = nil
-    }
-    
     func configure(cellViewModel: CellViewModel) {
         guard let cellVM = cellViewModel as? TextViewCellViewModel else {
             return
@@ -121,5 +115,9 @@ extension TextViewCell: UITextViewDelegate {
             return
         }
         self.storeEntry(cellViewModel: self.cellVM, with: text)
+    }
+    
+    func textViewDidBeginEditing(_ textView: UITextView) {
+        self.cellVM?.containerDelegate?.scrollToItem(cell: self)
     }
 }

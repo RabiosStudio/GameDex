@@ -9,7 +9,8 @@ import Foundation
 import UIKit
 
 enum GameFilterFormType: FormType, Equatable {
-    case yearOfAcquisition(PickerViewModel)
+    case isPhysical(PickerViewModel)
+    case acquisitionYear(PickerViewModel)
     case gameCondition(PickerViewModel)
     case gameCompleteness(PickerViewModel)
     case gameRegion(PickerViewModel)
@@ -29,7 +30,7 @@ enum GameFilterFormType: FormType, Equatable {
     
     var inputPickerViewModel: PickerViewModel? {
         switch self {
-        case let .gameCompleteness(pickerVM), let .gameCondition(pickerVM), let .gameRegion(pickerVM), let .yearOfAcquisition(pickerVM), let .storageArea(pickerVM):
+        case let .gameCompleteness(pickerVM), let .gameCondition(pickerVM), let .gameRegion(pickerVM), let .acquisitionYear(pickerVM), let .storageArea(pickerVM), let .isPhysical(pickerVM):
             return pickerVM
         case .rating:
             return nil

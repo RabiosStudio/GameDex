@@ -1,23 +1,26 @@
 //
-//  AddGameDetailsSectionTests.swift
+//  GameDetailsSectionTests.swift
 //  GameDexTests
 //
-//  Created by Gabrielle Dalbera on 05/09/2023.
+//  Created by Gabrielle Dalbera on 04/06/2024.
 //
 
 import XCTest
 @testable import GameDex
 
-final class AddGameDetailsSectionTests: XCTestCase {
-    
-    // MARK: Tests
+final class GameDetailsSectionTests: XCTestCase {
     
     func test_init_ThenShouldSetPropertiesCorrectly() {
         // Given
-        let section = AddGameDetailsSection(game: MockData.game, platform: MockData.platform)
+        let section = GameDetailsSection(
+            game: MockData.game,
+            platformName: MockData.platform.title,
+            gameForm: MockData.gameForm,
+            formDelegate: FormDelegateMock()
+        )
         
         // Then
-        XCTAssertEqual(section.cellsVM.count, 8)
+        XCTAssertEqual(section.cellsVM.count, 9)
         
         guard let gameCellVM = section.cellsVM.first as? ImageDescriptionCellViewModel else {
             XCTFail("Wrong type")
@@ -26,7 +29,7 @@ final class AddGameDetailsSectionTests: XCTestCase {
         
         XCTAssertEqual(gameCellVM.title, "Title")
         XCTAssertEqual(gameCellVM.subtitle1, "Game Boy Advance")
-        XCTAssertEqual(gameCellVM.subtitle2, L10n.releaseDate + " : " + Date.now.convertToString())
+        XCTAssertEqual(gameCellVM.subtitle2, MockData.savedGame.game.formattedReleaseDate)
         XCTAssertEqual(gameCellVM.subtitle3, "description")
         XCTAssertEqual(gameCellVM.imageStringURL, "imageURL")
         
@@ -42,12 +45,13 @@ final class AddGameDetailsSectionTests: XCTestCase {
                 return
             }
             switch formType {
-            case .yearOfAcquisition:
+            case .acquisitionYear:
                 guard let acquisitionYearCellVM = formCellVM as? TextFieldCellViewModel else {
                     XCTFail("Wrong type")
                     return
                 }
                 XCTAssertEqual(acquisitionYearCellVM.placeholder, L10n.yearOfAcquisition)
+                XCTAssertEqual(acquisitionYearCellVM.value, MockData.savedGame.acquisitionYear)
             case .gameCondition(_):
                 guard let gameConditionCellVM = formCellVM as? TextFieldCellViewModel,
                       let gameConditionCellVMFormType = gameConditionCellVM.formType as? GameFormType else {
@@ -55,6 +59,7 @@ final class AddGameDetailsSectionTests: XCTestCase {
                     return
                 }
                 XCTAssertEqual(gameConditionCellVM.placeholder, L10n.condition)
+                XCTAssertEqual(gameConditionCellVM.value, MockData.savedGame.gameCondition?.value)
                 XCTAssertEqual(
                     gameConditionCellVMFormType,
                     .gameCondition(
@@ -75,6 +80,7 @@ final class AddGameDetailsSectionTests: XCTestCase {
                     return
                 }
                 XCTAssertEqual(gameCompletenessCellVM.placeholder, L10n.completeness)
+                XCTAssertEqual(gameCompletenessCellVM.value, MockData.savedGame.gameCompleteness?.value)
                 XCTAssertEqual(
                     gameCompletenessCellVMFormType,
                     .gameCompleteness(
@@ -95,6 +101,7 @@ final class AddGameDetailsSectionTests: XCTestCase {
                     return
                 }
                 XCTAssertEqual(gameRegionCellVM.placeholder, L10n.region)
+                XCTAssertEqual(gameRegionCellVM.value, MockData.savedGame.gameRegion?.value)
                 XCTAssertEqual(
                     gameRegionCellVMFormType,
                     .gameRegion(
@@ -109,18 +116,27 @@ final class AddGameDetailsSectionTests: XCTestCase {
                     return
                 }
                 XCTAssertEqual(storageAreaCellVM.placeholder, L10n.storageArea)
+                XCTAssertEqual(storageAreaCellVM.value, MockData.savedGame.storageArea)
             case .rating:
                 guard let ratingCellVM = formCellVM as? StarRatingCellViewModel else {
                     XCTFail("Wrong type")
                     return
                 }
                 XCTAssertEqual(ratingCellVM.title, L10n.personalRating)
+                XCTAssertEqual(ratingCellVM.value, MockData.savedGame.rating)
             case .notes:
                 guard let notesCellVM = formCellVM as? TextViewCellViewModel else {
                     XCTFail("Wrong type")
                     return
                 }
                 XCTAssertEqual(notesCellVM.title, L10n.otherDetails)
+                XCTAssertEqual(notesCellVM.value, MockData.savedGame.notes)
+            case .isPhysical:
+                guard let isPhysicalCellVM = formCellVM as? SegmentedControlCellViewModel else {
+                    XCTFail("Wrong type")
+                    return
+                }
+                XCTAssertEqual(isPhysicalCellVM.value, MockData.savedGame.isPhysical ? L10n.physical : L10n.digital)
             }
         }
     }

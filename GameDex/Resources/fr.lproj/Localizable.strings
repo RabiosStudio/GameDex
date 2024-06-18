@@ -45,6 +45,7 @@
 "warningAccountDeletion" = "La suppression du compte est définitive. Cela n'affecte pas les données enregistrées en local sur votre appareil.";
 "warningPlatformDeletionCloud" = "La collection ne peut pas être restaurée après suppression. Cela n'affectera pas les données sauvegardées en local sur d'autres appareils.";
 "warningPlatformDeletionLocal" = "La collection ne peut pas être restaurée après suppression. Seules les données sauvegardées en local sur votre appreils seront supprimées.";
+"warningGameFormatAlreadyExists" = "Un jeu avec le nouveau format sélectionné existe déjà dans votre collection.";
 
 // Info
 "infoNoInternet" = "Aucun accès internet, votre collection pourrait ne pas être à jour.";
@@ -132,6 +133,10 @@
 "newPassword" = "Nouveau mot de passe";
 "currentPassword" = "Mot de passe actuel";
 "collectionToDelete" = "Collection à supprimer";
+"physical" = "Physique";
+"digital" = "Digital";
+"any" = "Tous";
+"gameFormat" = "Format";
 
 // Other
 "game" = "jeu";

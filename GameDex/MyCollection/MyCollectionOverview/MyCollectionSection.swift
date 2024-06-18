@@ -29,8 +29,8 @@ final class MyCollectionSection: Section {
             let platformCellVM = BasicInfoCellViewModel(
                 title: platform.title,
                 subtitle1: "\(gameArray.count) \(text)",
-                subtitle2: nil,
                 caption: platform.imageUrl,
+                size: .small,
                 cellTappedCallback: {
                     let screenFactory = MyCollectionByPlatformsScreenFactory(
                         platform: platform,

@@ -11,6 +11,7 @@ import UIKit
 final class AuthenticationViewModel: CollectionViewModel {
     var searchViewModel: SearchViewModel?
     var isBounceable: Bool = false
+    var isRefreshable: Bool = false
     var progress: Float?
     var buttonItems: [AnyBarButtonItem]?
     let screenTitle: String?
@@ -50,7 +51,19 @@ final class AuthenticationViewModel: CollectionViewModel {
                 }
             )
         ]
+        self.configureBottomView()
         callback(nil)
+    }
+    
+    private func configureBottomView() {
+        self.containerDelegate?.configureSupplementaryView(
+            contentViewFactory: PrimaryButtonContentViewFactory(
+                delegate: self,
+                buttonTitle: self.userHasAccount ? L10n.login : L10n.createAccount,
+                shouldEnable: true,
+                position: .bottom
+            )
+        )
     }
     
     private func didTapForgotPassword() {

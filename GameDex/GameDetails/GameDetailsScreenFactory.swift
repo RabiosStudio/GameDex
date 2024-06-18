@@ -1,27 +1,27 @@
 //
-//  EditGameDetailsScreenFactory.swift
+//  GameDetailsScreenFactory.swift
 //  GameDex
 //
-//  Created by Gabrielle Dalbera on 14/09/2023.
+//  Created by Gabrielle Dalbera on 03/06/2024.
 //
 
 import Foundation
 import UIKit
 
-struct EditGameDetailsScreenFactory: ScreenFactory {
+struct GameDetailsScreenFactory: ScreenFactory {
     
-    private let savedGame: SavedGame
+    private let gameDetailsContext: GameDetailsContext
     private let platform: Platform
     weak var myCollectionDelegate: MyCollectionViewModelDelegate?
     
     var viewController: UIViewController {
-        let viewModel = EditGameDetailsViewModel(
-            savedGame: self.savedGame,
+        let viewModel = GameDetailsViewModel(
+            gameDetailsContext: self.gameDetailsContext,
             platform: self.platform,
             localDatabase: LocalDatabaseImpl(),
             cloudDatabase: FirestoreDatabase(),
             alertDisplayer: AlertDisplayerImpl(),
-            myCollectionDelegate: myCollectionDelegate,
+            myCollectionDelegate: self.myCollectionDelegate,
             authenticationService: AuthenticationServiceImpl()
         )
         let layout = UICollectionViewFlowLayout()
@@ -33,8 +33,12 @@ struct EditGameDetailsScreenFactory: ScreenFactory {
         return containerController
     }
 
-    init(savedGame: SavedGame, platform: Platform, myCollectionDelegate: MyCollectionViewModelDelegate?) {
-        self.savedGame = savedGame
+    init(
+        gameDetailsContext: GameDetailsContext,
+        platform: Platform,
+        myCollectionDelegate: MyCollectionViewModelDelegate?
+    ) {
+        self.gameDetailsContext = gameDetailsContext
         self.platform = platform
         self.myCollectionDelegate = myCollectionDelegate
     }

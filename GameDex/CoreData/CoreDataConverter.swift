@@ -17,6 +17,13 @@ enum CoreDataConverter {
         platformCollected.id = Int16(platform.id)
         platformCollected.title = platform.title
         platformCollected.imageUrl = platform.imageUrl
+        
+        let supportedNames = platform.supportedNames.map { aName in
+            let supportedName = PlatformSupportedNames(context: context)
+            supportedName.name = aName
+            return supportedName
+        }
+        platformCollected.supportedNames = NSSet(array: supportedNames)
                 
         guard let platformGames = platform.games else {
             return platformCollected
@@ -27,13 +34,6 @@ enum CoreDataConverter {
             return gameCollected
         }
         
-        let supportedNames = platform.supportedNames.map { aName in
-            let supportedName = PlatformSupportedNames(context: context)
-            supportedName.name = aName
-            return supportedName
-        }
-        
-        platformCollected.supportedNames = NSSet(array: supportedNames)
         platformCollected.games = NSSet(array: gamesCollected)
         return platformCollected
     }
@@ -56,6 +56,7 @@ enum CoreDataConverter {
         gameCollected.gameID = gameDetails.game.id
         gameCollected.releaseDate = gameDetails.game.releaseDate
         gameCollected.lastUpdated = gameDetails.lastUpdated
+        gameCollected.isPhysical = gameDetails.isPhysical
     
         return gameCollected
     }

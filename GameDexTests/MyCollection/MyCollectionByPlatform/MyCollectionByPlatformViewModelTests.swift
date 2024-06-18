@@ -708,7 +708,7 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
         await viewModel.clearFilters()
         
         // Then
-        containerDelegate.verify(.reloadNavBar(), count: .once)
+        containerDelegate.verify(.reloadNavBarAndSearchBar(), count: .once)
         containerDelegate.verify(.reloadSections(emptyError: .any), count: .once)
     }
     
@@ -737,7 +737,7 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
         await viewModel.apply(filters: MockData.gameFiltersWithMatchingGames)
         
         // Then
-        containerDelegate.verify(.reloadNavBar(), count: .once)
+        containerDelegate.verify(.reloadNavBarAndSearchBar(), count: .once)
         containerDelegate.verify(.reloadSections(emptyError: .any), count: .once)
     }
     
@@ -766,7 +766,7 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
         await viewModel.apply(filters: MockData.gameFiltersWithNoMatchingGames)
         
         // Then
-        containerDelegate.verify(.reloadNavBar(), count: .once)
+        containerDelegate.verify(.reloadNavBarAndSearchBar(), count: .once)
         containerDelegate.verify(.reloadSections(emptyError: .any), count: .once)
     }
 
@@ -795,7 +795,7 @@ final class MyCollectionByPlatformViewModelTests: XCTestCase {
             return .present(
                 screenFactory: MyCollectionFiltersScreenFactory(
                     games: MockData.savedGames,
-                    selectedFilters: nil,
+                    gameFilterForm: nil,
                     myCollectionDelegate: viewModel
                 ),
                 completionBlock: nil

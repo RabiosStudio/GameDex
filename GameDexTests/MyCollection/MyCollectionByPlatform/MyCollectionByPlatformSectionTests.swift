@@ -55,8 +55,8 @@ final class MyCollectionByPlatformSectionTests: XCTestCase {
             
             // Then
             let expectedNavigationStyle: NavigationStyle = .push(
-                screenFactory: EditGameDetailsScreenFactory(
-                    savedGame: MockData.savedGames[index],
+                screenFactory: GameDetailsScreenFactory(
+                    gameDetailsContext: .edit(savedGame: MockData.savedGames[index]),
                     platform: MockData.platform,
                     myCollectionDelegate: myCollectionDelegate
                 )

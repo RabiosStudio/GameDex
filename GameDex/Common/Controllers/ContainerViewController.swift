@@ -15,7 +15,8 @@ protocol ContainerViewControllerDelegate: AnyObject {
     func reloadSections(emptyError: EmptyError?)
     func goBackToRootViewController()
     func goBackToPreviousScreen()
-    func reloadNavBar()
+    func reloadNavBarAndSearchBar()
+    func scrollToItem(cell: UICollectionViewCell)
 }
 
 class ContainerViewController: UIViewController {
@@ -26,7 +27,6 @@ class ContainerViewController: UIViewController {
     private let layout: UICollectionViewLayout
     private lazy var refreshControl: UIRefreshControl = {
         let refreshControl = UIRefreshControl()
-        refreshControl.addTarget(self, action: #selector(loadData), for: .valueChanged)
         return refreshControl
     }()
     
@@ -69,6 +69,8 @@ class ContainerViewController: UIViewController {
     private lazy var supplementaryView = UIView()
     
     private lazy var stackViewBottomConstraint: NSLayoutConstraint = self.stackView.bottomAnchor.constraint(equalTo: self.view.bottomAnchor)
+    
+    private lazy var keyboardIsVisible: Bool = false
     
     // MARK: - Init
     
@@ -139,12 +141,14 @@ class ContainerViewController: UIViewController {
                 DispatchQueue.main.async {
                     guard let strongSelf = self else { return }
                     if let error = error {
-                        let tabBarOffset = -(self?.tabBarController?.tabBar.frame.size.height ?? 0)
-                        strongSelf.updateEmptyState(
-                            error: error,
-                            tabBarOffset: tabBarOffset
-                        )
-                        strongSelf.configureNavBarAndSearchBar()
+                        strongSelf.updateEmptyState(error: error)
+                        strongSelf.configureNavBar()
+                        strongSelf.configureRefreshControl()
+                        if let searchVM = strongSelf.viewModel.searchViewModel, searchVM.alwaysShow {
+                            strongSelf.configureSearchBar()
+                        } else {
+                            strongSelf.searchBar.removeFromSuperview()
+                        }
                     } else {
                         strongSelf.refresh()
                     }
@@ -156,7 +160,8 @@ class ContainerViewController: UIViewController {
     }
     
     private func refresh() {
-        self.configureNavBarAndSearchBar()
+        self.configureNavBar()
+        self.configureSearchBar()
         self.reloadCollectionView()
     }
     
@@ -165,18 +170,18 @@ class ContainerViewController: UIViewController {
         self.collectionView.reloadData()
     }
     
-    private func updateEmptyState(error: EmptyError?, tabBarOffset: CGFloat) {
+    private func updateEmptyState(error: EmptyError?) {
         DispatchQueue.main.async {
             if let error = error {
-                guard let imageName = error.imageName,
-                      let image = UIImage(named: imageName) else {
-                    return
+                var image: UIImage?
+                if let imageName = error.imageName {
+                    image = UIImage(named: imageName)
                 }
+                let resizedImage = image?.resized(toWidth: DesignSystem.sizeSmall, isOpaque: false)
                 let emptyReason = EmptyTextAndButton(
-                    tabBarOffset: tabBarOffset,
                     customTitle: error.errorTitle,
                     descriptionText: error.errorDescription,
-                    image: image,
+                    image: resizedImage,
                     buttonTitle: error.buttonTitle
                 ) {
                     switch error.errorAction {
@@ -207,10 +212,9 @@ class ContainerViewController: UIViewController {
         self.title = self.viewModel.screenTitle
     }
     
-    private func configureNavBarAndSearchBar() {
+    private func configureNavBar() {
         DispatchQueue.main.async {
             self.navigationController?.configure()
-            self.configureSearchBar()
             
             guard let buttonItems = self.viewModel.buttonItems else {
                 return
@@ -256,13 +260,15 @@ class ContainerViewController: UIViewController {
     }
     
     private func configureSearchBar() {
-        guard let searchVM = self.viewModel.searchViewModel else {
-            self.searchBar.removeFromSuperview()
-            return
+        DispatchQueue.main.async {
+            guard let searchVM = self.viewModel.searchViewModel else {
+                self.searchBar.removeFromSuperview()
+                return
+            }
+            self.searchBar.text = nil
+            self.searchBar.placeholder = searchVM.placeholder
+            self.stackView.insertArrangedSubview(self.searchBar, at: .zero)
         }
-        self.searchBar.text = nil
-        self.searchBar.placeholder = searchVM.placeholder
-        self.stackView.insertArrangedSubview(self.searchBar, at: .zero)
     }
     
     private func makeSearchBarFirstResponderIfNeeded() {
@@ -272,9 +278,7 @@ class ContainerViewController: UIViewController {
     }
     
     private func configureLoader() {
-        let tabBarOffset = -(self.tabBarController?.tabBar.frame.size.height ?? 0)
-        let emptyLoader = EmptyLoader(tabBarOffset: tabBarOffset)
-        self.collectionView.updateEmptyScreen(emptyReason: emptyLoader)
+        self.collectionView.updateEmptyScreen(emptyReason: EmptyLoader())
         self.collectionView.reloadEmptyDataSet()
     }
     
@@ -282,15 +286,12 @@ class ContainerViewController: UIViewController {
         // Keyboard animation
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardAnimation), name: UIResponder.keyboardWillShowNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(handleKeyboardAnimation), name: UIResponder.keyboardWillHideNotification, object: nil)
-        
-        // Call loadData when app enters foreground
-        NotificationCenter.default.addObserver(self, selector: #selector(loadData), name: UIApplication.willEnterForegroundNotification, object: nil)
     }
     
     @objc private func handleKeyboardAnimation(notification: NSNotification) {
         guard let userInfo = notification.userInfo,
               let duration = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? Double,
-              let curve = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? NSNumber,
+              let curve = userInfo[UIResponder.keyboardAnimationCurveUserInfoKey] as? NSNumber,
               let keyboardFrame = (userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue
         else { return }
         
@@ -299,10 +300,12 @@ class ContainerViewController: UIViewController {
             self.setupStackViewBottomConstraintForKeyboardAnimation(
                 keyboardSize: keyboardFrame.size.height
             )
+            self.keyboardIsVisible = true
         case UIResponder.keyboardWillHideNotification:
             self.setupStackViewBottomConstraintForKeyboardAnimation(
                 keyboardSize: .zero
             )
+            self.keyboardIsVisible = false
         default:
             break
         }
@@ -313,17 +316,31 @@ class ContainerViewController: UIViewController {
             delay: .zero,
             options: animationOption,
             animations: {
-                self.setupStackViewConstraints()
+                switch notification.name {
+                case UIResponder.keyboardWillShowNotification:
+                    self.setupStackViewBottomConstraintForKeyboardAnimation(
+                        keyboardSize: keyboardFrame.size.height
+                    )
+                case UIResponder.keyboardWillHideNotification:
+                    self.setupStackViewBottomConstraintForKeyboardAnimation(
+                        keyboardSize: .zero
+                    )
+                default:
+                    break
+                }
             }
         )
     }
     
     private func setupStackViewBottomConstraintForKeyboardAnimation(keyboardSize: CGFloat) {
-        NSLayoutConstraint.deactivate([self.stackViewBottomConstraint])
-        self.stackViewBottomConstraint = self.stackView.bottomAnchor.constraint(
-            equalTo: self.view.bottomAnchor,
-            constant: -keyboardSize
-        )
+        self.stackViewBottomConstraint.constant = -keyboardSize
+    }
+    
+    private func configureRefreshControl() {
+        if self.viewModel.isRefreshable {
+            self.collectionView.addSubview(self.refreshControl)
+            self.refreshControl.addTarget(self, action: #selector(loadData), for: .valueChanged)
+        }
     }
     
     private func setupContent() {
@@ -331,7 +348,7 @@ class ContainerViewController: UIViewController {
         self.collectionView.delegate = self
         self.collectionView.dataSource = self
         self.collectionView.alwaysBounceVertical = self.viewModel.isBounceable
-        self.collectionView.addSubview(self.refreshControl)
+        self.configureRefreshControl()
         self.stackView.addArrangedSubview(self.collectionView)
         self.view.addSubview(stackView)
         self.setupStackViewConstraints()
@@ -407,13 +424,7 @@ extension ContainerViewController: UICollectionViewDataSource {
 extension ContainerViewController: UISearchTextFieldDelegate {
     func textFieldShouldClear(_ textField: UITextField) -> Bool {
         self.viewModel.searchViewModel?.delegate?.updateSearchTextField(with: "", callback: { [weak self] error in
-            if let error = error {
-                let tabBarOffset = -(self?.tabBarController?.tabBar.frame.size.height ?? 0)
-                self?.updateEmptyState(error: error,
-                                       tabBarOffset: tabBarOffset)
-            } else {
-                self?.reloadCollectionView()
-            }
+            self?.reloadSections(emptyError: error)
         })
         return true
     }
@@ -433,17 +444,7 @@ extension ContainerViewController: UISearchBarDelegate {
         
         self.configureLoader()
         self.viewModel.searchViewModel?.delegate?.cancelButtonTapped(callback: { [weak self] error in
-            if let error = error {
-                DispatchQueue.main.async {
-                    let tabBarOffset = -(self?.tabBarController?.tabBar.frame.size.height ?? 0)
-                    self?.updateEmptyState(error: error,
-                                           tabBarOffset: tabBarOffset)
-                }
-            } else {
-                DispatchQueue.main.async {
-                    self?.reloadCollectionView()
-                }
-            }
+            self?.reloadSections(emptyError: error)
         })
     }
     
@@ -452,43 +453,46 @@ extension ContainerViewController: UISearchBarDelegate {
     }
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        guard let searchQuery = searchBar.text else {
+        guard let searchText = searchBar.text else {
             return
         }
+        let searchQuery = searchText.removeTrailingWhitespace()
         self.searchBar.endEditing(true)
         self.configureLoader()
         self.viewModel.searchViewModel?.delegate?.startSearch(
             from: searchQuery) { [weak self] error in
-                if let error = error {
-                    DispatchQueue.main.async {
-                        let tabBarOffset = -(self?.tabBarController?.tabBar.frame.size.height ?? 0)
-                        self?.updateEmptyState(error: error,
-                                               tabBarOffset: tabBarOffset)
-                    }
-                } else {
-                    DispatchQueue.main.async {
-                        self?.reloadCollectionView()
-                    }
+                self?.reloadSections(emptyError: error)
+                DispatchQueue.main.async {
+                    self?.searchBar.text = searchQuery
                 }
             }
     }
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         // called when text changes (including clear)
-        self.viewModel.searchViewModel?.delegate?.updateSearchTextField(with: searchText) { [weak self] error in
-            if let error = error {
-                let tabBarOffset = -(self?.tabBarController?.tabBar.frame.size.height ?? 0)
-                self?.updateEmptyState(error: error,
-                                       tabBarOffset: tabBarOffset)
-            } else {
-                self?.reloadCollectionView()
-            }
+        self.viewModel.searchViewModel?.delegate?.updateSearchTextField(with: searchText.removeTrailingWhitespace()) { [weak self] error in
+            self?.reloadSections(emptyError: error)
         }
     }
 }
 
 // MARK: ContainerViewControllerDelegate
 extension ContainerViewController: ContainerViewControllerDelegate {
+    func scrollToItem(cell: UICollectionViewCell) {
+        guard let indexPath = self.collectionView.indexPath(for: cell) else {
+            return
+        }
+        let visibleIndexPaths = self.collectionView.indexPathsForVisibleItems
+        if visibleIndexPaths.contains(indexPath) && self.keyboardIsVisible == false {
+            let adjustment = self.collectionView.cellForItem(at: indexPath)?.frame.size.height ?? 100
+            self.collectionView.scrollToItem(
+                at: indexPath,
+                at: .bottom,
+                adjustment: adjustment
+            )
+        }
+    }
+    
     func goBackToRootViewController() {
         DispatchQueue.main.async {
             self.navigationController?.popToRootViewController(animated: true)
@@ -525,16 +529,16 @@ extension ContainerViewController: ContainerViewControllerDelegate {
     func reloadSections(emptyError: EmptyError?) {
         DispatchQueue.main.async {
             if let error = emptyError {
-                let tabBarOffset = -(self.tabBarController?.tabBar.frame.size.height ?? 0)
-                self.updateEmptyState(error: error, tabBarOffset: tabBarOffset)
+                self.updateEmptyState(error: error)
             } else {
                 self.reloadCollectionView()
             }
         }
     }
     
-    func reloadNavBar() {
-        self.configureNavBarAndSearchBar()
+    func reloadNavBarAndSearchBar() {
+        self.configureNavBar()
+        self.configureSearchBar()
     }
 }
 

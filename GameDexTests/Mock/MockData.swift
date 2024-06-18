@@ -163,6 +163,19 @@ enum MockData {
             isPhysical: true
         )
     
+    static let oldSavedGame = SavedGame(
+        game: MockData.games[0],
+        acquisitionYear: "2005",
+        gameCondition: GameCondition.veryGood,
+        gameCompleteness: GameCompleteness.complete,
+        gameRegion: GameRegion.pal,
+        storageArea: "Bedroom",
+        rating: 5,
+        notes: nil,
+        lastUpdated: Date(),
+        isPhysical: true
+    )
+    
     static let savedGames = [
         SavedGame(
             game: MockData.games[0],
@@ -270,14 +283,19 @@ enum MockData {
         )
     ]
     
+    static let firestoreGameCorrectData = FirestoreData(
+        id: "gameId",
+        data: ["title": "gameTitle", "description": "gameDescription", "platform": 4, "imageUrl": "gameImageUrl", "lastUpdated": MockData.timeStamp, "releaseDate": MockData.timeStamp, "notes": "gameNotes", "gameCondition": "mint", "gameCompleteness": "complete", "gameRegion": "pal", "storageArea": "gameStorageArea", "acquisitionYear": "gameAcquisitionYear", "rating": 5, "isPhysical": true, "id": "gameId"]
+    )
+    
     static let firestoreGamesCorrectData = [
         FirestoreData(
             id: "gameId",
-            data: ["title": "gameTitle", "description": "gameDescription", "platform": 4, "imageUrl": "gameImageUrl", "lastUpdated": MockData.timeStamp, "releaseDate": MockData.timeStamp, "notes": "gameNotes", "gameCondition": "mint", "gameCompleteness": "complete", "gameRegion": "pal", "storageArea": "gameStorageArea", "acquisitionYear": "gameAcquisitionYear", "rating": 5, "isPhysical": true]
+            data: ["title": "gameTitle", "description": "gameDescription", "platform": 4, "imageUrl": "gameImageUrl", "lastUpdated": MockData.timeStamp, "releaseDate": MockData.timeStamp, "notes": "gameNotes", "gameCondition": "mint", "gameCompleteness": "complete", "gameRegion": "pal", "storageArea": "gameStorageArea", "acquisitionYear": "gameAcquisitionYear", "rating": 5, "isPhysical": true, "id": "gameId"]
         ),
         FirestoreData(
             id: "gameId",
-            data: ["title": "gameTitle", "description": "gameDescription", "platform": 4, "imageUrl": "gameImageUrl", "lastUpdated": MockData.timeStamp, "releaseDate": MockData.timeStamp, "notes": "gameNotes", "gameCondition": "mint", "gameCompleteness": "complete", "gameRegion": "pal", "storageArea": "gameStorageArea", "acquisitionYear": "gameAcquisitionYear", "rating": 5, "isPhysical": true]
+            data: ["title": "gameTitle", "description": "gameDescription", "platform": 4, "imageUrl": "gameImageUrl", "lastUpdated": MockData.timeStamp, "releaseDate": MockData.timeStamp, "notes": "gameNotes", "gameCondition": "mint", "gameCompleteness": "complete", "gameRegion": "pal", "storageArea": "gameStorageArea", "acquisitionYear": "gameAcquisitionYear", "rating": 5, "isPhysical": true, "id": "gameId"]
         )
     ]
     
@@ -330,4 +348,57 @@ enum MockData {
         GameFilter.acquisitionYear("2019"),
         GameFilter.rating(1)
     ]
+    
+    static let gameForm = GameForm(
+        isPhysical: MockData.savedGame.isPhysical,
+        acquisitionYear: MockData.savedGame.acquisitionYear,
+        gameCondition: MockData.savedGame.gameCondition,
+        gameCompleteness: MockData.savedGame.gameCompleteness,
+        gameRegion: MockData.savedGame.gameRegion,
+        storageArea: MockData.savedGame.storageArea,
+        rating: MockData.savedGame.rating,
+        notes: MockData.savedGame.notes
+    )
+    
+    static let editedGameForm = GameForm(
+        isPhysical: true,
+        acquisitionYear: "2024",
+        gameCondition: GameCondition.mint,
+        gameCompleteness: GameCompleteness.complete,
+        gameRegion: GameRegion.pal,
+        storageArea: "Salon",
+        rating: 4,
+        notes: "notes"
+    )
+    
+    static let digitalGameForm = GameForm(
+        isPhysical: false,
+        acquisitionYear: MockData.gameForm.acquisitionYear,
+        gameCondition: nil,
+        gameCompleteness: nil,
+        gameRegion: nil,
+        storageArea: nil,
+        rating: MockData.gameForm.rating,
+        notes: MockData.gameForm.notes
+    )
+    
+    static let gameFilterForm = GameFilterForm(
+        isPhysical: MockData.savedGame.isPhysical,
+        acquisitionYear: MockData.savedGame.acquisitionYear,
+        gameCondition: MockData.savedGame.gameCondition,
+        gameCompleteness: MockData.savedGame.gameCompleteness,
+        gameRegion: MockData.savedGame.gameRegion,
+        storageArea: MockData.savedGame.storageArea,
+        rating: MockData.savedGame.rating
+    )
+    
+    static let digitalGameFilterForm = GameFilterForm(
+        isPhysical: false,
+        acquisitionYear: MockData.savedGame.acquisitionYear,
+        gameCondition: MockData.savedGame.gameCondition,
+        gameCompleteness: MockData.savedGame.gameCompleteness,
+        gameRegion: MockData.savedGame.gameRegion,
+        storageArea: MockData.savedGame.storageArea,
+        rating: MockData.savedGame.rating
+    )
 }

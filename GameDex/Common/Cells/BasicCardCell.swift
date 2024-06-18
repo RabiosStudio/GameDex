@@ -121,7 +121,7 @@ final class BasicCardCell: UICollectionViewCell, CellConfigurable {
         NSLayoutConstraint.activate([
             self.titleLabel.heightAnchor.constraint(
                 equalTo: self.heightAnchor,
-                multiplier: DesignSystem.fractionalSizeVerySmall
+                multiplier: DesignSystem.fractionalSizeTiny
             ),
             self.descriptionLabel.topAnchor.constraint(
                 equalTo: self.titleLabel.bottomAnchor,

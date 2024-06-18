@@ -12,7 +12,7 @@ final class FirestoreDatabaseTests: XCTestCase {
     func test_getAvailablePlatforms_GivenNoError_ThenShouldReturnPlatforms() async {
         // GIVEN
         let firestoreSession = FirestoreSessionMock()
-        firestoreSession.given(.getData(mainPath: .any, willReturn: .success(MockData.firestoreAPIPlatformsCorrectData)))
+        firestoreSession.given(.getData(mainPath: .any, condition: .any, willReturn: .success(MockData.firestoreAPIPlatformsCorrectData)))
         let firestoreDatabase = FirestoreDatabase(firestoreSession: firestoreSession)
         
         // WHEN
@@ -25,7 +25,7 @@ final class FirestoreDatabaseTests: XCTestCase {
     func test_getAvailablePlatforms_GivenReturnDataAttributesError_ThenShouldReturnDatabaseFetchError() async {
         // GIVEN
         let firestoreSession = FirestoreSessionMock()
-        firestoreSession.given(.getData(mainPath: .any, willReturn: .success(MockData.firestoreAPIPlatformsIncorrectData)))
+        firestoreSession.given(.getData(mainPath: .any, condition: .any, willReturn: .success(MockData.firestoreAPIPlatformsIncorrectData)))
         let firestoreDatabase = FirestoreDatabase(firestoreSession: firestoreSession)
         
         // WHEN
@@ -38,7 +38,7 @@ final class FirestoreDatabaseTests: XCTestCase {
     func test_getAvailablePlatforms_GivenErrorFetchingData_ThenShouldReturnDatabaseFetchError() async {
         // GIVEN
         let firestoreSession = FirestoreSessionMock()
-        firestoreSession.given(.getData(mainPath: .any, willReturn: .failure(DatabaseError.fetchError)))
+        firestoreSession.given(.getData(mainPath: .any, condition: .any, willReturn: .failure(DatabaseError.fetchError)))
         let firestoreDatabase = FirestoreDatabase(firestoreSession: firestoreSession)
         
         // WHEN
@@ -51,7 +51,7 @@ final class FirestoreDatabaseTests: XCTestCase {
     func test_getSinglePlatformCollection_GivenNoError_ThenShouldReturnPlatform() async {
         // GIVEN
         let firestoreSession = FirestoreSessionMock()
-        firestoreSession.given(.getData(mainPath: .any, willReturn: .success(MockData.firestoreGamesCorrectData)))
+        firestoreSession.given(.getData(mainPath: .any, condition: .any, willReturn: .success(MockData.firestoreGamesCorrectData)))
         let firestoreDatabase = FirestoreDatabase(firestoreSession: firestoreSession)
         
         // WHEN
@@ -65,7 +65,7 @@ final class FirestoreDatabaseTests: XCTestCase {
     func test_getSinglePlatformCollection_GivenErrorConvertingData_ThenShouldReturnFetchError() async {
         // GIVEN
         let firestoreSession = FirestoreSessionMock()
-        firestoreSession.given(.getData(mainPath: .any, willReturn: .success(MockData.firestoreGamesIncorrectData)))
+        firestoreSession.given(.getData(mainPath: .any, condition: .any, willReturn: .success(MockData.firestoreGamesIncorrectData)))
         let firestoreDatabase = FirestoreDatabase(firestoreSession: firestoreSession)
         
         // WHEN
@@ -78,7 +78,7 @@ final class FirestoreDatabaseTests: XCTestCase {
     func test_getSinglePlatformCollection_GivenFetchError_ThenShouldReturnFetchError() async {
         // GIVEN
         let firestoreSession = FirestoreSessionMock()
-        firestoreSession.given(.getData(mainPath: .any, willReturn: .failure(DatabaseError.fetchError)))
+        firestoreSession.given(.getData(mainPath: .any, condition: .any, willReturn: .failure(DatabaseError.fetchError)))
         let firestoreDatabase = FirestoreDatabase(firestoreSession: firestoreSession)
         
         // WHEN
@@ -91,7 +91,7 @@ final class FirestoreDatabaseTests: XCTestCase {
     func test_getUserCollection_GivenFetchError_ThenShouldReturnDatabaseFetchError() async {
         // GIVEN
         let firestoreSession = FirestoreSessionMock()
-        firestoreSession.given(.getData(mainPath: .any, willReturn: .failure(DatabaseError.fetchError)))
+        firestoreSession.given(.getData(mainPath: .any, condition: .any, willReturn: .failure(DatabaseError.fetchError)))
         let firestoreDatabase = FirestoreDatabase(firestoreSession: firestoreSession)
         
         // WHEN
@@ -104,7 +104,7 @@ final class FirestoreDatabaseTests: XCTestCase {
     func test_getUserCollection_GivenErrorConvertingData_ThenShouldReturnFetchError() async {
         // GIVEN
         let firestoreSession = FirestoreSessionMock()
-        firestoreSession.given(.getData(mainPath: .any, willReturn: .success(MockData.firestoreGamesIncorrectData)))
+        firestoreSession.given(.getData(mainPath: .any, condition: .any, willReturn: .success(MockData.firestoreGamesIncorrectData)))
         let firestoreDatabase = FirestoreDatabase(firestoreSession: firestoreSession)
         
         // WHEN
@@ -170,7 +170,7 @@ final class FirestoreDatabaseTests: XCTestCase {
     func test_gameIsInDatabase_GivenNoErrorFetchingDataAndGameIdIsFound_ThenShouldReturnTrue() async {
         // GIVEN
         let firestoreSession = FirestoreSessionMock()
-        firestoreSession.given(.getData(mainPath: .any, willReturn: .success(MockData.firestoreGamesCorrectData)))
+        firestoreSession.given(.getData(mainPath: .any, condition: .any, willReturn: .success(MockData.firestoreGamesCorrectData)))
         let firestoreDatabase = FirestoreDatabase(firestoreSession: firestoreSession)
         
         // WHEN
@@ -183,7 +183,7 @@ final class FirestoreDatabaseTests: XCTestCase {
     func test_gameIsInDatabase_GivenNoErrorFetchingDataAndGameIdIsNotFound_ThenShouldReturnFalse() async {
         // GIVEN
         let firestoreSession = FirestoreSessionMock()
-        firestoreSession.given(.getData(mainPath: .any, willReturn: .success(MockData.firestoreGamesCorrectData)))
+        firestoreSession.given(.getData(mainPath: .any, condition: .any, willReturn: .success(MockData.firestoreGamesCorrectData)))
         let firestoreDatabase = FirestoreDatabase(firestoreSession: firestoreSession)
         let newSavedGame = SavedGame(game: Game(title: "title", description: "description", id: "wrongid", platformId: 1, imageUrl: "url", releaseDate: Date.now), acquisitionYear: nil, gameCondition: nil, gameCompleteness: nil, gameRegion: nil, storageArea: nil, rating: 0, notes: nil, lastUpdated: Date.now, isPhysical: true)
         
@@ -197,7 +197,7 @@ final class FirestoreDatabaseTests: XCTestCase {
     func test_gameIsInDatabase_GivenErrorFetchingData_ThenShouldReturnDatabaseError() async {
         // GIVEN
         let firestoreSession = FirestoreSessionMock()
-        firestoreSession.given(.getData(mainPath: .any, willReturn: .failure(DatabaseError.fetchError)))
+        firestoreSession.given(.getData(mainPath: .any, condition: .any, willReturn: .failure(DatabaseError.fetchError)))
         let firestoreDatabase = FirestoreDatabase(firestoreSession: firestoreSession)
         
         // WHEN
@@ -272,72 +272,77 @@ final class FirestoreDatabaseTests: XCTestCase {
         XCTAssertEqual(error, DatabaseError.saveError)
     }
 
-    func test_saveGame_GivenEditingEntryTrueAndNoError_ThenShouldReturnNil() async {
+    func test_replaceGame_GivenNoError_ThenShouldReturnNil() async {
         // GIVEN
         let firestoreSession = FirestoreSessionMock()
+        firestoreSession.given(.getData(mainPath: .value(MockData.userGamesPath), condition: .any, willReturn: .success([MockData.firestoreGameCorrectData])))
         firestoreSession.given(.setData(path: .any, firestoreData: .any, willReturn: nil))
         let firestoreDatabase = FirestoreDatabase(firestoreSession: firestoreSession)
         
         // WHEN
-        let error = await firestoreDatabase.saveGame(userId: "userId", game: MockData.savedGame, platform: MockData.platform, editingEntry: true)
+        let error = await firestoreDatabase.saveGame(userId: "userId", game: MockData.savedGame, platform: MockData.platform)
         
         // THEN
         XCTAssertNil(error)
     }
     
-    func test_saveGame_GivenEditingEntryFalseAndNoError_ThenShouldReturnNil() async {
+    func test_saveGame_GivenNoError_ThenShouldReturnNil() async {
         // GIVEN
         let firestoreSession = FirestoreSessionMock()
-        firestoreSession.given(.getData(mainPath: .any, willReturn: .success(MockData.firestoreGamesCorrectData)))
+        firestoreSession.given(.getData(mainPath: .any, condition: .any, willReturn: .success(MockData.firestoreGamesCorrectData)))
         firestoreSession.given(.setData(path: .any, firestoreData: .any, willReturn: nil))
         let firestoreDatabase = FirestoreDatabase(firestoreSession: firestoreSession)
         
         // WHEN
-        let error = await firestoreDatabase.saveGame(userId: "userId", game: MockData.savedGame, platform: MockData.platform, editingEntry: false)
+        let error = await firestoreDatabase.saveGame(userId: "userId", game: MockData.savedGame, platform: MockData.platform)
         
         // THEN
         XCTAssertNil(error)
     }
     
-    func test_saveGame_GivenEditingEntryFalseAndItemAlreadySaved_ThenShouldReturnDatabaseError() async {
+    func test_saveGame_GivenItemAlreadySaved_ThenShouldReturnDatabaseError() async {
         // GIVEN
         let firestoreSession = FirestoreSessionMock()
-        firestoreSession.given(.getData(mainPath: .any, willReturn: .success(MockData.firestoreGamesCorrectData)))
+        firestoreSession.given(.getData(mainPath: .any, condition: .any, willReturn: .success(MockData.firestoreGamesCorrectData)))
         firestoreSession.given(.setData(path: .any, firestoreData: .any, willReturn: nil))
         let firestoreDatabase = FirestoreDatabase(firestoreSession: firestoreSession)
         
         // WHEN
-        let error = await firestoreDatabase.saveGame(userId: "userId", game: MockData.firestoreGamesResultConverted[0], platform: MockData.platform, editingEntry: false)
+        let error = await firestoreDatabase.saveGame(userId: "userId", game: MockData.firestoreGamesResultConverted[0], platform: MockData.platform)
         
         // THEN
         XCTAssertEqual(error, DatabaseError.itemAlreadySaved)
     }
     
-    func test_saveGame_GivenEditingEntryTrueAndErrorSavingPlatform_ThenShouldReturnDatabaseError() async {
+    func test_replaceGame_GivenErrorSavingPlatform_ThenShouldReturnDatabaseError() async {
         // GIVEN
         let firestoreSession = FirestoreSessionMock()
+        firestoreSession.given(.getData(mainPath: .value(MockData.userGamesPath), condition: .any, willReturn: .success([MockData.firestoreGameCorrectData])))
         firestoreSession.given(.setData(path: .value(MockData.userPlatformsPath), firestoreData: .any, willReturn: DatabaseError.saveError))
         let firestoreDatabase = FirestoreDatabase(firestoreSession: firestoreSession)
         
+        
         // WHEN
-        let error = await firestoreDatabase.saveGame(userId: "userId", game: MockData.savedGame, platform: MockData.platform, editingEntry: true)
+        let error = await firestoreDatabase.saveGame(userId: "userId", game: MockData.savedGame, platform: MockData.platform)
         
         // THEN
         XCTAssertEqual(error, DatabaseError.saveError)
     }
     
-    func test_saveGame_GivenEditingEntryTrueAndErrorSavingGames_ThenShouldReturnDatabaseError() async {
+    func test_replaceGame_GivenErrorGameAlreadySaved_ThenShouldReturnDatabaseError() async {
         // GIVEN
         let firestoreSession = FirestoreSessionMock()
-        firestoreSession.given(.setData(path: .value(MockData.userPlatformsPath), firestoreData: .any, willReturn: nil))
+//        firestoreSession.given(.setData(path: .value(MockData.userPlatformsPath), firestoreData: .any, willReturn: nil))
         firestoreSession.given(.setData(path: .value(MockData.userGamesPath), firestoreData: .any, willReturn: DatabaseError.saveError))
+        firestoreSession.given(.getData(mainPath: .value(MockData.userGamesPath), condition: .any, willReturn: .success(MockData.firestoreGamesCorrectData)))
+        
         let firestoreDatabase = FirestoreDatabase(firestoreSession: firestoreSession)
         
         // WHEN
-        let error = await firestoreDatabase.saveGame(userId: "userId", game: MockData.savedGame, platform: MockData.platform, editingEntry: true)
+        let error = await firestoreDatabase.replaceGame(userId: "userId", newGame: MockData.savedGame, oldGame: MockData.oldSavedGame, platform: MockData.platform)
         
         // THEN
-        XCTAssertEqual(error, DatabaseError.saveError)
+        XCTAssertEqual(error, DatabaseError.itemAlreadySaved)
     }
     
     func test_saveGames_GivenNoError_ThenShouldReturnNil() async {
@@ -468,7 +473,7 @@ final class FirestoreDatabaseTests: XCTestCase {
         // GIVEN
         let firestoreSession = FirestoreSessionMock()
         firestoreSession.given(.deleteData(path: .any, directory: .any, willReturn: nil))
-        firestoreSession.given(.getData(mainPath: .any, willReturn: .success(MockData.firestoreGamesCorrectData)))
+        firestoreSession.given(.getData(mainPath: .any, condition: .any, willReturn: .success([MockData.firestoreGameCorrectData])))
         let firestoreDatabase = FirestoreDatabase(firestoreSession: firestoreSession)
         
         // WHEN
@@ -481,6 +486,7 @@ final class FirestoreDatabaseTests: XCTestCase {
     func test_removeGame_GivenErrorDeletingGame_ThenShouldReturnDatabaseError() async {
         // GIVEN
         let firestoreSession = FirestoreSessionMock()
+        firestoreSession.given(.getData(mainPath: .any, condition: .any, willReturn: .success([MockData.firestoreGameCorrectData])))
         firestoreSession.given(.deleteData(path: .any, directory: .any, willReturn: DatabaseError.removeError))
         let firestoreDatabase = FirestoreDatabase(firestoreSession: firestoreSession)
         
@@ -495,7 +501,7 @@ final class FirestoreDatabaseTests: XCTestCase {
         // GIVEN
         let firestoreSession = FirestoreSessionMock()
         firestoreSession.given(.deleteData(path: .value(MockData.userGamesPath), directory: .any, willReturn: nil))
-        firestoreSession.given(.getData(mainPath: .any, willReturn: .failure(DatabaseError.fetchError)))
+        firestoreSession.given(.getData(mainPath: .any, condition: .any, willReturn: .failure(DatabaseError.fetchError)))
         
         let firestoreDatabase = FirestoreDatabase(firestoreSession: firestoreSession)
         
@@ -503,14 +509,14 @@ final class FirestoreDatabaseTests: XCTestCase {
         let error = await firestoreDatabase.removeGame(userId: "userId", platform: MockData.platform, savedGame: MockData.savedGame)
         
         // THEN
-        XCTAssertEqual(error, DatabaseError.removeError)
+        XCTAssertEqual(error, DatabaseError.fetchError)
     }
     
     func test_removeGame_GivenErrorDeletingPlatformWithNoGame_ThenShouldReturnDatabaseError() async {
         // GIVEN
         let firestoreSession = FirestoreSessionMock()
         firestoreSession.given(.deleteData(path: .value(MockData.userGamesPath), directory: .any, willReturn: nil))
-        firestoreSession.given(.getData(mainPath: .any, willReturn: .success(MockData.firestoreEmptyData)))
+        firestoreSession.given(.getData(mainPath: .any, condition: .any, willReturn: .success(MockData.firestoreEmptyData)))
         firestoreSession.given(.deleteData(path: .value(MockData.userPlatformsPath), directory: .any, willReturn: DatabaseError.removeError))
         let firestoreDatabase = FirestoreDatabase(firestoreSession: firestoreSession)
         
@@ -518,30 +524,15 @@ final class FirestoreDatabaseTests: XCTestCase {
         let error = await firestoreDatabase.removeGame(userId: "userId", platform: MockData.platform, savedGame: MockData.savedGame)
         
         // THEN
-        XCTAssertEqual(error, DatabaseError.removeError)
+        XCTAssertEqual(error, DatabaseError.fetchError)
     }
     
-    func test_removeGame_GivenNoErrorDeletingPlatformWithNoGame_ThenShouldReturnNil() async {
-        // GIVEN
-        let firestoreSession = FirestoreSessionMock()
-        firestoreSession.given(.deleteData(path: .value(MockData.userGamesPath), directory: .any, willReturn: nil))
-        firestoreSession.given(.getData(mainPath: .any, willReturn: .success(MockData.firestoreEmptyData)))
-        firestoreSession.given(.deleteData(path: .value(MockData.userPlatformsPath), directory: .any, willReturn: nil))
-        let firestoreDatabase = FirestoreDatabase(firestoreSession: firestoreSession)
-        
-        // WHEN
-        let error = await firestoreDatabase.removeGame(userId: "userId", platform: MockData.platform, savedGame: MockData.savedGame)
-        
-        // THEN
-        XCTAssertNil(error)
-    }
-   
     func test_removeUser_GivenNoError_ThenShouldReturnNil() async {
         // GIVEN
         let firestoreSession = FirestoreSessionMock()
         firestoreSession.given(.deleteData(path: .any, directory: .any, willReturn: nil))
-        firestoreSession.given(.getData(mainPath: .value(MockData.userGamesPath), willReturn: .success(MockData.firestoreGamesCorrectData)))
-        firestoreSession.given(.getData(mainPath: .value(MockData.userPlatformsPath), willReturn: .success(MockData.firestorePlatformsCorrectData)))
+        firestoreSession.given(.getData(mainPath: .value(MockData.userGamesPath), condition: .any, willReturn: .success(MockData.firestoreGamesCorrectData)))
+        firestoreSession.given(.getData(mainPath: .value(MockData.userPlatformsPath), condition: .any, willReturn: .success(MockData.firestorePlatformsCorrectData)))
         let firestoreDatabase = FirestoreDatabase(firestoreSession: firestoreSession)
         
         // WHEN
@@ -555,7 +546,7 @@ final class FirestoreDatabaseTests: XCTestCase {
         // GIVEN
         let firestoreSession = FirestoreSessionMock()
         firestoreSession.given(.deleteData(path: .any, directory: .any, willReturn: nil))
-        firestoreSession.given(.getData(mainPath: .any, willReturn: .failure(DatabaseError.fetchError)))
+        firestoreSession.given(.getData(mainPath: .any, condition: .any, willReturn: .failure(DatabaseError.fetchError)))
         let firestoreDatabase = FirestoreDatabase(firestoreSession: firestoreSession)
         
         // WHEN
@@ -569,8 +560,8 @@ final class FirestoreDatabaseTests: XCTestCase {
         // GIVEN
         let firestoreSession = FirestoreSessionMock()
         firestoreSession.given(.deleteData(path: .value(MockData.userGamesPath), directory: .any, willReturn: DatabaseError.removeError))
-        firestoreSession.given(.getData(mainPath: .value(MockData.userGamesPath), willReturn: .success(MockData.firestoreGamesCorrectData)))
-        firestoreSession.given(.getData(mainPath: .value(MockData.userPlatformsPath), willReturn: .success(MockData.firestorePlatformsCorrectData)))
+        firestoreSession.given(.getData(mainPath: .value(MockData.userGamesPath), condition: .any, willReturn: .success(MockData.firestoreGamesCorrectData)))
+        firestoreSession.given(.getData(mainPath: .value(MockData.userPlatformsPath), condition: .any, willReturn: .success(MockData.firestorePlatformsCorrectData)))
         let firestoreDatabase = FirestoreDatabase(firestoreSession: firestoreSession)
         
         // WHEN
@@ -585,8 +576,8 @@ final class FirestoreDatabaseTests: XCTestCase {
         let firestoreSession = FirestoreSessionMock()
         firestoreSession.given(.deleteData(path: .value(MockData.userGamesPath), directory: .any, willReturn: nil))
         firestoreSession.given(.deleteData(path: .value(MockData.userPlatformsPath), directory: .any, willReturn: DatabaseError.removeError))
-        firestoreSession.given(.getData(mainPath: .value(MockData.userGamesPath), willReturn: .success(MockData.firestoreGamesCorrectData)))
-        firestoreSession.given(.getData(mainPath: .value(MockData.userPlatformsPath), willReturn: .success(MockData.firestorePlatformsCorrectData)))
+        firestoreSession.given(.getData(mainPath: .value(MockData.userGamesPath), condition: .any, willReturn: .success(MockData.firestoreGamesCorrectData)))
+        firestoreSession.given(.getData(mainPath: .value(MockData.userPlatformsPath), condition: .any, willReturn: .success(MockData.firestorePlatformsCorrectData)))
         let firestoreDatabase = FirestoreDatabase(firestoreSession: firestoreSession)
         
         // WHEN
@@ -602,8 +593,8 @@ final class FirestoreDatabaseTests: XCTestCase {
         firestoreSession.given(.deleteData(path: .value(MockData.userGamesPath), directory: .any, willReturn: nil))
         firestoreSession.given(.deleteData(path: .value(MockData.userPlatformsPath), directory: .any, willReturn: nil))
         firestoreSession.given(.deleteData(path: .value(MockData.userPath), directory: .any, willReturn: DatabaseError.removeError))
-        firestoreSession.given(.getData(mainPath: .value(MockData.userGamesPath), willReturn: .success(MockData.firestoreGamesCorrectData)))
-        firestoreSession.given(.getData(mainPath: .value(MockData.userPlatformsPath), willReturn: .success(MockData.firestorePlatformsCorrectData)))
+        firestoreSession.given(.getData(mainPath: .value(MockData.userGamesPath), condition: .any, willReturn: .success(MockData.firestoreGamesCorrectData)))
+        firestoreSession.given(.getData(mainPath: .value(MockData.userPlatformsPath), condition: .any, willReturn: .success(MockData.firestorePlatformsCorrectData)))
         let firestoreDatabase = FirestoreDatabase(firestoreSession: firestoreSession)
         
         // WHEN
@@ -620,8 +611,8 @@ final class FirestoreDatabaseTests: XCTestCase {
         localDatabase.given(.add(newEntity: .any, platform: .any, willReturn: nil))
         let firestoreSession = FirestoreSessionMock()
         let firestoreDatabase = FirestoreDatabase(firestoreSession: firestoreSession)
-        firestoreSession.given(.getData(mainPath: .value(MockData.userGamesPath), willReturn: .success(MockData.firestoreGamesCorrectData)))
-        firestoreSession.given(.getData(mainPath: .value(MockData.userPlatformsPath), willReturn: .success(MockData.firestorePlatformsCorrectData)))
+        firestoreSession.given(.getData(mainPath: .value(MockData.userGamesPath), condition: .any, willReturn: .success(MockData.firestoreGamesCorrectData)))
+        firestoreSession.given(.getData(mainPath: .value(MockData.userPlatformsPath), condition: .any, willReturn: .success(MockData.firestorePlatformsCorrectData)))
         
         // WHEN
         let error = await firestoreDatabase.syncLocalAndCloudDatabases(userId: "userId", localDatabase: localDatabase)
@@ -637,8 +628,8 @@ final class FirestoreDatabaseTests: XCTestCase {
         localDatabase.given(.add(newEntity: .any, platform: .any, willReturn: DatabaseError.saveError))
         let firestoreSession = FirestoreSessionMock()
         let firestoreDatabase = FirestoreDatabase(firestoreSession: firestoreSession)
-        firestoreSession.given(.getData(mainPath: .value(MockData.userGamesPath), willReturn: .success(MockData.firestoreGamesCorrectData)))
-        firestoreSession.given(.getData(mainPath: .value(MockData.userPlatformsPath), willReturn: .success(MockData.firestorePlatformsCorrectData)))
+        firestoreSession.given(.getData(mainPath: .value(MockData.userGamesPath), condition: .any, willReturn: .success(MockData.firestoreGamesCorrectData)))
+        firestoreSession.given(.getData(mainPath: .value(MockData.userPlatformsPath), condition: .any, willReturn: .success(MockData.firestorePlatformsCorrectData)))
         
         // WHEN
         let error = await firestoreDatabase.syncLocalAndCloudDatabases(userId: "userId", localDatabase: localDatabase)
@@ -653,8 +644,8 @@ final class FirestoreDatabaseTests: XCTestCase {
         localDatabase.given(.removeAll(willReturn: DatabaseError.removeError))
         let firestoreSession = FirestoreSessionMock()
         let firestoreDatabase = FirestoreDatabase(firestoreSession: firestoreSession)
-        firestoreSession.given(.getData(mainPath: .value(MockData.userGamesPath), willReturn: .success(MockData.firestoreGamesCorrectData)))
-        firestoreSession.given(.getData(mainPath: .value(MockData.userPlatformsPath), willReturn: .success(MockData.firestorePlatformsCorrectData)))
+        firestoreSession.given(.getData(mainPath: .value(MockData.userGamesPath), condition: .any, willReturn: .success(MockData.firestoreGamesCorrectData)))
+        firestoreSession.given(.getData(mainPath: .value(MockData.userPlatformsPath), condition: .any, willReturn: .success(MockData.firestorePlatformsCorrectData)))
         
         // WHEN
         let error = await firestoreDatabase.syncLocalAndCloudDatabases(userId: "userId", localDatabase: localDatabase)
@@ -668,7 +659,7 @@ final class FirestoreDatabaseTests: XCTestCase {
         let localDatabase = LocalDatabaseMock()
         let firestoreSession = FirestoreSessionMock()
         let firestoreDatabase = FirestoreDatabase(firestoreSession: firestoreSession)
-        firestoreSession.given(.getData(mainPath: .any, willReturn: .failure(DatabaseError.fetchError)))
+        firestoreSession.given(.getData(mainPath: .any, condition: .any, willReturn: .failure(DatabaseError.fetchError)))
         
         // WHEN
         let error = await firestoreDatabase.syncLocalAndCloudDatabases(userId: "userId", localDatabase: localDatabase)

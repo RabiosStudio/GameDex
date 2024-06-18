@@ -22,7 +22,7 @@ final class ImageDescriptionCellViewModel: CollectionCellViewModel {
     init(imageStringURL: String,
          title: String,
          subtitle1: String,
-         subtitle2: String?,
+         subtitle2: String? = nil,
          subtitle3: String
     ) {
         self.imageStringURL = imageStringURL

@@ -19,20 +19,23 @@ final class TextViewCellViewModel: CollectionFormCellViewModel {
     var formType: FormType
     var value: ValueType? {
         didSet {
-            self.editFormDelegate?.enableSaveButtonIfNeeded()
+            self.formDelegate?.didUpdate(value: self.value as Any, for: self.formType)
         }
     }
     
-    weak var editFormDelegate: EditFormDelegate?
+    weak var containerDelegate: ContainerViewControllerDelegate?
+    weak var formDelegate: FormDelegate?
     
     init(title: String,
          formType: FormType,
          value: String? = nil,
-         editDelegate: EditFormDelegate? = nil
+         formDelegate: FormDelegate? = nil,
+         containerDelegate: ContainerViewControllerDelegate?
     ) {
         self.title = title
         self.formType = formType
         self.value = value
-        self.editFormDelegate = editDelegate
+        self.formDelegate = formDelegate
+        self.containerDelegate = containerDelegate
     }
 }

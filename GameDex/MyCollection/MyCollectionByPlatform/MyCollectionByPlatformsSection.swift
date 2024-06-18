@@ -21,9 +21,11 @@ final class MyCollectionByPlatformsSection: Section {
                 subtitle1: platform.title,
                 subtitle2: item.game.formattedReleaseDate,
                 caption: item.game.imageUrl,
+                icon: item.isPhysical ? GameFormat.physical.image : GameFormat.digital.image,
+                size: .regular,
                 cellTappedCallback: {
-                    let screenFactory = EditGameDetailsScreenFactory(
-                        savedGame: item,
+                    let screenFactory = GameDetailsScreenFactory(
+                        gameDetailsContext: .edit(savedGame: item),
                         platform: platform,
                         myCollectionDelegate: myCollectionDelegate
                     )
