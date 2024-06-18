@@ -22,7 +22,7 @@ final class SegmentedControlCellViewModel: CollectionFormCellViewModel {
         didSet {
             self.formDelegate?.didUpdate(value: self.value as Any, for: self.formType)
             if oldValue != self.value {
-                self.formDelegate?.refreshSectionsDependingOnGameFormat()
+                self.formDelegate?.refreshSections()
             }
         }
     }

@@ -3887,46 +3887,46 @@ open class FormDelegateMock: FormDelegate, Mock {
 
 
 
-    open func refreshSectionsDependingOnGameFormat() {
-        addInvocation(.m_refreshSectionsDependingOnGameFormat)
-		let perform = methodPerformValue(.m_refreshSectionsDependingOnGameFormat) as? () -> Void
-		perform?()
-    }
-
     open func didUpdate(value: Any, for type: FormType) {
         addInvocation(.m_didUpdate__value_valuefor_type(Parameter<Any>.value(`value`), Parameter<FormType>.value(`type`)))
 		let perform = methodPerformValue(.m_didUpdate__value_valuefor_type(Parameter<Any>.value(`value`), Parameter<FormType>.value(`type`))) as? (Any, FormType) -> Void
 		perform?(`value`, `type`)
     }
 
+    open func refreshSections() {
+        addInvocation(.m_refreshSections)
+		let perform = methodPerformValue(.m_refreshSections) as? () -> Void
+		perform?()
+    }
+
 
     fileprivate enum MethodType {
-        case m_refreshSectionsDependingOnGameFormat
         case m_didUpdate__value_valuefor_type(Parameter<Any>, Parameter<FormType>)
+        case m_refreshSections
 
         static func compareParameters(lhs: MethodType, rhs: MethodType, matcher: Matcher) -> Matcher.ComparisonResult {
             switch (lhs, rhs) {
-            case (.m_refreshSectionsDependingOnGameFormat, .m_refreshSectionsDependingOnGameFormat): return .match
-
             case (.m_didUpdate__value_valuefor_type(let lhsValue, let lhsType), .m_didUpdate__value_valuefor_type(let rhsValue, let rhsType)):
 				var results: [Matcher.ParameterComparisonResult] = []
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsValue, rhs: rhsValue, with: matcher), lhsValue, rhsValue, "value"))
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsType, rhs: rhsType, with: matcher), lhsType, rhsType, "for type"))
 				return Matcher.ComparisonResult(results)
+
+            case (.m_refreshSections, .m_refreshSections): return .match
             default: return .none
             }
         }
 
         func intValue() -> Int {
             switch self {
-            case .m_refreshSectionsDependingOnGameFormat: return 0
             case let .m_didUpdate__value_valuefor_type(p0, p1): return p0.intValue + p1.intValue
+            case .m_refreshSections: return 0
             }
         }
         func assertionName() -> String {
             switch self {
-            case .m_refreshSectionsDependingOnGameFormat: return ".refreshSectionsDependingOnGameFormat()"
             case .m_didUpdate__value_valuefor_type: return ".didUpdate(value:for:)"
+            case .m_refreshSections: return ".refreshSections()"
             }
         }
     }
@@ -3945,19 +3945,19 @@ open class FormDelegateMock: FormDelegate, Mock {
     public struct Verify {
         fileprivate var method: MethodType
 
-        public static func refreshSectionsDependingOnGameFormat() -> Verify { return Verify(method: .m_refreshSectionsDependingOnGameFormat)}
         public static func didUpdate(value: Parameter<Any>, for type: Parameter<FormType>) -> Verify { return Verify(method: .m_didUpdate__value_valuefor_type(`value`, `type`))}
+        public static func refreshSections() -> Verify { return Verify(method: .m_refreshSections)}
     }
 
     public struct Perform {
         fileprivate var method: MethodType
         var performs: Any
 
-        public static func refreshSectionsDependingOnGameFormat(perform: @escaping () -> Void) -> Perform {
-            return Perform(method: .m_refreshSectionsDependingOnGameFormat, performs: perform)
-        }
         public static func didUpdate(value: Parameter<Any>, for type: Parameter<FormType>, perform: @escaping (Any, FormType) -> Void) -> Perform {
             return Perform(method: .m_didUpdate__value_valuefor_type(`value`, `type`), performs: perform)
+        }
+        public static func refreshSections(perform: @escaping () -> Void) -> Perform {
+            return Perform(method: .m_refreshSections, performs: perform)
         }
     }
 

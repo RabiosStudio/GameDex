@@ -164,7 +164,7 @@ extension GameDetailsViewModel: FormDelegate {
         }
     }
     
-    func refreshSectionsDependingOnGameFormat() {
+    func refreshSections() {
         self.updateSections(with: self.gameForm)
         self.containerDelegate?.reloadSections(emptyError: nil)
         

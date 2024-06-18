@@ -170,7 +170,7 @@ extension MyCollectionFiltersViewModel: FormDelegate {
         self.configureBottomView(shouldEnableButton: true)
     }
     
-    func refreshSectionsDependingOnGameFormat() {
+    func refreshSections() {
         self.updateSections()
         self.containerDelegate?.reloadSections(emptyError: nil)
     }

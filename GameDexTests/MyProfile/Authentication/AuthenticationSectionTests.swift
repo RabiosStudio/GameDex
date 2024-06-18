@@ -14,7 +14,8 @@ final class AuthenticationSectionTests: XCTestCase {
         // Given
         let section = AuthenticationSection(
             userHasAccount: true,
-            primaryButtonDelegate: nil,
+            primaryButtonDelegate: nil, 
+            formDelegate: FormDelegateMock(),
             completionBlock: nil
         )
         
@@ -66,7 +67,8 @@ final class AuthenticationSectionTests: XCTestCase {
         // Given
         let section = AuthenticationSection(
             userHasAccount: false,
-            primaryButtonDelegate: nil, 
+            primaryButtonDelegate: nil,
+            formDelegate: FormDelegateMock(),
             completionBlock: nil
         )
         
@@ -118,6 +120,7 @@ final class AuthenticationSectionTests: XCTestCase {
         let section = AuthenticationSection(
             userHasAccount: true,
             primaryButtonDelegate: nil,
+            formDelegate: FormDelegateMock(),
             completionBlock: {
                 cellTappedCallbackCalled = true
             }

@@ -16,7 +16,8 @@ final class GameDetailsSectionTests: XCTestCase {
             game: MockData.game,
             platformName: MockData.platform.title,
             gameForm: MockData.gameForm,
-            formDelegate: FormDelegateMock()
+            formDelegate: FormDelegateMock(),
+            containerDelegate: ContainerViewControllerDelegateMock()
         )
         
         // Then
@@ -52,7 +53,7 @@ final class GameDetailsSectionTests: XCTestCase {
                 }
                 XCTAssertEqual(acquisitionYearCellVM.placeholder, L10n.yearOfAcquisition)
                 XCTAssertEqual(acquisitionYearCellVM.value, MockData.savedGame.acquisitionYear)
-            case .gameCondition(_):
+            case .gameCondition:
                 guard let gameConditionCellVM = formCellVM as? TextFieldCellViewModel,
                       let gameConditionCellVMFormType = gameConditionCellVM.formType as? GameFormType else {
                     XCTFail("Wrong type")
@@ -73,7 +74,7 @@ final class GameDetailsSectionTests: XCTestCase {
                         )
                     )
                 )
-            case .gameCompleteness(_):
+            case .gameCompleteness:
                 guard let gameCompletenessCellVM = formCellVM as? TextFieldCellViewModel,
                       let gameCompletenessCellVMFormType = gameCompletenessCellVM.formType as? GameFormType  else {
                     XCTFail("Wrong type")
@@ -94,7 +95,7 @@ final class GameDetailsSectionTests: XCTestCase {
                         )
                     )
                 )
-            case .gameRegion(_):
+            case .gameRegion:
                 guard let gameRegionCellVM = formCellVM as? TextFieldCellViewModel,
                       let gameRegionCellVMFormType = gameRegionCellVM.formType as? GameFormType else {
                     XCTFail("Wrong type")

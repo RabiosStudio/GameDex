@@ -401,4 +401,9 @@ enum MockData {
         storageArea: MockData.savedGame.storageArea,
         rating: MockData.savedGame.rating
     )
+    
+    static let userAccountForm = UserAccountForm(
+        email: "email",
+        password: "password"
+    )
 }
