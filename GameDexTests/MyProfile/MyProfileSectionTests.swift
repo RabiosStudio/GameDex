@@ -17,16 +17,18 @@ final class MyProfileSectionTests: XCTestCase {
             isUserLoggedIn: false,
             myProfileDelegate: MyProfileViewModelDelegateMock(),
             myCollectionDelegate: MyCollectionViewModelDelegateMock(),
-            alertDisplayer: alertDisplayer, 
-            appLauncher: AppLauncherMock()
+            alertDisplayer: alertDisplayer,
+            appLauncher: AppLauncherMock(),
+            appReviewService: AppReviewServiceMock()
         )
         
         // Then
-        XCTAssertEqual(section.cellsVM.count, 3)
+        XCTAssertEqual(section.cellsVM.count, 4)
         
         guard let loginCellVM = section.cellsVM.first as? LabelCellViewModel,
               let collectionManagementCellVM = section.cellsVM[1] as? LabelCellViewModel,
-              let contactUsCellVM = section.cellsVM.last as? LabelCellViewModel else {
+              let contactUsCellVM = section.cellsVM[2] as? LabelCellViewModel,
+              let reviewTheAppCellVM = section.cellsVM[3] as? LabelCellViewModel else {
             XCTFail("Cell View Models are not correct")
             return
         }
@@ -34,6 +36,7 @@ final class MyProfileSectionTests: XCTestCase {
         XCTAssertEqual(loginCellVM.text, L10n.login)
         XCTAssertEqual(collectionManagementCellVM.text, L10n.collectionManagement)
         XCTAssertEqual(contactUsCellVM.text, L10n.contactUs)
+        XCTAssertEqual(reviewTheAppCellVM.text, L10n.reviewTheApp)
     }
     
     func test_init_GivenUserIsLoggedIn_ThenShouldSetPropertiesCorrectly() {
@@ -44,16 +47,18 @@ final class MyProfileSectionTests: XCTestCase {
             myProfileDelegate: MyProfileViewModelDelegateMock(),
             myCollectionDelegate: MyCollectionViewModelDelegateMock(),
             alertDisplayer: alertDisplayer,
-            appLauncher: AppLauncherMock()
+            appLauncher: AppLauncherMock(),
+            appReviewService: AppReviewServiceMock()
         )
         
         // Then
-        XCTAssertEqual(section.cellsVM.count, 4)
+        XCTAssertEqual(section.cellsVM.count, 5)
         
         guard let loginCellVM = section.cellsVM.first as? LabelCellViewModel,
               let editProfileCellVM = section.cellsVM[1] as? LabelCellViewModel,
               let collectionManagementCellVM = section.cellsVM[2] as? LabelCellViewModel,
-              let contactUsCellVM = section.cellsVM.last as? LabelCellViewModel else {
+              let contactUsCellVM = section.cellsVM[3] as? LabelCellViewModel,
+              let reviewTheAppCellVM = section.cellsVM[4] as? LabelCellViewModel else {
             XCTFail("Cell View Models are not correct")
             return
         }
@@ -62,6 +67,7 @@ final class MyProfileSectionTests: XCTestCase {
         XCTAssertEqual(editProfileCellVM.text, L10n.editProfile)
         XCTAssertEqual(collectionManagementCellVM.text, L10n.collectionManagement)
         XCTAssertEqual(contactUsCellVM.text, L10n.contactUs)
+        XCTAssertEqual(reviewTheAppCellVM.text, L10n.reviewTheApp)
     }
     
     func test_LoginCellTapped_GivenUserIsLoggedOut_ThenShouldSetCellTappedCallbackCorrectly() {
@@ -72,7 +78,8 @@ final class MyProfileSectionTests: XCTestCase {
             myProfileDelegate: MyProfileViewModelDelegateMock(),
             myCollectionDelegate: MyCollectionViewModelDelegateMock(),
             alertDisplayer: alertDisplayer,
-            appLauncher: AppLauncherMock()
+            appLauncher: AppLauncherMock(),
+            appReviewService: AppReviewServiceMock()
         )
         
         guard let loginCellVM = section.cellsVM.first as? LabelCellViewModel else {
@@ -101,7 +108,8 @@ final class MyProfileSectionTests: XCTestCase {
             myProfileDelegate: MyProfileViewModelDelegateMock(),
             myCollectionDelegate: MyCollectionViewModelDelegateMock(),
             alertDisplayer: alertDisplayer,
-            appLauncher: AppLauncherMock()
+            appLauncher: AppLauncherMock(),
+            appReviewService: AppReviewServiceMock()
         )
         
         guard let loginCellVM = section.cellsVM.first as? LabelCellViewModel else {
@@ -134,7 +142,8 @@ final class MyProfileSectionTests: XCTestCase {
             myProfileDelegate: MyProfileViewModelDelegateMock(),
             myCollectionDelegate: MyCollectionViewModelDelegateMock(),
             alertDisplayer: alertDisplayer,
-            appLauncher: appLauncher
+            appLauncher: appLauncher,
+            appReviewService: AppReviewServiceMock()
         )
         
         guard let contactUsCellVM = section.cellsVM[3] as? LabelCellViewModel,
@@ -185,7 +194,8 @@ final class MyProfileSectionTests: XCTestCase {
             myProfileDelegate: MyProfileViewModelDelegateMock(),
             myCollectionDelegate: MyCollectionViewModelDelegateMock(),
             alertDisplayer: alertDisplayer,
-            appLauncher: appLauncher
+            appLauncher: appLauncher,
+            appReviewService: AppReviewServiceMock()
         )
         
         guard let contactUsCellVM = section.cellsVM[3] as? LabelCellViewModel else {
@@ -210,5 +220,29 @@ final class MyProfileSectionTests: XCTestCase {
             description: L10n.errorEmailAppDescription + email
         )
         alertDisplayer.verify(.presentTopFloatAlert(parameters: .value(alertVM)), count: .once)
+    }
+    
+    func test_ReviewTheAppCellTapped_ThenShouldCallRequestReview() {
+        // Given
+        let appReviewService = AppReviewServiceMock()
+        let section = MyProfileSection(
+            isUserLoggedIn: false,
+            myProfileDelegate: MyProfileViewModelDelegateMock(),
+            myCollectionDelegate: MyCollectionViewModelDelegateMock(),
+            alertDisplayer: AlertDisplayerMock(),
+            appLauncher: AppLauncherMock(),
+            appReviewService: appReviewService
+        )
+        
+        guard let reviewTheAppCellVM = section.cellsVM[3] as? LabelCellViewModel else {
+            XCTFail("Cell View Models are not correct")
+            return
+        }
+        
+        // When
+        reviewTheAppCellVM.cellTappedCallback?()
+        
+        // Then
+        appReviewService.verify(.requestReview(), count: .once)
     }
 }
