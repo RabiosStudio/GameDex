@@ -266,7 +266,7 @@ final class AuthenticationViewModelTests: XCTestCase {
                 XCTFail("Wrong type")
             }
         }
-
+        
         // When
         await viewModel.didTapPrimaryButton(with: nil)
         
@@ -288,7 +288,6 @@ final class AuthenticationViewModelTests: XCTestCase {
     func test_didTapForgotPassword_GivenNoEmailEntry_ThenAlertSettingsAreCorrects() async {
         // Given
         let authenticationService = AuthenticationServiceMock()
-//        authenticationService.given(.getUserId(willReturn: "userId"))
         let alertDisplayer = AlertDisplayerMock()
         
         let viewModel = AuthenticationViewModel(
@@ -315,5 +314,27 @@ final class AuthenticationViewModelTests: XCTestCase {
                 )
             ), count: .once
         )
+    }
+    
+    func test_didUpdate_ThenShouldSetUserAccountFormCorrectly() async {
+        // Given
+        let authenticationService = AuthenticationServiceMock()
+        let viewModel = AuthenticationViewModel(
+            userHasAccount: true,
+            authenticationSerice: authenticationService,
+            alertDisplayer: AlertDisplayerMock(),
+            myProfileDelegate: MyProfileViewModelDelegateMock(),
+            myCollectionDelegate: MyCollectionViewModelDelegateMock()
+        )
+        
+        viewModel.loadData { _ in }
+        
+        // WHEN
+        viewModel.didUpdate(value: MockData.userAccountForm.email as Any, for: UserAccountFormType.email)
+        viewModel.didUpdate(value: MockData.userAccountForm.password as Any, for: UserAccountFormType.password)
+        
+        // THEN
+        XCTAssertEqual(viewModel.userAccountForm.email, MockData.userAccountForm.email)
+        XCTAssertEqual(viewModel.userAccountForm.password, MockData.userAccountForm.password)
     }
 }

@@ -17,6 +17,7 @@ final class AuthenticationViewModel: CollectionViewModel {
     let screenTitle: String?
     var sections: [Section] = []
     var layoutMargins: UIEdgeInsets?
+    var userAccountForm: UserAccountForm
     
     weak var containerDelegate: ContainerViewControllerDelegate?
     weak var myProfileDelegate: MyProfileViewModelDelegate?
@@ -25,7 +26,6 @@ final class AuthenticationViewModel: CollectionViewModel {
     private let userHasAccount: Bool
     private let authenticationSerice: AuthenticationService
     private let alertDisplayer: AlertDisplayer
-    private var userAccountForm: UserAccountForm
     
     init(
         userHasAccount: Bool,
