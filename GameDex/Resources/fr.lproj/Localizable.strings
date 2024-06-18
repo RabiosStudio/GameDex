@@ -101,6 +101,7 @@
 "deleteAccount" = "Supprimer mon compte";
 "collectionManagement" = "Gestion de ma collection";
 "forgotPassword" = "Mot de passe oublié ?";
+"reviewTheApp" = "Noter l'application";
 
 // Forms
 "title" = "Titre";

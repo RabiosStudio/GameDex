@@ -102,6 +102,7 @@
 "deleteAccount" = "Delete Account";
 "collectionManagement" = "Collection Management";
 "forgotPassword" = "Forgot password?";
+"reviewTheApp" = "Review the app";
 
 // Forms
 "title" = "Title";

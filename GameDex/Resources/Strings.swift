@@ -178,6 +178,8 @@ internal enum L10n {
   internal static let removeGameSuccessDescription = L10n.tr("Localizable", "removeGameSuccessDescription", fallback: "The game was removed from your collection.")
   /// Retry
   internal static let retry = L10n.tr("Localizable", "retry", fallback: "Retry")
+  /// Review the app
+  internal static let reviewTheApp = L10n.tr("Localizable", "reviewTheApp", fallback: "Review the app")
   /// Save changes
   internal static let saveChanges = L10n.tr("Localizable", "saveChanges", fallback: "Save changes")
   /// An error occured while saving game details.
