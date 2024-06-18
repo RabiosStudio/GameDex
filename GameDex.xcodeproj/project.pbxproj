@@ -556,20 +556,18 @@
 		251C86DB2A989AE40020C794 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				25ADAE982C21BC8900BE26FA /* Forms */,
+				25ADAE972C21BC6500BE26FA /* FormTypes */,
 				25939FFF2AAF7021000FC253 /* GameProperties */,
 				251C86D52A9899F40020C794 /* Platform.swift */,
 				251C87402A9DE9F30020C794 /* Game.swift */,
 				25DA8CB72AADE7E300B40F84 /* SavedGame.swift */,
-				25939FFC2AAF6FBF000FC253 /* GameFormType.swift */,
 				251C86D32A9899A70020C794 /* RemoteDataConverter.swift */,
 				25E8E4A22AC1B7AF0093E7F8 /* CellSize.swift */,
 				256D9C412AD2BD9700D4AA23 /* Position.swift */,
 				2506D8962AE026B2006D3F52 /* ButtonType.swift */,
 				258630382BFCB43A00AD3EE4 /* GameFilter.swift */,
-				255A0A472C035DDD007ED3D3 /* GameFilterFormType.swift */,
 				255A0A512C072BDF007ED3D3 /* SegmentItem.swift */,
-				25BA88802C09C9FE00B8CD28 /* GameForm.swift */,
-				25BA889C2C11BA8B00B8CD28 /* GameFilterForm.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -602,7 +600,6 @@
 				2506D88F2AE02668006D3F52 /* EditProfile */,
 				2548E5F62ABEDF49004151EF /* MyProfileViewModel.swift */,
 				2548E5F82ABEDF53004151EF /* MyProfileSection.swift */,
-				25E8E49A2AC1926A0093E7F8 /* UserAccountFormType.swift */,
 				25E8E4AB2AC1E4BC0093E7F8 /* AuthenticationError.swift */,
 				25E8E4B02AC428880093E7F8 /* AuthenticationServiceImpl.swift */,
 			);
@@ -719,6 +716,25 @@
 				25979DC92AC1733D002CEDE7 /* AuthenticationScreenFactory.swift */,
 			);
 			path = Authentication;
+			sourceTree = "<group>";
+		};
+		25ADAE972C21BC6500BE26FA /* FormTypes */ = {
+			isa = PBXGroup;
+			children = (
+				25939FFC2AAF6FBF000FC253 /* GameFormType.swift */,
+				255A0A472C035DDD007ED3D3 /* GameFilterFormType.swift */,
+				25E8E49A2AC1926A0093E7F8 /* UserAccountFormType.swift */,
+			);
+			path = FormTypes;
+			sourceTree = "<group>";
+		};
+		25ADAE982C21BC8900BE26FA /* Forms */ = {
+			isa = PBXGroup;
+			children = (
+				25BA88802C09C9FE00B8CD28 /* GameForm.swift */,
+				25BA889C2C11BA8B00B8CD28 /* GameFilterForm.swift */,
+			);
+			path = Forms;
 			sourceTree = "<group>";
 		};
 		25AE1EB72A8CB7CC00F2D06A /* Helpers */ = {
