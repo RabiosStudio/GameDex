@@ -14,7 +14,8 @@ final class MyProfileSection: Section {
         myProfileDelegate: MyProfileViewModelDelegate?,
         myCollectionDelegate: MyCollectionViewModelDelegate?,
         alertDisplayer: AlertDisplayer,
-        appLauncher: AppLauncher
+        appLauncher: AppLauncher,
+        appReviewService: AppReviewService
     ) {
         super.init()
         self.position = 0
@@ -108,5 +109,13 @@ final class MyProfileSection: Section {
             }
         )
         self.cellsVM.append(contactUsCellVM)
+        
+        let reviewAppCellVM = LabelCellViewModel(
+            text: L10n.reviewTheApp,
+            cellTappedCallback: {
+                appReviewService.requestReview()
+            }
+        )
+        self.cellsVM.append(reviewAppCellVM)
     }
 }

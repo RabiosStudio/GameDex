@@ -54,7 +54,8 @@ final class MyProfileViewModel: CollectionViewModel {
                 myProfileDelegate: self,
                 myCollectionDelegate: self.myCollectionDelegate,
                 alertDisplayer: self.alertDisplayer,
-                appLauncher: AppLauncherImpl()
+                appLauncher: AppLauncherImpl(),
+                appReviewService: AppReviewServiceImpl()
             )
         ]
         callback(nil)
