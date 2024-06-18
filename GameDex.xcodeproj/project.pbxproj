@@ -123,6 +123,8 @@
 		25979DCC2AC17C22002CEDE7 /* ImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25979DCB2AC17C22002CEDE7 /* ImageCell.swift */; };
 		25979DCE2AC17C2C002CEDE7 /* ImageCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25979DCD2AC17C2C002CEDE7 /* ImageCellViewModel.swift */; };
 		25ADAE962C1CA1AF00BE26FA /* UICollectionView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25ADAE952C1CA1AF00BE26FA /* UICollectionView+Extension.swift */; };
+		25ADAE9C2C21D08B00BE26FA /* AppReviewService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25ADAE9B2C21D08B00BE26FA /* AppReviewService.swift */; };
+		25ADAE9E2C21D1CE00BE26FA /* AppReviewServiceImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25ADAE9D2C21D1CE00BE26FA /* AppReviewServiceImpl.swift */; };
 		25AE1EAE2A8BB89400F2D06A /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AE1EAD2A8BB89400F2D06A /* Section.swift */; };
 		25AE1EBA2A8CB7E300F2D06A /* CollectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AE1EB92A8CB7E300F2D06A /* CollectionViewModel.swift */; };
 		25AE1EBC2A8CB82500F2D06A /* CellConfigurable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AE1EBB2A8CB82500F2D06A /* CellConfigurable.swift */; };
@@ -342,6 +344,8 @@
 		25979DCB2AC17C22002CEDE7 /* ImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCell.swift; sourceTree = "<group>"; };
 		25979DCD2AC17C2C002CEDE7 /* ImageCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCellViewModel.swift; sourceTree = "<group>"; };
 		25ADAE952C1CA1AF00BE26FA /* UICollectionView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Extension.swift"; sourceTree = "<group>"; };
+		25ADAE9B2C21D08B00BE26FA /* AppReviewService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppReviewService.swift; sourceTree = "<group>"; };
+		25ADAE9D2C21D1CE00BE26FA /* AppReviewServiceImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppReviewServiceImpl.swift; sourceTree = "<group>"; };
 		25AE1EAD2A8BB89400F2D06A /* Section.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Section.swift; sourceTree = "<group>"; };
 		25AE1EB92A8CB7E300F2D06A /* CollectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewModel.swift; sourceTree = "<group>"; };
 		25AE1EBB2A8CB82500F2D06A /* CellConfigurable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellConfigurable.swift; sourceTree = "<group>"; };
@@ -605,6 +609,7 @@
 				25E8E49A2AC1926A0093E7F8 /* UserAccountFormType.swift */,
 				25E8E4AB2AC1E4BC0093E7F8 /* AuthenticationError.swift */,
 				25E8E4B02AC428880093E7F8 /* AuthenticationServiceImpl.swift */,
+				25ADAE9D2C21D1CE00BE26FA /* AppReviewServiceImpl.swift */,
 			);
 			path = MyProfile;
 			sourceTree = "<group>";
@@ -752,6 +757,7 @@
 				252E377E2AD81BE300987DD5 /* AuthSession.swift */,
 				2506D87B2ADE97CB006D3F52 /* AppLauncher.swift */,
 				258630362BFB96DE00AD3EE4 /* Filter.swift */,
+				25ADAE9B2C21D08B00BE26FA /* AppReviewService.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -1508,6 +1514,7 @@
 				2593A00B2AB19D4E000FC253 /* MyCollectionByPlatformsScreenFactory.swift in Sources */,
 				2506D8952AE02668006D3F52 /* EditProfileViewModel.swift in Sources */,
 				258630302BF797DC00AD3EE4 /* MyCollectionFiltersViewModel.swift in Sources */,
+				25ADAE9E2C21D1CE00BE26FA /* AppReviewServiceImpl.swift in Sources */,
 				25AE1EF52A8E663B00F2D06A /* PrimaryButton.swift in Sources */,
 				25AE1EF72A8E664E00F2D06A /* ButtonViewModel.swift in Sources */,
 				25AE1EDA2A8D236000F2D06A /* MyCollectionError.swift in Sources */,
@@ -1516,6 +1523,7 @@
 				25EDF7BE2AB43E0100648717 /* AlertViewModel.swift in Sources */,
 				25EB245B2AA9F0360024F01C /* DTTextField+Extension.swift in Sources */,
 				251C86BC2A97A29D0020C794 /* AlamofireAPI.swift in Sources */,
+				25ADAE9C2C21D08B00BE26FA /* AppReviewService.swift in Sources */,
 				251C86BE2A97A29D0020C794 /* APIMethod.swift in Sources */,
 				25AE1F302A92234000F2D06A /* UINavigationController+ProgressBar.swift in Sources */,
 				251C87392A9D08100020C794 /* SearchGameByTitleScreenFactory.swift in Sources */,
