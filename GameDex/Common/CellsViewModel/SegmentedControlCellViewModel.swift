@@ -21,9 +21,8 @@ final class SegmentedControlCellViewModel: CollectionFormCellViewModel {
     var value: ValueType? {
         didSet {
             self.formDelegate?.didUpdate(value: self.value as Any, for: self.formType)
-            if oldValue != self.value,
-               let gameFormDelegate = self.formDelegate as? GameFormDelegate {
-                gameFormDelegate.refreshSectionsDependingOnGameFormat()
+            if oldValue != self.value {
+                self.formDelegate?.refreshSections()
             }
         }
     }

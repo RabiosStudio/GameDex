@@ -10,9 +10,5 @@ import Foundation
 // sourcery: AutoMockable
 protocol FormDelegate: AnyObject {
     func didUpdate(value: Any, for type: FormType)
-}
-
-// sourcery: AutoMockable
-protocol GameFormDelegate: FormDelegate {
-    func refreshSectionsDependingOnGameFormat()
+    func refreshSections()
 }

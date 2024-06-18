@@ -145,6 +145,8 @@ extension AuthenticationViewModel: PrimaryButtonDelegate {
 }
 
 extension AuthenticationViewModel: FormDelegate {
+    func refreshSections() {}
+    
     func didUpdate(value: Any, for type: any FormType) {
         guard let formType = type as? UserAccountFormType else {
             return

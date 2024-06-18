@@ -110,7 +110,7 @@ extension GameDetailsViewModel: PrimaryButtonDelegate {
     }
 }
 
-extension GameDetailsViewModel: GameFormDelegate {
+extension GameDetailsViewModel: FormDelegate {
     func didUpdate(value: Any, for type: any FormType) {
         guard let formType = type as? GameFormType else {
             return
@@ -164,7 +164,7 @@ extension GameDetailsViewModel: GameFormDelegate {
         }
     }
     
-    func refreshSectionsDependingOnGameFormat() {
+    func refreshSections() {
         self.updateSections(with: self.gameForm)
         self.containerDelegate?.reloadSections(emptyError: nil)
         

@@ -917,7 +917,7 @@ final class GameDetailsViewModelTests: XCTestCase {
         XCTAssertEqual(viewModel.gameForm.isPhysical, MockData.editedGameForm.isPhysical)
     }
     
-    func test_refreshSectionsDependingOnGameFormat_GivenFormatIsUpdated_ThenShouldReloadSections() {
+    func test_refreshSections_GivenFormatIsUpdated_ThenShouldReloadSections() {
         // Given
         let containerDelegate = ContainerViewControllerDelegateMock()
         let viewModel = GameDetailsViewModel(
@@ -934,7 +934,7 @@ final class GameDetailsViewModelTests: XCTestCase {
         
         // When
         viewModel.gameForm = MockData.digitalGameForm
-        viewModel.refreshSectionsDependingOnGameFormat()
+        viewModel.refreshSections()
         
         // Then
         XCTAssertEqual(viewModel.numberOfSections(), 1)
