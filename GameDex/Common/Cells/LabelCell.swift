@@ -88,14 +88,14 @@ final class LabelCell: UICollectionViewCell, CellConfigurable {
         guard let cellVM = self.cellVM else {
             return
         }
-        cellVM.objectManagementDelegate?.delete()
+        cellVM.objectManagementDelegate?.delete(value: self.label.text as Any)
     }
     
     @objc private func didTapEditButton() {
         guard let cellVM = self.cellVM else {
             return
         }
-        cellVM.objectManagementDelegate?.edit()
+        cellVM.objectManagementDelegate?.edit(value: self.label.text as Any)
     }
     
     private func setupConstraints() {

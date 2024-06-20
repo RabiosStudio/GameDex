@@ -18,7 +18,12 @@ final class StorageAreasManagementSection: Section {
         super.init()
         self.position = 0
         
-        if context == .add {
+        let sortedStorageAreas = storageAreas.sorted {
+            $0.lowercased() < $1.lowercased()
+        }
+        
+        switch context {
+        case .add:
             let newStorageAreaCellVM = TextFieldCellViewModel(
                 placeholder: L10n.newStorageArea,
                 formType: GameFormType.storageArea,
@@ -28,20 +33,45 @@ final class StorageAreasManagementSection: Section {
                 cellTappedCallback: nil
             )
             self.cellsVM.append(newStorageAreaCellVM)
-        }
-        
-        let sortedStorageAreas = storageAreas.sorted()
-        for storageArea in sortedStorageAreas {
-            let storageAreaCellVM = LabelCellViewModel(
-                text: storageArea,
-                isEditable: true,
-                isDeletable: true,
-                objectManagementDelegate: storageAreaManagementDelegate,
-                cellTappedCallback: {
-                    storageAreaManagementDelegate?.select(storageArea: storageArea)
+            for storageArea in sortedStorageAreas {
+                self.setupLabelCellViewModel(with: storageArea, storageAreaManagementDelegate: storageAreaManagementDelegate)
+            }
+        case .edit(storageArea: let value):
+            for storageArea in sortedStorageAreas {
+                if value == storageArea {
+                    let editingStorageAreaCellVM = TextFieldCellViewModel(
+                        placeholder: L10n.newStorageArea,
+                        formType: GameFormType.storageArea,
+                        value: value,
+                        isEditable: true,
+                        formDelegate: formDelegate,
+                        cellTappedCallback: nil
+                    )
+                    self.cellsVM.append(editingStorageAreaCellVM)
+                } else {
+                    self.setupLabelCellViewModel(with: storageArea, storageAreaManagementDelegate: storageAreaManagementDelegate)
                 }
-            )
-            self.cellsVM.append(storageAreaCellVM)
+            }
+        case .none:
+            for storageArea in sortedStorageAreas {
+                self.setupLabelCellViewModel(with: storageArea, storageAreaManagementDelegate: storageAreaManagementDelegate)
+            }
         }
+    }
+    
+    func setupLabelCellViewModel(
+        with storageArea: String,
+        storageAreaManagementDelegate: StorageAreasManagementDelegate?
+    ) {
+        let storageAreaCellVM = LabelCellViewModel(
+            text: storageArea,
+            isEditable: true,
+            isDeletable: true,
+            objectManagementDelegate: storageAreaManagementDelegate,
+            cellTappedCallback: {
+                storageAreaManagementDelegate?.select(storageArea: storageArea)
+            }
+        )
+        self.cellsVM.append(storageAreaCellVM)
     }
 }

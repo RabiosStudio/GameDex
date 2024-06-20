@@ -9,6 +9,6 @@ import Foundation
 
 // sourcery: AutoMockable
 protocol ObjectManagementDelegate: AnyObject {
-    func edit()
-    func delete()
+    func edit(value: Any)
+    func delete(value: Any)
 }

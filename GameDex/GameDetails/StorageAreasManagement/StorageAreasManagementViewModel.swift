@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 
+// sourcery: AutoMockable
 protocol StorageAreasManagementDelegate: ObjectManagementDelegate {
     func select(storageArea: String)
 }
@@ -24,6 +25,7 @@ final class StorageAreasManagementViewModel: CollectionViewModel {
     
     private var storageAreas: [String]
     private var alertDisplayer: AlertDisplayer
+    private var context: StorageAreasManagementContext?
     
     weak var containerDelegate: ContainerViewControllerDelegate?
     weak var alertDelegate: AlertDisplayerDelegate?
@@ -40,17 +42,19 @@ final class StorageAreasManagementViewModel: CollectionViewModel {
         self.alertDisplayer = alertDisplayer
         self.alertDisplayer.alertDelegate = self
         self.formDelegate = formDelegate
+        self.context = nil
     }
     
     func loadData(callback: @escaping (EmptyError?) -> ()) {
-        self.updateSections(with: self.storageAreas, context: nil)
+        self.updateSections(with: self.storageAreas, context: self.context)
         callback(nil)
     }
     
     func didTap(buttonItem: AnyBarButtonItem) {
         switch buttonItem {
         case .add:
-            self.updateSections(with: self.storageAreas, context: .add)
+            self.context = .add
+            self.updateSections(with: self.storageAreas, context: self.context)
             self.containerDelegate?.reloadSections(emptyError: nil)
         default:
             break
@@ -96,18 +100,26 @@ private extension StorageAreasManagementViewModel {
 }
 
 extension StorageAreasManagementViewModel: StorageAreasManagementDelegate {
+    func edit(value: Any) {
+        guard let value = value as? String else {
+            return
+        }
+        self.context = .edit(storageArea: value)
+        self.updateSections(
+            with: self.storageAreas,
+            context: self.context
+        )
+        self.containerDelegate?.reloadSections(emptyError: nil)
+    }
+    
+    func delete(value: Any) {
+        self.presentAlertBeforeDeletingStorageArea()
+    }
+    
     func select(storageArea: String) {
         self.formDelegate?.didUpdate(value: storageArea, for: GameFormType.storageArea)
         self.formDelegate?.refreshSections()
         self.containerDelegate?.goBackToPreviousScreen()
-    }
-    
-    func edit() {
-        print("edit button tapped")
-    }
-    
-    func delete() {
-        self.presentAlertBeforeDeletingStorageArea()
     }
 }
 
@@ -121,14 +133,27 @@ extension StorageAreasManagementViewModel: FormDelegate {
             guard let value = value as? String else {
                 return
             }
-            self.storageAreas.append(value)
+            switch self.context {
+            case .edit(storageArea: let oldValue):
+                for (index, item) in self.storageAreas.enumerated() {
+                    if oldValue == item {
+                        self.storageAreas.remove(at: index)
+                        self.storageAreas.insert(value, at: index)
+                    }
+                }
+            case .add:
+                self.storageAreas.append(value)
+            default:
+                break
+            }
             self.alertDisplayer.presentTopFloatAlert(
                 parameters: AlertViewModel(
                     alertType: .success,
                     description: L10n.successSavingStorageArea
                 )
             )
-            self.updateSections(with: self.storageAreas, context: nil)
+            self.context = nil
+            self.updateSections(with: self.storageAreas, context: self.context)
             self.containerDelegate?.reloadSections(emptyError: nil)
         default:
             break
