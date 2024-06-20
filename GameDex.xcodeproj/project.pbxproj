@@ -124,9 +124,9 @@
 		25979DCE2AC17C2C002CEDE7 /* ImageCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25979DCD2AC17C2C002CEDE7 /* ImageCellViewModel.swift */; };
 		25ADAE962C1CA1AF00BE26FA /* UICollectionView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25ADAE952C1CA1AF00BE26FA /* UICollectionView+Extension.swift */; };
 		25ADAE9A2C21BD0300BE26FA /* UserAccountForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25ADAE992C21BD0300BE26FA /* UserAccountForm.swift */; };
-		25ADAEA22C21E6C000BE26FA /* FormDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25ADAEA12C21E6C000BE26FA /* FormDelegate.swift */; };
 		25ADAE9C2C21D08B00BE26FA /* AppReviewService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25ADAE9B2C21D08B00BE26FA /* AppReviewService.swift */; };
 		25ADAE9E2C21D1CE00BE26FA /* AppReviewServiceImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25ADAE9D2C21D1CE00BE26FA /* AppReviewServiceImpl.swift */; };
+		25ADAEA22C21E6C000BE26FA /* FormDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25ADAEA12C21E6C000BE26FA /* FormDelegate.swift */; };
 		25ADAEA82C244A1000BE26FA /* StorageAreaManagementViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25ADAEA72C244A1000BE26FA /* StorageAreaManagementViewModel.swift */; };
 		25ADAEAA2C244A2100BE26FA /* StorageAreaManagementSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25ADAEA92C244A2100BE26FA /* StorageAreaManagementSection.swift */; };
 		25ADAEAC2C244A2B00BE26FA /* StorageAreaManagementScreenFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25ADAEAB2C244A2B00BE26FA /* StorageAreaManagementScreenFactory.swift */; };
@@ -350,9 +350,9 @@
 		25979DCD2AC17C2C002CEDE7 /* ImageCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCellViewModel.swift; sourceTree = "<group>"; };
 		25ADAE952C1CA1AF00BE26FA /* UICollectionView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Extension.swift"; sourceTree = "<group>"; };
 		25ADAE992C21BD0300BE26FA /* UserAccountForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAccountForm.swift; sourceTree = "<group>"; };
-		25ADAEA12C21E6C000BE26FA /* FormDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormDelegate.swift; sourceTree = "<group>"; };
 		25ADAE9B2C21D08B00BE26FA /* AppReviewService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppReviewService.swift; sourceTree = "<group>"; };
 		25ADAE9D2C21D1CE00BE26FA /* AppReviewServiceImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppReviewServiceImpl.swift; sourceTree = "<group>"; };
+		25ADAEA12C21E6C000BE26FA /* FormDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormDelegate.swift; sourceTree = "<group>"; };
 		25ADAEA72C244A1000BE26FA /* StorageAreaManagementViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageAreaManagementViewModel.swift; sourceTree = "<group>"; };
 		25ADAEA92C244A2100BE26FA /* StorageAreaManagementSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageAreaManagementSection.swift; sourceTree = "<group>"; };
 		25ADAEAB2C244A2B00BE26FA /* StorageAreaManagementScreenFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageAreaManagementScreenFactory.swift; sourceTree = "<group>"; };
@@ -753,6 +753,16 @@
 			path = Forms;
 			sourceTree = "<group>";
 		};
+		25ADAEAF2C24589600BE26FA /* StorageAreaManagement */ = {
+			isa = PBXGroup;
+			children = (
+				25ADAEA72C244A1000BE26FA /* StorageAreaManagementViewModel.swift */,
+				25ADAEA92C244A2100BE26FA /* StorageAreaManagementSection.swift */,
+				25ADAEAB2C244A2B00BE26FA /* StorageAreaManagementScreenFactory.swift */,
+			);
+			path = StorageAreaManagement;
+			sourceTree = "<group>";
+		};
 		25AE1EB72A8CB7CC00F2D06A /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
@@ -917,9 +927,7 @@
 				25BA88852C0E02A000B8CD28 /* GameDetailsViewModel.swift */,
 				25BA88872C0E03C600B8CD28 /* GameDetailsSection.swift */,
 				25BA88892C0E040600B8CD28 /* GameDetailsScreenFactory.swift */,
-				25ADAEA72C244A1000BE26FA /* StorageAreaManagementViewModel.swift */,
-				25ADAEA92C244A2100BE26FA /* StorageAreaManagementSection.swift */,
-				25ADAEAB2C244A2B00BE26FA /* StorageAreaManagementScreenFactory.swift */,
+				25ADAEAF2C24589600BE26FA /* StorageAreaManagement */,
 			);
 			path = GameDetails;
 			sourceTree = "<group>";
