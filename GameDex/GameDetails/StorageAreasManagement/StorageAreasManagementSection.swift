@@ -11,12 +11,27 @@ final class StorageAreasManagementSection: Section {
     
     init(
         storageAreas: [String],
+        context: StorageAreasManagementContext?,
+        formDelegate: FormDelegate?,
         storageAreaManagementDelegate: StorageAreasManagementDelegate?
     ) {
         super.init()
         self.position = 0
         
-        for storageArea in storageAreas {
+        if context == .add {
+            let newStorageAreaCellVM = TextFieldCellViewModel(
+                placeholder: L10n.newStorageArea,
+                formType: GameFormType.storageArea,
+                value: nil,
+                isEditable: true,
+                formDelegate: formDelegate,
+                cellTappedCallback: nil
+            )
+            self.cellsVM.append(newStorageAreaCellVM)
+        }
+        
+        let sortedStorageAreas = storageAreas.sorted()
+        for storageArea in sortedStorageAreas {
             let storageAreaCellVM = LabelCellViewModel(
                 text: storageArea,
                 isEditable: true,

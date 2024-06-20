@@ -163,6 +163,13 @@ extension TextFieldCell: UITextFieldDelegate {
         self.storeEntry(with: nil)
         return true
     }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        guard let cellVM = self.cellVM else {
+            return
+        }
+        cellVM.returnKeyTapped = true
+    }
 }
 
 // MARK: - PickerView DataSource

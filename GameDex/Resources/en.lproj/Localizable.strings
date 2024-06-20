@@ -35,6 +35,7 @@
 "successDeleteAccountDescription" = "Account deleted successfully";
 "successDeletePlatformDescription" = " successfully removed from your collection";
 "successSendingPasswordResetEmail" = "Password reset email sent";
+"successSavingStorageArea" = "The new storage area was saved successfully.";
 
 // Warnings
 "warningTitle" = "One moment!";
@@ -140,6 +141,7 @@
 "digital" = "Digital";
 "any" = "Any";
 "gameFormat" = "Game format";
+"newStorageArea" = "New storage area";
 
 // Other
 "game" = "game";

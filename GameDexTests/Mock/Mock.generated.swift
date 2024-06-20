@@ -3899,10 +3899,17 @@ open class FormDelegateMock: FormDelegate, Mock {
 		perform?()
     }
 
+    open func confirmChanges(value: Any, for type: FormType) {
+        addInvocation(.m_confirmChanges__value_valuefor_type(Parameter<Any>.value(`value`), Parameter<FormType>.value(`type`)))
+		let perform = methodPerformValue(.m_confirmChanges__value_valuefor_type(Parameter<Any>.value(`value`), Parameter<FormType>.value(`type`))) as? (Any, FormType) -> Void
+		perform?(`value`, `type`)
+    }
+
 
     fileprivate enum MethodType {
         case m_didUpdate__value_valuefor_type(Parameter<Any>, Parameter<FormType>)
         case m_refreshSections
+        case m_confirmChanges__value_valuefor_type(Parameter<Any>, Parameter<FormType>)
 
         static func compareParameters(lhs: MethodType, rhs: MethodType, matcher: Matcher) -> Matcher.ComparisonResult {
             switch (lhs, rhs) {
@@ -3913,6 +3920,12 @@ open class FormDelegateMock: FormDelegate, Mock {
 				return Matcher.ComparisonResult(results)
 
             case (.m_refreshSections, .m_refreshSections): return .match
+
+            case (.m_confirmChanges__value_valuefor_type(let lhsValue, let lhsType), .m_confirmChanges__value_valuefor_type(let rhsValue, let rhsType)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsValue, rhs: rhsValue, with: matcher), lhsValue, rhsValue, "value"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsType, rhs: rhsType, with: matcher), lhsType, rhsType, "for type"))
+				return Matcher.ComparisonResult(results)
             default: return .none
             }
         }
@@ -3921,12 +3934,14 @@ open class FormDelegateMock: FormDelegate, Mock {
             switch self {
             case let .m_didUpdate__value_valuefor_type(p0, p1): return p0.intValue + p1.intValue
             case .m_refreshSections: return 0
+            case let .m_confirmChanges__value_valuefor_type(p0, p1): return p0.intValue + p1.intValue
             }
         }
         func assertionName() -> String {
             switch self {
             case .m_didUpdate__value_valuefor_type: return ".didUpdate(value:for:)"
             case .m_refreshSections: return ".refreshSections()"
+            case .m_confirmChanges__value_valuefor_type: return ".confirmChanges(value:for:)"
             }
         }
     }
@@ -3947,6 +3962,7 @@ open class FormDelegateMock: FormDelegate, Mock {
 
         public static func didUpdate(value: Parameter<Any>, for type: Parameter<FormType>) -> Verify { return Verify(method: .m_didUpdate__value_valuefor_type(`value`, `type`))}
         public static func refreshSections() -> Verify { return Verify(method: .m_refreshSections)}
+        public static func confirmChanges(value: Parameter<Any>, for type: Parameter<FormType>) -> Verify { return Verify(method: .m_confirmChanges__value_valuefor_type(`value`, `type`))}
     }
 
     public struct Perform {
@@ -3958,6 +3974,9 @@ open class FormDelegateMock: FormDelegate, Mock {
         }
         public static func refreshSections(perform: @escaping () -> Void) -> Perform {
             return Perform(method: .m_refreshSections, performs: perform)
+        }
+        public static func confirmChanges(value: Parameter<Any>, for type: Parameter<FormType>, perform: @escaping (Any, FormType) -> Void) -> Perform {
+            return Perform(method: .m_confirmChanges__value_valuefor_type(`value`, `type`), performs: perform)
         }
     }
 

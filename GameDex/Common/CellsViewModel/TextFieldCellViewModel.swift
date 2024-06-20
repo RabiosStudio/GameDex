@@ -19,10 +19,18 @@ final class TextFieldCellViewModel: CollectionFormCellViewModel {
     var formType: FormType
     var value: ValueType? {
         didSet {
+            self.returnKeyTapped = false
             self.formDelegate?.didUpdate(value: self.value as Any, for: self.formType)
         }
     }
     let isEditable: Bool
+    var returnKeyTapped: Bool = false {
+        didSet {
+            if self.returnKeyTapped == true {
+                self.formDelegate?.confirmChanges(value: self.value as Any, for: self.formType)
+            }
+        }
+    }
     
     weak var formDelegate: FormDelegate?
     

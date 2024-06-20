@@ -43,14 +43,15 @@ final class StorageAreasManagementViewModel: CollectionViewModel {
     }
     
     func loadData(callback: @escaping (EmptyError?) -> ()) {
-        self.updateSections(with: self.storageAreas)
+        self.updateSections(with: self.storageAreas, context: nil)
         callback(nil)
     }
     
     func didTap(buttonItem: AnyBarButtonItem) {
         switch buttonItem {
         case .add:
-            print("add button tapped")
+            self.updateSections(with: self.storageAreas, context: .add)
+            self.containerDelegate?.reloadSections(emptyError: nil)
         default:
             break
         }
@@ -72,9 +73,14 @@ private extension StorageAreasManagementViewModel {
         )
     }
     
-    func updateSections(with storageAreas: [String]) {
+    func updateSections(
+        with storageAreas: [String],
+        context: StorageAreasManagementContext?
+    ) {
         self.sections = [StorageAreasManagementSection(
             storageAreas: storageAreas,
+            context: context,
+            formDelegate: self,
             storageAreaManagementDelegate: self
         )]
     }
@@ -103,4 +109,33 @@ extension StorageAreasManagementViewModel: StorageAreasManagementDelegate {
     func delete() {
         self.presentAlertBeforeDeletingStorageArea()
     }
+}
+
+extension StorageAreasManagementViewModel: FormDelegate {
+    func confirmChanges(value: Any, for type: any FormType) {
+        guard let formType = type as? GameFormType else {
+            return
+        }
+        switch formType {
+        case .storageArea:
+            guard let value = value as? String else {
+                return
+            }
+            self.storageAreas.append(value)
+            self.alertDisplayer.presentTopFloatAlert(
+                parameters: AlertViewModel(
+                    alertType: .success,
+                    description: L10n.successSavingStorageArea
+                )
+            )
+            self.updateSections(with: self.storageAreas, context: nil)
+            self.containerDelegate?.reloadSections(emptyError: nil)
+        default:
+            break
+        }
+    }
+    
+    func didUpdate(value: Any, for type: any FormType) {}
+    
+    func refreshSections() {}
 }

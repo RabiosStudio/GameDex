@@ -150,6 +150,8 @@ internal enum L10n {
   internal static let newEmail = L10n.tr("Localizable", "newEmail", fallback: "New email address")
   /// New password
   internal static let newPassword = L10n.tr("Localizable", "newPassword", fallback: "New password")
+  /// New storage area
+  internal static let newStorageArea = L10n.tr("Localizable", "newStorageArea", fallback: "New storage area")
   /// Box without notice
   internal static let noNotice = L10n.tr("Localizable", "noNotice", fallback: "Box without notice")
   /// Other details
@@ -216,6 +218,8 @@ internal enum L10n {
   internal static let successDeletePlatformDescription = L10n.tr("Localizable", "successDeletePlatformDescription", fallback: " successfully removed from your collection")
   /// You are logged out.
   internal static let successLogOutDescription = L10n.tr("Localizable", "successLogOutDescription", fallback: "You are logged out.")
+  /// The new storage area was saved successfully.
+  internal static let successSavingStorageArea = L10n.tr("Localizable", "successSavingStorageArea", fallback: "The new storage area was saved successfully.")
   /// Password reset email sent
   internal static let successSendingPasswordResetEmail = L10n.tr("Localizable", "successSendingPasswordResetEmail", fallback: "Password reset email sent")
   /// Success
