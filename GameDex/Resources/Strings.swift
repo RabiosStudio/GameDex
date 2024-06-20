@@ -198,6 +198,8 @@ internal enum L10n {
   internal static let searchPlatform = L10n.tr("Localizable", "searchPlatform", fallback: "Search a platform")
   /// Select a collection to delete
   internal static let selectAndDeleteACollection = L10n.tr("Localizable", "selectAndDeleteACollection", fallback: "Select a collection to delete")
+  /// Select storage area
+  internal static let selectStorageArea = L10n.tr("Localizable", "selectStorageArea", fallback: "Select storage area")
   /// Sign up
   internal static let signup = L10n.tr("Localizable", "signup", fallback: "Sign up")
   /// Sign up with email
