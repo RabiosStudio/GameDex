@@ -28,4 +28,7 @@
         <attribute name="name" optional="YES" attributeType="String"/>
         <relationship name="platform" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="PlatformCollected" inverseName="supportedNames" inverseEntity="PlatformCollected"/>
     </entity>
+    <entity name="StorageArea" representedClassName=".StorageArea" syncable="YES">
+        <attribute name="name" optional="YES" attributeType="String"/>
+    </entity>
 </model>

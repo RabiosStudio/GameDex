@@ -4110,6 +4110,19 @@ open class LocalDatabaseMock: LocalDatabase, Mock {
 		return __value
     }
 
+    open func add(storageArea: String) -> DatabaseError? {
+        addInvocation(.m_add__storageArea_storageArea(Parameter<String>.value(`storageArea`)))
+		let perform = methodPerformValue(.m_add__storageArea_storageArea(Parameter<String>.value(`storageArea`))) as? (String) -> Void
+		perform?(`storageArea`)
+		var __value: DatabaseError? = nil
+		do {
+		    __value = try methodReturnValue(.m_add__storageArea_storageArea(Parameter<String>.value(`storageArea`))).casted()
+		} catch {
+			// do nothing
+		}
+		return __value
+    }
+
     open func getPlatform(platformId: Int) -> Result<PlatformCollected?, DatabaseError> {
         addInvocation(.m_getPlatform__platformId_platformId(Parameter<Int>.value(`platformId`)))
 		let perform = methodPerformValue(.m_getPlatform__platformId_platformId(Parameter<Int>.value(`platformId`))) as? (Int) -> Void
@@ -4120,6 +4133,20 @@ open class LocalDatabaseMock: LocalDatabase, Mock {
 		} catch {
 			onFatalFailure("Stub return value not specified for getPlatform(platformId: Int). Use given")
 			Failure("Stub return value not specified for getPlatform(platformId: Int). Use given")
+		}
+		return __value
+    }
+
+    open func get(storageArea: String) -> Result<StorageArea?, DatabaseError> {
+        addInvocation(.m_get__storageArea_storageArea(Parameter<String>.value(`storageArea`)))
+		let perform = methodPerformValue(.m_get__storageArea_storageArea(Parameter<String>.value(`storageArea`))) as? (String) -> Void
+		perform?(`storageArea`)
+		var __value: Result<StorageArea?, DatabaseError>
+		do {
+		    __value = try methodReturnValue(.m_get__storageArea_storageArea(Parameter<String>.value(`storageArea`))).casted()
+		} catch {
+			onFatalFailure("Stub return value not specified for get(storageArea: String). Use given")
+			Failure("Stub return value not specified for get(storageArea: String). Use given")
 		}
 		return __value
     }
@@ -4138,6 +4165,20 @@ open class LocalDatabaseMock: LocalDatabase, Mock {
 		return __value
     }
 
+    open func fetchAllStorageAreas() -> Result<[String], DatabaseError> {
+        addInvocation(.m_fetchAllStorageAreas)
+		let perform = methodPerformValue(.m_fetchAllStorageAreas) as? () -> Void
+		perform?()
+		var __value: Result<[String], DatabaseError>
+		do {
+		    __value = try methodReturnValue(.m_fetchAllStorageAreas).casted()
+		} catch {
+			onFatalFailure("Stub return value not specified for fetchAllStorageAreas(). Use given")
+			Failure("Stub return value not specified for fetchAllStorageAreas(). Use given")
+		}
+		return __value
+    }
+
     open func replace(savedGame: SavedGame) -> DatabaseError? {
         addInvocation(.m_replace__savedGame_savedGame(Parameter<SavedGame>.value(`savedGame`)))
 		let perform = methodPerformValue(.m_replace__savedGame_savedGame(Parameter<SavedGame>.value(`savedGame`))) as? (SavedGame) -> Void
@@ -4145,6 +4186,19 @@ open class LocalDatabaseMock: LocalDatabase, Mock {
 		var __value: DatabaseError? = nil
 		do {
 		    __value = try methodReturnValue(.m_replace__savedGame_savedGame(Parameter<SavedGame>.value(`savedGame`))).casted()
+		} catch {
+			// do nothing
+		}
+		return __value
+    }
+
+    open func replaceStorageArea(oldValue: String, newValue: String) -> DatabaseError? {
+        addInvocation(.m_replaceStorageArea__oldValue_oldValuenewValue_newValue(Parameter<String>.value(`oldValue`), Parameter<String>.value(`newValue`)))
+		let perform = methodPerformValue(.m_replaceStorageArea__oldValue_oldValuenewValue_newValue(Parameter<String>.value(`oldValue`), Parameter<String>.value(`newValue`))) as? (String, String) -> Void
+		perform?(`oldValue`, `newValue`)
+		var __value: DatabaseError? = nil
+		do {
+		    __value = try methodReturnValue(.m_replaceStorageArea__oldValue_oldValuenewValue_newValue(Parameter<String>.value(`oldValue`), Parameter<String>.value(`newValue`))).casted()
 		} catch {
 			// do nothing
 		}
@@ -4177,6 +4231,19 @@ open class LocalDatabaseMock: LocalDatabase, Mock {
 		return __value
     }
 
+    open func remove(storageArea: String) -> DatabaseError? {
+        addInvocation(.m_remove__storageArea_storageArea(Parameter<String>.value(`storageArea`)))
+		let perform = methodPerformValue(.m_remove__storageArea_storageArea(Parameter<String>.value(`storageArea`))) as? (String) -> Void
+		perform?(`storageArea`)
+		var __value: DatabaseError? = nil
+		do {
+		    __value = try methodReturnValue(.m_remove__storageArea_storageArea(Parameter<String>.value(`storageArea`))).casted()
+		} catch {
+			// do nothing
+		}
+		return __value
+    }
+
     open func removeAll() -> DatabaseError? {
         addInvocation(.m_removeAll)
 		let perform = methodPerformValue(.m_removeAll) as? () -> Void
@@ -4193,11 +4260,16 @@ open class LocalDatabaseMock: LocalDatabase, Mock {
 
     fileprivate enum MethodType {
         case m_add__newEntity_newEntityplatform_platform(Parameter<SavedGame>, Parameter<Platform>)
+        case m_add__storageArea_storageArea(Parameter<String>)
         case m_getPlatform__platformId_platformId(Parameter<Int>)
+        case m_get__storageArea_storageArea(Parameter<String>)
         case m_fetchAllPlatforms
+        case m_fetchAllStorageAreas
         case m_replace__savedGame_savedGame(Parameter<SavedGame>)
+        case m_replaceStorageArea__oldValue_oldValuenewValue_newValue(Parameter<String>, Parameter<String>)
         case m_remove__savedGame_savedGame(Parameter<SavedGame>)
         case m_remove__platform_platform(Parameter<Platform>)
+        case m_remove__storageArea_storageArea(Parameter<String>)
         case m_removeAll
 
         static func compareParameters(lhs: MethodType, rhs: MethodType, matcher: Matcher) -> Matcher.ComparisonResult {
@@ -4208,16 +4280,34 @@ open class LocalDatabaseMock: LocalDatabase, Mock {
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsPlatform, rhs: rhsPlatform, with: matcher), lhsPlatform, rhsPlatform, "platform"))
 				return Matcher.ComparisonResult(results)
 
+            case (.m_add__storageArea_storageArea(let lhsStoragearea), .m_add__storageArea_storageArea(let rhsStoragearea)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsStoragearea, rhs: rhsStoragearea, with: matcher), lhsStoragearea, rhsStoragearea, "storageArea"))
+				return Matcher.ComparisonResult(results)
+
             case (.m_getPlatform__platformId_platformId(let lhsPlatformid), .m_getPlatform__platformId_platformId(let rhsPlatformid)):
 				var results: [Matcher.ParameterComparisonResult] = []
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsPlatformid, rhs: rhsPlatformid, with: matcher), lhsPlatformid, rhsPlatformid, "platformId"))
 				return Matcher.ComparisonResult(results)
 
+            case (.m_get__storageArea_storageArea(let lhsStoragearea), .m_get__storageArea_storageArea(let rhsStoragearea)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsStoragearea, rhs: rhsStoragearea, with: matcher), lhsStoragearea, rhsStoragearea, "storageArea"))
+				return Matcher.ComparisonResult(results)
+
             case (.m_fetchAllPlatforms, .m_fetchAllPlatforms): return .match
+
+            case (.m_fetchAllStorageAreas, .m_fetchAllStorageAreas): return .match
 
             case (.m_replace__savedGame_savedGame(let lhsSavedgame), .m_replace__savedGame_savedGame(let rhsSavedgame)):
 				var results: [Matcher.ParameterComparisonResult] = []
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsSavedgame, rhs: rhsSavedgame, with: matcher), lhsSavedgame, rhsSavedgame, "savedGame"))
+				return Matcher.ComparisonResult(results)
+
+            case (.m_replaceStorageArea__oldValue_oldValuenewValue_newValue(let lhsOldvalue, let lhsNewvalue), .m_replaceStorageArea__oldValue_oldValuenewValue_newValue(let rhsOldvalue, let rhsNewvalue)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsOldvalue, rhs: rhsOldvalue, with: matcher), lhsOldvalue, rhsOldvalue, "oldValue"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsNewvalue, rhs: rhsNewvalue, with: matcher), lhsNewvalue, rhsNewvalue, "newValue"))
 				return Matcher.ComparisonResult(results)
 
             case (.m_remove__savedGame_savedGame(let lhsSavedgame), .m_remove__savedGame_savedGame(let rhsSavedgame)):
@@ -4230,6 +4320,11 @@ open class LocalDatabaseMock: LocalDatabase, Mock {
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsPlatform, rhs: rhsPlatform, with: matcher), lhsPlatform, rhsPlatform, "platform"))
 				return Matcher.ComparisonResult(results)
 
+            case (.m_remove__storageArea_storageArea(let lhsStoragearea), .m_remove__storageArea_storageArea(let rhsStoragearea)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsStoragearea, rhs: rhsStoragearea, with: matcher), lhsStoragearea, rhsStoragearea, "storageArea"))
+				return Matcher.ComparisonResult(results)
+
             case (.m_removeAll, .m_removeAll): return .match
             default: return .none
             }
@@ -4238,22 +4333,32 @@ open class LocalDatabaseMock: LocalDatabase, Mock {
         func intValue() -> Int {
             switch self {
             case let .m_add__newEntity_newEntityplatform_platform(p0, p1): return p0.intValue + p1.intValue
+            case let .m_add__storageArea_storageArea(p0): return p0.intValue
             case let .m_getPlatform__platformId_platformId(p0): return p0.intValue
+            case let .m_get__storageArea_storageArea(p0): return p0.intValue
             case .m_fetchAllPlatforms: return 0
+            case .m_fetchAllStorageAreas: return 0
             case let .m_replace__savedGame_savedGame(p0): return p0.intValue
+            case let .m_replaceStorageArea__oldValue_oldValuenewValue_newValue(p0, p1): return p0.intValue + p1.intValue
             case let .m_remove__savedGame_savedGame(p0): return p0.intValue
             case let .m_remove__platform_platform(p0): return p0.intValue
+            case let .m_remove__storageArea_storageArea(p0): return p0.intValue
             case .m_removeAll: return 0
             }
         }
         func assertionName() -> String {
             switch self {
             case .m_add__newEntity_newEntityplatform_platform: return ".add(newEntity:platform:)"
+            case .m_add__storageArea_storageArea: return ".add(storageArea:)"
             case .m_getPlatform__platformId_platformId: return ".getPlatform(platformId:)"
+            case .m_get__storageArea_storageArea: return ".get(storageArea:)"
             case .m_fetchAllPlatforms: return ".fetchAllPlatforms()"
+            case .m_fetchAllStorageAreas: return ".fetchAllStorageAreas()"
             case .m_replace__savedGame_savedGame: return ".replace(savedGame:)"
+            case .m_replaceStorageArea__oldValue_oldValuenewValue_newValue: return ".replaceStorageArea(oldValue:newValue:)"
             case .m_remove__savedGame_savedGame: return ".remove(savedGame:)"
             case .m_remove__platform_platform: return ".remove(platform:)"
+            case .m_remove__storageArea_storageArea: return ".remove(storageArea:)"
             case .m_removeAll: return ".removeAll()"
             }
         }
@@ -4271,20 +4376,35 @@ open class LocalDatabaseMock: LocalDatabase, Mock {
         public static func add(newEntity: Parameter<SavedGame>, platform: Parameter<Platform>, willReturn: DatabaseError?...) -> MethodStub {
             return Given(method: .m_add__newEntity_newEntityplatform_platform(`newEntity`, `platform`), products: willReturn.map({ StubProduct.return($0 as Any) }))
         }
+        public static func add(storageArea: Parameter<String>, willReturn: DatabaseError?...) -> MethodStub {
+            return Given(method: .m_add__storageArea_storageArea(`storageArea`), products: willReturn.map({ StubProduct.return($0 as Any) }))
+        }
         public static func getPlatform(platformId: Parameter<Int>, willReturn: Result<PlatformCollected?, DatabaseError>...) -> MethodStub {
             return Given(method: .m_getPlatform__platformId_platformId(`platformId`), products: willReturn.map({ StubProduct.return($0 as Any) }))
+        }
+        public static func get(storageArea: Parameter<String>, willReturn: Result<StorageArea?, DatabaseError>...) -> MethodStub {
+            return Given(method: .m_get__storageArea_storageArea(`storageArea`), products: willReturn.map({ StubProduct.return($0 as Any) }))
         }
         public static func fetchAllPlatforms(willReturn: Result<[PlatformCollected], DatabaseError>...) -> MethodStub {
             return Given(method: .m_fetchAllPlatforms, products: willReturn.map({ StubProduct.return($0 as Any) }))
         }
+        public static func fetchAllStorageAreas(willReturn: Result<[String], DatabaseError>...) -> MethodStub {
+            return Given(method: .m_fetchAllStorageAreas, products: willReturn.map({ StubProduct.return($0 as Any) }))
+        }
         public static func replace(savedGame: Parameter<SavedGame>, willReturn: DatabaseError?...) -> MethodStub {
             return Given(method: .m_replace__savedGame_savedGame(`savedGame`), products: willReturn.map({ StubProduct.return($0 as Any) }))
+        }
+        public static func replaceStorageArea(oldValue: Parameter<String>, newValue: Parameter<String>, willReturn: DatabaseError?...) -> MethodStub {
+            return Given(method: .m_replaceStorageArea__oldValue_oldValuenewValue_newValue(`oldValue`, `newValue`), products: willReturn.map({ StubProduct.return($0 as Any) }))
         }
         public static func remove(savedGame: Parameter<SavedGame>, willReturn: DatabaseError?...) -> MethodStub {
             return Given(method: .m_remove__savedGame_savedGame(`savedGame`), products: willReturn.map({ StubProduct.return($0 as Any) }))
         }
         public static func remove(platform: Parameter<Platform>, willReturn: DatabaseError?...) -> MethodStub {
             return Given(method: .m_remove__platform_platform(`platform`), products: willReturn.map({ StubProduct.return($0 as Any) }))
+        }
+        public static func remove(storageArea: Parameter<String>, willReturn: DatabaseError?...) -> MethodStub {
+            return Given(method: .m_remove__storageArea_storageArea(`storageArea`), products: willReturn.map({ StubProduct.return($0 as Any) }))
         }
         public static func removeAll(willReturn: DatabaseError?...) -> MethodStub {
             return Given(method: .m_removeAll, products: willReturn.map({ StubProduct.return($0 as Any) }))
@@ -4296,10 +4416,24 @@ open class LocalDatabaseMock: LocalDatabase, Mock {
 			willProduce(stubber)
 			return given
         }
+        public static func add(storageArea: Parameter<String>, willProduce: (Stubber<DatabaseError?>) -> Void) -> MethodStub {
+            let willReturn: [DatabaseError?] = []
+			let given: Given = { return Given(method: .m_add__storageArea_storageArea(`storageArea`), products: willReturn.map({ StubProduct.return($0 as Any) })) }()
+			let stubber = given.stub(for: (DatabaseError?).self)
+			willProduce(stubber)
+			return given
+        }
         public static func getPlatform(platformId: Parameter<Int>, willProduce: (Stubber<Result<PlatformCollected?, DatabaseError>>) -> Void) -> MethodStub {
             let willReturn: [Result<PlatformCollected?, DatabaseError>] = []
 			let given: Given = { return Given(method: .m_getPlatform__platformId_platformId(`platformId`), products: willReturn.map({ StubProduct.return($0 as Any) })) }()
 			let stubber = given.stub(for: (Result<PlatformCollected?, DatabaseError>).self)
+			willProduce(stubber)
+			return given
+        }
+        public static func get(storageArea: Parameter<String>, willProduce: (Stubber<Result<StorageArea?, DatabaseError>>) -> Void) -> MethodStub {
+            let willReturn: [Result<StorageArea?, DatabaseError>] = []
+			let given: Given = { return Given(method: .m_get__storageArea_storageArea(`storageArea`), products: willReturn.map({ StubProduct.return($0 as Any) })) }()
+			let stubber = given.stub(for: (Result<StorageArea?, DatabaseError>).self)
 			willProduce(stubber)
 			return given
         }
@@ -4310,9 +4444,23 @@ open class LocalDatabaseMock: LocalDatabase, Mock {
 			willProduce(stubber)
 			return given
         }
+        public static func fetchAllStorageAreas(willProduce: (Stubber<Result<[String], DatabaseError>>) -> Void) -> MethodStub {
+            let willReturn: [Result<[String], DatabaseError>] = []
+			let given: Given = { return Given(method: .m_fetchAllStorageAreas, products: willReturn.map({ StubProduct.return($0 as Any) })) }()
+			let stubber = given.stub(for: (Result<[String], DatabaseError>).self)
+			willProduce(stubber)
+			return given
+        }
         public static func replace(savedGame: Parameter<SavedGame>, willProduce: (Stubber<DatabaseError?>) -> Void) -> MethodStub {
             let willReturn: [DatabaseError?] = []
 			let given: Given = { return Given(method: .m_replace__savedGame_savedGame(`savedGame`), products: willReturn.map({ StubProduct.return($0 as Any) })) }()
+			let stubber = given.stub(for: (DatabaseError?).self)
+			willProduce(stubber)
+			return given
+        }
+        public static func replaceStorageArea(oldValue: Parameter<String>, newValue: Parameter<String>, willProduce: (Stubber<DatabaseError?>) -> Void) -> MethodStub {
+            let willReturn: [DatabaseError?] = []
+			let given: Given = { return Given(method: .m_replaceStorageArea__oldValue_oldValuenewValue_newValue(`oldValue`, `newValue`), products: willReturn.map({ StubProduct.return($0 as Any) })) }()
 			let stubber = given.stub(for: (DatabaseError?).self)
 			willProduce(stubber)
 			return given
@@ -4331,6 +4479,13 @@ open class LocalDatabaseMock: LocalDatabase, Mock {
 			willProduce(stubber)
 			return given
         }
+        public static func remove(storageArea: Parameter<String>, willProduce: (Stubber<DatabaseError?>) -> Void) -> MethodStub {
+            let willReturn: [DatabaseError?] = []
+			let given: Given = { return Given(method: .m_remove__storageArea_storageArea(`storageArea`), products: willReturn.map({ StubProduct.return($0 as Any) })) }()
+			let stubber = given.stub(for: (DatabaseError?).self)
+			willProduce(stubber)
+			return given
+        }
         public static func removeAll(willProduce: (Stubber<DatabaseError?>) -> Void) -> MethodStub {
             let willReturn: [DatabaseError?] = []
 			let given: Given = { return Given(method: .m_removeAll, products: willReturn.map({ StubProduct.return($0 as Any) })) }()
@@ -4344,11 +4499,16 @@ open class LocalDatabaseMock: LocalDatabase, Mock {
         fileprivate var method: MethodType
 
         public static func add(newEntity: Parameter<SavedGame>, platform: Parameter<Platform>) -> Verify { return Verify(method: .m_add__newEntity_newEntityplatform_platform(`newEntity`, `platform`))}
+        public static func add(storageArea: Parameter<String>) -> Verify { return Verify(method: .m_add__storageArea_storageArea(`storageArea`))}
         public static func getPlatform(platformId: Parameter<Int>) -> Verify { return Verify(method: .m_getPlatform__platformId_platformId(`platformId`))}
+        public static func get(storageArea: Parameter<String>) -> Verify { return Verify(method: .m_get__storageArea_storageArea(`storageArea`))}
         public static func fetchAllPlatforms() -> Verify { return Verify(method: .m_fetchAllPlatforms)}
+        public static func fetchAllStorageAreas() -> Verify { return Verify(method: .m_fetchAllStorageAreas)}
         public static func replace(savedGame: Parameter<SavedGame>) -> Verify { return Verify(method: .m_replace__savedGame_savedGame(`savedGame`))}
+        public static func replaceStorageArea(oldValue: Parameter<String>, newValue: Parameter<String>) -> Verify { return Verify(method: .m_replaceStorageArea__oldValue_oldValuenewValue_newValue(`oldValue`, `newValue`))}
         public static func remove(savedGame: Parameter<SavedGame>) -> Verify { return Verify(method: .m_remove__savedGame_savedGame(`savedGame`))}
         public static func remove(platform: Parameter<Platform>) -> Verify { return Verify(method: .m_remove__platform_platform(`platform`))}
+        public static func remove(storageArea: Parameter<String>) -> Verify { return Verify(method: .m_remove__storageArea_storageArea(`storageArea`))}
         public static func removeAll() -> Verify { return Verify(method: .m_removeAll)}
     }
 
@@ -4359,20 +4519,35 @@ open class LocalDatabaseMock: LocalDatabase, Mock {
         public static func add(newEntity: Parameter<SavedGame>, platform: Parameter<Platform>, perform: @escaping (SavedGame, Platform) -> Void) -> Perform {
             return Perform(method: .m_add__newEntity_newEntityplatform_platform(`newEntity`, `platform`), performs: perform)
         }
+        public static func add(storageArea: Parameter<String>, perform: @escaping (String) -> Void) -> Perform {
+            return Perform(method: .m_add__storageArea_storageArea(`storageArea`), performs: perform)
+        }
         public static func getPlatform(platformId: Parameter<Int>, perform: @escaping (Int) -> Void) -> Perform {
             return Perform(method: .m_getPlatform__platformId_platformId(`platformId`), performs: perform)
+        }
+        public static func get(storageArea: Parameter<String>, perform: @escaping (String) -> Void) -> Perform {
+            return Perform(method: .m_get__storageArea_storageArea(`storageArea`), performs: perform)
         }
         public static func fetchAllPlatforms(perform: @escaping () -> Void) -> Perform {
             return Perform(method: .m_fetchAllPlatforms, performs: perform)
         }
+        public static func fetchAllStorageAreas(perform: @escaping () -> Void) -> Perform {
+            return Perform(method: .m_fetchAllStorageAreas, performs: perform)
+        }
         public static func replace(savedGame: Parameter<SavedGame>, perform: @escaping (SavedGame) -> Void) -> Perform {
             return Perform(method: .m_replace__savedGame_savedGame(`savedGame`), performs: perform)
+        }
+        public static func replaceStorageArea(oldValue: Parameter<String>, newValue: Parameter<String>, perform: @escaping (String, String) -> Void) -> Perform {
+            return Perform(method: .m_replaceStorageArea__oldValue_oldValuenewValue_newValue(`oldValue`, `newValue`), performs: perform)
         }
         public static func remove(savedGame: Parameter<SavedGame>, perform: @escaping (SavedGame) -> Void) -> Perform {
             return Perform(method: .m_remove__savedGame_savedGame(`savedGame`), performs: perform)
         }
         public static func remove(platform: Parameter<Platform>, perform: @escaping (Platform) -> Void) -> Perform {
             return Perform(method: .m_remove__platform_platform(`platform`), performs: perform)
+        }
+        public static func remove(storageArea: Parameter<String>, perform: @escaping (String) -> Void) -> Perform {
+            return Perform(method: .m_remove__storageArea_storageArea(`storageArea`), performs: perform)
         }
         public static func removeAll(perform: @escaping () -> Void) -> Perform {
             return Perform(method: .m_removeAll, performs: perform)

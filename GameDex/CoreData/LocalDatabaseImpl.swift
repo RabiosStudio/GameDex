@@ -129,7 +129,7 @@ extension LocalDatabaseImpl {
             gameToReplace.gameRegion = savedGame.gameRegion?.rawValue
             gameToReplace.lastUpdated = savedGame.lastUpdated
             gameToReplace.notes = savedGame.notes
-            gameToReplace.rating = Int16(savedGame.rating ?? .zero)
+            gameToReplace.rating = Int16(savedGame.rating)
             gameToReplace.storageArea = savedGame.storageArea
             gameToReplace.isPhysical = savedGame.isPhysical
             
@@ -219,6 +219,84 @@ extension LocalDatabaseImpl {
                 return DatabaseError.removeError
             }
         case .failure(_):
+            return DatabaseError.removeError
+        }
+    }
+    
+    func add(storageArea: String) async -> DatabaseError? {
+        let _ = CoreDataConverter.convert(storageAreaName: storageArea, context: self.managedObjectContext)
+        guard await self.coreDataStack.saveContext(self.managedObjectContext) == nil else {
+            return DatabaseError.saveError
+        }
+        return nil
+    }
+    
+    func get(storageArea: String) -> Result<StorageArea?, DatabaseError> {
+        let fetchRequest: NSFetchRequest<StorageArea>
+        fetchRequest = StorageArea.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "name == %@", storageArea)
+        do {
+            let results = try self.managedObjectContext.fetch(fetchRequest)
+            guard let storageAreaName = results.first else {
+                return .success(nil)
+            }
+            return .success(storageAreaName)
+        } catch {
+            return .failure(DatabaseError.fetchError)
+        }
+    }
+    
+    func fetchAllStorageAreas() -> Result<[String], DatabaseError> {
+        let request: NSFetchRequest<StorageArea> = StorageArea.fetchRequest()
+        do {
+            let results = try managedObjectContext.fetch(request)
+            var storageAreas: [String] = []
+            for result in results {
+                let storageArea = CoreDataConverter.convert(storageArea: result)
+                storageAreas.append(storageArea)
+            }
+            return .success(storageAreas)
+        } catch {
+            return .failure(DatabaseError.fetchError)
+        }
+    }
+    
+    func replaceStorageArea(oldValue: String, newValue: String) async -> DatabaseError? {
+        let storageAreaResult = self.get(storageArea: oldValue)
+        switch storageAreaResult {
+        case let .success(storageAreaToReplace):
+            guard let storageAreaToReplace else {
+                return DatabaseError.fetchError
+            }
+            storageAreaToReplace.name = newValue
+            // Save the context
+            guard await self.coreDataStack.saveContext(self.managedObjectContext) == nil else {
+                return DatabaseError.saveError
+            }
+            return nil
+        case let .failure(error):
+            return error
+        }
+    }
+    
+    func remove(storageArea: String) async -> DatabaseError? {
+        // Remove the object in the following context
+        let storageAreaResult = self.get(storageArea: storageArea)
+        
+        switch storageAreaResult {
+        case let .success(storageAreaToRemove):
+            guard let storageAreaToRemove else {
+                return DatabaseError.removeError
+            }
+            // Delete the object and save context
+            self.managedObjectContext.delete(storageAreaToRemove)
+            do {
+                try managedObjectContext.save()
+                return nil
+            } catch {
+                return DatabaseError.removeError
+            }
+        case .failure:
             return DatabaseError.removeError
         }
     }
