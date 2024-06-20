@@ -105,7 +105,6 @@ final class GameDetailsSection: Section {
                         storageAreas: ["storage area 1", "storage area 2", "storage area 3"],
                         formDelegate: formDelegate
                     )
-                    
                     Routing.shared.route(
                         navigationStyle: .push(
                             screenFactory: screenFactory

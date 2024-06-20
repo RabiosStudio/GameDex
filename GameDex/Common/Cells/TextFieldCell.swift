@@ -77,10 +77,6 @@ final class TextFieldCell: UICollectionViewCell, CellConfigurable {
             self.textField.inputView = pickerView
         }
         
-        if !cellVM.isEditable {
-            self.textField.isUserInteractionEnabled = false
-        }
-        
         if cellVM.formType.enableSecureTextEntry {
             self.textField.isSecureTextEntry = true
             self.textField.enableEntryVisibilityToggle()
@@ -125,6 +121,16 @@ extension TextFieldCell: UITextFieldDelegate {
             return
         }
         self.storeEntry(with: text)
+    }
+    
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        guard let cellVM = self.cellVM else {
+            return true
+        }
+        if !cellVM.isEditable {
+            cellVM.cellTappedCallback?()
+        }
+        return cellVM.isEditable
     }
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
