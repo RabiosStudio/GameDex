@@ -25,6 +25,7 @@
 "errorSyncCloudAndLocalDatabases" = "Une erreur est survenue lors de la synchronisation de votre collection en sur votre appareil. Votre connexion pourrait ne pas être à jour jusqu'à votre prochaine connexion.";
 "errorSavingStorageArea" = "Une erreur est survenue lors de la sauvegarde du nouveau lieu de stockage.";
 "errorUpdatingStorageArea" = "Une erreur est survenue lors de la mise à jour du lieu de stockage.";
+"errorDeletingStorageArea" = "Une erreur est survenue lors de la suppression du lieu de stockage.";
 
 // Success
 "successTitle" = "Succès";
@@ -38,6 +39,7 @@
 "successSendingPasswordResetEmail" = "Email de réinitialisation du mot de passe envoyé avec succès.";
 "successSavingStorageArea" = "Le nouveau lieu de stockage a bien été enregistré.";
 "successUpdatingStorageArea" = "Le lieu de stockage a bien été mis à jour.";
+"successDeletingStorageArea" = "Le lieu de stockage a bien été supprimé.";
 
 // Warnings
 "warningTitle" = "Un instant !";

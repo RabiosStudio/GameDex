@@ -26,6 +26,7 @@
 "errorSyncCloudAndLocalDatabases" = "An error while synchronizing your collection in local. Your database might not be up to date until your next login session.";
 "errorSavingStorageArea" = "An error occured while saving new storage area.";
 "errorUpdatingStorageArea" = "An error occured while updating storage area value.";
+"errorDeletingStorageArea" = "An error occured while deleting storage area.";
 
 // Success
 "successTitle" = "Success";
@@ -39,6 +40,7 @@
 "successSendingPasswordResetEmail" = "Password reset email sent";
 "successSavingStorageArea" = "The new storage area was saved successfully.";
 "successUpdatingStorageArea" = "The storage area was successfully updated";
+"successDeletingStorageArea" = "The storage area was successfully deleted";
 
 // Warnings
 "warningTitle" = "One moment!";

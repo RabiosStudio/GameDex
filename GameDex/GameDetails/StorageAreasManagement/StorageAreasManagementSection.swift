@@ -52,7 +52,7 @@ final class StorageAreasManagementSection: Section {
                     self.setupLabelCellViewModel(with: storageArea, storageAreaManagementDelegate: storageAreaManagementDelegate)
                 }
             }
-        case .none:
+        default:
             for storageArea in sortedStorageAreas {
                 self.setupLabelCellViewModel(with: storageArea, storageAreaManagementDelegate: storageAreaManagementDelegate)
             }

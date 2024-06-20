@@ -28,6 +28,7 @@ final class StorageAreasManagementViewModel: CollectionViewModel {
     private var context: StorageAreasManagementContext?
     private let localDatabase: LocalDatabase
     private let authenticationService: AuthenticationService
+    private var selectedStorageArea: String?
     
     weak var containerDelegate: ContainerViewControllerDelegate?
     weak var alertDelegate: AlertDisplayerDelegate?
@@ -84,7 +85,22 @@ final class StorageAreasManagementViewModel: CollectionViewModel {
 
 extension StorageAreasManagementViewModel: AlertDisplayerDelegate {
     func didTapOkButton() async {
-        print("OK button tapped in alert")
+        guard let storageAreaToRemove = self.selectedStorageArea else {
+            return
+        }
+        guard let userId = self.authenticationService.getUserId() else {
+            guard await self.localDatabase.remove(storageArea: storageAreaToRemove) == nil else {
+                self.displayAlert(success: false)
+                return
+            }
+            for (index, item) in self.storageAreas.enumerated() {
+                if storageAreaToRemove == item {
+                    self.storageAreas.remove(at: index)
+                }
+            }
+            self.handleSuccess()
+            return
+        }
     }
 }
 
@@ -125,6 +141,8 @@ private extension StorageAreasManagementViewModel {
             alertText = success ? L10n.successSavingStorageArea : L10n.errorSavingStorageArea
         case .edit:
             alertText = success ? L10n.successUpdatingStorageArea : L10n.errorUpdatingStorageArea
+        case .delete:
+            alertText = success ? L10n.successDeletingStorageArea : L10n.errorDeletingStorageArea
         default:
             return
         }
@@ -136,7 +154,7 @@ private extension StorageAreasManagementViewModel {
         )
     }
     
-    func handleSuccessNewStorageAreaValue() {
+    func handleSuccess() {
         self.displayAlert(success: true)
         self.context = nil
         self.updateSections(with: self.storageAreas, context: self.context)
@@ -158,6 +176,11 @@ extension StorageAreasManagementViewModel: StorageAreasManagementDelegate {
     }
     
     func delete(value: Any) {
+        guard let value = value as? String else {
+            return
+        }
+        self.context = .delete
+        self.selectedStorageArea = value
         self.presentAlertBeforeDeletingStorageArea()
     }
     
@@ -190,14 +213,14 @@ extension StorageAreasManagementViewModel: FormDelegate {
                         self.storageAreas.insert(value, at: index)
                     }
                 }
-                self.handleSuccessNewStorageAreaValue()
+                self.handleSuccess()
             case .add:
                 guard await self.localDatabase.add(storageArea: value) == nil else {
                     self.displayAlert(success: false)
                     return
                 }
                 self.storageAreas.append(value)
-                self.handleSuccessNewStorageAreaValue()
+                self.handleSuccess()
             default:
                 break
             }

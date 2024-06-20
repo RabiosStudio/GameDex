@@ -10,4 +10,5 @@ import Foundation
 enum StorageAreasManagementContext: Equatable {
     case add
     case edit(storageArea: String)
+    case delete
 }
