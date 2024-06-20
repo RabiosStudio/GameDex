@@ -8,6 +8,10 @@
 import Foundation
 import UIKit
 
+protocol StorageAreaManagementDelegate: ObjectManagementDelegate {
+    func select(storageArea: String)
+}
+
 final class StorageAreaManagementViewModel: CollectionViewModel {
     var searchViewModel: SearchViewModel?
     var isBounceable: Bool = true
@@ -23,16 +27,19 @@ final class StorageAreaManagementViewModel: CollectionViewModel {
     
     weak var containerDelegate: ContainerViewControllerDelegate?
     weak var alertDelegate: AlertDisplayerDelegate?
+    weak var formDelegate: FormDelegate?
     
     init(
         storageAreas: [String],
-        alertDisplayer: AlertDisplayer
+        alertDisplayer: AlertDisplayer,
+        formDelegate: FormDelegate?
     ) {
         self.screenTitle = L10n.selectStorageArea
         self.buttonItems = [.add]
         self.storageAreas = storageAreas
         self.alertDisplayer = alertDisplayer
         self.alertDisplayer.alertDelegate = self
+        self.formDelegate = formDelegate
     }
     
     func loadData(callback: @escaping (EmptyError?) -> ()) {
@@ -68,7 +75,7 @@ private extension StorageAreaManagementViewModel {
     func updateSections(with storageAreas: [String]) {
         self.sections = [StorageAreaManagementSection(
             storageAreas: storageAreas,
-            objectManagementDelegate: self
+            storageAreaManagementDelegate: self
         )]
     }
     
@@ -82,7 +89,13 @@ private extension StorageAreaManagementViewModel {
     }
 }
 
-extension StorageAreaManagementViewModel: ObjectManagementDelegate {
+extension StorageAreaManagementViewModel: StorageAreaManagementDelegate {
+    func select(storageArea: String) {
+        self.formDelegate?.didUpdate(value: storageArea, for: GameFormType.storageArea)
+        self.formDelegate?.refreshSections()
+        self.containerDelegate?.goBackToPreviousScreen()
+    }
+    
     func edit() {
         print("edit button tapped")
     }

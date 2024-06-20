@@ -11,7 +11,7 @@ final class StorageAreaManagementSection: Section {
     
     init(
         storageAreas: [String],
-        objectManagementDelegate: ObjectManagementDelegate?
+        storageAreaManagementDelegate: StorageAreaManagementDelegate?
     ) {
         super.init()
         self.position = 0
@@ -21,9 +21,9 @@ final class StorageAreaManagementSection: Section {
                 text: storageArea,
                 isEditable: true,
                 isDeletable: true,
-                objectManagementDelegate: objectManagementDelegate,
+                objectManagementDelegate: storageAreaManagementDelegate,
                 cellTappedCallback: {
-                    print("cell tapped : \(storageArea)")
+                    storageAreaManagementDelegate?.select(storageArea: storageArea)
                 }
             )
             self.cellsVM.append(storageAreaCellVM)

@@ -101,7 +101,10 @@ final class GameDetailsSection: Section {
                 isEditable: false,
                 formDelegate: formDelegate,
                 cellTappedCallback: {
-                    let screenFactory = StorageAreaManagementScreenFactory(storageAreas: ["storage area 1", "storage area 2", "storage area 3"])
+                    let screenFactory = StorageAreaManagementScreenFactory(
+                        storageAreas: ["storage area 1", "storage area 2", "storage area 3"],
+                        formDelegate: formDelegate
+                    )
                     
                     Routing.shared.route(
                         navigationStyle: .push(
