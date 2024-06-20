@@ -26,19 +26,24 @@ final class StorageAreasManagementViewModel: CollectionViewModel {
     private var storageAreas: [String]
     private var alertDisplayer: AlertDisplayer
     private var context: StorageAreasManagementContext?
+    private let localDatabase: LocalDatabase
+    private let authenticationService: AuthenticationService
     
     weak var containerDelegate: ContainerViewControllerDelegate?
     weak var alertDelegate: AlertDisplayerDelegate?
     weak var formDelegate: FormDelegate?
     
     init(
-        storageAreas: [String],
+        localDatabase: LocalDatabase,
+        authenticationService: AuthenticationService,
         alertDisplayer: AlertDisplayer,
         formDelegate: FormDelegate?
     ) {
         self.screenTitle = L10n.selectStorageArea
         self.buttonItems = [.add]
-        self.storageAreas = storageAreas
+        self.storageAreas = []
+        self.localDatabase = localDatabase
+        self.authenticationService = authenticationService
         self.alertDisplayer = alertDisplayer
         self.alertDisplayer.alertDelegate = self
         self.formDelegate = formDelegate
@@ -46,7 +51,22 @@ final class StorageAreasManagementViewModel: CollectionViewModel {
     }
     
     func loadData(callback: @escaping (EmptyError?) -> ()) {
-        self.updateSections(with: self.storageAreas, context: self.context)
+        guard let userId = self.authenticationService.getUserId() else {
+            let storageAreaFetched = self.localDatabase.fetchAllStorageAreas()
+            switch storageAreaFetched {
+            case let .success(storageAreas):
+                guard !storageAreas.isEmpty else {
+                    callback(MyCollectionError.noItems(delegate: nil))
+                    return
+                }
+                self.storageAreas = storageAreas
+                self.updateSections(with: self.storageAreas, context: self.context)
+                callback(nil)
+            case .failure:
+                callback(MyCollectionError.fetchError)
+            }
+            return
+        }
         callback(nil)
     }
     
