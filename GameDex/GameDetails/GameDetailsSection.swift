@@ -98,7 +98,17 @@ final class GameDetailsSection: Section {
                 placeholder: L10n.storageArea,
                 formType: GameFormType.storageArea,
                 value: gameForm.storageArea,
-                formDelegate: formDelegate
+                isEditable: false,
+                formDelegate: formDelegate,
+                cellTappedCallback: {
+                    let screenFactory = StorageAreaManagementScreenFactory(storageAreas: ["storage area 1", "storage area 2", "storage area 3"])
+                    
+                    Routing.shared.route(
+                        navigationStyle: .push(
+                            screenFactory: screenFactory
+                        )
+                    )
+                }
             )
             self.cellsVM.append(storageAreaCellVM)
         }

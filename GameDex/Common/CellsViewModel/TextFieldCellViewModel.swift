@@ -22,18 +22,23 @@ final class TextFieldCellViewModel: CollectionFormCellViewModel {
             self.formDelegate?.didUpdate(value: self.value as Any, for: self.formType)
         }
     }
+    let isEditable: Bool
     
     weak var formDelegate: FormDelegate?
     
     init(placeholder: String,
          formType: FormType,
          value: String? = nil,
-         formDelegate: FormDelegate? = nil
+         isEditable: Bool = true,
+         formDelegate: FormDelegate? = nil,
+         cellTappedCallback: (() -> Void)? = nil
     ) {
         self.placeholder = placeholder
         self.formType = formType
         self.value = value
+        self.isEditable = isEditable
         self.formDelegate = formDelegate
+        self.cellTappedCallback = cellTappedCallback
     }
     
 }

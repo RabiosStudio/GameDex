@@ -77,6 +77,10 @@ final class TextFieldCell: UICollectionViewCell, CellConfigurable {
             self.textField.inputView = pickerView
         }
         
+        if !cellVM.isEditable {
+            self.textField.isUserInteractionEnabled = false
+        }
+        
         if cellVM.formType.enableSecureTextEntry {
             self.textField.isSecureTextEntry = true
             self.textField.enableEntryVisibilityToggle()
