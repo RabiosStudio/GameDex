@@ -10,7 +10,7 @@ import UIKit
 import DTTextField
 
 final class TextFieldCell: UICollectionViewCell, CellConfigurable {
-    
+    var didTapClearButton = false
     private lazy var textField: DTTextField = {
         let textField = DTTextField()
         textField.configure()
@@ -124,8 +124,10 @@ extension TextFieldCell: UITextFieldDelegate {
     }
     
     func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
-        guard let cellVM = self.cellVM else {
-            return true
+        guard let cellVM = self.cellVM,
+              self.didTapClearButton == false else {
+            self.didTapClearButton = false
+            return self.didTapClearButton
         }
         if !cellVM.isEditable {
             cellVM.cellTappedCallback?()
@@ -157,6 +159,7 @@ extension TextFieldCell: UITextFieldDelegate {
     }
     
     func textFieldShouldClear(_ textField: UITextField) -> Bool {
+        self.didTapClearButton = true
         self.storeEntry(with: nil)
         return true
     }
