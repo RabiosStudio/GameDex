@@ -20,9 +20,36 @@ final class LabelCell: UICollectionViewCell, CellConfigurable {
         return label
     }()
     
+    private lazy var deleteButton: UIButton = {
+        let button = UIButton()
+        let image = UIImage(systemName: "trash")!.withTintColor(.primaryColor, renderingMode: .alwaysOriginal)
+        button.setImage(image, for: .normal)
+        button.addTarget(self, action: #selector(didTapDeleteButton), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
+    private lazy var editButton: UIButton = {
+        let button = UIButton()
+        let image = UIImage(systemName: "pencil")!.withTintColor(.primaryColor, renderingMode: .alwaysOriginal)
+        button.setImage(image, for: .normal)
+        button.addTarget(self, action: #selector(didTapEditButton), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
+    private lazy var stackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.distribution = .fillEqually
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        return stackView
+    }()
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.contentView.addSubview(self.label)
+        self.contentView.addSubview(self.stackView)
     }
     
     required init?(coder: NSCoder) {
@@ -45,15 +72,35 @@ final class LabelCell: UICollectionViewCell, CellConfigurable {
             return
         }
         self.label.text = cellVM.text
+        if cellVM.isEditable {
+            self.stackView.addArrangedSubview(self.editButton)
+        }
+        if cellVM.isDeletable {
+            self.stackView.addArrangedSubview(self.deleteButton)
+        }
         self.setupConstraints()
+    }
+    
+    @objc private func didTapDeleteButton() {
+        print("delete button tapped")
+    }
+    
+    @objc private func didTapEditButton() {
+        print("edit button tapped")
     }
     
     private func setupConstraints() {
         NSLayoutConstraint.activate([
             self.label.topAnchor.constraint(equalTo: self.topAnchor),
             self.label.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: DesignSystem.paddingRegular),
-            self.label.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: DesignSystem.paddingRegular),
-            self.label.bottomAnchor.constraint(equalTo: self.bottomAnchor)
+            self.label.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+            
+            self.stackView.topAnchor.constraint(equalTo: self.topAnchor),
+            self.stackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: DesignSystem.paddingRegular),
+            self.stackView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+            self.stackView.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: DesignSystem.fractionalSizeVerySmall),
+            
+            self.label.trailingAnchor.constraint(equalTo: self.stackView.leadingAnchor, constant: DesignSystem.paddingRegular)
         ])
     }
     

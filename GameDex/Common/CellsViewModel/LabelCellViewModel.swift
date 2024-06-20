@@ -14,12 +14,18 @@ final class LabelCellViewModel: CollectionCellViewModel {
     var height: CGFloat = DesignSystem.sizeTiny
     
     var text: String
+    var isEditable: Bool
+    var isDeletable: Bool
     
     init(
         text: String,
+        isEditable: Bool = false,
+        isDeletable: Bool = false,
         cellTappedCallback: (() -> Void)? = nil
     ) {
         self.text = text
+        self.isEditable = isEditable
+        self.isDeletable = isDeletable
         self.cellTappedCallback = cellTappedCallback
     }
     
