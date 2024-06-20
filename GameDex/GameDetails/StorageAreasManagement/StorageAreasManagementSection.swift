@@ -1,5 +1,5 @@
 //
-//  StorageAreaManagementSection.swift
+//  StorageAreasManagementSection.swift
 //  GameDex
 //
 //  Created by Gabrielle Dalbera on 20/06/2024.
@@ -7,11 +7,11 @@
 
 import Foundation
 
-final class StorageAreaManagementSection: Section {
+final class StorageAreasManagementSection: Section {
     
     init(
         storageAreas: [String],
-        storageAreaManagementDelegate: StorageAreaManagementDelegate?
+        storageAreaManagementDelegate: StorageAreasManagementDelegate?
     ) {
         super.init()
         self.position = 0

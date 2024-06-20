@@ -1,5 +1,5 @@
 //
-//  StorageAreaManagementScreenFactory.swift
+//  StorageAreasManagementScreenFactory.swift
 //  GameDex
 //
 //  Created by Gabrielle Dalbera on 20/06/2024.
@@ -8,13 +8,13 @@
 import Foundation
 import UIKit
 
-struct StorageAreaManagementScreenFactory: ScreenFactory {
+struct StorageAreasManagementScreenFactory: ScreenFactory {
     
     private let storageAreas: [String]
     private weak var formDelegate: FormDelegate?
     
     var viewController: UIViewController {
-        let viewModel = StorageAreaManagementViewModel(
+        let viewModel = StorageAreasManagementViewModel(
             storageAreas: self.storageAreas,
             alertDisplayer: AlertDisplayerImpl(), 
             formDelegate: self.formDelegate

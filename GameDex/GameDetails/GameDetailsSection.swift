@@ -101,7 +101,7 @@ final class GameDetailsSection: Section {
                 isEditable: false,
                 formDelegate: formDelegate,
                 cellTappedCallback: {
-                    let screenFactory = StorageAreaManagementScreenFactory(
+                    let screenFactory = StorageAreasManagementScreenFactory(
                         storageAreas: ["storage area 1", "storage area 2", "storage area 3"],
                         formDelegate: formDelegate
                     )

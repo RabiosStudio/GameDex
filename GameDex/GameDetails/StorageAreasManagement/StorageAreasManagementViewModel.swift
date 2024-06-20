@@ -1,5 +1,5 @@
 //
-//  StorageAreaManagementViewModel.swift
+//  StorageAreasManagementViewModel.swift
 //  GameDex
 //
 //  Created by Gabrielle Dalbera on 20/06/2024.
@@ -8,11 +8,11 @@
 import Foundation
 import UIKit
 
-protocol StorageAreaManagementDelegate: ObjectManagementDelegate {
+protocol StorageAreasManagementDelegate: ObjectManagementDelegate {
     func select(storageArea: String)
 }
 
-final class StorageAreaManagementViewModel: CollectionViewModel {
+final class StorageAreasManagementViewModel: CollectionViewModel {
     var searchViewModel: SearchViewModel?
     var isBounceable: Bool = true
     var isRefreshable: Bool = false
@@ -57,13 +57,13 @@ final class StorageAreaManagementViewModel: CollectionViewModel {
     }
 }
 
-extension StorageAreaManagementViewModel: AlertDisplayerDelegate {
+extension StorageAreasManagementViewModel: AlertDisplayerDelegate {
     func didTapOkButton() async {
         print("OK button tapped in alert")
     }
 }
 
-private extension StorageAreaManagementViewModel {
+private extension StorageAreasManagementViewModel {
     func close() {
         Routing.shared.route(
             navigationStyle: .dismiss(
@@ -73,7 +73,7 @@ private extension StorageAreaManagementViewModel {
     }
     
     func updateSections(with storageAreas: [String]) {
-        self.sections = [StorageAreaManagementSection(
+        self.sections = [StorageAreasManagementSection(
             storageAreas: storageAreas,
             storageAreaManagementDelegate: self
         )]
@@ -89,7 +89,7 @@ private extension StorageAreaManagementViewModel {
     }
 }
 
-extension StorageAreaManagementViewModel: StorageAreaManagementDelegate {
+extension StorageAreasManagementViewModel: StorageAreasManagementDelegate {
     func select(storageArea: String) {
         self.formDelegate?.didUpdate(value: storageArea, for: GameFormType.storageArea)
         self.formDelegate?.refreshSections()
