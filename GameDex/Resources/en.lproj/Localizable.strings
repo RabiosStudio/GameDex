@@ -24,6 +24,8 @@
 "errorDeleteAccountDescription" = "Error deleting account";
 "errorSendingPasswordResetEmail" = "Error sending password reset email. Please check your email address.";
 "errorSyncCloudAndLocalDatabases" = "An error while synchronizing your collection in local. Your database might not be up to date until your next login session.";
+"errorSavingStorageArea" = "An error occured while saving new storage area.";
+"errorUpdatingStorageArea" = "An error occured while updating storage area value.";
 
 // Success
 "successTitle" = "Success";
@@ -36,6 +38,7 @@
 "successDeletePlatformDescription" = " successfully removed from your collection";
 "successSendingPasswordResetEmail" = "Password reset email sent";
 "successSavingStorageArea" = "The new storage area was saved successfully.";
+"successUpdatingStorageArea" = "The storage area was successfully updated";
 
 // Warnings
 "warningTitle" = "One moment!";

@@ -11,9 +11,9 @@ import Foundation
 protocol FormDelegate: AnyObject {
     func didUpdate(value: Any, for type: FormType)
     func refreshSections()
-    func confirmChanges(value: Any, for type: FormType)
+    func confirmChanges(value: Any, for type: FormType) async
 }
 
 extension FormDelegate {
-    func confirmChanges(value: Any, for type: FormType) {}
+    func confirmChanges(value: Any, for type: FormType) async {}
 }

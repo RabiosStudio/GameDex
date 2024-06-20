@@ -117,6 +117,31 @@ private extension StorageAreasManagementViewModel {
             )
         )
     }
+    
+    func displayAlert(success: Bool) {
+        var alertText: String
+        switch self.context {
+        case .add:
+            alertText = success ? L10n.successSavingStorageArea : L10n.errorSavingStorageArea
+        case .edit:
+            alertText = success ? L10n.successUpdatingStorageArea : L10n.errorUpdatingStorageArea
+        default:
+            return
+        }
+        self.alertDisplayer.presentTopFloatAlert(
+            parameters: AlertViewModel(
+                alertType: success ? .success : .error,
+                description: alertText
+            )
+        )
+    }
+    
+    func handleSuccessNewStorageAreaValue() {
+        self.displayAlert(success: true)
+        self.context = nil
+        self.updateSections(with: self.storageAreas, context: self.context)
+        self.containerDelegate?.reloadSections(emptyError: nil)
+    }
 }
 
 extension StorageAreasManagementViewModel: StorageAreasManagementDelegate {
@@ -144,7 +169,7 @@ extension StorageAreasManagementViewModel: StorageAreasManagementDelegate {
 }
 
 extension StorageAreasManagementViewModel: FormDelegate {
-    func confirmChanges(value: Any, for type: any FormType) {
+    func confirmChanges(value: Any, for type: any FormType) async {
         guard let formType = type as? GameFormType else {
             return
         }
@@ -155,26 +180,27 @@ extension StorageAreasManagementViewModel: FormDelegate {
             }
             switch self.context {
             case .edit(storageArea: let oldValue):
+                guard await self.localDatabase.replaceStorageArea(oldValue: oldValue, newValue: value) == nil else {
+                    self.displayAlert(success: false)
+                    return
+                }
                 for (index, item) in self.storageAreas.enumerated() {
                     if oldValue == item {
                         self.storageAreas.remove(at: index)
                         self.storageAreas.insert(value, at: index)
                     }
                 }
+                self.handleSuccessNewStorageAreaValue()
             case .add:
+                guard await self.localDatabase.add(storageArea: value) == nil else {
+                    self.displayAlert(success: false)
+                    return
+                }
                 self.storageAreas.append(value)
+                self.handleSuccessNewStorageAreaValue()
             default:
                 break
             }
-            self.alertDisplayer.presentTopFloatAlert(
-                parameters: AlertViewModel(
-                    alertType: .success,
-                    description: L10n.successSavingStorageArea
-                )
-            )
-            self.context = nil
-            self.updateSections(with: self.storageAreas, context: self.context)
-            self.containerDelegate?.reloadSections(emptyError: nil)
         default:
             break
         }

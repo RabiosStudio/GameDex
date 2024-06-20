@@ -27,7 +27,9 @@ final class TextFieldCellViewModel: CollectionFormCellViewModel {
     var returnKeyTapped: Bool = false {
         didSet {
             if self.returnKeyTapped == true {
-                self.formDelegate?.confirmChanges(value: self.value as Any, for: self.formType)
+                Task {
+                    await self.formDelegate?.confirmChanges(value: self.value as Any, for: self.formType)
+                }
             }
         }
     }

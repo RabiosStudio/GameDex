@@ -90,12 +90,16 @@ internal enum L10n {
   internal static let errorEmailAppDescription = L10n.tr("Localizable", "errorEmailAppDescription", fallback: "Your email app couldn't be reached. You can contact us at ")
   /// An error occured while logging out.
   internal static let errorLogOutDescription = L10n.tr("Localizable", "errorLogOutDescription", fallback: "An error occured while logging out.")
+  /// An error occured while saving new storage area.
+  internal static let errorSavingStorageArea = L10n.tr("Localizable", "errorSavingStorageArea", fallback: "An error occured while saving new storage area.")
   /// Error sending password reset email. Please check your email address.
   internal static let errorSendingPasswordResetEmail = L10n.tr("Localizable", "errorSendingPasswordResetEmail", fallback: "Error sending password reset email. Please check your email address.")
   /// An error while synchronizing your collection in local. Your database might not be up to date until your next login session.
   internal static let errorSyncCloudAndLocalDatabases = L10n.tr("Localizable", "errorSyncCloudAndLocalDatabases", fallback: "An error while synchronizing your collection in local. Your database might not be up to date until your next login session.")
   /// Error
   internal static let errorTitle = L10n.tr("Localizable", "errorTitle", fallback: "Error")
+  /// An error occured while updating storage area value.
+  internal static let errorUpdatingStorageArea = L10n.tr("Localizable", "errorUpdatingStorageArea", fallback: "An error occured while updating storage area value.")
   /// An error occured while fetching data.
   internal static let fetchGamesErrorDescription = L10n.tr("Localizable", "fetchGamesErrorDescription", fallback: "An error occured while fetching data.")
   /// Fill Game details
@@ -224,6 +228,8 @@ internal enum L10n {
   internal static let successSendingPasswordResetEmail = L10n.tr("Localizable", "successSendingPasswordResetEmail", fallback: "Password reset email sent")
   /// Success
   internal static let successTitle = L10n.tr("Localizable", "successTitle", fallback: "Success")
+  /// The storage area was successfully updated
+  internal static let successUpdatingStorageArea = L10n.tr("Localizable", "successUpdatingStorageArea", fallback: "The storage area was successfully updated")
   /// Title
   internal static let title = L10n.tr("Localizable", "title", fallback: "Title")
   /// Unknown
