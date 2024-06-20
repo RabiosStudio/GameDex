@@ -17,15 +17,19 @@ final class LabelCellViewModel: CollectionCellViewModel {
     var isEditable: Bool
     var isDeletable: Bool
     
+    weak var objectManagementDelegate: ObjectManagementDelegate?
+    
     init(
         text: String,
         isEditable: Bool = false,
         isDeletable: Bool = false,
+        objectManagementDelegate: ObjectManagementDelegate? = nil,
         cellTappedCallback: (() -> Void)? = nil
     ) {
         self.text = text
         self.isEditable = isEditable
         self.isDeletable = isDeletable
+        self.objectManagementDelegate = objectManagementDelegate
         self.cellTappedCallback = cellTappedCallback
     }
     

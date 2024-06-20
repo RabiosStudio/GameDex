@@ -10,7 +10,8 @@ import Foundation
 final class StorageAreaManagementSection: Section {
     
     init(
-        storageAreas: [String]
+        storageAreas: [String],
+        objectManagementDelegate: ObjectManagementDelegate?
     ) {
         super.init()
         self.position = 0
@@ -20,6 +21,7 @@ final class StorageAreaManagementSection: Section {
                 text: storageArea,
                 isEditable: true,
                 isDeletable: true,
+                objectManagementDelegate: objectManagementDelegate,
                 cellTappedCallback: {
                     print("cell tapped : \(storageArea)")
                 }

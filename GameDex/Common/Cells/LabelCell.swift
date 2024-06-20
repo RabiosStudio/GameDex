@@ -46,6 +46,8 @@ final class LabelCell: UICollectionViewCell, CellConfigurable {
         return stackView
     }()
     
+    private var cellVM: LabelCellViewModel?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.contentView.addSubview(self.label)
@@ -71,6 +73,7 @@ final class LabelCell: UICollectionViewCell, CellConfigurable {
         guard let cellVM = cellViewModel as? LabelCellViewModel else {
             return
         }
+        self.cellVM = cellVM
         self.label.text = cellVM.text
         if cellVM.isEditable {
             self.stackView.addArrangedSubview(self.editButton)
@@ -82,11 +85,17 @@ final class LabelCell: UICollectionViewCell, CellConfigurable {
     }
     
     @objc private func didTapDeleteButton() {
-        print("delete button tapped")
+        guard let cellVM = self.cellVM else {
+            return
+        }
+        cellVM.objectManagementDelegate?.delete()
     }
     
     @objc private func didTapEditButton() {
-        print("edit button tapped")
+        guard let cellVM = self.cellVM else {
+            return
+        }
+        cellVM.objectManagementDelegate?.edit()
     }
     
     private func setupConstraints() {

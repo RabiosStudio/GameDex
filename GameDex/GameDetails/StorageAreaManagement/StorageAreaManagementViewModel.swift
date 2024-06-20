@@ -66,15 +66,28 @@ private extension StorageAreaManagementViewModel {
     }
     
     func updateSections(with storageAreas: [String]) {
-        self.sections = [StorageAreaManagementSection(storageAreas: storageAreas)]
+        self.sections = [StorageAreaManagementSection(
+            storageAreas: storageAreas,
+            objectManagementDelegate: self
+        )]
     }
     
     func presentAlertBeforeDeletingStorageArea() {
         self.alertDisplayer.presentBasicAlert(
             parameters: AlertViewModel(
                 alertType: .warning,
-                description: "Alert before deleting storage arez"
+                description: L10n.warningStorageAreaDeletion
             )
         )
+    }
+}
+
+extension StorageAreaManagementViewModel: ObjectManagementDelegate {
+    func edit() {
+        print("edit button tapped")
+    }
+    
+    func delete() {
+        self.presentAlertBeforeDeletingStorageArea()
     }
 }

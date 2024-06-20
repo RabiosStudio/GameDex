@@ -246,6 +246,8 @@ internal enum L10n {
   internal static let warningPlatformDeletionLocal = L10n.tr("Localizable", "warningPlatformDeletionLocal", fallback: "Your collection will be deleted permanently. This will only affect data saved locally on this device.")
   /// Are you sure you want to remove this game from your collection?
   internal static let warningRemoveGameDescription = L10n.tr("Localizable", "warningRemoveGameDescription", fallback: "Are you sure you want to remove this game from your collection?")
+  /// The stockage area will be deleted permanently and won't be associated to any games in your collection anymore.
+  internal static let warningStorageAreaDeletion = L10n.tr("Localizable", "warningStorageAreaDeletion", fallback: "The stockage area will be deleted permanently and won't be associated to any games in your collection anymore.")
   /// One moment!
   internal static let warningTitle = L10n.tr("Localizable", "warningTitle", fallback: "One moment!")
   /// Please try again later

@@ -46,6 +46,7 @@
 "warningPlatformDeletionCloud" = "La collection ne peut pas être restaurée après suppression. Cela n'affectera pas les données sauvegardées en local sur d'autres appareils.";
 "warningPlatformDeletionLocal" = "La collection ne peut pas être restaurée après suppression. Seules les données sauvegardées en local sur votre appreils seront supprimées.";
 "warningGameFormatAlreadyExists" = "Un jeu avec le nouveau format sélectionné existe déjà dans votre collection.";
+"warningStorageAreaDeletion" = "Le lieu de stockage ne pourra pas être restauré et sera supprimé de tous les jeux de votre collection auquel il était associé.";
 
 // Info
 "infoNoInternet" = "Aucun accès internet, votre collection pourrait ne pas être à jour.";
