@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		076B99D18338973C548C5EFB /* Pods_GameDex.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 071408E05EBD04F01F341425 /* Pods_GameDex.framework */; };
+		250046112C25BF5800E6C3B2 /* StorageAreaManagementError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250046102C25BF5800E6C3B2 /* StorageAreaManagementError.swift */; };
 		2506D8782ADD39B3006D3F52 /* VerticallyAlignedLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2506D8772ADD39B3006D3F52 /* VerticallyAlignedLabel.swift */; };
 		2506D87C2ADE97CB006D3F52 /* AppLauncher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2506D87B2ADE97CB006D3F52 /* AppLauncher.swift */; };
 		2506D8822ADE992F006D3F52 /* AppLauncherImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2506D8812ADE992F006D3F52 /* AppLauncherImpl.swift */; };
@@ -236,6 +237,7 @@
 		04004D0858B3D2820F814154 /* Pods_GameDex_GameDexUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GameDex_GameDexUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		071408E05EBD04F01F341425 /* Pods_GameDex.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GameDex.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		199276E84FCF7ECF7ECE6434 /* Pods-GameDexTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GameDexTests.release.xcconfig"; path = "Target Support Files/Pods-GameDexTests/Pods-GameDexTests.release.xcconfig"; sourceTree = "<group>"; };
+		250046102C25BF5800E6C3B2 /* StorageAreaManagementError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageAreaManagementError.swift; sourceTree = "<group>"; };
 		2506D8772ADD39B3006D3F52 /* VerticallyAlignedLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticallyAlignedLabel.swift; sourceTree = "<group>"; };
 		2506D87B2ADE97CB006D3F52 /* AppLauncher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLauncher.swift; sourceTree = "<group>"; };
 		2506D8812ADE992F006D3F52 /* AppLauncherImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLauncherImpl.swift; sourceTree = "<group>"; };
@@ -766,6 +768,7 @@
 				25ADAEA72C244A1000BE26FA /* StorageAreasManagementViewModel.swift */,
 				25ADAEA92C244A2100BE26FA /* StorageAreasManagementSection.swift */,
 				25ADAEAB2C244A2B00BE26FA /* StorageAreasManagementScreenFactory.swift */,
+				250046102C25BF5800E6C3B2 /* StorageAreaManagementError.swift */,
 			);
 			path = StorageAreasManagement;
 			sourceTree = "<group>";
@@ -1603,6 +1606,7 @@
 				2506D8822ADE992F006D3F52 /* AppLauncherImpl.swift in Sources */,
 				25E8E4AC2AC1E4BC0093E7F8 /* AuthenticationError.swift in Sources */,
 				25ADAEB52C24A7AB00BE26FA /* StorageArea.swift in Sources */,
+				250046112C25BF5800E6C3B2 /* StorageAreaManagementError.swift in Sources */,
 				252516612ACAD10600B88813 /* CloudDatabase.swift in Sources */,
 				254E8B942A8B6BCA00C101C8 /* Strings.swift in Sources */,
 				25979DC62AC17295002CEDE7 /* AuthenticationViewModel.swift in Sources */,

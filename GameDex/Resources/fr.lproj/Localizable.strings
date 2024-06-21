@@ -8,6 +8,7 @@
 "emptyItemsTitle" = "Aucun résultat";
 "emptyItemsDescription" = "Essayez une nouvelle recherche";
 "emptyGameSearch" = "Lancez une recherche d'un jeu sur";
+"emptyStorageAreasTitle" = "Aucun lieu de stockage";
 
 // Errors
 "errorTitle" = "Erreur";
@@ -26,6 +27,7 @@
 "errorSavingStorageArea" = "Une erreur est survenue lors de la sauvegarde du nouveau lieu de stockage.";
 "errorUpdatingStorageArea" = "Une erreur est survenue lors de la mise à jour du lieu de stockage.";
 "errorDeletingStorageArea" = "Une erreur est survenue lors de la suppression du lieu de stockage.";
+"fetchStorageAreaErrorTitle" = "Une erreur est survenue lors de la récupération des données.";
 
 // Success
 "successTitle" = "Succès";
@@ -71,6 +73,7 @@
 "apply" = "Appliquer";
 "clearSearch" = "Effacer la recherche";
 "clearAll" = "Effacer tout";
+"addAStorageArea" = "Add a storage area";
 
 // Add Game Steps
 "stepOneOutOfThree" = "Etape 1/3";

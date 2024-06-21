@@ -5669,6 +5669,12 @@ open class StorageAreasManagementDelegateMock: StorageAreasManagementDelegate, M
 		perform?(`storageArea`)
     }
 
+    open func addNewEntity() {
+        addInvocation(.m_addNewEntity)
+		let perform = methodPerformValue(.m_addNewEntity) as? () -> Void
+		perform?()
+    }
+
     open func edit(value: Any) {
         addInvocation(.m_edit__value_value(Parameter<Any>.value(`value`)))
 		let perform = methodPerformValue(.m_edit__value_value(Parameter<Any>.value(`value`))) as? (Any) -> Void
@@ -5684,6 +5690,7 @@ open class StorageAreasManagementDelegateMock: StorageAreasManagementDelegate, M
 
     fileprivate enum MethodType {
         case m_select__storageArea_storageArea(Parameter<String>)
+        case m_addNewEntity
         case m_edit__value_value(Parameter<Any>)
         case m_delete__value_value(Parameter<Any>)
 
@@ -5693,6 +5700,8 @@ open class StorageAreasManagementDelegateMock: StorageAreasManagementDelegate, M
 				var results: [Matcher.ParameterComparisonResult] = []
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsStoragearea, rhs: rhsStoragearea, with: matcher), lhsStoragearea, rhsStoragearea, "storageArea"))
 				return Matcher.ComparisonResult(results)
+
+            case (.m_addNewEntity, .m_addNewEntity): return .match
 
             case (.m_edit__value_value(let lhsValue), .m_edit__value_value(let rhsValue)):
 				var results: [Matcher.ParameterComparisonResult] = []
@@ -5710,6 +5719,7 @@ open class StorageAreasManagementDelegateMock: StorageAreasManagementDelegate, M
         func intValue() -> Int {
             switch self {
             case let .m_select__storageArea_storageArea(p0): return p0.intValue
+            case .m_addNewEntity: return 0
             case let .m_edit__value_value(p0): return p0.intValue
             case let .m_delete__value_value(p0): return p0.intValue
             }
@@ -5717,6 +5727,7 @@ open class StorageAreasManagementDelegateMock: StorageAreasManagementDelegate, M
         func assertionName() -> String {
             switch self {
             case .m_select__storageArea_storageArea: return ".select(storageArea:)"
+            case .m_addNewEntity: return ".addNewEntity()"
             case .m_edit__value_value: return ".edit(value:)"
             case .m_delete__value_value: return ".delete(value:)"
             }
@@ -5738,6 +5749,7 @@ open class StorageAreasManagementDelegateMock: StorageAreasManagementDelegate, M
         fileprivate var method: MethodType
 
         public static func select(storageArea: Parameter<String>) -> Verify { return Verify(method: .m_select__storageArea_storageArea(`storageArea`))}
+        public static func addNewEntity() -> Verify { return Verify(method: .m_addNewEntity)}
         public static func edit(value: Parameter<Any>) -> Verify { return Verify(method: .m_edit__value_value(`value`))}
         public static func delete(value: Parameter<Any>) -> Verify { return Verify(method: .m_delete__value_value(`value`))}
     }
@@ -5748,6 +5760,9 @@ open class StorageAreasManagementDelegateMock: StorageAreasManagementDelegate, M
 
         public static func select(storageArea: Parameter<String>, perform: @escaping (String) -> Void) -> Perform {
             return Perform(method: .m_select__storageArea_storageArea(`storageArea`), performs: perform)
+        }
+        public static func addNewEntity(perform: @escaping () -> Void) -> Perform {
+            return Perform(method: .m_addNewEntity, performs: perform)
         }
         public static func edit(value: Parameter<Any>, perform: @escaping (Any) -> Void) -> Perform {
             return Perform(method: .m_edit__value_value(`value`), performs: perform)

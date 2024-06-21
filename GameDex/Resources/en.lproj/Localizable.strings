@@ -8,6 +8,7 @@
 "emptyItemsTitle" = "Could not find any items";
 "emptyItemsDescription" = "There are no items available for your selected options";
 "emptyGameSearch" = "Start researching a game on";
+"emptyStorageAreasTitle" = "There are no saved storage area";
 
 // Errors
 "errorTitle" = "Error";
@@ -27,6 +28,7 @@
 "errorSavingStorageArea" = "An error occured while saving new storage area.";
 "errorUpdatingStorageArea" = "An error occured while updating storage area value.";
 "errorDeletingStorageArea" = "An error occured while deleting storage area.";
+"fetchStorageAreaErrorTitle" = "An error occuped while fetching data.";
 
 // Success
 "successTitle" = "Success";
@@ -72,6 +74,7 @@
 "apply" = "Apply";
 "clearSearch" = "Clear search";
 "clearAll" = "Clear all";
+"addAStorageArea" = "Add a storage area";
 
 // Add Game Steps
 "stepOneOutOfThree" = "Step 1/3";

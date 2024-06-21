@@ -14,6 +14,8 @@ internal enum L10n {
   internal static let acceptable = L10n.tr("Localizable", "acceptable", fallback: "Acceptable")
   /// Add a game
   internal static let addAGame = L10n.tr("Localizable", "addAGame", fallback: "Add a game")
+  /// Add a storage area
+  internal static let addAStorageArea = L10n.tr("Localizable", "addAStorageArea", fallback: "Add a storage area")
   /// First, add the game title and optionnally the corresponding platform.
   internal static let addBasicGameInformationDescription = L10n.tr("Localizable", "addBasicGameInformationDescription", fallback: "First, add the game title and optionnally the corresponding platform.")
   /// Add to collection
@@ -80,6 +82,8 @@ internal enum L10n {
   internal static let emptyMyCollectionDescription = L10n.tr("Localizable", "emptyMyCollectionDescription", fallback: "It's time to add the very first game to your collection ! ")
   /// Your collection is empty
   internal static let emptyMyCollectionTitle = L10n.tr("Localizable", "emptyMyCollectionTitle", fallback: "Your collection is empty")
+  /// There are no saved storage area
+  internal static let emptyStorageAreasTitle = L10n.tr("Localizable", "emptyStorageAreasTitle", fallback: "There are no saved storage area")
   /// Please check your email address and password
   internal static let errorAuthDescription = L10n.tr("Localizable", "errorAuthDescription", fallback: "Please check your email address and password")
   /// Error verifying credentials
@@ -104,6 +108,8 @@ internal enum L10n {
   internal static let errorUpdatingStorageArea = L10n.tr("Localizable", "errorUpdatingStorageArea", fallback: "An error occured while updating storage area value.")
   /// An error occured while fetching data.
   internal static let fetchGamesErrorDescription = L10n.tr("Localizable", "fetchGamesErrorDescription", fallback: "An error occured while fetching data.")
+  /// An error occuped while fetching data.
+  internal static let fetchStorageAreaErrorTitle = L10n.tr("Localizable", "fetchStorageAreaErrorTitle", fallback: "An error occuped while fetching data.")
   /// Fill Game details
   internal static let fillGameDetails = L10n.tr("Localizable", "fillGameDetails", fallback: "Fill Game details")
   /// Filters

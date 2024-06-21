@@ -11,6 +11,7 @@ import UIKit
 // sourcery: AutoMockable
 protocol StorageAreasManagementDelegate: ObjectManagementDelegate {
     func select(storageArea: String)
+    func addNewEntity()
 }
 
 final class StorageAreasManagementViewModel: CollectionViewModel {
@@ -60,14 +61,14 @@ final class StorageAreasManagementViewModel: CollectionViewModel {
             switch storageAreaFetched {
             case let .success(storageAreas):
                 guard !storageAreas.isEmpty else {
-                    callback(MyCollectionError.noItems(delegate: nil))
+                    callback(StorageAreaManagementError.emptyStorageAreas(delegate: self))
                     return
                 }
                 self.storageAreas = storageAreas
                 self.updateSections(with: self.storageAreas, context: self.context)
                 callback(nil)
             case .failure:
-                callback(MyCollectionError.fetchError)
+                callback(StorageAreaManagementError.fetchError)
             }
             return
         }
@@ -77,9 +78,7 @@ final class StorageAreasManagementViewModel: CollectionViewModel {
     func didTap(buttonItem: AnyBarButtonItem) {
         switch buttonItem {
         case .add:
-            self.context = .add
-            self.updateSections(with: self.storageAreas, context: self.context)
-            self.containerDelegate?.reloadSections(emptyError: nil)
+            self.addNewStorageArea()
         default:
             break
         }
@@ -109,6 +108,12 @@ extension StorageAreasManagementViewModel: AlertDisplayerDelegate {
 }
 
 private extension StorageAreasManagementViewModel {
+    func addNewStorageArea() {
+        self.context = .add
+        self.updateSections(with: self.storageAreas, context: self.context)
+        self.containerDelegate?.reloadSections(emptyError: nil)
+    }
+    
     func close() {
         Routing.shared.route(
             navigationStyle: .dismiss(
@@ -162,11 +167,15 @@ private extension StorageAreasManagementViewModel {
         self.displayAlert(success: true)
         self.context = nil
         self.updateSections(with: self.storageAreas, context: self.context)
-        self.containerDelegate?.reloadSections(emptyError: nil)
+        self.containerDelegate?.reloadData()
     }
 }
 
 extension StorageAreasManagementViewModel: StorageAreasManagementDelegate {
+    func addNewEntity() {
+        self.addNewStorageArea()
+    }
+    
     func edit(value: Any) {
         guard let value = value as? String else {
             return
