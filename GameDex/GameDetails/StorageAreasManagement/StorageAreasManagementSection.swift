@@ -29,6 +29,7 @@ final class StorageAreasManagementSection: Section {
                 formType: GameFormType.storageArea,
                 value: nil,
                 isEditable: true,
+                isFirstResponder: true,
                 formDelegate: formDelegate,
                 cellTappedCallback: nil
             )
@@ -44,6 +45,7 @@ final class StorageAreasManagementSection: Section {
                         formType: GameFormType.storageArea,
                         value: value,
                         isEditable: true,
+                        isFirstResponder: true,
                         formDelegate: formDelegate,
                         cellTappedCallback: nil
                     )

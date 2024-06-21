@@ -42,12 +42,15 @@ final class TextFieldCellViewModel: CollectionFormCellViewModel {
         }
     }
     
+    var isFirstResponder: Bool
+    
     weak var formDelegate: FormDelegate?
     
     init(placeholder: String,
          formType: FormType,
          value: String? = nil,
          isEditable: Bool = true,
+         isFirstResponder: Bool = false,
          formDelegate: FormDelegate? = nil,
          cellTappedCallback: (() -> Void)? = nil
     ) {
@@ -55,8 +58,8 @@ final class TextFieldCellViewModel: CollectionFormCellViewModel {
         self.formType = formType
         self.value = value
         self.isEditable = isEditable
+        self.isFirstResponder = isFirstResponder
         self.formDelegate = formDelegate
         self.cellTappedCallback = cellTappedCallback
     }
-    
 }

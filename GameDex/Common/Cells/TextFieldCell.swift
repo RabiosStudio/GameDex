@@ -86,6 +86,9 @@ final class TextFieldCell: UICollectionViewCell, CellConfigurable {
         
         self.textField.inputAccessoryView = KeyboardAccessoryView(delegate: self, showCancelButton: showCancelButton)
         self.textField.autocorrectionType = .no
+        if cellVM.isFirstResponder {
+            self.textField.becomeFirstResponder()
+        }
         self.setupConstraints()
     }
     
