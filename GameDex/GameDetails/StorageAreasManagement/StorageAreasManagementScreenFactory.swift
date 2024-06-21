@@ -11,13 +11,15 @@ import UIKit
 struct StorageAreasManagementScreenFactory: ScreenFactory {
     
     private weak var formDelegate: FormDelegate?
+    private weak var gameDetailsDelegate: GameDetailsViewModelDelegate?
     
     var viewController: UIViewController {
         let viewModel = StorageAreasManagementViewModel(
             localDatabase: LocalDatabaseImpl(),
             authenticationService: AuthenticationServiceImpl(),
             alertDisplayer: AlertDisplayerImpl(),
-            formDelegate: self.formDelegate
+            formDelegate: self.formDelegate, 
+            gameDetailsDelegate: self.gameDetailsDelegate
         )
         let layout = UICollectionViewFlowLayout()
         let containerController = ContainerViewController(
@@ -28,7 +30,11 @@ struct StorageAreasManagementScreenFactory: ScreenFactory {
         return containerController
     }
 
-    init(formDelegate: FormDelegate?) {
+    init(
+        formDelegate: FormDelegate?,
+        gameDetailsDelegate: GameDetailsViewModelDelegate?
+    ) {
         self.formDelegate = formDelegate
+        self.gameDetailsDelegate = gameDetailsDelegate
     }
 }

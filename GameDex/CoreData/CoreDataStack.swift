@@ -40,7 +40,7 @@ class CoreDataStack {
     func saveContext(_ context: NSManagedObjectContext) async -> DatabaseError? {
         context.mergePolicy = NSMergeByPropertyObjectTrumpMergePolicy
         do {
-            try context.performAndWait {
+            try await context.perform {
                 try context.save()
             }
         } catch {

@@ -8,6 +8,11 @@
 import Foundation
 import UIKit
 
+protocol GameDetailsViewModelDelegate: AnyObject {
+    func removeStorageAreaFromGameFormIfNeeded(storageArea: String) async
+    func editStorageAreaFromGameFormIfNeeded(storageArea: String) async
+}
+
 final class GameDetailsViewModel: CollectionViewModel {
     var searchViewModel: SearchViewModel?
     var isBounceable: Bool = true
@@ -195,6 +200,7 @@ private extension GameDetailsViewModel {
             platformName: self.platform.title,
             gameForm: self.gameForm,
             formDelegate: self,
+            gameDetailsDelegate: self,
             containerDelegate: self.containerDelegate
         )]
     }
@@ -352,5 +358,21 @@ private extension GameDetailsViewModel {
                 description: L10n.removeGameErrorDescription
             )
         )
+    }
+}
+
+extension GameDetailsViewModel: GameDetailsViewModelDelegate {
+    func editStorageAreaFromGameFormIfNeeded(storageArea: String) async {
+        self.gameForm.storageArea = storageArea
+        self.refreshSections()        
+        await self.myCollectionDelegate?.reloadCollection()
+    }
+    
+    func removeStorageAreaFromGameFormIfNeeded(storageArea: String) async {
+        if self.gameForm.storageArea == storageArea {
+            self.gameForm.storageArea = nil
+            self.refreshSections()
+            await self.myCollectionDelegate?.reloadCollection()
+        }
     }
 }

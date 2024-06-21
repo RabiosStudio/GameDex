@@ -33,12 +33,14 @@ final class StorageAreasManagementViewModel: CollectionViewModel {
     weak var containerDelegate: ContainerViewControllerDelegate?
     weak var alertDelegate: AlertDisplayerDelegate?
     weak var formDelegate: FormDelegate?
+    weak var gameDetailsDelegate: GameDetailsViewModelDelegate?
     
     init(
         localDatabase: LocalDatabase,
         authenticationService: AuthenticationService,
         alertDisplayer: AlertDisplayer,
-        formDelegate: FormDelegate?
+        formDelegate: FormDelegate?,
+        gameDetailsDelegate: GameDetailsViewModelDelegate?
     ) {
         self.screenTitle = L10n.selectStorageArea
         self.buttonItems = [.add]
@@ -48,6 +50,7 @@ final class StorageAreasManagementViewModel: CollectionViewModel {
         self.alertDisplayer = alertDisplayer
         self.alertDisplayer.alertDelegate = self
         self.formDelegate = formDelegate
+        self.gameDetailsDelegate = gameDetailsDelegate
         self.context = nil
     }
     
@@ -98,6 +101,7 @@ extension StorageAreasManagementViewModel: AlertDisplayerDelegate {
                     self.storageAreas.remove(at: index)
                 }
             }
+            await self.gameDetailsDelegate?.removeStorageAreaFromGameFormIfNeeded(storageArea: storageAreaToRemove)
             self.handleSuccess()
             return
         }
@@ -213,6 +217,7 @@ extension StorageAreasManagementViewModel: FormDelegate {
                         self.storageAreas.insert(value, at: index)
                     }
                 }
+                await self.gameDetailsDelegate?.editStorageAreaFromGameFormIfNeeded(storageArea: value)
                 self.handleSuccess()
             case .add:
                 guard await self.localDatabase.add(storageArea: value) == nil else {

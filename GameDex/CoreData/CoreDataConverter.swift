@@ -45,7 +45,6 @@ enum CoreDataConverter {
         let gameCollected = GameCollected(context: context)
         gameCollected.title = gameDetails.game.title
         gameCollected.summary = gameDetails.game.description
-        gameCollected.storageArea = gameDetails.storageArea
         gameCollected.notes = gameDetails.notes
         gameCollected.imageUrl = gameDetails.game.imageUrl
         gameCollected.rating = Int16(gameDetails.rating)
@@ -91,7 +90,7 @@ enum CoreDataConverter {
                 gameCondition: gameCondition,
                 gameCompleteness: gameCompleteness,
                 gameRegion: gameRegion,
-                storageArea: aGame.storageArea,
+                storageArea: aGame.storageArea?.name,
                 rating: Int(aGame.rating),
                 notes: aGame.notes,
                 lastUpdated: aGame.lastUpdated, 

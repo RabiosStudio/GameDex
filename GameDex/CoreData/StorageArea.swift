@@ -14,4 +14,27 @@ public class StorageArea: NSManagedObject {
     }
     
     @NSManaged public var name: String
+    @NSManaged public var games: NSSet?
+    
+    public var gamesArray: [GameCollected] {
+        let set = games as? Set<GameCollected> ?? []
+        return Array(set)
+    }
+}
+
+// MARK: Generated accessors for games
+extension StorageArea {
+
+    @objc(addGamesObject:)
+    @NSManaged public func addToGames(_ value: GameCollected)
+
+    @objc(removeGamesObject:)
+    @NSManaged public func removeFromGames(_ value: GameCollected)
+
+    @objc(addGames:)
+    @NSManaged public func addToGames(_ values: NSSet)
+
+    @objc(removeGames:)
+    @NSManaged public func removeFromGames(_ values: NSSet)
+
 }
