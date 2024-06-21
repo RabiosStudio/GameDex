@@ -82,6 +82,7 @@ final class LabelCell: UICollectionViewCell, CellConfigurable {
             self.stackView.addArrangedSubview(self.deleteButton)
         }
         self.setupConstraints()
+        self.addNotificationObservers()
     }
     
     @objc private func didTapDeleteButton() {
@@ -96,6 +97,22 @@ final class LabelCell: UICollectionViewCell, CellConfigurable {
             return
         }
         cellVM.objectManagementDelegate?.edit(value: self.label.text as Any)
+    }
+    
+    private func addNotificationObservers() {
+        NotificationCenter.default.addObserver(self, selector: #selector(handleLabelInteraction), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleLabelInteraction), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    @objc private func handleLabelInteraction(notification: NSNotification) {
+        switch notification.name {
+        case UIResponder.keyboardWillShowNotification:
+            self.isUserInteractionEnabled = false
+        case UIResponder.keyboardWillHideNotification:
+            self.isUserInteractionEnabled = true
+        default:
+            break
+        }
     }
     
     private func setupConstraints() {
