@@ -4151,6 +4151,20 @@ open class LocalDatabaseMock: LocalDatabase, Mock {
 		return __value
     }
 
+    open func getGamesStoredIn(storageArea: String) -> Result<[GameCollected], DatabaseError> {
+        addInvocation(.m_getGamesStoredIn__storageArea_storageArea(Parameter<String>.value(`storageArea`)))
+		let perform = methodPerformValue(.m_getGamesStoredIn__storageArea_storageArea(Parameter<String>.value(`storageArea`))) as? (String) -> Void
+		perform?(`storageArea`)
+		var __value: Result<[GameCollected], DatabaseError>
+		do {
+		    __value = try methodReturnValue(.m_getGamesStoredIn__storageArea_storageArea(Parameter<String>.value(`storageArea`))).casted()
+		} catch {
+			onFatalFailure("Stub return value not specified for getGamesStoredIn(storageArea: String). Use given")
+			Failure("Stub return value not specified for getGamesStoredIn(storageArea: String). Use given")
+		}
+		return __value
+    }
+
     open func fetchAllPlatforms() -> Result<[PlatformCollected], DatabaseError> {
         addInvocation(.m_fetchAllPlatforms)
 		let perform = methodPerformValue(.m_fetchAllPlatforms) as? () -> Void
@@ -4263,6 +4277,7 @@ open class LocalDatabaseMock: LocalDatabase, Mock {
         case m_add__storageArea_storageArea(Parameter<String>)
         case m_getPlatform__platformId_platformId(Parameter<Int>)
         case m_get__storageArea_storageArea(Parameter<String>)
+        case m_getGamesStoredIn__storageArea_storageArea(Parameter<String>)
         case m_fetchAllPlatforms
         case m_fetchAllStorageAreas
         case m_replace__savedGame_savedGame(Parameter<SavedGame>)
@@ -4291,6 +4306,11 @@ open class LocalDatabaseMock: LocalDatabase, Mock {
 				return Matcher.ComparisonResult(results)
 
             case (.m_get__storageArea_storageArea(let lhsStoragearea), .m_get__storageArea_storageArea(let rhsStoragearea)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsStoragearea, rhs: rhsStoragearea, with: matcher), lhsStoragearea, rhsStoragearea, "storageArea"))
+				return Matcher.ComparisonResult(results)
+
+            case (.m_getGamesStoredIn__storageArea_storageArea(let lhsStoragearea), .m_getGamesStoredIn__storageArea_storageArea(let rhsStoragearea)):
 				var results: [Matcher.ParameterComparisonResult] = []
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsStoragearea, rhs: rhsStoragearea, with: matcher), lhsStoragearea, rhsStoragearea, "storageArea"))
 				return Matcher.ComparisonResult(results)
@@ -4336,6 +4356,7 @@ open class LocalDatabaseMock: LocalDatabase, Mock {
             case let .m_add__storageArea_storageArea(p0): return p0.intValue
             case let .m_getPlatform__platformId_platformId(p0): return p0.intValue
             case let .m_get__storageArea_storageArea(p0): return p0.intValue
+            case let .m_getGamesStoredIn__storageArea_storageArea(p0): return p0.intValue
             case .m_fetchAllPlatforms: return 0
             case .m_fetchAllStorageAreas: return 0
             case let .m_replace__savedGame_savedGame(p0): return p0.intValue
@@ -4352,6 +4373,7 @@ open class LocalDatabaseMock: LocalDatabase, Mock {
             case .m_add__storageArea_storageArea: return ".add(storageArea:)"
             case .m_getPlatform__platformId_platformId: return ".getPlatform(platformId:)"
             case .m_get__storageArea_storageArea: return ".get(storageArea:)"
+            case .m_getGamesStoredIn__storageArea_storageArea: return ".getGamesStoredIn(storageArea:)"
             case .m_fetchAllPlatforms: return ".fetchAllPlatforms()"
             case .m_fetchAllStorageAreas: return ".fetchAllStorageAreas()"
             case .m_replace__savedGame_savedGame: return ".replace(savedGame:)"
@@ -4384,6 +4406,9 @@ open class LocalDatabaseMock: LocalDatabase, Mock {
         }
         public static func get(storageArea: Parameter<String>, willReturn: Result<StorageArea?, DatabaseError>...) -> MethodStub {
             return Given(method: .m_get__storageArea_storageArea(`storageArea`), products: willReturn.map({ StubProduct.return($0 as Any) }))
+        }
+        public static func getGamesStoredIn(storageArea: Parameter<String>, willReturn: Result<[GameCollected], DatabaseError>...) -> MethodStub {
+            return Given(method: .m_getGamesStoredIn__storageArea_storageArea(`storageArea`), products: willReturn.map({ StubProduct.return($0 as Any) }))
         }
         public static func fetchAllPlatforms(willReturn: Result<[PlatformCollected], DatabaseError>...) -> MethodStub {
             return Given(method: .m_fetchAllPlatforms, products: willReturn.map({ StubProduct.return($0 as Any) }))
@@ -4434,6 +4459,13 @@ open class LocalDatabaseMock: LocalDatabase, Mock {
             let willReturn: [Result<StorageArea?, DatabaseError>] = []
 			let given: Given = { return Given(method: .m_get__storageArea_storageArea(`storageArea`), products: willReturn.map({ StubProduct.return($0 as Any) })) }()
 			let stubber = given.stub(for: (Result<StorageArea?, DatabaseError>).self)
+			willProduce(stubber)
+			return given
+        }
+        public static func getGamesStoredIn(storageArea: Parameter<String>, willProduce: (Stubber<Result<[GameCollected], DatabaseError>>) -> Void) -> MethodStub {
+            let willReturn: [Result<[GameCollected], DatabaseError>] = []
+			let given: Given = { return Given(method: .m_getGamesStoredIn__storageArea_storageArea(`storageArea`), products: willReturn.map({ StubProduct.return($0 as Any) })) }()
+			let stubber = given.stub(for: (Result<[GameCollected], DatabaseError>).self)
 			willProduce(stubber)
 			return given
         }
@@ -4502,6 +4534,7 @@ open class LocalDatabaseMock: LocalDatabase, Mock {
         public static func add(storageArea: Parameter<String>) -> Verify { return Verify(method: .m_add__storageArea_storageArea(`storageArea`))}
         public static func getPlatform(platformId: Parameter<Int>) -> Verify { return Verify(method: .m_getPlatform__platformId_platformId(`platformId`))}
         public static func get(storageArea: Parameter<String>) -> Verify { return Verify(method: .m_get__storageArea_storageArea(`storageArea`))}
+        public static func getGamesStoredIn(storageArea: Parameter<String>) -> Verify { return Verify(method: .m_getGamesStoredIn__storageArea_storageArea(`storageArea`))}
         public static func fetchAllPlatforms() -> Verify { return Verify(method: .m_fetchAllPlatforms)}
         public static func fetchAllStorageAreas() -> Verify { return Verify(method: .m_fetchAllStorageAreas)}
         public static func replace(savedGame: Parameter<SavedGame>) -> Verify { return Verify(method: .m_replace__savedGame_savedGame(`savedGame`))}
@@ -4527,6 +4560,9 @@ open class LocalDatabaseMock: LocalDatabase, Mock {
         }
         public static func get(storageArea: Parameter<String>, perform: @escaping (String) -> Void) -> Perform {
             return Perform(method: .m_get__storageArea_storageArea(`storageArea`), performs: perform)
+        }
+        public static func getGamesStoredIn(storageArea: Parameter<String>, perform: @escaping (String) -> Void) -> Perform {
+            return Perform(method: .m_getGamesStoredIn__storageArea_storageArea(`storageArea`), performs: perform)
         }
         public static func fetchAllPlatforms(perform: @escaping () -> Void) -> Perform {
             return Perform(method: .m_fetchAllPlatforms, performs: perform)

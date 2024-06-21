@@ -13,6 +13,7 @@ protocol LocalDatabase {
     func add(storageArea: String) async -> DatabaseError?
     func getPlatform(platformId: Int) -> Result<PlatformCollected?, DatabaseError>
     func get(storageArea: String) -> Result<StorageArea?, DatabaseError>
+    func getGamesStoredIn(storageArea: String) async -> Result<[GameCollected], DatabaseError> 
     func fetchAllPlatforms() -> Result<[PlatformCollected], DatabaseError>
     func fetchAllStorageAreas() -> Result<[String], DatabaseError>
     func replace(savedGame: SavedGame) async -> DatabaseError?
