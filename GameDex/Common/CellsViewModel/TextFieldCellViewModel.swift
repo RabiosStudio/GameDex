@@ -34,6 +34,14 @@ final class TextFieldCellViewModel: CollectionFormCellViewModel {
         }
     }
     
+    var cancelKeyTapped: Bool = false {
+        didSet {
+            if self.cancelKeyTapped == true {
+                self.formDelegate?.refreshSections()
+            }
+        }
+    }
+    
     weak var formDelegate: FormDelegate?
     
     init(placeholder: String,

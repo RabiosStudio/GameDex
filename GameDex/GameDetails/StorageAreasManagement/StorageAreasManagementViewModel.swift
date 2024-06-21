@@ -165,9 +165,18 @@ private extension StorageAreasManagementViewModel {
     
     func handleSuccess() {
         self.displayAlert(success: true)
+        
+        let initialContext = self.context
         self.context = nil
         self.updateSections(with: self.storageAreas, context: self.context)
-        self.containerDelegate?.reloadData()
+        
+        switch initialContext {
+        case .delete:
+            self.containerDelegate?.reloadData()
+        default:
+            self.containerDelegate?.reloadSections(emptyError: nil)
+        }
+        
     }
 }
 
@@ -245,5 +254,9 @@ extension StorageAreasManagementViewModel: FormDelegate {
     
     func didUpdate(value: Any, for type: any FormType) {}
     
-    func refreshSections() {}
+    func refreshSections() {
+        self.context = nil
+        self.updateSections(with: self.storageAreas, context: nil)
+        self.containerDelegate?.reloadSections(emptyError: nil)
+    }
 }

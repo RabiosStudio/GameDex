@@ -171,6 +171,10 @@ extension TextFieldCell: UITextFieldDelegate {
         guard let cellVM = self.cellVM else {
             return
         }
+        guard cellVM.cancelKeyTapped == false else {
+            cellVM.cancelKeyTapped = false
+            return
+        }
         cellVM.returnKeyTapped = true
     }
 }
@@ -214,14 +218,14 @@ extension TextFieldCell: UIPickerViewDelegate {
 
 extension TextFieldCell: KeyboardDelegate {
     func didTapCancelButton() {
+        guard let cellVM = self.cellVM else {
+            return
+        }
+        cellVM.cancelKeyTapped = true
         self.textField.resignFirstResponder()
     }
     
     func didTapDoneButton() {
-        guard let cellVM = self.cellVM else {
-            return
-        }
-        cellVM.returnKeyTapped = true
         self.textField.resignFirstResponder()
     }
 }
