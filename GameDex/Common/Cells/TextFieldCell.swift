@@ -70,11 +70,13 @@ final class TextFieldCell: UICollectionViewCell, CellConfigurable {
         self.textField.placeholder = cellVM.placeholder
         self.textField.text = cellVM.value
 
+        var showCancelButton = true
         if let keyboardType = cellVM.formType.keyboardType {
             self.textField.keyboardType = keyboardType
         } else if let inputVM = cellVM.formType.inputPickerViewModel {
             self.pickerData = inputVM.data
             self.textField.inputView = pickerView
+            showCancelButton = false
         }
         
         if cellVM.formType.enableSecureTextEntry {
@@ -82,6 +84,7 @@ final class TextFieldCell: UICollectionViewCell, CellConfigurable {
             self.textField.enableEntryVisibilityToggle()
         }
         
+        self.textField.inputAccessoryView = KeyboardAccessoryView(delegate: self, showCancelButton: showCancelButton)
         self.textField.autocorrectionType = .no
         self.setupConstraints()
     }
@@ -206,5 +209,19 @@ extension TextFieldCell: UIPickerViewDelegate {
         }
         self.textField.text = data[component][row]
         self.storeEntry(with: self.textField.text)
+    }
+}
+
+extension TextFieldCell: KeyboardDelegate {
+    func didTapCancelButton() {
+        self.textField.resignFirstResponder()
+    }
+    
+    func didTapDoneButton() {
+        guard let cellVM = self.cellVM else {
+            return
+        }
+        cellVM.returnKeyTapped = true
+        self.textField.resignFirstResponder()
     }
 }

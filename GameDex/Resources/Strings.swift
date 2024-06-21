@@ -68,6 +68,8 @@ internal enum L10n {
   internal static let deleteFromCollection = L10n.tr("Localizable", "deleteFromCollection", fallback: "Delete from collection")
   /// Digital
   internal static let digital = L10n.tr("Localizable", "digital", fallback: "Digital")
+  /// Done
+  internal static let done = L10n.tr("Localizable", "done", fallback: "Done")
   /// Edit/Delete profile
   internal static let editProfile = L10n.tr("Localizable", "editProfile", fallback: "Edit/Delete profile")
   /// Email

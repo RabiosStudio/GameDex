@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		076B99D18338973C548C5EFB /* Pods_GameDex.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 071408E05EBD04F01F341425 /* Pods_GameDex.framework */; };
 		250046112C25BF5800E6C3B2 /* StorageAreaManagementError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250046102C25BF5800E6C3B2 /* StorageAreaManagementError.swift */; };
+		250046132C25C7EF00E6C3B2 /* KeyboardAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250046122C25C7EF00E6C3B2 /* KeyboardAccessoryView.swift */; };
+		250046162C25D0BD00E6C3B2 /* KeyboardDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250046152C25D0BD00E6C3B2 /* KeyboardDelegate.swift */; };
 		2506D8782ADD39B3006D3F52 /* VerticallyAlignedLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2506D8772ADD39B3006D3F52 /* VerticallyAlignedLabel.swift */; };
 		2506D87C2ADE97CB006D3F52 /* AppLauncher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2506D87B2ADE97CB006D3F52 /* AppLauncher.swift */; };
 		2506D8822ADE992F006D3F52 /* AppLauncherImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2506D8812ADE992F006D3F52 /* AppLauncherImpl.swift */; };
@@ -238,6 +240,8 @@
 		071408E05EBD04F01F341425 /* Pods_GameDex.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GameDex.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		199276E84FCF7ECF7ECE6434 /* Pods-GameDexTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GameDexTests.release.xcconfig"; path = "Target Support Files/Pods-GameDexTests/Pods-GameDexTests.release.xcconfig"; sourceTree = "<group>"; };
 		250046102C25BF5800E6C3B2 /* StorageAreaManagementError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageAreaManagementError.swift; sourceTree = "<group>"; };
+		250046122C25C7EF00E6C3B2 /* KeyboardAccessoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardAccessoryView.swift; sourceTree = "<group>"; };
+		250046152C25D0BD00E6C3B2 /* KeyboardDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardDelegate.swift; sourceTree = "<group>"; };
 		2506D8772ADD39B3006D3F52 /* VerticallyAlignedLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticallyAlignedLabel.swift; sourceTree = "<group>"; };
 		2506D87B2ADE97CB006D3F52 /* AppLauncher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLauncher.swift; sourceTree = "<group>"; };
 		2506D8812ADE992F006D3F52 /* AppLauncherImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLauncherImpl.swift; sourceTree = "<group>"; };
@@ -807,6 +811,7 @@
 				25ADAEA12C21E6C000BE26FA /* FormDelegate.swift */,
 				25ADAE9B2C21D08B00BE26FA /* AppReviewService.swift */,
 				25ADAEB02C245A0D00BE26FA /* ObjectManagementDelegate.swift */,
+				250046152C25D0BD00E6C3B2 /* KeyboardDelegate.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -872,6 +877,7 @@
 				2506D8812ADE992F006D3F52 /* AppLauncherImpl.swift */,
 				2506D8B62AF7CA4A006D3F52 /* ButtonState.swift */,
 				255A0A552C072F20007ED3D3 /* LabelAndIconSegment.swift */,
+				250046122C25C7EF00E6C3B2 /* KeyboardAccessoryView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -1477,6 +1483,7 @@
 				25979DB42ABF1E07002CEDE7 /* TitleCell.swift in Sources */,
 				25BA88842C0E000C00B8CD28 /* GameDetailsContext.swift in Sources */,
 				25AE1ECE2A8D1D6F00F2D06A /* EmptyReason.swift in Sources */,
+				250046132C25C7EF00E6C3B2 /* KeyboardAccessoryView.swift in Sources */,
 				25EDF79D2AB1C2E200648717 /* MyCollectionByPlatformsSection.swift in Sources */,
 				251C86C12A97A29D0020C794 /* APIEndpoint.swift in Sources */,
 				25EDF7C42AB46A4F00648717 /* LocalDatabase.swift in Sources */,
@@ -1508,6 +1515,7 @@
 				251C87372A9D04D70020C794 /* SearchGamesData.swift in Sources */,
 				2548E5CF2AB9C1A6004151EF /* DateFormatter.swift in Sources */,
 				25939FFD2AAF6FBF000FC253 /* GameFormType.swift in Sources */,
+				250046162C25D0BD00E6C3B2 /* KeyboardDelegate.swift in Sources */,
 				25EDF7A32AB223C700648717 /* GameDex.xcdatamodeld in Sources */,
 				251C87332A9CEF4D0020C794 /* SearchGameByTitleViewModel.swift in Sources */,
 				25EB24162AA5E2410024F01C /* StarRatingCell.swift in Sources */,

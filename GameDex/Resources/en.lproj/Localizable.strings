@@ -75,6 +75,7 @@
 "clearSearch" = "Clear search";
 "clearAll" = "Clear all";
 "addAStorageArea" = "Add a storage area";
+"done" = "Done";
 
 // Add Game Steps
 "stepOneOutOfThree" = "Step 1/3";

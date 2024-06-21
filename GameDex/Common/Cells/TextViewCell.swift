@@ -56,6 +56,10 @@ class TextViewCell: UICollectionViewCell, CellConfigurable {
         self.cellVM = cellVM
         self.setupConstraints()
         self.label.text = cellVM.title
+        self.textView.inputAccessoryView = KeyboardAccessoryView(
+            delegate: self,
+            showCancelButton: true
+        )
     }
     
     private func setupViews() {
@@ -119,5 +123,15 @@ extension TextViewCell: UITextViewDelegate {
     
     func textViewDidBeginEditing(_ textView: UITextView) {
         self.cellVM?.containerDelegate?.scrollToItem(cell: self)
+    }
+}
+
+extension TextViewCell: KeyboardDelegate {
+    func didTapCancelButton() {
+        self.textView.resignFirstResponder()
+    }
+    
+    func didTapDoneButton() {
+        self.textView.resignFirstResponder()
     }
 }
