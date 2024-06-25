@@ -189,11 +189,11 @@ extension LocalDatabaseImpl {
                 } catch {
                     return DatabaseError.removeError
                 }
-            case .failure(_):
+            case .failure:
                 return DatabaseError.removeError
             }
             
-        case .failure(_):
+        case .failure:
             return DatabaseError.removeError
         }
     }

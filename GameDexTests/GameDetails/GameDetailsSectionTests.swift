@@ -17,6 +17,7 @@ final class GameDetailsSectionTests: XCTestCase {
             platformName: MockData.platform.title,
             gameForm: MockData.gameForm,
             formDelegate: FormDelegateMock(),
+            gameDetailsDelegate: GameDetailsViewModelDelegateMock(),
             containerDelegate: ContainerViewControllerDelegateMock()
         )
         

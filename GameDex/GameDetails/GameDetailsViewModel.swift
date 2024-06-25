@@ -8,6 +8,7 @@
 import Foundation
 import UIKit
 
+// sourcery: AutoMockable
 protocol GameDetailsViewModelDelegate: AnyObject {
     func removeStorageAreaFromGameFormIfNeeded(storageArea: String) async
     func editStorageAreaFromGameFormIfNeeded(storageArea: String) async

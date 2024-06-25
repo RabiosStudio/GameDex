@@ -26,7 +26,7 @@ final class StorageAreasManagementViewModel: CollectionViewModel {
     
     private var storageAreas: [String]
     private var alertDisplayer: AlertDisplayer
-    private var context: StorageAreasManagementContext?
+    var context: StorageAreasManagementContext?
     private let localDatabase: LocalDatabase
     private let authenticationService: AuthenticationService
     private var selectedStorageArea: String?
@@ -93,6 +93,7 @@ extension StorageAreasManagementViewModel: AlertDisplayerDelegate {
         guard let userId = self.authenticationService.getUserId() else {
             guard await self.localDatabase.remove(storageArea: storageAreaToRemove) == nil else {
                 self.displayAlert(success: false)
+                self.context = nil
                 return
             }
             for (index, item) in self.storageAreas.enumerated() {
@@ -112,14 +113,6 @@ private extension StorageAreasManagementViewModel {
         self.context = .add
         self.updateSections(with: self.storageAreas, context: self.context)
         self.containerDelegate?.reloadSections(emptyError: nil)
-    }
-    
-    func close() {
-        Routing.shared.route(
-            navigationStyle: .dismiss(
-                completionBlock: nil
-            )
-        )
     }
     
     func updateSections(

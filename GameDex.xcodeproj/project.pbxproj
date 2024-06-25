@@ -11,6 +11,8 @@
 		250046112C25BF5800E6C3B2 /* StorageAreaManagementError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250046102C25BF5800E6C3B2 /* StorageAreaManagementError.swift */; };
 		250046132C25C7EF00E6C3B2 /* KeyboardAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250046122C25C7EF00E6C3B2 /* KeyboardAccessoryView.swift */; };
 		250046162C25D0BD00E6C3B2 /* KeyboardDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250046152C25D0BD00E6C3B2 /* KeyboardDelegate.swift */; };
+		250046182C2AB62600E6C3B2 /* StorageAreasManagementSectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250046172C2AB62600E6C3B2 /* StorageAreasManagementSectionTests.swift */; };
+		2500461A2C2AB63400E6C3B2 /* StorageAreasManagementViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250046192C2AB63400E6C3B2 /* StorageAreasManagementViewModelTests.swift */; };
 		2506D8782ADD39B3006D3F52 /* VerticallyAlignedLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2506D8772ADD39B3006D3F52 /* VerticallyAlignedLabel.swift */; };
 		2506D87C2ADE97CB006D3F52 /* AppLauncher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2506D87B2ADE97CB006D3F52 /* AppLauncher.swift */; };
 		2506D8822ADE992F006D3F52 /* AppLauncherImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2506D8812ADE992F006D3F52 /* AppLauncherImpl.swift */; };
@@ -242,6 +244,8 @@
 		250046102C25BF5800E6C3B2 /* StorageAreaManagementError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageAreaManagementError.swift; sourceTree = "<group>"; };
 		250046122C25C7EF00E6C3B2 /* KeyboardAccessoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardAccessoryView.swift; sourceTree = "<group>"; };
 		250046152C25D0BD00E6C3B2 /* KeyboardDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardDelegate.swift; sourceTree = "<group>"; };
+		250046172C2AB62600E6C3B2 /* StorageAreasManagementSectionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageAreasManagementSectionTests.swift; sourceTree = "<group>"; };
+		250046192C2AB63400E6C3B2 /* StorageAreasManagementViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageAreasManagementViewModelTests.swift; sourceTree = "<group>"; };
 		2506D8772ADD39B3006D3F52 /* VerticallyAlignedLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticallyAlignedLabel.swift; sourceTree = "<group>"; };
 		2506D87B2ADE97CB006D3F52 /* AppLauncher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLauncher.swift; sourceTree = "<group>"; };
 		2506D8812ADE992F006D3F52 /* AppLauncherImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLauncherImpl.swift; sourceTree = "<group>"; };
@@ -954,6 +958,8 @@
 			children = (
 				25BA888C2C0F03AD00B8CD28 /* GameDetailsSectionTests.swift */,
 				25BA888E2C0F03BA00B8CD28 /* GameDetailsViewModelTests.swift */,
+				250046172C2AB62600E6C3B2 /* StorageAreasManagementSectionTests.swift */,
+				250046192C2AB63400E6C3B2 /* StorageAreasManagementViewModelTests.swift */,
 			);
 			path = GameDetails;
 			sourceTree = "<group>";
@@ -1646,6 +1652,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				25EDF7B12AB3053A00648717 /* Constants.swift in Sources */,
+				250046182C2AB62600E6C3B2 /* StorageAreasManagementSectionTests.swift in Sources */,
 				252E377D2AD6A0EC00987DD5 /* TestCoreDataStack.swift in Sources */,
 				251C871C2A9C888B0020C794 /* SelectPlatformSectionTests.swift in Sources */,
 				25979D9F2ABEF5F2002CEDE7 /* MyProfileSectionTests.swift in Sources */,
@@ -1681,6 +1688,7 @@
 				2506D88C2ADFEEE7006D3F52 /* EditProfileViewModelTests.swift in Sources */,
 				25EB24522AA8B1350024F01C /* ImageDescriptionCellViewModelTests.swift in Sources */,
 				25D6EAF92A8A265D00C2BE57 /* TextFieldCellViewModelTests.swift in Sources */,
+				2500461A2C2AB63400E6C3B2 /* StorageAreasManagementViewModelTests.swift in Sources */,
 				255F8EBA2BFF765600DFE8D4 /* MyCollectionFiltersViewModelTests.swift in Sources */,
 				252E37812AD8220400987DD5 /* AuthenticationServiceImplTests.swift in Sources */,
 				25EB24082AA1D5C20024F01C /* LabelCellViewModelTests.swift in Sources */,
