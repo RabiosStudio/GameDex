@@ -23,6 +23,20 @@ extension LocalDatabaseImpl {
         newEntity: SavedGame,
         platform: Platform
     ) async -> DatabaseError? {
+        let coreDataNewGame = CoreDataConverter.convert(
+            gameDetails: newEntity,
+            context: self.managedObjectContext
+        )
+        if let storageArea = newEntity.storageArea {
+            let fetchedStorageAreaResults = self.get(storageArea: storageArea)
+            switch fetchedStorageAreaResults {
+            case let .success(storageArea):
+                storageArea?.addToGames(coreDataNewGame)
+            case let .failure(error):
+                return error
+            }
+        }
+        
         let localPlatformResult = self.getPlatform(platformId: platform.id)
         switch localPlatformResult {
         case let .success(platformResult):
@@ -31,12 +45,7 @@ extension LocalDatabaseImpl {
                     platform: platform,
                     context: self.managedObjectContext
                 )
-                newLocalPlatform.addToGames(
-                    CoreDataConverter.convert(
-                        gameDetails: newEntity,
-                        context: self.managedObjectContext
-                    )
-                )
+                newLocalPlatform.addToGames(coreDataNewGame)
                 guard await self.coreDataStack.saveContext(self.managedObjectContext) == nil else {
                     return DatabaseError.saveError
                 }
@@ -49,13 +58,7 @@ extension LocalDatabaseImpl {
             ) {
                 return DatabaseError.itemAlreadySaved
             } else {
-                platformResult.addToGames(
-                    CoreDataConverter.convert(
-                        gameDetails: newEntity,
-                        context: self.managedObjectContext
-                    )
-                )
-                // Save the context
+                platformResult.addToGames(coreDataNewGame)
                 guard await self.coreDataStack.saveContext(self.managedObjectContext) == nil else {
                     return DatabaseError.saveError
                 }
@@ -117,7 +120,7 @@ extension LocalDatabaseImpl {
     }
     
     func replace(savedGame: SavedGame) async -> DatabaseError? {
-        let gameResult = getGame(savedGame: savedGame)
+        let gameResult = self.getGame(savedGame: savedGame)
         switch gameResult {
         case let .success(gameToReplace):
             guard let gameToReplace else {
@@ -129,11 +132,21 @@ extension LocalDatabaseImpl {
             gameToReplace.gameRegion = savedGame.gameRegion?.rawValue
             gameToReplace.lastUpdated = savedGame.lastUpdated
             gameToReplace.notes = savedGame.notes
-            gameToReplace.rating = Int16(savedGame.rating ?? .zero)
-            gameToReplace.storageArea = savedGame.storageArea
+            gameToReplace.rating = Int16(savedGame.rating)
             gameToReplace.isPhysical = savedGame.isPhysical
-            
-            // Save the context
+            if gameToReplace.storageArea?.name != savedGame.storageArea {
+                gameToReplace.storageArea?.removeFromGames(gameToReplace)
+                if let storageArea = savedGame.storageArea {
+                    let fetchedStorageAreaResults = self.get(storageArea: storageArea)
+                    switch fetchedStorageAreaResults {
+                    case let .success(storageArea):
+                        storageArea?.addToGames(gameToReplace)
+                    case let .failure(error):
+                        return error
+                    }
+                }
+            }
+            // Save the context            
             guard await self.coreDataStack.saveContext(self.managedObjectContext) == nil else {
                 return DatabaseError.saveError
             }
@@ -162,6 +175,7 @@ extension LocalDatabaseImpl {
                 }
                 // Delete game and save context
                 platformResult.removeFromGames(gameToRemove)
+                gameToRemove.storageArea?.removeFromGames(gameToRemove)
                 self.managedObjectContext.delete(gameToRemove)
                 do {
                     try managedObjectContext.save()
@@ -175,11 +189,11 @@ extension LocalDatabaseImpl {
                 } catch {
                     return DatabaseError.removeError
                 }
-            case .failure(_):
+            case .failure:
                 return DatabaseError.removeError
             }
             
-        case .failure(_):
+        case .failure:
             return DatabaseError.removeError
         }
     }
@@ -189,10 +203,10 @@ extension LocalDatabaseImpl {
         switch fetchPlatformsResult {
         case let .success(result):
             for item in result {
-                managedObjectContext.delete(item)
+                self.managedObjectContext.delete(item)
             }
             do {
-                try managedObjectContext.save()
+                try self.managedObjectContext.save()
                 return nil
             } catch {
                 return DatabaseError.removeError
@@ -211,14 +225,117 @@ extension LocalDatabaseImpl {
             guard let fetchedPlatform else {
                 return DatabaseError.removeError
             }
-            managedObjectContext.delete(fetchedPlatform)
+            self.managedObjectContext.delete(fetchedPlatform)
+            do {
+                try self.managedObjectContext.save()
+                return nil
+            } catch {
+                return DatabaseError.removeError
+            }
+        case .failure:
+            return DatabaseError.removeError
+        }
+    }
+    
+    func add(storageArea: String) async -> DatabaseError? {
+        _ = CoreDataConverter.convert(storageAreaName: storageArea, context: self.managedObjectContext)
+        guard await self.coreDataStack.saveContext(self.managedObjectContext) == nil else {
+            return DatabaseError.saveError
+        }
+        return nil
+    }
+    
+    func get(storageArea: String) -> Result<StorageArea?, DatabaseError> {
+        let fetchRequest: NSFetchRequest<StorageArea>
+        fetchRequest = StorageArea.fetchRequest()
+        fetchRequest.predicate = NSPredicate(format: "name == %@", storageArea)
+        do {
+            let results = try self.managedObjectContext.fetch(fetchRequest)
+            guard let storageAreaName = results.first else {
+                return .success(nil)
+            }
+            return .success(storageAreaName)
+        } catch {
+            return .failure(DatabaseError.fetchError)
+        }
+    }
+    
+    func fetchAllStorageAreas() -> Result<[String], DatabaseError> {
+        let request: NSFetchRequest<StorageArea> = StorageArea.fetchRequest()
+        do {
+            let results = try managedObjectContext.fetch(request)
+            var storageAreas: [String] = []
+            for result in results {
+                let storageArea = CoreDataConverter.convert(storageArea: result)
+                storageAreas.append(storageArea)
+            }
+            return .success(storageAreas)
+        } catch {
+            return .failure(DatabaseError.fetchError)
+        }
+    }
+    
+    func replaceStorageArea(oldValue: String, newValue: String) async -> DatabaseError? {
+        let storageAreaResult = self.get(storageArea: oldValue)
+        switch storageAreaResult {
+        case let .success(storageAreaToReplace):
+            guard let storageAreaToReplace else {
+                return DatabaseError.fetchError
+            }
+            storageAreaToReplace.name = newValue
+            // Save the context
+            guard await self.coreDataStack.saveContext(self.managedObjectContext) == nil else {
+                return DatabaseError.saveError
+            }
+            return nil
+        case let .failure(error):
+            return error
+        }
+    }
+    
+    func getGamesStoredIn(storageArea: String) async -> Result<[GameCollected], DatabaseError> {
+        let fetchRequest: NSFetchRequest<GameCollected>
+        fetchRequest = GameCollected.fetchRequest()
+        let predicate = NSPredicate(format: "storageArea == %@", storageArea)
+        fetchRequest.predicate = predicate
+        do {
+            let results = try self.managedObjectContext.fetch(fetchRequest)
+            return .success(results)
+        } catch {
+            return .failure(DatabaseError.fetchError)
+        }
+    }
+    
+    func remove(storageArea: String) async -> DatabaseError? {
+        // Remove the object in the following context
+        let storageAreaResult = self.get(storageArea: storageArea)
+        
+        switch storageAreaResult {
+        case let .success(storageAreaToRemove):
+            guard let storageAreaToRemove else {
+                return nil
+            }
+            
+            // Remove the storageArea from games
+            let fetchedGamesResult = await self.getGamesStoredIn(storageArea: storageArea)
+            switch fetchedGamesResult {
+            case let .success(gamesFetched):
+                for game in gamesFetched {
+                    storageAreaToRemove.removeFromGames(game)
+                }
+            case let .failure(error):
+                return error
+            }
+            
+            // Delete the object and save context
+            self.managedObjectContext.delete(storageAreaToRemove)
             do {
                 try managedObjectContext.save()
                 return nil
             } catch {
                 return DatabaseError.removeError
             }
-        case .failure(_):
+        case .failure:
             return DatabaseError.removeError
         }
     }

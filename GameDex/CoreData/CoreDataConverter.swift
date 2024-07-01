@@ -45,10 +45,9 @@ enum CoreDataConverter {
         let gameCollected = GameCollected(context: context)
         gameCollected.title = gameDetails.game.title
         gameCollected.summary = gameDetails.game.description
-        gameCollected.storageArea = gameDetails.storageArea
         gameCollected.notes = gameDetails.notes
         gameCollected.imageUrl = gameDetails.game.imageUrl
-        gameCollected.rating = Int16(gameDetails.rating ?? .zero)
+        gameCollected.rating = Int16(gameDetails.rating)
         gameCollected.gameRegion = gameDetails.gameRegion?.rawValue
         gameCollected.gameCondition = gameDetails.gameCondition?.rawValue
         gameCollected.gameCompleteness = gameDetails.gameCompleteness?.rawValue
@@ -91,7 +90,7 @@ enum CoreDataConverter {
                 gameCondition: gameCondition,
                 gameCompleteness: gameCompleteness,
                 gameRegion: gameRegion,
-                storageArea: aGame.storageArea,
+                storageArea: aGame.storageArea?.name,
                 rating: Int(aGame.rating),
                 notes: aGame.notes,
                 lastUpdated: aGame.lastUpdated, 
@@ -118,5 +117,15 @@ enum CoreDataConverter {
         return platformsCollected.map { platformCollected in
             CoreDataConverter.convert(platformCollected: platformCollected)
         }
+    }
+    
+    static func convert(storageAreaName: String, context: NSManagedObjectContext) -> StorageArea {
+        var storageArea = StorageArea(context: context)
+        storageArea.name = storageAreaName
+        return storageArea
+    }
+    
+    static func convert(storageArea: StorageArea) -> String {
+        return storageArea.name
     }
 }

@@ -14,6 +14,7 @@ final class GameDetailsSection: Section {
         platformName: String,
         gameForm: GameForm,
         formDelegate: FormDelegate,
+        gameDetailsDelegate: GameDetailsViewModelDelegate?,
         containerDelegate: ContainerViewControllerDelegate?
     ) {
         super.init()
@@ -98,7 +99,19 @@ final class GameDetailsSection: Section {
                 placeholder: L10n.storageArea,
                 formType: GameFormType.storageArea,
                 value: gameForm.storageArea,
-                formDelegate: formDelegate
+                isEditable: false,
+                formDelegate: formDelegate,
+                cellTappedCallback: {
+                    let screenFactory = StorageAreasManagementScreenFactory(
+                        formDelegate: formDelegate,
+                        gameDetailsDelegate: gameDetailsDelegate
+                    )
+                    Routing.shared.route(
+                        navigationStyle: .push(
+                            screenFactory: screenFactory
+                        )
+                    )
+                }
             )
             self.cellsVM.append(storageAreaCellVM)
         }

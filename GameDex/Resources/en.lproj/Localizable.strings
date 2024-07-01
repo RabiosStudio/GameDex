@@ -8,6 +8,7 @@
 "emptyItemsTitle" = "Could not find any items";
 "emptyItemsDescription" = "There are no items available for your selected options";
 "emptyGameSearch" = "Start researching a game on";
+"emptyStorageAreasTitle" = "There are no saved storage area";
 
 // Errors
 "errorTitle" = "Error";
@@ -24,6 +25,10 @@
 "errorDeleteAccountDescription" = "Error deleting account";
 "errorSendingPasswordResetEmail" = "Error sending password reset email. Please check your email address.";
 "errorSyncCloudAndLocalDatabases" = "An error while synchronizing your collection in local. Your database might not be up to date until your next login session.";
+"errorSavingStorageArea" = "An error occured while saving new storage area.";
+"errorUpdatingStorageArea" = "An error occured while updating storage area value.";
+"errorDeletingStorageArea" = "An error occured while deleting storage area.";
+"fetchStorageAreaErrorTitle" = "An error occuped while fetching data.";
 
 // Success
 "successTitle" = "Success";
@@ -35,6 +40,9 @@
 "successDeleteAccountDescription" = "Account deleted successfully";
 "successDeletePlatformDescription" = " successfully removed from your collection";
 "successSendingPasswordResetEmail" = "Password reset email sent";
+"successSavingStorageArea" = "The new storage area was saved successfully.";
+"successUpdatingStorageArea" = "The storage area was successfully updated";
+"successDeletingStorageArea" = "The storage area was successfully deleted";
 
 // Warnings
 "warningTitle" = "One moment!";
@@ -47,6 +55,7 @@
 "warningPlatformDeletionCloud" = "Your collection will be deleted permanently. This won't affect the data saved locally on other devices.";
 "warningPlatformDeletionLocal" = "Your collection will be deleted permanently. This will only affect data saved locally on this device.";
 "warningGameFormatAlreadyExists" = "A game with the selected new game format already exists in your collection.";
+"warningStorageAreaDeletion" = "The stockage area will be deleted permanently and won't be associated to any games in your collection anymore.";
 
 // Info
 "infoNoInternet" = "You're not connected to the internet, your collection might not be up to date.";
@@ -65,6 +74,8 @@
 "apply" = "Apply";
 "clearSearch" = "Clear search";
 "clearAll" = "Clear all";
+"addAStorageArea" = "Add a storage area";
+"done" = "Done";
 
 // Add Game Steps
 "stepOneOutOfThree" = "Step 1/3";
@@ -139,9 +150,11 @@
 "digital" = "Digital";
 "any" = "Any";
 "gameFormat" = "Game format";
+"newStorageArea" = "New storage area";
 
 // Other
 "game" = "game";
 "games" = "games";
 "filters" = "Filters";
 "selectAndDeleteACollection" = "Select a collection to delete";
+"selectStorageArea" = "Select storage area";

@@ -19,21 +19,47 @@ final class TextFieldCellViewModel: CollectionFormCellViewModel {
     var formType: FormType
     var value: ValueType? {
         didSet {
+            self.returnKeyTapped = false
             self.formDelegate?.didUpdate(value: self.value as Any, for: self.formType)
         }
     }
+    let isEditable: Bool
+    var returnKeyTapped: Bool = false {
+        didSet {
+            if self.returnKeyTapped == true {
+                Task {
+                    await self.formDelegate?.confirmChanges(value: self.value as Any, for: self.formType)
+                }
+            }
+        }
+    }
+    
+    var cancelKeyTapped: Bool = false {
+        didSet {
+            if self.cancelKeyTapped == true {
+                self.formDelegate?.refreshSections()
+            }
+        }
+    }
+    
+    var isFirstResponder: Bool
     
     weak var formDelegate: FormDelegate?
     
     init(placeholder: String,
          formType: FormType,
          value: String? = nil,
-         formDelegate: FormDelegate? = nil
+         isEditable: Bool = true,
+         isFirstResponder: Bool = false,
+         formDelegate: FormDelegate? = nil,
+         cellTappedCallback: (() -> Void)? = nil
     ) {
         self.placeholder = placeholder
         self.formType = formType
         self.value = value
+        self.isEditable = isEditable
+        self.isFirstResponder = isFirstResponder
         self.formDelegate = formDelegate
+        self.cellTappedCallback = cellTappedCallback
     }
-    
 }

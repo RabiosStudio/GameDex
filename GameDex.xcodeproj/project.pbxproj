@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		076B99D18338973C548C5EFB /* Pods_GameDex.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 071408E05EBD04F01F341425 /* Pods_GameDex.framework */; };
+		250046112C25BF5800E6C3B2 /* StorageAreaManagementError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250046102C25BF5800E6C3B2 /* StorageAreaManagementError.swift */; };
+		250046132C25C7EF00E6C3B2 /* KeyboardAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250046122C25C7EF00E6C3B2 /* KeyboardAccessoryView.swift */; };
+		250046162C25D0BD00E6C3B2 /* KeyboardDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250046152C25D0BD00E6C3B2 /* KeyboardDelegate.swift */; };
+		250046182C2AB62600E6C3B2 /* StorageAreasManagementSectionTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250046172C2AB62600E6C3B2 /* StorageAreasManagementSectionTests.swift */; };
+		2500461A2C2AB63400E6C3B2 /* StorageAreasManagementViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 250046192C2AB63400E6C3B2 /* StorageAreasManagementViewModelTests.swift */; };
 		2506D8782ADD39B3006D3F52 /* VerticallyAlignedLabel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2506D8772ADD39B3006D3F52 /* VerticallyAlignedLabel.swift */; };
 		2506D87C2ADE97CB006D3F52 /* AppLauncher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2506D87B2ADE97CB006D3F52 /* AppLauncher.swift */; };
 		2506D8822ADE992F006D3F52 /* AppLauncherImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2506D8812ADE992F006D3F52 /* AppLauncherImpl.swift */; };
@@ -124,9 +129,15 @@
 		25979DCE2AC17C2C002CEDE7 /* ImageCellViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25979DCD2AC17C2C002CEDE7 /* ImageCellViewModel.swift */; };
 		25ADAE962C1CA1AF00BE26FA /* UICollectionView+Extension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25ADAE952C1CA1AF00BE26FA /* UICollectionView+Extension.swift */; };
 		25ADAE9A2C21BD0300BE26FA /* UserAccountForm.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25ADAE992C21BD0300BE26FA /* UserAccountForm.swift */; };
-		25ADAEA22C21E6C000BE26FA /* FormDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25ADAEA12C21E6C000BE26FA /* FormDelegate.swift */; };
 		25ADAE9C2C21D08B00BE26FA /* AppReviewService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25ADAE9B2C21D08B00BE26FA /* AppReviewService.swift */; };
 		25ADAE9E2C21D1CE00BE26FA /* AppReviewServiceImpl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25ADAE9D2C21D1CE00BE26FA /* AppReviewServiceImpl.swift */; };
+		25ADAEA22C21E6C000BE26FA /* FormDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25ADAEA12C21E6C000BE26FA /* FormDelegate.swift */; };
+		25ADAEA82C244A1000BE26FA /* StorageAreasManagementViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25ADAEA72C244A1000BE26FA /* StorageAreasManagementViewModel.swift */; };
+		25ADAEAA2C244A2100BE26FA /* StorageAreasManagementSection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25ADAEA92C244A2100BE26FA /* StorageAreasManagementSection.swift */; };
+		25ADAEAC2C244A2B00BE26FA /* StorageAreasManagementScreenFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25ADAEAB2C244A2B00BE26FA /* StorageAreasManagementScreenFactory.swift */; };
+		25ADAEB12C245A0D00BE26FA /* ObjectManagementDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25ADAEB02C245A0D00BE26FA /* ObjectManagementDelegate.swift */; };
+		25ADAEB32C2472B700BE26FA /* StorageAreasManagementContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25ADAEB22C2472B700BE26FA /* StorageAreasManagementContext.swift */; };
+		25ADAEB52C24A7AB00BE26FA /* StorageArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25ADAEB42C24A7AB00BE26FA /* StorageArea.swift */; };
 		25AE1EAE2A8BB89400F2D06A /* Section.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AE1EAD2A8BB89400F2D06A /* Section.swift */; };
 		25AE1EBA2A8CB7E300F2D06A /* CollectionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AE1EB92A8CB7E300F2D06A /* CollectionViewModel.swift */; };
 		25AE1EBC2A8CB82500F2D06A /* CellConfigurable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 25AE1EBB2A8CB82500F2D06A /* CellConfigurable.swift */; };
@@ -230,6 +241,11 @@
 		04004D0858B3D2820F814154 /* Pods_GameDex_GameDexUITests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GameDex_GameDexUITests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		071408E05EBD04F01F341425 /* Pods_GameDex.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_GameDex.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		199276E84FCF7ECF7ECE6434 /* Pods-GameDexTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-GameDexTests.release.xcconfig"; path = "Target Support Files/Pods-GameDexTests/Pods-GameDexTests.release.xcconfig"; sourceTree = "<group>"; };
+		250046102C25BF5800E6C3B2 /* StorageAreaManagementError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageAreaManagementError.swift; sourceTree = "<group>"; };
+		250046122C25C7EF00E6C3B2 /* KeyboardAccessoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardAccessoryView.swift; sourceTree = "<group>"; };
+		250046152C25D0BD00E6C3B2 /* KeyboardDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyboardDelegate.swift; sourceTree = "<group>"; };
+		250046172C2AB62600E6C3B2 /* StorageAreasManagementSectionTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageAreasManagementSectionTests.swift; sourceTree = "<group>"; };
+		250046192C2AB63400E6C3B2 /* StorageAreasManagementViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageAreasManagementViewModelTests.swift; sourceTree = "<group>"; };
 		2506D8772ADD39B3006D3F52 /* VerticallyAlignedLabel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerticallyAlignedLabel.swift; sourceTree = "<group>"; };
 		2506D87B2ADE97CB006D3F52 /* AppLauncher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLauncher.swift; sourceTree = "<group>"; };
 		2506D8812ADE992F006D3F52 /* AppLauncherImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppLauncherImpl.swift; sourceTree = "<group>"; };
@@ -347,9 +363,15 @@
 		25979DCD2AC17C2C002CEDE7 /* ImageCellViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCellViewModel.swift; sourceTree = "<group>"; };
 		25ADAE952C1CA1AF00BE26FA /* UICollectionView+Extension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Extension.swift"; sourceTree = "<group>"; };
 		25ADAE992C21BD0300BE26FA /* UserAccountForm.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAccountForm.swift; sourceTree = "<group>"; };
-		25ADAEA12C21E6C000BE26FA /* FormDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormDelegate.swift; sourceTree = "<group>"; };
 		25ADAE9B2C21D08B00BE26FA /* AppReviewService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppReviewService.swift; sourceTree = "<group>"; };
 		25ADAE9D2C21D1CE00BE26FA /* AppReviewServiceImpl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppReviewServiceImpl.swift; sourceTree = "<group>"; };
+		25ADAEA12C21E6C000BE26FA /* FormDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FormDelegate.swift; sourceTree = "<group>"; };
+		25ADAEA72C244A1000BE26FA /* StorageAreasManagementViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageAreasManagementViewModel.swift; sourceTree = "<group>"; };
+		25ADAEA92C244A2100BE26FA /* StorageAreasManagementSection.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageAreasManagementSection.swift; sourceTree = "<group>"; };
+		25ADAEAB2C244A2B00BE26FA /* StorageAreasManagementScreenFactory.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageAreasManagementScreenFactory.swift; sourceTree = "<group>"; };
+		25ADAEB02C245A0D00BE26FA /* ObjectManagementDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ObjectManagementDelegate.swift; sourceTree = "<group>"; };
+		25ADAEB22C2472B700BE26FA /* StorageAreasManagementContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageAreasManagementContext.swift; sourceTree = "<group>"; };
+		25ADAEB42C24A7AB00BE26FA /* StorageArea.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StorageArea.swift; sourceTree = "<group>"; };
 		25AE1EAD2A8BB89400F2D06A /* Section.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Section.swift; sourceTree = "<group>"; };
 		25AE1EB92A8CB7E300F2D06A /* CollectionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewModel.swift; sourceTree = "<group>"; };
 		25AE1EBB2A8CB82500F2D06A /* CellConfigurable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CellConfigurable.swift; sourceTree = "<group>"; };
@@ -747,6 +769,18 @@
 			path = Forms;
 			sourceTree = "<group>";
 		};
+		25ADAEAF2C24589600BE26FA /* StorageAreasManagement */ = {
+			isa = PBXGroup;
+			children = (
+				25ADAEB22C2472B700BE26FA /* StorageAreasManagementContext.swift */,
+				25ADAEA72C244A1000BE26FA /* StorageAreasManagementViewModel.swift */,
+				25ADAEA92C244A2100BE26FA /* StorageAreasManagementSection.swift */,
+				25ADAEAB2C244A2B00BE26FA /* StorageAreasManagementScreenFactory.swift */,
+				250046102C25BF5800E6C3B2 /* StorageAreaManagementError.swift */,
+			);
+			path = StorageAreasManagement;
+			sourceTree = "<group>";
+		};
 		25AE1EB72A8CB7CC00F2D06A /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
@@ -780,6 +814,8 @@
 				258630362BFB96DE00AD3EE4 /* Filter.swift */,
 				25ADAEA12C21E6C000BE26FA /* FormDelegate.swift */,
 				25ADAE9B2C21D08B00BE26FA /* AppReviewService.swift */,
+				25ADAEB02C245A0D00BE26FA /* ObjectManagementDelegate.swift */,
+				250046152C25D0BD00E6C3B2 /* KeyboardDelegate.swift */,
 			);
 			path = Protocols;
 			sourceTree = "<group>";
@@ -845,6 +881,7 @@
 				2506D8812ADE992F006D3F52 /* AppLauncherImpl.swift */,
 				2506D8B62AF7CA4A006D3F52 /* ButtonState.swift */,
 				255A0A552C072F20007ED3D3 /* LabelAndIconSegment.swift */,
+				250046122C25C7EF00E6C3B2 /* KeyboardAccessoryView.swift */,
 			);
 			path = Components;
 			sourceTree = "<group>";
@@ -911,6 +948,7 @@
 				25BA88852C0E02A000B8CD28 /* GameDetailsViewModel.swift */,
 				25BA88872C0E03C600B8CD28 /* GameDetailsSection.swift */,
 				25BA88892C0E040600B8CD28 /* GameDetailsScreenFactory.swift */,
+				25ADAEAF2C24589600BE26FA /* StorageAreasManagement */,
 			);
 			path = GameDetails;
 			sourceTree = "<group>";
@@ -920,6 +958,8 @@
 			children = (
 				25BA888C2C0F03AD00B8CD28 /* GameDetailsSectionTests.swift */,
 				25BA888E2C0F03BA00B8CD28 /* GameDetailsViewModelTests.swift */,
+				250046172C2AB62600E6C3B2 /* StorageAreasManagementSectionTests.swift */,
+				250046192C2AB63400E6C3B2 /* StorageAreasManagementViewModelTests.swift */,
 			);
 			path = GameDetails;
 			sourceTree = "<group>";
@@ -1079,6 +1119,7 @@
 				2548E5DD2ABAE688004151EF /* PlatformCollected.swift */,
 				2548E5DF2ABAE688004151EF /* GameCollected.swift */,
 				258630292BF3727000AD3EE4 /* PlatformSupportedNames.swift */,
+				25ADAEB42C24A7AB00BE26FA /* StorageArea.swift */,
 				25DA8CB92AADE88600B40F84 /* LocalDatabaseImpl.swift */,
 				25EDF7A42AB2242400648717 /* CoreDataStack.swift */,
 				25939FF62AAF3C09000FC253 /* DatabaseError.swift */,
@@ -1448,6 +1489,7 @@
 				25979DB42ABF1E07002CEDE7 /* TitleCell.swift in Sources */,
 				25BA88842C0E000C00B8CD28 /* GameDetailsContext.swift in Sources */,
 				25AE1ECE2A8D1D6F00F2D06A /* EmptyReason.swift in Sources */,
+				250046132C25C7EF00E6C3B2 /* KeyboardAccessoryView.swift in Sources */,
 				25EDF79D2AB1C2E200648717 /* MyCollectionByPlatformsSection.swift in Sources */,
 				251C86C12A97A29D0020C794 /* APIEndpoint.swift in Sources */,
 				25EDF7C42AB46A4F00648717 /* LocalDatabase.swift in Sources */,
@@ -1469,6 +1511,7 @@
 				25979DCC2AC17C22002CEDE7 /* ImageCell.swift in Sources */,
 				2506D8992AE11291006D3F52 /* FirestoreSession.swift in Sources */,
 				25AE1EAE2A8BB89400F2D06A /* Section.swift in Sources */,
+				25ADAEB12C245A0D00BE26FA /* ObjectManagementDelegate.swift in Sources */,
 				25AE1ED42A8D1E4000F2D06A /* EmptyError.swift in Sources */,
 				25EB24572AA8B39C0024F01C /* PickerViewModel.swift in Sources */,
 				25EB244A2AA8ABCB0024F01C /* GameRegion.swift in Sources */,
@@ -1478,6 +1521,7 @@
 				251C87372A9D04D70020C794 /* SearchGamesData.swift in Sources */,
 				2548E5CF2AB9C1A6004151EF /* DateFormatter.swift in Sources */,
 				25939FFD2AAF6FBF000FC253 /* GameFormType.swift in Sources */,
+				250046162C25D0BD00E6C3B2 /* KeyboardDelegate.swift in Sources */,
 				25EDF7A32AB223C700648717 /* GameDex.xcdatamodeld in Sources */,
 				251C87332A9CEF4D0020C794 /* SearchGameByTitleViewModel.swift in Sources */,
 				25EB24162AA5E2410024F01C /* StarRatingCell.swift in Sources */,
@@ -1487,6 +1531,7 @@
 				25EDF7C22AB463B000648717 /* FormType.swift in Sources */,
 				2586303B2BFE103300AD3EE4 /* BarButtonConverter.swift in Sources */,
 				258630392BFCB43A00AD3EE4 /* GameFilter.swift in Sources */,
+				25ADAEAC2C244A2B00BE26FA /* StorageAreasManagementScreenFactory.swift in Sources */,
 				2593A0092AB19373000FC253 /* MyCollectionSection.swift in Sources */,
 				2506D89B2AE16B08006D3F52 /* FirestoreData.swift in Sources */,
 				25979DA82ABF0E52002CEDE7 /* LoginViewModel.swift in Sources */,
@@ -1553,6 +1598,7 @@
 				251C87392A9D08100020C794 /* SearchGameByTitleScreenFactory.swift in Sources */,
 				251C86F62A994EBF0020C794 /* SearchViewModel.swift in Sources */,
 				2506D87C2ADE97CB006D3F52 /* AppLauncher.swift in Sources */,
+				25ADAEA82C244A1000BE26FA /* StorageAreasManagementViewModel.swift in Sources */,
 				25E8E4B12AC428880093E7F8 /* AuthenticationServiceImpl.swift in Sources */,
 				25979DA42ABF0D5D002CEDE7 /* BasicCardCell.swift in Sources */,
 				255A0A562C072F20007ED3D3 /* LabelAndIconSegment.swift in Sources */,
@@ -1565,6 +1611,7 @@
 				251C86D62A9899F40020C794 /* Platform.swift in Sources */,
 				25DA8CB82AADE7E300B40F84 /* SavedGame.swift in Sources */,
 				2506D8AC2AE93504006D3F52 /* CollectionManagementScreenFactory.swift in Sources */,
+				25ADAEB32C2472B700BE26FA /* StorageAreasManagementContext.swift in Sources */,
 				25D6EAE22A8A265C00C2BE57 /* AppDelegate.swift in Sources */,
 				255A0A4C2C05BF54007ED3D3 /* SegmentedControlCellViewModel.swift in Sources */,
 				25AE1F1D2A8F926400F2D06A /* ContentViewFactory.swift in Sources */,
@@ -1572,6 +1619,8 @@
 				256D9C422AD2BD9700D4AA23 /* Position.swift in Sources */,
 				2506D8822ADE992F006D3F52 /* AppLauncherImpl.swift in Sources */,
 				25E8E4AC2AC1E4BC0093E7F8 /* AuthenticationError.swift in Sources */,
+				25ADAEB52C24A7AB00BE26FA /* StorageArea.swift in Sources */,
+				250046112C25BF5800E6C3B2 /* StorageAreaManagementError.swift in Sources */,
 				252516612ACAD10600B88813 /* CloudDatabase.swift in Sources */,
 				254E8B942A8B6BCA00C101C8 /* Strings.swift in Sources */,
 				25979DC62AC17295002CEDE7 /* AuthenticationViewModel.swift in Sources */,
@@ -1582,6 +1631,7 @@
 				254354762A93AFF700E53351 /* LabelCell.swift in Sources */,
 				25E8E49B2AC1926A0093E7F8 /* UserAccountFormType.swift in Sources */,
 				25979DB62ABF1E1B002CEDE7 /* TitleCellViewModel.swift in Sources */,
+				25ADAEAA2C244A2100BE26FA /* StorageAreasManagementSection.swift in Sources */,
 				251C87412A9DE9F30020C794 /* Game.swift in Sources */,
 				251C873B2A9D099E0020C794 /* BasicInfoCell.swift in Sources */,
 				251C86C02A97A29D0020C794 /* API.swift in Sources */,
@@ -1602,6 +1652,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				25EDF7B12AB3053A00648717 /* Constants.swift in Sources */,
+				250046182C2AB62600E6C3B2 /* StorageAreasManagementSectionTests.swift in Sources */,
 				252E377D2AD6A0EC00987DD5 /* TestCoreDataStack.swift in Sources */,
 				251C871C2A9C888B0020C794 /* SelectPlatformSectionTests.swift in Sources */,
 				25979D9F2ABEF5F2002CEDE7 /* MyProfileSectionTests.swift in Sources */,
@@ -1637,6 +1688,7 @@
 				2506D88C2ADFEEE7006D3F52 /* EditProfileViewModelTests.swift in Sources */,
 				25EB24522AA8B1350024F01C /* ImageDescriptionCellViewModelTests.swift in Sources */,
 				25D6EAF92A8A265D00C2BE57 /* TextFieldCellViewModelTests.swift in Sources */,
+				2500461A2C2AB63400E6C3B2 /* StorageAreasManagementViewModelTests.swift in Sources */,
 				255F8EBA2BFF765600DFE8D4 /* MyCollectionFiltersViewModelTests.swift in Sources */,
 				252E37812AD8220400987DD5 /* AuthenticationServiceImplTests.swift in Sources */,
 				25EB24082AA1D5C20024F01C /* LabelCellViewModelTests.swift in Sources */,

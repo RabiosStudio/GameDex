@@ -21,15 +21,13 @@ public class PlatformCollected: NSManagedObject {
     @NSManaged public var supportedNames: NSSet
 
     public var gamesArray: [GameCollected] {
-        var array = games?.allObjects as? [GameCollected] ?? []
-        return array
+        let set = games as? Set<GameCollected> ?? []
+        return Array(set)
     }
     
     public var supportedNamesArray: [PlatformSupportedNames] {
         let set = supportedNames as? Set<PlatformSupportedNames> ?? []
-        return set.sorted {
-            $0.name < $1.name
-        }
+        return Array(set)
     }
 }
 

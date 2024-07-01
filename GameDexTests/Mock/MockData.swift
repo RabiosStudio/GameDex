@@ -406,4 +406,8 @@ enum MockData {
         email: "email",
         password: "password"
     )
+    
+    static let storageAreas: [String] = ["Bureau", "Salon", "Chambre"]
+    
+    static let emptyStorageAreas = [String]()
 }

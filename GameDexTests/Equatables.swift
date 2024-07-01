@@ -93,6 +93,16 @@ extension ButtonState: Equatable {
 
 extension AnyBarButtonItem: Equatable {
     public static func == (lhs: AnyBarButtonItem, rhs: AnyBarButtonItem) -> Bool {
-        return lhs.position == lhs.position
+        return lhs.position == rhs.position
+    }
+}
+
+extension StorageAreaManagementError: Equatable {
+    public static func == (lhs: StorageAreaManagementError, rhs: StorageAreaManagementError) -> Bool {
+        lhs.errorTitle == rhs.errorTitle &&
+        lhs.imageName == rhs.imageName &&
+        lhs.errorDescription == rhs.errorDescription &&
+        lhs.errorAction == rhs.errorAction &&
+        lhs.buttonTitle == rhs.buttonTitle
     }
 }

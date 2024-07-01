@@ -20,9 +20,38 @@ final class LabelCell: UICollectionViewCell, CellConfigurable {
         return label
     }()
     
+    private lazy var deleteButton: UIButton = {
+        let button = UIButton()
+        let image = UIImage(systemName: "trash")!.withTintColor(.primaryColor, renderingMode: .alwaysOriginal)
+        button.setImage(image, for: .normal)
+        button.addTarget(self, action: #selector(didTapDeleteButton), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
+    private lazy var editButton: UIButton = {
+        let button = UIButton()
+        let image = UIImage(systemName: "pencil")!.withTintColor(.primaryColor, renderingMode: .alwaysOriginal)
+        button.setImage(image, for: .normal)
+        button.addTarget(self, action: #selector(didTapEditButton), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
+    
+    private lazy var stackView: UIStackView = {
+        let stackView = UIStackView()
+        stackView.axis = .horizontal
+        stackView.distribution = .fillEqually
+        stackView.translatesAutoresizingMaskIntoConstraints = false
+        return stackView
+    }()
+    
+    private var cellVM: LabelCellViewModel?
+    
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.contentView.addSubview(self.label)
+        self.contentView.addSubview(self.stackView)
     }
     
     required init?(coder: NSCoder) {
@@ -44,16 +73,60 @@ final class LabelCell: UICollectionViewCell, CellConfigurable {
         guard let cellVM = cellViewModel as? LabelCellViewModel else {
             return
         }
+        self.cellVM = cellVM
         self.label.text = cellVM.text
+        if cellVM.isEditable {
+            self.stackView.addArrangedSubview(self.editButton)
+        }
+        if cellVM.isDeletable {
+            self.stackView.addArrangedSubview(self.deleteButton)
+        }
         self.setupConstraints()
+        self.addNotificationObservers()
+    }
+    
+    @objc private func didTapDeleteButton() {
+        guard let cellVM = self.cellVM else {
+            return
+        }
+        cellVM.objectManagementDelegate?.delete(value: self.label.text as Any)
+    }
+    
+    @objc private func didTapEditButton() {
+        guard let cellVM = self.cellVM else {
+            return
+        }
+        cellVM.objectManagementDelegate?.edit(value: self.label.text as Any)
+    }
+    
+    private func addNotificationObservers() {
+        NotificationCenter.default.addObserver(self, selector: #selector(handleLabelInteraction), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(handleLabelInteraction), name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
+    
+    @objc private func handleLabelInteraction(notification: NSNotification) {
+        switch notification.name {
+        case UIResponder.keyboardWillShowNotification:
+            self.isUserInteractionEnabled = false
+        case UIResponder.keyboardWillHideNotification:
+            self.isUserInteractionEnabled = true
+        default:
+            break
+        }
     }
     
     private func setupConstraints() {
         NSLayoutConstraint.activate([
             self.label.topAnchor.constraint(equalTo: self.topAnchor),
             self.label.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: DesignSystem.paddingRegular),
-            self.label.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: DesignSystem.paddingRegular),
-            self.label.bottomAnchor.constraint(equalTo: self.bottomAnchor)
+            self.label.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+            
+            self.stackView.topAnchor.constraint(equalTo: self.topAnchor),
+            self.stackView.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: DesignSystem.paddingRegular),
+            self.stackView.bottomAnchor.constraint(equalTo: self.bottomAnchor),
+            self.stackView.widthAnchor.constraint(equalTo: self.widthAnchor, multiplier: DesignSystem.fractionalSizeVerySmall),
+            
+            self.label.trailingAnchor.constraint(equalTo: self.stackView.leadingAnchor, constant: DesignSystem.paddingRegular)
         ])
     }
     

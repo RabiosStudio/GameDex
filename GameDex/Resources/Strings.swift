@@ -14,6 +14,8 @@ internal enum L10n {
   internal static let acceptable = L10n.tr("Localizable", "acceptable", fallback: "Acceptable")
   /// Add a game
   internal static let addAGame = L10n.tr("Localizable", "addAGame", fallback: "Add a game")
+  /// Add a storage area
+  internal static let addAStorageArea = L10n.tr("Localizable", "addAStorageArea", fallback: "Add a storage area")
   /// First, add the game title and optionnally the corresponding platform.
   internal static let addBasicGameInformationDescription = L10n.tr("Localizable", "addBasicGameInformationDescription", fallback: "First, add the game title and optionnally the corresponding platform.")
   /// Add to collection
@@ -66,6 +68,8 @@ internal enum L10n {
   internal static let deleteFromCollection = L10n.tr("Localizable", "deleteFromCollection", fallback: "Delete from collection")
   /// Digital
   internal static let digital = L10n.tr("Localizable", "digital", fallback: "Digital")
+  /// Done
+  internal static let done = L10n.tr("Localizable", "done", fallback: "Done")
   /// Edit/Delete profile
   internal static let editProfile = L10n.tr("Localizable", "editProfile", fallback: "Edit/Delete profile")
   /// Email
@@ -80,24 +84,34 @@ internal enum L10n {
   internal static let emptyMyCollectionDescription = L10n.tr("Localizable", "emptyMyCollectionDescription", fallback: "It's time to add the very first game to your collection ! ")
   /// Your collection is empty
   internal static let emptyMyCollectionTitle = L10n.tr("Localizable", "emptyMyCollectionTitle", fallback: "Your collection is empty")
+  /// There are no saved storage area
+  internal static let emptyStorageAreasTitle = L10n.tr("Localizable", "emptyStorageAreasTitle", fallback: "There are no saved storage area")
   /// Please check your email address and password
   internal static let errorAuthDescription = L10n.tr("Localizable", "errorAuthDescription", fallback: "Please check your email address and password")
   /// Error verifying credentials
   internal static let errorCredentialsDescription = L10n.tr("Localizable", "errorCredentialsDescription", fallback: "Error verifying credentials")
   /// Error deleting account
   internal static let errorDeleteAccountDescription = L10n.tr("Localizable", "errorDeleteAccountDescription", fallback: "Error deleting account")
+  /// An error occured while deleting storage area.
+  internal static let errorDeletingStorageArea = L10n.tr("Localizable", "errorDeletingStorageArea", fallback: "An error occured while deleting storage area.")
   /// Your email app couldn't be reached. You can contact us at 
   internal static let errorEmailAppDescription = L10n.tr("Localizable", "errorEmailAppDescription", fallback: "Your email app couldn't be reached. You can contact us at ")
   /// An error occured while logging out.
   internal static let errorLogOutDescription = L10n.tr("Localizable", "errorLogOutDescription", fallback: "An error occured while logging out.")
+  /// An error occured while saving new storage area.
+  internal static let errorSavingStorageArea = L10n.tr("Localizable", "errorSavingStorageArea", fallback: "An error occured while saving new storage area.")
   /// Error sending password reset email. Please check your email address.
   internal static let errorSendingPasswordResetEmail = L10n.tr("Localizable", "errorSendingPasswordResetEmail", fallback: "Error sending password reset email. Please check your email address.")
   /// An error while synchronizing your collection in local. Your database might not be up to date until your next login session.
   internal static let errorSyncCloudAndLocalDatabases = L10n.tr("Localizable", "errorSyncCloudAndLocalDatabases", fallback: "An error while synchronizing your collection in local. Your database might not be up to date until your next login session.")
   /// Error
   internal static let errorTitle = L10n.tr("Localizable", "errorTitle", fallback: "Error")
+  /// An error occured while updating storage area value.
+  internal static let errorUpdatingStorageArea = L10n.tr("Localizable", "errorUpdatingStorageArea", fallback: "An error occured while updating storage area value.")
   /// An error occured while fetching data.
   internal static let fetchGamesErrorDescription = L10n.tr("Localizable", "fetchGamesErrorDescription", fallback: "An error occured while fetching data.")
+  /// An error occuped while fetching data.
+  internal static let fetchStorageAreaErrorTitle = L10n.tr("Localizable", "fetchStorageAreaErrorTitle", fallback: "An error occuped while fetching data.")
   /// Fill Game details
   internal static let fillGameDetails = L10n.tr("Localizable", "fillGameDetails", fallback: "Fill Game details")
   /// Filters
@@ -150,6 +164,8 @@ internal enum L10n {
   internal static let newEmail = L10n.tr("Localizable", "newEmail", fallback: "New email address")
   /// New password
   internal static let newPassword = L10n.tr("Localizable", "newPassword", fallback: "New password")
+  /// New storage area
+  internal static let newStorageArea = L10n.tr("Localizable", "newStorageArea", fallback: "New storage area")
   /// Box without notice
   internal static let noNotice = L10n.tr("Localizable", "noNotice", fallback: "Box without notice")
   /// Other details
@@ -198,6 +214,8 @@ internal enum L10n {
   internal static let searchPlatform = L10n.tr("Localizable", "searchPlatform", fallback: "Search a platform")
   /// Select a collection to delete
   internal static let selectAndDeleteACollection = L10n.tr("Localizable", "selectAndDeleteACollection", fallback: "Select a collection to delete")
+  /// Select storage area
+  internal static let selectStorageArea = L10n.tr("Localizable", "selectStorageArea", fallback: "Select storage area")
   /// Sign up
   internal static let signup = L10n.tr("Localizable", "signup", fallback: "Sign up")
   /// Sign up with email
@@ -212,12 +230,18 @@ internal enum L10n {
   internal static let successDeleteAccountDescription = L10n.tr("Localizable", "successDeleteAccountDescription", fallback: "Account deleted successfully")
   ///  successfully removed from your collection
   internal static let successDeletePlatformDescription = L10n.tr("Localizable", "successDeletePlatformDescription", fallback: " successfully removed from your collection")
+  /// The storage area was successfully deleted
+  internal static let successDeletingStorageArea = L10n.tr("Localizable", "successDeletingStorageArea", fallback: "The storage area was successfully deleted")
   /// You are logged out.
   internal static let successLogOutDescription = L10n.tr("Localizable", "successLogOutDescription", fallback: "You are logged out.")
+  /// The new storage area was saved successfully.
+  internal static let successSavingStorageArea = L10n.tr("Localizable", "successSavingStorageArea", fallback: "The new storage area was saved successfully.")
   /// Password reset email sent
   internal static let successSendingPasswordResetEmail = L10n.tr("Localizable", "successSendingPasswordResetEmail", fallback: "Password reset email sent")
   /// Success
   internal static let successTitle = L10n.tr("Localizable", "successTitle", fallback: "Success")
+  /// The storage area was successfully updated
+  internal static let successUpdatingStorageArea = L10n.tr("Localizable", "successUpdatingStorageArea", fallback: "The storage area was successfully updated")
   /// Title
   internal static let title = L10n.tr("Localizable", "title", fallback: "Title")
   /// Unknown
@@ -244,6 +268,8 @@ internal enum L10n {
   internal static let warningPlatformDeletionLocal = L10n.tr("Localizable", "warningPlatformDeletionLocal", fallback: "Your collection will be deleted permanently. This will only affect data saved locally on this device.")
   /// Are you sure you want to remove this game from your collection?
   internal static let warningRemoveGameDescription = L10n.tr("Localizable", "warningRemoveGameDescription", fallback: "Are you sure you want to remove this game from your collection?")
+  /// The stockage area will be deleted permanently and won't be associated to any games in your collection anymore.
+  internal static let warningStorageAreaDeletion = L10n.tr("Localizable", "warningStorageAreaDeletion", fallback: "The stockage area will be deleted permanently and won't be associated to any games in your collection anymore.")
   /// One moment!
   internal static let warningTitle = L10n.tr("Localizable", "warningTitle", fallback: "One moment!")
   /// Please try again later

@@ -8,6 +8,7 @@
 "emptyItemsTitle" = "Aucun résultat";
 "emptyItemsDescription" = "Essayez une nouvelle recherche";
 "emptyGameSearch" = "Lancez une recherche d'un jeu sur";
+"emptyStorageAreasTitle" = "Aucun lieu de stockage";
 
 // Errors
 "errorTitle" = "Erreur";
@@ -22,7 +23,11 @@
 "errorEmailAppDescription" = "Votre application mail n'a pas été détectée. Vous pouvez nous contacter à l'adresse suivante : ";
 "errorCredentialsDescription" = "La vérification des informations d'identification a échouée.";
 "errorSendingPasswordResetEmail" = "Erreur lors de l'envoi du mail de réinitialisation du mot de passe. Veuillez vérifier votre adresse mail.";
-"errorSyncCloudAndLocalDatabases" = "Une erreur est survenur lors de la synchronisation de votre collection en sur votre appareil. Votre connexion pourrait ne pas être à jour jusqu'à votre prochaine connexion.";
+"errorSyncCloudAndLocalDatabases" = "Une erreur est survenue lors de la synchronisation de votre collection en sur votre appareil. Votre connexion pourrait ne pas être à jour jusqu'à votre prochaine connexion.";
+"errorSavingStorageArea" = "Une erreur est survenue lors de la sauvegarde du nouveau lieu de stockage.";
+"errorUpdatingStorageArea" = "Une erreur est survenue lors de la mise à jour du lieu de stockage.";
+"errorDeletingStorageArea" = "Une erreur est survenue lors de la suppression du lieu de stockage.";
+"fetchStorageAreaErrorTitle" = "Une erreur est survenue lors de la récupération des données.";
 
 // Success
 "successTitle" = "Succès";
@@ -34,6 +39,9 @@
 "successDeleteAccount" = "Account deleted successfully";
 "successDeletePlatformDescription" = " a bien été supprimée de votre collection";
 "successSendingPasswordResetEmail" = "Email de réinitialisation du mot de passe envoyé avec succès.";
+"successSavingStorageArea" = "Le nouveau lieu de stockage a bien été enregistré.";
+"successUpdatingStorageArea" = "Le lieu de stockage a bien été mis à jour.";
+"successDeletingStorageArea" = "Le lieu de stockage a bien été supprimé.";
 
 // Warnings
 "warningTitle" = "Un instant !";
@@ -46,6 +54,7 @@
 "warningPlatformDeletionCloud" = "La collection ne peut pas être restaurée après suppression. Cela n'affectera pas les données sauvegardées en local sur d'autres appareils.";
 "warningPlatformDeletionLocal" = "La collection ne peut pas être restaurée après suppression. Seules les données sauvegardées en local sur votre appreils seront supprimées.";
 "warningGameFormatAlreadyExists" = "Un jeu avec le nouveau format sélectionné existe déjà dans votre collection.";
+"warningStorageAreaDeletion" = "Le lieu de stockage ne pourra pas être restauré et sera supprimé de tous les jeux de votre collection auquel il était associé.";
 
 // Info
 "infoNoInternet" = "Aucun accès internet, votre collection pourrait ne pas être à jour.";
@@ -64,6 +73,8 @@
 "apply" = "Appliquer";
 "clearSearch" = "Effacer la recherche";
 "clearAll" = "Effacer tout";
+"addAStorageArea" = "Add a storage area";
+"done" = "Valider";
 
 // Add Game Steps
 "stepOneOutOfThree" = "Etape 1/3";
@@ -138,9 +149,11 @@
 "digital" = "Digital";
 "any" = "Tous";
 "gameFormat" = "Format";
+"newStorageArea" = "Nouveau lieu de stockage";
 
 // Other
 "game" = "jeu";
 "games" = "jeux";
 "filters" = "Filtres";
 "selectAndDeleteACollection" = "Sélectionnez une collection à supprimer";
+"selectStorageArea" = "Sélectionnez un lieu de stockage";

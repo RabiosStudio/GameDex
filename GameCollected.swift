@@ -23,7 +23,7 @@ public class GameCollected: NSManagedObject {
     @NSManaged public var notes: String?
     @NSManaged public var rating: Int16
     @NSManaged public var releaseDate: Date?
-    @NSManaged public var storageArea: String?
+    @NSManaged public var storageArea: StorageArea?
     @NSManaged public var summary: String
     @NSManaged public var title: String
     @NSManaged public var lastUpdated: Date

@@ -10,7 +10,7 @@ import UIKit
 import DTTextField
 
 final class TextFieldCell: UICollectionViewCell, CellConfigurable {
-    
+    var didTapClearButton = false
     private lazy var textField: DTTextField = {
         let textField = DTTextField()
         textField.configure()
@@ -70,11 +70,13 @@ final class TextFieldCell: UICollectionViewCell, CellConfigurable {
         self.textField.placeholder = cellVM.placeholder
         self.textField.text = cellVM.value
 
+        var showCancelButton = true
         if let keyboardType = cellVM.formType.keyboardType {
             self.textField.keyboardType = keyboardType
         } else if let inputVM = cellVM.formType.inputPickerViewModel {
             self.pickerData = inputVM.data
             self.textField.inputView = pickerView
+            showCancelButton = false
         }
         
         if cellVM.formType.enableSecureTextEntry {
@@ -82,7 +84,11 @@ final class TextFieldCell: UICollectionViewCell, CellConfigurable {
             self.textField.enableEntryVisibilityToggle()
         }
         
+        self.textField.inputAccessoryView = KeyboardAccessoryView(delegate: self, showCancelButton: showCancelButton)
         self.textField.autocorrectionType = .no
+        if cellVM.isFirstResponder {
+            self.textField.becomeFirstResponder()
+        }
         self.setupConstraints()
     }
     
@@ -123,6 +129,18 @@ extension TextFieldCell: UITextFieldDelegate {
         self.storeEntry(with: text)
     }
     
+    func textFieldShouldBeginEditing(_ textField: UITextField) -> Bool {
+        guard let cellVM = self.cellVM,
+              self.didTapClearButton == false else {
+            self.didTapClearButton = false
+            return self.didTapClearButton
+        }
+        if !cellVM.isEditable {
+            cellVM.cellTappedCallback?()
+        }
+        return cellVM.isEditable
+    }
+    
     func textFieldDidBeginEditing(_ textField: UITextField) {
         guard let data = self.pickerData,
               let text = textField.text else {
@@ -147,8 +165,20 @@ extension TextFieldCell: UITextFieldDelegate {
     }
     
     func textFieldShouldClear(_ textField: UITextField) -> Bool {
+        self.didTapClearButton = true
         self.storeEntry(with: nil)
         return true
+    }
+    
+    func textFieldDidEndEditing(_ textField: UITextField) {
+        guard let cellVM = self.cellVM else {
+            return
+        }
+        guard cellVM.cancelKeyTapped == false else {
+            cellVM.cancelKeyTapped = false
+            return
+        }
+        cellVM.returnKeyTapped = true
     }
 }
 
@@ -186,5 +216,19 @@ extension TextFieldCell: UIPickerViewDelegate {
         }
         self.textField.text = data[component][row]
         self.storeEntry(with: self.textField.text)
+    }
+}
+
+extension TextFieldCell: KeyboardDelegate {
+    func didTapCancelButton() {
+        guard let cellVM = self.cellVM else {
+            return
+        }
+        cellVM.cancelKeyTapped = true
+        self.textField.resignFirstResponder()
+    }
+    
+    func didTapDoneButton() {
+        self.textField.resignFirstResponder()
     }
 }

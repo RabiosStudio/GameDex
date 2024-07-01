@@ -3899,10 +3899,17 @@ open class FormDelegateMock: FormDelegate, Mock {
 		perform?()
     }
 
+    open func confirmChanges(value: Any, for type: FormType) {
+        addInvocation(.m_confirmChanges__value_valuefor_type(Parameter<Any>.value(`value`), Parameter<FormType>.value(`type`)))
+		let perform = methodPerformValue(.m_confirmChanges__value_valuefor_type(Parameter<Any>.value(`value`), Parameter<FormType>.value(`type`))) as? (Any, FormType) -> Void
+		perform?(`value`, `type`)
+    }
+
 
     fileprivate enum MethodType {
         case m_didUpdate__value_valuefor_type(Parameter<Any>, Parameter<FormType>)
         case m_refreshSections
+        case m_confirmChanges__value_valuefor_type(Parameter<Any>, Parameter<FormType>)
 
         static func compareParameters(lhs: MethodType, rhs: MethodType, matcher: Matcher) -> Matcher.ComparisonResult {
             switch (lhs, rhs) {
@@ -3913,6 +3920,12 @@ open class FormDelegateMock: FormDelegate, Mock {
 				return Matcher.ComparisonResult(results)
 
             case (.m_refreshSections, .m_refreshSections): return .match
+
+            case (.m_confirmChanges__value_valuefor_type(let lhsValue, let lhsType), .m_confirmChanges__value_valuefor_type(let rhsValue, let rhsType)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsValue, rhs: rhsValue, with: matcher), lhsValue, rhsValue, "value"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsType, rhs: rhsType, with: matcher), lhsType, rhsType, "for type"))
+				return Matcher.ComparisonResult(results)
             default: return .none
             }
         }
@@ -3921,12 +3934,14 @@ open class FormDelegateMock: FormDelegate, Mock {
             switch self {
             case let .m_didUpdate__value_valuefor_type(p0, p1): return p0.intValue + p1.intValue
             case .m_refreshSections: return 0
+            case let .m_confirmChanges__value_valuefor_type(p0, p1): return p0.intValue + p1.intValue
             }
         }
         func assertionName() -> String {
             switch self {
             case .m_didUpdate__value_valuefor_type: return ".didUpdate(value:for:)"
             case .m_refreshSections: return ".refreshSections()"
+            case .m_confirmChanges__value_valuefor_type: return ".confirmChanges(value:for:)"
             }
         }
     }
@@ -3947,6 +3962,7 @@ open class FormDelegateMock: FormDelegate, Mock {
 
         public static func didUpdate(value: Parameter<Any>, for type: Parameter<FormType>) -> Verify { return Verify(method: .m_didUpdate__value_valuefor_type(`value`, `type`))}
         public static func refreshSections() -> Verify { return Verify(method: .m_refreshSections)}
+        public static func confirmChanges(value: Parameter<Any>, for type: Parameter<FormType>) -> Verify { return Verify(method: .m_confirmChanges__value_valuefor_type(`value`, `type`))}
     }
 
     public struct Perform {
@@ -3958,6 +3974,202 @@ open class FormDelegateMock: FormDelegate, Mock {
         }
         public static func refreshSections(perform: @escaping () -> Void) -> Perform {
             return Perform(method: .m_refreshSections, performs: perform)
+        }
+        public static func confirmChanges(value: Parameter<Any>, for type: Parameter<FormType>, perform: @escaping (Any, FormType) -> Void) -> Perform {
+            return Perform(method: .m_confirmChanges__value_valuefor_type(`value`, `type`), performs: perform)
+        }
+    }
+
+    public func given(_ method: Given) {
+        methodReturnValues.append(method)
+    }
+
+    public func perform(_ method: Perform) {
+        methodPerformValues.append(method)
+        methodPerformValues.sort { $0.method.intValue() < $1.method.intValue() }
+    }
+
+    public func verify(_ method: Verify, count: Count = Count.moreOrEqual(to: 1), file: StaticString = #file, line: UInt = #line) {
+        let fullMatches = matchingCalls(method, file: file, line: line)
+        let success = count.matches(fullMatches)
+        let assertionName = method.method.assertionName()
+        let feedback: String = {
+            guard !success else { return "" }
+            return Utils.closestCallsMessage(
+                for: self.invocations.map { invocation in
+                    matcher.set(file: file, line: line)
+                    defer { matcher.clearFileAndLine() }
+                    return MethodType.compareParameters(lhs: invocation, rhs: method.method, matcher: matcher)
+                },
+                name: assertionName
+            )
+        }()
+        MockyAssert(success, "Expected: \(count) invocations of `\(assertionName)`, but was: \(fullMatches).\(feedback)", file: file, line: line)
+    }
+
+    private func addInvocation(_ call: MethodType) {
+        self.queue.sync { invocations.append(call) }
+    }
+    private func methodReturnValue(_ method: MethodType) throws -> StubProduct {
+        matcher.set(file: self.file, line: self.line)
+        defer { matcher.clearFileAndLine() }
+        let candidates = sequencingPolicy.sorted(methodReturnValues, by: { $0.method.intValue() > $1.method.intValue() })
+        let matched = candidates.first(where: { $0.isValid && MethodType.compareParameters(lhs: $0.method, rhs: method, matcher: matcher).isFullMatch })
+        guard let product = matched?.getProduct(policy: self.stubbingPolicy) else { throw MockError.notStubed }
+        return product
+    }
+    private func methodPerformValue(_ method: MethodType) -> Any? {
+        matcher.set(file: self.file, line: self.line)
+        defer { matcher.clearFileAndLine() }
+        let matched = methodPerformValues.reversed().first { MethodType.compareParameters(lhs: $0.method, rhs: method, matcher: matcher).isFullMatch }
+        return matched?.performs
+    }
+    private func matchingCalls(_ method: MethodType, file: StaticString?, line: UInt?) -> [MethodType] {
+        matcher.set(file: file ?? self.file, line: line ?? self.line)
+        defer { matcher.clearFileAndLine() }
+        return invocations.filter { MethodType.compareParameters(lhs: $0, rhs: method, matcher: matcher).isFullMatch }
+    }
+    private func matchingCalls(_ method: Verify, file: StaticString?, line: UInt?) -> Int {
+        return matchingCalls(method.method, file: file, line: line).count
+    }
+    private func givenGetterValue<T>(_ method: MethodType, _ message: String) -> T {
+        do {
+            return try methodReturnValue(method).casted()
+        } catch {
+            onFatalFailure(message)
+            Failure(message)
+        }
+    }
+    private func optionalGivenGetterValue<T>(_ method: MethodType, _ message: String) -> T? {
+        do {
+            return try methodReturnValue(method).casted()
+        } catch {
+            return nil
+        }
+    }
+    private func onFatalFailure(_ message: String) {
+        guard let file = self.file, let line = self.line else { return } // Let if fail if cannot handle gratefully
+        SwiftyMockyTestObserver.handleFatalError(message: message, file: file, line: line)
+    }
+}
+
+// MARK: - GameDetailsViewModelDelegate
+
+open class GameDetailsViewModelDelegateMock: GameDetailsViewModelDelegate, Mock {
+    public init(sequencing sequencingPolicy: SequencingPolicy = .lastWrittenResolvedFirst, stubbing stubbingPolicy: StubbingPolicy = .wrap, file: StaticString = #file, line: UInt = #line) {
+        SwiftyMockyTestObserver.setup()
+        self.sequencingPolicy = sequencingPolicy
+        self.stubbingPolicy = stubbingPolicy
+        self.file = file
+        self.line = line
+    }
+
+    var matcher: Matcher = Matcher.default
+    var stubbingPolicy: StubbingPolicy = .wrap
+    var sequencingPolicy: SequencingPolicy = .lastWrittenResolvedFirst
+
+    private var queue = DispatchQueue(label: "com.swiftymocky.invocations", qos: .userInteractive)
+    private var invocations: [MethodType] = []
+    private var methodReturnValues: [Given] = []
+    private var methodPerformValues: [Perform] = []
+    private var file: StaticString?
+    private var line: UInt?
+
+    public typealias PropertyStub = Given
+    public typealias MethodStub = Given
+    public typealias SubscriptStub = Given
+
+    /// Convenience method - call setupMock() to extend debug information when failure occurs
+    public func setupMock(file: StaticString = #file, line: UInt = #line) {
+        self.file = file
+        self.line = line
+    }
+
+    /// Clear mock internals. You can specify what to reset (invocations aka verify, givens or performs) or leave it empty to clear all mock internals
+    public func resetMock(_ scopes: MockScope...) {
+        let scopes: [MockScope] = scopes.isEmpty ? [.invocation, .given, .perform] : scopes
+        if scopes.contains(.invocation) { invocations = [] }
+        if scopes.contains(.given) { methodReturnValues = [] }
+        if scopes.contains(.perform) { methodPerformValues = [] }
+    }
+
+
+
+
+
+    open func removeStorageAreaFromGameFormIfNeeded(storageArea: String) {
+        addInvocation(.m_removeStorageAreaFromGameFormIfNeeded__storageArea_storageArea(Parameter<String>.value(`storageArea`)))
+		let perform = methodPerformValue(.m_removeStorageAreaFromGameFormIfNeeded__storageArea_storageArea(Parameter<String>.value(`storageArea`))) as? (String) -> Void
+		perform?(`storageArea`)
+    }
+
+    open func editStorageAreaFromGameFormIfNeeded(storageArea: String) {
+        addInvocation(.m_editStorageAreaFromGameFormIfNeeded__storageArea_storageArea(Parameter<String>.value(`storageArea`)))
+		let perform = methodPerformValue(.m_editStorageAreaFromGameFormIfNeeded__storageArea_storageArea(Parameter<String>.value(`storageArea`))) as? (String) -> Void
+		perform?(`storageArea`)
+    }
+
+
+    fileprivate enum MethodType {
+        case m_removeStorageAreaFromGameFormIfNeeded__storageArea_storageArea(Parameter<String>)
+        case m_editStorageAreaFromGameFormIfNeeded__storageArea_storageArea(Parameter<String>)
+
+        static func compareParameters(lhs: MethodType, rhs: MethodType, matcher: Matcher) -> Matcher.ComparisonResult {
+            switch (lhs, rhs) {
+            case (.m_removeStorageAreaFromGameFormIfNeeded__storageArea_storageArea(let lhsStoragearea), .m_removeStorageAreaFromGameFormIfNeeded__storageArea_storageArea(let rhsStoragearea)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsStoragearea, rhs: rhsStoragearea, with: matcher), lhsStoragearea, rhsStoragearea, "storageArea"))
+				return Matcher.ComparisonResult(results)
+
+            case (.m_editStorageAreaFromGameFormIfNeeded__storageArea_storageArea(let lhsStoragearea), .m_editStorageAreaFromGameFormIfNeeded__storageArea_storageArea(let rhsStoragearea)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsStoragearea, rhs: rhsStoragearea, with: matcher), lhsStoragearea, rhsStoragearea, "storageArea"))
+				return Matcher.ComparisonResult(results)
+            default: return .none
+            }
+        }
+
+        func intValue() -> Int {
+            switch self {
+            case let .m_removeStorageAreaFromGameFormIfNeeded__storageArea_storageArea(p0): return p0.intValue
+            case let .m_editStorageAreaFromGameFormIfNeeded__storageArea_storageArea(p0): return p0.intValue
+            }
+        }
+        func assertionName() -> String {
+            switch self {
+            case .m_removeStorageAreaFromGameFormIfNeeded__storageArea_storageArea: return ".removeStorageAreaFromGameFormIfNeeded(storageArea:)"
+            case .m_editStorageAreaFromGameFormIfNeeded__storageArea_storageArea: return ".editStorageAreaFromGameFormIfNeeded(storageArea:)"
+            }
+        }
+    }
+
+    open class Given: StubbedMethod {
+        fileprivate var method: MethodType
+
+        private init(method: MethodType, products: [StubProduct]) {
+            self.method = method
+            super.init(products)
+        }
+
+
+    }
+
+    public struct Verify {
+        fileprivate var method: MethodType
+
+        public static func removeStorageAreaFromGameFormIfNeeded(storageArea: Parameter<String>) -> Verify { return Verify(method: .m_removeStorageAreaFromGameFormIfNeeded__storageArea_storageArea(`storageArea`))}
+        public static func editStorageAreaFromGameFormIfNeeded(storageArea: Parameter<String>) -> Verify { return Verify(method: .m_editStorageAreaFromGameFormIfNeeded__storageArea_storageArea(`storageArea`))}
+    }
+
+    public struct Perform {
+        fileprivate var method: MethodType
+        var performs: Any
+
+        public static func removeStorageAreaFromGameFormIfNeeded(storageArea: Parameter<String>, perform: @escaping (String) -> Void) -> Perform {
+            return Perform(method: .m_removeStorageAreaFromGameFormIfNeeded__storageArea_storageArea(`storageArea`), performs: perform)
+        }
+        public static func editStorageAreaFromGameFormIfNeeded(storageArea: Parameter<String>, perform: @escaping (String) -> Void) -> Perform {
+            return Perform(method: .m_editStorageAreaFromGameFormIfNeeded__storageArea_storageArea(`storageArea`), performs: perform)
         }
     }
 
@@ -4091,6 +4303,19 @@ open class LocalDatabaseMock: LocalDatabase, Mock {
 		return __value
     }
 
+    open func add(storageArea: String) -> DatabaseError? {
+        addInvocation(.m_add__storageArea_storageArea(Parameter<String>.value(`storageArea`)))
+		let perform = methodPerformValue(.m_add__storageArea_storageArea(Parameter<String>.value(`storageArea`))) as? (String) -> Void
+		perform?(`storageArea`)
+		var __value: DatabaseError? = nil
+		do {
+		    __value = try methodReturnValue(.m_add__storageArea_storageArea(Parameter<String>.value(`storageArea`))).casted()
+		} catch {
+			// do nothing
+		}
+		return __value
+    }
+
     open func getPlatform(platformId: Int) -> Result<PlatformCollected?, DatabaseError> {
         addInvocation(.m_getPlatform__platformId_platformId(Parameter<Int>.value(`platformId`)))
 		let perform = methodPerformValue(.m_getPlatform__platformId_platformId(Parameter<Int>.value(`platformId`))) as? (Int) -> Void
@@ -4101,6 +4326,34 @@ open class LocalDatabaseMock: LocalDatabase, Mock {
 		} catch {
 			onFatalFailure("Stub return value not specified for getPlatform(platformId: Int). Use given")
 			Failure("Stub return value not specified for getPlatform(platformId: Int). Use given")
+		}
+		return __value
+    }
+
+    open func get(storageArea: String) -> Result<StorageArea?, DatabaseError> {
+        addInvocation(.m_get__storageArea_storageArea(Parameter<String>.value(`storageArea`)))
+		let perform = methodPerformValue(.m_get__storageArea_storageArea(Parameter<String>.value(`storageArea`))) as? (String) -> Void
+		perform?(`storageArea`)
+		var __value: Result<StorageArea?, DatabaseError>
+		do {
+		    __value = try methodReturnValue(.m_get__storageArea_storageArea(Parameter<String>.value(`storageArea`))).casted()
+		} catch {
+			onFatalFailure("Stub return value not specified for get(storageArea: String). Use given")
+			Failure("Stub return value not specified for get(storageArea: String). Use given")
+		}
+		return __value
+    }
+
+    open func getGamesStoredIn(storageArea: String) -> Result<[GameCollected], DatabaseError> {
+        addInvocation(.m_getGamesStoredIn__storageArea_storageArea(Parameter<String>.value(`storageArea`)))
+		let perform = methodPerformValue(.m_getGamesStoredIn__storageArea_storageArea(Parameter<String>.value(`storageArea`))) as? (String) -> Void
+		perform?(`storageArea`)
+		var __value: Result<[GameCollected], DatabaseError>
+		do {
+		    __value = try methodReturnValue(.m_getGamesStoredIn__storageArea_storageArea(Parameter<String>.value(`storageArea`))).casted()
+		} catch {
+			onFatalFailure("Stub return value not specified for getGamesStoredIn(storageArea: String). Use given")
+			Failure("Stub return value not specified for getGamesStoredIn(storageArea: String). Use given")
 		}
 		return __value
     }
@@ -4119,6 +4372,20 @@ open class LocalDatabaseMock: LocalDatabase, Mock {
 		return __value
     }
 
+    open func fetchAllStorageAreas() -> Result<[String], DatabaseError> {
+        addInvocation(.m_fetchAllStorageAreas)
+		let perform = methodPerformValue(.m_fetchAllStorageAreas) as? () -> Void
+		perform?()
+		var __value: Result<[String], DatabaseError>
+		do {
+		    __value = try methodReturnValue(.m_fetchAllStorageAreas).casted()
+		} catch {
+			onFatalFailure("Stub return value not specified for fetchAllStorageAreas(). Use given")
+			Failure("Stub return value not specified for fetchAllStorageAreas(). Use given")
+		}
+		return __value
+    }
+
     open func replace(savedGame: SavedGame) -> DatabaseError? {
         addInvocation(.m_replace__savedGame_savedGame(Parameter<SavedGame>.value(`savedGame`)))
 		let perform = methodPerformValue(.m_replace__savedGame_savedGame(Parameter<SavedGame>.value(`savedGame`))) as? (SavedGame) -> Void
@@ -4126,6 +4393,19 @@ open class LocalDatabaseMock: LocalDatabase, Mock {
 		var __value: DatabaseError? = nil
 		do {
 		    __value = try methodReturnValue(.m_replace__savedGame_savedGame(Parameter<SavedGame>.value(`savedGame`))).casted()
+		} catch {
+			// do nothing
+		}
+		return __value
+    }
+
+    open func replaceStorageArea(oldValue: String, newValue: String) -> DatabaseError? {
+        addInvocation(.m_replaceStorageArea__oldValue_oldValuenewValue_newValue(Parameter<String>.value(`oldValue`), Parameter<String>.value(`newValue`)))
+		let perform = methodPerformValue(.m_replaceStorageArea__oldValue_oldValuenewValue_newValue(Parameter<String>.value(`oldValue`), Parameter<String>.value(`newValue`))) as? (String, String) -> Void
+		perform?(`oldValue`, `newValue`)
+		var __value: DatabaseError? = nil
+		do {
+		    __value = try methodReturnValue(.m_replaceStorageArea__oldValue_oldValuenewValue_newValue(Parameter<String>.value(`oldValue`), Parameter<String>.value(`newValue`))).casted()
 		} catch {
 			// do nothing
 		}
@@ -4158,6 +4438,19 @@ open class LocalDatabaseMock: LocalDatabase, Mock {
 		return __value
     }
 
+    open func remove(storageArea: String) -> DatabaseError? {
+        addInvocation(.m_remove__storageArea_storageArea(Parameter<String>.value(`storageArea`)))
+		let perform = methodPerformValue(.m_remove__storageArea_storageArea(Parameter<String>.value(`storageArea`))) as? (String) -> Void
+		perform?(`storageArea`)
+		var __value: DatabaseError? = nil
+		do {
+		    __value = try methodReturnValue(.m_remove__storageArea_storageArea(Parameter<String>.value(`storageArea`))).casted()
+		} catch {
+			// do nothing
+		}
+		return __value
+    }
+
     open func removeAll() -> DatabaseError? {
         addInvocation(.m_removeAll)
 		let perform = methodPerformValue(.m_removeAll) as? () -> Void
@@ -4174,11 +4467,17 @@ open class LocalDatabaseMock: LocalDatabase, Mock {
 
     fileprivate enum MethodType {
         case m_add__newEntity_newEntityplatform_platform(Parameter<SavedGame>, Parameter<Platform>)
+        case m_add__storageArea_storageArea(Parameter<String>)
         case m_getPlatform__platformId_platformId(Parameter<Int>)
+        case m_get__storageArea_storageArea(Parameter<String>)
+        case m_getGamesStoredIn__storageArea_storageArea(Parameter<String>)
         case m_fetchAllPlatforms
+        case m_fetchAllStorageAreas
         case m_replace__savedGame_savedGame(Parameter<SavedGame>)
+        case m_replaceStorageArea__oldValue_oldValuenewValue_newValue(Parameter<String>, Parameter<String>)
         case m_remove__savedGame_savedGame(Parameter<SavedGame>)
         case m_remove__platform_platform(Parameter<Platform>)
+        case m_remove__storageArea_storageArea(Parameter<String>)
         case m_removeAll
 
         static func compareParameters(lhs: MethodType, rhs: MethodType, matcher: Matcher) -> Matcher.ComparisonResult {
@@ -4189,16 +4488,39 @@ open class LocalDatabaseMock: LocalDatabase, Mock {
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsPlatform, rhs: rhsPlatform, with: matcher), lhsPlatform, rhsPlatform, "platform"))
 				return Matcher.ComparisonResult(results)
 
+            case (.m_add__storageArea_storageArea(let lhsStoragearea), .m_add__storageArea_storageArea(let rhsStoragearea)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsStoragearea, rhs: rhsStoragearea, with: matcher), lhsStoragearea, rhsStoragearea, "storageArea"))
+				return Matcher.ComparisonResult(results)
+
             case (.m_getPlatform__platformId_platformId(let lhsPlatformid), .m_getPlatform__platformId_platformId(let rhsPlatformid)):
 				var results: [Matcher.ParameterComparisonResult] = []
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsPlatformid, rhs: rhsPlatformid, with: matcher), lhsPlatformid, rhsPlatformid, "platformId"))
 				return Matcher.ComparisonResult(results)
 
+            case (.m_get__storageArea_storageArea(let lhsStoragearea), .m_get__storageArea_storageArea(let rhsStoragearea)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsStoragearea, rhs: rhsStoragearea, with: matcher), lhsStoragearea, rhsStoragearea, "storageArea"))
+				return Matcher.ComparisonResult(results)
+
+            case (.m_getGamesStoredIn__storageArea_storageArea(let lhsStoragearea), .m_getGamesStoredIn__storageArea_storageArea(let rhsStoragearea)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsStoragearea, rhs: rhsStoragearea, with: matcher), lhsStoragearea, rhsStoragearea, "storageArea"))
+				return Matcher.ComparisonResult(results)
+
             case (.m_fetchAllPlatforms, .m_fetchAllPlatforms): return .match
+
+            case (.m_fetchAllStorageAreas, .m_fetchAllStorageAreas): return .match
 
             case (.m_replace__savedGame_savedGame(let lhsSavedgame), .m_replace__savedGame_savedGame(let rhsSavedgame)):
 				var results: [Matcher.ParameterComparisonResult] = []
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsSavedgame, rhs: rhsSavedgame, with: matcher), lhsSavedgame, rhsSavedgame, "savedGame"))
+				return Matcher.ComparisonResult(results)
+
+            case (.m_replaceStorageArea__oldValue_oldValuenewValue_newValue(let lhsOldvalue, let lhsNewvalue), .m_replaceStorageArea__oldValue_oldValuenewValue_newValue(let rhsOldvalue, let rhsNewvalue)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsOldvalue, rhs: rhsOldvalue, with: matcher), lhsOldvalue, rhsOldvalue, "oldValue"))
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsNewvalue, rhs: rhsNewvalue, with: matcher), lhsNewvalue, rhsNewvalue, "newValue"))
 				return Matcher.ComparisonResult(results)
 
             case (.m_remove__savedGame_savedGame(let lhsSavedgame), .m_remove__savedGame_savedGame(let rhsSavedgame)):
@@ -4211,6 +4533,11 @@ open class LocalDatabaseMock: LocalDatabase, Mock {
 				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsPlatform, rhs: rhsPlatform, with: matcher), lhsPlatform, rhsPlatform, "platform"))
 				return Matcher.ComparisonResult(results)
 
+            case (.m_remove__storageArea_storageArea(let lhsStoragearea), .m_remove__storageArea_storageArea(let rhsStoragearea)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsStoragearea, rhs: rhsStoragearea, with: matcher), lhsStoragearea, rhsStoragearea, "storageArea"))
+				return Matcher.ComparisonResult(results)
+
             case (.m_removeAll, .m_removeAll): return .match
             default: return .none
             }
@@ -4219,22 +4546,34 @@ open class LocalDatabaseMock: LocalDatabase, Mock {
         func intValue() -> Int {
             switch self {
             case let .m_add__newEntity_newEntityplatform_platform(p0, p1): return p0.intValue + p1.intValue
+            case let .m_add__storageArea_storageArea(p0): return p0.intValue
             case let .m_getPlatform__platformId_platformId(p0): return p0.intValue
+            case let .m_get__storageArea_storageArea(p0): return p0.intValue
+            case let .m_getGamesStoredIn__storageArea_storageArea(p0): return p0.intValue
             case .m_fetchAllPlatforms: return 0
+            case .m_fetchAllStorageAreas: return 0
             case let .m_replace__savedGame_savedGame(p0): return p0.intValue
+            case let .m_replaceStorageArea__oldValue_oldValuenewValue_newValue(p0, p1): return p0.intValue + p1.intValue
             case let .m_remove__savedGame_savedGame(p0): return p0.intValue
             case let .m_remove__platform_platform(p0): return p0.intValue
+            case let .m_remove__storageArea_storageArea(p0): return p0.intValue
             case .m_removeAll: return 0
             }
         }
         func assertionName() -> String {
             switch self {
             case .m_add__newEntity_newEntityplatform_platform: return ".add(newEntity:platform:)"
+            case .m_add__storageArea_storageArea: return ".add(storageArea:)"
             case .m_getPlatform__platformId_platformId: return ".getPlatform(platformId:)"
+            case .m_get__storageArea_storageArea: return ".get(storageArea:)"
+            case .m_getGamesStoredIn__storageArea_storageArea: return ".getGamesStoredIn(storageArea:)"
             case .m_fetchAllPlatforms: return ".fetchAllPlatforms()"
+            case .m_fetchAllStorageAreas: return ".fetchAllStorageAreas()"
             case .m_replace__savedGame_savedGame: return ".replace(savedGame:)"
+            case .m_replaceStorageArea__oldValue_oldValuenewValue_newValue: return ".replaceStorageArea(oldValue:newValue:)"
             case .m_remove__savedGame_savedGame: return ".remove(savedGame:)"
             case .m_remove__platform_platform: return ".remove(platform:)"
+            case .m_remove__storageArea_storageArea: return ".remove(storageArea:)"
             case .m_removeAll: return ".removeAll()"
             }
         }
@@ -4252,20 +4591,38 @@ open class LocalDatabaseMock: LocalDatabase, Mock {
         public static func add(newEntity: Parameter<SavedGame>, platform: Parameter<Platform>, willReturn: DatabaseError?...) -> MethodStub {
             return Given(method: .m_add__newEntity_newEntityplatform_platform(`newEntity`, `platform`), products: willReturn.map({ StubProduct.return($0 as Any) }))
         }
+        public static func add(storageArea: Parameter<String>, willReturn: DatabaseError?...) -> MethodStub {
+            return Given(method: .m_add__storageArea_storageArea(`storageArea`), products: willReturn.map({ StubProduct.return($0 as Any) }))
+        }
         public static func getPlatform(platformId: Parameter<Int>, willReturn: Result<PlatformCollected?, DatabaseError>...) -> MethodStub {
             return Given(method: .m_getPlatform__platformId_platformId(`platformId`), products: willReturn.map({ StubProduct.return($0 as Any) }))
+        }
+        public static func get(storageArea: Parameter<String>, willReturn: Result<StorageArea?, DatabaseError>...) -> MethodStub {
+            return Given(method: .m_get__storageArea_storageArea(`storageArea`), products: willReturn.map({ StubProduct.return($0 as Any) }))
+        }
+        public static func getGamesStoredIn(storageArea: Parameter<String>, willReturn: Result<[GameCollected], DatabaseError>...) -> MethodStub {
+            return Given(method: .m_getGamesStoredIn__storageArea_storageArea(`storageArea`), products: willReturn.map({ StubProduct.return($0 as Any) }))
         }
         public static func fetchAllPlatforms(willReturn: Result<[PlatformCollected], DatabaseError>...) -> MethodStub {
             return Given(method: .m_fetchAllPlatforms, products: willReturn.map({ StubProduct.return($0 as Any) }))
         }
+        public static func fetchAllStorageAreas(willReturn: Result<[String], DatabaseError>...) -> MethodStub {
+            return Given(method: .m_fetchAllStorageAreas, products: willReturn.map({ StubProduct.return($0 as Any) }))
+        }
         public static func replace(savedGame: Parameter<SavedGame>, willReturn: DatabaseError?...) -> MethodStub {
             return Given(method: .m_replace__savedGame_savedGame(`savedGame`), products: willReturn.map({ StubProduct.return($0 as Any) }))
+        }
+        public static func replaceStorageArea(oldValue: Parameter<String>, newValue: Parameter<String>, willReturn: DatabaseError?...) -> MethodStub {
+            return Given(method: .m_replaceStorageArea__oldValue_oldValuenewValue_newValue(`oldValue`, `newValue`), products: willReturn.map({ StubProduct.return($0 as Any) }))
         }
         public static func remove(savedGame: Parameter<SavedGame>, willReturn: DatabaseError?...) -> MethodStub {
             return Given(method: .m_remove__savedGame_savedGame(`savedGame`), products: willReturn.map({ StubProduct.return($0 as Any) }))
         }
         public static func remove(platform: Parameter<Platform>, willReturn: DatabaseError?...) -> MethodStub {
             return Given(method: .m_remove__platform_platform(`platform`), products: willReturn.map({ StubProduct.return($0 as Any) }))
+        }
+        public static func remove(storageArea: Parameter<String>, willReturn: DatabaseError?...) -> MethodStub {
+            return Given(method: .m_remove__storageArea_storageArea(`storageArea`), products: willReturn.map({ StubProduct.return($0 as Any) }))
         }
         public static func removeAll(willReturn: DatabaseError?...) -> MethodStub {
             return Given(method: .m_removeAll, products: willReturn.map({ StubProduct.return($0 as Any) }))
@@ -4277,10 +4634,31 @@ open class LocalDatabaseMock: LocalDatabase, Mock {
 			willProduce(stubber)
 			return given
         }
+        public static func add(storageArea: Parameter<String>, willProduce: (Stubber<DatabaseError?>) -> Void) -> MethodStub {
+            let willReturn: [DatabaseError?] = []
+			let given: Given = { return Given(method: .m_add__storageArea_storageArea(`storageArea`), products: willReturn.map({ StubProduct.return($0 as Any) })) }()
+			let stubber = given.stub(for: (DatabaseError?).self)
+			willProduce(stubber)
+			return given
+        }
         public static func getPlatform(platformId: Parameter<Int>, willProduce: (Stubber<Result<PlatformCollected?, DatabaseError>>) -> Void) -> MethodStub {
             let willReturn: [Result<PlatformCollected?, DatabaseError>] = []
 			let given: Given = { return Given(method: .m_getPlatform__platformId_platformId(`platformId`), products: willReturn.map({ StubProduct.return($0 as Any) })) }()
 			let stubber = given.stub(for: (Result<PlatformCollected?, DatabaseError>).self)
+			willProduce(stubber)
+			return given
+        }
+        public static func get(storageArea: Parameter<String>, willProduce: (Stubber<Result<StorageArea?, DatabaseError>>) -> Void) -> MethodStub {
+            let willReturn: [Result<StorageArea?, DatabaseError>] = []
+			let given: Given = { return Given(method: .m_get__storageArea_storageArea(`storageArea`), products: willReturn.map({ StubProduct.return($0 as Any) })) }()
+			let stubber = given.stub(for: (Result<StorageArea?, DatabaseError>).self)
+			willProduce(stubber)
+			return given
+        }
+        public static func getGamesStoredIn(storageArea: Parameter<String>, willProduce: (Stubber<Result<[GameCollected], DatabaseError>>) -> Void) -> MethodStub {
+            let willReturn: [Result<[GameCollected], DatabaseError>] = []
+			let given: Given = { return Given(method: .m_getGamesStoredIn__storageArea_storageArea(`storageArea`), products: willReturn.map({ StubProduct.return($0 as Any) })) }()
+			let stubber = given.stub(for: (Result<[GameCollected], DatabaseError>).self)
 			willProduce(stubber)
 			return given
         }
@@ -4291,9 +4669,23 @@ open class LocalDatabaseMock: LocalDatabase, Mock {
 			willProduce(stubber)
 			return given
         }
+        public static func fetchAllStorageAreas(willProduce: (Stubber<Result<[String], DatabaseError>>) -> Void) -> MethodStub {
+            let willReturn: [Result<[String], DatabaseError>] = []
+			let given: Given = { return Given(method: .m_fetchAllStorageAreas, products: willReturn.map({ StubProduct.return($0 as Any) })) }()
+			let stubber = given.stub(for: (Result<[String], DatabaseError>).self)
+			willProduce(stubber)
+			return given
+        }
         public static func replace(savedGame: Parameter<SavedGame>, willProduce: (Stubber<DatabaseError?>) -> Void) -> MethodStub {
             let willReturn: [DatabaseError?] = []
 			let given: Given = { return Given(method: .m_replace__savedGame_savedGame(`savedGame`), products: willReturn.map({ StubProduct.return($0 as Any) })) }()
+			let stubber = given.stub(for: (DatabaseError?).self)
+			willProduce(stubber)
+			return given
+        }
+        public static func replaceStorageArea(oldValue: Parameter<String>, newValue: Parameter<String>, willProduce: (Stubber<DatabaseError?>) -> Void) -> MethodStub {
+            let willReturn: [DatabaseError?] = []
+			let given: Given = { return Given(method: .m_replaceStorageArea__oldValue_oldValuenewValue_newValue(`oldValue`, `newValue`), products: willReturn.map({ StubProduct.return($0 as Any) })) }()
 			let stubber = given.stub(for: (DatabaseError?).self)
 			willProduce(stubber)
 			return given
@@ -4312,6 +4704,13 @@ open class LocalDatabaseMock: LocalDatabase, Mock {
 			willProduce(stubber)
 			return given
         }
+        public static func remove(storageArea: Parameter<String>, willProduce: (Stubber<DatabaseError?>) -> Void) -> MethodStub {
+            let willReturn: [DatabaseError?] = []
+			let given: Given = { return Given(method: .m_remove__storageArea_storageArea(`storageArea`), products: willReturn.map({ StubProduct.return($0 as Any) })) }()
+			let stubber = given.stub(for: (DatabaseError?).self)
+			willProduce(stubber)
+			return given
+        }
         public static func removeAll(willProduce: (Stubber<DatabaseError?>) -> Void) -> MethodStub {
             let willReturn: [DatabaseError?] = []
 			let given: Given = { return Given(method: .m_removeAll, products: willReturn.map({ StubProduct.return($0 as Any) })) }()
@@ -4325,11 +4724,17 @@ open class LocalDatabaseMock: LocalDatabase, Mock {
         fileprivate var method: MethodType
 
         public static func add(newEntity: Parameter<SavedGame>, platform: Parameter<Platform>) -> Verify { return Verify(method: .m_add__newEntity_newEntityplatform_platform(`newEntity`, `platform`))}
+        public static func add(storageArea: Parameter<String>) -> Verify { return Verify(method: .m_add__storageArea_storageArea(`storageArea`))}
         public static func getPlatform(platformId: Parameter<Int>) -> Verify { return Verify(method: .m_getPlatform__platformId_platformId(`platformId`))}
+        public static func get(storageArea: Parameter<String>) -> Verify { return Verify(method: .m_get__storageArea_storageArea(`storageArea`))}
+        public static func getGamesStoredIn(storageArea: Parameter<String>) -> Verify { return Verify(method: .m_getGamesStoredIn__storageArea_storageArea(`storageArea`))}
         public static func fetchAllPlatforms() -> Verify { return Verify(method: .m_fetchAllPlatforms)}
+        public static func fetchAllStorageAreas() -> Verify { return Verify(method: .m_fetchAllStorageAreas)}
         public static func replace(savedGame: Parameter<SavedGame>) -> Verify { return Verify(method: .m_replace__savedGame_savedGame(`savedGame`))}
+        public static func replaceStorageArea(oldValue: Parameter<String>, newValue: Parameter<String>) -> Verify { return Verify(method: .m_replaceStorageArea__oldValue_oldValuenewValue_newValue(`oldValue`, `newValue`))}
         public static func remove(savedGame: Parameter<SavedGame>) -> Verify { return Verify(method: .m_remove__savedGame_savedGame(`savedGame`))}
         public static func remove(platform: Parameter<Platform>) -> Verify { return Verify(method: .m_remove__platform_platform(`platform`))}
+        public static func remove(storageArea: Parameter<String>) -> Verify { return Verify(method: .m_remove__storageArea_storageArea(`storageArea`))}
         public static func removeAll() -> Verify { return Verify(method: .m_removeAll)}
     }
 
@@ -4340,20 +4745,38 @@ open class LocalDatabaseMock: LocalDatabase, Mock {
         public static func add(newEntity: Parameter<SavedGame>, platform: Parameter<Platform>, perform: @escaping (SavedGame, Platform) -> Void) -> Perform {
             return Perform(method: .m_add__newEntity_newEntityplatform_platform(`newEntity`, `platform`), performs: perform)
         }
+        public static func add(storageArea: Parameter<String>, perform: @escaping (String) -> Void) -> Perform {
+            return Perform(method: .m_add__storageArea_storageArea(`storageArea`), performs: perform)
+        }
         public static func getPlatform(platformId: Parameter<Int>, perform: @escaping (Int) -> Void) -> Perform {
             return Perform(method: .m_getPlatform__platformId_platformId(`platformId`), performs: perform)
+        }
+        public static func get(storageArea: Parameter<String>, perform: @escaping (String) -> Void) -> Perform {
+            return Perform(method: .m_get__storageArea_storageArea(`storageArea`), performs: perform)
+        }
+        public static func getGamesStoredIn(storageArea: Parameter<String>, perform: @escaping (String) -> Void) -> Perform {
+            return Perform(method: .m_getGamesStoredIn__storageArea_storageArea(`storageArea`), performs: perform)
         }
         public static func fetchAllPlatforms(perform: @escaping () -> Void) -> Perform {
             return Perform(method: .m_fetchAllPlatforms, performs: perform)
         }
+        public static func fetchAllStorageAreas(perform: @escaping () -> Void) -> Perform {
+            return Perform(method: .m_fetchAllStorageAreas, performs: perform)
+        }
         public static func replace(savedGame: Parameter<SavedGame>, perform: @escaping (SavedGame) -> Void) -> Perform {
             return Perform(method: .m_replace__savedGame_savedGame(`savedGame`), performs: perform)
+        }
+        public static func replaceStorageArea(oldValue: Parameter<String>, newValue: Parameter<String>, perform: @escaping (String, String) -> Void) -> Perform {
+            return Perform(method: .m_replaceStorageArea__oldValue_oldValuenewValue_newValue(`oldValue`, `newValue`), performs: perform)
         }
         public static func remove(savedGame: Parameter<SavedGame>, perform: @escaping (SavedGame) -> Void) -> Perform {
             return Perform(method: .m_remove__savedGame_savedGame(`savedGame`), performs: perform)
         }
         public static func remove(platform: Parameter<Platform>, perform: @escaping (Platform) -> Void) -> Perform {
             return Perform(method: .m_remove__platform_platform(`platform`), performs: perform)
+        }
+        public static func remove(storageArea: Parameter<String>, perform: @escaping (String) -> Void) -> Perform {
+            return Perform(method: .m_remove__storageArea_storageArea(`storageArea`), performs: perform)
         }
         public static func removeAll(perform: @escaping () -> Void) -> Perform {
             return Perform(method: .m_removeAll, performs: perform)
@@ -4809,6 +5232,199 @@ open class MyProfileViewModelDelegateMock: MyProfileViewModelDelegate, Mock {
     }
 }
 
+// MARK: - ObjectManagementDelegate
+
+open class ObjectManagementDelegateMock: ObjectManagementDelegate, Mock {
+    public init(sequencing sequencingPolicy: SequencingPolicy = .lastWrittenResolvedFirst, stubbing stubbingPolicy: StubbingPolicy = .wrap, file: StaticString = #file, line: UInt = #line) {
+        SwiftyMockyTestObserver.setup()
+        self.sequencingPolicy = sequencingPolicy
+        self.stubbingPolicy = stubbingPolicy
+        self.file = file
+        self.line = line
+    }
+
+    var matcher: Matcher = Matcher.default
+    var stubbingPolicy: StubbingPolicy = .wrap
+    var sequencingPolicy: SequencingPolicy = .lastWrittenResolvedFirst
+
+    private var queue = DispatchQueue(label: "com.swiftymocky.invocations", qos: .userInteractive)
+    private var invocations: [MethodType] = []
+    private var methodReturnValues: [Given] = []
+    private var methodPerformValues: [Perform] = []
+    private var file: StaticString?
+    private var line: UInt?
+
+    public typealias PropertyStub = Given
+    public typealias MethodStub = Given
+    public typealias SubscriptStub = Given
+
+    /// Convenience method - call setupMock() to extend debug information when failure occurs
+    public func setupMock(file: StaticString = #file, line: UInt = #line) {
+        self.file = file
+        self.line = line
+    }
+
+    /// Clear mock internals. You can specify what to reset (invocations aka verify, givens or performs) or leave it empty to clear all mock internals
+    public func resetMock(_ scopes: MockScope...) {
+        let scopes: [MockScope] = scopes.isEmpty ? [.invocation, .given, .perform] : scopes
+        if scopes.contains(.invocation) { invocations = [] }
+        if scopes.contains(.given) { methodReturnValues = [] }
+        if scopes.contains(.perform) { methodPerformValues = [] }
+    }
+
+
+
+
+
+    open func edit(value: Any) {
+        addInvocation(.m_edit__value_value(Parameter<Any>.value(`value`)))
+		let perform = methodPerformValue(.m_edit__value_value(Parameter<Any>.value(`value`))) as? (Any) -> Void
+		perform?(`value`)
+    }
+
+    open func delete(value: Any) {
+        addInvocation(.m_delete__value_value(Parameter<Any>.value(`value`)))
+		let perform = methodPerformValue(.m_delete__value_value(Parameter<Any>.value(`value`))) as? (Any) -> Void
+		perform?(`value`)
+    }
+
+
+    fileprivate enum MethodType {
+        case m_edit__value_value(Parameter<Any>)
+        case m_delete__value_value(Parameter<Any>)
+
+        static func compareParameters(lhs: MethodType, rhs: MethodType, matcher: Matcher) -> Matcher.ComparisonResult {
+            switch (lhs, rhs) {
+            case (.m_edit__value_value(let lhsValue), .m_edit__value_value(let rhsValue)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsValue, rhs: rhsValue, with: matcher), lhsValue, rhsValue, "value"))
+				return Matcher.ComparisonResult(results)
+
+            case (.m_delete__value_value(let lhsValue), .m_delete__value_value(let rhsValue)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsValue, rhs: rhsValue, with: matcher), lhsValue, rhsValue, "value"))
+				return Matcher.ComparisonResult(results)
+            default: return .none
+            }
+        }
+
+        func intValue() -> Int {
+            switch self {
+            case let .m_edit__value_value(p0): return p0.intValue
+            case let .m_delete__value_value(p0): return p0.intValue
+            }
+        }
+        func assertionName() -> String {
+            switch self {
+            case .m_edit__value_value: return ".edit(value:)"
+            case .m_delete__value_value: return ".delete(value:)"
+            }
+        }
+    }
+
+    open class Given: StubbedMethod {
+        fileprivate var method: MethodType
+
+        private init(method: MethodType, products: [StubProduct]) {
+            self.method = method
+            super.init(products)
+        }
+
+
+    }
+
+    public struct Verify {
+        fileprivate var method: MethodType
+
+        public static func edit(value: Parameter<Any>) -> Verify { return Verify(method: .m_edit__value_value(`value`))}
+        public static func delete(value: Parameter<Any>) -> Verify { return Verify(method: .m_delete__value_value(`value`))}
+    }
+
+    public struct Perform {
+        fileprivate var method: MethodType
+        var performs: Any
+
+        public static func edit(value: Parameter<Any>, perform: @escaping (Any) -> Void) -> Perform {
+            return Perform(method: .m_edit__value_value(`value`), performs: perform)
+        }
+        public static func delete(value: Parameter<Any>, perform: @escaping (Any) -> Void) -> Perform {
+            return Perform(method: .m_delete__value_value(`value`), performs: perform)
+        }
+    }
+
+    public func given(_ method: Given) {
+        methodReturnValues.append(method)
+    }
+
+    public func perform(_ method: Perform) {
+        methodPerformValues.append(method)
+        methodPerformValues.sort { $0.method.intValue() < $1.method.intValue() }
+    }
+
+    public func verify(_ method: Verify, count: Count = Count.moreOrEqual(to: 1), file: StaticString = #file, line: UInt = #line) {
+        let fullMatches = matchingCalls(method, file: file, line: line)
+        let success = count.matches(fullMatches)
+        let assertionName = method.method.assertionName()
+        let feedback: String = {
+            guard !success else { return "" }
+            return Utils.closestCallsMessage(
+                for: self.invocations.map { invocation in
+                    matcher.set(file: file, line: line)
+                    defer { matcher.clearFileAndLine() }
+                    return MethodType.compareParameters(lhs: invocation, rhs: method.method, matcher: matcher)
+                },
+                name: assertionName
+            )
+        }()
+        MockyAssert(success, "Expected: \(count) invocations of `\(assertionName)`, but was: \(fullMatches).\(feedback)", file: file, line: line)
+    }
+
+    private func addInvocation(_ call: MethodType) {
+        self.queue.sync { invocations.append(call) }
+    }
+    private func methodReturnValue(_ method: MethodType) throws -> StubProduct {
+        matcher.set(file: self.file, line: self.line)
+        defer { matcher.clearFileAndLine() }
+        let candidates = sequencingPolicy.sorted(methodReturnValues, by: { $0.method.intValue() > $1.method.intValue() })
+        let matched = candidates.first(where: { $0.isValid && MethodType.compareParameters(lhs: $0.method, rhs: method, matcher: matcher).isFullMatch })
+        guard let product = matched?.getProduct(policy: self.stubbingPolicy) else { throw MockError.notStubed }
+        return product
+    }
+    private func methodPerformValue(_ method: MethodType) -> Any? {
+        matcher.set(file: self.file, line: self.line)
+        defer { matcher.clearFileAndLine() }
+        let matched = methodPerformValues.reversed().first { MethodType.compareParameters(lhs: $0.method, rhs: method, matcher: matcher).isFullMatch }
+        return matched?.performs
+    }
+    private func matchingCalls(_ method: MethodType, file: StaticString?, line: UInt?) -> [MethodType] {
+        matcher.set(file: file ?? self.file, line: line ?? self.line)
+        defer { matcher.clearFileAndLine() }
+        return invocations.filter { MethodType.compareParameters(lhs: $0, rhs: method, matcher: matcher).isFullMatch }
+    }
+    private func matchingCalls(_ method: Verify, file: StaticString?, line: UInt?) -> Int {
+        return matchingCalls(method.method, file: file, line: line).count
+    }
+    private func givenGetterValue<T>(_ method: MethodType, _ message: String) -> T {
+        do {
+            return try methodReturnValue(method).casted()
+        } catch {
+            onFatalFailure(message)
+            Failure(message)
+        }
+    }
+    private func optionalGivenGetterValue<T>(_ method: MethodType, _ message: String) -> T? {
+        do {
+            return try methodReturnValue(method).casted()
+        } catch {
+            return nil
+        }
+    }
+    private func onFatalFailure(_ message: String) {
+        guard let file = self.file, let line = self.line else { return } // Let if fail if cannot handle gratefully
+        SwiftyMockyTestObserver.handleFatalError(message: message, file: file, line: line)
+    }
+}
+
 // MARK: - PrimaryButtonDelegate
 
 open class PrimaryButtonDelegateMock: PrimaryButtonDelegate, Mock {
@@ -5120,6 +5736,232 @@ open class SearchViewModelDelegateMock: SearchViewModelDelegate, Mock {
         }
         public static func cancelButtonTapped(callback: Parameter<(EmptyError?) -> ()>, perform: @escaping (@escaping (EmptyError?) -> ()) -> Void) -> Perform {
             return Perform(method: .m_cancelButtonTapped__callback_callback(`callback`), performs: perform)
+        }
+    }
+
+    public func given(_ method: Given) {
+        methodReturnValues.append(method)
+    }
+
+    public func perform(_ method: Perform) {
+        methodPerformValues.append(method)
+        methodPerformValues.sort { $0.method.intValue() < $1.method.intValue() }
+    }
+
+    public func verify(_ method: Verify, count: Count = Count.moreOrEqual(to: 1), file: StaticString = #file, line: UInt = #line) {
+        let fullMatches = matchingCalls(method, file: file, line: line)
+        let success = count.matches(fullMatches)
+        let assertionName = method.method.assertionName()
+        let feedback: String = {
+            guard !success else { return "" }
+            return Utils.closestCallsMessage(
+                for: self.invocations.map { invocation in
+                    matcher.set(file: file, line: line)
+                    defer { matcher.clearFileAndLine() }
+                    return MethodType.compareParameters(lhs: invocation, rhs: method.method, matcher: matcher)
+                },
+                name: assertionName
+            )
+        }()
+        MockyAssert(success, "Expected: \(count) invocations of `\(assertionName)`, but was: \(fullMatches).\(feedback)", file: file, line: line)
+    }
+
+    private func addInvocation(_ call: MethodType) {
+        self.queue.sync { invocations.append(call) }
+    }
+    private func methodReturnValue(_ method: MethodType) throws -> StubProduct {
+        matcher.set(file: self.file, line: self.line)
+        defer { matcher.clearFileAndLine() }
+        let candidates = sequencingPolicy.sorted(methodReturnValues, by: { $0.method.intValue() > $1.method.intValue() })
+        let matched = candidates.first(where: { $0.isValid && MethodType.compareParameters(lhs: $0.method, rhs: method, matcher: matcher).isFullMatch })
+        guard let product = matched?.getProduct(policy: self.stubbingPolicy) else { throw MockError.notStubed }
+        return product
+    }
+    private func methodPerformValue(_ method: MethodType) -> Any? {
+        matcher.set(file: self.file, line: self.line)
+        defer { matcher.clearFileAndLine() }
+        let matched = methodPerformValues.reversed().first { MethodType.compareParameters(lhs: $0.method, rhs: method, matcher: matcher).isFullMatch }
+        return matched?.performs
+    }
+    private func matchingCalls(_ method: MethodType, file: StaticString?, line: UInt?) -> [MethodType] {
+        matcher.set(file: file ?? self.file, line: line ?? self.line)
+        defer { matcher.clearFileAndLine() }
+        return invocations.filter { MethodType.compareParameters(lhs: $0, rhs: method, matcher: matcher).isFullMatch }
+    }
+    private func matchingCalls(_ method: Verify, file: StaticString?, line: UInt?) -> Int {
+        return matchingCalls(method.method, file: file, line: line).count
+    }
+    private func givenGetterValue<T>(_ method: MethodType, _ message: String) -> T {
+        do {
+            return try methodReturnValue(method).casted()
+        } catch {
+            onFatalFailure(message)
+            Failure(message)
+        }
+    }
+    private func optionalGivenGetterValue<T>(_ method: MethodType, _ message: String) -> T? {
+        do {
+            return try methodReturnValue(method).casted()
+        } catch {
+            return nil
+        }
+    }
+    private func onFatalFailure(_ message: String) {
+        guard let file = self.file, let line = self.line else { return } // Let if fail if cannot handle gratefully
+        SwiftyMockyTestObserver.handleFatalError(message: message, file: file, line: line)
+    }
+}
+
+// MARK: - StorageAreasManagementDelegate
+
+open class StorageAreasManagementDelegateMock: StorageAreasManagementDelegate, Mock {
+    public init(sequencing sequencingPolicy: SequencingPolicy = .lastWrittenResolvedFirst, stubbing stubbingPolicy: StubbingPolicy = .wrap, file: StaticString = #file, line: UInt = #line) {
+        SwiftyMockyTestObserver.setup()
+        self.sequencingPolicy = sequencingPolicy
+        self.stubbingPolicy = stubbingPolicy
+        self.file = file
+        self.line = line
+    }
+
+    var matcher: Matcher = Matcher.default
+    var stubbingPolicy: StubbingPolicy = .wrap
+    var sequencingPolicy: SequencingPolicy = .lastWrittenResolvedFirst
+
+    private var queue = DispatchQueue(label: "com.swiftymocky.invocations", qos: .userInteractive)
+    private var invocations: [MethodType] = []
+    private var methodReturnValues: [Given] = []
+    private var methodPerformValues: [Perform] = []
+    private var file: StaticString?
+    private var line: UInt?
+
+    public typealias PropertyStub = Given
+    public typealias MethodStub = Given
+    public typealias SubscriptStub = Given
+
+    /// Convenience method - call setupMock() to extend debug information when failure occurs
+    public func setupMock(file: StaticString = #file, line: UInt = #line) {
+        self.file = file
+        self.line = line
+    }
+
+    /// Clear mock internals. You can specify what to reset (invocations aka verify, givens or performs) or leave it empty to clear all mock internals
+    public func resetMock(_ scopes: MockScope...) {
+        let scopes: [MockScope] = scopes.isEmpty ? [.invocation, .given, .perform] : scopes
+        if scopes.contains(.invocation) { invocations = [] }
+        if scopes.contains(.given) { methodReturnValues = [] }
+        if scopes.contains(.perform) { methodPerformValues = [] }
+    }
+
+
+
+
+
+    open func select(storageArea: String) {
+        addInvocation(.m_select__storageArea_storageArea(Parameter<String>.value(`storageArea`)))
+		let perform = methodPerformValue(.m_select__storageArea_storageArea(Parameter<String>.value(`storageArea`))) as? (String) -> Void
+		perform?(`storageArea`)
+    }
+
+    open func addNewEntity() {
+        addInvocation(.m_addNewEntity)
+		let perform = methodPerformValue(.m_addNewEntity) as? () -> Void
+		perform?()
+    }
+
+    open func edit(value: Any) {
+        addInvocation(.m_edit__value_value(Parameter<Any>.value(`value`)))
+		let perform = methodPerformValue(.m_edit__value_value(Parameter<Any>.value(`value`))) as? (Any) -> Void
+		perform?(`value`)
+    }
+
+    open func delete(value: Any) {
+        addInvocation(.m_delete__value_value(Parameter<Any>.value(`value`)))
+		let perform = methodPerformValue(.m_delete__value_value(Parameter<Any>.value(`value`))) as? (Any) -> Void
+		perform?(`value`)
+    }
+
+
+    fileprivate enum MethodType {
+        case m_select__storageArea_storageArea(Parameter<String>)
+        case m_addNewEntity
+        case m_edit__value_value(Parameter<Any>)
+        case m_delete__value_value(Parameter<Any>)
+
+        static func compareParameters(lhs: MethodType, rhs: MethodType, matcher: Matcher) -> Matcher.ComparisonResult {
+            switch (lhs, rhs) {
+            case (.m_select__storageArea_storageArea(let lhsStoragearea), .m_select__storageArea_storageArea(let rhsStoragearea)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsStoragearea, rhs: rhsStoragearea, with: matcher), lhsStoragearea, rhsStoragearea, "storageArea"))
+				return Matcher.ComparisonResult(results)
+
+            case (.m_addNewEntity, .m_addNewEntity): return .match
+
+            case (.m_edit__value_value(let lhsValue), .m_edit__value_value(let rhsValue)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsValue, rhs: rhsValue, with: matcher), lhsValue, rhsValue, "value"))
+				return Matcher.ComparisonResult(results)
+
+            case (.m_delete__value_value(let lhsValue), .m_delete__value_value(let rhsValue)):
+				var results: [Matcher.ParameterComparisonResult] = []
+				results.append(Matcher.ParameterComparisonResult(Parameter.compare(lhs: lhsValue, rhs: rhsValue, with: matcher), lhsValue, rhsValue, "value"))
+				return Matcher.ComparisonResult(results)
+            default: return .none
+            }
+        }
+
+        func intValue() -> Int {
+            switch self {
+            case let .m_select__storageArea_storageArea(p0): return p0.intValue
+            case .m_addNewEntity: return 0
+            case let .m_edit__value_value(p0): return p0.intValue
+            case let .m_delete__value_value(p0): return p0.intValue
+            }
+        }
+        func assertionName() -> String {
+            switch self {
+            case .m_select__storageArea_storageArea: return ".select(storageArea:)"
+            case .m_addNewEntity: return ".addNewEntity()"
+            case .m_edit__value_value: return ".edit(value:)"
+            case .m_delete__value_value: return ".delete(value:)"
+            }
+        }
+    }
+
+    open class Given: StubbedMethod {
+        fileprivate var method: MethodType
+
+        private init(method: MethodType, products: [StubProduct]) {
+            self.method = method
+            super.init(products)
+        }
+
+
+    }
+
+    public struct Verify {
+        fileprivate var method: MethodType
+
+        public static func select(storageArea: Parameter<String>) -> Verify { return Verify(method: .m_select__storageArea_storageArea(`storageArea`))}
+        public static func addNewEntity() -> Verify { return Verify(method: .m_addNewEntity)}
+        public static func edit(value: Parameter<Any>) -> Verify { return Verify(method: .m_edit__value_value(`value`))}
+        public static func delete(value: Parameter<Any>) -> Verify { return Verify(method: .m_delete__value_value(`value`))}
+    }
+
+    public struct Perform {
+        fileprivate var method: MethodType
+        var performs: Any
+
+        public static func select(storageArea: Parameter<String>, perform: @escaping (String) -> Void) -> Perform {
+            return Perform(method: .m_select__storageArea_storageArea(`storageArea`), performs: perform)
+        }
+        public static func addNewEntity(perform: @escaping () -> Void) -> Perform {
+            return Perform(method: .m_addNewEntity, performs: perform)
+        }
+        public static func edit(value: Parameter<Any>, perform: @escaping (Any) -> Void) -> Perform {
+            return Perform(method: .m_edit__value_value(`value`), performs: perform)
+        }
+        public static func delete(value: Parameter<Any>, perform: @escaping (Any) -> Void) -> Perform {
+            return Perform(method: .m_delete__value_value(`value`), performs: perform)
         }
     }
 
